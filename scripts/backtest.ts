@@ -30,7 +30,8 @@ const STEP = 3;
 export function runBacktest(
   xau: DailyBar[],
   dxy: DailyBar[] | null,
-  fed: { date: string; value: number }[] | null
+  fed: { date: string; value: number }[] | null,
+  horizons: number[] = HORIZONS
 ): { backtest: Backtest; timeline: Timeline } {
   const closes = xau.map((b) => b.close);
   const dates = xau.map((b) => b.date);
@@ -69,7 +70,7 @@ export function runBacktest(
     observations++;
 
     const fwd: TimelinePoint["returns"] = { "21": null, "63": null, "126": null };
-    for (const h of HORIZONS) {
+    for (const h of horizons) {
       if (i + h >= closes.length) continue;
       const r = (closes[i + h] / closes[i] - 1) * 100;
       fwd[String(h) as keyof TimelinePoint["returns"]] = Math.round(r * 10) / 10;
@@ -96,7 +97,7 @@ export function runBacktest(
   const zones: Zone[] = ["strong-buy", "buy", "neutral", "sell", "strong-sell"];
   const buckets: BacktestBucket[] = [];
   for (const zone of zones) {
-    for (const h of HORIZONS) {
+    for (const h of horizons) {
       const rets = returns.get(`${zone}|${h}`) ?? [];
       let pctFavorable: number | null = null;
       if (rets.length > 0 && zone !== "neutral") {
@@ -126,7 +127,7 @@ export function runBacktest(
       fromDate: dates[WARMUP] ?? "",
       toDate: dates[dates.length - 1] ?? "",
       observations,
-      horizons: HORIZONS,
+      horizons,
       buckets,
       note,
     },
