@@ -15,13 +15,30 @@ PWA miễn phí giúp xác nhận **vùng mua / vùng bán** vàng vật chất 
 3. **Vĩ mô (20%)** — DXY, hướng lãi suất Fed, lợi suất Mỹ 10 năm, nhịp tỷ giá USD/VND
 4. **Thống kê lịch sử (20%)** — percentile giá 1y/3y, mùa vụ theo tháng, chế độ biến động
 
-## Bộ cấu hình theo kỳ hạn (preset)
+## Hai chế độ sử dụng
 
-Trong ⚙ Trọng số có 3 preset **Sóng 1 tháng / Sóng 3 tháng / Tích lũy 6 tháng** — mỗi bộ được tuyển bằng grid search trên 17 năm dữ liệu với điều kiện thắng baseline ở cả 2 giai đoạn độc lập (2009–2018, 2019–2026). Tín hiệu mua của preset đúng 73–96% tùy kỳ hạn, so với baseline 52–80%. Các yếu tố tin tức/địa chính trị (GPR) và VIX đã được test và bị loại vì không cải thiện (hoặc làm giảm) độ chính xác. Phương pháp, bảng số liệu đầy đủ và các giới hạn cần biết: [docs/presets.md](docs/presets.md).
+- **Toàn cảnh** (mặc định): radar 4 nhóm tiêu chí — nơi duy nhất tiêu chí chênh lệch VN có trọng số (25%) và có cảnh báo vùng bán. Dùng để *hiểu thị trường* và làm phanh an toàn trước khi mua.
+- **Preset theo kỳ hạn**: cò súng MUA chuyên dụng. 3 preset **Sóng 1 tháng / Sóng 3 tháng / Tích lũy 6 tháng** — mỗi bộ tuyển bằng grid search trên 17 năm dữ liệu, điều kiện thắng baseline ở cả 2 giai đoạn độc lập (2009–2018, 2019–2026). Tín hiệu mua đúng 73–96% tùy kỳ hạn so với baseline 52–80%, kèm khoảng tin cậy 95% (block bootstrap). Preset **không hiển thị vùng bán** vì phía bán chưa từng được kiểm chứng đạt.
+
+Quy tắc một dòng: **mua nghe app khi preset + toàn cảnh thuận nhau; bán theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN vượt p80 — tín hiệu bán trên màn hình chỉ là đèn vàng "bớt mua thêm"** (backtest: bán chỉ đúng 49% sau 1 tháng, sai 75% sau 12 tháng).
+
+Các yếu tố tin tức/địa chính trị (GPR) và VIX đã được test và bị loại vì không cải thiện (hoặc làm giảm) độ chính xác; lợi suất Mỹ 10 năm được giữ vì cải thiện rõ. Phương pháp, bảng số liệu, khoảng tin cậy và các giới hạn cần biết: [docs/presets.md](docs/presets.md).
+
+## Giám sát thoái hóa tự động
+
+Mỗi cron, app chạy lại đúng cấu hình các preset trên dữ liệu mới nhất (`scripts/monitor-presets.ts` → `preset-health.json`). Preset mất phong độ (lợi thế sụp dưới 5pt, hoặc 2 năm gần nhất thua baseline quá 5pt) → badge ⚠ trên nút, banner cảnh báo, và tin Telegram. App tự khai khi chính nó hết đáng tin.
 
 ## Máy thời gian — xét lại lịch sử
 
-Kéo slider về bất kỳ ngày nào trong ~17 năm qua: engine chấm điểm **chỉ bằng dữ liệu có đến ngày đó** (không nhìn trước tương lai), hiển thị vùng mua/bán nó sẽ tuyên bố lúc ấy, rồi đối chiếu giá thực tế sau 1/3/6 tháng và phán: ✓ quyết định đúng / ✗ quyết định sai.
+Bấm vào biểu đồ giá để chọn bất kỳ ngày nào trong ~17 năm: engine chấm điểm **theo chế độ đang chọn, chỉ bằng dữ liệu có đến ngày đó** (không nhìn trước tương lai), rồi đối chiếu giá thực tế sau 1/3/6 tháng và phán ✓ đúng / ✗ sai. Công cụ đi kèm:
+
+- Zoom 6 tháng / 1 / 2 / 5 năm / tất cả; slider cuộn cửa sổ trái–phải
+- Chấm xanh = ngày có tín hiệu mua của chế độ đang chọn; nút ◀ ▶ nhảy thẳng giữa các tín hiệu
+- Toggle "Hiện vùng bán (tham khảo)" — chấm đỏ + verdict bán để tự kiểm chứng vì sao tín hiệu bán chỉ đáng tham khảo
+
+## Biểu đồ chênh lệch VN — thế giới
+
+Đường premium ~490 ngày kèm vạch percentile p20/p50/p80: dưới vạch xanh = chênh rẻ lịch sử (mua VN ít thiệt), trên vạch đỏ = chênh đắt bất thường (thuận bán, tránh mua).
 
 ## Chạy local
 
@@ -31,7 +48,18 @@ npm run collect   # fetch dữ liệu thật + phân tích + backtest -> public/
 npm run dev       # mở http://localhost:3000
 npm test          # test engine
 npm run build     # export tĩnh ra out/
+
+# công cụ nghiên cứu / chẩn đoán
+npx tsx scripts/monitor-presets.ts      # sức khỏe preset + CI bootstrap
+npx tsx scripts/check-modes.ts          # in composite 4 chế độ (đối chiếu UI)
+npx tsx scripts/presets-study.ts        # tuyển chọn preset 3 kỳ hạn
+npx tsx scripts/factor-study.ts         # ablation: lợi suất / VIX / GPR
+npx tsx scripts/single-factor-study.ts  # từng tín hiệu vĩ mô đứng một mình
+npx tsx scripts/horizon-study.ts        # hiệu quả theo 4 kỳ hạn
+npx tsx scripts/backfill-vn.ts          # nhập lại lịch sử SJC từ CafeF
 ```
+
+Lỗi dev server "Cannot find module './NNN.js'" sau khi build nhiều lần: xóa thư mục `.next` rồi chạy lại `npm run dev` (cache webpack thối, không phải bug).
 
 ## Deploy (free, một lần duy nhất)
 
@@ -43,7 +71,7 @@ Mở trang trên điện thoại → "Thêm vào màn hình chính" để cài n
 
 ## Thông báo Telegram (tùy chọn)
 
-Nhận cảnh báo khi preset **chuyển vào/ra vùng mua** (chỉ báo lúc chuyển trạng thái, không spam mỗi ngày):
+Nhận cảnh báo khi: preset **chuyển vào/ra vùng mua**, chế độ toàn cảnh vào vùng bán (kèm caveat), hoặc preset bị đánh dấu **mất phong độ**. Chỉ báo lúc chuyển trạng thái, không spam mỗi ngày. Cài đặt:
 
 1. Chat với `@BotFather` trên Telegram → `/newbot` → lấy **bot token**.
 2. Chat với bot vừa tạo (bấm Start, gửi 1 tin bất kỳ), rồi mở `https://api.telegram.org/bot<TOKEN>/getUpdates` → lấy **chat id** trong `"chat":{"id":...}`.

@@ -6,7 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Gold buy/sell zone advisor** — a free PWA that helps the user (Vietnamese, buys physical SJC/ring gold) decide when to buy or sell. It is NOT a price tracker: it scores buy/sell zones across multiple criteria and reports a probability-style confidence %, validated by backtest. No prediction claims — decision support only.
 
-Status: design phase. No code yet. Design doc (when written) lives in `docs/superpowers/specs/`. User communicates in Vietnamese; UI text is Vietnamese.
+Status: fully built and committed. Original design doc: `docs/superpowers/specs/2026-06-11-gold-zone-advisor-design.md`; preset methodology + all study evidence: `docs/presets.md` (keep its tables in sync with `PRESETS` in `src/lib/types.ts`). User communicates in Vietnamese; UI text is Vietnamese.
+
+Key commands: `npm run collect` (fetch + analyze + backtest → public/data/), `npm test`, `npm run build`, `npx tsx scripts/monitor-presets.ts` (preset health), `npx tsx scripts/check-modes.ts` (print all-mode composites for UI debugging). Studies: `presets-study`, `factor-study`, `single-factor-study`, `horizon-study`, `optimize-study`, `backfill-vn` (one-off CafeF history import).
 
 ## Agreed architecture (Approach A — do not silently change)
 
