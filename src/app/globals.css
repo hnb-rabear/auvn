@@ -374,6 +374,19 @@ td.neutral {
   margin-bottom: 12px;
 }
 
+.tm-zoom {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.iconbtn.small-btn {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
 .tm-nav {
   display: flex;
   justify-content: space-between;

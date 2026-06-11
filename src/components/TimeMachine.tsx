@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import {
@@ -65,7 +65,19 @@ export default function TimeMachine({
 }) {
   const points = timeline.points;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
+  /** cửa sổ zoom tính theo tháng; null = toàn bộ lịch sử */
+  const [zoomMonths, setZoomMonths] = useState<number | null>(null);
   const p = points[idx];
+
+  // timeline lấy mẫu mỗi 3 phiên -> ~7 điểm/tháng
+  const POINTS_PER_MONTH = 7;
+  const view = useMemo(() => {
+    if (zoomMonths === null) return { start: 0, end: points.length };
+    const span = Math.min(points.length, Math.max(14, zoomMonths * POINTS_PER_MONTH));
+    let start = idx - Math.floor(span / 2);
+    start = Math.max(0, Math.min(start, points.length - span));
+    return { start, end: start + span };
+  }, [zoomMonths, idx, points.length]);
 
   const buyThr = preset?.buyThreshold ?? 40;
   const signalIdxs = useMemo(
@@ -90,18 +102,31 @@ export default function TimeMachine({
     if (points.length < 2) return null;
     const W = 700;
     const H = 120;
-    const prices = points.map((q) => q.price);
+    const win = points.slice(view.start, view.end);
+    if (win.length < 2) return null;
+    const prices = win.map((q) => q.price);
     const min = Math.min(...prices);
     const max = Math.max(...prices);
-    const x = (i: number) => (i / (points.length - 1)) * W;
+    const x = (i: number) => ((i - view.start) / (win.length - 1)) * W;
     const y = (v: number) => H - ((v - min) / (max - min || 1)) * (H - 8) - 4;
-    const path = points.map((q, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(q.price).toFixed(1)}`).join("");
-    const markers = signalIdxs.map((i) => ({
-      cx: x(i),
-      cy: y(points[i].price),
-    }));
-    return { W, H, path, cx: x(idx), cy: y(p.price), markers };
-  }, [points, idx, p, signalIdxs]);
+    const path = win
+      .map((q, j) => `${j === 0 ? "M" : "L"}${x(view.start + j).toFixed(1)},${y(q.price).toFixed(1)}`)
+      .join("");
+    const markers = signalIdxs
+      .filter((i) => i >= view.start && i < view.end)
+      .map((i) => ({ cx: x(i), cy: y(points[i].price) }));
+    const inWindow = idx >= view.start && idx < view.end;
+    return {
+      W,
+      H,
+      path,
+      cx: inWindow ? x(idx) : null,
+      cy: inWindow ? y(p.price) : null,
+      markers,
+      fromDate: win[0].date,
+      toDate: win[win.length - 1].date,
+    };
+  }, [points, idx, p, signalIdxs, view]);
 
   if (!p) return null;
 
@@ -121,6 +146,31 @@ export default function TimeMachine({
         quyết định đúng hay sai. {timeline.note}
       </p>
 
+      <div className="tm-zoom">
+        {(
+          [
+            [6, "6 tháng"],
+            [12, "1 năm"],
+            [24, "2 năm"],
+            [60, "5 năm"],
+            [null, "Tất cả"],
+          ] as [number | null, string][]
+        ).map(([m, label]) => (
+          <button
+            key={label}
+            className={`iconbtn small-btn ${zoomMonths === m ? "active" : ""}`}
+            onClick={() => setZoomMonths(m)}
+          >
+            {label}
+          </button>
+        ))}
+        {spark && (
+          <span className="muted small">
+            {fmtDate(spark.fromDate)} → {fmtDate(spark.toDate)}
+          </span>
+        )}
+      </div>
+
       {spark && (
         <svg
           className="spark"
@@ -130,10 +180,14 @@ export default function TimeMachine({
         >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
           {spark.markers.map((m, i) => (
-            <circle key={i} cx={m.cx} cy={m.cy} r="2" fill="#4cc97a" opacity="0.7" />
+            <circle key={i} cx={m.cx} cy={m.cy} r={zoomMonths === null ? 2 : 3.5} fill="#4cc97a" opacity="0.75" />
           ))}
-          <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
-          <circle cx={spark.cx} cy={spark.cy} r="4" fill="#ece5d8" />
+          {spark.cx !== null && (
+            <>
+              <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
+              <circle cx={spark.cx} cy={spark.cy!} r="4" fill="#ece5d8" />
+            </>
+          )}
         </svg>
       )}
 
