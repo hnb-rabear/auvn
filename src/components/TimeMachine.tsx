@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   CRITERION_LABELS,
   ZONE_LABELS,
@@ -54,6 +54,9 @@ function verdictFor(zone: Zone, ret: number | null): "right" | "wrong" | null {
   return (buyish ? ret > 0 : ret < 0) ? "right" : "wrong";
 }
 
+// timeline lấy mẫu mỗi 3 phiên -> ~7 điểm/tháng
+const POINTS_PER_MONTH = 7;
+
 export default function TimeMachine({
   timeline,
   weights,
@@ -67,17 +70,17 @@ export default function TimeMachine({
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
   /** cửa sổ zoom tính theo tháng; null = toàn bộ lịch sử */
   const [zoomMonths, setZoomMonths] = useState<number | null>(null);
+  const [viewStart, setViewStart] = useState(0);
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const p = points[idx];
 
-  // timeline lấy mẫu mỗi 3 phiên -> ~7 điểm/tháng
-  const POINTS_PER_MONTH = 7;
-  const view = useMemo(() => {
-    if (zoomMonths === null) return { start: 0, end: points.length };
-    const span = Math.min(points.length, Math.max(14, zoomMonths * POINTS_PER_MONTH));
-    let start = idx - Math.floor(span / 2);
-    start = Math.max(0, Math.min(start, points.length - span));
-    return { start, end: start + span };
-  }, [zoomMonths, idx, points.length]);
+  const span =
+    zoomMonths === null
+      ? points.length
+      : Math.min(points.length, Math.max(14, zoomMonths * POINTS_PER_MONTH));
+  const maxStart = points.length - span;
+  const start = zoomMonths === null ? 0 : Math.max(0, Math.min(viewStart, maxStart));
+  const end = start + span;
 
   const buyThr = preset?.buyThreshold ?? 40;
   const signalIdxs = useMemo(
@@ -91,31 +94,56 @@ export default function TimeMachine({
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
 
+  const centerOn = useCallback(
+    (i: number, m: number | null = zoomMonths) => {
+      if (m === null) return;
+      const s = Math.min(points.length, Math.max(14, m * POINTS_PER_MONTH));
+      setViewStart(Math.max(0, Math.min(i - Math.floor(s / 2), points.length - s)));
+    },
+    [zoomMonths, points.length]
+  );
+
+  const goTo = (i: number) => {
+    setIdx(i);
+    if (i < start || i >= end) centerOn(i);
+  };
+
+  const applyZoom = (m: number | null) => {
+    setZoomMonths(m);
+    centerOn(idx, m);
+  };
+
+  const onChartClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect || rect.width === 0) return;
+    const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    setIdx(start + Math.round(frac * (span - 1)));
+  };
+
   const composite = p ? pointComposite(p, weights) : 0;
-  const rawZone = zoneOf(composite, preset?.buyThreshold ?? 40);
+  const rawZone = zoneOf(composite, buyThr);
   const isBuy = rawZone === "buy" || rawZone === "strong-buy";
   // preset chỉ kiểm chứng phía mua — không hiển thị vùng bán dưới preset
   const zone: Zone = preset && !isBuy ? "neutral" : rawZone;
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
 
   const spark = useMemo(() => {
-    if (points.length < 2) return null;
+    const win = points.slice(start, end);
+    if (win.length < 2) return null;
     const W = 700;
     const H = 120;
-    const win = points.slice(view.start, view.end);
-    if (win.length < 2) return null;
     const prices = win.map((q) => q.price);
     const min = Math.min(...prices);
     const max = Math.max(...prices);
-    const x = (i: number) => ((i - view.start) / (win.length - 1)) * W;
+    const x = (i: number) => ((i - start) / (win.length - 1)) * W;
     const y = (v: number) => H - ((v - min) / (max - min || 1)) * (H - 8) - 4;
     const path = win
-      .map((q, j) => `${j === 0 ? "M" : "L"}${x(view.start + j).toFixed(1)},${y(q.price).toFixed(1)}`)
+      .map((q, j) => `${j === 0 ? "M" : "L"}${x(start + j).toFixed(1)},${y(q.price).toFixed(1)}`)
       .join("");
     const markers = signalIdxs
-      .filter((i) => i >= view.start && i < view.end)
+      .filter((i) => i >= start && i < end)
       .map((i) => ({ cx: x(i), cy: y(points[i].price) }));
-    const inWindow = idx >= view.start && idx < view.end;
+    const inWindow = idx >= start && idx < end;
     return {
       W,
       H,
@@ -126,7 +154,7 @@ export default function TimeMachine({
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, view]);
+  }, [points, idx, p, signalIdxs, start, end]);
 
   if (!p) return null;
 
@@ -141,7 +169,7 @@ export default function TimeMachine({
         </div>
       </div>
       <p className="muted small">
-        Kéo về một ngày trong quá khứ: engine chấm điểm theo <b>chế độ bạn đang chọn</b>,
+        <b>Bấm vào biểu đồ</b> để chọn ngày — engine chấm điểm theo chế độ bạn đang chọn,
         chỉ bằng dữ liệu có đến ngày đó, rồi đối chiếu giá thực tế sau 1/3/6 tháng xem
         quyết định đúng hay sai. {timeline.note}
       </p>
@@ -159,7 +187,7 @@ export default function TimeMachine({
           <button
             key={label}
             className={`iconbtn small-btn ${zoomMonths === m ? "active" : ""}`}
-            onClick={() => setZoomMonths(m)}
+            onClick={() => applyZoom(m)}
           >
             {label}
           </button>
@@ -173,10 +201,12 @@ export default function TimeMachine({
 
       {spark && (
         <svg
-          className="spark"
+          ref={svgRef}
+          className="spark tm-clickable"
           viewBox={`0 0 ${spark.W} ${spark.H}`}
           preserveAspectRatio="none"
-          aria-label="Biểu đồ giá XAU/USD"
+          onClick={onChartClick}
+          aria-label="Biểu đồ giá XAU/USD — bấm để chọn ngày"
         >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
           {spark.markers.map((m, i) => (
@@ -191,21 +221,24 @@ export default function TimeMachine({
         </svg>
       )}
 
-      <input
-        className="tm-slider"
-        type="range"
-        min={0}
-        max={points.length - 1}
-        value={idx}
-        onChange={(e) => setIdx(Number(e.target.value))}
-        aria-label="Chọn thời điểm lịch sử"
-      />
+      {zoomMonths !== null && maxStart > 0 && (
+        <input
+          className="tm-slider"
+          type="range"
+          min={0}
+          max={maxStart}
+          value={start}
+          onChange={(e) => setViewStart(Number(e.target.value))}
+          aria-label="Cuộn cửa sổ thời gian"
+          title="Cuộn trái/phải"
+        />
+      )}
 
       <div className="tm-nav">
         <button
           className="iconbtn"
           disabled={prevSignal === undefined}
-          onClick={() => prevSignal !== undefined && setIdx(prevSignal)}
+          onClick={() => prevSignal !== undefined && goTo(prevSignal)}
         >
           ◀ Tín hiệu mua trước
         </button>
@@ -215,7 +248,7 @@ export default function TimeMachine({
         <button
           className="iconbtn"
           disabled={nextSignal === undefined}
-          onClick={() => nextSignal !== undefined && setIdx(nextSignal)}
+          onClick={() => nextSignal !== undefined && goTo(nextSignal)}
         >
           Tín hiệu mua sau ▶
         </button>
