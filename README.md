@@ -6,7 +6,7 @@ PWA miễn phí giúp xác nhận **vùng mua / vùng bán** vàng vật chất 
 
 - **GitHub Actions cron (8:23 & 20:23 giờ VN)** lấy giá vàng VN (BTMC/SJC), XAU/USD + DXY (Yahoo), tỷ giá (Vietcombank), lãi suất Fed (FRED) → chạy engine chấm điểm + backtest → commit kết quả JSON vào `public/data/` → deploy lên GitHub Pages.
 - **App tĩnh** chỉ đọc JSON đã tính sẵn: mở là có ngay, không gọi API ngoài.
-- Lịch sử giá VN tự tích lũy mỗi ngày trong `public/data/history/vn-gold.json` — repo chính là database. Càng chạy lâu, tiêu chí chênh lệch VN càng chính xác (cần ≥ 90 ngày để so percentile thật).
+- Lịch sử giá VN tự tích lũy mỗi ngày trong `public/data/history/vn-gold.json` — repo chính là database. Đã backfill 487 ngày lịch sử SJC từ CafeF (02/2025→nay) kèm premium tính từ XAU × tỷ giá, nên tiêu chí chênh lệch VN chạy percentile thật ngay từ đầu (`scripts/backfill-vn.ts` chạy lại được nếu cần).
 
 ## 4 nhóm tiêu chí (trọng số chỉnh được trong app)
 
@@ -40,6 +40,16 @@ npm run build     # export tĩnh ra out/
 3. Xong. Workflow `update-and-deploy.yml` tự chạy khi push và theo lịch 2 lần/ngày.
 
 Mở trang trên điện thoại → "Thêm vào màn hình chính" để cài như app.
+
+## Thông báo Telegram (tùy chọn)
+
+Nhận cảnh báo khi preset **chuyển vào/ra vùng mua** (chỉ báo lúc chuyển trạng thái, không spam mỗi ngày):
+
+1. Chat với `@BotFather` trên Telegram → `/newbot` → lấy **bot token**.
+2. Chat với bot vừa tạo (bấm Start, gửi 1 tin bất kỳ), rồi mở `https://api.telegram.org/bot<TOKEN>/getUpdates` → lấy **chat id** trong `"chat":{"id":...}`.
+3. Repo GitHub → Settings → Secrets and variables → Actions → thêm `TELEGRAM_BOT_TOKEN` và `TELEGRAM_CHAT_ID`.
+
+Không đặt secrets thì bước thông báo tự bỏ qua, không ảnh hưởng gì.
 
 ## Miễn trừ trách nhiệm
 

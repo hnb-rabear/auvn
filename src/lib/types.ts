@@ -95,6 +95,8 @@ export interface VnGoldEntry {
   usdVnd: number | null;
   xauUsd: number | null;
   premiumPct: number | null;
+  /** true = nhập từ nguồn lịch sử (CafeF), không phải cron tự thu thập */
+  backfilled?: boolean;
 }
 
 export const DEFAULT_WEIGHTS: Record<CriterionKey, number> = {

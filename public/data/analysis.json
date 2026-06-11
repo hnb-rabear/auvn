@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-06-11T07:55:23.174Z",
+ "generatedAt": "2026-06-11T08:09:11.760Z",
  "dataDate": "2026-06-11",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 131500000,
-  "sjcSell": 136500000,
+  "sjcBuy": 132000000,
+  "sjcSell": 137000000,
   "ringBuy": 132500000,
   "ringSell": 137500000,
-  "xauUsd": 4126.7001953125,
+  "xauUsd": 4126.5,
   "usdVnd": 26410,
-  "worldVndPerLuong": 131399481,
-  "premiumPct": 3.88,
-  "premiumVnd": 5100519
+  "worldVndPerLuong": 131393106,
+  "premiumPct": 4.27,
+  "premiumVnd": 5606894
  },
  "criteria": [
   {
@@ -66,14 +66,14 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 3,9%, so với ngưỡng tham chiếu cố định (lịch sử tự thu thập chưa đủ 90 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 4,3%, ở percentile 7 so với lịch sử tự thu thập (487 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": -1,
-     "explanation": "Chênh mua–bán SJC = 3,7% giá bán: spread giãn rộng — thị trường biến động/khan hàng, giao dịch bất lợi.",
+     "explanation": "Chênh mua–bán SJC = 3,6% giá bán: spread giãn rộng — thị trường biến động/khan hàng, giao dịch bất lợi.",
      "available": true
     },
     {
@@ -86,7 +86,7 @@
    ],
    "score": 0,
    "available": true,
-   "provisional": true
+   "provisional": false
   },
   {
    "key": "macro",
@@ -117,11 +117,11 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "Không có dữ liệu.",
-     "available": false
+     "explanation": "USD/VND 26.410, nhịp +0,4%/tháng: tỷ giá ổn định — trung tính.",
+     "available": true
     }
    ],
-   "score": -0.6666666666666666,
+   "score": -0.5,
    "available": true
   },
   {
@@ -167,8 +167,8 @@
   "macro": 0.2,
   "stats": 0.2
  },
- "composite": 4.8,
+ "composite": 6.5,
  "zone": "neutral",
- "vnHistoryDays": 1,
+ "vnHistoryDays": 487,
  "warnings": []
 }
