@@ -13,6 +13,7 @@ import {
   PRESETS,
   ZONE_LABELS,
   type Analysis,
+  type PresetHealthFile,
   type Zone,
 } from "../src/lib/types";
 
@@ -72,6 +73,25 @@ async function main() {
     } else if (!isBuy(zone) && isBuy(prev as Zone)) {
       lines.push(`⚪ <b>${p.label}</b>: rời vùng mua (điểm ${composite >= 0 ? "+" : ""}${composite}).`);
     }
+  }
+
+  // cảnh báo preset thoái hóa (chỉ khi chuyển trạng thái)
+  const healthFile = join(DATA_DIR, "preset-health.json");
+  if (existsSync(healthFile)) {
+    try {
+      const health: PresetHealthFile = JSON.parse(readFileSync(healthFile, "utf8"));
+      for (const item of health.items) {
+        const key = `health:${item.presetId}`;
+        newState[key] = item.status;
+        if (item.status === "degraded" && state[key] !== "degraded") {
+          const p = PRESETS.find((q) => q.id === item.presetId);
+          lines.push(
+            `🟠 Preset <b>${p?.label ?? item.presetId}</b> đang mất phong độ trên dữ liệu mới ` +
+              `(lợi thế ${item.minExcessNowPt ?? "—"}pt, 2 năm gần nhất ${item.recentFavPct ?? "—"}% vs baseline ${item.recentBaselinePct ?? "—"}%).`
+          );
+        }
+      }
+    } catch {}
   }
 
   // cảnh báo vùng bán theo cấu hình mặc định (chỉ khi chuyển trạng thái)

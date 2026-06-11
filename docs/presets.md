@@ -68,6 +68,14 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 5. **Yếu tố chưa/không đưa vào:** GPR và VIX đã test và bị loại (bảng trên). NHTW mua vàng (dữ liệu quý, trễ), chính sách NHNN (không có feed máy đọc), COT positioning (chưa test) — ứng viên cho vòng sau.
 6. Quá khứ không bảo đảm tương lai. Công cụ xác suất, không phải lời hứa.
 
+## Giám sát thoái hóa & khoảng tin cậy (v3)
+
+Preset không được tin vô thời hạn:
+
+- **Mỗi cron**, `scripts/monitor-presets.ts` chạy lại đúng cấu hình preset trên timeline mới nhất → `preset-health.json`: min-excess hiện tại, hiệu quả 2 năm gần nhất vs baseline cùng kỳ, và **CI 95% block-bootstrap** cho % đúng giai đoạn test (block = kỳ hạn/3 phiên, tôn trọng tín hiệu bắn chùm — CI hẹp ảo nếu resample từng điểm).
+- **degraded** khi min-excess < 5pt hoặc 2 năm gần nhất thua baseline > 5pt (hòa baseline trong bull market không tính — vô hại). App hiện ⚠ trên nút preset + banner; Telegram báo khi chuyển trạng thái.
+- CI hiển thị cạnh evidence trên verdict card — ví dụ preset 1 tháng: điểm 77,4% nhưng CI 62–91%. Con số đơn lẻ luôn lạc quan hơn sự thật.
+
 ## Tái lập kết quả
 
 ```bash

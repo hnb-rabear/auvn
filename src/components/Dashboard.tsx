@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import TimeMachine from "./TimeMachine";
+import PremiumChart from "./PremiumChart";
 import {
   compositeScore,
   zoneOf,
@@ -12,6 +13,7 @@ import {
   type Backtest,
   type CriterionKey,
   type CriterionResult,
+  type PresetHealthFile,
   type Timeline,
   type Zone,
 } from "@/lib/types";
@@ -67,15 +69,20 @@ export default function Dashboard({
   analysis,
   backtest,
   timeline,
+  health,
 }: {
   analysis: Analysis;
   backtest: Backtest;
   timeline: Timeline;
+  health: PresetHealthFile;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [showSettings, setShowSettings] = useState(false);
   const weights = settings.weights;
   const preset = PRESETS.find((p) => p.id === settings.presetId) ?? null;
+  const presetHealth = preset
+    ? health.items.find((i) => i.presetId === preset.id) ?? null
+    : null;
 
   useEffect(() => {
     setSettings(loadSettings());
@@ -144,6 +151,12 @@ export default function Dashboard({
           {w}
         </div>
       ))}
+      {presetHealth?.status === "degraded" && (
+        <div className="banner warn">
+          ⚠ Preset {preset!.label} đang mất phong độ trên dữ liệu mới (kiểm tra tự động mỗi
+          cron) — cân nhắc dùng cấu hình mặc định hoặc chờ tuyển lại preset.
+        </div>
+      )}
 
       <section className={`verdict ${zoneClass(zone)}`}>
         <div className="verdict-label">{ZONE_LABELS[zone]}</div>
@@ -172,6 +185,15 @@ export default function Dashboard({
             tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
             và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026 (n={preset.evidence.testN}),
             so với mua ngày bất kỳ {fmtNum(preset.evidence.trainBaseline)}% / {fmtNum(preset.evidence.testBaseline)}%.
+            {presetHealth?.testFavCi95 && (
+              <>
+                {" "}Khoảng tin cậy 95% (bootstrap, đã tính tín hiệu bắn chùm):{" "}
+                <b>
+                  {fmtNum(presetHealth.testFavCi95[0])}–{fmtNum(presetHealth.testFavCi95[1])}%
+                </b>
+                .
+              </>
+            )}
           </div>
         ) : bt63 && bt63.pctFavorable !== null ? (
           <div className="verdict-bt">
@@ -237,16 +259,20 @@ export default function Dashboard({
             >
               Mặc định
             </button>
-            {PRESETS.map((p) => (
-              <button
-                key={p.id}
-                className={`iconbtn ${preset?.id === p.id ? "active" : ""}`}
-                onClick={() => applyPreset(p.id)}
-                title={`Đúng ${p.evidence.trainFav}% (2009–2018) / ${p.evidence.testFav}% (2019–2026)`}
-              >
-                {p.label}
-              </button>
-            ))}
+            {PRESETS.map((p) => {
+              const hStatus = health.items.find((i) => i.presetId === p.id)?.status;
+              return (
+                <button
+                  key={p.id}
+                  className={`iconbtn ${preset?.id === p.id ? "active" : ""}`}
+                  onClick={() => applyPreset(p.id)}
+                  title={`Đúng ${p.evidence.trainFav}% (2009–2018) / ${p.evidence.testFav}% (2019–2026)`}
+                >
+                  {hStatus === "degraded" ? "⚠ " : ""}
+                  {p.label}
+                </button>
+              );
+            })}
           </div>
           <h2>Trọng số tiêu chí</h2>
           <p className="muted">
@@ -345,6 +371,8 @@ export default function Dashboard({
           </table>
         </div>
       </section>
+
+      <PremiumChart analysis={analysis} />
 
       <TimeMachine timeline={timeline} />
 

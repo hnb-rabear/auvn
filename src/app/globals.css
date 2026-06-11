@@ -364,6 +364,10 @@ td.neutral {
   margin-bottom: 8px;
 }
 
+.premium-spark {
+  height: 160px;
+}
+
 .tm-slider {
   width: 100%;
   accent-color: var(--gold);

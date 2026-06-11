@@ -16,6 +16,7 @@ import {
 } from "../src/lib/criteria";
 import { compositeScore, zoneOf, DEFAULT_WEIGHTS, PRESETS } from "../src/lib/types";
 import { runBacktest } from "../scripts/backtest";
+import { blockBootstrapCi, seededRandom } from "../scripts/study-lib";
 
 const range = (n: number, f: (i: number) => number) =>
   Array.from({ length: n }, (_, i) => f(i));
@@ -203,6 +204,35 @@ describe("criteria", () => {
     const r = statsCriterion(closes, dates);
     const p1 = r.signals.find((s) => s.id === "pct1y")!;
     expect(p1.score).toBe(2);
+  });
+});
+
+describe("bootstrap CI", () => {
+  it("seeded RNG is deterministic", () => {
+    const a = seededRandom(42);
+    const b = seededRandom(42);
+    expect([a(), a(), a()]).toEqual([b(), b(), b()]);
+  });
+
+  it("all-positive returns give CI at 100", () => {
+    const ci = blockBootstrapCi(Array(50).fill(1), 7)!;
+    expect(ci).toEqual([100, 100]);
+  });
+
+  it("mixed returns give CI containing point estimate, wider than zero", () => {
+    const rand = seededRandom(7);
+    const rets = Array.from({ length: 100 }, () => (rand() < 0.7 ? 1 : -1));
+    const point = (rets.filter((r) => r > 0).length / rets.length) * 100;
+    const ci = blockBootstrapCi(rets, 7)!;
+    expect(ci[0]).toBeLessThanOrEqual(point);
+    expect(ci[1]).toBeGreaterThanOrEqual(point);
+    expect(ci[1] - ci[0]).toBeGreaterThan(5);
+    expect(ci[0]).toBeGreaterThanOrEqual(0);
+    expect(ci[1]).toBeLessThanOrEqual(100);
+  });
+
+  it("too few samples -> null", () => {
+    expect(blockBootstrapCi([1, -1, 1], 2)).toBeNull();
   });
 });
 

@@ -36,6 +36,9 @@ jobs:
       - name: Collect data & run analysis
         run: npm run collect
 
+      - name: Monitor preset health
+        run: npx tsx scripts/monitor-presets.ts
+
       - name: Send notifications (optional)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

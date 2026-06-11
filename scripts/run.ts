@@ -173,6 +173,15 @@ async function main() {
     statsCriterion(closes, dates),
   ];
 
+  const premiumSeries = history
+    .filter((e) => e.premiumPct !== null)
+    .map((e) => ({ date: e.date, value: e.premiumPct as number }));
+  const sortedPrems = premiumSeries.map((p) => p.value).sort((a, b) => a - b);
+  const pct = (p: number) =>
+    sortedPrems.length
+      ? Math.round(sortedPrems[Math.floor(p * (sortedPrems.length - 1))] * 100) / 100
+      : 0;
+
   const composite = compositeScore(criteria, DEFAULT_WEIGHTS);
   const analysis: Analysis = {
     generatedAt: new Date().toISOString(),
@@ -186,6 +195,11 @@ async function main() {
     zone: zoneOf(composite),
     vnHistoryDays: history.length,
     warnings,
+    premiumSeries,
+    premiumPercentiles:
+      sortedPrems.length >= 90
+        ? { p20: pct(0.2), p50: pct(0.5), p80: pct(0.8) }
+        : undefined,
   };
 
   // --- backtest + timeline giả lập lịch sử (cùng bộ tín hiệu với phân tích live)

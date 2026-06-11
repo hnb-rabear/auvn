@@ -46,6 +46,29 @@ export interface Analysis {
   zone: Zone;
   vnHistoryDays: number;
   warnings: string[];
+  /** chuỗi chênh lệch VN-thế giới (%) theo ngày, để vẽ biểu đồ */
+  premiumSeries?: { date: string; value: number }[];
+  /** percentile 20/50/80 của premium lịch sử */
+  premiumPercentiles?: { p20: number; p50: number; p80: number };
+}
+
+/** Sức khỏe preset — tính lại mỗi cron bởi scripts/monitor-presets.ts */
+export interface PresetHealth {
+  presetId: string;
+  /** min-excess (điểm lợi thế tệ nhất 2 giai đoạn) trên timeline MỚI NHẤT, đơn vị pt (0..100) */
+  minExcessNowPt: number | null;
+  /** hiệu quả 2 năm gần nhất */
+  recentFavPct: number | null;
+  recentBaselinePct: number | null;
+  recentN: number;
+  /** khoảng tin cậy 95% (block bootstrap) cho % đúng giai đoạn test */
+  testFavCi95: [number, number] | null;
+  status: "ok" | "degraded" | "insufficient";
+}
+
+export interface PresetHealthFile {
+  generatedAt: string;
+  items: PresetHealth[];
 }
 
 export interface BacktestBucket {
