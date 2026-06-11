@@ -31,6 +31,10 @@ export default function PremiumChart({ analysis }: { analysis: Analysis }) {
   if (!chart || series.length < 30) return null;
   const last = series[series.length - 1];
 
+  // percentile của chênh hiện tại so với toàn bộ lịch sử tự thu thập
+  const pctNow =
+    (series.filter((s) => s.value < last.value).length / Math.max(1, series.length - 1)) * 100;
+
   return (
     <section className="card">
       <div className="card-head">
@@ -74,10 +78,29 @@ export default function PremiumChart({ analysis }: { analysis: Analysis }) {
         <path d={chart.path} fill="none" stroke="#e6b84c" strokeWidth="1.6" />
         <circle cx={chart.lastX} cy={chart.lastY} r="4" fill="#ece5d8" />
       </svg>
+      {pctNow >= 80 && (
+        <div className="banner warn">
+          🔴 <b>VÙNG BÁN VN theo chênh lệch</b> — chênh đang ở percentile {fmtNum(pctNow, 0)},
+          cao bất thường. Đây là tín hiệu bán đáng tin nhất cho vàng VN: người mua đang trả
+          đắt cho miếng vàng của bạn so với giá thế giới. Kiểm chứng {series.length} ngày:
+          mua khi chênh ≥ p80, SJC sau 2 tháng chỉ tăng trung vị +1,5% (57% số lần) — so
+          với +10,4% (90%) khi chênh ≤ p20.
+        </div>
+      )}
+      {pctNow <= 20 && (
+        <div className="banner info">
+          🟢 Chênh đang ở percentile {fmtNum(pctNow, 0)} — vùng rẻ lịch sử. Kiểm chứng{" "}
+          {series.length} ngày: mua SJC lúc chênh ≤ p20, sau 2 tháng giá tăng 90% số lần,
+          trung vị +10,4% (so với +1,5% khi chênh ≥ p80). Thời điểm mua vàng VN ít thiệt
+          nhất.
+        </div>
+      )}
       <p className="muted small">
         Đường vàng = SJC đắt hơn giá thế giới quy đổi bao nhiêu %. Dưới vạch xanh (p20) =
         vùng chênh rẻ lịch sử — mua vàng VN ít thiệt; trên vạch đỏ (p80) = chênh đắt bất
-        thường — thuận bán, tránh mua. Giai đoạn {series[0].date} → {last.date}.
+        thường — đây mới là tín hiệu bán đáng tham khảo cho vàng VN (tự kiểm chứng:{" "}
+        <code>npx tsx scripts/premium-exit-study.ts</code>). Giai đoạn {series[0].date} →{" "}
+        {last.date}.
       </p>
     </section>
   );

@@ -47,10 +47,15 @@ function pointComposite(p: TimelinePoint, weights: Record<CriterionKey, number>)
   return tw === 0 ? 0 : Math.round((s / tw) * 50 * 10) / 10;
 }
 
-/** Đúng/sai của quyết định: mua đúng khi giá tăng, bán đúng khi giá giảm. */
-function verdictFor(zone: Zone, ret: number | null): "right" | "wrong" | null {
+/**
+ * Đúng/sai của quyết định: mua đúng khi giá tăng, bán đúng khi giá giảm.
+ * Tín hiệu bán chỉ chấm ở 1 tháng — kỳ hạn dài nó NGƯỢC là chính
+ * (trung vị sau bán: 6 tháng +9,5%), chấm ✓/✗ chỉ gây hiểu lầm.
+ */
+function verdictFor(zone: Zone, ret: number | null, h: "21" | "63" | "126"): "right" | "wrong" | "n/a" | null {
   if (ret === null || zone === "neutral") return null;
   const buyish = zone === "buy" || zone === "strong-buy";
+  if (!buyish && h !== "21") return "n/a";
   return (buyish ? ret > 0 : ret < 0) ? "right" : "wrong";
 }
 
@@ -214,13 +219,13 @@ export default function TimeMachine({
             {fmtDate(spark.fromDate)} → {fmtDate(spark.toDate)}
           </span>
         )}
-        <label className="tm-toggle muted small" title="Tín hiệu bán chỉ đúng 49% sau 1 tháng trong backtest — tham khảo, không phải khuyến nghị thoát">
+        <label className="tm-toggle muted small" title="Bán chỉ đúng 49% sau 1 tháng; kỳ hạn dài thì NGƯỢC (sau 6 tháng giá tăng trung vị +9,5%). Tín hiệu bán đáng tin hơn cho vàng VN: chênh lệch vượt p80 — xem biểu đồ chênh lệch.">
           <input
             type="checkbox"
             checked={showSell}
             onChange={(e) => setShowSell(e.target.checked)}
           />
-          Hiện vùng bán (tham khảo)
+          Hiện vùng bán (chỉ tham khảo 1 tháng)
         </label>
       </div>
 
@@ -319,7 +324,7 @@ export default function TimeMachine({
         <div className="tm-outcomes">
           {(["21", "63", "126"] as const).map((h) => {
             const ret = p.returns[h];
-            const v = verdictFor(zone, ret);
+            const v = verdictFor(zone, ret, h);
             const isPresetHorizon = presetH === h;
             return (
               <div key={h} className={`tm-outcome ${isPresetHorizon ? "hl-horizon" : ""}`}>
@@ -330,7 +335,12 @@ export default function TimeMachine({
                 <b className={ret === null ? "muted" : ret >= 0 ? "buy" : "sell"}>
                   {ret === null ? "chưa có" : `${ret >= 0 ? "+" : ""}${fmtNum(ret)}%`}
                 </b>
-                {v && (
+                {v === "n/a" && (
+                  <span className="muted small">
+                    bán dài hạn: không chấm — lịch sử cho thấy thường ngược
+                  </span>
+                )}
+                {(v === "right" || v === "wrong") && (
                   <span className={`tm-verdict ${v === "right" ? "buy" : "sell"}`}>
                     {v === "right" ? "✓ quyết định đúng" : "✗ quyết định sai"}
                   </span>

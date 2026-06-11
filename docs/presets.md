@@ -64,7 +64,17 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 1. **Tín hiệu bắn chùm.** Điểm vĩ mô cao kéo dài cả giai đoạn Fed nới lỏng, các tín hiệu cách 3 phiên chồng lấn kỳ hạn lên nhau → mẫu hiệu dụng nhỏ hơn n trên bảng đáng kể. Con số **100%** của preset 6 tháng (n=66) về bản chất là "vài đợt nới lỏng tiền tệ 2019–2026 đều trúng" — không phải 66 lần cá cược độc lập. Đừng đọc nó là "chắc chắn thắng".
 2. **Chỉ 2 giai đoạn kiểm chứng.** Bộ lọc min-excess giảm rủi ro overfit nhưng không diệt được — việc chọn cấu hình có nhìn kết quả test (selection bias nhẹ). Con số % nên đọc là **ước lượng lạc quan**; kỳ vọng thực tế thấp hơn vài điểm.
 3. **Backtest trên XAU/USD, bạn mua vàng VN.** Tương quan cao nhưng chênh lệch SJC co giãn. Lịch sử SJC đã backfill 487 ngày từ CafeF (02/2025→nay, `scripts/backfill-vn.ts`) — đủ để tiêu chí chênh lệch chạy **percentile thật** trong phân tích live (phân phối: p20=11%, trung vị 14%, p80=16,6%), nhưng vẫn chỉ phủ giai đoạn test nên **chưa đủ điều kiện 2 giai đoạn để vào preset**. Premium giữ 0% trong preset cho tới khi dữ liệu phủ nhiều chế độ thị trường hơn (≥ vài năm).
-4. **Tín hiệu BÁN không có preset.** Mọi nghiên cứu (xem horizon-study) cho thấy đoán đỉnh dài hạn với vàng sai 51–75% — không cấu hình bán nào qua được bộ lọc. App giữ ngưỡng bán mặc định −40 chỉ để cảnh báo ngắn hạn.
+4. **Tín hiệu BÁN composite gần như vô giá trị — và NGƯỢC ở kỳ hạn dài.** Tỉ lệ bán đúng: 49% (1 tháng), 43% (3 tháng), 32% (6 tháng), 25% (12 tháng). Tệ hơn: trung vị lợi suất *sau* tín hiệu bán ở 6 tháng là **+9,5%** — cao hơn cả ngày trung lập (+4,6%), vì vùng bán nổ lúc quá mua giữa sóng tăng có quán tính. UI vì vậy chỉ chấm đúng/sai tín hiệu bán ở 1 tháng; 3–6 tháng ghi "không chấm".
+
+   **Tín hiệu bán thay thế cho vàng VN — chênh lệch cao (validated sơ bộ, `scripts/premium-exit-study.ts`):** trên 487 ngày SJC thật, lợi suất giá SJC sau 42 ngày theo percentile chênh (trailing 180 ngày):
+
+   | Chênh lệch | n | % tăng | Trung vị |
+   | --- | --- | --- | --- |
+   | Cao (≥ p80) | 117 | 57% | **+1,5%** |
+   | Giữa | 209 | 74% | +3,3% |
+   | Thấp (≤ p20) | 59 | 90% | **+10,4%** |
+
+   Gradient đơn điệu ở cả 3 kỳ hạn 21/42/63 ngày — chênh cao thì kết quả kém, đúng cơ chế hồi quy của premium. Hạn chế: 16 tháng dữ liệu, một chế độ thị trường, cửa sổ chồng lấn — đọc là bằng chứng sơ bộ mạnh, không phải kết luận cuối. App hiển thị banner "VÙNG BÁN VN theo chênh lệch" trên biểu đồ premium khi percentile ≥ 80.
 5. **Yếu tố chưa/không đưa vào:** GPR và VIX đã test và bị loại (bảng trên). NHTW mua vàng (dữ liệu quý, trễ), chính sách NHNN (không có feed máy đọc), COT positioning (chưa test) — ứng viên cho vòng sau.
 6. Quá khứ không bảo đảm tương lai. Công cụ xác suất, không phải lời hứa.
 
