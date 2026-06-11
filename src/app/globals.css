@@ -374,6 +374,20 @@ td.neutral {
   margin-bottom: 12px;
 }
 
+.tm-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tm-nav .iconbtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .tm-detail {
   background: var(--card2);
   border-radius: 10px;

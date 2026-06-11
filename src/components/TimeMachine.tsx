@@ -67,6 +67,18 @@ export default function TimeMachine({
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
   const p = points[idx];
 
+  const buyThr = preset?.buyThreshold ?? 40;
+  const signalIdxs = useMemo(
+    () =>
+      points.reduce<number[]>((acc, q, i) => {
+        if (pointComposite(q, weights) >= buyThr) acc.push(i);
+        return acc;
+      }, []),
+    [points, weights, buyThr]
+  );
+  const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
+  const nextSignal = signalIdxs.find((i) => i > idx);
+
   const composite = p ? pointComposite(p, weights) : 0;
   const rawZone = zoneOf(composite, preset?.buyThreshold ?? 40);
   const isBuy = rawZone === "buy" || rawZone === "strong-buy";
@@ -84,8 +96,12 @@ export default function TimeMachine({
     const x = (i: number) => (i / (points.length - 1)) * W;
     const y = (v: number) => H - ((v - min) / (max - min || 1)) * (H - 8) - 4;
     const path = points.map((q, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(q.price).toFixed(1)}`).join("");
-    return { W, H, path, cx: x(idx), cy: y(p.price) };
-  }, [points, idx, p]);
+    const markers = signalIdxs.map((i) => ({
+      cx: x(i),
+      cy: y(points[i].price),
+    }));
+    return { W, H, path, cx: x(idx), cy: y(p.price), markers };
+  }, [points, idx, p, signalIdxs]);
 
   if (!p) return null;
 
@@ -113,6 +129,9 @@ export default function TimeMachine({
           aria-label="Biểu đồ giá XAU/USD"
         >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
+          {spark.markers.map((m, i) => (
+            <circle key={i} cx={m.cx} cy={m.cy} r="2" fill="#4cc97a" opacity="0.7" />
+          ))}
           <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
           <circle cx={spark.cx} cy={spark.cy} r="4" fill="#ece5d8" />
         </svg>
@@ -127,6 +146,26 @@ export default function TimeMachine({
         onChange={(e) => setIdx(Number(e.target.value))}
         aria-label="Chọn thời điểm lịch sử"
       />
+
+      <div className="tm-nav">
+        <button
+          className="iconbtn"
+          disabled={prevSignal === undefined}
+          onClick={() => prevSignal !== undefined && setIdx(prevSignal)}
+        >
+          ◀ Tín hiệu mua trước
+        </button>
+        <span className="muted small">
+          {signalIdxs.length} ngày có tín hiệu mua / {points.length} ngày — chế độ này
+        </span>
+        <button
+          className="iconbtn"
+          disabled={nextSignal === undefined}
+          onClick={() => nextSignal !== undefined && setIdx(nextSignal)}
+        >
+          Tín hiệu mua sau ▶
+        </button>
+      </div>
 
       <div className="tm-detail">
         <div className="tm-row">
