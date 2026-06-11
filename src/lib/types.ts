@@ -136,10 +136,81 @@ export function compositeScore(
   return Math.round((sum / totalW) * 50 * 10) / 10;
 }
 
-export function zoneOf(composite: number): Zone {
-  if (composite >= 70) return "strong-buy";
-  if (composite >= 40) return "buy";
+export function zoneOf(composite: number, buyThreshold = 40): Zone {
+  if (composite >= buyThreshold + 30) return "strong-buy";
+  if (composite >= buyThreshold) return "buy";
   if (composite <= -70) return "strong-sell";
   if (composite <= -40) return "sell";
   return "neutral";
 }
+
+/** Bộ cấu hình theo kỳ hạn, tuyển bằng scripts/presets-study.ts. Chi tiết: docs/presets.md */
+export interface Preset {
+  id: string;
+  label: string;
+  horizonDays: 21 | 63 | 126;
+  /** premium = 0: tiêu chí chênh lệch VN chưa có lịch sử dài để kiểm chứng nên không tham gia preset */
+  weights: Record<CriterionKey, number>;
+  buyThreshold: number;
+  evidence: {
+    /** % tín hiệu mua đúng (giá tăng sau kỳ hạn) trên giai đoạn 2009–2018 / 2019–2026 */
+    trainFav: number;
+    trainN: number;
+    trainBaseline: number;
+    testFav: number;
+    testN: number;
+    testBaseline: number;
+    medianTestReturnPct: number;
+  };
+}
+
+export const PRESETS: Preset[] = [
+  {
+    id: "1m",
+    label: "Sóng 1 tháng",
+    horizonDays: 21,
+    weights: { technical: 0, premium: 0, macro: 0.8, stats: 0.2 },
+    buyThreshold: 50,
+    evidence: {
+      trainFav: 71.7,
+      trainN: 99,
+      trainBaseline: 51.9,
+      testFav: 81.0,
+      testN: 79,
+      testBaseline: 60.6,
+      medianTestReturnPct: 4.6,
+    },
+  },
+  {
+    id: "3m",
+    label: "Sóng 3 tháng",
+    horizonDays: 63,
+    weights: { technical: 0.1, premium: 0, macro: 0.9, stats: 0 },
+    buyThreshold: 60,
+    evidence: {
+      trainFav: 75.9,
+      trainN: 79,
+      trainBaseline: 55.7,
+      testFav: 82.7,
+      testN: 75,
+      testBaseline: 69.7,
+      medianTestReturnPct: 6.5,
+    },
+  },
+  {
+    id: "6m",
+    label: "Tích lũy 6 tháng",
+    horizonDays: 126,
+    weights: { technical: 0, premium: 0, macro: 0.9, stats: 0.1 },
+    buyThreshold: 60,
+    evidence: {
+      trainFav: 68.2,
+      trainN: 85,
+      trainBaseline: 57.7,
+      testFav: 93.1,
+      testN: 72,
+      testBaseline: 79.9,
+      medianTestReturnPct: 15.7,
+    },
+  },
+];

@@ -7,6 +7,7 @@ import {
   zoneOf,
   ZONE_LABELS,
   DEFAULT_WEIGHTS,
+  PRESETS,
   type Analysis,
   type Backtest,
   type CriterionKey,
@@ -15,7 +16,14 @@ import {
   type Zone,
 } from "@/lib/types";
 
-const WEIGHTS_KEY = "au-weights-v1";
+const SETTINGS_KEY = "au-settings-v2";
+
+interface Settings {
+  weights: Record<CriterionKey, number>;
+  presetId: string | null;
+}
+
+const DEFAULT_SETTINGS: Settings = { weights: DEFAULT_WEIGHTS, presetId: null };
 
 const fmtMoney = (v: number | null) =>
   v === null ? "—" : (v / 1_000_000).toLocaleString("vi-VN", { maximumFractionDigits: 2 }) + " tr";
@@ -34,19 +42,25 @@ function scoreChip(score: number) {
   return <span className={cls}>{txt}</span>;
 }
 
-function loadWeights(): Record<CriterionKey, number> {
-  if (typeof window === "undefined") return DEFAULT_WEIGHTS;
+function loadSettings(): Settings {
+  if (typeof window === "undefined") return DEFAULT_SETTINGS;
   try {
-    const raw = localStorage.getItem(WEIGHTS_KEY);
-    if (!raw) return DEFAULT_WEIGHTS;
-    const w = JSON.parse(raw);
+    const raw = localStorage.getItem(SETTINGS_KEY);
+    if (!raw) return DEFAULT_SETTINGS;
+    const s = JSON.parse(raw);
     for (const k of Object.keys(DEFAULT_WEIGHTS)) {
-      if (typeof w[k] !== "number" || w[k] < 0) return DEFAULT_WEIGHTS;
+      if (typeof s?.weights?.[k] !== "number" || s.weights[k] < 0) return DEFAULT_SETTINGS;
     }
-    return w;
+    return { weights: s.weights, presetId: typeof s.presetId === "string" ? s.presetId : null };
   } catch {
-    return DEFAULT_WEIGHTS;
+    return DEFAULT_SETTINGS;
   }
+}
+
+function saveSettings(s: Settings) {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+  } catch {}
 }
 
 export default function Dashboard({
@@ -58,25 +72,27 @@ export default function Dashboard({
   backtest: Backtest;
   timeline: Timeline;
 }) {
-  const [weights, setWeights] = useState<Record<CriterionKey, number>>(DEFAULT_WEIGHTS);
+  const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [showSettings, setShowSettings] = useState(false);
+  const weights = settings.weights;
+  const preset = PRESETS.find((p) => p.id === settings.presetId) ?? null;
 
   useEffect(() => {
-    setWeights(loadWeights());
+    setSettings(loadSettings());
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
   }, []);
 
   const customized = useMemo(
-    () => JSON.stringify(weights) !== JSON.stringify(DEFAULT_WEIGHTS),
-    [weights]
+    () => !preset && JSON.stringify(weights) !== JSON.stringify(DEFAULT_WEIGHTS),
+    [preset, weights]
   );
   const composite = useMemo(
     () => compositeScore(analysis.criteria, weights),
     [analysis, weights]
   );
-  const zone = zoneOf(composite);
+  const zone = zoneOf(composite, preset?.buyThreshold ?? 40);
 
   const currentBuckets = backtest.buckets.filter(
     (b) => b.zone === zone && b.count > 0
@@ -84,11 +100,18 @@ export default function Dashboard({
   const bt63 = currentBuckets.find((b) => b.horizonDays === 63);
 
   const setWeight = (k: CriterionKey, v: number) => {
-    const w = { ...weights, [k]: v };
-    setWeights(w);
-    try {
-      localStorage.setItem(WEIGHTS_KEY, JSON.stringify(w));
-    } catch {}
+    const s: Settings = { weights: { ...weights, [k]: v }, presetId: null };
+    setSettings(s);
+    saveSettings(s);
+  };
+
+  const applyPreset = (id: string | null) => {
+    const p = PRESETS.find((q) => q.id === id);
+    const s: Settings = p
+      ? { weights: p.weights, presetId: p.id }
+      : { weights: DEFAULT_WEIGHTS, presetId: null };
+    setSettings(s);
+    saveSettings(s);
   };
 
   const freshness = new Date(analysis.generatedAt).toLocaleString("vi-VN", {
@@ -140,9 +163,17 @@ export default function Dashboard({
         </div>
         <div className="verdict-score">
           Điểm tổng hợp: <b>{composite > 0 ? `+${fmtNum(composite)}` : fmtNum(composite)}</b>
+          {preset && <span className="customized"> · preset {preset.label} (ngưỡng mua +{preset.buyThreshold})</span>}
           {customized && <span className="customized"> (trọng số tùy chỉnh)</span>}
         </div>
-        {bt63 && bt63.pctFavorable !== null ? (
+        {preset ? (
+          <div className="verdict-bt">
+            Kiểm chứng preset ({preset.horizonDays === 21 ? "1 tháng" : preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}):
+            tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
+            và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026 (n={preset.evidence.testN}),
+            so với mua ngày bất kỳ {fmtNum(preset.evidence.trainBaseline)}% / {fmtNum(preset.evidence.testBaseline)}%.
+          </div>
+        ) : bt63 && bt63.pctFavorable !== null ? (
           <div className="verdict-bt">
             Kiểm chứng lịch sử: tín hiệu &quot;{ZONE_LABELS[zone]}&quot; xuất hiện{" "}
             <b>{bt63.count}</b> lần, <b>{fmtNum(bt63.pctFavorable)}%</b> diễn biến thuận chiều
@@ -192,10 +223,36 @@ export default function Dashboard({
 
       {showSettings && (
         <section className="card settings">
+          <h2>Bộ cấu hình theo kỳ hạn</h2>
+          <p className="muted small">
+            Mỗi preset được tuyển bằng grid search trên 17 năm dữ liệu, yêu cầu thắng
+            baseline ở cả 2 giai đoạn độc lập (2009–2018 và 2019–2026). Chi tiết:
+            docs/presets.md trong repo. Preset đặt tiêu chí chênh lệch VN = 0% vì chưa đủ
+            lịch sử kiểm chứng — vẫn xem được điểm của nó ở card bên dưới.
+          </p>
+          <div className="preset-row">
+            <button
+              className={`iconbtn ${!preset && !customized ? "active" : ""}`}
+              onClick={() => applyPreset(null)}
+            >
+              Mặc định
+            </button>
+            {PRESETS.map((p) => (
+              <button
+                key={p.id}
+                className={`iconbtn ${preset?.id === p.id ? "active" : ""}`}
+                onClick={() => applyPreset(p.id)}
+                title={`Đúng ${p.evidence.trainFav}% (2009–2018) / ${p.evidence.testFav}% (2019–2026)`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
           <h2>Trọng số tiêu chí</h2>
           <p className="muted">
-            Điểm tổng hợp tính lại ngay theo trọng số bạn chọn. Lưu trên máy bạn. Lưu ý: %
-            kiểm chứng lịch sử tính theo trọng số mặc định.
+            Điểm tổng hợp tính lại ngay theo trọng số bạn chọn. Lưu trên máy bạn. Kéo
+            slider sẽ thoát chế độ preset. Lưu ý: bảng % kiểm chứng bên dưới tính theo
+            trọng số mặc định.
           </p>
           {analysis.criteria.map((c) => (
             <label key={c.key} className="slider-row">
@@ -211,15 +268,7 @@ export default function Dashboard({
               />
             </label>
           ))}
-          <button
-            className="iconbtn"
-            onClick={() => {
-              setWeights(DEFAULT_WEIGHTS);
-              try {
-                localStorage.removeItem(WEIGHTS_KEY);
-              } catch {}
-            }}
-          >
+          <button className="iconbtn" onClick={() => applyPreset(null)}>
             Khôi phục mặc định
           </button>
         </section>

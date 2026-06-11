@@ -64,8 +64,14 @@ function main() {
   }
 
   // grid search trên train
-  let best: { w: Record<string, number>; thr: number; fav: number; n: number } | null = null;
-  const results: typeof best[] = [];
+  interface Cand {
+    w: Record<string, number>;
+    thr: number;
+    fav: number;
+    n: number;
+  }
+  let best: Cand | null = null;
+  const results: Cand[] = [];
   for (let wt = 0; wt <= 10; wt++) {
     for (let ws = 0; ws <= 10 - wt; ws++) {
       const wm = 10 - wt - ws;
@@ -89,13 +95,13 @@ function main() {
 
   console.log(`\nTOP 5 trên train (đã shrinkage):`);
   results
-    .sort((a, b) => b!.fav - a!.fav)
+    .sort((a, b) => b.fav - a.fav)
     .slice(0, 5)
     .forEach((c) => {
-      const tr = evalBuy(train, c!.w, c!.thr);
-      const te = evalBuy(test, c!.w, c!.thr);
+      const tr = evalBuy(train, c.w, c.thr);
+      const te = evalBuy(test, c.w, c.thr);
       console.log(
-        `w=${JSON.stringify(c!.w)} thr=${c!.thr}: train fav=${(tr.fav * 100).toFixed(1)}% n=${tr.n} -> TEST fav=${(te.fav * 100).toFixed(1)}% n=${te.n} med=${te.med.toFixed(1)}%`
+        `w=${JSON.stringify(c.w)} thr=${c.thr}: train fav=${(tr.fav * 100).toFixed(1)}% n=${tr.n} -> TEST fav=${(te.fav * 100).toFixed(1)}% n=${te.n} med=${te.med.toFixed(1)}%`
       );
     });
 }

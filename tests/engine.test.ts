@@ -14,7 +14,7 @@ import {
   macroCriterion,
   statsCriterion,
 } from "../src/lib/criteria";
-import { compositeScore, zoneOf, DEFAULT_WEIGHTS } from "../src/lib/types";
+import { compositeScore, zoneOf, DEFAULT_WEIGHTS, PRESETS } from "../src/lib/types";
 import { runBacktest } from "../scripts/backtest";
 
 const range = (n: number, f: (i: number) => number) =>
@@ -93,6 +93,27 @@ describe("composite & zones", () => {
     expect(zoneOf(0)).toBe("neutral");
     expect(zoneOf(-40)).toBe("sell");
     expect(zoneOf(-75)).toBe("strong-sell");
+  });
+
+  it("zoneOf honors custom buy threshold (presets)", () => {
+    expect(zoneOf(55, 60)).toBe("neutral");
+    expect(zoneOf(60, 60)).toBe("buy");
+    expect(zoneOf(90, 60)).toBe("strong-buy");
+    expect(zoneOf(-40, 60)).toBe("sell");
+  });
+
+  it("presets are sane", () => {
+    expect(PRESETS.length).toBe(3);
+    for (const p of PRESETS) {
+      const sum = Object.values(p.weights).reduce((a, b) => a + b, 0);
+      expect(sum).toBeCloseTo(1, 5);
+      expect(p.weights.premium).toBe(0);
+      expect(p.buyThreshold).toBeGreaterThanOrEqual(40);
+      expect(p.evidence.trainFav).toBeGreaterThan(p.evidence.trainBaseline);
+      expect(p.evidence.testFav).toBeGreaterThan(p.evidence.testBaseline);
+      expect(p.evidence.trainN).toBeGreaterThanOrEqual(25);
+      expect(p.evidence.testN).toBeGreaterThanOrEqual(25);
+    }
   });
 });
 

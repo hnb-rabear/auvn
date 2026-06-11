@@ -331,6 +331,18 @@ td.neutral {
   background: rgba(230, 184, 76, 0.07);
 }
 
+.preset-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.iconbtn.active {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
 .settings .slider-row {
   display: flex;
   flex-direction: column;
