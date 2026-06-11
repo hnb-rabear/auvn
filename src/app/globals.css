@@ -391,6 +391,19 @@ td.neutral {
   font-size: 0.8rem;
 }
 
+.tm-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tm-toggle input {
+  accent-color: var(--sell);
+}
+
 .tm-nav {
   display: flex;
   justify-content: space-between;

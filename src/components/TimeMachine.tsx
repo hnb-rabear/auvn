@@ -71,6 +71,8 @@ export default function TimeMachine({
   /** cửa sổ zoom tính theo tháng; null = toàn bộ lịch sử */
   const [zoomMonths, setZoomMonths] = useState<number | null>(null);
   const [viewStart, setViewStart] = useState(0);
+  /** hiện vùng bán (tham khảo) trên dòng thời gian */
+  const [showSell, setShowSell] = useState(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const p = points[idx];
 
@@ -90,6 +92,14 @@ export default function TimeMachine({
         return acc;
       }, []),
     [points, weights, buyThr]
+  );
+  const sellIdxs = useMemo(
+    () =>
+      points.reduce<number[]>((acc, q, i) => {
+        if (pointComposite(q, weights) <= -40) acc.push(i);
+        return acc;
+      }, []),
+    [points, weights]
   );
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
@@ -123,8 +133,9 @@ export default function TimeMachine({
   const composite = p ? pointComposite(p, weights) : 0;
   const rawZone = zoneOf(composite, buyThr);
   const isBuy = rawZone === "buy" || rawZone === "strong-buy";
-  // preset chỉ kiểm chứng phía mua — không hiển thị vùng bán dưới preset
-  const zone: Zone = preset && !isBuy ? "neutral" : rawZone;
+  const isSell = rawZone === "sell" || rawZone === "strong-sell";
+  // preset chỉ kiểm chứng phía mua — vùng bán chỉ hiện khi người dùng bật toggle tham khảo
+  const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
 
   const spark = useMemo(() => {
@@ -143,6 +154,11 @@ export default function TimeMachine({
     const markers = signalIdxs
       .filter((i) => i >= start && i < end)
       .map((i) => ({ cx: x(i), cy: y(points[i].price) }));
+    const sellMarkers = showSell
+      ? sellIdxs
+          .filter((i) => i >= start && i < end)
+          .map((i) => ({ cx: x(i), cy: y(points[i].price) }))
+      : [];
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -151,10 +167,11 @@ export default function TimeMachine({
       cx: inWindow ? x(idx) : null,
       cy: inWindow ? y(p.price) : null,
       markers,
+      sellMarkers,
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, start, end]);
+  }, [points, idx, p, signalIdxs, sellIdxs, showSell, start, end]);
 
   if (!p) return null;
 
@@ -197,6 +214,14 @@ export default function TimeMachine({
             {fmtDate(spark.fromDate)} → {fmtDate(spark.toDate)}
           </span>
         )}
+        <label className="tm-toggle muted small" title="Tín hiệu bán chỉ đúng 49% sau 1 tháng trong backtest — tham khảo, không phải khuyến nghị thoát">
+          <input
+            type="checkbox"
+            checked={showSell}
+            onChange={(e) => setShowSell(e.target.checked)}
+          />
+          Hiện vùng bán (tham khảo)
+        </label>
       </div>
 
       {spark && (
@@ -209,6 +234,9 @@ export default function TimeMachine({
           aria-label="Biểu đồ giá XAU/USD — bấm để chọn ngày"
         >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
+          {spark.sellMarkers.map((m, i) => (
+            <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={zoomMonths === null ? 2 : 3.5} fill="#e05c5c" opacity="0.7" />
+          ))}
           {spark.markers.map((m, i) => (
             <circle key={i} cx={m.cx} cy={m.cy} r={zoomMonths === null ? 2 : 3.5} fill="#4cc97a" opacity="0.75" />
           ))}
@@ -243,7 +271,9 @@ export default function TimeMachine({
           ◀ Tín hiệu mua trước
         </button>
         <span className="muted small">
-          {signalIdxs.length} ngày có tín hiệu mua / {points.length} ngày — chế độ này
+          {signalIdxs.length} ngày tín hiệu mua
+          {showSell ? ` · ${sellIdxs.length} ngày vùng bán` : ""} / {points.length} ngày —
+          chế độ này
         </span>
         <button
           className="iconbtn"
@@ -261,7 +291,11 @@ export default function TimeMachine({
             <b>{fmtDate(p.date)}</b> · XAU ${fmtNum(p.price, 0)}
           </div>
           <div className={`tm-zone ${zoneClass(zone)}`}>
-            {preset && !isBuy ? "CHƯA CÓ TÍN HIỆU MUA" : ZONE_LABELS[zone]}
+            {zone === "sell" || zone === "strong-sell"
+              ? `${ZONE_LABELS[zone]} (tham khảo)`
+              : preset && !isBuy
+                ? "CHƯA CÓ TÍN HIỆU MUA"
+                : ZONE_LABELS[zone]}
             <span className="muted small">
               {" "}
               ({composite > 0 ? "+" : ""}
