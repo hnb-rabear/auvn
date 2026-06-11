@@ -1,0 +1,119 @@
+{
+ "generatedAt": "2026-06-11T06:08:41.760Z",
+ "fromDate": "2009-06-12",
+ "toDate": "2026-06-11",
+ "observations": 1418,
+ "horizons": [
+  21,
+  63,
+  126
+ ],
+ "buckets": [
+  {
+   "zone": "strong-buy",
+   "horizonDays": 21,
+   "count": 1,
+   "pctFavorable": 100,
+   "medianReturnPct": 3.4
+  },
+  {
+   "zone": "strong-buy",
+   "horizonDays": 63,
+   "count": 1,
+   "pctFavorable": 100,
+   "medianReturnPct": 3.9
+  },
+  {
+   "zone": "strong-buy",
+   "horizonDays": 126,
+   "count": 1,
+   "pctFavorable": 0,
+   "medianReturnPct": -5.6
+  },
+  {
+   "zone": "buy",
+   "horizonDays": 21,
+   "count": 46,
+   "pctFavorable": 67.4,
+   "medianReturnPct": 1.7
+  },
+  {
+   "zone": "buy",
+   "horizonDays": 63,
+   "count": 46,
+   "pctFavorable": 60.9,
+   "medianReturnPct": 2.3
+  },
+  {
+   "zone": "buy",
+   "horizonDays": 126,
+   "count": 46,
+   "pctFavorable": 58.7,
+   "medianReturnPct": 1.8
+  },
+  {
+   "zone": "neutral",
+   "horizonDays": 21,
+   "count": 1215,
+   "pctFavorable": null,
+   "medianReturnPct": 0.7
+  },
+  {
+   "zone": "neutral",
+   "horizonDays": 63,
+   "count": 1202,
+   "pctFavorable": null,
+   "medianReturnPct": 2.8
+  },
+  {
+   "zone": "neutral",
+   "horizonDays": 126,
+   "count": 1185,
+   "pctFavorable": null,
+   "medianReturnPct": 4.6
+  },
+  {
+   "zone": "sell",
+   "horizonDays": 21,
+   "count": 156,
+   "pctFavorable": 48.7,
+   "medianReturnPct": 0.1
+  },
+  {
+   "zone": "sell",
+   "horizonDays": 63,
+   "count": 155,
+   "pctFavorable": 43.2,
+   "medianReturnPct": 1.2
+  },
+  {
+   "zone": "sell",
+   "horizonDays": 126,
+   "count": 151,
+   "pctFavorable": 32.5,
+   "medianReturnPct": 9.5
+  },
+  {
+   "zone": "strong-sell",
+   "horizonDays": 21,
+   "count": 0,
+   "pctFavorable": null,
+   "medianReturnPct": null
+  },
+  {
+   "zone": "strong-sell",
+   "horizonDays": 63,
+   "count": 0,
+   "pctFavorable": null,
+   "medianReturnPct": null
+  },
+  {
+   "zone": "strong-sell",
+   "horizonDays": 126,
+   "count": 0,
+   "pctFavorable": null,
+   "medianReturnPct": null
+  }
+ ],
+ "note": "Backtest chạy trên giá XAU/USD với các tiêu chí thế giới (kỹ thuật, thống kê, DXY + lãi suất Fed). Tiêu chí chênh lệch VN chưa đủ lịch sử kiểm chứng nên không tham gia backtest."
+}

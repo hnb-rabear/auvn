@@ -1,0 +1,353 @@
+:root {
+  --bg: #0e0c08;
+  --card: #181410;
+  --card2: #1f1a14;
+  --text: #ece5d8;
+  --muted: #9a8f7d;
+  --gold: #e6b84c;
+  --buy: #4cc97a;
+  --sell: #e05c5c;
+  --neutral: #b0a890;
+  --border: #2c251c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px 14px 40px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.top h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.iconbtn {
+  background: var(--card2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.iconbtn:hover {
+  border-color: var(--gold);
+}
+
+.banner {
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+}
+
+.banner.warn {
+  background: #3a2c12;
+  border: 1px solid #8a6a20;
+}
+
+.banner.info {
+  background: #1d2330;
+  border: 1px solid #34415c;
+}
+
+.banner.small {
+  font-size: 0.8rem;
+}
+
+.verdict {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.verdict-label {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.verdict.buy .verdict-label {
+  color: var(--buy);
+}
+
+.verdict.sell .verdict-label {
+  color: var(--sell);
+}
+
+.verdict.neutral .verdict-label {
+  color: var(--neutral);
+}
+
+.gauge {
+  margin: 16px auto 6px;
+  max-width: 460px;
+}
+
+.gauge-track {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--sell), #6d6a55 50%, var(--buy));
+  opacity: 0.9;
+}
+
+.gauge-zero {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 2px;
+  height: 16px;
+  background: var(--muted);
+}
+
+.gauge-needle {
+  position: absolute;
+  top: -5px;
+  width: 4px;
+  height: 20px;
+  margin-left: -2px;
+  background: var(--text);
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+.gauge-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.verdict-score {
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+.customized {
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
+.verdict-bt {
+  margin-top: 10px;
+  font-size: 0.92rem;
+  background: var(--card2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: inline-block;
+}
+
+.freshness {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.prices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.price-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.price-item span {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.price-item b {
+  font-size: 0.98rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card h2 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+}
+
+.card-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.signals {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signals li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.chip {
+  min-width: 44px;
+  text-align: center;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.chip.buy {
+  background: rgba(76, 201, 122, 0.15);
+  color: var(--buy);
+  border: 1px solid rgba(76, 201, 122, 0.4);
+}
+
+.chip.sell {
+  background: rgba(224, 92, 92, 0.13);
+  color: var(--sell);
+  border: 1px solid rgba(224, 92, 92, 0.4);
+}
+
+.chip.neutral {
+  background: rgba(176, 168, 144, 0.12);
+  color: var(--neutral);
+  border: 1px solid rgba(176, 168, 144, 0.35);
+}
+
+.sig-label {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.sig-expl {
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+td.buy {
+  color: var(--buy);
+}
+
+td.sell {
+  color: var(--sell);
+}
+
+td.neutral {
+  color: var(--neutral);
+}
+
+.bt-table-wrap {
+  overflow-x: auto;
+}
+
+.bt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.bt-table th,
+.bt-table td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.bt-table th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.bt-table tr.hl td {
+  background: rgba(230, 184, 76, 0.07);
+}
+
+.settings .slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.settings input[type="range"] {
+  accent-color: var(--gold);
+}
+
+.disclaimer {
+  margin-top: 18px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
