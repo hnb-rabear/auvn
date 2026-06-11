@@ -67,6 +67,25 @@ export interface Backtest {
   note: string;
 }
 
+/** Một điểm giả lập lịch sử: engine nói gì tại ngày đó và sau đó giá đi thế nào. */
+export interface TimelinePoint {
+  date: string;
+  /** giá XAU/USD đóng cửa ngày đó */
+  price: number;
+  composite: number;
+  zone: Zone;
+  /** điểm -2..+2 của từng tiêu chí thế giới tham gia giả lập */
+  scores: Partial<Record<CriterionKey, number>>;
+  /** lợi suất % sau 21/63/126 phiên; null nếu chưa đủ tương lai */
+  returns: Record<"21" | "63" | "126", number | null>;
+}
+
+export interface Timeline {
+  generatedAt: string;
+  note: string;
+  points: TimelinePoint[];
+}
+
 export interface VnGoldEntry {
   date: string;
   sjcBuy: number | null;

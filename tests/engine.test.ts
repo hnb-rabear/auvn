@@ -164,7 +164,7 @@ describe("backtest", () => {
       date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
       close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
     }));
-    const bt = runBacktest(bars, null, null);
+    const { backtest: bt, timeline } = runBacktest(bars, null, null);
     expect(bt.observations).toBeGreaterThan(50);
     expect(bt.buckets.length).toBe(15);
     for (const b of bt.buckets) {
@@ -178,5 +178,17 @@ describe("backtest", () => {
       .filter((b) => b.horizonDays === 21)
       .reduce((a, b) => a + b.count, 0);
     expect(total21).toBeGreaterThan(0);
+
+    // timeline: mỗi quan sát một điểm, điểm cuối chưa có dữ liệu tương lai
+    expect(timeline.points.length).toBe(bt.observations);
+    const lastP = timeline.points[timeline.points.length - 1];
+    expect(lastP.returns["126"]).toBeNull();
+    const firstP = timeline.points[0];
+    expect(firstP.returns["21"]).not.toBeNull();
+    for (const pt of timeline.points) {
+      expect(pt.price).toBeGreaterThan(0);
+      expect(Math.abs(pt.composite)).toBeLessThanOrEqual(100);
+      expect(pt.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
   });
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import TimeMachine from "./TimeMachine";
 import {
   compositeScore,
   zoneOf,
@@ -10,6 +11,7 @@ import {
   type Backtest,
   type CriterionKey,
   type CriterionResult,
+  type Timeline,
   type Zone,
 } from "@/lib/types";
 
@@ -50,9 +52,11 @@ function loadWeights(): Record<CriterionKey, number> {
 export default function Dashboard({
   analysis,
   backtest,
+  timeline,
 }: {
   analysis: Analysis;
   backtest: Backtest;
+  timeline: Timeline;
 }) {
   const [weights, setWeights] = useState<Record<CriterionKey, number>>(DEFAULT_WEIGHTS);
   const [showSettings, setShowSettings] = useState(false);
@@ -292,6 +296,8 @@ export default function Dashboard({
           </table>
         </div>
       </section>
+
+      <TimeMachine timeline={timeline} />
 
       <footer className="disclaimer">
         Công cụ hỗ trợ quyết định dựa trên thống kê quá khứ — không phải khuyến nghị đầu tư,

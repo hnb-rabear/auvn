@@ -343,6 +343,109 @@ td.neutral {
   accent-color: var(--gold);
 }
 
+.spark {
+  width: 100%;
+  height: 120px;
+  display: block;
+  background: var(--card2);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.tm-slider {
+  width: 100%;
+  accent-color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.tm-detail {
+  background: var(--card2);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.tm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tm-zone {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.tm-zone.buy {
+  color: var(--buy);
+}
+
+.tm-zone.sell {
+  color: var(--sell);
+}
+
+.tm-zone.neutral {
+  color: var(--neutral);
+}
+
+.tm-scores {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  font-size: 0.84rem;
+}
+
+.tm-score b.buy {
+  color: var(--buy);
+}
+
+.tm-score b.sell {
+  color: var(--sell);
+}
+
+.tm-score b.neutral {
+  color: var(--neutral);
+}
+
+.tm-outcomes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+}
+
+.tm-outcome {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tm-outcome b.buy {
+  color: var(--buy);
+}
+
+.tm-outcome b.sell {
+  color: var(--sell);
+}
+
+.tm-verdict {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tm-verdict.buy {
+  color: var(--buy);
+}
+
+.tm-verdict.sell {
+  color: var(--sell);
+}
+
 .disclaimer {
   margin-top: 18px;
   font-size: 0.78rem;

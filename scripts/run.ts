@@ -181,13 +181,14 @@ async function main() {
     warnings,
   };
 
-  // --- backtest
-  const backtest = runBacktest(xauRes.bars, dxyRes?.bars ?? null, fedRes);
+  // --- backtest + timeline giả lập lịch sử
+  const { backtest, timeline } = runBacktest(xauRes.bars, dxyRes?.bars ?? null, fedRes);
 
   mkdirSync(HISTORY_DIR, { recursive: true });
   writeFileSync(VN_HISTORY_FILE, JSON.stringify(history, null, 1));
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));
+  writeFileSync(join(DATA_DIR, "timeline.json"), JSON.stringify(timeline));
 
   console.log(
     `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations}`

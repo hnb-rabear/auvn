@@ -15,6 +15,10 @@ PWA miễn phí giúp xác nhận **vùng mua / vùng bán** vàng vật chất 
 3. **Vĩ mô (20%)** — DXY, hướng lãi suất Fed, nhịp tỷ giá USD/VND
 4. **Thống kê lịch sử (20%)** — percentile giá 1y/3y, mùa vụ theo tháng, chế độ biến động
 
+## Máy thời gian — xét lại lịch sử
+
+Kéo slider về bất kỳ ngày nào trong ~17 năm qua: engine chấm điểm **chỉ bằng dữ liệu có đến ngày đó** (không nhìn trước tương lai), hiển thị vùng mua/bán nó sẽ tuyên bố lúc ấy, rồi đối chiếu giá thực tế sau 1/3/6 tháng và phán: ✓ quyết định đúng / ✗ quyết định sai.
+
 ## Chạy local
 
 ```bash

@@ -16,6 +16,8 @@ import {
   DEFAULT_WEIGHTS,
   type Backtest,
   type BacktestBucket,
+  type Timeline,
+  type TimelinePoint,
   type Zone,
 } from "../src/lib/types";
 import type { DailyBar } from "./fetch";
@@ -29,17 +31,18 @@ export function runBacktest(
   xau: DailyBar[],
   dxy: DailyBar[] | null,
   fed: { date: string; value: number }[] | null
-): Backtest {
+): { backtest: Backtest; timeline: Timeline } {
   const closes = xau.map((b) => b.close);
   const dates = xau.map((b) => b.date);
   const season = seasonalityTable(closes, dates);
 
   const returns = new Map<string, number[]>();
+  const points: TimelinePoint[] = [];
   let observations = 0;
   let dxyPtr = 0;
   let fedPtr = 0;
 
-  for (let i = WARMUP; i < closes.length - HORIZONS[0]; i += STEP) {
+  for (let i = WARMUP; i < closes.length; i += STEP) {
     const date = dates[i];
     const closesUpTo = closes.slice(0, i + 1);
     const datesUpTo = dates.slice(0, i + 1);
@@ -61,17 +64,33 @@ export function runBacktest(
       }
     }
 
-    const zone = zoneOf(compositeScore(criteria, DEFAULT_WEIGHTS));
+    const composite = compositeScore(criteria, DEFAULT_WEIGHTS);
+    const zone = zoneOf(composite);
     observations++;
 
+    const fwd: TimelinePoint["returns"] = { "21": null, "63": null, "126": null };
     for (const h of HORIZONS) {
       if (i + h >= closes.length) continue;
       const r = (closes[i + h] / closes[i] - 1) * 100;
+      fwd[String(h) as keyof TimelinePoint["returns"]] = Math.round(r * 10) / 10;
       const key = `${zone}|${h}`;
       const arr = returns.get(key) ?? [];
       arr.push(r);
       returns.set(key, arr);
     }
+
+    const scores: TimelinePoint["scores"] = {};
+    for (const c of criteria) {
+      if (c.available) scores[c.key] = Math.round(c.score * 100) / 100;
+    }
+    points.push({
+      date,
+      price: Math.round(closes[i] * 10) / 10,
+      composite,
+      zone,
+      scores,
+      returns: fwd,
+    });
   }
 
   const zones: Zone[] = ["strong-buy", "buy", "neutral", "sell", "strong-sell"];
@@ -98,14 +117,23 @@ export function runBacktest(
     }
   }
 
+  const note =
+    "Backtest chạy trên giá XAU/USD với các tiêu chí thế giới (kỹ thuật, thống kê, DXY + lãi suất Fed). Tiêu chí chênh lệch VN chưa đủ lịch sử kiểm chứng nên không tham gia backtest.";
+
   return {
-    generatedAt: new Date().toISOString(),
-    fromDate: dates[WARMUP] ?? "",
-    toDate: dates[dates.length - 1] ?? "",
-    observations,
-    horizons: HORIZONS,
-    buckets,
-    note:
-      "Backtest chạy trên giá XAU/USD với các tiêu chí thế giới (kỹ thuật, thống kê, DXY + lãi suất Fed). Tiêu chí chênh lệch VN chưa đủ lịch sử kiểm chứng nên không tham gia backtest.",
+    backtest: {
+      generatedAt: new Date().toISOString(),
+      fromDate: dates[WARMUP] ?? "",
+      toDate: dates[dates.length - 1] ?? "",
+      observations,
+      horizons: HORIZONS,
+      buckets,
+      note,
+    },
+    timeline: {
+      generatedAt: new Date().toISOString(),
+      note,
+      points,
+    },
   };
 }

@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-11T06:08:40.404Z",
+ "generatedAt": "2026-06-11T06:55:33.365Z",
  "dataDate": "2026-06-11",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 136000000,
   "ringBuy": 132000000,
   "ringSell": 137000000,
-  "xauUsd": 4115.7001953125,
+  "xauUsd": 4114.60009765625,
   "usdVnd": 26410,
-  "worldVndPerLuong": 131049227,
-  "premiumPct": 3.78,
-  "premiumVnd": 4950773
+  "worldVndPerLuong": 131014198,
+  "premiumPct": 3.81,
+  "premiumVnd": 4985802
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 2,
-     "explanation": "RSI ngày = 25,4: quá bán — vùng mua hiếm gặp.",
+     "explanation": "RSI ngày = 25,3: quá bán — vùng mua hiếm gặp.",
      "available": true
     },
     {
