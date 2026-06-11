@@ -101,8 +101,8 @@ async function main() {
   const isSell = (z: string) => z === "sell" || z === "strong-sell";
   if (isSell(defaultZone) && !isSell(prevDefault)) {
     lines.push(
-      `🔴 Cấu hình mặc định vào <b>${ZONE_LABELS[defaultZone as Zone]}</b> (điểm ${analysis.composite}). ` +
-        `Lưu ý: tín hiệu bán chỉ có giá trị tham khảo ngắn hạn.`
+      `🟡 Chế độ toàn cảnh vào <b>${ZONE_LABELS[defaultZone as Zone]}</b> (điểm ${analysis.composite}). ` +
+        `Đây là cảnh báo BỚT MUA THÊM, không phải khuyến nghị bán — backtest 17 năm: tín hiệu bán chỉ đúng 49% sau 1 tháng.`
     );
   }
 

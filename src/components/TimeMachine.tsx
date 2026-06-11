@@ -4,8 +4,11 @@ import { useMemo, useState } from "react";
 import {
   CRITERION_LABELS,
   ZONE_LABELS,
+  zoneOf,
   type CriterionKey,
+  type Preset,
   type Timeline,
+  type TimelinePoint,
   type Zone,
 } from "@/lib/types";
 
@@ -32,6 +35,18 @@ const HORIZON_LABELS: Record<"21" | "63" | "126", string> = {
   "126": "6 tháng",
 };
 
+/** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
+function pointComposite(p: TimelinePoint, weights: Record<CriterionKey, number>): number {
+  let s = 0;
+  let tw = 0;
+  for (const [k, score] of Object.entries(p.scores)) {
+    const w = weights[k as CriterionKey] ?? 0;
+    s += (score as number) * w;
+    tw += w;
+  }
+  return tw === 0 ? 0 : Math.round((s / tw) * 50 * 10) / 10;
+}
+
 /** Đúng/sai của quyết định: mua đúng khi giá tăng, bán đúng khi giá giảm. */
 function verdictFor(zone: Zone, ret: number | null): "right" | "wrong" | null {
   if (ret === null || zone === "neutral") return null;
@@ -39,10 +54,25 @@ function verdictFor(zone: Zone, ret: number | null): "right" | "wrong" | null {
   return (buyish ? ret > 0 : ret < 0) ? "right" : "wrong";
 }
 
-export default function TimeMachine({ timeline }: { timeline: Timeline }) {
+export default function TimeMachine({
+  timeline,
+  weights,
+  preset,
+}: {
+  timeline: Timeline;
+  weights: Record<CriterionKey, number>;
+  preset: Preset | null;
+}) {
   const points = timeline.points;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
   const p = points[idx];
+
+  const composite = p ? pointComposite(p, weights) : 0;
+  const rawZone = zoneOf(composite, preset?.buyThreshold ?? 40);
+  const isBuy = rawZone === "buy" || rawZone === "strong-buy";
+  // preset chỉ kiểm chứng phía mua — không hiển thị vùng bán dưới preset
+  const zone: Zone = preset && !isBuy ? "neutral" : rawZone;
+  const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
 
   const spark = useMemo(() => {
     if (points.length < 2) return null;
@@ -63,11 +93,16 @@ export default function TimeMachine({ timeline }: { timeline: Timeline }) {
     <section className="card">
       <div className="card-head">
         <h2>Xét lại lịch sử — máy thời gian</h2>
+        <div className="card-score">
+          <span className="muted small">
+            chấm theo: {preset ? `preset ${preset.label}` : "toàn cảnh (tiêu chí thế giới)"}
+          </span>
+        </div>
       </div>
       <p className="muted small">
-        Kéo về một ngày trong quá khứ: engine chấm điểm chỉ bằng dữ liệu có đến ngày đó,
-        rồi đối chiếu giá thực tế sau 1/3/6 tháng xem quyết định đúng hay sai.{" "}
-        {timeline.note}
+        Kéo về một ngày trong quá khứ: engine chấm điểm theo <b>chế độ bạn đang chọn</b>,
+        chỉ bằng dữ liệu có đến ngày đó, rồi đối chiếu giá thực tế sau 1/3/6 tháng xem
+        quyết định đúng hay sai. {timeline.note}
       </p>
 
       {spark && (
@@ -99,12 +134,12 @@ export default function TimeMachine({ timeline }: { timeline: Timeline }) {
             <div className="muted small">Ngày giả lập</div>
             <b>{fmtDate(p.date)}</b> · XAU ${fmtNum(p.price, 0)}
           </div>
-          <div className={`tm-zone ${zoneClass(p.zone)}`}>
-            {ZONE_LABELS[p.zone]}
+          <div className={`tm-zone ${zoneClass(zone)}`}>
+            {preset && !isBuy ? "CHƯA CÓ TÍN HIỆU MUA" : ZONE_LABELS[zone]}
             <span className="muted small">
               {" "}
-              ({p.composite > 0 ? "+" : ""}
-              {fmtNum(p.composite)})
+              ({composite > 0 ? "+" : ""}
+              {fmtNum(composite)})
             </span>
           </div>
         </div>
@@ -124,10 +159,14 @@ export default function TimeMachine({ timeline }: { timeline: Timeline }) {
         <div className="tm-outcomes">
           {(["21", "63", "126"] as const).map((h) => {
             const ret = p.returns[h];
-            const v = verdictFor(p.zone, ret);
+            const v = verdictFor(zone, ret);
+            const isPresetHorizon = presetH === h;
             return (
-              <div key={h} className="tm-outcome">
-                <span className="muted small">Sau {HORIZON_LABELS[h]}</span>
+              <div key={h} className={`tm-outcome ${isPresetHorizon ? "hl-horizon" : ""}`}>
+                <span className="muted small">
+                  Sau {HORIZON_LABELS[h]}
+                  {isPresetHorizon ? " — kỳ hạn preset" : ""}
+                </span>
                 <b className={ret === null ? "muted" : ret >= 0 ? "buy" : "sell"}>
                   {ret === null ? "chưa có" : `${ret >= 0 ? "+" : ""}${fmtNum(ret)}%`}
                 </b>
@@ -136,8 +175,10 @@ export default function TimeMachine({ timeline }: { timeline: Timeline }) {
                     {v === "right" ? "✓ quyết định đúng" : "✗ quyết định sai"}
                   </span>
                 )}
-                {p.zone === "neutral" && ret !== null && (
-                  <span className="muted small">trung lập — không khuyến nghị</span>
+                {zone === "neutral" && ret !== null && (
+                  <span className="muted small">
+                    {preset ? "không tín hiệu — đứng ngoài" : "trung lập — không khuyến nghị"}
+                  </span>
                 )}
               </div>
             );

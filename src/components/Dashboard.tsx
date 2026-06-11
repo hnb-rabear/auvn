@@ -99,7 +99,12 @@ export default function Dashboard({
     () => compositeScore(analysis.criteria, weights),
     [analysis, weights]
   );
-  const zone = zoneOf(composite, preset?.buyThreshold ?? 40);
+  const rawZone = zoneOf(composite, preset?.buyThreshold ?? 40);
+  // Preset chỉ được kiểm chứng phía MUA — không bao giờ hiển thị vùng bán dưới preset.
+  const isBuyZone = rawZone === "buy" || rawZone === "strong-buy";
+  const zone: Zone = preset && !isBuyZone ? "neutral" : rawZone;
+  const isSellZone = zone === "sell" || zone === "strong-sell";
+  const verdictLabel = preset && !isBuyZone ? "CHƯA CÓ TÍN HIỆU MUA" : ZONE_LABELS[zone];
 
   const currentBuckets = backtest.buckets.filter(
     (b) => b.zone === zone && b.count > 0
@@ -159,7 +164,21 @@ export default function Dashboard({
       )}
 
       <section className={`verdict ${zoneClass(zone)}`}>
-        <div className="verdict-label">{ZONE_LABELS[zone]}</div>
+        <div className="verdict-label">{verdictLabel}</div>
+        {isSellZone && (
+          <div className="verdict-note">
+            ⚠ Cảnh báo tham khảo, KHÔNG phải khuyến nghị thoát vị thế: trong backtest 17
+            năm, tín hiệu bán chỉ đúng 49% sau 1 tháng và sai tới 75% sau 12 tháng. Ý
+            nghĩa thực tế: bớt mua thêm, không phải bán ra.
+          </div>
+        )}
+        {preset && !isBuyZone && (
+          <div className="verdict-note muted">
+            Preset chỉ kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
+            im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN
+            vượt vạch đỏ p80 ở biểu đồ bên dưới.
+          </div>
+        )}
         <div className="gauge">
           <div className="gauge-track">
             <div className="gauge-zero" />
@@ -245,19 +264,21 @@ export default function Dashboard({
 
       {showSettings && (
         <section className="card settings">
-          <h2>Bộ cấu hình theo kỳ hạn</h2>
+          <h2>Chọn chế độ</h2>
           <p className="muted small">
-            Mỗi preset được tuyển bằng grid search trên 17 năm dữ liệu, yêu cầu thắng
-            baseline ở cả 2 giai đoạn độc lập (2009–2018 và 2019–2026). Chi tiết:
-            docs/presets.md trong repo. Preset đặt tiêu chí chênh lệch VN = 0% vì chưa đủ
-            lịch sử kiểm chứng — vẫn xem được điểm của nó ở card bên dưới.
+            <b>Toàn cảnh</b> = radar 4 nhóm tiêu chí (duy nhất có tiêu chí chênh lệch VN
+            25% và cảnh báo bán) — dùng để hiểu thị trường. <b>Preset</b> = cò súng MUA
+            theo kỳ hạn, tuyển bằng grid search 17 năm, thắng baseline ở cả 2 giai đoạn
+            độc lập (2009–2018, 2019–2026) — dùng để quyết định gom mua. Preset không
+            xem chênh lệch VN (chưa đủ lịch sử kiểm chứng) nên trước khi mua hãy liếc
+            biểu đồ chênh lệch bên dưới. Chi tiết: docs/presets.md.
           </p>
           <div className="preset-row">
             <button
               className={`iconbtn ${!preset && !customized ? "active" : ""}`}
               onClick={() => applyPreset(null)}
             >
-              Mặc định
+              Toàn cảnh
             </button>
             {PRESETS.map((p) => {
               const hStatus = health.items.find((i) => i.presetId === p.id)?.status;
@@ -374,7 +395,7 @@ export default function Dashboard({
 
       <PremiumChart analysis={analysis} />
 
-      <TimeMachine timeline={timeline} />
+      <TimeMachine timeline={timeline} weights={weights} preset={preset} />
 
       <footer className="disclaimer">
         Công cụ hỗ trợ quyết định dựa trên thống kê quá khứ — không phải khuyến nghị đầu tư,
