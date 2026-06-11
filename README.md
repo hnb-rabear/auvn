@@ -20,7 +20,7 @@ PWA miễn phí giúp xác nhận **vùng mua / vùng bán** vàng vật chất 
 - **Toàn cảnh** (mặc định): radar 4 nhóm tiêu chí — nơi duy nhất tiêu chí chênh lệch VN có trọng số (25%) và có cảnh báo vùng bán. Dùng để *hiểu thị trường* và làm phanh an toàn trước khi mua.
 - **Preset theo kỳ hạn**: cò súng MUA chuyên dụng. 3 preset **Sóng 1 tháng / Sóng 3 tháng / Tích lũy 6 tháng** — mỗi bộ tuyển bằng grid search trên 17 năm dữ liệu, điều kiện thắng baseline ở cả 2 giai đoạn độc lập (2009–2018, 2019–2026). Tín hiệu mua đúng 73–96% tùy kỳ hạn so với baseline 52–80%, kèm khoảng tin cậy 95% (block bootstrap). Preset **không hiển thị vùng bán** vì phía bán chưa từng được kiểm chứng đạt.
 
-Quy tắc một dòng: **mua nghe app khi preset + toàn cảnh thuận nhau; bán theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN vượt p80 — tín hiệu bán trên màn hình chỉ là đèn vàng "bớt mua thêm"** (backtest: bán chỉ đúng 49% sau 1 tháng, sai 75% sau 12 tháng).
+Quy tắc một dòng: **mua nghe app khi preset + toàn cảnh thuận nhau; bán theo kế hoạch kỳ hạn của bạn hoặc khi biểu đồ chênh lệch báo VÙNG BÁN VN (chênh ≥ p80)**. Tín hiệu bán composite gần như vô giá trị: đúng 49% sau 1 tháng, và ở 6 tháng nó *ngược* — giá tăng trung vị +9,5% sau khi báo bán (vùng bán nổ giữa sóng tăng có quán tính). Tín hiệu bán thật của vàng VN là **chênh lệch cao bất thường**: kiểm chứng 487 ngày SJC, mua lúc chênh ≥ p80 thì sau 2 tháng chỉ +1,5% trung vị (57% số lần), còn chênh ≤ p20 thì +10,4% (90%).
 
 Các yếu tố tin tức/địa chính trị (GPR) và VIX đã được test và bị loại vì không cải thiện (hoặc làm giảm) độ chính xác; lợi suất Mỹ 10 năm được giữ vì cải thiện rõ. Phương pháp, bảng số liệu, khoảng tin cậy và các giới hạn cần biết: [docs/presets.md](docs/presets.md).
 
@@ -34,11 +34,11 @@ Bấm vào biểu đồ giá để chọn bất kỳ ngày nào trong ~17 năm: 
 
 - Zoom 6 tháng / 1 / 2 / 5 năm / tất cả; slider cuộn cửa sổ trái–phải
 - Chấm xanh = ngày có tín hiệu mua của chế độ đang chọn; nút ◀ ▶ nhảy thẳng giữa các tín hiệu
-- Toggle "Hiện vùng bán (tham khảo)" — chấm đỏ + verdict bán để tự kiểm chứng vì sao tín hiệu bán chỉ đáng tham khảo
+- Toggle "Hiện vùng bán (chỉ tham khảo 1 tháng)" — chấm đỏ + verdict bán, nhưng chỉ chấm đúng/sai ở kỳ hạn 1 tháng; 3–6 tháng ghi "không chấm" vì lịch sử cho thấy bán dài hạn thường ngược
 
 ## Biểu đồ chênh lệch VN — thế giới
 
-Đường premium ~490 ngày kèm vạch percentile p20/p50/p80: dưới vạch xanh = chênh rẻ lịch sử (mua VN ít thiệt), trên vạch đỏ = chênh đắt bất thường (thuận bán, tránh mua).
+Đường premium ~490 ngày kèm vạch percentile p20/p50/p80: dưới vạch xanh = chênh rẻ lịch sử (mua VN ít thiệt), trên vạch đỏ = chênh đắt bất thường. Khi chênh hiện tại vượt p80, app hiện banner **VÙNG BÁN VN theo chênh lệch** — tín hiệu bán đáng tin nhất cho vàng vật chất VN (bằng chứng: `npx tsx scripts/premium-exit-study.ts`); dưới p20 hiện ghi chú vùng mua ít thiệt.
 
 ## Chạy local
 
@@ -57,6 +57,7 @@ npx tsx scripts/factor-study.ts         # ablation: lợi suất / VIX / GPR
 npx tsx scripts/single-factor-study.ts  # từng tín hiệu vĩ mô đứng một mình
 npx tsx scripts/horizon-study.ts        # hiệu quả theo 4 kỳ hạn
 npx tsx scripts/backfill-vn.ts          # nhập lại lịch sử SJC từ CafeF
+npx tsx scripts/premium-exit-study.ts   # chênh cao có phải vùng bán VN tốt?
 ```
 
 Lỗi dev server "Cannot find module './NNN.js'" sau khi build nhiều lần: xóa thư mục `.next` rồi chạy lại `npm run dev` (cache webpack thối, không phải bug).
