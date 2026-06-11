@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-11T09:54:21.423Z",
+ "generatedAt": "2026-06-11T14:36:24.746Z",
  "dataDate": "2026-06-11",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 138400000,
   "ringBuy": 133700000,
   "ringSell": 138700000,
-  "xauUsd": 4111.5,
+  "xauUsd": 4103.10009765625,
   "usdVnd": 26410,
-  "worldVndPerLuong": 130915487,
+  "worldVndPerLuong": 130648023,
   "premiumPct": 5.72,
-  "premiumVnd": 7484513
+  "premiumVnd": 7751977
  },
  "criteria": [
   {
@@ -23,21 +23,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 2,
-     "explanation": "RSI ngày = 25: quá bán — vùng mua hiếm gặp.",
+     "explanation": "RSI ngày = 24,5: quá bán — vùng mua hiếm gặp.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 40,6: trung tính.",
+     "explanation": "RSI tuần = 40,4: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 6,9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7,1%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -96,21 +96,21 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 100,1 (trên MA50, +1,8% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 100,2 (trên MA50, +1,9% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
      "id": "fed",
      "label": "Hướng lãi suất Fed",
-     "score": 1,
-     "explanation": "Fed funds 3,63% (3 tháng trước 3,64%): lãi suất nhích xuống — thuận lợi cho vàng.",
-     "available": true
+     "score": 0,
+     "explanation": "Không có dữ liệu.",
+     "available": false
     },
     {
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,54%, thay đổi 3 tháng +0,33 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,52%, thay đổi 3 tháng +0,25 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -121,7 +121,7 @@
      "available": true
     }
    ],
-   "score": -0.5,
+   "score": -1,
    "available": true
   },
   {
@@ -132,7 +132,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 43% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 41% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -167,10 +167,13 @@
   "macro": 0.2,
   "stats": 0.2
  },
- "composite": 6.5,
+ "composite": 1.5,
  "zone": "neutral",
  "vnHistoryDays": 487,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed — tín hiệu lãi suất tạm bỏ qua.",
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
