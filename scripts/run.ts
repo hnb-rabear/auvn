@@ -7,6 +7,7 @@ import {
   fetchFedFunds,
   fetchVnGold,
   fetchUsdVnd,
+  fetchYield10y,
 } from "./fetch";
 import { runBacktest } from "./backtest";
 import {
@@ -49,12 +50,13 @@ async function main() {
   const warnings: string[] = [];
   const today = vnToday();
 
-  const [xauRes, dxyRes, fedRes, vnRes, usdVndRes] = await Promise.all([
+  const [xauRes, dxyRes, fedRes, vnRes, usdVndRes, yieldRes] = await Promise.all([
     fetchXau().catch(() => null),
     fetchDxy().catch(() => null),
     fetchFedFunds().catch(() => null),
     fetchVnGold().catch(() => null),
     fetchUsdVnd().catch(() => null),
+    fetchYield10y().catch(() => null),
   ]);
 
   if (!xauRes) {
@@ -72,6 +74,8 @@ async function main() {
   else warnings.push("Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất.");
   if (usdVndRes) console.log(`USD/VND: ${usdVndRes.value} (${usdVndRes.source})`);
   else warnings.push("Không lấy được tỷ giá USD/VND hôm nay.");
+  if (yieldRes) console.log(`YIELD10Y: ${yieldRes.bars.length} bars (${yieldRes.source})`);
+  else warnings.push("Không lấy được lợi suất Mỹ 10 năm — tín hiệu lợi suất tạm bỏ qua.");
 
   const history = loadVnHistory();
   const xauLast = xauRes.bars[xauRes.bars.length - 1].close;
@@ -162,6 +166,9 @@ async function main() {
       usdVndHistory: history
         .filter((e) => e.usdVnd !== null)
         .map((e) => ({ date: e.date, value: e.usdVnd as number })),
+      yield10y: yieldRes
+        ? { closes: yieldRes.bars.map((b) => b.close), real: yieldRes.real }
+        : undefined,
     }),
     statsCriterion(closes, dates),
   ];
@@ -181,8 +188,14 @@ async function main() {
     warnings,
   };
 
-  // --- backtest + timeline giả lập lịch sử
-  const { backtest, timeline } = runBacktest(xauRes.bars, dxyRes?.bars ?? null, fedRes);
+  // --- backtest + timeline giả lập lịch sử (cùng bộ tín hiệu với phân tích live)
+  const { backtest, timeline } = runBacktest(
+    xauRes.bars,
+    dxyRes?.bars ?? null,
+    fedRes,
+    undefined,
+    { yield10y: yieldRes }
+  );
 
   mkdirSync(HISTORY_DIR, { recursive: true });
   writeFileSync(VN_HISTORY_FILE, JSON.stringify(history, null, 1));

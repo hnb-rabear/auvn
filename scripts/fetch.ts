@@ -74,18 +74,86 @@ export async function fetchDxy(): Promise<{ bars: DailyBar[]; source: string } |
   }
 }
 
-/** Fed funds rate theo tháng từ FRED CSV công khai (không cần key). */
-export async function fetchFedFunds(): Promise<{ date: string; value: number }[] | null> {
+/** Chuỗi FRED bất kỳ qua CSV công khai (không cần key). */
+async function fetchFredSeries(id: string, minRows: number): Promise<DailyBar[] | null> {
   try {
-    const csv = await get("https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS");
+    const csv = await get(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${id}`, 60000);
     const lines = csv.trim().split("\n");
-    const out: { date: string; value: number }[] = [];
+    const out: DailyBar[] = [];
     for (let i = 1; i < lines.length; i++) {
       const [d, raw] = lines[i].split(",");
       const v = parseFloat(raw);
-      if (d && Number.isFinite(v)) out.push({ date: d, value: v });
+      if (d && Number.isFinite(v)) out.push({ date: d, close: v });
     }
-    return out.length > 12 ? out : null;
+    return out.length >= minRows ? out : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Fed funds rate theo tháng. */
+export async function fetchFedFunds(): Promise<{ date: string; value: number }[] | null> {
+  const bars = await fetchFredSeries("FEDFUNDS", 12);
+  return bars ? bars.map((b) => ({ date: b.date, value: b.close })) : null;
+}
+
+/**
+ * Lợi suất trái phiếu Mỹ 10 năm. ^TNX (danh nghĩa) làm nguồn chính vì toàn bộ
+ * bằng chứng test trong docs/presets.md được kiểm chứng trên ^TNX; DFII10
+ * (lợi suất thực — mạnh hơn về lý thuyết nhưng FRED hay 504) chỉ là dự phòng.
+ */
+export async function fetchYield10y(): Promise<{ bars: DailyBar[]; real: boolean; source: string } | null> {
+  try {
+    return { bars: await fetchYahoo("^TNX"), real: false, source: "yahoo:^TNX" };
+  } catch {
+    const fred = await fetchFredSeries("DFII10", 500);
+    if (fred) return { bars: fred, real: true, source: "fred:DFII10" };
+    return null;
+  }
+}
+
+export async function fetchVix(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  try {
+    return { bars: await fetchYahoo("^VIX"), source: "yahoo:^VIX" };
+  } catch {
+    return null;
+  }
+}
+
+/** Geopolitical Risk Index (Caldara & Iacoviello) — file XLS hàng ngày. */
+export async function fetchGpr(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  try {
+    const XLSX = await import("xlsx");
+    const res = await fetch(
+      "https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls",
+      { headers: { "User-Agent": UA }, signal: AbortSignal.timeout(60000) }
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const wb = XLSX.read(Buffer.from(await res.arrayBuffer()), { type: "buffer" });
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    const rows: Record<string, unknown>[] = XLSX.utils.sheet_to_json(sheet);
+    const dateKey = Object.keys(rows[0] ?? {}).find((k) => /date|day/i.test(k));
+    const valKey = Object.keys(rows[0] ?? {}).find((k) => /^GPRD$/i.test(k));
+    if (!dateKey || !valKey) throw new Error(`gpr: columns not found (${Object.keys(rows[0] ?? {}).join(",")})`);
+    const out: DailyBar[] = [];
+    for (const r of rows) {
+      const v = Number(r[valKey]);
+      const raw = String(r[dateKey]);
+      let d: string;
+      if (/^\d{8}$/.test(raw)) {
+        d = `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}`;
+      } else if (/^\d+$/.test(raw)) {
+        // serial date của Excel
+        d = new Date(Date.UTC(1899, 11, 30) + Number(raw) * 86400000).toISOString().slice(0, 10);
+      } else {
+        const parsed = new Date(raw);
+        if (Number.isNaN(parsed.getTime())) continue;
+        d = parsed.toISOString().slice(0, 10);
+      }
+      if (Number.isFinite(v)) out.push({ date: d, close: v });
+    }
+    out.sort((a, b) => (a.date < b.date ? -1 : 1));
+    return out.length > 500 ? { bars: out, source: "gpr:daily" } : null;
   } catch {
     return null;
   }

@@ -165,6 +165,33 @@ describe("criteria", () => {
     expect(r.signals.find((s) => s.id === "dxy")!.score).toBe(2);
     expect(r.signals.find((s) => s.id === "fed")!.score).toBe(2);
     expect(r.signals.find((s) => s.id === "usdvnd")!.available).toBe(false);
+    // không truyền yield/vix/gpr -> không xuất hiện tín hiệu tương ứng
+    expect(r.signals.find((s) => s.id === "yield10y")).toBeUndefined();
+    expect(r.signals.find((s) => s.id === "vix")).toBeUndefined();
+    expect(r.signals.find((s) => s.id === "gpr")).toBeUndefined();
+  });
+
+  it("macro: falling 10y yield favors gold, rising hurts", () => {
+    const base = {
+      dxyCloses: range(120, () => 100),
+      fedRates: [5, 5, 5, 5],
+      usdVndHistory: [],
+    };
+    const falling = macroCriterion({
+      ...base,
+      yield10y: { closes: range(100, (i) => 5 - i * 0.01), real: false },
+    });
+    expect(falling.signals.find((s) => s.id === "yield10y")!.score).toBe(2);
+    const rising = macroCriterion({
+      ...base,
+      yield10y: { closes: range(100, (i) => 3 + i * 0.01), real: false },
+    });
+    expect(rising.signals.find((s) => s.id === "yield10y")!.score).toBe(-2);
+    const flat = macroCriterion({
+      ...base,
+      yield10y: { closes: range(100, () => 4), real: false },
+    });
+    expect(flat.signals.find((s) => s.id === "yield10y")!.score).toBe(0);
   });
 
   it("stats: price at multi-year low leans buy", () => {

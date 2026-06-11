@@ -284,6 +284,12 @@ export interface MacroInputs {
   fedRates: number[];
   /** USD/VND tự tích lũy: [date, value] cũ -> mới */
   usdVndHistory: { date: string; value: number }[];
+  /** Lợi suất trái phiếu Mỹ 10 năm (%); real=true nếu là lợi suất thực DFII10 */
+  yield10y?: { closes: number[]; real: boolean };
+  /** VIX đóng cửa ngày cũ -> mới */
+  vixCloses?: number[];
+  /** Geopolitical Risk Index (GPRD) ngày cũ -> mới */
+  gprCloses?: number[];
 }
 
 /** Tiêu chí 3: vĩ mô. */
@@ -351,6 +357,81 @@ export function macroCriterion(inp: MacroInputs): CriterionResult {
       label: "Hướng lãi suất Fed",
       score,
       explanation: `Fed funds ${fmt(last, 2)}% (3 tháng trước ${fmt(ago3m, 2)}%): ${text}.`,
+      available: true,
+    });
+  }
+
+  if (inp.yield10y && inp.yield10y.closes.length >= 64) {
+    const yc = inp.yield10y.closes;
+    const last = yc[yc.length - 1];
+    const d = last - yc[yc.length - 64];
+    let score: number;
+    let text: string;
+    if (d <= -0.4) {
+      score = 2;
+      text = "lợi suất đang rơi mạnh — môi trường rất thuận cho vàng";
+    } else if (d <= -0.1) {
+      score = 1;
+      text = "lợi suất đang giảm — thuận lợi cho vàng";
+    } else if (d < 0.1) {
+      score = 0;
+      text = "lợi suất đi ngang";
+    } else if (d < 0.4) {
+      score = -1;
+      text = "lợi suất nhích lên — bất lợi nhẹ cho vàng";
+    } else {
+      score = -2;
+      text = "lợi suất tăng mạnh — sức ép lớn lên vàng";
+    }
+    const kind = inp.yield10y.real ? "thực (TIPS)" : "danh nghĩa";
+    signals.push({
+      id: "yield10y",
+      label: "Lợi suất Mỹ 10 năm",
+      score,
+      explanation: `Lợi suất ${kind} 10 năm = ${fmt(last, 2)}%, thay đổi 3 tháng ${d >= 0 ? "+" : ""}${fmt(d, 2)} điểm: ${text}.`,
+      available: true,
+    });
+  } else if (inp.yield10y) {
+    signals.push(unavailable("yield10y", "Lợi suất Mỹ 10 năm"));
+  }
+
+  if (inp.vixCloses && inp.vixCloses.length >= 1) {
+    const vix = inp.vixCloses[inp.vixCloses.length - 1];
+    let score = 0;
+    let text = "thị trường tài chính bình ổn — trung tính với vàng.";
+    if (vix >= 40) {
+      score = 2;
+      text = "hoảng loạn tài chính — dòng tiền trú ẩn thường đổ vào vàng.";
+    } else if (vix >= 30) {
+      score = 1;
+      text = "căng thẳng tài chính cao — vàng được hưởng cầu trú ẩn.";
+    }
+    signals.push({
+      id: "vix",
+      label: "Chỉ số sợ hãi VIX",
+      score,
+      explanation: `VIX = ${fmt(vix)}: ${text}`,
+      available: true,
+    });
+  }
+
+  if (inp.gprCloses && inp.gprCloses.length >= 100) {
+    const pr = percentileRank(inp.gprCloses, 504) ?? 50;
+    const last = inp.gprCloses[inp.gprCloses.length - 1];
+    let score = 0;
+    let text = "rủi ro địa chính trị ở mức bình thường.";
+    if (pr >= 95) {
+      score = 2;
+      text = "rủi ro địa chính trị cực cao (chiến tranh/khủng hoảng) — cầu trú ẩn mạnh.";
+    } else if (pr >= 85) {
+      score = 1;
+      text = "rủi ro địa chính trị dâng cao — hỗ trợ giá vàng.";
+    }
+    signals.push({
+      id: "gpr",
+      label: "Rủi ro địa chính trị (GPR)",
+      score,
+      explanation: `GPR = ${fmt(last, 0)}, percentile ${fmt(pr, 0)} so với 2 năm: ${text}`,
       available: true,
     });
   }

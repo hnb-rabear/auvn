@@ -27,11 +27,18 @@ const WARMUP = 756;
 /** bước nhảy giữa các quan sát để giảm trùng lặp chuỗi và thời gian chạy */
 const STEP = 3;
 
+export interface BacktestExtras {
+  yield10y?: { bars: DailyBar[]; real: boolean } | null;
+  vix?: DailyBar[] | null;
+  gpr?: DailyBar[] | null;
+}
+
 export function runBacktest(
   xau: DailyBar[],
   dxy: DailyBar[] | null,
   fed: { date: string; value: number }[] | null,
-  horizons: number[] = HORIZONS
+  horizons: number[] = HORIZONS,
+  extras: BacktestExtras = {}
 ): { backtest: Backtest; timeline: Timeline } {
   const closes = xau.map((b) => b.close);
   const dates = xau.map((b) => b.date);
@@ -42,6 +49,12 @@ export function runBacktest(
   let observations = 0;
   let dxyPtr = 0;
   let fedPtr = 0;
+  let yieldPtr = 0;
+  let vixPtr = 0;
+  let gprPtr = 0;
+  const yieldBars = extras.yield10y?.bars ?? null;
+  const vixBars = extras.vix ?? null;
+  const gprBars = extras.gpr ?? null;
 
   for (let i = WARMUP; i < closes.length; i += STEP) {
     const date = dates[i];
@@ -59,8 +72,33 @@ export function runBacktest(
       const dxyCloses = dxy.slice(0, dxyPtr).map((b) => b.close);
       const fedRates = fed.slice(0, fedPtr).map((f) => f.value);
       if (dxyCloses.length >= 51 && fedRates.length >= 4) {
+        let yield10y: { closes: number[]; real: boolean } | undefined;
+        if (yieldBars) {
+          while (yieldPtr < yieldBars.length && yieldBars[yieldPtr].date <= date) yieldPtr++;
+          yield10y = {
+            closes: yieldBars.slice(0, yieldPtr).map((b) => b.close),
+            real: extras.yield10y!.real,
+          };
+        }
+        let vixCloses: number[] | undefined;
+        if (vixBars) {
+          while (vixPtr < vixBars.length && vixBars[vixPtr].date <= date) vixPtr++;
+          vixCloses = vixBars.slice(0, vixPtr).map((b) => b.close);
+        }
+        let gprCloses: number[] | undefined;
+        if (gprBars) {
+          while (gprPtr < gprBars.length && gprBars[gprPtr].date <= date) gprPtr++;
+          gprCloses = gprBars.slice(0, gprPtr).map((b) => b.close);
+        }
         criteria.push(
-          macroCriterion({ dxyCloses, fedRates, usdVndHistory: [] })
+          macroCriterion({
+            dxyCloses,
+            fedRates,
+            usdVndHistory: [],
+            yield10y,
+            vixCloses,
+            gprCloses,
+          })
         );
       }
     }

@@ -12,12 +12,12 @@ PWA miễn phí giúp xác nhận **vùng mua / vùng bán** vàng vật chất 
 
 1. **Kỹ thuật XAU/USD (35%)** — RSI ngày/tuần, MA200, biên độ 52 tuần, hỗ trợ/kháng cự
 2. **Chênh lệch VN — thế giới (25%)** — premium SJC vs giá quy đổi, spread mua–bán, nhẫn vs miếng
-3. **Vĩ mô (20%)** — DXY, hướng lãi suất Fed, nhịp tỷ giá USD/VND
+3. **Vĩ mô (20%)** — DXY, hướng lãi suất Fed, lợi suất Mỹ 10 năm, nhịp tỷ giá USD/VND
 4. **Thống kê lịch sử (20%)** — percentile giá 1y/3y, mùa vụ theo tháng, chế độ biến động
 
 ## Bộ cấu hình theo kỳ hạn (preset)
 
-Trong ⚙ Trọng số có 3 preset **Sóng 1 tháng / Sóng 3 tháng / Tích lũy 6 tháng** — mỗi bộ được tuyển bằng grid search trên 17 năm dữ liệu với điều kiện thắng baseline ở cả 2 giai đoạn độc lập (2009–2018, 2019–2026). Tín hiệu mua của preset đúng 72–93% tùy kỳ hạn, so với baseline 52–80%. Phương pháp, bảng số liệu đầy đủ và các giới hạn cần biết: [docs/presets.md](docs/presets.md).
+Trong ⚙ Trọng số có 3 preset **Sóng 1 tháng / Sóng 3 tháng / Tích lũy 6 tháng** — mỗi bộ được tuyển bằng grid search trên 17 năm dữ liệu với điều kiện thắng baseline ở cả 2 giai đoạn độc lập (2009–2018, 2019–2026). Tín hiệu mua của preset đúng 73–96% tùy kỳ hạn, so với baseline 52–80%. Các yếu tố tin tức/địa chính trị (GPR) và VIX đã được test và bị loại vì không cải thiện (hoặc làm giảm) độ chính xác. Phương pháp, bảng số liệu đầy đủ và các giới hạn cần biết: [docs/presets.md](docs/presets.md).
 
 ## Máy thời gian — xét lại lịch sử
 

@@ -24,6 +24,9 @@ All analysis runs at data-collection time, not at page load. The Git repo is the
 | XAU/USD, DXY | Yahoo Finance chart API (`GC=F`, `DX-Y.NYB`) | 20 yrs; fallback Stooq (404'd as of 2026-06) |
 | USD/VND | Vietcombank pXML endpoint | self-accumulated; fallback open.er-api.com |
 | Fed rates | FRED public CSV `fredgraph.csv?id=FEDFUNDS` (no key needed) | full |
+| US 10y yield | Yahoo `^TNX` (nominal — all preset evidence validated on it) | 20 yrs; fallback FRED DFII10 (real yield, but FRED 504s on daily series often) |
+
+Tested and REJECTED signals (do not re-add without re-running `scripts/factor-study.ts`): GPR geopolitical index (hurts accuracy at every horizon), VIX (no improvement over the yield signal). Evidence in docs/presets.md.
 
 VN price normalization: sources quote per-lượng, per-chỉ, or thousand-VND — `normalizeVnd()` tries ×1/×10/×1000/×10000 and picks the value landing in 50–600M VND/lượng. If gold price leaves that band someday, update it.
 
