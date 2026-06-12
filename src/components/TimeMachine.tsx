@@ -8,10 +8,10 @@ import {
   type CriterionKey,
   type Preset,
   type Timeline,
-  type TimelinePoint,
   type Zone,
 } from "@/lib/types";
 import { centerWindow } from "@/lib/brush";
+import { pointComposite, thresholdIdxs } from "@/lib/timeline";
 import TimelineBrush from "./TimelineBrush";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -36,18 +36,6 @@ const HORIZON_LABELS: Record<"21" | "63" | "126", string> = {
   "63": "3 tháng",
   "126": "6 tháng",
 };
-
-/** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
-function pointComposite(p: TimelinePoint, weights: Record<CriterionKey, number>): number {
-  let s = 0;
-  let tw = 0;
-  for (const [k, score] of Object.entries(p.scores)) {
-    const w = weights[k as CriterionKey] ?? 0;
-    s += (score as number) * w;
-    tw += w;
-  }
-  return tw === 0 ? 0 : Math.round((s / tw) * 50 * 10) / 10;
-}
 
 /**
  * Đúng/sai của quyết định: mua đúng khi giá tăng, bán đúng khi giá giảm.
@@ -92,11 +80,7 @@ export default function TimeMachine({
 
   const buyThr = preset?.buyThreshold ?? 40;
   const signalIdxs = useMemo(
-    () =>
-      points.reduce<number[]>((acc, q, i) => {
-        if (pointComposite(q, weights) >= buyThr) acc.push(i);
-        return acc;
-      }, []),
+    () => thresholdIdxs(points, weights, buyThr),
     [points, weights, buyThr]
   );
   const sellIdxs = useMemo(
