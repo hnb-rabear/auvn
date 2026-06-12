@@ -5,12 +5,14 @@ import { applyBrushDrag, centerWindow, type BrushDragMode } from "@/lib/brush";
 
 const W = 700;
 const H = 34;
-/** bề rộng vùng bắt handle theo viewBox (~14px khi render 700px) */
-const HANDLE_HIT = 14;
+/** vùng bắt handle tính theo px màn hình — không co theo viewBox trên màn hẹp */
+const HANDLE_PX = 14;
 
 /**
  * Minimap brush: vẽ thu nhỏ toàn bộ lịch sử giá; kéo 2 đầu để co giãn
  * cửa sổ thời gian, kéo giữa để pan, bấm ngoài cửa sổ để nhảy tới đó.
+ * Mọi pointerdown đi qua một handler trên svg: mode xác định theo px màn hình
+ * nên handle luôn đủ rộng cho ngón tay, kể cả khi cửa sổ rất hẹp.
  */
 export default function TimelineBrush({
   prices,
@@ -27,6 +29,7 @@ export default function TimelineBrush({
 }) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const drag = useRef<{
+    pointerId: number;
     mode: BrushDragMode;
     anchorStart: number;
     anchorSpan: number;
@@ -50,38 +53,56 @@ export default function TimelineBrush({
   // cửa sổ phủ [start, start + span) trên total điểm
   const winX = (start / total) * W;
   const winW = (span / total) * W;
-  // thu hẹp vùng bắt handle khi cửa sổ rất hẹp (min zoom) để thân vẫn pan được
-  const hit = Math.min(HANDLE_HIT, Math.max(4, winW / 2));
+  // grip nhìn thấy thu hẹp khi cửa sổ rất hẹp (trang trí — hit thật tính theo px màn hình)
+  const grip = Math.min(14, Math.max(4, winW / 2));
 
-  const beginDrag = (mode: BrushDragMode) => (e: React.PointerEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    svgRef.current?.setPointerCapture(e.pointerId);
-    drag.current = { mode, anchorStart: start, anchorSpan: span, originX: e.clientX };
-  };
-
-  /** bấm ngoài cửa sổ: nhảy cửa sổ tới điểm bấm rồi tiếp tục như pan */
-  const onJump = (e: React.PointerEvent) => {
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (drag.current || e.button !== 0 || !e.isPrimary) return;
     const rect = svgRef.current?.getBoundingClientRect();
     if (!rect || rect.width === 0) return;
     e.preventDefault();
+    const xPx = e.clientX - rect.left;
+    const leftPx = (winX / W) * rect.width;
+    const rightPx = ((winX + winW) / W) * rect.width;
+    const dLeft = Math.abs(xPx - leftPx);
+    const dRight = Math.abs(xPx - rightPx);
+    let mode: BrushDragMode;
+    let anchorStart = start;
+    if (dLeft <= HANDLE_PX && dLeft <= dRight) {
+      mode = "left";
+    } else if (dRight <= HANDLE_PX) {
+      mode = "right";
+    } else if (xPx > leftPx && xPx < rightPx) {
+      mode = "pan";
+    } else {
+      // bấm ngoài cửa sổ: nhảy cửa sổ tới điểm bấm rồi tiếp tục như pan
+      mode = "pan";
+      const frac = Math.max(0, Math.min(1, xPx / rect.width));
+      anchorStart = centerWindow(Math.round(frac * total), span, total);
+      onChange(anchorStart, span);
+    }
     svgRef.current?.setPointerCapture(e.pointerId);
-    const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const s = centerWindow(Math.round(frac * total), span, total);
-    onChange(s, span);
-    drag.current = { mode: "pan", anchorStart: s, anchorSpan: span, originX: e.clientX };
+    drag.current = {
+      pointerId: e.pointerId,
+      mode,
+      anchorStart,
+      anchorSpan: span,
+      originX: e.clientX,
+    };
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
     const d = drag.current;
+    if (!d || e.pointerId !== d.pointerId) return;
     const rect = svgRef.current?.getBoundingClientRect();
-    if (!d || !rect || rect.width === 0) return;
+    if (!rect || rect.width === 0) return;
     const deltaIdx = Math.round(((e.clientX - d.originX) / rect.width) * total);
     const next = applyBrushDrag(d.mode, d.anchorStart, d.anchorSpan, deltaIdx, total, minSpan);
     onChange(next.start, next.span);
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
+    if (drag.current && e.pointerId !== drag.current.pointerId) return;
     drag.current = null;
     svgRef.current?.releasePointerCapture(e.pointerId);
   };
@@ -108,32 +129,23 @@ export default function TimelineBrush({
       aria-valuemin={0}
       aria-valuemax={total - span}
       aria-valuenow={start}
+      onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
       onKeyDown={onKeyDown}
     >
       <path d={path} fill="none" stroke="#e6b84c" strokeWidth="1" opacity="0.45" />
-      {/* vùng mờ ngoài cửa sổ — bấm để nhảy */}
-      <rect className="tm-brush-dim" x="0" y="0" width={winX} height={H} onPointerDown={onJump} />
+      {/* lớp dưới chỉ để hiển thị + cursor — pointerdown xử lý ở svg */}
+      <rect className="tm-brush-dim" x="0" y="0" width={winX} height={H} />
       <rect
         className="tm-brush-dim"
         x={winX + winW}
         y="0"
         width={Math.max(0, W - winX - winW)}
         height={H}
-        onPointerDown={onJump}
       />
-      {/* thân cửa sổ — kéo để pan */}
-      <rect
-        className="tm-brush-win"
-        x={winX}
-        y="0"
-        width={winW}
-        height={H}
-        onPointerDown={beginDrag("pan")}
-      />
-      {/* tay nắm trái/phải — kéo để co giãn (grip nhìn thấy + hit area rộng) */}
+      <rect className="tm-brush-win" x={winX} y="0" width={winW} height={H} />
       <rect className="tm-brush-grip" x={winX - 2} y={H / 2 - 8} width="4" height="16" rx="2" />
       <rect
         className="tm-brush-grip"
@@ -145,19 +157,17 @@ export default function TimelineBrush({
       />
       <rect
         className="tm-brush-handle"
-        x={winX - hit / 2}
+        x={winX - grip / 2}
         y="0"
-        width={hit}
+        width={grip}
         height={H}
-        onPointerDown={beginDrag("left")}
       />
       <rect
         className="tm-brush-handle"
-        x={winX + winW - hit / 2}
+        x={winX + winW - grip / 2}
         y="0"
-        width={hit}
+        width={grip}
         height={H}
-        onPointerDown={beginDrag("right")}
       />
     </svg>
   );
