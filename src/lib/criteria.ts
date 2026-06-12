@@ -472,6 +472,46 @@ export function macroCriterion(inp: MacroInputs): CriterionResult {
   return finish("macro", signals);
 }
 
+/** Tiêu chí 5 (backtest + live): động lượng giá XAU/USD 12 tháng (trend-following). */
+export function momentumCriterion(closes: number[]): CriterionResult {
+  const signals: SubSignal[] = [];
+
+  if (closes.length < 253) {
+    signals.push(unavailable("mom12m", "Động lượng XAU 12 tháng"));
+  } else {
+    const last = closes[closes.length - 1];
+    const prev = closes[closes.length - 253];
+    const mom = (last / prev - 1) * 100;
+    let score: number;
+    let text: string;
+    if (mom > 20) {
+      score = 2;
+      text = "đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend";
+    } else if (mom > 5) {
+      score = 1;
+      text = "đà tăng vừa — xu hướng tích cực";
+    } else if (mom > -10) {
+      score = 0;
+      text = "không có xu hướng rõ 12 tháng";
+    } else if (mom > -25) {
+      score = -1;
+      text = "đà giảm — xu hướng bear, hạn chế mua";
+    } else {
+      score = -2;
+      text = "đà giảm mạnh — thị trường bear sâu, tránh mua";
+    }
+    signals.push({
+      id: "mom12m",
+      label: "Động lượng XAU 12 tháng",
+      score,
+      explanation: `XAU/USD thay đổi ${mom >= 0 ? "+" : ""}${fmt(mom)}% so với 12 tháng trước: ${text}.`,
+      available: true,
+    });
+  }
+
+  return finish("momentum", signals);
+}
+
 /** Lợi suất 63 phiên tới trung bình theo tháng dương lịch, tính trên toàn lịch sử. */
 export function seasonalityTable(closes: number[], dates: string[]): Map<number, number> {
   const sums = new Map<number, { s: number; n: number }>();

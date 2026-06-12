@@ -1,4 +1,4 @@
-export type CriterionKey = "technical" | "premium" | "macro" | "stats";
+export type CriterionKey = "technical" | "premium" | "macro" | "stats" | "momentum";
 
 export interface SubSignal {
   id: string;
@@ -127,6 +127,7 @@ export const DEFAULT_WEIGHTS: Record<CriterionKey, number> = {
   premium: 0.25,
   macro: 0.2,
   stats: 0.2,
+  momentum: 0,
 };
 
 export const CRITERION_LABELS: Record<CriterionKey, string> = {
@@ -134,6 +135,7 @@ export const CRITERION_LABELS: Record<CriterionKey, string> = {
   premium: "Chênh lệch VN — thế giới",
   macro: "Vĩ mô (USD, lãi suất, tỷ giá)",
   stats: "Thống kê lịch sử",
+  momentum: "Động lượng XAU 12 tháng",
 };
 
 export const ZONE_LABELS: Record<Zone, string> = {
@@ -194,23 +196,23 @@ export const PRESETS: Preset[] = [
     id: "1m",
     label: "Sóng 1 tháng",
     horizonDays: 21,
-    weights: { technical: 0, premium: 0, macro: 0.9, stats: 0.1 },
+    weights: { technical: 0.1, premium: 0, macro: 0.6, stats: 0.1, momentum: 0.2 },
     buyThreshold: 40,
     evidence: {
-      trainFav: 73.4,
-      trainN: 94,
+      trainFav: 75.7,
+      trainN: 37,
       trainBaseline: 51.9,
-      testFav: 77.4,
-      testN: 106,
+      testFav: 82.9,
+      testN: 70,
       testBaseline: 60.6,
-      medianTestReturnPct: 4.0,
+      medianTestReturnPct: 4.6,
     },
   },
   {
     id: "3m",
     label: "Sóng 3 tháng",
     horizonDays: 63,
-    weights: { technical: 0.1, premium: 0, macro: 0.9, stats: 0 },
+    weights: { technical: 0.1, premium: 0, macro: 0.9, stats: 0, momentum: 0 },
     buyThreshold: 50,
     evidence: {
       trainFav: 82.2,
@@ -226,7 +228,7 @@ export const PRESETS: Preset[] = [
     id: "6m",
     label: "Tích lũy 6 tháng",
     horizonDays: 126,
-    weights: { technical: 0, premium: 0, macro: 0.9, stats: 0.1 },
+    weights: { technical: 0, premium: 0, macro: 0.9, stats: 0.1, momentum: 0 },
     buyThreshold: 50,
     evidence: {
       trainFav: 89.4,

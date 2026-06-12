@@ -12,6 +12,7 @@ import {
   technicalCriterion,
   premiumCriterion,
   macroCriterion,
+  momentumCriterion,
   statsCriterion,
 } from "../src/lib/criteria";
 import { compositeScore, zoneOf, DEFAULT_WEIGHTS, PRESETS } from "../src/lib/types";
@@ -193,6 +194,28 @@ describe("criteria", () => {
       yield10y: { closes: range(100, () => 4), real: false },
     });
     expect(flat.signals.find((s) => s.id === "yield10y")!.score).toBe(0);
+  });
+
+  it("momentumCriterion: strong 12m uptrend gives score 2", () => {
+    // Giá tăng từ 1000 lên ~2100 trong 300 phiên => 12m mom ~+100% → score 2
+    const closes = range(300, (i) => 1000 + i * 3.5);
+    const r = momentumCriterion(closes);
+    expect(r.available).toBe(true);
+    expect(r.key).toBe("momentum");
+    expect(r.signals[0].score).toBe(2);
+  });
+
+  it("momentumCriterion: strong 12m downtrend gives score -2", () => {
+    // Giá giảm từ 2000 xuống ~700 trong 300 phiên => 12m mom ~-65% → score -2
+    const closes = range(300, (i) => 2000 - i * 4.5);
+    const r = momentumCriterion(closes);
+    expect(r.available).toBe(true);
+    expect(r.signals[0].score).toBe(-2);
+  });
+
+  it("momentumCriterion: insufficient history gives unavailable", () => {
+    const r = momentumCriterion(range(100, () => 1000));
+    expect(r.available).toBe(false);
   });
 
   it("stats: price at multi-year low leans buy", () => {

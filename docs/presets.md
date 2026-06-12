@@ -1,6 +1,6 @@
 # Bộ cấu hình (preset) theo kỳ hạn — phương pháp & bằng chứng test
 
-Cập nhật: 2026-06-11 (v2 — sau khi thêm tín hiệu lợi suất Mỹ 10 năm). Sinh bởi `scripts/presets-study.ts` + `scripts/factor-study.ts` trên dữ liệu thật đến 11/06/2026.
+Cập nhật: 2026-06-12 (v3 — sau khi thêm tín hiệu động lượng 12 tháng cho preset 1m). Sinh bởi `scripts/presets-study.ts` + `scripts/factor-study.ts` + `scripts/factor-study-momentum-offline.ts` trên dữ liệu thật đến 12/06/2026.
 
 ## Câu hỏi cần trả lời
 
@@ -18,6 +18,25 @@ Với từng kỳ hạn nắm giữ (1 / 3 / 6 tháng), bộ trọng số tiêu 
 
 "Đúng" nghĩa là: tín hiệu MUA bắn → giá XAU cao hơn sau đúng kỳ hạn đó.
 
+## Nghiên cứu yếu tố mới (ablation, v3 — động lượng 12 tháng)
+
+Thêm tín hiệu **động lượng 12 tháng** (XAU/USD so sánh 252 phiên trước, score -2..+2) như tiêu chí thứ 5. Chạy bằng `scripts/factor-study-momentum-offline.ts` trên `timeline.json` thật (offline, không cần fetch). Grid search 4 chiều (technical/stats/macro/momentum) thay vì 3D như v2.
+
+| Biến thể | 1 tháng | 3 tháng | 6 tháng | Kết luận |
+| --- | --- | --- | --- | --- |
+| Base (3 tiêu chí, có yield) | +16,7pt | +26,0pt | +20,1pt | — |
+| +Động lượng 12 tháng | **+22,2pt** | +26,0pt | +20,1pt | **GIỮ 1m** — momentum=0 là tối ưu ở 3m/6m |
+
+Preset 1m mới (v3): technical=0.1 / stats=0.1 / macro=0.6 / momentum=0.2 / threshold=40
+- train 75,7% (n=37) vs baseline 51,9% → +23,8pt
+- test 82,9% (n=70, trung vị +4,6%) vs baseline 60,6% → +22,3pt → **min-excess +22,2pt**
+
+So với preset 1m v2 (technical=0 / stats=0.1 / macro=0.9): accuracy 77,4%→82,9% (+5,5pp), nhưng n giảm 106→70 (momentum lọc bớt tín hiệu false positive). Đây là nâng cấp chất lượng, không phải số lượng.
+
+**Cơ chế:** khi macro thuận (DXY yếu + Fed nới) NHƯNG XAU chưa lên (momentum âm) → tín hiệu mua thường sai (đón đầu quá sớm). Momentum lọc ra các trường hợp macro đúng nhưng trend chưa xác nhận. Đã tích hợp vào engine: `scripts/backtest.ts` (extras.momentum12m=true trong run.ts) và `src/lib/criteria.ts` (momentumCriterion).
+
+**Lưu ý:** Study offline dùng `timeline.json` đã tính sẵn; n=37 train tương đối nhỏ. Cần re-verify sau lần chạy `npm run collect && npx tsx scripts/presets-study.ts` tiếp theo.
+
 ## Nghiên cứu yếu tố mới (ablation, v2)
 
 Ba ứng viên được test bằng cách bật/tắt từng tín hiệu rồi chạy lại toàn bộ tuyển chọn, so min-excess của cấu hình tốt nhất:
@@ -34,23 +53,23 @@ Ba ứng viên được test bằng cách bật/tắt từng tín hiệu rồi c
 
 Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằng chứng được kiểm trên nó; DFII10 (lợi suất thực, mạnh hơn về lý thuyết) chỉ làm dự phòng vì FRED hay lỗi 504 với series ngày. Mapping: thay đổi 63 phiên ≤ −0,4 điểm → +2 … ≥ +0,4 điểm → −2.
 
-## Kết quả — 3 preset được chọn (v2)
+## Kết quả — 3 preset được chọn (v3)
 
-| Preset | Trọng số (KT / TK / VM) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
+| Preset | Trọng số (KT / TK / VM / MOM) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Sóng 1 tháng** | 0 / 10% / 90% | +40 | **73,4%** (n=94) | **77,4%** (n=106) | 51,9% / 60,6% | +4,0% |
-| **Sóng 3 tháng** | 10% / 0 / 90% | +50 | **82,2%** (n=45) | **95,7%** (n=69) | 55,7% / 69,7% | +7,4% |
-| **Tích lũy 6 tháng** | 0 / 10% / 90% | +50 | **89,4%** (n=47) | **100,0%** (n=66) | 57,7% / 79,9% | +14,3% |
+| **Sóng 1 tháng** | 10% / 10% / 60% / **20%** | +40 | **75,7%** (n=37) | **82,9%** (n=70) | 51,9% / 60,6% | +4,6% |
+| **Sóng 3 tháng** | 10% / 0 / 90% / 0% | +50 | **82,2%** (n=45) | **95,7%** (n=69) | 55,7% / 69,7% | +7,4% |
+| **Tích lũy 6 tháng** | 0 / 10% / 90% / 0% | +50 | **89,4%** (n=47) | **100,0%** (n=66) | 57,7% / 79,9% | +14,3% |
 
-KT = kỹ thuật XAU, TK = thống kê lịch sử, VM = vĩ mô (DXY + hướng Fed + lợi suất 10 năm). Chênh lệch VN = 0% trong preset (lý do bên dưới). Khi nhiều cấu hình đồng hạng min-excess, chọn bản có đa dạng tiêu chí hơn.
+KT = kỹ thuật XAU, TK = thống kê lịch sử, VM = vĩ mô (DXY + hướng Fed + lợi suất 10 năm), MOM = động lượng XAU 12 tháng. Chênh lệch VN = 0% trong preset (lý do bên dưới). Khi nhiều cấu hình đồng hạng min-excess, chọn bản có đa dạng tiêu chí hơn.
 
 Top 5 đầy đủ mỗi kỳ hạn: `npx tsx scripts/presets-study.ts` (cần `npm run collect` trước). Ablation: `npx tsx scripts/factor-study.ts`.
 
 ### So sánh với cấu hình mặc định (35/25/20/20, ngưỡng +40)
 
-| Kỳ hạn | Mặc định (train) | Preset v2 (train) | Mặc định (test) | Preset v2 (test) |
+| Kỳ hạn | Mặc định (train) | Preset v3 (train) | Mặc định (test) | Preset v3 (test) |
 | --- | --- | --- | --- | --- |
-| 1 tháng | 67,4% (n=46) | 73,4% (n=94) | n=1 (không đủ mẫu) | 77,4% (n=106) |
+| 1 tháng | 67,4% (n=46) | 75,7% (n=37) | n=1 (không đủ mẫu) | 82,9% (n=70) |
 | 3 tháng | 60,9% (n=46) | 82,2% (n=45) | n=1 | 95,7% (n=69) |
 
 Mặc định không tệ nhưng quá kén trong thị trường bull (2019–2026 chỉ bắn 1 tín hiệu). Preset bắn đều ở cả hai chế độ thị trường và chính xác hơn.
@@ -58,6 +77,8 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 ## Phát hiện chính
 
 **Vĩ mô thống trị mọi kỳ hạn.** Tổ hợp "DXY yếu + Fed hạ lãi suất + lợi suất 10 năm đang rơi" là yếu tố dự báo mạnh và bền nhất cho vàng — đúng cơ chế kinh tế: vàng không sinh lãi nên hấp dẫn khi lợi suất giảm, định giá bằng USD nên hưởng lợi khi USD yếu. Kỹ thuật giá (RSI, MA200) chỉ đóng vai phụ.
+
+**Động lượng 12 tháng cải thiện tín hiệu 1m đáng kể (+5,5pt min-excess).** Khi macro thuận lợi nhưng XAU chưa trending lên (mom12m ≤ 0), tín hiệu mua thường đến sớm — trend confirmation giúp lọc false positive. Không cải thiện 3m/6m: macro đủ mạnh ở kỳ hạn dài, momentum trở nên redundant.
 
 ## Giới hạn — đọc kỹ trước khi tin con số
 
@@ -76,6 +97,8 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 
    Gradient đơn điệu ở cả 3 kỳ hạn 21/42/63 ngày — chênh cao thì kết quả kém, đúng cơ chế hồi quy của premium. Hạn chế: 16 tháng dữ liệu, một chế độ thị trường, cửa sổ chồng lấn — đọc là bằng chứng sơ bộ mạnh, không phải kết luận cuối. App hiển thị banner "VÙNG BÁN VN theo chênh lệch" trên biểu đồ premium khi percentile ≥ 80.
 5. **Yếu tố chưa/không đưa vào:** GPR và VIX đã test và bị loại (bảng trên). NHTW mua vàng (dữ liệu quý, trễ), chính sách NHNN (không có feed máy đọc), COT positioning (chưa test) — ứng viên cho vòng sau.
+
+   **Premium gating (bằng chứng sơ bộ, 2026-06):** `premium-buy-study.ts` trên 488 ngày SJC cho thấy gradient rõ ở 21 ngày: tín hiệu mua + premium thấp (≤p20) → trung vị +7,6%; premium cao (≥p80) → +1,8%. Gradient yếu dần ở 42–63 ngày (bull trend lấn át). Tuy nhiên, chỉ n=7 tín hiệu premium cao, và dữ liệu 488 ngày chỉ phủ một chế độ thị trường — chưa đủ 2 giai đoạn độc lập để vào preset. Premium vẫn giữ trọng số 0% trong preset cho đến khi có thêm dữ liệu đa chế độ.
 6. Quá khứ không bảo đảm tương lai. Công cụ xác suất, không phải lời hứa.
 
 ## Giám sát thoái hóa & khoảng tin cậy (v3)
@@ -91,11 +114,13 @@ Preset không được tin vô thời hạn:
 ## Tái lập kết quả
 
 ```bash
-npm run collect                      # sinh timeline.json từ dữ liệu thật (đã gồm tín hiệu lợi suất)
-npx tsx scripts/presets-study.ts     # bảng tuyển chọn 3 kỳ hạn
-npx tsx scripts/factor-study.ts      # ablation: bật/tắt lợi suất / VIX / GPR
-npx tsx scripts/optimize-study.ts    # study gốc v1 (1 kỳ hạn, HORIZON=21|63|126)
-npx tsx scripts/horizon-study.ts     # hiệu quả cấu hình mặc định theo 4 kỳ hạn
+npm run collect                                    # sinh timeline.json từ dữ liệu thật (đã gồm yield + momentum)
+npx tsx scripts/presets-study.ts                   # bảng tuyển chọn 3 kỳ hạn (4D search khi momentum có trong timeline)
+npx tsx scripts/factor-study.ts                    # ablation: bật/tắt lợi suất / VIX / GPR
+npx tsx scripts/factor-study-momentum-offline.ts   # ablation momentum: 3D vs 4D, dùng timeline.json có sẵn
+npx tsx scripts/premium-buy-study.ts               # gradient premium cho tín hiệu mua (488 ngày SJC)
+npx tsx scripts/optimize-study.ts                  # study gốc v1 (1 kỳ hạn, HORIZON=21|63|126)
+npx tsx scripts/horizon-study.ts                   # hiệu quả cấu hình mặc định theo 4 kỳ hạn
 ```
 
 Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng này; đổi preset thì cập nhật cả hai.

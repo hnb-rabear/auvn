@@ -51,6 +51,7 @@ export interface Candidate {
 /**
  * Grid search trọng số (bước 10%) × ngưỡng mua. Nhận cấu hình có ≥MIN_SIGNALS
  * tín hiệu và thắng baseline ở CẢ HAI giai đoạn; xếp theo lợi thế tệ nhất.
+ * Tự phát hiện tiêu chí "momentum" trong timeline (4D search khi có, 3D khi không).
  */
 export function gridSearch(points: TimelinePoint[], h: H): {
   baseTrain: number;
@@ -65,22 +66,37 @@ export function gridSearch(points: TimelinePoint[], h: H): {
   const baseTrain = stats(train.map((p) => p.returns[h] as number)).fav;
   const baseTest = stats(test.map((p) => p.returns[h] as number)).fav;
 
+  const hasMomentum = pts.some(
+    (p) => (p.scores as Record<string, number>)["momentum"] !== undefined
+  );
+
   const candidates: Candidate[] = [];
+
+  function tryConfig(w: Record<string, number>) {
+    for (const thr of [30, 40, 50, 60]) {
+      const tr = evalBuy(train, h, w, thr);
+      const te = evalBuy(test, h, w, thr);
+      if (tr.n < MIN_SIGNALS || te.n < MIN_SIGNALS) continue;
+      const exTr = tr.fav - baseTrain;
+      const exTe = te.fav - baseTest;
+      if (exTr <= 0 || exTe <= 0) continue;
+      candidates.push({ w, thr, tr, te, minExcess: Math.min(exTr, exTe) });
+    }
+  }
+
   for (let wt = 0; wt <= 10; wt++) {
     for (let ws = 0; ws <= 10 - wt; ws++) {
-      const wm = 10 - wt - ws;
-      const w = { technical: wt / 10, stats: ws / 10, macro: wm / 10 };
-      for (const thr of [30, 40, 50, 60]) {
-        const tr = evalBuy(train, h, w, thr);
-        const te = evalBuy(test, h, w, thr);
-        if (tr.n < MIN_SIGNALS || te.n < MIN_SIGNALS) continue;
-        const exTr = tr.fav - baseTrain;
-        const exTe = te.fav - baseTest;
-        if (exTr <= 0 || exTe <= 0) continue;
-        candidates.push({ w, thr, tr, te, minExcess: Math.min(exTr, exTe) });
+      if (hasMomentum) {
+        for (let wmom = 0; wmom <= 10 - wt - ws; wmom++) {
+          const wm = 10 - wt - ws - wmom;
+          tryConfig({ technical: wt / 10, stats: ws / 10, macro: wm / 10, momentum: wmom / 10 });
+        }
+      } else {
+        tryConfig({ technical: wt / 10, stats: ws / 10, macro: (10 - wt - ws) / 10 });
       }
     }
   }
+
   candidates.sort((a, b) => b.minExcess - a.minExcess);
   return { baseTrain, baseTest, trainN: train.length, testN: test.length, candidates };
 }
@@ -133,8 +149,9 @@ export function blockBootstrapCi(
 }
 
 export function fmtCand(c: Candidate): string {
+  const momPart = c.w.momentum !== undefined && c.w.momentum > 0 ? ` MOM:${c.w.momentum}` : "";
   return (
-    `w=KT:${c.w.technical} TK:${c.w.stats} VM:${c.w.macro} thr=${c.thr} | ` +
+    `w=KT:${c.w.technical} TK:${c.w.stats} VM:${c.w.macro}${momPart} thr=${c.thr} | ` +
     `train ${(c.tr.fav * 100).toFixed(1)}% (n=${c.tr.n}) | ` +
     `test ${(c.te.fav * 100).toFixed(1)}% (n=${c.te.n}, med=${c.te.med.toFixed(1)}%) | ` +
     `min-excess +${(c.minExcess * 100).toFixed(1)}pt`
