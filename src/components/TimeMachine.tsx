@@ -11,6 +11,8 @@ import {
   type TimelinePoint,
   type Zone,
 } from "@/lib/types";
+import { centerWindow } from "@/lib/brush";
+import TimelineBrush from "./TimelineBrush";
 
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
@@ -61,6 +63,8 @@ function verdictFor(zone: Zone, ret: number | null, h: "21" | "63" | "126"): "ri
 
 // timeline lấy mẫu mỗi 3 phiên -> ~7 điểm/tháng
 const POINTS_PER_MONTH = 7;
+/** cửa sổ nhỏ nhất của brush/zoom (~2 tuần) */
+const MIN_SPAN = 14;
 
 export default function TimeMachine({
   timeline,
@@ -73,20 +77,17 @@ export default function TimeMachine({
 }) {
   const points = timeline.points;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
-  /** cửa sổ zoom tính theo tháng; null = toàn bộ lịch sử */
-  const [zoomMonths, setZoomMonths] = useState<number | null>(null);
+  /** nút preset đang active: số tháng | null = "Tất cả" | "custom" = đã kéo brush */
+  const [zoomMonths, setZoomMonths] = useState<number | null | "custom">(null);
   const [viewStart, setViewStart] = useState(0);
+  const [viewSpan, setViewSpan] = useState(points.length);
   /** hiện vùng bán (tham khảo) trên dòng thời gian */
   const [showSell, setShowSell] = useState(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const p = points[idx];
 
-  const span =
-    zoomMonths === null
-      ? points.length
-      : Math.min(points.length, Math.max(14, zoomMonths * POINTS_PER_MONTH));
-  const maxStart = points.length - span;
-  const start = zoomMonths === null ? 0 : Math.max(0, Math.min(viewStart, maxStart));
+  const span = Math.min(points.length, Math.max(Math.min(MIN_SPAN, points.length), viewSpan));
+  const start = Math.max(0, Math.min(viewStart, points.length - span));
   const end = start + span;
 
   const buyThr = preset?.buyThreshold ?? 40;
@@ -106,16 +107,16 @@ export default function TimeMachine({
       }, []),
     [points, weights]
   );
+  const prices = useMemo(() => points.map((q) => q.price), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
 
   const centerOn = useCallback(
-    (i: number, m: number | null = zoomMonths) => {
-      if (m === null) return;
-      const s = Math.min(points.length, Math.max(14, m * POINTS_PER_MONTH));
-      setViewStart(Math.max(0, Math.min(i - Math.floor(s / 2), points.length - s)));
+    (i: number, s: number = span) => {
+      const sp = Math.min(points.length, Math.max(MIN_SPAN, s));
+      setViewStart(centerWindow(i, sp, points.length));
     },
-    [zoomMonths, points.length]
+    [span, points.length]
   );
 
   const goTo = (i: number) => {
@@ -125,8 +126,20 @@ export default function TimeMachine({
 
   const applyZoom = (m: number | null) => {
     setZoomMonths(m);
-    centerOn(idx, m);
+    const s =
+      m === null
+        ? points.length
+        : Math.min(points.length, Math.max(MIN_SPAN, m * POINTS_PER_MONTH));
+    setViewSpan(s);
+    if (m === null) setViewStart(0);
+    else centerOn(idx, s);
   };
+
+  const onBrush = useCallback((s: number, sp: number) => {
+    setViewStart(s);
+    setViewSpan(sp);
+    setZoomMonths("custom");
+  }, []);
 
   const onChartClick = (e: React.MouseEvent<SVGSVGElement>) => {
     const rect = svgRef.current?.getBoundingClientRect();
@@ -240,10 +253,10 @@ export default function TimeMachine({
         >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
           {spark.sellMarkers.map((m, i) => (
-            <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={zoomMonths === null ? 2 : 3.5} fill="#e05c5c" opacity="0.7" />
+            <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={span > 24 * POINTS_PER_MONTH ? 2 : 3.5} fill="#e05c5c" opacity="0.7" />
           ))}
           {spark.markers.map((m, i) => (
-            <circle key={i} cx={m.cx} cy={m.cy} r={zoomMonths === null ? 2 : 3.5} fill="#4cc97a" opacity="0.75" />
+            <circle key={i} cx={m.cx} cy={m.cy} r={span > 24 * POINTS_PER_MONTH ? 2 : 3.5} fill="#4cc97a" opacity="0.75" />
           ))}
           {spark.cx !== null && (
             <>
@@ -254,16 +267,13 @@ export default function TimeMachine({
         </svg>
       )}
 
-      {zoomMonths !== null && maxStart > 0 && (
-        <input
-          className="tm-slider"
-          type="range"
-          min={0}
-          max={maxStart}
-          value={start}
-          onChange={(e) => setViewStart(Number(e.target.value))}
-          aria-label="Cuộn cửa sổ thời gian"
-          title="Cuộn trái/phải"
+      {points.length > MIN_SPAN && (
+        <TimelineBrush
+          prices={prices}
+          start={start}
+          span={span}
+          minSpan={MIN_SPAN}
+          onChange={onBrush}
         />
       )}
 
