@@ -185,6 +185,34 @@ export interface PremiumInputs {
   ringDiscountPct: number | null;
   /** lịch sử premiumPct tự tích lũy, cũ -> mới */
   premiumHistory: number[];
+  /** lịch sử giá bán SJC (VND/lượng) cũ → mới, để tính động lượng ngắn hạn */
+  sjcSellHistory?: number[];
+}
+
+/**
+ * Số ngày liên tiếp premium ≥ ngưỡng percentile (trailing window ngày, cần ≥ minHist ngày).
+ * history: cũ→mới, không gồm hôm nay. currentPct: giá trị hôm nay.
+ */
+function premiumStreakDays(
+  history: number[],
+  currentPct: number,
+  threshold = 80,
+  window = 180,
+  minHist = 60
+): number {
+  const todaySlice = history.slice(-window);
+  if (todaySlice.length < minHist) return 0;
+  const todayRank = (todaySlice.filter((v) => v < currentPct).length / todaySlice.length) * 100;
+  if (todayRank < threshold) return 0;
+  let streak = 1;
+  for (let i = history.length - 1; i >= 0 && streak < 90; i--) {
+    const daySlice = history.slice(Math.max(0, i - window), i);
+    if (daySlice.length < minHist) break;
+    const dayRank = (daySlice.filter((v) => v < history[i]).length / daySlice.length) * 100;
+    if (dayRank < threshold) break;
+    streak++;
+  }
+  return streak;
 }
 
 /** Tiêu chí 2: chênh lệch VN — thế giới. */
@@ -272,6 +300,47 @@ export function premiumCriterion(inp: PremiumInputs): CriterionResult {
       explanation: text.charAt(0).toUpperCase() + text.slice(1),
       available: true,
     });
+  }
+
+  // Premium streak: số ngày liên tiếp chênh lệch ≥ p80 — signal bán VN-specific
+  // study: 11-20 ngày → 54% giảm; >20 ngày → 90% giảm trong 21 ngày tới
+  if (enoughHistory && inp.premiumPct !== null) {
+    const streak = premiumStreakDays(inp.premiumHistory, inp.premiumPct);
+    if (streak >= 11) {
+      const score = streak > 20 ? -2 : -1;
+      const text =
+        streak > 20
+          ? `áp lực hồi quy tích lũy rất mạnh — gần chắc chắn chênh lệch sẽ nén, vùng bán SJC tốt`
+          : `áp lực hồi quy đang tích lũy — cẩn thận vùng bán, theo dõi sát`;
+      signals.push({
+        id: "premium_streak",
+        label: "Thời gian duy trì chênh lệch cao",
+        score,
+        explanation: `Chênh lệch SJC ở mức cao bất thường (≥ p80) liên tục ${streak} ngày: ${text}.`,
+        available: true,
+      });
+    }
+  }
+
+  // SJC short-term momentum: khi giá SJC tăng >10% trong 21 ngày VÀ premium đang cao
+  // study: tín hiệu này mạnh nhất khi kết hợp với premium streak (93% giảm)
+  if (enoughHistory && inp.sjcSellHistory && inp.sjcSellHistory.length >= 22 && inp.premiumPct !== null) {
+    const now = inp.sjcSellHistory[inp.sjcSellHistory.length - 1];
+    const prev = inp.sjcSellHistory[inp.sjcSellHistory.length - 22];
+    if (now > 0 && prev > 0) {
+      const sjcMom21 = (now / prev - 1) * 100;
+      const pr = percentileRank([...inp.premiumHistory, inp.premiumPct], inp.premiumHistory.length + 1) ?? 50;
+      // Chỉ bắn khi SJC đã tăng mạnh VÀ premium đang cao (tránh false positive khi premium thấp)
+      if (sjcMom21 > 10 && pr >= 70) {
+        signals.push({
+          id: "sjc_momentum",
+          label: "Động lượng giá SJC ngắn hạn",
+          score: -1,
+          explanation: `Giá SJC tăng ${fmt(sjcMom21)}% trong 21 ngày khi chênh lệch đang cao (p${fmt(pr, 0)}) — thị trường quá nóng ngắn hạn, rủi ro điều chỉnh.`,
+          available: true,
+        });
+      }
+    }
   }
 
   return finish("premium", signals, !enoughHistory);

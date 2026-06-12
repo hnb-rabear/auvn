@@ -187,6 +187,9 @@ async function main() {
       premiumHistory: history
         .map((e) => e.premiumPct)
         .filter((p): p is number => p !== null),
+      sjcSellHistory: history
+        .map((e) => e.sjcSell)
+        .filter((v): v is number => v !== null),
     }),
     macroCriterion({
       dxyCloses: dxyRes?.bars.map((b) => b.close) ?? [],

@@ -1,6 +1,6 @@
 # Bộ cấu hình (preset) theo kỳ hạn — phương pháp & bằng chứng test
 
-Cập nhật: 2026-06-12 (v3 — sau khi thêm tín hiệu động lượng 12 tháng cho preset 1m). Sinh bởi `scripts/presets-study.ts` + `scripts/factor-study.ts` + `scripts/factor-study-momentum-offline.ts` trên dữ liệu thật đến 12/06/2026.
+Cập nhật: 2026-06-12 (v3.1 — thêm tín hiệu bán VN: `premium_streak` + `sjc_momentum`). Sinh bởi `scripts/presets-study.ts` + `scripts/factor-study.ts` + `scripts/factor-study-momentum-offline.ts` + `scripts/premium-streak-study.ts` trên dữ liệu thật đến 12/06/2026.
 
 ## Câu hỏi cần trả lời
 
@@ -36,6 +36,75 @@ So với preset 1m v2 (technical=0 / stats=0.1 / macro=0.9): accuracy 77,4%→82
 **Cơ chế:** khi macro thuận (DXY yếu + Fed nới) NHƯNG XAU chưa lên (momentum âm) → tín hiệu mua thường sai (đón đầu quá sớm). Momentum lọc ra các trường hợp macro đúng nhưng trend chưa xác nhận. Đã tích hợp vào engine: `scripts/backtest.ts` (extras.momentum12m=true trong run.ts) và `src/lib/criteria.ts` (momentumCriterion).
 
 **Lưu ý:** Study offline dùng `timeline.json` đã tính sẵn; n=37 train tương đối nhỏ. Cần re-verify sau lần chạy `npm run collect && npx tsx scripts/presets-study.ts` tiếp theo.
+
+## Nghiên cứu tín hiệu bán VN (premium_streak + sjc_momentum, v3.1)
+
+Vấn đề cốt lõi: tín hiệu bán composite (≤−40) gần như vô nghĩa — vàng có đà tăng dài hạn, nên composite âm chỉ nói "thế giới không thuận" chứ không dự báo giá SJC sẽ giảm. Tín hiệu bán đúng nghĩa cho người dùng VN là: **giá SJC sẽ giảm do chênh lệch premium co lại** — không phụ thuộc vào xu hướng XAU/USD toàn cầu.
+
+Chạy bằng `scripts/premium-streak-study.ts` trên 488 ngày SJC thật (2025-02 → 2026-06).
+
+### Study 1: Streak premium cao liên tiếp → lợi suất SJC 21 ngày tới
+
+| Streak (số ngày ≥ p80 liên tiếp) | n | % giảm | Trung vị |
+| --- | --- | --- | --- |
+| 0 ngày (không cao) | 350 | 24% | +2,1% |
+| 1–5 ngày | 57 | 30% | +1,3% |
+| 6–10 ngày | 16 | 19% | +2,7% |
+| **11–15 ngày** | 14 | **57%** | **−0,4%** |
+| 16–20 ngày | 10 | 50% | +0,8% |
+| **>20 ngày** | 20 | **90%** | **−1,1%** |
+
+Ngưỡng **11 ngày** là điểm xoay tín hiệu (từ 24% lên 57% giảm). Trên 20 ngày: 90% giảm — tín hiệu cực mạnh, hiếm gặp (~4% ngày).
+
+### Study 2: Forward 42 ngày
+
+| Streak | n | % giảm | Trung vị |
+| --- | --- | --- | --- |
+| 1–10 ngày | 73 | 32% | +4,5% |
+| **11–20 ngày** | 24 | **58%** | **−1,9%** |
+| **>20 ngày** | 20 | **60%** | **−0,6%** |
+
+Tín hiệu mạnh hơn ở 42 ngày cho streak 11–20 (−1,9% trung vị so với −0,4% ở 21 ngày).
+
+### Study 3: Kết hợp streak + SJC momentum 21 ngày
+
+| Tín hiệu | n | % giảm | Trung vị |
+| --- | --- | --- | --- |
+| **streak>15 VÀ SJC +>10%** | **10** | **100%** | **−0,7%** |
+| streak>15 VÀ SJC +5..10% | 4 | 75% | −3,0% |
+| streak>15 (SJC ổn định) | 16 | 63% | −0,8% |
+| Chỉ SJC +>10% (streak ≤5) | 23 | 39% | +2,3% |
+| Không có tín hiệu nào | 414 | 25% | +2,0% |
+
+**Kết luận quan trọng:** SJC +>10% đơn lẻ *không* phải tín hiệu bán (57% tăng). Nhưng SJC +>10% kết hợp streak>15 → **100% giảm** (n=10). Momentum ngắn hạn chỉ có giá trị khi kết hợp với premium cao dai dẳng.
+
+### Study 4: Độ nhạy của ngưỡng percentile
+
+| Ngưỡng | n (streak>15) | % giảm | Trung vị |
+| --- | --- | --- | --- |
+| p70 | 37 | 81% | −1,1% |
+| p75 | 33 | 79% | −0,7% |
+| **p80** | **30** | **77%** | **−0,7%** |
+| p85 | 8 | 100% | −0,5% |
+
+**Chọn p80:** cân bằng tốt giữa số tín hiệu (n=30) và độ chính xác (77%). p85 đạt 100% nhưng n=8 quá ít.
+
+### Tổng kết & triển khai
+
+| Tín hiệu | n | % giảm | Lợi thế vs baseline |
+| --- | --- | --- | --- |
+| Baseline (tất cả ngày) | 467 | 29% | — |
+| Streak >15 ngày | 30 | **77%** | **+47,5pt** |
+| Streak>15 + SJC>10% | 10 | **100%** | **+71pt** |
+
+Hai sub-signal mới được tích hợp vào `premiumCriterion` (`src/lib/criteria.ts`):
+
+- **`premium_streak`**: streak ≥ 11 ngày → score −1; streak > 20 ngày → score −2. Chỉ bắn khi có đủ lịch sử (≥90 ngày).
+- **`sjc_momentum`**: SJC tăng >10% trong 21 ngày VÀ premium ≥ p70 → score −1. Không bắn khi streak ≤5 ngày (tránh false positive).
+
+Hai tín hiệu này **không ảnh hưởng preset mua** (premium weight = 0% trong cả 3 preset). Chúng tác động trực tiếp lên biểu đồ và phân tích live — hữu dụng nhất cho người *đang giữ SJC và đang cân nhắc bán*.
+
+**Giới hạn:** 488 ngày dữ liệu, một chế độ thị trường (bull trend 2025–2026), cửa sổ 21 ngày chồng lấn. n=10 của combo signal quá nhỏ để kết luận thống kê. Đọc là bằng chứng sơ bộ mạnh, cần kiểm chứng lại sau 1–2 năm khi dữ liệu phủ thêm chế độ correction.
 
 ## Nghiên cứu yếu tố mới (ablation, v2)
 
@@ -119,6 +188,7 @@ npx tsx scripts/presets-study.ts                   # bảng tuyển chọn 3 k�
 npx tsx scripts/factor-study.ts                    # ablation: bật/tắt lợi suất / VIX / GPR
 npx tsx scripts/factor-study-momentum-offline.ts   # ablation momentum: 3D vs 4D, dùng timeline.json có sẵn
 npx tsx scripts/premium-buy-study.ts               # gradient premium cho tín hiệu mua (488 ngày SJC)
+npx tsx scripts/premium-streak-study.ts            # tín hiệu bán VN: streak chênh lệch cao + SJC momentum
 npx tsx scripts/optimize-study.ts                  # study gốc v1 (1 kỳ hạn, HORIZON=21|63|126)
 npx tsx scripts/horizon-study.ts                   # hiệu quả cấu hình mặc định theo 4 kỳ hạn
 ```
