@@ -241,7 +241,10 @@ async function main() {
   mkdirSync(HISTORY_DIR, { recursive: true });
   writeFileSync(VN_HISTORY_FILE, JSON.stringify(history, null, 1));
   // Chỉ cache khi fetch tươi thành công (fedRes), không ghi đè bằng chính bản fallback.
-  if (fedRes) writeFileSync(FED_CACHE_FILE, JSON.stringify(fedRes, null, 1));
+  // Và không để một phản hồi FRED cụt làm ngắn cache đã tích lũy (data/ là database).
+  if (fedRes && fedRes.length >= (loadFedCache()?.length ?? 0)) {
+    writeFileSync(FED_CACHE_FILE, JSON.stringify(fedRes, null, 1));
+  }
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));
   writeFileSync(join(DATA_DIR, "timeline.json"), JSON.stringify(timeline));

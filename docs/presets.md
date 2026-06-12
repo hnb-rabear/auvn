@@ -86,6 +86,8 @@ Preset không được tin vô thời hạn:
 - **degraded** khi min-excess < 5pt hoặc 2 năm gần nhất thua baseline > 5pt (hòa baseline trong bull market không tính — vô hại). App hiện ⚠ trên nút preset + banner; Telegram báo khi chuyển trạng thái.
 - CI hiển thị cạnh evidence trên verdict card — ví dụ preset 1 tháng: điểm 77,4% nhưng CI 62–91%. Con số đơn lẻ luôn lạc quan hơn sự thật.
 
+**Cạm bẫy đã gặp & vá (2026-06):** preset đặt macro = 90%, nên nếu timeline backtest *thiếu* điểm macro thì composite sụp về đúng đuôi 10% kỹ thuật/thống kê — vốn âm sâu ở vùng đỉnh giá. Hậu quả: 0 tín hiệu mua suốt uptrend 2025 và cảnh báo "degraded" giả. Nguyên nhân gốc: `backtest.ts` từng đòi *cả* DXY *và* Fed mới tính macro (`if (dxy && fed)`), nên một lần FRED 504 xóa macro khỏi **toàn bộ** lịch sử. Đã vá: backtest tính macro khi có DXY (Fed/lợi suất tùy chọn, giống đường live), và `run.ts` cache chuỗi Fed (`history/fed-funds.json`) làm dự phòng. Sau vá: macro có ở 1425/1425 điểm, cả 3 preset `ok` (min-excess 16,7–26,0pt), tín hiệu mua 2025 = 24/14/14.
+
 ## Tái lập kết quả
 
 ```bash

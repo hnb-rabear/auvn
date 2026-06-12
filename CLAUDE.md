@@ -25,7 +25,7 @@ All analysis runs at data-collection time, not at page load. The Git repo is the
 | SJC / ring gold price | BTMC public API (quotes **VND/chỉ** — normalize ×10) | self-accumulated daily; fallback SJC endpoints (Cloudflare-blocked as of 2026-06, kept as fallback only) |
 | XAU/USD, DXY | Yahoo Finance chart API (`GC=F`, `DX-Y.NYB`) | 20 yrs; fallback Stooq (404'd as of 2026-06) |
 | USD/VND | Vietcombank pXML endpoint | self-accumulated; fallback open.er-api.com |
-| Fed rates | FRED public CSV `fredgraph.csv?id=FEDFUNDS` (no key needed) | full |
+| Fed rates | FRED public CSV `fredgraph.csv?id=FEDFUNDS` (no key needed) | full; fallback local cache `public/data/history/fed-funds.json` (refreshed each successful fetch, never overwritten by a shorter response) — a transient FRED outage used to blank macro across all history |
 | US 10y yield | Yahoo `^TNX` (nominal — all preset evidence validated on it) | 20 yrs; fallback FRED DFII10 (real yield, but FRED 504s on daily series often) |
 
 Tested and REJECTED signals (do not re-add without re-running `scripts/factor-study.ts`): GPR geopolitical index (hurts accuracy at every horizon), VIX (no improvement over the yield signal). Evidence in docs/presets.md.
@@ -46,6 +46,8 @@ Each criterion = multiple sub-signals, each scored **−2..+2** (negative = sell
 Composite: weighted sum normalized to −100..+100. Thresholds: ≥+40 BUY zone (≥+70 strong), ≤−40 SELL zone (≤−70 strong), otherwise NEUTRAL.
 
 **Backtest rule (integrity-critical):** confidence % must come from replaying the engine over ~15 years of XAU/USD history (e.g., "BUY signal at this level: 134 occurrences, 71% higher after 3 months, avg +4.2%"). VN-premium criterion is only backtested once ≥6 months of self-collected data exists; before that the UI must say "chưa đủ dữ liệu kiểm chứng" — never fabricate a number.
+
+**Backtest must mirror the live engine's criterion gating (do not silently change):** the historical timeline (`scripts/backtest.ts`) computes the macro criterion whenever DXY is available — Fed, 10y yield, USD/VND are optional, exactly as `macroCriterion` skips its own missing sub-signals on the live path. Do NOT gate macro on all inputs being present (`if (dxy && fed)`): the presets weight macro at 0.9, so a single missing input there silently strips 90% of every preset's signal from all history and produces zero buy signals in a clear uptrend. Regression-guarded by the "includes the macro criterion when DXY is present but Fed is missing" test.
 
 ## Conventions
 

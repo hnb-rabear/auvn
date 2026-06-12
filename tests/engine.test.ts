@@ -18,7 +18,7 @@ import { compositeScore, zoneOf, DEFAULT_WEIGHTS, PRESETS } from "../src/lib/typ
 import { runBacktest } from "../scripts/backtest";
 import { blockBootstrapCi, seededRandom } from "../scripts/study-lib";
 
-const range = (n: number, f: (i: number) => number) =>
+const range = <T>(n: number, f: (i: number) => T): T[] =>
   Array.from({ length: n }, (_, i) => f(i));
 
 describe("indicators", () => {
@@ -268,5 +268,20 @@ describe("backtest", () => {
       expect(Math.abs(pt.composite)).toBeLessThanOrEqual(100);
       expect(pt.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
+  });
+
+  it("includes the macro criterion when DXY is present but Fed is missing", () => {
+    const mkBars = (n: number, base: number, f: (i: number) => number) =>
+      range(n, (i) => ({
+        date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+        close: base + f(i),
+      }));
+    const xau = mkBars(1400, 1500, (i) => 300 * Math.sin(i / 80) + i * 0.1);
+    const dxy = mkBars(1400, 100, (i) => 5 * Math.sin(i / 60));
+    // fed = null mô phỏng FRED hỏng; macro vẫn phải được tính từ DXY (như đường live).
+    const { timeline } = runBacktest(xau, dxy, null);
+    const withMacro = timeline.points.filter((p) => "macro" in p.scores).length;
+    expect(withMacro).toBe(timeline.points.length);
+    expect(withMacro).toBeGreaterThan(0);
   });
 });
