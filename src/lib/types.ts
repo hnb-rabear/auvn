@@ -50,6 +50,26 @@ export interface Analysis {
   premiumSeries?: { date: string; value: number }[];
   /** percentile 20/50/80 của premium lịch sử */
   premiumPercentiles?: { p20: number; p50: number; p80: number };
+  vnSell?: VnSellState;
+  worldSell?: WorldSellState;
+}
+
+/** Áp lực bán VN: premium_streak + sjc_momentum */
+export interface VnSellState {
+  streakDays: number;
+  pressureLevel: "none" | "watch" | "high" | "extreme";
+  activeSignals: SubSignal[];
+}
+
+/** Tín hiệu bán thế giới (XAU/USD): chỉ đáng tin khi Fed đang tăng lãi suất */
+export interface WorldSellState {
+  /** active = composite ≤ threshold + Fed đang tăng; suppressed = composite ≤ threshold nhưng Fed không tăng */
+  status: "active" | "suppressed" | "none";
+  suppressReason?: string;
+  composite: number;
+  threshold: number;
+  fedNow?: number;
+  fed6mAgo?: number;
 }
 
 /** Sức khỏe preset — tính lại mỗi cron bởi scripts/monitor-presets.ts */

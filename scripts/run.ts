@@ -16,6 +16,7 @@ import {
   macroCriterion,
   momentumCriterion,
   statsCriterion,
+  premiumStreakDays,
 } from "../src/lib/criteria";
 import {
   compositeScore,
@@ -24,6 +25,8 @@ import {
   type Analysis,
   type VnGoldEntry,
   type Prices,
+  type VnSellState,
+  type WorldSellState,
 } from "../src/lib/types";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
@@ -205,6 +208,54 @@ async function main() {
     momentumCriterion(closes),
   ];
 
+  // --- VN sell state: từ premium_streak + sjc_momentum
+  const premiumCrit = criteria.find(c => c.key === "premium")!;
+  const activeVnSignals = premiumCrit.signals.filter(
+    s => (s.id === "premium_streak" || s.id === "sjc_momentum") && s.available && s.score < 0
+  );
+  const premiumHistoryArr = history
+    .map(e => e.premiumPct)
+    .filter((p): p is number => p !== null);
+  const streakDays = premiumHistoryArr.length >= 60 && prices.premiumPct !== null
+    ? premiumStreakDays(premiumHistoryArr, prices.premiumPct) : 0;
+  const pressureLevel: VnSellState["pressureLevel"] =
+    streakDays > 20 ? "extreme" :
+    streakDays >= 11 ? "high" :
+    activeVnSignals.length > 0 ? "watch" : "none";
+  const vnSell: VnSellState = { streakDays, pressureLevel, activeSignals: activeVnSignals };
+
+  // --- World sell state: KT=0/TK=40/VM=50/MOM=10, ngưỡng -45, chặn bởi Regime B (Fed tăng lãi)
+  // Nghiên cứu: sell-signal-study-3.ts — đúng 77.8% (train, n=9) / 65.4% (test, n=26) khi hiking
+  const WORLD_SELL_WEIGHTS = { technical: 0, premium: 0, macro: 0.5, stats: 0.4, momentum: 0.1 };
+  const WORLD_SELL_THRESHOLD = -45;
+  let fedNow: number | undefined;
+  let fed6mAgo: number | undefined;
+  let isHikingRegime = false;
+  if (fed && fed.length >= 7) {
+    fedNow = fed[fed.length - 1].value;
+    fed6mAgo = fed[fed.length - 7].value;
+    isHikingRegime = fedNow >= fed6mAgo + 0.25;
+  }
+  const worldSellComposite = compositeScore(criteria, WORLD_SELL_WEIGHTS);
+  let worldSellStatus: "active" | "suppressed" | "none" = "none";
+  let suppressReason: string | undefined;
+  if (worldSellComposite <= WORLD_SELL_THRESHOLD) {
+    if (isHikingRegime) {
+      worldSellStatus = "active";
+    } else {
+      worldSellStatus = "suppressed";
+      suppressReason = "fed_cutting";
+    }
+  }
+  const worldSell: WorldSellState = {
+    status: worldSellStatus,
+    ...(suppressReason ? { suppressReason } : {}),
+    composite: worldSellComposite,
+    threshold: WORLD_SELL_THRESHOLD,
+    ...(fedNow !== undefined ? { fedNow } : {}),
+    ...(fed6mAgo !== undefined ? { fed6mAgo } : {}),
+  };
+
   const premiumSeries = history
     .filter((e) => e.premiumPct !== null)
     .map((e) => ({ date: e.date, value: e.premiumPct as number }));
@@ -232,6 +283,8 @@ async function main() {
       sortedPrems.length >= 90
         ? { p20: pct(0.2), p50: pct(0.5), p80: pct(0.8) }
         : undefined,
+    vnSell,
+    worldSell,
   };
 
   // --- backtest + timeline giả lập lịch sử (cùng bộ tín hiệu với phân tích live)

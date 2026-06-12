@@ -193,7 +193,7 @@ export interface PremiumInputs {
  * Số ngày liên tiếp premium ≥ ngưỡng percentile (trailing window ngày, cần ≥ minHist ngày).
  * history: cũ→mới, không gồm hôm nay. currentPct: giá trị hôm nay.
  */
-function premiumStreakDays(
+export function premiumStreakDays(
   history: number[],
   currentPct: number,
   threshold = 80,

@@ -210,6 +210,10 @@ body {
   margin-bottom: 14px;
 }
 
+.card.sell-accent {
+  border-color: rgba(224, 92, 92, 0.45);
+}
+
 .card-head {
   display: flex;
   justify-content: space-between;

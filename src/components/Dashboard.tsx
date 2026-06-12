@@ -262,6 +262,96 @@ export default function Dashboard({
         </div>
       </section>
 
+      {/* VN sell pressure panel */}
+      {analysis.vnSell && analysis.vnSell.pressureLevel !== "none" && (
+        <section className={`card${analysis.vnSell.pressureLevel !== "watch" ? " sell-accent" : ""}`}>
+          <div className="card-head">
+            <h2 style={analysis.vnSell.pressureLevel !== "watch" ? { color: "var(--sell)" } : {}}>
+              {analysis.vnSell.pressureLevel === "extreme"
+                ? "⚠ Áp lực bán VN: Rất cao"
+                : analysis.vnSell.pressureLevel === "high"
+                ? "⚠ Áp lực bán VN: Đang tích lũy"
+                : "Theo dõi chênh lệch VN"}
+            </h2>
+            {analysis.vnSell.streakDays >= 11 && (
+              <span className="chip sell">{analysis.vnSell.streakDays} ngày liên tiếp</span>
+            )}
+          </div>
+          {analysis.vnSell.streakDays >= 11 && (
+            <p style={{ fontSize: "0.9rem", margin: "8px 0 0" }}>
+              Chênh lệch SJC duy trì ≥ p80 liên tục{" "}
+              <b style={{ color: "var(--sell)" }}>{analysis.vnSell.streakDays} ngày</b>
+              {analysis.vnSell.pressureLevel === "extreme"
+                ? " — dữ liệu 16 tháng (n=20): 90% trường hợp giá SJC điều chỉnh trong 21 ngày tới."
+                : " — dữ liệu 16 tháng (n=34): 77% trường hợp giá SJC điều chỉnh trong 21 ngày tới."}
+            </p>
+          )}
+          {analysis.vnSell.activeSignals.length > 0 && (
+            <ul className="signals" style={{ marginTop: "10px" }}>
+              {analysis.vnSell.activeSignals.map(s => (
+                <li key={s.id}>
+                  {scoreChip(s.score)}
+                  <div>
+                    <div className="sig-label">{s.label}</div>
+                    <div className="sig-expl">{s.explanation}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="muted small" style={{ marginTop: "10px" }}>
+            Tín hiệu VN dựa trên {analysis.vnHistoryDays} ngày dữ liệu tự thu thập (chưa đủ
+            kiểm chứng dài hạn). Ý nghĩa thực tế: cân nhắc bán bớt nếu đang giữ nhiều, không
+            phải bán toàn bộ.
+          </p>
+        </section>
+      )}
+
+      {/* World sell signal panel */}
+      {analysis.worldSell && analysis.worldSell.status !== "none" && (
+        <section className={`card${analysis.worldSell.status === "active" ? " sell-accent" : ""}`}>
+          <div className="card-head">
+            <h2 style={analysis.worldSell.status === "active" ? { color: "var(--sell)" } : {}}>
+              {analysis.worldSell.status === "active"
+                ? "⚠ Tín hiệu bán thế giới (XAU/USD): Đang kích hoạt"
+                : "Tín hiệu bán thế giới (XAU/USD)"}
+            </h2>
+            <span className={`chip ${analysis.worldSell.status === "active" ? "sell" : "neutral"}`}>
+              {analysis.worldSell.status === "active" ? "Kích hoạt" : "Bị chặn"}
+            </span>
+          </div>
+          {analysis.worldSell.status === "active" ? (
+            <p style={{ fontSize: "0.9rem", margin: "8px 0 0" }}>
+              Điểm bán tổng hợp{" "}
+              <b style={{ color: "var(--sell)" }}>{fmtNum(analysis.worldSell.composite)}</b>{" "}
+              ≤ ngưỡng {analysis.worldSell.threshold}.{" "}
+              Fed đang tăng lãi suất (
+              {analysis.worldSell.fedNow !== undefined ? fmtNum(analysis.worldSell.fedNow, 2) : "—"}%
+              {" "}vs 6 tháng trước{" "}
+              {analysis.worldSell.fed6mAgo !== undefined ? fmtNum(analysis.worldSell.fed6mAgo, 2) : "—"}%
+              ).{" "}
+              Kiểm chứng 17 năm (chế độ Fed tăng lãi suất):{" "}
+              <b>77.8%</b> đúng giai đoạn 2009–2018 (n=9),{" "}
+              <b>65.4%</b> giai đoạn 2019–2026 (n=26).
+            </p>
+          ) : (
+            <p style={{ fontSize: "0.9rem", margin: "8px 0 0" }}>
+              Điểm bán tổng hợp{" "}
+              <b>{fmtNum(analysis.worldSell.composite)}</b>{" "}
+              ≤ ngưỡng {analysis.worldSell.threshold} — nhưng{" "}
+              <b>Fed đang cắt giảm lãi suất</b>{" "}
+              (
+              {analysis.worldSell.fedNow !== undefined ? fmtNum(analysis.worldSell.fedNow, 2) : "—"}%
+              {" "}vs 6 tháng trước{" "}
+              {analysis.worldSell.fed6mAgo !== undefined ? fmtNum(analysis.worldSell.fed6mAgo, 2) : "—"}%
+              ).{" "}
+              Nghiên cứu cho thấy tín hiệu này chỉ đáng tin khi Fed{" "}
+              <b>tăng</b> lãi suất — bỏ qua trong chế độ hiện tại.
+            </p>
+          )}
+        </section>
+      )}
+
       {showSettings && (
         <section className="card settings">
           <h2>Chọn chế độ</h2>
