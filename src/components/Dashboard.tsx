@@ -283,7 +283,7 @@ export default function Dashboard({
               <b style={{ color: "var(--sell)" }}>{analysis.vnSell.streakDays} ngày</b>
               {analysis.vnSell.pressureLevel === "extreme"
                 ? " — dữ liệu 16 tháng (n=20): 90% trường hợp giá SJC điều chỉnh trong 21 ngày tới."
-                : " — dữ liệu 16 tháng (n=34): 77% trường hợp giá SJC điều chỉnh trong 21 ngày tới."}
+                : " — dữ liệu 16 tháng (n=24): 54% trường hợp giá SJC điều chỉnh trong 21 ngày tới (58% trong 42 ngày); vượt 20 ngày tỷ lệ tăng vọt lên 90%."}
             </p>
           )}
           {analysis.vnSell.activeSignals.length > 0 && (

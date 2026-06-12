@@ -181,15 +181,20 @@ async function main() {
       ? ((prices.sjcSell - prices.ringSell) / prices.sjcSell) * 100
       : null;
 
+  // premiumHistory theo hợp đồng của premiumCriterion/premiumStreakDays: KHÔNG gồm
+  // entry hiệu lực (giá trị đó đã truyền riêng qua premiumPct) — gồm cả sẽ đếm hôm nay 2 lần.
+  const pastPremiums = history
+    .slice(0, -1)
+    .map((e) => e.premiumPct)
+    .filter((p): p is number => p !== null);
+
   const criteria = [
     technicalCriterion(closes),
     premiumCriterion({
       premiumPct: prices.premiumPct,
       spreadPct,
       ringDiscountPct,
-      premiumHistory: history
-        .map((e) => e.premiumPct)
-        .filter((p): p is number => p !== null),
+      premiumHistory: pastPremiums,
       sjcSellHistory: history
         .map((e) => e.sjcSell)
         .filter((v): v is number => v !== null),
@@ -213,11 +218,8 @@ async function main() {
   const activeVnSignals = premiumCrit.signals.filter(
     s => (s.id === "premium_streak" || s.id === "sjc_momentum") && s.available && s.score < 0
   );
-  const premiumHistoryArr = history
-    .map(e => e.premiumPct)
-    .filter((p): p is number => p !== null);
-  const streakDays = premiumHistoryArr.length >= 60 && prices.premiumPct !== null
-    ? premiumStreakDays(premiumHistoryArr, prices.premiumPct) : 0;
+  const streakDays = prices.premiumPct !== null
+    ? premiumStreakDays(pastPremiums, prices.premiumPct) : 0;
   const pressureLevel: VnSellState["pressureLevel"] =
     streakDays > 20 ? "extreme" :
     streakDays >= 11 ? "high" :
