@@ -66,12 +66,18 @@ export function runBacktest(
       statsCriterion(closesUpTo, datesUpTo, season),
     ];
 
-    if (dxy && fed) {
+    // Macro chạy khi có DXY; Fed (và yield/vix/gpr) là tùy chọn — macroCriterion
+    // tự bỏ qua từng tín hiệu con thiếu dữ liệu, giống hệt đường phân tích live.
+    // KHÔNG đòi cả dxy && fed: một lần FRED chập chờn từng xóa macro khỏi TOÀN BỘ lịch sử.
+    if (dxy) {
       while (dxyPtr < dxy.length && dxy[dxyPtr].date <= date) dxyPtr++;
-      while (fedPtr < fed.length && fed[fedPtr].date <= date) fedPtr++;
       const dxyCloses = dxy.slice(0, dxyPtr).map((b) => b.close);
-      const fedRates = fed.slice(0, fedPtr).map((f) => f.value);
-      if (dxyCloses.length >= 51 && fedRates.length >= 4) {
+      let fedRates: number[] = [];
+      if (fed) {
+        while (fedPtr < fed.length && fed[fedPtr].date <= date) fedPtr++;
+        fedRates = fed.slice(0, fedPtr).map((f) => f.value);
+      }
+      if (dxyCloses.length >= 51) {
         let yield10y: { closes: number[]; real: boolean } | undefined;
         if (yieldBars) {
           while (yieldPtr < yieldBars.length && yieldBars[yieldPtr].date <= date) yieldPtr++;

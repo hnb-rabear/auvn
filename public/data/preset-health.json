@@ -1,41 +1,41 @@
 {
- "generatedAt": "2026-06-12T00:17:50.732Z",
+ "generatedAt": "2026-06-12T01:29:32.242Z",
  "items": [
   {
    "presetId": "1m",
-   "minExcessNowPt": null,
-   "recentFavPct": null,
+   "minExcessNowPt": 16.7,
+   "recentFavPct": 95.7,
    "recentBaselinePct": 71.4,
-   "recentN": 0,
+   "recentN": 47,
    "testFavCi95": [
-    50,
-    100
+    62.3,
+    90.6
    ],
-   "status": "insufficient"
+   "status": "ok"
   },
   {
    "presetId": "3m",
-   "minExcessNowPt": 2.3,
-   "recentFavPct": null,
+   "minExcessNowPt": 26,
+   "recentFavPct": 89.7,
    "recentBaselinePct": 89.9,
-   "recentN": 0,
+   "recentN": 29,
    "testFavCi95": [
-    56,
-    88
+    89.9,
+    100
    ],
-   "status": "degraded"
+   "status": "ok"
   },
   {
    "presetId": "6m",
-   "minExcessNowPt": null,
-   "recentFavPct": null,
+   "minExcessNowPt": 20.1,
+   "recentFavPct": 100,
    "recentBaselinePct": 100,
-   "recentN": 0,
+   "recentN": 32,
    "testFavCi95": [
     100,
     100
    ],
-   "status": "insufficient"
+   "status": "ok"
   }
  ]
 }

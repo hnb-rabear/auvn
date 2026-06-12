@@ -28,6 +28,9 @@ import {
 const DATA_DIR = join(process.cwd(), "public", "data");
 const HISTORY_DIR = join(DATA_DIR, "history");
 const VN_HISTORY_FILE = join(HISTORY_DIR, "vn-gold.json");
+// FRED hay 504 lẻ tẻ; lưu lại chuỗi Fed mỗi lần fetch được để một lần hỏng
+// không xóa macro khỏi toàn bộ lịch sử backtest (xem backtest.ts).
+const FED_CACHE_FILE = join(HISTORY_DIR, "fed-funds.json");
 
 const TROY_OZ_GRAMS = 31.1034768;
 const LUONG_GRAMS = 37.5;
@@ -43,6 +46,18 @@ function loadVnHistory(): VnGoldEntry[] {
     return Array.isArray(arr) ? arr : [];
   } catch {
     return [];
+  }
+}
+
+type FedSeries = { date: string; value: number }[];
+
+function loadFedCache(): FedSeries | null {
+  if (!existsSync(FED_CACHE_FILE)) return null;
+  try {
+    const arr = JSON.parse(readFileSync(FED_CACHE_FILE, "utf8"));
+    return Array.isArray(arr) && arr.length ? arr : null;
+  } catch {
+    return null;
   }
 }
 
@@ -68,8 +83,20 @@ async function main() {
   console.log(`XAU: ${xauRes.bars.length} bars (${xauRes.source})`);
   if (dxyRes) console.log(`DXY: ${dxyRes.bars.length} bars (${dxyRes.source})`);
   else warnings.push("Không lấy được DXY — tín hiệu USD tạm bỏ qua.");
-  if (fedRes) console.log(`FED: ${fedRes.length} months`);
-  else warnings.push("Không lấy được lãi suất Fed — tín hiệu lãi suất tạm bỏ qua.");
+  // Fed: fetch được thì dùng + cache lại; hỏng thì lùi về chuỗi đã lưu để
+  // macro không biến mất khỏi backtest chỉ vì FRED chập chờn một lần.
+  let fed = fedRes;
+  if (fed) {
+    console.log(`FED: ${fed.length} months`);
+  } else {
+    fed = loadFedCache();
+    if (fed) {
+      console.log(`FED: dùng cache đã lưu (${fed.length} months) — FRED không phản hồi.`);
+      warnings.push("Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.");
+    } else {
+      warnings.push("Không lấy được lãi suất Fed — tín hiệu lãi suất tạm bỏ qua.");
+    }
+  }
   if (vnRes) console.log(`VN gold (${vnRes.source}):`, vnRes);
   else warnings.push("Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất.");
   if (usdVndRes) console.log(`USD/VND: ${usdVndRes.value} (${usdVndRes.source})`);
@@ -162,7 +189,7 @@ async function main() {
     }),
     macroCriterion({
       dxyCloses: dxyRes?.bars.map((b) => b.close) ?? [],
-      fedRates: fedRes?.map((f) => f.value) ?? [],
+      fedRates: fed?.map((f) => f.value) ?? [],
       usdVndHistory: history
         .filter((e) => e.usdVnd !== null)
         .map((e) => ({ date: e.date, value: e.usdVnd as number })),
@@ -206,13 +233,15 @@ async function main() {
   const { backtest, timeline } = runBacktest(
     xauRes.bars,
     dxyRes?.bars ?? null,
-    fedRes,
+    fed,
     undefined,
     { yield10y: yieldRes }
   );
 
   mkdirSync(HISTORY_DIR, { recursive: true });
   writeFileSync(VN_HISTORY_FILE, JSON.stringify(history, null, 1));
+  // Chỉ cache khi fetch tươi thành công (fedRes), không ghi đè bằng chính bản fallback.
+  if (fedRes) writeFileSync(FED_CACHE_FILE, JSON.stringify(fedRes, null, 1));
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));
   writeFileSync(join(DATA_DIR, "timeline.json"), JSON.stringify(timeline));
