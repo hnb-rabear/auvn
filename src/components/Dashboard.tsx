@@ -315,9 +315,6 @@ export default function Dashboard({
               />
             </label>
           ))}
-          <button className="iconbtn" onClick={() => applyPreset(null)}>
-            Khôi phục mặc định
-          </button>
         </section>
       )}
 
