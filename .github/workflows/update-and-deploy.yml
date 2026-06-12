@@ -46,7 +46,9 @@ jobs:
         run: npx tsx scripts/notify.ts
 
       - name: Commit updated data
-        if: github.event_name != 'push'
+        # Chạy cả khi trigger là push: commit bằng GITHUB_TOKEN không trigger lại
+        # workflow (GitHub chặn đệ quy sẵn), và giúp public/data trong repo luôn
+        # khớp với site vừa deploy — tránh local checkout đọc data cũ sau merge.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
