@@ -18,7 +18,8 @@ export function applyBrushDrag(
   total: number,
   minSpan: number
 ): { start: number; span: number } {
-  const min = Math.min(minSpan, total);
+  // floor không vượt quá span neo — kéo delta 0 không được tự nhảy cửa sổ
+  const min = Math.min(minSpan, total, Math.max(anchorSpan, 1));
   if (mode === "pan") {
     return { start: clamp(anchorStart + deltaIdx, 0, total - anchorSpan), span: anchorSpan };
   }
@@ -32,5 +33,6 @@ export function applyBrushDrag(
 
 /** start của cửa sổ span điểm căn giữa quanh centerIdx, kẹp trong [0, total - span]. */
 export function centerWindow(centerIdx: number, span: number, total: number): number {
-  return Math.max(0, Math.min(centerIdx - Math.floor(span / 2), total - span));
+  const sp = Math.min(span, total);
+  return clamp(centerIdx - Math.floor(sp / 2), 0, total - sp);
 }

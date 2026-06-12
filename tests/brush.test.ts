@@ -66,3 +66,21 @@ describe("centerWindow", () => {
     expect(centerWindow(99, 20, TOTAL)).toBe(80);
   });
 });
+
+describe("applyBrushDrag — span neo nhỏ hơn minSpan (bất biến bị phá từ ngoài)", () => {
+  it("delta 0 không tự nhảy cửa sổ — left", () => {
+    expect(applyBrushDrag("left", 40, 8, 0, TOTAL, MIN)).toEqual({ start: 40, span: 8 });
+  });
+  it("delta 0 không tự nhảy cửa sổ — right", () => {
+    expect(applyBrushDrag("right", 40, 8, 0, TOTAL, MIN)).toEqual({ start: 40, span: 8 });
+  });
+});
+
+describe("centerWindow — biên hiếm", () => {
+  it("span lẻ: thiên trái theo floor", () => {
+    expect(centerWindow(50, 21, TOTAL)).toBe(40);
+  });
+  it("span > total: kẹp về toàn cửa sổ", () => {
+    expect(centerWindow(5, 200, TOTAL)).toBe(0);
+  });
+});
