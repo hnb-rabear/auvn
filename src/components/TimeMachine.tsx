@@ -8,10 +8,10 @@ import {
   type CriterionKey,
   type Preset,
   type Timeline,
-  type TimelinePoint,
   type Zone,
 } from "@/lib/types";
 import { centerWindow } from "@/lib/brush";
+import { pointComposite, thresholdIdxs } from "@/lib/timeline";
 import TimelineBrush from "./TimelineBrush";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -36,18 +36,6 @@ const HORIZON_LABELS: Record<"21" | "63" | "126", string> = {
   "63": "3 tháng",
   "126": "6 tháng",
 };
-
-/** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
-function pointComposite(p: TimelinePoint, weights: Record<CriterionKey, number>): number {
-  let s = 0;
-  let tw = 0;
-  for (const [k, score] of Object.entries(p.scores)) {
-    const w = weights[k as CriterionKey] ?? 0;
-    s += (score as number) * w;
-    tw += w;
-  }
-  return tw === 0 ? 0 : Math.round((s / tw) * 50 * 10) / 10;
-}
 
 /**
  * Đúng/sai của quyết định: mua đúng khi giá tăng, bán đúng khi giá giảm.
@@ -83,6 +71,9 @@ export default function TimeMachine({
   const [viewSpan, setViewSpan] = useState(points.length);
   /** hiện vùng bán (tham khảo) trên dòng thời gian */
   const [showSell, setShowSell] = useState(false);
+  /** lớp khám phá: highlight ngày có composite >= ngưỡng người dùng tự chọn */
+  const [showExp, setShowExp] = useState(false);
+  const [expThr, setExpThr] = useState(40);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const p = points[idx];
 
@@ -92,11 +83,7 @@ export default function TimeMachine({
 
   const buyThr = preset?.buyThreshold ?? 40;
   const signalIdxs = useMemo(
-    () =>
-      points.reduce<number[]>((acc, q, i) => {
-        if (pointComposite(q, weights) >= buyThr) acc.push(i);
-        return acc;
-      }, []),
+    () => thresholdIdxs(points, weights, buyThr),
     [points, weights, buyThr]
   );
   const sellIdxs = useMemo(
@@ -106,6 +93,10 @@ export default function TimeMachine({
         return acc;
       }, []),
     [points, weights]
+  );
+  const expIdxs = useMemo(
+    () => (showExp ? thresholdIdxs(points, weights, expThr) : []),
+    [showExp, points, weights, expThr]
   );
   const prices = useMemo(() => points.map((q) => q.price), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
@@ -177,6 +168,11 @@ export default function TimeMachine({
           .filter((i) => i >= start && i < end)
           .map((i) => ({ cx: x(i), cy: y(points[i].price) }))
       : [];
+    const expMarkers = showExp
+      ? expIdxs
+          .filter((i) => i >= start && i < end)
+          .map((i) => ({ cx: x(i), cy: y(points[i].price) }))
+      : [];
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -186,10 +182,11 @@ export default function TimeMachine({
       cy: inWindow ? y(p.price) : null,
       markers,
       sellMarkers,
+      expMarkers,
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, sellIdxs, showSell, start, end]);
+  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, showExp, start, end]);
 
   if (!p) return null;
 
@@ -240,7 +237,41 @@ export default function TimeMachine({
           />
           Hiện vùng bán (chỉ tham khảo 1 tháng)
         </label>
+        <label
+          className="tm-toggle muted small"
+          title="Highlight mọi ngày có điểm ≥ ngưỡng bạn chọn — chỉ để khám phá, không phải tín hiệu kiểm chứng."
+        >
+          <input
+            type="checkbox"
+            checked={showExp}
+            onChange={(e) => {
+              setShowExp(e.target.checked);
+              if (e.target.checked) setExpThr(buyThr);
+            }}
+          />
+          Ngưỡng thử nghiệm
+        </label>
       </div>
+
+      {showExp && (
+        <label className="slider-row">
+          <span>
+            Ngưỡng thử +{expThr} — <b>{expIdxs.length}</b> ngày đạt / {points.length} ngày
+            <span className="muted small">
+              {" "}
+              · chỉ để khám phá — % kiểm chứng chỉ áp dụng cho ngưỡng chuẩn (+{buyThr})
+            </span>
+          </span>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={5}
+            value={expThr}
+            onChange={(e) => setExpThr(Number(e.target.value))}
+          />
+        </label>
+      )}
 
       {spark && (
         <svg
@@ -252,6 +283,18 @@ export default function TimeMachine({
           aria-label="Biểu đồ giá XAU/USD — bấm để chọn ngày"
         >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
+          {spark.expMarkers.map((m, i) => (
+            <circle
+              key={`x${i}`}
+              cx={m.cx}
+              cy={m.cy}
+              r={span > 24 * POINTS_PER_MONTH ? 3 : 4.5}
+              fill="none"
+              stroke="#5ca8e0"
+              strokeWidth="1.3"
+              opacity="0.8"
+            />
+          ))}
           {spark.sellMarkers.map((m, i) => (
             <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={span > 24 * POINTS_PER_MONTH ? 2 : 3.5} fill="#e05c5c" opacity="0.7" />
           ))}
