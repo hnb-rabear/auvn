@@ -1,6 +1,6 @@
 # Bộ cấu hình (preset) theo kỳ hạn — phương pháp & bằng chứng test
 
-Cập nhật: 2026-06-12 (v3.1 — thêm tín hiệu bán VN: `premium_streak` + `sjc_momentum`). Sinh bởi `scripts/presets-study.ts` + `scripts/factor-study.ts` + `scripts/factor-study-momentum-offline.ts` + `scripts/premium-streak-study.ts` trên dữ liệu thật đến 12/06/2026.
+Cập nhật: 2026-06-12 (v3.2 — nghiên cứu đầy đủ sell signal: VN premium streak + world sell với hiking regime detector). Sinh bởi `scripts/presets-study.ts` + `scripts/factor-study.ts` + `scripts/factor-study-momentum-offline.ts` + `scripts/premium-streak-study.ts` + `scripts/sell-signal-study*.ts` trên dữ liệu thật đến 12/06/2026.
 
 ## Câu hỏi cần trả lời
 
@@ -105,6 +105,68 @@ Hai sub-signal mới được tích hợp vào `premiumCriterion` (`src/lib/crit
 Hai tín hiệu này **không ảnh hưởng preset mua** (premium weight = 0% trong cả 3 preset). Chúng tác động trực tiếp lên biểu đồ và phân tích live — hữu dụng nhất cho người *đang giữ SJC và đang cân nhắc bán*.
 
 **Giới hạn:** 488 ngày dữ liệu, một chế độ thị trường (bull trend 2025–2026), cửa sổ 21 ngày chồng lấn. n=10 của combo signal quá nhỏ để kết luận thống kê. Đọc là bằng chứng sơ bộ mạnh, cần kiểm chứng lại sau 1–2 năm khi dữ liệu phủ thêm chế độ correction.
+
+## Nghiên cứu tín hiệu bán XAU/USD — World sell signal (v3.2)
+
+Chạy bằng `scripts/sell-signal-study.ts` + `sell-signal-study-2.ts` + `sell-signal-study-3.ts` + `sell-signal-study-4.ts` trên 1.425 điểm timeline (2009–2026).
+
+### Vấn đề gốc rễ của composite sell signal
+
+Composite ≤ −40 (tín hiệu bán hiện tại) hoạt động **ngược** chiều ở kỳ hạn dài: accuracy 21 ngày = 49% (coin flip), 3 tháng = 43%, 6 tháng = 32% — median lợi suất *sau* tín hiệu bán 6 tháng là +9,5%, cao hơn ngày trung lập. Nguyên nhân: composite đo "vàng thế giới không thuận" nhưng vàng có đà tăng dài hạn, "đắt tương đối" thường vẫn tăng tiếp.
+
+**Phát hiện quan trọng:** tín hiệu technical (RSI overbought, giá trên MA200) là **phản tín hiệu** cho sell — khi technical âm mạnh = đà tăng mạnh → thường tiếp tục tăng. Technical signal bị loại hoàn toàn khỏi sell weights.
+
+### Sell signal chỉ hoạt động trong hiking cycle
+
+Sub-period breakdown (Study 2) cho thấy accuracy hoàn toàn phụ thuộc chế độ:
+
+| Giai đoạn | Accuracy 21 bars | Accuracy 63 bars |
+| --- | --- | --- |
+| 2009–2013 (bull market) | 50% (+3pp) | 0% (−40pp) |
+| **2014–2018 (bear+recovery)** | **78%** (+28pp) | **100%** (+53pp) |
+| 2019–2020 (COVID) | 0 tín hiệu | 0 tín hiệu |
+| **2021–2022 (Fed hiking)** | **79%** (+30pp) | **100%** (+52pp) |
+| 2023–2026 (new bull) | 20% (−11pp) | 0% (−17pp) |
+
+False positive rate 2023–2026 = **80%** — tín hiệu phản tác dụng trong bull market. Score của false positive gần như bằng correct signal → không thể lọc thêm bằng ngưỡng.
+
+### Fed hiking regime detector
+
+Kiểm tra 5 định nghĩa tự động phát hiện chu kỳ tăng lãi suất (Study 3). Tốt nhất: **Regime B — rate tăng ≥+0,25% so với 6 tháng trước**:
+
+| | Train (2009–2018) | Test (2019–2026) | Min-excess |
+| --- | --- | --- | --- |
+| Không gate | 63,2% (n=19) | 61,8% (n=34) | +16,3pt |
+| **Gate: hiking (B)** | **77,8%** (n=9) | **65,4%** (n=26) | **+26,6pt** ★ |
+| Gate: hiking+near-zero | 63,2% (n=19) | 63,6% (n=33) | +16,3pt |
+
+Thêm "near-zero" vào gate làm loãng tín hiệu (63% vs 77% train) — hiking alone tốt hơn.
+
+**Re-grid weights trong hiking regime** (Study 4): `KT=2/TK=3/VM=4/MOM=1, ngưỡng −40`:
+- Train: 66,7% (n=12) / Test: 68,2% (n=22), min-excess +19,8pt
+- Với duration filter ≥2 điểm (~8 ngày): 71,4%/77,8%, +24,5pt
+
+**Lưu ý n nhỏ:** n_train = 9 (hiking-only) và 12 (re-grid) là giới hạn thống kê. Hai chu kỳ hiking có trong data (2015–2018 và 2022–2023) — đủ để phân biệt chế độ nhưng CI rộng.
+
+### Combination world sell + VN premium (Study 5)
+
+488 ngày VN data **hoàn toàn trùng với chu kỳ Fed cắt giảm** (Sep 2024 → nay). World composite không bao giờ đạt ≤ −40 trong giai đoạn này (median = −3,6). Không thể validate combination thực tế.
+
+Ước tính lý thuyết: kết hợp xảy ra ~0,1–0,3% ngày (~1 ngày/năm với hiking gate) — quá hiếm để tích lũy đủ n trong thời gian hợp lý.
+
+### Thiết kế triển khai (Phase 2)
+
+Tín hiệu bán được chia theo confidence:
+
+| Tín hiệu | Nguồn | Accuracy | Chế độ | Trạng thái (2026) |
+| --- | --- | --- | --- | --- |
+| `premium_streak` + `sjc_momentum` | 488 ngày SJC | 77–100% | Luôn active | **BẮN** khi streak ≥11 |
+| World sell + hiking gate | 17 năm XAU | 66–78% | Chỉ trong hiking cycle | **SUPPRESSED** (Fed đang cắt) |
+| Combination cả hai | — | Chưa validate | Rất hiếm | Chưa triển khai |
+
+World sell signal sẽ được thêm vào engine trong Phase 2 (sau khi UI split world/VN xong), với label rõ ràng "Tín hiệu bán thế giới — chỉ có giá trị trong chu kỳ Fed tăng lãi suất."
+
+Scripts nghiên cứu: `sell-signal-study.ts` (grid search), `sell-signal-study-2.ts` (sub-period, false positive), `sell-signal-study-3.ts` (regime detector), `sell-signal-study-4.ts` (n cân bằng, duration filter), `sell-signal-study-5.ts` (combination test).
 
 ## Nghiên cứu yếu tố mới (ablation, v2)
 

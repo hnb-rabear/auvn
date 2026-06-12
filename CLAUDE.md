@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Status: fully built and committed. Original design doc: `docs/superpowers/specs/2026-06-11-gold-zone-advisor-design.md`; preset methodology + all study evidence: `docs/presets.md` (keep its tables in sync with `PRESETS` in `src/lib/types.ts`). User communicates in Vietnamese; UI text is Vietnamese.
 
-Key commands: `npm run collect` (fetch + analyze + backtest → public/data/), `npm test`, `npm run build`, `npx tsx scripts/monitor-presets.ts` (preset health), `npx tsx scripts/check-modes.ts` (print all-mode composites for UI debugging). Studies: `presets-study`, `factor-study`, `factor-study-momentum-offline` (offline 4D ablation), `premium-buy-study` (premium gating for buy), `premium-streak-study` (VN sell signal: streak + SJC momentum), `single-factor-study`, `horizon-study`, `optimize-study`, `backfill-vn` (one-off CafeF history import).
+Key commands: `npm run collect` (fetch + analyze + backtest → public/data/), `npm test`, `npm run build`, `npx tsx scripts/monitor-presets.ts` (preset health), `npx tsx scripts/check-modes.ts` (print all-mode composites for UI debugging). Studies: `presets-study`, `factor-study`, `factor-study-momentum-offline` (offline 4D ablation), `premium-buy-study` (premium gating for buy), `premium-streak-study` (VN sell signal: streak + SJC momentum), `sell-signal-study` + `sell-signal-study-2/3/4/5` (world sell signal: grid search → regime detector → combination test), `single-factor-study`, `horizon-study`, `optimize-study`, `backfill-vn` (one-off CafeF history import).
 
 ## Agreed architecture (Approach A — do not silently change)
 
