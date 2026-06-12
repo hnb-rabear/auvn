@@ -144,8 +144,8 @@ for (const p of ptsMom) {
 console.log("phân phối momentum:", Object.entries(dist).sort(([a], [b]) => +a - +b).map(([k, v]) => `${k}:${v}`).join(" "));
 
 const results: Record<string, Record<H, number>> = {
-  "base (3 tiêu chí)": {},
-  "+momentum (4 tiêu chí)": {},
+  "base (3 tiêu chí)": { "21": 0, "63": 0, "126": 0 },
+  "+momentum (4 tiêu chí)": { "21": 0, "63": 0, "126": 0 },
 };
 
 for (const [name, points, incMom] of [
