@@ -17,14 +17,26 @@ export function pointComposite(
   return tw === 0 ? 0 : Math.round((s / tw) * 50 * 10) / 10;
 }
 
-/** Index các điểm có composite >= ngưỡng (dùng cho marker tín hiệu/ngưỡng thử). */
-export function thresholdIdxs(
+/** Composite của mọi điểm — tính một lần rồi tái dùng cho các lớp marker/ngưỡng. */
+export function composites(
   points: TimelinePoint[],
-  weights: Record<CriterionKey, number>,
-  threshold: number
+  weights: Record<CriterionKey, number>
 ): number[] {
-  return points.reduce<number[]>((acc, p, i) => {
-    if (pointComposite(p, weights) >= threshold) acc.push(i);
+  return points.map((p) => pointComposite(p, weights));
+}
+
+/** Index các giá trị >= ngưỡng (marker tín hiệu mua / ngưỡng thử). */
+export function idxsAtOrAbove(values: number[], threshold: number): number[] {
+  return values.reduce<number[]>((acc, v, i) => {
+    if (v >= threshold) acc.push(i);
+    return acc;
+  }, []);
+}
+
+/** Index các giá trị <= ngưỡng (vùng bán tham khảo). */
+export function idxsAtOrBelow(values: number[], threshold: number): number[] {
+  return values.reduce<number[]>((acc, v, i) => {
+    if (v <= threshold) acc.push(i);
     return acc;
   }, []);
 }

@@ -17,8 +17,10 @@ Không đụng engine, backtest, notify, hay dữ liệu precomputed.
 Tất cả nằm trong `src/components/TimeMachine.tsx`:
 
 1. **Checkbox "Ngưỡng thử nghiệm"** cạnh toggle "Hiện vùng bán" — mặc định tắt.
-2. Bật → hiện hàng slider: phạm vi **0 → 100, bước 1**, giá trị khởi tạo = ngưỡng
-   chuẩn của chế độ đang chọn (`preset?.buyThreshold ?? 40`).
+2. Bật → hiện hàng slider: phạm vi **0 → 100, bước 1**. Ngưỡng là giá trị dẫn xuất
+   `expThr ?? buyThr`: khi chưa kéo nó **bám theo ngưỡng chuẩn** của chế độ đang chọn
+   (đổi preset là ngưỡng đổi theo); kéo rồi thì giữ giá trị người dùng trong phiên,
+   kể cả khi tắt/bật lại checkbox.
 3. Trên biểu đồ giá: lớp marker **vòng tròn rỗng màu xanh dương** (stroke, không fill)
    tại mọi ngày có `pointComposite(p, weights) ≥ ngưỡng thử`. Vẽ **dưới** chấm xanh lá
    đặc (tín hiệu kiểm chứng) — ngày trùng thành chấm đặc có viền, hai lớp phân biệt rõ.
@@ -30,11 +32,12 @@ hưởng — chúng vẫn theo `buyThreshold` chuẩn.
 
 ## Kỹ thuật
 
-- 2 state mới: `showExperiment: boolean`, `expThreshold: number`.
-- `expIdxs` qua `useMemo`, lọc giống hệt pattern `signalIdxs`/`sellIdxs` sẵn có.
-- Marker vẽ trong khối `spark` cùng cách `sellMarkers`; bán kính theo mức zoom như
-  hai lớp hiện tại.
-- Không lưu localStorage — phiên khám phá tạm thời, tắt bật lại về mặc định.
+- 2 state mới: `showExp: boolean`, `expThr: number | null` (null = bám ngưỡng chuẩn).
+- Composite từng ngày tính một lần qua `composites()` trong `src/lib/timeline.ts`;
+  các lớp buy/sell/thử chỉ là phép lọc `idxsAtOrAbove`/`idxsAtOrBelow` trên mảng đó.
+- Marker vẽ trong khối `spark` cùng cách `sellMarkers`; bán kính chấm `dotR` theo mức
+  zoom, vòng thử nghiệm luôn `dotR + 1` để bao quanh chấm cùng ngày.
+- Không lưu localStorage — phiên khám phá tạm thời.
 - Vài dòng CSS cho marker rỗng + hàng slider. Tổng ~40 dòng thay đổi.
 
 ## Kiểm thử

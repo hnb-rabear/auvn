@@ -11,7 +11,7 @@ import {
   type Zone,
 } from "@/lib/types";
 import { centerWindow } from "@/lib/brush";
-import { pointComposite, thresholdIdxs } from "@/lib/timeline";
+import { composites, idxsAtOrAbove, idxsAtOrBelow } from "@/lib/timeline";
 import TimelineBrush from "./TimelineBrush";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -71,9 +71,10 @@ export default function TimeMachine({
   const [viewSpan, setViewSpan] = useState(points.length);
   /** hiện vùng bán (tham khảo) trên dòng thời gian */
   const [showSell, setShowSell] = useState(false);
-  /** lớp khám phá: highlight ngày có composite >= ngưỡng người dùng tự chọn */
+  /** lớp khám phá: highlight ngày có composite >= ngưỡng người dùng tự chọn.
+   * null = chưa kéo, bám theo ngưỡng chuẩn của chế độ đang chọn. */
   const [showExp, setShowExp] = useState(false);
-  const [expThr, setExpThr] = useState(40);
+  const [expThr, setExpThr] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const p = points[idx];
 
@@ -82,21 +83,14 @@ export default function TimeMachine({
   const end = start + span;
 
   const buyThr = preset?.buyThreshold ?? 40;
-  const signalIdxs = useMemo(
-    () => thresholdIdxs(points, weights, buyThr),
-    [points, weights, buyThr]
-  );
-  const sellIdxs = useMemo(
-    () =>
-      points.reduce<number[]>((acc, q, i) => {
-        if (pointComposite(q, weights) <= -40) acc.push(i);
-        return acc;
-      }, []),
-    [points, weights]
-  );
+  const effThr = expThr ?? buyThr;
+  // composite từng ngày tính một lần; các lớp marker chỉ còn là phép lọc rẻ
+  const comps = useMemo(() => composites(points, weights), [points, weights]);
+  const signalIdxs = useMemo(() => idxsAtOrAbove(comps, buyThr), [comps, buyThr]);
+  const sellIdxs = useMemo(() => idxsAtOrBelow(comps, -40), [comps]);
   const expIdxs = useMemo(
-    () => (showExp ? thresholdIdxs(points, weights, expThr) : []),
-    [showExp, points, weights, expThr]
+    () => (showExp ? idxsAtOrAbove(comps, effThr) : []),
+    [showExp, comps, effThr]
   );
   const prices = useMemo(() => points.map((q) => q.price), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
@@ -139,7 +133,7 @@ export default function TimeMachine({
     setIdx(start + Math.round(frac * (span - 1)));
   };
 
-  const composite = p ? pointComposite(p, weights) : 0;
+  const composite = p ? comps[idx] : 0;
   const rawZone = zoneOf(composite, buyThr);
   const isBuy = rawZone === "buy" || rawZone === "strong-buy";
   const isSell = rawZone === "sell" || rawZone === "strong-sell";
@@ -160,19 +154,13 @@ export default function TimeMachine({
     const path = win
       .map((q, j) => `${j === 0 ? "M" : "L"}${x(start + j).toFixed(1)},${y(q.price).toFixed(1)}`)
       .join("");
-    const markers = signalIdxs
-      .filter((i) => i >= start && i < end)
-      .map((i) => ({ cx: x(i), cy: y(points[i].price) }));
-    const sellMarkers = showSell
-      ? sellIdxs
-          .filter((i) => i >= start && i < end)
-          .map((i) => ({ cx: x(i), cy: y(points[i].price) }))
-      : [];
-    const expMarkers = showExp
-      ? expIdxs
-          .filter((i) => i >= start && i < end)
-          .map((i) => ({ cx: x(i), cy: y(points[i].price) }))
-      : [];
+    const toMarkers = (idxs: number[]) =>
+      idxs
+        .filter((i) => i >= start && i < end)
+        .map((i) => ({ cx: x(i), cy: y(points[i].price) }));
+    const markers = toMarkers(signalIdxs);
+    const sellMarkers = showSell ? toMarkers(sellIdxs) : [];
+    const expMarkers = toMarkers(expIdxs); // đã rỗng sẵn khi tắt lớp thử
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -186,9 +174,13 @@ export default function TimeMachine({
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, showExp, start, end]);
+  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end]);
 
   if (!p) return null;
+
+  // chấm tín hiệu/bán nhỏ lại khi zoom rộng; vòng ngưỡng thử luôn +1 để bao quanh chấm cùng ngày
+  const dotR = span > 24 * POINTS_PER_MONTH ? 2 : 3.5;
+  const ringR = dotR + 1;
 
   return (
     <section className="card">
@@ -244,10 +236,7 @@ export default function TimeMachine({
           <input
             type="checkbox"
             checked={showExp}
-            onChange={(e) => {
-              setShowExp(e.target.checked);
-              if (e.target.checked) setExpThr(buyThr);
-            }}
+            onChange={(e) => setShowExp(e.target.checked)}
           />
           Ngưỡng thử nghiệm
         </label>
@@ -256,7 +245,7 @@ export default function TimeMachine({
       {showExp && (
         <label className="slider-row">
           <span>
-            Ngưỡng thử +{expThr} — <b>{expIdxs.length}</b> ngày đạt / {points.length} ngày
+            Ngưỡng thử +{effThr} — <b>{expIdxs.length}</b> ngày đạt / {points.length} ngày
             <span className="muted small">
               {" "}
               · chỉ để khám phá — % kiểm chứng chỉ áp dụng cho ngưỡng chuẩn (+{buyThr})
@@ -267,7 +256,7 @@ export default function TimeMachine({
             min={0}
             max={100}
             step={1}
-            value={expThr}
+            value={effThr}
             onChange={(e) => setExpThr(Number(e.target.value))}
           />
         </label>
@@ -288,7 +277,7 @@ export default function TimeMachine({
               key={`x${i}`}
               cx={m.cx}
               cy={m.cy}
-              r={span > 24 * POINTS_PER_MONTH ? 3 : 4.5}
+              r={ringR}
               fill="none"
               stroke="#5ca8e0"
               strokeWidth="1.3"
@@ -296,10 +285,10 @@ export default function TimeMachine({
             />
           ))}
           {spark.sellMarkers.map((m, i) => (
-            <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={span > 24 * POINTS_PER_MONTH ? 2 : 3.5} fill="#e05c5c" opacity="0.7" />
+            <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={dotR} fill="#e05c5c" opacity="0.7" />
           ))}
           {spark.markers.map((m, i) => (
-            <circle key={i} cx={m.cx} cy={m.cy} r={span > 24 * POINTS_PER_MONTH ? 2 : 3.5} fill="#4cc97a" opacity="0.75" />
+            <circle key={i} cx={m.cx} cy={m.cy} r={dotR} fill="#4cc97a" opacity="0.75" />
           ))}
           {spark.cx !== null && (
             <>

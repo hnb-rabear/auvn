@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { pointComposite, thresholdIdxs } from "../src/lib/timeline";
+import { pointComposite, composites, idxsAtOrAbove, idxsAtOrBelow } from "../src/lib/timeline";
 import type { CriterionKey, TimelinePoint } from "../src/lib/types";
 
 // chỉ technical có trọng số -> composite = score * 50
@@ -35,19 +35,34 @@ describe("pointComposite", () => {
   });
 });
 
-describe("thresholdIdxs", () => {
-  // composite lần lượt: 100, 25, 50, -50
-  const points = [pt(2), pt(0.5), pt(1), pt(-1)];
-  it("ngưỡng 0: mọi điểm không âm đạt", () => {
-    expect(thresholdIdxs(points, W, 0)).toEqual([0, 1, 2]);
-  });
-  it("ngưỡng 50: biên >= tính cả điểm bằng đúng ngưỡng", () => {
-    expect(thresholdIdxs(points, W, 50)).toEqual([0, 2]);
-  });
-  it("ngưỡng 100: chỉ điểm tối đa", () => {
-    expect(thresholdIdxs(points, W, 100)).toEqual([0]);
+describe("composites", () => {
+  it("map từng điểm theo thứ tự", () => {
+    expect(composites([pt(2), pt(-1), pt(0)], W)).toEqual([100, -50, 0]);
   });
   it("mảng rỗng -> rỗng", () => {
-    expect(thresholdIdxs([], W, 0)).toEqual([]);
+    expect(composites([], W)).toEqual([]);
+  });
+});
+
+describe("idxsAtOrAbove", () => {
+  const vals = [100, 25, 50, -50];
+  it("ngưỡng 0: mọi giá trị không âm đạt", () => {
+    expect(idxsAtOrAbove(vals, 0)).toEqual([0, 1, 2]);
+  });
+  it("biên >= tính cả giá trị bằng đúng ngưỡng", () => {
+    expect(idxsAtOrAbove(vals, 50)).toEqual([0, 2]);
+  });
+  it("ngưỡng 100: chỉ giá trị tối đa", () => {
+    expect(idxsAtOrAbove(vals, 100)).toEqual([0]);
+  });
+});
+
+describe("idxsAtOrBelow", () => {
+  const vals = [100, -40, -50, 0];
+  it("biên <= tính cả giá trị bằng đúng ngưỡng (vùng bán -40)", () => {
+    expect(idxsAtOrBelow(vals, -40)).toEqual([1, 2]);
+  });
+  it("không gì đạt -> rỗng", () => {
+    expect(idxsAtOrBelow(vals, -200)).toEqual([]);
   });
 });
