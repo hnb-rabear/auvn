@@ -61,6 +61,8 @@ export default function TimelineBrush({
     const rect = svgRef.current?.getBoundingClientRect();
     if (!rect || rect.width === 0) return;
     e.preventDefault();
+    // preventDefault chặn focus mặc định — tự focus để phím mũi tên dùng được ngay sau khi bấm
+    svgRef.current?.focus();
     const xPx = e.clientX - rect.left;
     const leftPx = (winX / W) * rect.width;
     const rightPx = ((winX + winW) / W) * rect.width;
