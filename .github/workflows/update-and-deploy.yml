@@ -24,9 +24,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
@@ -52,7 +52,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data
           git diff --cached --quiet || git commit -m "data: cập nhật $(date -u +%Y-%m-%dT%H:%M)"
-          git pull --rebase origin main
+          git pull --rebase -X theirs origin main
           git push
 
       - name: Build static site
@@ -61,6 +61,8 @@ jobs:
         run: npm run build
 
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
