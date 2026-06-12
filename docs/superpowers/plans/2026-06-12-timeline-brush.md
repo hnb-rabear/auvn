@@ -156,7 +156,7 @@ export function centerWindow(centerIdx: number, span: number, total: number): nu
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `npx vitest run tests/brush.test.ts`
-Expected: PASS, 14 tests.
+Expected: PASS, 15 tests.
 
 - [ ] **Step 5: Run the full suite**
 
@@ -237,6 +237,8 @@ export default function TimelineBrush({
   // cửa sổ phủ [start, start + span) trên total điểm
   const winX = (start / total) * W;
   const winW = (span / total) * W;
+  // thu hẹp vùng bắt handle khi cửa sổ rất hẹp (min zoom) để thân vẫn pan được
+  const hit = Math.min(HANDLE_HIT, Math.max(4, winW / 2));
 
   const beginDrag = (mode: BrushDragMode) => (e: React.PointerEvent) => {
     e.preventDefault();
@@ -330,17 +332,17 @@ export default function TimelineBrush({
       />
       <rect
         className="tm-brush-handle"
-        x={winX - HANDLE_HIT / 2}
+        x={winX - hit / 2}
         y="0"
-        width={HANDLE_HIT}
+        width={hit}
         height={H}
         onPointerDown={beginDrag("left")}
       />
       <rect
         className="tm-brush-handle"
-        x={winX + winW - HANDLE_HIT / 2}
+        x={winX + winW - hit / 2}
         y="0"
-        width={HANDLE_HIT}
+        width={hit}
         height={H}
         onPointerDown={beginDrag("right")}
       />
@@ -640,6 +642,7 @@ In the "Xét lại lịch sử — máy thời gian" card:
 1. Brush visible by default ("Tất cả"): window covers full bar, handles at both edges.
 2. Drag right handle left → window shrinks, chart zooms into recent data; date label updates.
 3. Drag left handle → other edge stays fixed; cannot shrink below ~2 weeks.
+   At min width: both handles still grabbable AND window body still pannable (handle hit shrinks).
 4. Drag window body → pans; clamps at both ends.
 5. Click outside window → window jumps there, centered.
 6. Drag brush → no zoom button shows `active`; click "1 năm" → window = 12×7 points centered on selected day, button active again.
