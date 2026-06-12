@@ -14,6 +14,7 @@ import {
   technicalCriterion,
   premiumCriterion,
   macroCriterion,
+  momentumCriterion,
   statsCriterion,
 } from "../src/lib/criteria";
 import {
@@ -198,6 +199,7 @@ async function main() {
         : undefined,
     }),
     statsCriterion(closes, dates),
+    momentumCriterion(closes),
   ];
 
   const premiumSeries = history
@@ -235,7 +237,7 @@ async function main() {
     dxyRes?.bars ?? null,
     fed,
     undefined,
-    { yield10y: yieldRes }
+    { yield10y: yieldRes, momentum12m: true }
   );
 
   mkdirSync(HISTORY_DIR, { recursive: true });

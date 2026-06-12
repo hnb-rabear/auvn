@@ -7,6 +7,7 @@ import {
   technicalCriterion,
   statsCriterion,
   macroCriterion,
+  momentumCriterion,
   seasonalityTable,
 } from "../src/lib/criteria";
 import { median } from "../src/lib/indicators";
@@ -31,6 +32,8 @@ export interface BacktestExtras {
   yield10y?: { bars: DailyBar[]; real: boolean } | null;
   vix?: DailyBar[] | null;
   gpr?: DailyBar[] | null;
+  /** Bật tín hiệu động lượng 12 tháng của XAU (trend-following). */
+  momentum12m?: boolean;
 }
 
 export function runBacktest(
@@ -128,6 +131,12 @@ export function runBacktest(
     for (const c of criteria) {
       if (c.available) scores[c.key] = Math.round(c.score * 100) / 100;
     }
+
+    if (extras.momentum12m) {
+      const mc = momentumCriterion(closesUpTo);
+      if (mc.available) scores[mc.key] = Math.round(mc.score * 100) / 100;
+    }
+
     points.push({
       date,
       price: Math.round(closes[i] * 10) / 10,
