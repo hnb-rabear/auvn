@@ -266,7 +266,7 @@ export default function TimeMachine({
             type="range"
             min={0}
             max={100}
-            step={5}
+            step={1}
             value={expThr}
             onChange={(e) => setExpThr(Number(e.target.value))}
           />

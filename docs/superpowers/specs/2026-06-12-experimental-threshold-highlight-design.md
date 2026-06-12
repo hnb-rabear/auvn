@@ -17,7 +17,7 @@ Không đụng engine, backtest, notify, hay dữ liệu precomputed.
 Tất cả nằm trong `src/components/TimeMachine.tsx`:
 
 1. **Checkbox "Ngưỡng thử nghiệm"** cạnh toggle "Hiện vùng bán" — mặc định tắt.
-2. Bật → hiện hàng slider: phạm vi **0 → 100, bước 5**, giá trị khởi tạo = ngưỡng
+2. Bật → hiện hàng slider: phạm vi **0 → 100, bước 1**, giá trị khởi tạo = ngưỡng
    chuẩn của chế độ đang chọn (`preset?.buyThreshold ?? 40`).
 3. Trên biểu đồ giá: lớp marker **vòng tròn rỗng màu xanh dương** (stroke, không fill)
    tại mọi ngày có `pointComposite(p, weights) ≥ ngưỡng thử`. Vẽ **dưới** chấm xanh lá
