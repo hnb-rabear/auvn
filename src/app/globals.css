@@ -355,6 +355,20 @@ td.neutral {
   accent-color: var(--gold);
 }
 
+/* slider ngưỡng thử trong máy thời gian — ngoài .settings nên cần tự trải hết bề ngang */
+.tm-exp {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 8px 0 10px;
+  font-size: 0.9rem;
+}
+
+.tm-exp input[type="range"] {
+  width: 100%;
+  accent-color: var(--gold);
+}
+
 .spark {
   width: 100%;
   height: 120px;

@@ -243,7 +243,7 @@ export default function TimeMachine({
       </div>
 
       {showExp && (
-        <label className="slider-row">
+        <label className="slider-row tm-exp">
           <span>
             Ngưỡng thử +{effThr} — <b>{expIdxs.length}</b> ngày đạt / {points.length} ngày
             <span className="muted small">
