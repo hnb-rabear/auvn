@@ -76,6 +76,24 @@ describe("applyBrushDrag — span neo nhỏ hơn minSpan (bất biến bị phá
   });
 });
 
+describe("applyBrushDrag — span neo lớn hơn total", () => {
+  it("pan: kẹp span về total", () => {
+    expect(applyBrushDrag("pan", 0, 200, 0, TOTAL, MIN)).toEqual({ start: 0, span: 100 });
+  });
+  it("left: mép phải không vượt total", () => {
+    expect(applyBrushDrag("left", 0, 200, 0, TOTAL, MIN)).toEqual({ start: 0, span: 100 });
+  });
+});
+
+describe("applyBrushDrag — minSpan lớn hơn total, các mode còn lại", () => {
+  it("pan không nổ", () => {
+    expect(applyBrushDrag("pan", 0, 10, 5, 10, MIN)).toEqual({ start: 0, span: 10 });
+  });
+  it("left không nổ", () => {
+    expect(applyBrushDrag("left", 0, 10, 0, 10, MIN)).toEqual({ start: 0, span: 10 });
+  });
+});
+
 describe("centerWindow — biên hiếm", () => {
   it("span lẻ: thiên trái theo floor", () => {
     expect(centerWindow(50, 21, TOTAL)).toBe(40);

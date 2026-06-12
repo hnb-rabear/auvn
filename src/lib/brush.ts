@@ -18,17 +18,18 @@ export function applyBrushDrag(
   total: number,
   minSpan: number
 ): { start: number; span: number } {
+  const sp = Math.min(anchorSpan, total);
   // floor không vượt quá span neo — kéo delta 0 không được tự nhảy cửa sổ
-  const min = Math.min(minSpan, total, Math.max(anchorSpan, 1));
+  const min = Math.min(minSpan, total, Math.max(sp, 1));
   if (mode === "pan") {
-    return { start: clamp(anchorStart + deltaIdx, 0, total - anchorSpan), span: anchorSpan };
+    return { start: clamp(anchorStart + deltaIdx, 0, total - sp), span: sp };
   }
   if (mode === "left") {
-    const end = anchorStart + anchorSpan;
+    const end = Math.min(anchorStart + sp, total);
     const start = clamp(anchorStart + deltaIdx, 0, end - min);
     return { start, span: end - start };
   }
-  return { start: anchorStart, span: clamp(anchorSpan + deltaIdx, min, total - anchorStart) };
+  return { start: anchorStart, span: clamp(sp + deltaIdx, min, total - anchorStart) };
 }
 
 /** start của cửa sổ span điểm căn giữa quanh centerIdx, kẹp trong [0, total - span]. */
