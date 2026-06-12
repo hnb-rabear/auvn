@@ -368,10 +368,42 @@ td.neutral {
   height: 160px;
 }
 
-.tm-slider {
+.tm-brush {
   width: 100%;
-  accent-color: var(--gold);
+  height: 34px;
+  display: block;
+  background: var(--card2);
+  border-radius: 6px;
   margin-bottom: 12px;
+  touch-action: none;
+  user-select: none;
+  outline-color: var(--gold);
+}
+
+.tm-brush-dim {
+  fill: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.tm-brush-win {
+  fill: rgba(230, 184, 76, 0.12);
+  stroke: var(--gold);
+  stroke-width: 1;
+  cursor: grab;
+}
+
+.tm-brush-win:active {
+  cursor: grabbing;
+}
+
+.tm-brush-grip {
+  fill: var(--gold);
+  pointer-events: none;
+}
+
+.tm-brush-handle {
+  fill: transparent;
+  cursor: ew-resize;
 }
 
 .tm-clickable {
