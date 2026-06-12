@@ -66,11 +66,16 @@ export default function TimelineBrush({
     const rightPx = ((winX + winW) / W) * rect.width;
     const dLeft = Math.abs(xPx - leftPx);
     const dRight = Math.abs(xPx - rightPx);
+    // trong cửa sổ: vùng resize tối đa 1/3 bề rộng mỗi bên để phần giữa luôn pan được;
+    // ngoài cửa sổ: giữ nguyên HANDLE_PX
+    const insideReach = Math.min(HANDLE_PX, (rightPx - leftPx) / 3);
+    const reachLeft = xPx < leftPx ? HANDLE_PX : insideReach;
+    const reachRight = xPx > rightPx ? HANDLE_PX : insideReach;
     let mode: BrushDragMode;
     let anchorStart = start;
-    if (dLeft <= HANDLE_PX && dLeft <= dRight) {
+    if (dLeft <= reachLeft && dLeft <= dRight) {
       mode = "left";
-    } else if (dRight <= HANDLE_PX) {
+    } else if (dRight <= reachRight) {
       mode = "right";
     } else if (xPx > leftPx && xPx < rightPx) {
       mode = "pan";
