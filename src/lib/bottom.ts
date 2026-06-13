@@ -136,3 +136,27 @@ export function bottomFeatures(inp: BottomFeatureInputs): BottomDriver[] {
 
   return out;
 }
+
+/** Gộp feature (-2..+2) thành điểm -100..+100, trọng số tự chuẩn hóa theo feature khả dụng. */
+export function bottomScore(drivers: BottomDriver[], weights: Record<string, number>): number {
+  let sum = 0;
+  let tw = 0;
+  for (const d of drivers) {
+    if (!d.available) continue;
+    const w = weights[d.id] ?? 0;
+    sum += d.score * w;
+    tw += w;
+  }
+  if (tw === 0) return 0;
+  return Math.round((sum / tw) * 50 * 10) / 10;
+}
+
+/** Trả về chỉ số bin (0..edges.length) cho điểm score theo binEdges tăng dần. */
+export function binOf(score: number, edges: number[]): number {
+  let b = 0;
+  for (const e of edges) {
+    if (score >= e) b++;
+    else break;
+  }
+  return b;
+}

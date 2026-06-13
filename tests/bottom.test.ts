@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { BOTTOM_CONFIG, type BottomAnalysis } from "../src/lib/types";
-import { labelNearBottom, bottomFeatures } from "../src/lib/bottom";
+import { labelNearBottom, bottomFeatures, bottomScore, binOf } from "../src/lib/bottom";
 import { macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence } from "../src/lib/indicators";
 
 describe("bottom types & config", () => {
@@ -113,5 +113,26 @@ describe("bottomFeatures", () => {
     const f = bottomFeatures({ closes, dxyCloses, yieldCloses: null, fedRates: [] });
     const macro = f.find((d) => d.id === "macro")!;
     expect(macro.available).toBe(true);
+  });
+});
+
+describe("bottomScore & binOf", () => {
+  const drivers = [
+    { id: "dd", label: "", score: 2, explanation: "", available: true },
+    { id: "spd", label: "", score: 2, explanation: "", available: true },
+    { id: "macro", label: "", score: 1, explanation: "", available: false },
+  ];
+
+  it("bottomScore tự chuẩn hóa theo feature khả dụng, -100..+100", () => {
+    const w = { dd: 0.5, spd: 0.3, macro: 0.2 };
+    // chỉ dd & spd available: (2*0.5 + 2*0.3)/(0.8) * 50 = 100
+    expect(bottomScore(drivers, w)).toBe(100);
+  });
+
+  it("binOf đặt điểm vào đúng khoảng", () => {
+    expect(binOf(-50, [-40, 0, 40])).toBe(0);
+    expect(binOf(-10, [-40, 0, 40])).toBe(1);
+    expect(binOf(10, [-40, 0, 40])).toBe(2);
+    expect(binOf(80, [-40, 0, 40])).toBe(3);
   });
 });
