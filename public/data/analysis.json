@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-06-13T04:02:39.171Z",
+ "generatedAt": "2026-06-13T12:59:23.585Z",
  "dataDate": "2026-06-12",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 142400000,
-  "sjcSell": 145400000,
-  "ringBuy": 142400000,
-  "ringSell": 145400000,
+  "sjcBuy": 144000000,
+  "sjcSell": 147000000,
+  "ringBuy": 144000000,
+  "ringSell": 147000000,
   "xauUsd": 4215,
   "usdVnd": 26412,
   "worldVndPerLuong": 134221225,
-  "premiumPct": 8.73,
-  "premiumVnd": 11178775
+  "premiumPct": 9.52,
+  "premiumVnd": 12778775
  },
  "criteria": [
   {
@@ -66,14 +66,14 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,7%, ở percentile 14 so với lịch sử tự thu thập (488 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,5%, ở percentile 16 so với lịch sử tự thu thập (489 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": 0,
-     "explanation": "Chênh mua–bán SJC = 2,1% giá bán: spread bình thường.",
+     "explanation": "Chênh mua–bán SJC = 2% giá bán: spread bình thường.",
      "available": true
     },
     {
@@ -117,7 +117,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.412, nhịp +0,4%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.412, nhịp +0,3%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -185,11 +185,8 @@
  },
  "composite": 11.3,
  "zone": "neutral",
- "vnHistoryDays": 488,
- "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
- ],
+ "vnHistoryDays": 489,
+ "warnings": [],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2142,10 +2139,14 @@
   {
    "date": "2026-06-12",
    "value": 8.73
+  },
+  {
+   "date": "2026-06-13",
+   "value": 9.52
   }
  ],
  "premiumPercentiles": {
-  "p20": 11.06,
+  "p20": 11.03,
   "p50": 14,
   "p80": 16.62
  }
