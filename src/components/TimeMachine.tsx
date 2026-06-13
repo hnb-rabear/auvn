@@ -5,6 +5,7 @@ import {
   CRITERION_LABELS,
   ZONE_LABELS,
   zoneOf,
+  type ConfirmedBottom,
   type CriterionKey,
   type Preset,
   type Timeline,
@@ -64,10 +65,12 @@ export default function TimeMachine({
   timeline,
   weights,
   preset,
+  confirmedBottoms = [],
 }: {
   timeline: Timeline;
   weights: Record<CriterionKey, number>;
   preset: Preset | null;
+  confirmedBottoms?: ConfirmedBottom[];
 }) {
   const points = timeline.points;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
@@ -177,6 +180,10 @@ export default function TimeMachine({
     const markers = toMarkers(signalIdxs);
     const sellMarkers = showSell ? toMarkers(sellIdxs) : [];
     const expMarkers = toMarkers(expIdxs); // đã rỗng sẵn khi tắt lớp thử
+    const bottomMarkers = confirmedBottoms
+      .map((b) => ({ i: indexOnOrAfter(dates, b.date), tier: b.tier }))
+      .filter((m) => m.i >= start && m.i < end && m.i < points.length)
+      .map((m) => ({ cx: x(m.i), cy: y(points[m.i].price), tier: m.tier }));
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -187,10 +194,11 @@ export default function TimeMachine({
       markers,
       sellMarkers,
       expMarkers,
+      bottomMarkers,
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end]);
+  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end, confirmedBottoms, dates]);
 
   if (!p) return null;
 
@@ -323,6 +331,10 @@ export default function TimeMachine({
           ))}
           {spark.markers.map((m, i) => (
             <circle key={i} cx={m.cx} cy={m.cy} r={dotR} fill="#4cc97a" opacity="0.75" />
+          ))}
+          {spark.bottomMarkers.map((m, i) => (
+            <text key={`bm${i}`} x={m.cx} y={m.cy + 13} fontSize={11}
+                  fill={m.tier === "cycle" ? "#4cc97a" : "#86efac"} textAnchor="middle">▲</text>
           ))}
           {spark.cx !== null && (
             <>

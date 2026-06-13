@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Status: fully built and committed. Original design doc: `docs/superpowers/specs/2026-06-11-gold-zone-advisor-design.md`; preset methodology + all study evidence: `docs/presets.md` (keep its tables in sync with `PRESETS` in `src/lib/types.ts`). User communicates in Vietnamese; UI text is Vietnamese.
 
-Key commands: `npm run collect` (fetch + analyze + backtest → public/data/), `npm test`, `npm run build`, `npx tsx scripts/monitor-presets.ts` (preset health), `npx tsx scripts/check-modes.ts` (print all-mode composites for UI debugging). Studies: `presets-study`, `factor-study`, `factor-study-momentum-offline` (offline 4D ablation), `premium-buy-study` (premium gating for buy), `single-factor-study`, `horizon-study`, `optimize-study`, `backfill-vn` (one-off CafeF history import).
+Key commands: `npm run collect` (fetch + analyze + backtest → public/data/), `npm test`, `npm run build`, `npx tsx scripts/monitor-presets.ts` (preset health), `npx tsx scripts/check-modes.ts` (print all-mode composites for UI debugging). Studies: `presets-study`, `factor-study`, `factor-study-momentum-offline` (offline 4D ablation), `premium-buy-study` (premium gating for buy), `single-factor-study`, `horizon-study`, `optimize-study`, `backfill-vn` (one-off CafeF history import), `npx tsx scripts/bottom-study.ts` (Bottom Hunter ε/H + weight grid search), `npx tsx scripts/bottom-ml-study.ts` (ML vs rule-based gate).
 
 ## Agreed architecture (Approach A — do not silently change)
 
@@ -44,6 +44,8 @@ Each criterion = multiple sub-signals, each scored **−2..+2** (negative = sell
 4. **Historical stats (20%)** — price percentile vs 1y/3y, monthly seasonality (Tết / Thần Tài effects), 30-day volatility
 
 Composite: weighted sum normalized to −100..+100. Thresholds: ≥+40 BUY zone (≥+70 strong), ≤−40 SELL zone (≤−70 strong), otherwise NEUTRAL.
+
+An independent **Bottom Hunter** layer (2-tier cycle/swing near-bottom probability, driven by RSI oversold + macro reversal, validated out-of-sample, see `docs/bottom.md`) reports a near-bottom % with CI and does NOT touch the buy/sell composite.
 
 **Backtest rule (integrity-critical):** confidence % must come from replaying the engine over ~15 years of XAU/USD history (e.g., "BUY signal at this level: 134 occurrences, 71% higher after 3 months, avg +4.2%"). VN-premium criterion is only backtested once ≥6 months of self-collected data exists; before that the UI must say "chưa đủ dữ liệu kiểm chứng" — never fabricate a number.
 

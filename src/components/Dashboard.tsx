@@ -398,7 +398,7 @@ export default function Dashboard({
 
       <BottomGauges bottom={bottom} />
 
-      <TimeMachine timeline={timeline} weights={weights} preset={preset} />
+      <TimeMachine timeline={timeline} weights={weights} preset={preset} confirmedBottoms={bottom.confirmedBottoms} />
 
       <footer className="disclaimer">
         Công cụ hỗ trợ quyết định dựa trên thống kê quá khứ — không phải khuyến nghị đầu tư,
