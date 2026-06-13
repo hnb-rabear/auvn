@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { BOTTOM_CONFIG, type BottomAnalysis } from "../src/lib/types";
-import { labelNearBottom } from "../src/lib/bottom";
+import { labelNearBottom, bottomFeatures } from "../src/lib/bottom";
 import { macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence } from "../src/lib/indicators";
 
 describe("bottom types & config", () => {
@@ -86,5 +86,32 @@ describe("bottom indicators", () => {
     ];
     const div = bullishRsiDivergence(s);
     expect(typeof div).toBe("boolean");
+  });
+});
+
+describe("bottomFeatures", () => {
+  it("đáy chữ V sâu sau đợt rơi: feature drawdown & tốc độ rơi nghiêng dương", () => {
+    const closes = [...rng(300, () => 2000), ...rng(120, (i) => 2000 - i * 8)];
+    const f = bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [] });
+    const dd = f.find((d) => d.id === "dd")!;
+    const spd = f.find((d) => d.id === "spd")!;
+    expect(dd.available).toBe(true);
+    expect(dd.score).toBeGreaterThan(0);
+    expect(spd.score).toBeGreaterThan(0);
+  });
+
+  it("đỉnh parabol: feature nghiêng âm (xa đáy)", () => {
+    const closes = [...rng(300, () => 1500), ...rng(120, (i) => 1500 + i * 10)];
+    const f = bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [] });
+    const dd = f.find((d) => d.id === "dd")!;
+    expect(dd.score).toBeLessThanOrEqual(0);
+  });
+
+  it("macro feature available khi có đủ DXY", () => {
+    const closes = rng(400, (i) => 1500 + i);
+    const dxyCloses = rng(120, (i) => 105 - i * 0.2);
+    const f = bottomFeatures({ closes, dxyCloses, yieldCloses: null, fedRates: [] });
+    const macro = f.find((d) => d.id === "macro")!;
+    expect(macro.available).toBe(true);
   });
 });
