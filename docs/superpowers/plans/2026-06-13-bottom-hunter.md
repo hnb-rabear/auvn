@@ -22,13 +22,13 @@
 - `tests/bottom.test.ts` — test engine + labeling + features
 
 **Sửa:**
-- `src/lib/indicators.ts` — thêm `macd`, `drawdownFromPeak`, `declineSpeedPct`, `bullishRsiDivergence`
-- `src/lib/types.ts` — thêm types `BottomConfig`, `BottomDriver`, `ConfirmedBottom`, `BottomAnalysis`, `BottomTimelinePoint`
-- `scripts/run.ts` — gọi `runBottom`, ghi `bottom.json`
-- `scripts/monitor-presets.ts` — thêm giám sát calibration bottom (hoặc tạo `scripts/monitor-bottom.ts` song song — xem Task 11)
+- `src/lib/indicators.ts` — thêm `macd`, `drawdownFromPeak`, `declineSpeedPct`, `bullishRsiDivergence`; **di chuyển** `seededRandom` + `blockBootstrapCi` vào đây (tránh import ngược `src/lib` → `scripts`)
+- `scripts/study-lib.ts` — re-export `seededRandom` + `blockBootstrapCi` từ `../src/lib/indicators` (giữ tương thích cho `engine.test.ts`, `monitor-presets.ts`)
+- `src/lib/types.ts` — thêm types `BottomConfig`, `BottomTierConfig`, `BottomDriver`, `ConfirmedBottom`, `BottomTierResult`, `BottomAnalysis`
+- `scripts/run.ts` — gọi `runBottom` + `monitorBottom`, ghi `bottom.json` + `bottom-health.json`
 - `src/app/page.tsx` — import `bottom.json`, truyền vào Dashboard
-- `src/components/Dashboard.tsx` — render `BottomGauges`
-- `src/components/PremiumChart.tsx` — overlay marker đáy đã xác nhận
+- `src/components/Dashboard.tsx` — render `BottomGauges`, truyền `confirmedBottoms` xuống `TimeMachine`
+- `src/components/TimeMachine.tsx` — overlay marker đáy đã xác nhận trên biểu đồ giá XAU (đây mới là chart vẽ giá; `PremiumChart` vẽ chênh lệch %, KHÔNG dùng)
 
 ---
 
@@ -685,6 +685,16 @@ git commit -m "feat(bottom): gộp bottomScore + binning"
 
 `runBottom` tái dùng chữ ký giống `runBacktest`: nhận chuỗi bar XAU + DXY + Fed + extras yield. Với mỗi ngày lịch sử (bước STEP) nó tính drivers + bottomScore + bin + label cho từng tầng; xác suất hiện tại = tỉ lệ near-bottom của các ngày lịch sử CÙNG bin; CI = block-bootstrap trên nhãn 0/1 của bin đó. `confirmedBottoms` = các ngày lịch sử có label=true và là điểm thấp cục bộ (để overlay).
 
+- [ ] **Step 0: Di chuyển helper bootstrap vào `src/lib` (tránh import ngược)**
+
+`src/lib/bottom.ts` cần `blockBootstrapCi` nhưng nó đang nằm ở `scripts/study-lib.ts` — để `src/lib` không phụ thuộc `scripts/`, di chuyển 2 hàm thuần toán `seededRandom` và `blockBootstrapCi` từ `scripts/study-lib.ts` sang CUỐI `src/lib/indicators.ts` (cắt nguyên văn, giữ nguyên thân hàm + JSDoc). Sau đó trong `scripts/study-lib.ts` thay 2 định nghĩa đã cắt bằng một dòng re-export ở đầu file (sau import hiện có):
+
+```typescript
+export { seededRandom, blockBootstrapCi } from "../src/lib/indicators";
+```
+
+Chạy `npx vitest run tests/engine.test.ts -t bootstrap` để xác nhận `engine.test.ts` (import từ `../scripts/study-lib`) vẫn xanh nhờ re-export.
+
 - [ ] **Step 1: Viết test thất bại**
 
 Thêm vào `tests/bottom.test.ts`:
@@ -744,7 +754,7 @@ Thêm import và hàm:
 
 ```typescript
 import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig } from "./types";
-import { blockBootstrapCi } from "../scripts/study-lib";
+import { blockBootstrapCi } from "./indicators"; // đã di chuyển khỏi scripts/study-lib ở Step 0
 
 interface Bar { date: string; close: number; }
 const WARMUP = 756;
@@ -962,7 +972,6 @@ async function main() {
     }));
   }
 
-  const FEATURES = ["dd", "spd", "rsi", "macd", "macro", "mom"] as const;
   const EDGES = [-40, 0, 40]; // bin cao nhất (3) = "gần đáy nhất"
 
   for (const [tier, Hs, EPSs] of [
@@ -1353,28 +1362,49 @@ git commit -m "feat(bottom): UI 2 đồng hồ xác suất đáy + drivers"
 - Create: `docs/bottom.md`
 - Modify: `CLAUDE.md` (thêm trỏ tới docs/bottom.md + commands)
 
-- [ ] **Step 1: Đọc PremiumChart để biết hệ tọa độ**
+Overlay gắn vào **`src/components/TimeMachine.tsx`** — đây là biểu đồ vẽ giá XAU theo timeline (SVG `spark`, đã có lớp marker mua/bán). KHÔNG dùng `PremiumChart` (nó vẽ chênh lệch %, trục x là chỉ số ~487 ngày premium, sai trục cho giá XAU). Các ngày trong `confirmedBottoms` cùng nguồn `xau.bars` + cùng `WARMUP=756/STEP=3` với `timeline.points`, nên khớp ngày 1-1; map date→index bằng `indexOnOrAfter(dates, b.date)` (đã import sẵn trong TimeMachine ở dòng 14-20).
 
-Run: `sed -n '1,80p' src/components/PremiumChart.tsx` (hoặc dùng Read tool). Xác định cách map date→x, value→y (SVG/canvas).
+- [ ] **Step 1: Thêm prop `confirmedBottoms` + tính marker trong `spark` memo**
 
-- [ ] **Step 2: Truyền `confirmedBottoms` xuống chart**
+Trong `src/components/TimeMachine.tsx`:
 
-Trong `Dashboard.tsx`, truyền `bottom.confirmedBottoms` vào component biểu đồ giá đang có. Trong chart, với mỗi đáy có `date` nằm trong miền x hiện tại, vẽ marker ▼ (cycle: đậm; swing: nhạt) tại (x(date), y(price)). Dùng cùng hàm scale đã có trong chart — không tự tạo scale mới.
+1. Thêm `type ConfirmedBottom` vào import từ `@/lib/types` (khối import dòng 4-12).
+2. Thêm vào props (dòng 63-71): `confirmedBottoms = [],` trong destructure và `confirmedBottoms?: ConfirmedBottom[];` trong type.
+3. Trong `spark` useMemo (sau khi `x`, `y`, `markers` đã tính, trước `return {...}` — quanh dòng 179-180), thêm:
 
 ```tsx
-// trong phần render SVG của chart, sau khi vẽ line giá:
-{confirmedBottoms?.filter((b) => b.date >= minDate && b.date <= maxDate).map((b, i) => (
-  <text key={i} x={xScale(b.date)} y={yScale(b.price) + 12} fontSize={10}
-        fill={b.tier === "cycle" ? "#16a34a" : "#86efac"} textAnchor="middle">▲</text>
-))}
+    const bottomMarkers = confirmedBottoms
+      .map((b) => ({ i: indexOnOrAfter(dates, b.date), tier: b.tier }))
+      .filter((m) => m.i >= start && m.i < end && m.i < points.length)
+      .map((m) => ({ cx: x(m.i), cy: y(points[m.i].price), tier: m.tier }));
 ```
 
-(Tên `xScale`/`yScale`/`minDate`/`maxDate` thay bằng tên thật trong PremiumChart sau khi đọc ở Step 1.)
+4. Thêm `bottomMarkers` vào object `return {...}` của memo (cạnh `markers`, `sellMarkers`, `expMarkers`).
+5. Thêm `confirmedBottoms` và `dates` vào mảng dependency của `spark` memo (dòng 193).
+
+- [ ] **Step 2: Vẽ marker + nối prop từ Dashboard**
+
+Trong phần render SVG của TimeMachine, ngay sau khối `{spark.markers.map(...)}` (vẽ chấm mua xanh, dòng 324-326), thêm:
+
+```tsx
+          {spark.bottomMarkers.map((m, i) => (
+            <text key={`bm${i}`} x={m.cx} y={m.cy + 13} fontSize={11}
+                  fill={m.tier === "cycle" ? "#4cc97a" : "#86efac"} textAnchor="middle">▲</text>
+          ))}
+```
+
+Trong `src/components/Dashboard.tsx` dòng 395, đổi:
+
+```tsx
+      <TimeMachine timeline={timeline} weights={weights} preset={preset} confirmedBottoms={bottom.confirmedBottoms} />
+```
+
+(Prop `bottom` đã được thêm vào Dashboard ở Task 11 Step 3.)
 
 - [ ] **Step 3: Build kiểm tra**
 
 Run: `npm run build`
-Expected: PASS.
+Expected: PASS, không lỗi type (`ConfirmedBottom` khớp, `bottom` prop tồn tại).
 
 - [ ] **Step 4: Viết `docs/bottom.md`**
 
@@ -1423,3 +1453,14 @@ git commit -m "feat(bottom): overlay đáy lịch sử + docs/bottom.md + cập 
 **Type consistency:** `BottomDriver`, `BottomTierResult`, `BottomAnalysis`, `BOTTOM_CONFIG`, `BottomTierConfig` định nghĩa ở Task 1, dùng nhất quán ở Task 4/5/6/10/11. Feature `id` (`dd/spd/rsi/macd/macro/mom`) khớp giữa `bottomFeatures` (Task 4) và `BOTTOM_CONFIG.weights` (Task 1) và study/ML (Task 8/9). Hàm `bottomScore`/`binOf`/`labelNearBottom`/`bottomFeatures`/`runBottom` tên nhất quán xuyên suốt.
 
 **Lưu ý rủi ro thực thi:** test "đáy > đỉnh" (Task 6) phụ thuộc chỉ số lát cắt chuỗi sin — nếu lệch, chỉnh chỉ số (đã ghi chú trong task). Cấu hình khởi điểm có thể KHÔNG vượt baseline khi chạy study thật (Task 8) — khi đó tầng tương ứng đánh dấu provisional, đúng guardrail, không phải lỗi plan.
+
+## Review đối chiếu code thật (2026-06-13, "no hallucination")
+
+Đã đối chiếu từng API/đường dẫn với code thật. **Đã xác minh đúng:** chữ ký `fetchXau` (`{bars,source}` không null), `fetchDxy`/`fetchYield10y`/`fetchFedFunds` (nullable), `DailyBar` (`scripts/fetch.ts:15`); `sma`/`rsi`/`percentileRank`/`median` có sẵn trong `indicators.ts`; `seededRandom`/`blockBootstrapCi` export từ `study-lib.ts`; pattern import JSON trong `page.tsx`; `Dashboard` render `PremiumChart analysis` (dòng 393) và `TimeMachine timeline/weights/preset` (dòng 395); helper `indexOnOrAfter` đã import trong TimeMachine; `timeline.points` dùng cùng `WARMUP=756/STEP=3` với `runBottom` nên ngày khớp 1-1 cho overlay; toán composite/binOf/label/weights-sum đúng.
+
+**Lỗi đã phát hiện & sửa trong bản plan này:**
+1. **Overlay nhắm sai component (nghiêm trọng):** bản đầu gắn marker vào `PremiumChart` với tên scale bịa (`xScale/yScale/minDate/maxDate`). `PremiumChart` vẽ *chênh lệch %* (trục x là chỉ số ~487 ngày premium), không phải giá XAU. Đã sửa Task 12 sang `TimeMachine.tsx` với `x`/`y` thật trong `spark` memo + `indexOnOrAfter` map date→index.
+2. **Import ngược `src/lib` → `scripts` (smell):** `bottom.ts` import `blockBootstrapCi` từ `scripts/study-lib`. Đã thêm Task 6 Step 0: di chuyển `seededRandom`+`blockBootstrapCi` vào `src/lib/indicators.ts`, `study-lib.ts` re-export (giữ `engine.test.ts`/`monitor-presets.ts` xanh); `bottom.ts` import từ `./indicators`.
+3. **Nhỏ:** bỏ `const FEATURES` thừa trong `bottom-study.ts` (Task 8).
+
+Không tìm thấy tên hàm/type/đường dẫn bịa nào khác trong plan sau khi sửa 3 mục trên.
