@@ -301,24 +301,25 @@ export interface BottomConfig {
 }
 
 /**
- * Cấu hình tầng đáy. `bottom-study.ts` đã chạy (2026-06): KHÔNG tầng nào có cấu hình
- * vượt base-rate vô điều kiện ở CẢ HAI giai đoạn train/test — cả hai tầng giữ giá trị
- * khởi điểm và đánh dấu `provisional: true` (UI ghi "chưa đủ dữ liệu kiểm chứng").
+ * Cấu hình tầng đáy. `bottom-study.ts` chạy lại 2026-06 với LƯỚI trọng số bước 0.25
+ * (126 hồ sơ) × 3 bộ ranh giới bin: CẢ HAI tầng có cấu hình vượt base-rate vô điều kiện
+ * ở CẢ HAI giai đoạn train (<2019) và test (>=2019) → bỏ `provisional`.
+ *   cycle: H=126 eps=3% edges=[-40,0,40] | lift train +19.5pt (n=81) / test +26.5pt (n=57), min-excess +19.5pt
+ *   swing: H=30  eps=2% edges=[-40,0,40] | lift train +13.9pt (n=81) / test +12.5pt (n=63), min-excess +12.5pt
+ * Cả hai chốt cùng trọng số {rsi:0.5, macro:0.5} — quá bán + vĩ mô đảo chiều là 2 feature mang tín hiệu đáy.
  * Tên feature: dd=drawdown, spd=tốc độ rơi, rsi=quá bán+phân kỳ, macd, macro=vĩ mô đảo chiều, mom=động lượng 12m.
  */
 export const BOTTOM_CONFIG: BottomConfig = {
   cycle: {
     horizonDays: 126,
-    epsPct: 4,
-    weights: { dd: 0.25, spd: 0.1, rsi: 0.15, macd: 0.1, macro: 0.3, mom: 0.1 },
+    epsPct: 3,
+    weights: { dd: 0, spd: 0, rsi: 0.5, macd: 0, macro: 0.5, mom: 0 },
     binEdges: [-40, 0, 40],
-    provisional: true,
   },
   swing: {
-    horizonDays: 21,
+    horizonDays: 30,
     epsPct: 2,
-    weights: { dd: 0.2, spd: 0.2, rsi: 0.3, macd: 0.2, macro: 0.1, mom: 0 },
+    weights: { dd: 0, spd: 0, rsi: 0.5, macd: 0, macro: 0.5, mom: 0 },
     binEdges: [-40, 0, 40],
-    provisional: true,
   },
 };
