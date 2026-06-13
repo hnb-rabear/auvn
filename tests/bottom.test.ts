@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { BOTTOM_CONFIG, type BottomAnalysis } from "../src/lib/types";
 import { labelNearBottom } from "../src/lib/bottom";
+import { macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence } from "../src/lib/indicators";
 
 describe("bottom types & config", () => {
   it("BOTTOM_CONFIG has cycle and swing horizons with sane eps", () => {
@@ -49,5 +50,41 @@ describe("labelNearBottom", () => {
   it("thiếu tương lai (sát cuối mảng) trả null", () => {
     expect(labelNearBottom(v, v.length - 1, 5, 2)).toBeNull();
     expect(labelNearBottom(v, v.length - 2, 5, 2)).toBeNull();
+  });
+});
+
+const rng = <T>(n: number, f: (i: number) => T): T[] => Array.from({ length: n }, (_, i) => f(i));
+
+describe("bottom indicators", () => {
+  it("macd: histogram dương khi vừa đảo chiều tăng", () => {
+    // giảm rồi tăng mạnh: EMA nhanh vượt EMA chậm -> histogram > 0
+    const s = [...rng(60, (i) => 100 - i * 0.5), ...rng(40, (i) => 70 + i * 1.5)];
+    const m = macd(s)!;
+    expect(m.histogram).toBeGreaterThan(0);
+  });
+
+  it("macd: null khi thiếu dữ liệu", () => {
+    expect(macd(rng(10, (i) => i))).toBeNull();
+  });
+
+  it("drawdownFromPeak: phần trăm dưới đỉnh trailing", () => {
+    const s = [...rng(50, () => 100), ...rng(10, () => 80)];
+    // hiện tại 80, đỉnh 100 -> drawdown 20%
+    expect(drawdownFromPeak(s, 252)).toBeCloseTo(20, 5);
+  });
+
+  it("declineSpeedPct: âm khi đang rơi", () => {
+    const s = rng(30, (i) => 100 - i); // rơi đều
+    expect(declineSpeedPct(s, 21)).toBeLessThan(0);
+  });
+
+  it("bullishRsiDivergence: trả về boolean", () => {
+    const s = [
+      ...rng(20, (i) => 100 - i * 2),
+      ...rng(15, (i) => 62 + i * 2),
+      ...rng(14, (i) => 90 - i * 2),
+    ];
+    const div = bullishRsiDivergence(s);
+    expect(typeof div).toBe("boolean");
   });
 });
