@@ -242,7 +242,9 @@ export const PRESETS: Preset[] = [
   },
 ];
 
-/** Một feature của tầng đáy: điểm -2..+2 + giải thích tiếng Việt. */
+export type BottomTier = "cycle" | "swing";
+
+/** Một feature của tầng đáy: điểm -2..+2 + giải thích tiếng Việt. Cấu trúc trùng SubSignal nhưng giữ độc lập — hai miền có thể tách hướng. */
 export interface BottomDriver {
   id: string;
   label: string;
@@ -256,7 +258,7 @@ export interface BottomDriver {
 export interface ConfirmedBottom {
   date: string;
   price: number;
-  tier: "cycle" | "swing";
+  tier: BottomTier;
 }
 
 export interface BottomTierResult {
@@ -264,7 +266,7 @@ export interface BottomTierResult {
   prob: number;
   /** CI 95% block-bootstrap [lo, hi] hoặc null nếu thiếu mẫu */
   ci: [number, number] | null;
-  /** bin của bottomScore hiện tại */
+  /** chỉ số bin của bottomScore hiện tại (0..binEdges.length) */
   bin: number;
   /** số quan sát lịch sử trong cùng bin */
   n: number;
@@ -284,11 +286,13 @@ export interface BottomAnalysis {
 export interface BottomTierConfig {
   horizonDays: number;
   epsPct: number;
+  /** trọng số feature; khóa hợp lệ: dd, spd, rsi, macd, macro, mom */
   weights: Record<string, number>;
   /** ranh giới bin tăng dần trong (-100, 100); k ranh giới -> k+1 bin */
   binEdges: number[];
 }
 
+/** Cấu hình 2 tầng đáy: chu kỳ + sóng. */
 export interface BottomConfig {
   cycle: BottomTierConfig;
   swing: BottomTierConfig;

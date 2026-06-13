@@ -14,6 +14,7 @@ describe("bottom types & config", () => {
   });
 
   it("BottomAnalysis shape compiles", () => {
+    // kiểm tra shape compile-time
     const a: BottomAnalysis = {
       generatedAt: "2026-06-13T00:00:00.000Z",
       dataDate: "2026-06-13",
