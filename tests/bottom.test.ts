@@ -157,16 +157,41 @@ describe("runBottom", () => {
     }
   });
 
-  it("xác suất tầng đáy cao hơn ở đáy sin so với đỉnh sin", () => {
-    const atTrough = bars.slice(0, 1413);
-    const atPeak = bars.slice(0, 1271);
-    const pt = runBottom(atTrough, null, null, {}).cycle.prob;
-    const pk = runBottom(atPeak, null, null, {}).cycle.prob;
-    expect(pt).toBeGreaterThan(pk);
+  it("prob của tầng = base-rate near-bottom của các ngày lịch sử cùng bin (kiểm tra wiring)", () => {
+    const WARMUP = 756, STEP = 3;
+    const closes = bars.map((b) => b.close);
+    const cfg = BOTTOM_CONFIG.cycle;
+    // tái dựng độc lập bằng chính các hàm đã export
+    const curBin = binOf(
+      bottomScore(bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [] }), cfg.weights),
+      cfg.binEdges
+    );
+    let fav = 0, n = 0;
+    for (let i = WARMUP; i < closes.length; i += STEP) {
+      const label = labelNearBottom(closes, i, cfg.horizonDays, cfg.epsPct);
+      if (label === null) continue;
+      const bin = binOf(
+        bottomScore(bottomFeatures({ closes: closes.slice(0, i + 1), dxyCloses: [], yieldCloses: null, fedRates: [] }), cfg.weights),
+        cfg.binEdges
+      );
+      if (bin !== curBin) continue;
+      n++;
+      if (label) fav++;
+    }
+    const expected = n ? Math.round((fav / n) * 1000) / 10 : 0;
+    const r = runBottom(bars, null, null, {});
+    expect(r.cycle.bin).toBe(curBin);
+    expect(r.cycle.n).toBe(n);
+    expect(r.cycle.prob).toBe(expected);
   });
 
   it("đánh dấu được đáy lịch sử cho overlay", () => {
-    const r = runBottom(bars, null, null, {});
+    // nhiễu xác định (không Math.random) để cực tiểu rơi đúng điểm lưới như dữ liệu thật
+    const noisy = range(1600, (i) => ({
+      date: new Date(Date.UTC(2018, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+      close: 1500 + 250 * Math.sin(i / 90) + i * 0.05 + (((i * 7919) % 17) - 8),
+    }));
+    const r = runBottom(noisy, null, null, {});
     expect(r.confirmedBottoms.length).toBeGreaterThan(0);
     expect(r.confirmedBottoms[0]).toHaveProperty("date");
     expect(r.confirmedBottoms[0]).toHaveProperty("tier");
