@@ -241,3 +241,75 @@ export const PRESETS: Preset[] = [
     },
   },
 ];
+
+/** Một feature của tầng đáy: điểm -2..+2 + giải thích tiếng Việt. */
+export interface BottomDriver {
+  id: string;
+  label: string;
+  /** -2 (xa đáy) .. +2 (rất gần đáy) */
+  score: number;
+  explanation: string;
+  available: boolean;
+}
+
+/** Một đáy đã xác nhận trong lịch sử (để vẽ overlay). */
+export interface ConfirmedBottom {
+  date: string;
+  price: number;
+  tier: "cycle" | "swing";
+}
+
+export interface BottomTierResult {
+  /** xác suất gần đáy 0..100 */
+  prob: number;
+  /** CI 95% block-bootstrap [lo, hi] hoặc null nếu thiếu mẫu */
+  ci: [number, number] | null;
+  /** bin của bottomScore hiện tại */
+  bin: number;
+  /** số quan sát lịch sử trong cùng bin */
+  n: number;
+  drivers: BottomDriver[];
+}
+
+export interface BottomAnalysis {
+  generatedAt: string;
+  dataDate: string;
+  cycle: BottomTierResult;
+  swing: BottomTierResult;
+  confirmedBottoms: ConfirmedBottom[];
+  note: string;
+}
+
+/** Cấu hình một tầng đáy. weights: trọng số feature; binEdges: ranh giới bin của bottomScore (-100..+100). */
+export interface BottomTierConfig {
+  horizonDays: number;
+  epsPct: number;
+  weights: Record<string, number>;
+  /** ranh giới bin tăng dần trong (-100, 100); k ranh giới -> k+1 bin */
+  binEdges: number[];
+}
+
+export interface BottomConfig {
+  cycle: BottomTierConfig;
+  swing: BottomTierConfig;
+}
+
+/**
+ * Cấu hình tầng đáy — giá trị KHỞI ĐIỂM. Một task sau sẽ chạy `bottom-study.ts` rồi
+ * thay bằng cấu hình thắng out-of-sample, đồng bộ số liệu vào docs/bottom.md.
+ * Tên feature: dd=drawdown, spd=tốc độ rơi, rsi=quá bán+phân kỳ, macd, macro=vĩ mô đảo chiều, mom=động lượng 12m.
+ */
+export const BOTTOM_CONFIG: BottomConfig = {
+  cycle: {
+    horizonDays: 126,
+    epsPct: 4,
+    weights: { dd: 0.25, spd: 0.1, rsi: 0.15, macd: 0.1, macro: 0.3, mom: 0.1 },
+    binEdges: [-40, 0, 40],
+  },
+  swing: {
+    horizonDays: 21,
+    epsPct: 2,
+    weights: { dd: 0.2, spd: 0.2, rsi: 0.3, macd: 0.2, macro: 0.1, mom: 0 },
+    binEdges: [-40, 0, 40],
+  },
+};
