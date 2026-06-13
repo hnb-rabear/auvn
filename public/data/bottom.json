@@ -1,0 +1,428 @@
+{
+ "generatedAt": "2026-06-13T08:12:06.327Z",
+ "dataDate": "2026-06-12",
+ "cycle": {
+  "prob": 54.6,
+  "ci": [
+   36.8,
+   72.1
+  ],
+  "bin": 2,
+  "n": 438,
+  "drivers": [
+   {
+    "id": "dd",
+    "label": "Độ sâu dưới đỉnh 1 năm",
+    "score": 2,
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,7%: vùng chiết khấu sâu.",
+    "available": true
+   },
+   {
+    "id": "spd",
+    "label": "Tốc độ rơi 3 tháng",
+    "score": 2,
+    "explanation": "XAU thay đổi -16,6% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "available": true
+   },
+   {
+    "id": "rsi",
+    "label": "Quá bán & phân kỳ RSI",
+    "score": 1,
+    "explanation": "RSI ngày = 35,4: đà giảm cạn dần.",
+    "available": true
+   },
+   {
+    "id": "macd",
+    "label": "MACD đảo chiều",
+    "score": -1,
+    "explanation": "MACD histogram -30,68: chưa có dấu đảo chiều.",
+    "available": true
+   },
+   {
+    "id": "macro",
+    "label": "Vĩ mô đảo chiều",
+    "score": -1,
+    "explanation": "USD trên MA50, lợi suất +0,2đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
+    "available": true
+   },
+   {
+    "id": "mom",
+    "label": "Động lượng 12 tháng",
+    "score": -1,
+    "explanation": "XAU +24,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "available": true
+   }
+  ]
+ },
+ "swing": {
+  "prob": 48.4,
+  "ci": [
+   28.1,
+   67.2
+  ],
+  "bin": 3,
+  "n": 64,
+  "drivers": [
+   {
+    "id": "dd",
+    "label": "Độ sâu dưới đỉnh 1 năm",
+    "score": 2,
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,7%: vùng chiết khấu sâu.",
+    "available": true
+   },
+   {
+    "id": "spd",
+    "label": "Tốc độ rơi 3 tháng",
+    "score": 2,
+    "explanation": "XAU thay đổi -16,6% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "available": true
+   },
+   {
+    "id": "rsi",
+    "label": "Quá bán & phân kỳ RSI",
+    "score": 1,
+    "explanation": "RSI ngày = 35,4: đà giảm cạn dần.",
+    "available": true
+   },
+   {
+    "id": "macd",
+    "label": "MACD đảo chiều",
+    "score": -1,
+    "explanation": "MACD histogram -30,68: chưa có dấu đảo chiều.",
+    "available": true
+   },
+   {
+    "id": "macro",
+    "label": "Vĩ mô đảo chiều",
+    "score": -1,
+    "explanation": "USD trên MA50, lợi suất +0,2đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
+    "available": true
+   },
+   {
+    "id": "mom",
+    "label": "Động lượng 12 tháng",
+    "score": -1,
+    "explanation": "XAU +24,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "available": true
+   }
+  ]
+ },
+ "confirmedBottoms": [
+  {
+   "date": "2009-09-25",
+   "price": 990.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2010-03-24",
+   "price": 1088.6,
+   "tier": "cycle"
+  },
+  {
+   "date": "2010-12-16",
+   "price": 1370.4,
+   "tier": "cycle"
+  },
+  {
+   "date": "2011-03-15",
+   "price": 1392.6,
+   "tier": "cycle"
+  },
+  {
+   "date": "2011-09-26",
+   "price": 1592.5,
+   "tier": "cycle"
+  },
+  {
+   "date": "2011-12-29",
+   "price": 1539.9,
+   "tier": "cycle"
+  },
+  {
+   "date": "2015-12-02",
+   "price": 1054.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2017-01-27",
+   "price": 1188.1,
+   "tier": "cycle"
+  },
+  {
+   "date": "2017-07-07",
+   "price": 1208.6,
+   "tier": "cycle"
+  },
+  {
+   "date": "2017-10-05",
+   "price": 1269.9,
+   "tier": "cycle"
+  },
+  {
+   "date": "2017-10-26",
+   "price": 1266.3,
+   "tier": "cycle"
+  },
+  {
+   "date": "2018-08-16",
+   "price": 1176.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2019-09-10",
+   "price": 1490.3,
+   "tier": "cycle"
+  },
+  {
+   "date": "2019-11-12",
+   "price": 1452.1,
+   "tier": "cycle"
+  },
+  {
+   "date": "2020-05-06",
+   "price": 1684.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2020-06-05",
+   "price": 1676.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2021-03-08",
+   "price": 1677.7,
+   "tier": "cycle"
+  },
+  {
+   "date": "2021-11-03",
+   "price": 1763.6,
+   "tier": "cycle"
+  },
+  {
+   "date": "2022-11-03",
+   "price": 1627.3,
+   "tier": "cycle"
+  },
+  {
+   "date": "2024-01-17",
+   "price": 2002.6,
+   "tier": "cycle"
+  },
+  {
+   "date": "2024-04-30",
+   "price": 2291.4,
+   "tier": "cycle"
+  },
+  {
+   "date": "2024-06-26",
+   "price": 2299.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2024-12-19",
+   "price": 2592.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2025-05-14",
+   "price": 3181.4,
+   "tier": "cycle"
+  },
+  {
+   "date": "2025-06-27",
+   "price": 3273.7,
+   "tier": "cycle"
+  },
+  {
+   "date": "2025-07-31",
+   "price": 3293.2,
+   "tier": "cycle"
+  },
+  {
+   "date": "2009-09-25",
+   "price": 990.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2010-03-24",
+   "price": 1088.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2010-12-16",
+   "price": 1370.4,
+   "tier": "swing"
+  },
+  {
+   "date": "2011-03-15",
+   "price": 1392.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2011-09-26",
+   "price": 1592.5,
+   "tier": "swing"
+  },
+  {
+   "date": "2011-10-20",
+   "price": 1611.9,
+   "tier": "swing"
+  },
+  {
+   "date": "2011-12-29",
+   "price": 1539.9,
+   "tier": "swing"
+  },
+  {
+   "date": "2012-04-04",
+   "price": 1612.3,
+   "tier": "swing"
+  },
+  {
+   "date": "2013-01-07",
+   "price": 1645.5,
+   "tier": "swing"
+  },
+  {
+   "date": "2014-04-22",
+   "price": 1280.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2015-12-02",
+   "price": 1054.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2017-01-27",
+   "price": 1188.1,
+   "tier": "swing"
+  },
+  {
+   "date": "2017-07-07",
+   "price": 1208.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2017-10-05",
+   "price": 1269.9,
+   "tier": "swing"
+  },
+  {
+   "date": "2017-10-26",
+   "price": 1266.3,
+   "tier": "swing"
+  },
+  {
+   "date": "2018-02-07",
+   "price": 1311.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2018-03-01",
+   "price": 1302.9,
+   "tier": "swing"
+  },
+  {
+   "date": "2018-05-17",
+   "price": 1288.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2018-08-16",
+   "price": 1176.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2019-09-10",
+   "price": 1490.3,
+   "tier": "swing"
+  },
+  {
+   "date": "2019-11-12",
+   "price": 1452.1,
+   "tier": "swing"
+  },
+  {
+   "date": "2020-05-06",
+   "price": 1684.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2020-06-05",
+   "price": 1676.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2020-09-25",
+   "price": 1857.7,
+   "tier": "swing"
+  },
+  {
+   "date": "2020-11-30",
+   "price": 1775.7,
+   "tier": "swing"
+  },
+  {
+   "date": "2021-03-08",
+   "price": 1677.7,
+   "tier": "swing"
+  },
+  {
+   "date": "2021-11-03",
+   "price": 1763.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2022-05-13",
+   "price": 1807.4,
+   "tier": "swing"
+  },
+  {
+   "date": "2022-07-20",
+   "price": 1699.5,
+   "tier": "swing"
+  },
+  {
+   "date": "2022-11-03",
+   "price": 1627.3,
+   "tier": "swing"
+  },
+  {
+   "date": "2024-01-17",
+   "price": 2002.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2024-04-30",
+   "price": 2291.4,
+   "tier": "swing"
+  },
+  {
+   "date": "2024-06-26",
+   "price": 2299.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2024-12-19",
+   "price": 2592.2,
+   "tier": "swing"
+  },
+  {
+   "date": "2025-05-14",
+   "price": 3181.4,
+   "tier": "swing"
+  },
+  {
+   "date": "2025-06-27",
+   "price": 3273.7,
+   "tier": "swing"
+  },
+  {
+   "date": "2025-07-31",
+   "price": 3293.2,
+   "tier": "swing"
+  }
+ ],
+ "note": "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa."
+}

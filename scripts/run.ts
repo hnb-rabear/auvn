@@ -24,7 +24,9 @@ import {
   type Analysis,
   type VnGoldEntry,
   type Prices,
+  type BottomAnalysis,
 } from "../src/lib/types";
+import { runBottom } from "../src/lib/bottom";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const HISTORY_DIR = join(DATA_DIR, "history");
@@ -240,6 +242,13 @@ async function main() {
     { yield10y: yieldRes, momentum12m: true }
   );
 
+  const bottom: BottomAnalysis = runBottom(
+    xauRes.bars,
+    dxyRes?.bars ?? null,
+    fed,
+    { yield10y: yieldRes }
+  );
+
   mkdirSync(HISTORY_DIR, { recursive: true });
   writeFileSync(VN_HISTORY_FILE, JSON.stringify(history, null, 1));
   // Chỉ cache khi fetch tươi thành công (fedRes), không ghi đè bằng chính bản fallback.
@@ -250,9 +259,10 @@ async function main() {
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));
   writeFileSync(join(DATA_DIR, "timeline.json"), JSON.stringify(timeline));
+  writeFileSync(join(DATA_DIR, "bottom.json"), JSON.stringify(bottom, null, 1));
 
   console.log(
-    `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations}`
+    `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}%`
   );
 }
 
