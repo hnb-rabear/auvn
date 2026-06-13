@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import TimeMachine from "./TimeMachine";
 import PremiumChart from "./PremiumChart";
+import BottomGauges from "./BottomGauges";
 import {
   compositeScore,
   zoneOf,
@@ -11,6 +12,7 @@ import {
   PRESETS,
   type Analysis,
   type Backtest,
+  type BottomAnalysis,
   type CriterionKey,
   type CriterionResult,
   type PresetHealthFile,
@@ -70,11 +72,13 @@ export default function Dashboard({
   backtest,
   timeline,
   health,
+  bottom,
 }: {
   analysis: Analysis;
   backtest: Backtest;
   timeline: Timeline;
   health: PresetHealthFile;
+  bottom: BottomAnalysis;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [showSettings, setShowSettings] = useState(false);
@@ -391,6 +395,8 @@ export default function Dashboard({
       </section>
 
       <PremiumChart analysis={analysis} />
+
+      <BottomGauges bottom={bottom} />
 
       <TimeMachine timeline={timeline} weights={weights} preset={preset} />
 

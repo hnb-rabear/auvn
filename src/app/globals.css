@@ -589,6 +589,20 @@ td.neutral {
   color: var(--sell);
 }
 
+.bottom-gauges { display: flex; gap: 16px; flex-wrap: wrap; }
+.bottom-gauge { flex: 1; min-width: 220px; }
+.bottom-gauge-title { font-weight: 600; margin-bottom: 4px; }
+.bottom-gauge-pct { font-size: 28px; font-weight: 700; }
+.bottom-gauge-pct.buy { color: var(--buy); }
+.bottom-gauge-pct.sell { color: var(--sell); }
+.bottom-gauge-pct.neutral { color: var(--neutral); }
+.bottom-gauge-bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin: 4px 0; }
+.bottom-gauge-fill { height: 100%; }
+.bottom-gauge-fill.buy { background: var(--buy); }
+.bottom-gauge-fill.sell { background: var(--sell); }
+.bottom-gauge-fill.neutral { background: var(--neutral); }
+.bottom-gauge-drivers { font-size: 12px; padding-left: 16px; margin: 4px 0; }
+
 .disclaimer {
   margin-top: 18px;
   font-size: 0.78rem;
