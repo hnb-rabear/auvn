@@ -290,6 +290,8 @@ export interface BottomTierConfig {
   weights: Record<string, number>;
   /** ranh giới bin tăng dần trong (-100, 100); k ranh giới -> k+1 bin */
   binEdges: number[];
+  /** true = chưa có cấu hình vượt baseline 2 giai đoạn — UI ghi "chưa đủ dữ liệu kiểm chứng" */
+  provisional?: boolean;
 }
 
 /** Cấu hình 2 tầng đáy: chu kỳ + sóng. */
@@ -299,8 +301,9 @@ export interface BottomConfig {
 }
 
 /**
- * Cấu hình tầng đáy — giá trị KHỞI ĐIỂM. Một task sau sẽ chạy `bottom-study.ts` rồi
- * thay bằng cấu hình thắng out-of-sample, đồng bộ số liệu vào docs/bottom.md.
+ * Cấu hình tầng đáy. `bottom-study.ts` đã chạy (2026-06): KHÔNG tầng nào có cấu hình
+ * vượt base-rate vô điều kiện ở CẢ HAI giai đoạn train/test — cả hai tầng giữ giá trị
+ * khởi điểm và đánh dấu `provisional: true` (UI ghi "chưa đủ dữ liệu kiểm chứng").
  * Tên feature: dd=drawdown, spd=tốc độ rơi, rsi=quá bán+phân kỳ, macd, macro=vĩ mô đảo chiều, mom=động lượng 12m.
  */
 export const BOTTOM_CONFIG: BottomConfig = {
@@ -309,11 +312,13 @@ export const BOTTOM_CONFIG: BottomConfig = {
     epsPct: 4,
     weights: { dd: 0.25, spd: 0.1, rsi: 0.15, macd: 0.1, macro: 0.3, mom: 0.1 },
     binEdges: [-40, 0, 40],
+    provisional: true,
   },
   swing: {
     horizonDays: 21,
     epsPct: 2,
     weights: { dd: 0.2, spd: 0.2, rsi: 0.3, macd: 0.2, macro: 0.1, mom: 0 },
     binEdges: [-40, 0, 40],
+    provisional: true,
   },
 };
