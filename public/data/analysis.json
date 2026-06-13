@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-13T12:59:23.585Z",
+ "generatedAt": "2026-06-13T13:02:38.700Z",
  "dataDate": "2026-06-12",
  "stale": false,
  "staleDays": 0,
@@ -186,7 +186,10 @@
  "composite": 11.3,
  "zone": "neutral",
  "vnHistoryDays": 489,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
