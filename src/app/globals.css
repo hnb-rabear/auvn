@@ -369,6 +369,28 @@ td.neutral {
   accent-color: var(--gold);
 }
 
+/* chọn khung thời gian hiển thị bằng 2 ô ngày from/to */
+.tm-daterange {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tm-daterange input[type="date"] {
+  color-scheme: dark;
+  background: var(--card2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.tm-daterange input[type="date"]:focus-visible {
+  outline: 1px solid var(--gold);
+}
+
 .spark {
   width: 100%;
   height: 120px;

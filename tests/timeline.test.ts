@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { pointComposite, composites, idxsAtOrAbove, idxsAtOrBelow } from "../src/lib/timeline";
+import {
+  pointComposite,
+  composites,
+  idxsAtOrAbove,
+  idxsAtOrBelow,
+  indexOnOrAfter,
+  indexOnOrBefore,
+} from "../src/lib/timeline";
 import type { CriterionKey, TimelinePoint } from "../src/lib/types";
 
 // chỉ technical có trọng số -> composite = score * 50
@@ -64,5 +71,40 @@ describe("idxsAtOrBelow", () => {
   });
   it("không gì đạt -> rỗng", () => {
     expect(idxsAtOrBelow(vals, -200)).toEqual([]);
+  });
+});
+
+describe("indexOnOrAfter", () => {
+  const dates = ["2020-01-01", "2020-02-01", "2020-03-01"];
+  it("khớp đúng ngày", () => {
+    expect(indexOnOrAfter(dates, "2020-02-01")).toBe(1);
+  });
+  it("rơi vào giữa -> điểm kế sau", () => {
+    expect(indexOnOrAfter(dates, "2020-01-15")).toBe(1);
+  });
+  it("trước toàn bộ -> 0", () => {
+    expect(indexOnOrAfter(dates, "2019-01-01")).toBe(0);
+  });
+  it("sau toàn bộ -> index cuối", () => {
+    expect(indexOnOrAfter(dates, "2021-01-01")).toBe(2);
+  });
+  it("mảng rỗng -> 0", () => {
+    expect(indexOnOrAfter([], "2020-01-01")).toBe(0);
+  });
+});
+
+describe("indexOnOrBefore", () => {
+  const dates = ["2020-01-01", "2020-02-01", "2020-03-01"];
+  it("khớp đúng ngày", () => {
+    expect(indexOnOrBefore(dates, "2020-02-01")).toBe(1);
+  });
+  it("rơi vào giữa -> điểm kế trước", () => {
+    expect(indexOnOrBefore(dates, "2020-02-15")).toBe(1);
+  });
+  it("trước toàn bộ -> 0", () => {
+    expect(indexOnOrBefore(dates, "2019-01-01")).toBe(0);
+  });
+  it("sau toàn bộ -> index cuối", () => {
+    expect(indexOnOrBefore(dates, "2021-01-01")).toBe(2);
   });
 });

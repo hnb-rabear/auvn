@@ -40,3 +40,22 @@ export function idxsAtOrBelow(values: number[], threshold: number): number[] {
     return acc;
   }, []);
 }
+
+/**
+ * Index điểm đầu tiên có ngày >= target (chuỗi ISO yyyy-mm-dd, đã sắp tăng dần).
+ * Mọi ngày đều trước target → index cuối. Mảng rỗng → 0.
+ */
+export function indexOnOrAfter(dates: string[], target: string): number {
+  const i = dates.findIndex((d) => d >= target);
+  return i === -1 ? Math.max(0, dates.length - 1) : i;
+}
+
+/**
+ * Index điểm cuối cùng có ngày <= target. Mọi ngày đều sau target → 0.
+ */
+export function indexOnOrBefore(dates: string[], target: string): number {
+  for (let i = dates.length - 1; i >= 0; i--) {
+    if (dates[i] <= target) return i;
+  }
+  return 0;
+}

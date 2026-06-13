@@ -11,7 +11,13 @@ import {
   type Zone,
 } from "@/lib/types";
 import { centerWindow } from "@/lib/brush";
-import { composites, idxsAtOrAbove, idxsAtOrBelow } from "@/lib/timeline";
+import {
+  composites,
+  idxsAtOrAbove,
+  idxsAtOrBelow,
+  indexOnOrAfter,
+  indexOnOrBefore,
+} from "@/lib/timeline";
 import TimelineBrush from "./TimelineBrush";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -93,6 +99,7 @@ export default function TimeMachine({
     [showExp, comps, effThr]
   );
   const prices = useMemo(() => points.map((q) => q.price), [points]);
+  const dates = useMemo(() => points.map((q) => q.date), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
 
@@ -125,6 +132,15 @@ export default function TimeMachine({
     setViewSpan(sp);
     setZoomMonths("custom");
   }, []);
+
+  /** Đặt cửa sổ theo khoảng index [fromIdx, toIdx] (kẹp biên, tối thiểu MIN_SPAN). */
+  const applyDateRange = (fromIdx: number, toIdx: number) => {
+    const lo = Math.max(0, Math.min(fromIdx, points.length - 1));
+    const hi = Math.max(lo, Math.min(toIdx, points.length - 1));
+    setViewStart(lo);
+    setViewSpan(Math.max(MIN_SPAN, hi - lo + 1));
+    setZoomMonths("custom");
+  };
 
   const onChartClick = (e: React.MouseEvent<SVGSVGElement>) => {
     const rect = svgRef.current?.getBoundingClientRect();
@@ -217,8 +233,26 @@ export default function TimeMachine({
           </button>
         ))}
         {spark && (
-          <span className="muted small">
-            {fmtDate(spark.fromDate)} → {fmtDate(spark.toDate)}
+          <span className="tm-daterange muted small" title="Chọn khung thời gian hiển thị">
+            <input
+              type="date"
+              value={points[start].date}
+              min={dates[0]}
+              max={points[end - 1].date}
+              onChange={(e) =>
+                e.target.value && applyDateRange(indexOnOrAfter(dates, e.target.value), end - 1)
+              }
+            />
+            <span aria-hidden>→</span>
+            <input
+              type="date"
+              value={points[end - 1].date}
+              min={points[start].date}
+              max={dates[dates.length - 1]}
+              onChange={(e) =>
+                e.target.value && applyDateRange(start, indexOnOrBefore(dates, e.target.value))
+              }
+            />
           </span>
         )}
         <label className="tm-toggle muted small" title="Bán chỉ đúng 49% sau 1 tháng; kỳ hạn dài thì NGƯỢC (sau 6 tháng giá tăng trung vị +9,5%). Tín hiệu bán đáng tin hơn cho vàng VN: chênh lệch vượt p80 — xem biểu đồ chênh lệch.">
