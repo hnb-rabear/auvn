@@ -376,6 +376,12 @@ export default function TimeMachine({
                 </span>
                 <b className={ret === null ? "muted" : ret >= 0 ? "buy" : "sell"}>
                   {ret === null ? "chưa có" : `${ret >= 0 ? "+" : ""}${fmtNum(ret)}%`}
+                  {ret !== null && (
+                    <span className="muted small">
+                      {" "}
+                      · ${fmtNum(p.price * (1 + ret / 100), 0)}
+                    </span>
+                  )}
                 </b>
                 {v === "n/a" && (
                   <span className="muted small">
