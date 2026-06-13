@@ -1,7 +1,8 @@
 /** Engine xác suất đáy (Bottom Hunter). Dùng chung với scripts/bottom-study.ts. */
 
-import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence } from "./indicators";
+import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, blockBootstrapCi } from "./indicators";
 import type { BottomDriver } from "./types";
+import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig } from "./types";
 
 /**
  * Dán nhãn "gần đáy" cho ngày i: giá thấp nhất trong H phiên kế tiếp KHÔNG thấp
@@ -159,4 +160,88 @@ export function binOf(score: number, edges: number[]): number {
     else break;
   }
   return b;
+}
+
+interface Bar { date: string; close: number; }
+const WARMUP = 756;
+const STEP = 3;
+
+export interface RunBottomExtras {
+  yield10y?: { bars: Bar[] } | null;
+}
+
+interface HistRow { i: number; date: string; score: number; bin: number; label: boolean | null; }
+
+function buildTier(
+  closes: number[],
+  dates: string[],
+  cfg: BottomTierConfig,
+  featuresAt: (i: number) => BottomDriver[]
+): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[] } {
+  const rows: HistRow[] = [];
+  for (let i = WARMUP; i < closes.length; i += STEP) {
+    const drivers = featuresAt(i);
+    const score = bottomScore(drivers, cfg.weights);
+    const bin = binOf(score, cfg.binEdges);
+    const label = labelNearBottom(closes, i, cfg.horizonDays, cfg.epsPct);
+    rows.push({ i, date: dates[i], score, bin, label });
+  }
+  const currentDrivers = featuresAt(closes.length - 1);
+  const curScore = bottomScore(currentDrivers, cfg.weights);
+  const curBin = binOf(curScore, cfg.binEdges);
+
+  const labeled = rows.filter((r) => r.label !== null && r.bin === curBin);
+  const favArr = labeled.map((r) => (r.label ? 1 : -1));
+  const n = labeled.length;
+  const prob = n ? Math.round((favArr.filter((x) => x > 0).length / n) * 1000) / 10 : 0;
+  const ci = blockBootstrapCi(favArr, Math.max(1, Math.round(cfg.horizonDays / 3)));
+
+  return { result: { prob, ci, bin: curBin, n }, rows, currentDrivers };
+}
+
+/** Chạy engine xác suất đáy 2 tầng. closes/dxy/fed/yield giống runBacktest. */
+export function runBottom(
+  xau: Bar[],
+  dxy: Bar[] | null,
+  fed: { date: string; value: number }[] | null,
+  extras: RunBottomExtras = {}
+): BottomAnalysis {
+  const closes = xau.map((b) => b.close);
+  const dates = xau.map((b) => b.date);
+  const yieldBars = extras.yield10y?.bars ?? null;
+
+  const featuresAt = (i: number): BottomDriver[] => {
+    const upTo = closes.slice(0, i + 1);
+    const di = dates[i];
+    const dxyCloses = dxy ? dxy.filter((b) => b.date <= di).map((b) => b.close) : [];
+    const yieldCloses = yieldBars ? yieldBars.filter((b) => b.date <= di).map((b) => b.close) : null;
+    const fedRates = fed ? fed.filter((f) => f.date <= di).map((f) => f.value) : [];
+    return bottomFeatures({ closes: upTo, dxyCloses, yieldCloses, fedRates });
+  };
+
+  const cycle = buildTier(closes, dates, BOTTOM_CONFIG.cycle, featuresAt);
+  const swing = buildTier(closes, dates, BOTTOM_CONFIG.swing, featuresAt);
+
+  const confirmedBottoms: ConfirmedBottom[] = [];
+  const collect = (rows: HistRow[], tier: "cycle" | "swing") => {
+    for (const r of rows) {
+      if (r.label !== true) continue;
+      const lo = Math.max(0, r.i - 9);
+      const hi = Math.min(closes.length - 1, r.i + 9);
+      let isMin = true;
+      for (let j = lo; j <= hi; j++) if (closes[j] < closes[r.i]) { isMin = false; break; }
+      if (isMin) confirmedBottoms.push({ date: r.date, price: Math.round(closes[r.i] * 10) / 10, tier });
+    }
+  };
+  collect(cycle.rows, "cycle");
+  collect(swing.rows, "swing");
+
+  return {
+    generatedAt: new Date().toISOString(),
+    dataDate: dates[dates.length - 1] ?? "",
+    cycle: { ...cycle.result, drivers: cycle.currentDrivers },
+    swing: { ...swing.result, drivers: swing.currentDrivers },
+    confirmedBottoms,
+    note: "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa.",
+  };
 }

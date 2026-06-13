@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { BOTTOM_CONFIG, type BottomAnalysis } from "../src/lib/types";
-import { labelNearBottom, bottomFeatures, bottomScore, binOf } from "../src/lib/bottom";
+import { labelNearBottom, bottomFeatures, bottomScore, binOf, runBottom } from "../src/lib/bottom";
 import { macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence } from "../src/lib/indicators";
 
 describe("bottom types & config", () => {
@@ -134,5 +134,41 @@ describe("bottomScore & binOf", () => {
     expect(binOf(-10, [-40, 0, 40])).toBe(1);
     expect(binOf(10, [-40, 0, 40])).toBe(2);
     expect(binOf(80, [-40, 0, 40])).toBe(3);
+  });
+});
+
+describe("runBottom", () => {
+  const range = <T>(n: number, f: (i: number) => T): T[] => Array.from({ length: n }, (_, i) => f(i));
+  const bars = range(1600, (i) => ({
+    date: new Date(Date.UTC(2018, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+    close: 1500 + 250 * Math.sin(i / 90) + i * 0.05,
+  }));
+
+  it("trả xác suất 2 tầng trong [0,100] và CI hợp lệ", () => {
+    const r = runBottom(bars, null, null, {});
+    for (const tier of [r.cycle, r.swing]) {
+      expect(tier.prob).toBeGreaterThanOrEqual(0);
+      expect(tier.prob).toBeLessThanOrEqual(100);
+      if (tier.ci) {
+        expect(tier.ci[0]).toBeLessThanOrEqual(tier.prob + 0.1);
+        expect(tier.ci[1]).toBeGreaterThanOrEqual(tier.prob - 0.1);
+      }
+      expect(tier.drivers.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("xác suất tầng đáy cao hơn ở đáy sin so với đỉnh sin", () => {
+    const atTrough = bars.slice(0, 1413);
+    const atPeak = bars.slice(0, 1271);
+    const pt = runBottom(atTrough, null, null, {}).cycle.prob;
+    const pk = runBottom(atPeak, null, null, {}).cycle.prob;
+    expect(pt).toBeGreaterThan(pk);
+  });
+
+  it("đánh dấu được đáy lịch sử cho overlay", () => {
+    const r = runBottom(bars, null, null, {});
+    expect(r.confirmedBottoms.length).toBeGreaterThan(0);
+    expect(r.confirmedBottoms[0]).toHaveProperty("date");
+    expect(r.confirmedBottoms[0]).toHaveProperty("tier");
   });
 });
