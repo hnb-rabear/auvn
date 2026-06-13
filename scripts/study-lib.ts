@@ -1,6 +1,8 @@
 /** Hàm dùng chung cho các study tuyển chọn cấu hình trên timeline. */
 import type { TimelinePoint } from "../src/lib/types";
 
+export { seededRandom, blockBootstrapCi } from "../src/lib/indicators";
+
 export type H = "21" | "63" | "126";
 export const SPLIT_DATE = "2019-01-01";
 export const MIN_SIGNALS = 25;
@@ -99,53 +101,6 @@ export function gridSearch(points: TimelinePoint[], h: H): {
 
   candidates.sort((a, b) => b.minExcess - a.minExcess);
   return { baseTrain, baseTest, trainN: train.length, testN: test.length, candidates };
-}
-
-/** RNG có seed (mulberry32) để bootstrap tái lập được. */
-export function seededRandom(seed: number): () => number {
-  let a = seed >>> 0;
-  return () => {
-    a |= 0;
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-/**
- * Block bootstrap CI 95% cho tỉ lệ thuận chiều. Tín hiệu bắn chùm (cách STEP
- * phiên, kỳ hạn chồng lấn) nên resample theo KHỐI liên tiếp thay vì từng điểm —
- * không tôn trọng autocorrelation thì CI hẹp ảo.
- */
-export function blockBootstrapCi(
-  returns: number[],
-  blockSize: number,
-  iterations = 2000,
-  seed = 20260611
-): [number, number] | null {
-  const n = returns.length;
-  if (n < 10) return null;
-  const b = Math.max(1, Math.min(blockSize, n));
-  const nBlocks = Math.ceil(n / b);
-  const rand = seededRandom(seed);
-  const favs: number[] = [];
-  for (let it = 0; it < iterations; it++) {
-    let fav = 0;
-    let total = 0;
-    for (let k = 0; k < nBlocks; k++) {
-      const start = Math.floor(rand() * n);
-      for (let j = 0; j < b && total < n; j++) {
-        if (returns[(start + j) % n] > 0) fav++;
-        total++;
-      }
-    }
-    favs.push(fav / total);
-  }
-  favs.sort((a, c) => a - c);
-  const lo = favs[Math.floor(0.025 * (iterations - 1))];
-  const hi = favs[Math.floor(0.975 * (iterations - 1))];
-  return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
 }
 
 export function fmtCand(c: Candidate): string {
