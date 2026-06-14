@@ -1,4 +1,4 @@
-﻿/** Tuổi tương đối tiếng Việt của một mốc ISO so với nowMs. null nếu thiếu/không hợp lệ. */
+/** Tuổi tương đối tiếng Việt của một mốc ISO so với nowMs. null nếu thiếu/không hợp lệ. */
 export function timeAgo(iso: string | null | undefined, nowMs: number): string | null {
   if (!iso) return null;
   const t = Date.parse(iso);

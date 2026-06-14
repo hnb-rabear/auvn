@@ -1,4 +1,4 @@
-﻿import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "vitest";
 import { timeAgo, isGoldMarketClosed } from "../src/lib/freshness";
 
 const NOW = Date.parse("2026-06-14T10:00:00Z");
