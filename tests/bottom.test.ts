@@ -197,4 +197,14 @@ describe("runBottom", () => {
     expect(r.confirmedBottoms[0]).toHaveProperty("date");
     expect(r.confirmedBottoms[0]).toHaveProperty("tier");
   });
+
+  it("signalHistory bao phủ bar mới nhất (cycleBin/swingBin không undefined trên điểm cuối)", () => {
+    // Kiểm tra fix: loop buildTier phải append bar cuối kể cả khi không khớp lưới STEP
+    const r = runBottom(bars, null, null, {});
+    const lastEntry = r.signalHistory[r.signalHistory.length - 1];
+    const lastDate = bars[bars.length - 1].date;
+    expect(lastEntry.date).toBe(lastDate);
+    expect(lastEntry.cycleBin).toBeDefined();
+    expect(lastEntry.swingBin).toBeDefined();
+  });
 });

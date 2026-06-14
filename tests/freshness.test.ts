@@ -45,4 +45,7 @@ describe("isGoldMarketClosed", () => {
   it("thứ Hai → mở", () => {
     expect(isGoldMarketClosed(Date.parse("2026-06-15T10:00:00Z"))).toBe(false);
   });
+  it("thứ Sáu sau 22:00 UTC → đóng", () => {
+    expect(isGoldMarketClosed(Date.parse("2026-06-12T22:30:00Z"))).toBe(true);
+  });
 });

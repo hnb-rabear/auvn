@@ -13,11 +13,12 @@ export function timeAgo(iso: string | null | undefined, nowMs: number): string |
   return `${day} ngày trước`;
 }
 
-/** Vàng thế giới (GC=F) đóng cửa: T7 cả ngày + CN trước ~22:00 UTC (giờ mở lại;
- *  23:00 UTC vào mùa đông — lệch 1h chấp nhận được cho PWA). */
+/** Vàng thế giới (GC=F) đóng cửa cuối tuần: T6 từ ~22:00 UTC, cả T7, và CN trước ~22:00 UTC
+ *  (giờ mở lại; 23:00 UTC vào mùa đông — lệch 1h chấp nhận được cho PWA). */
 export function isGoldMarketClosed(nowMs: number): boolean {
   const d = new Date(nowMs);
-  const dow = d.getUTCDay(); // 0=CN, 6=T7
+  const dow = d.getUTCDay(); // 0=CN, 5=T6, 6=T7
+  if (dow === 5 && d.getUTCHours() >= 22) return true; // T6 sau giờ đóng
   if (dow === 6) return true;
   if (dow === 0 && d.getUTCHours() < 22) return true;
   return false;

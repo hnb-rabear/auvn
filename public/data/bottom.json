@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-14T14:51:14.093Z",
+ "generatedAt": "2026-06-14T15:05:09.373Z",
  "dataDate": "2026-06-12",
  "cycle": {
   "prob": 42.2,
@@ -7574,6 +7574,11 @@
    "date": "2026-06-11",
    "cycleBin": 3,
    "swingBin": 3
+  },
+  {
+   "date": "2026-06-12",
+   "cycleBin": 2,
+   "swingBin": 2
   }
  ],
  "note": "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa."

@@ -179,7 +179,10 @@ function buildTier(
   featuresAt: (i: number) => BottomDriver[]
 ): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[] } {
   const rows: HistRow[] = [];
-  for (let i = WARMUP; i < closes.length; i += STEP) {
+  const idxs: number[] = [];
+  for (let i = WARMUP; i < closes.length; i += STEP) idxs.push(i);
+  if (idxs.length && idxs[idxs.length - 1] !== closes.length - 1) idxs.push(closes.length - 1);
+  for (const i of idxs) {
     const drivers = featuresAt(i);
     const score = bottomScore(drivers, cfg.weights);
     const bin = binOf(score, cfg.binEdges);
