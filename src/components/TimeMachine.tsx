@@ -402,7 +402,7 @@ export default function TimeMachine({
       <div className="tm-detail">
         <div className="tm-row">
           <div>
-            <div className="muted small">Ngày giả lập</div>
+            <div className="muted small">Ngày giả lập{idx === points.length - 1 ? " (mới nhất)" : ""}</div>
             <b>{fmtDate(p.date)}</b> · XAU ${fmtNum(p.price, 0)}
           </div>
           <div className={`tm-zone ${zoneClass(zone)}`}>
@@ -422,7 +422,8 @@ export default function TimeMachine({
         <ActionGuidance guidance={histGuidance} />
         <p className="muted small">
           Ở chế độ lịch sử: chỉ tín hiệu thế giới (điểm mua + nhóm điểm đáy past-only);
-          chênh lệch VN không tham gia backtest.
+          chênh lệch VN không tham gia backtest. Tín hiệu cho hôm nay xem ở
+          <b> Gợi ý hành động</b> đầu trang.
         </p>
 
         <div className="tm-scores">
