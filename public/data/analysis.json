@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-13T14:05:04.198Z",
+ "generatedAt": "2026-06-14T02:18:26.475Z",
  "dataDate": "2026-06-12",
  "stale": false,
  "staleDays": 0,
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,5%, ở percentile 16 so với lịch sử tự thu thập (489 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,5%, ở percentile 16 so với lịch sử tự thu thập (490 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -185,11 +185,8 @@
  },
  "composite": 11.3,
  "zone": "neutral",
- "vnHistoryDays": 489,
- "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
- ],
+ "vnHistoryDays": 490,
+ "warnings": [],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2146,11 +2143,15 @@
   {
    "date": "2026-06-13",
    "value": 9.52
+  },
+  {
+   "date": "2026-06-14",
+   "value": 9.52
   }
  ],
  "premiumPercentiles": {
-  "p20": 11.03,
-  "p50": 14,
+  "p20": 11.02,
+  "p50": 13.98,
   "p80": 16.62
  }
 }
