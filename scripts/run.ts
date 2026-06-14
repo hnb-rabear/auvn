@@ -219,16 +219,16 @@ async function main() {
   const tsFromEpoch = (s: number | null | undefined) =>
     s == null ? null : new Date(s * 1000).toISOString();
   const sourceTimes = {
-    world: xauRes.lastTs != null ? tsFromEpoch(xauRes.lastTs) : null,
-    dxy: dxyRes?.lastTs != null ? tsFromEpoch(dxyRes.lastTs) : null,
-    yield10y: yieldRes?.lastTs != null ? tsFromEpoch(yieldRes.lastTs) : null,
+    world: tsFromEpoch(xauRes.lastTs),
+    dxy: tsFromEpoch(dxyRes?.lastTs),
+    yield10y: tsFromEpoch(yieldRes?.lastTs),
     // vnRes ghi vào history với date=today; chỉ coi là "vừa chụp" khi fetch thành công lần này
     vnGold: vnRes && vnRes.sjcSell !== null ? nowIso : null,
     usdVnd: usdVndRes ? nowIso : null,
-    fed: fedRes && fedRes.length ? fedRes[fedRes.length - 1].date : null,
+    fed: fedRes && fedRes.length ? new Date(fedRes[fedRes.length - 1].date + "T00:00:00Z").toISOString() : null,
   };
   const analysis: Analysis = {
-    generatedAt: new Date().toISOString(),
+    generatedAt: nowIso,
     dataDate: dates[dates.length - 1],
     stale,
     staleDays: stale ? staleDays : 0,
