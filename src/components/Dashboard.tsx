@@ -4,10 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import TimeMachine from "./TimeMachine";
 import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
+import ActionGuidance from "./ActionGuidance";
+import { deriveGuidance } from "@/lib/guidance";
 import {
   compositeScore,
   zoneOf,
   ZONE_LABELS,
+  BOTTOM_CONFIG,
   DEFAULT_WEIGHTS,
   PRESETS,
   type Analysis,
@@ -114,6 +117,24 @@ export default function Dashboard({
     (b) => b.zone === zone && b.count > 0
   );
   const bt63 = currentBuckets.find((b) => b.horizonDays === 63);
+
+  // Gợi ý hành động: kết hợp điểm mua (zone) + săn đáy + chênh lệch VN. Chỉ đọc.
+  const cycleVerified = !BOTTOM_CONFIG.cycle.provisional && bottom.cycle.n >= 10;
+  const swingVerified = !BOTTOM_CONFIG.swing.provisional && bottom.swing.n >= 10;
+  const guidance = useMemo(
+    () =>
+      deriveGuidance({
+        zone,
+        composite,
+        cycleProb: bottom.cycle.prob,
+        cycleVerified,
+        swingProb: bottom.swing.prob,
+        swingVerified,
+        premiumPct: analysis.prices.premiumPct,
+        premiumP80: analysis.premiumPercentiles?.p80 ?? null,
+      }),
+    [zone, composite, bottom, cycleVerified, swingVerified, analysis]
+  );
 
   const setWeight = (k: CriterionKey, v: number) => {
     const s: Settings = { weights: { ...weights, [k]: v }, presetId: null };
@@ -232,6 +253,8 @@ export default function Dashboard({
         )}
         <div className="freshness">Cập nhật: {freshness} (giờ VN)</div>
       </section>
+
+      <ActionGuidance guidance={guidance} />
 
       <section className="prices">
         <div className="price-item">
