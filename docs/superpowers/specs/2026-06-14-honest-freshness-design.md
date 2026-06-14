@@ -42,9 +42,11 @@ sourceTimes?: {
 ```
 
 **`scripts/fetch.ts`** — bắt thời điểm:
-- Yahoo (`GC=F`, `DX-Y.NYB`, `^TNX`): chart API đã trả `timestamp[]`; lấy **bar cuối** epoch → ISO. Đây là **giờ thị trường thực** (không phải giờ fetch của ta). Truyền lên.
-- BTMC, Vietcombank: không có giờ server đáng tin ⇒ ghi `new Date().toISOString()` lúc fetch (giờ chụp của ta).
-- FRED: `date` bar cuối.
+- Yahoo (`GC=F`, `DX-Y.NYB`, `^TNX`): gọi `interval=1d` ⇒ **bar ngày**, không phải tick intraday. `chart.result[0].timestamp[]` có sẵn nhưng hiện bị **bỏ đi**: `fetchYahoo` (fetch.ts:38-52) slice epoch xuống chỉ còn `date` (`.slice(0,10)` tại fetch.ts:48), và `DailyBar` chỉ là `{date, close}` (fetch.ts:15-18).
+  - Cần đổi `fetchYahoo` để **trả thêm** epoch bar cuối (vd field `lastTs: number` cạnh `bars`), KHÔNG đổi `DailyBar` (giữ nguyên cho mọi consumer khác).
+  - Epoch bar cuối ≈ **giờ cập nhật cuối phiên** (khi thị trường mở, Yahoo cập nhật phần tử cuối gần với giờ giao dịch cuối; khi đóng cửa/cuối tuần = giá đóng phiên trước). KHÔNG khẳng định "intraday quote time" — chỉ là "giờ bar cuối, gần đúng cập nhật cuối phiên". Đây là điểm trung thực: tuổi hiển thị phản ánh đúng bản chất bar ngày.
+- BTMC, Vietcombank: không có giờ server đáng tin ⇒ ghi `new Date().toISOString()` lúc fetch (giờ chụp của ta). (`new Date()` hợp lệ trong script Node — ràng buộc cấm `Date.now()` chỉ áp cho workflow script, không phải `scripts/`.)
+- FRED (`fetchFedFunds` trả `{date,value}[]`, `fetchYield10y` trả `bars`): lấy `date` bar cuối.
 
 **`scripts/run.ts`** (~dòng 218): điền `sourceTimes` từ kết quả fetch; nguồn lỗi → `null`.
 
