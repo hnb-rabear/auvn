@@ -6,7 +6,7 @@ import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import ActionGuidance from "./ActionGuidance";
 import { deriveGuidance } from "@/lib/guidance";
-import { timeAgo } from "@/lib/freshness";
+import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
 import {
   compositeScore,
   zoneOf,
@@ -304,6 +304,11 @@ export default function Dashboard({
             </>
           ) : (
             <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
+          )}
+          {mounted && isGoldMarketClosed(nowMs) && (
+            <div className="freshness-note muted small">
+              Thị trường vàng thế giới nghỉ cuối tuần — đây là phiên gần nhất, không phải dữ liệu cũ.
+            </div>
           )}
         </div>
       </section>

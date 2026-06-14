@@ -1,4 +1,4 @@
-/** Tuổi tương đối tiếng Việt của một mốc ISO so với nowMs. null nếu thiếu/không hợp lệ. */
+﻿/** Tuổi tương đối tiếng Việt của một mốc ISO so với nowMs. null nếu thiếu/không hợp lệ. */
 export function timeAgo(iso: string | null | undefined, nowMs: number): string | null {
   if (!iso) return null;
   const t = Date.parse(iso);
@@ -11,4 +11,13 @@ export function timeAgo(iso: string | null | undefined, nowMs: number): string |
   if (hr < 24) return `${hr} giờ trước`;
   const day = Math.floor(hr / 24);
   return `${day} ngày trước`;
+}
+
+/** Vàng thế giới (GC=F) đóng cửa: T7 cả ngày + CN trước 22:00 UTC (giờ mở lại). */
+export function isGoldMarketClosed(nowMs: number): boolean {
+  const d = new Date(nowMs);
+  const dow = d.getUTCDay(); // 0=CN, 6=T7
+  if (dow === 6) return true;
+  if (dow === 0 && d.getUTCHours() < 22) return true;
+  return false;
 }
