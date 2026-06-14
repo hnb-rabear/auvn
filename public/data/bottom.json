@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-06-14T02:48:51.667Z",
+ "generatedAt": "2026-06-14T14:06:41.710Z",
  "dataDate": "2026-06-12",
  "cycle": {
-  "prob": 40.4,
+  "prob": 42.2,
   "ci": [
-   27.3,
-   53.9
+   29.2,
+   55.4
   ],
   "bin": 2,
   "n": 612,
@@ -14,28 +14,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,7%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,3%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -16,6% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -16,1% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 35,4: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 37,2: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -30,68: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -29,16: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -49,7 +49,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +24,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +25,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    }
   ]
@@ -57,8 +57,8 @@
  "swing": {
   "prob": 44,
   "ci": [
-   37.6,
-   50.6
+   37.9,
+   50.5
   ],
   "bin": 2,
   "n": 630,
@@ -67,28 +67,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,7%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,3%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -16,6% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -16,1% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 35,4: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 37,2: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -30,68: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -29,16: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -102,7418 +102,7478 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +24,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +25,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    }
   ]
  },
  "confirmedBottoms": [
   {
-   "date": "2009-09-25",
-   "price": 990.2,
+   "date": "2009-07-08",
+   "price": 909,
    "tier": "cycle"
   },
   {
-   "date": "2010-03-24",
-   "price": 1088.6,
+   "date": "2009-07-29",
+   "price": 927.2,
    "tier": "cycle"
   },
   {
-   "date": "2011-03-15",
-   "price": 1392.6,
+   "date": "2010-02-05",
+   "price": 1052.2,
    "tier": "cycle"
   },
   {
-   "date": "2011-12-29",
-   "price": 1539.9,
+   "date": "2010-10-27",
+   "price": 1322.2,
    "tier": "cycle"
   },
   {
-   "date": "2015-12-02",
-   "price": 1054.2,
+   "date": "2010-11-17",
+   "price": 1336.8,
    "tier": "cycle"
   },
   {
-   "date": "2017-01-27",
-   "price": 1188.1,
+   "date": "2011-01-27",
+   "price": 1318.4,
    "tier": "cycle"
   },
   {
-   "date": "2017-07-07",
-   "price": 1208.6,
+   "date": "2011-07-01",
+   "price": 1482.3,
    "tier": "cycle"
   },
   {
-   "date": "2017-10-05",
-   "price": 1269.9,
+   "date": "2013-12-03",
+   "price": 1221.7,
    "tier": "cycle"
   },
   {
-   "date": "2017-10-26",
-   "price": 1266.3,
+   "date": "2013-12-19",
+   "price": 1195,
    "tier": "cycle"
   },
   {
-   "date": "2018-08-16",
-   "price": 1176.2,
+   "date": "2014-11-06",
+   "price": 1142.3,
    "tier": "cycle"
   },
   {
-   "date": "2019-09-10",
-   "price": 1490.3,
+   "date": "2014-11-28",
+   "price": 1175.2,
    "tier": "cycle"
   },
   {
-   "date": "2019-11-12",
-   "price": 1452.1,
+   "date": "2014-12-24",
+   "price": 1173.5,
    "tier": "cycle"
   },
   {
-   "date": "2020-05-06",
-   "price": 1684.2,
+   "date": "2017-05-09",
+   "price": 1214.3,
    "tier": "cycle"
   },
   {
-   "date": "2020-06-05",
-   "price": 1676.2,
+   "date": "2019-01-24",
+   "price": 1279.1,
    "tier": "cycle"
   },
   {
-   "date": "2021-03-08",
-   "price": 1677.7,
+   "date": "2019-02-11",
+   "price": 1307,
    "tier": "cycle"
   },
   {
-   "date": "2021-11-03",
-   "price": 1763.6,
+   "date": "2019-03-05",
+   "price": 1282,
    "tier": "cycle"
   },
   {
-   "date": "2022-11-03",
-   "price": 1627.3,
+   "date": "2019-05-21",
+   "price": 1272,
    "tier": "cycle"
   },
   {
-   "date": "2024-01-17",
-   "price": 2002.6,
+   "date": "2019-10-15",
+   "price": 1477.6,
    "tier": "cycle"
   },
   {
-   "date": "2024-04-30",
-   "price": 2291.4,
+   "date": "2021-03-30",
+   "price": 1683.9,
    "tier": "cycle"
   },
   {
-   "date": "2024-06-26",
-   "price": 2299.2,
+   "date": "2021-06-29",
+   "price": 1762.8,
    "tier": "cycle"
   },
   {
-   "date": "2024-12-19",
-   "price": 2592.2,
+   "date": "2022-10-19",
+   "price": 1627.5,
    "tier": "cycle"
   },
   {
-   "date": "2025-05-14",
-   "price": 3181.4,
+   "date": "2023-02-24",
+   "price": 1808.8,
    "tier": "cycle"
   },
   {
-   "date": "2025-06-27",
-   "price": 3273.7,
+   "date": "2023-11-10",
+   "price": 1932.6,
    "tier": "cycle"
   },
   {
-   "date": "2025-07-31",
-   "price": 3293.2,
+   "date": "2023-12-12",
+   "price": 1977.8,
    "tier": "cycle"
   },
   {
-   "date": "2009-09-25",
-   "price": 990.2,
+   "date": "2024-10-09",
+   "price": 2606,
+   "tier": "cycle"
+  },
+  {
+   "date": "2024-11-15",
+   "price": 2565.7,
+   "tier": "cycle"
+  },
+  {
+   "date": "2025-04-07",
+   "price": 2951.3,
+   "tier": "cycle"
+  },
+  {
+   "date": "2025-08-19",
+   "price": 3313.4,
+   "tier": "cycle"
+  },
+  {
+   "date": "2025-11-04",
+   "price": 3947.7,
+   "tier": "cycle"
+  },
+  {
+   "date": "2009-07-08",
+   "price": 909,
    "tier": "swing"
   },
   {
-   "date": "2010-03-24",
-   "price": 1088.6,
+   "date": "2009-07-29",
+   "price": 927.2,
    "tier": "swing"
   },
   {
-   "date": "2011-03-15",
-   "price": 1392.6,
+   "date": "2010-02-05",
+   "price": 1052.2,
    "tier": "swing"
   },
   {
-   "date": "2011-09-26",
-   "price": 1592.5,
+   "date": "2010-10-27",
+   "price": 1322.2,
    "tier": "swing"
   },
   {
-   "date": "2011-10-20",
-   "price": 1611.9,
+   "date": "2010-11-17",
+   "price": 1336.8,
    "tier": "swing"
   },
   {
-   "date": "2011-12-29",
-   "price": 1539.9,
+   "date": "2011-01-27",
+   "price": 1318.4,
    "tier": "swing"
   },
   {
-   "date": "2015-12-02",
-   "price": 1054.2,
+   "date": "2011-07-01",
+   "price": 1482.3,
    "tier": "swing"
   },
   {
-   "date": "2017-01-27",
-   "price": 1188.1,
+   "date": "2013-04-15",
+   "price": 1360.6,
    "tier": "swing"
   },
   {
-   "date": "2017-07-07",
-   "price": 1208.6,
+   "date": "2013-10-11",
+   "price": 1268,
    "tier": "swing"
   },
   {
-   "date": "2017-10-05",
-   "price": 1269.9,
+   "date": "2013-12-19",
+   "price": 1195,
    "tier": "swing"
   },
   {
-   "date": "2017-10-26",
-   "price": 1266.3,
+   "date": "2014-04-01",
+   "price": 1279.6,
    "tier": "swing"
   },
   {
-   "date": "2018-02-07",
-   "price": 1311.6,
+   "date": "2014-06-02",
+   "price": 1243.7,
    "tier": "swing"
   },
   {
-   "date": "2018-03-01",
-   "price": 1302.9,
+   "date": "2014-11-06",
+   "price": 1142.3,
    "tier": "swing"
   },
   {
-   "date": "2018-08-16",
-   "price": 1176.2,
+   "date": "2014-11-28",
+   "price": 1175.2,
    "tier": "swing"
   },
   {
-   "date": "2019-09-10",
-   "price": 1490.3,
+   "date": "2014-12-24",
+   "price": 1173.5,
    "tier": "swing"
   },
   {
-   "date": "2019-11-12",
-   "price": 1452.1,
+   "date": "2015-05-01",
+   "price": 1174.5,
    "tier": "swing"
   },
   {
-   "date": "2020-05-06",
-   "price": 1684.2,
+   "date": "2015-09-09",
+   "price": 1102.2,
    "tier": "swing"
   },
   {
-   "date": "2020-06-05",
-   "price": 1676.2,
+   "date": "2017-05-09",
+   "price": 1214.3,
    "tier": "swing"
   },
   {
-   "date": "2020-09-25",
-   "price": 1857.7,
+   "date": "2018-03-20",
+   "price": 1311.1,
    "tier": "swing"
   },
   {
-   "date": "2020-11-30",
-   "price": 1775.7,
+   "date": "2019-01-24",
+   "price": 1279.1,
    "tier": "swing"
   },
   {
-   "date": "2021-03-08",
-   "price": 1677.7,
+   "date": "2019-02-11",
+   "price": 1307,
    "tier": "swing"
   },
   {
-   "date": "2021-11-03",
-   "price": 1763.6,
+   "date": "2019-03-05",
+   "price": 1282,
    "tier": "swing"
   },
   {
-   "date": "2022-05-13",
-   "price": 1807.4,
+   "date": "2019-05-21",
+   "price": 1272,
    "tier": "swing"
   },
   {
-   "date": "2022-07-20",
-   "price": 1699.5,
+   "date": "2019-10-15",
+   "price": 1477.6,
    "tier": "swing"
   },
   {
-   "date": "2022-11-03",
-   "price": 1627.3,
+   "date": "2021-03-30",
+   "price": 1683.9,
    "tier": "swing"
   },
   {
-   "date": "2024-01-17",
-   "price": 2002.6,
+   "date": "2022-03-16",
+   "price": 1908,
    "tier": "swing"
   },
   {
-   "date": "2024-04-30",
-   "price": 2291.4,
+   "date": "2022-10-19",
+   "price": 1627.5,
    "tier": "swing"
   },
   {
-   "date": "2024-06-26",
-   "price": 2299.2,
+   "date": "2023-02-24",
+   "price": 1808.8,
    "tier": "swing"
   },
   {
-   "date": "2024-12-19",
-   "price": 2592.2,
+   "date": "2023-04-21",
+   "price": 1979.5,
    "tier": "swing"
   },
   {
-   "date": "2025-05-14",
-   "price": 3181.4,
+   "date": "2023-07-06",
+   "price": 1908.7,
    "tier": "swing"
   },
   {
-   "date": "2025-06-27",
-   "price": 3273.7,
+   "date": "2023-08-17",
+   "price": 1884.1,
    "tier": "swing"
   },
   {
-   "date": "2025-07-31",
-   "price": 3293.2,
+   "date": "2023-11-10",
+   "price": 1932.6,
+   "tier": "swing"
+  },
+  {
+   "date": "2023-12-12",
+   "price": 1977.8,
+   "tier": "swing"
+  },
+  {
+   "date": "2024-10-09",
+   "price": 2606,
+   "tier": "swing"
+  },
+  {
+   "date": "2024-11-15",
+   "price": 2565.7,
+   "tier": "swing"
+  },
+  {
+   "date": "2025-04-07",
+   "price": 2951.3,
+   "tier": "swing"
+  },
+  {
+   "date": "2025-08-19",
+   "price": 3313.4,
+   "tier": "swing"
+  },
+  {
+   "date": "2025-11-04",
+   "price": 3947.7,
+   "tier": "swing"
+  },
+  {
+   "date": "2026-02-02",
+   "price": 4622.5,
    "tier": "swing"
   }
  ],
  "signalHistory": [
   {
-   "date": "2009-06-15",
+   "date": "2009-06-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-06-18",
+   "date": "2009-06-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-06-23",
+   "date": "2009-06-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-06-26",
+   "date": "2009-06-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-01",
+   "date": "2009-07-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-07",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2009-07-08",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2009-07-10",
+   "date": "2009-07-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-15",
+   "date": "2009-07-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-20",
+   "date": "2009-07-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-23",
+   "date": "2009-07-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-28",
+   "date": "2009-07-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-07-31",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2009-08-03",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2009-08-05",
+   "date": "2009-08-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-08-10",
+   "date": "2009-08-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-08-13",
+   "date": "2009-08-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-08-18",
+   "date": "2009-08-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-08-21",
+   "date": "2009-08-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2009-08-26",
+   "date": "2009-08-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2009-08-31",
+   "date": "2009-09-01",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2009-09-03",
+   "date": "2009-09-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-09-09",
+   "date": "2009-09-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-09-14",
+   "date": "2009-09-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-09-17",
+   "date": "2009-09-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-09-22",
+   "date": "2009-09-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-09-25",
+   "date": "2009-09-28",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2009-09-30",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2009-10-01",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2009-10-05",
+   "date": "2009-10-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-10-08",
+   "date": "2009-10-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-10-13",
+   "date": "2009-10-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-10-16",
+   "date": "2009-10-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-10-21",
+   "date": "2009-10-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-10-26",
+   "date": "2009-10-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2009-10-29",
+   "date": "2009-10-30",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2009-11-03",
+   "date": "2009-11-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-11-06",
+   "date": "2009-11-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-11-11",
+   "date": "2009-11-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-11-16",
+   "date": "2009-11-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-11-19",
+   "date": "2009-11-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-11-24",
+   "date": "2009-11-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-11-30",
+   "date": "2009-12-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-12-03",
+   "date": "2009-12-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-12-08",
+   "date": "2009-12-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-12-11",
+   "date": "2009-12-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-12-16",
+   "date": "2009-12-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-12-21",
+   "date": "2009-12-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2009-12-24",
+   "date": "2009-12-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2009-12-30",
+   "date": "2009-12-31",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-01-05",
+   "date": "2010-01-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-01-08",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2010-01-11",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2010-01-13",
+   "date": "2010-01-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-01-19",
+   "date": "2010-01-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-01-22",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2010-01-25",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2010-01-27",
+   "date": "2010-01-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-02-01",
+   "date": "2010-02-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-02-04",
+   "date": "2010-02-05",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2010-02-09",
-   "cycleBin": 0,
-   "swingBin": 0
   },
   {
-   "date": "2010-02-12",
+   "date": "2010-02-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-02-18",
+   "date": "2010-02-16",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-02-23",
+   "date": "2010-02-19",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-02-26",
+   "date": "2010-02-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-03",
+   "date": "2010-03-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-08",
+   "date": "2010-03-04",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-11",
+   "date": "2010-03-09",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-16",
+   "date": "2010-03-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-19",
+   "date": "2010-03-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-24",
+   "date": "2010-03-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-03-29",
+   "date": "2010-03-25",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-04-01",
+   "date": "2010-03-30",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-04-07",
+   "date": "2010-04-05",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-04-12",
+   "date": "2010-04-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-04-15",
+   "date": "2010-04-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-04-20",
+   "date": "2010-04-16",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-04-23",
+   "date": "2010-04-21",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-04-28",
+   "date": "2010-04-26",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-05-03",
+   "date": "2010-04-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-05-06",
+   "date": "2010-05-04",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-05-11",
+   "date": "2010-05-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-05-14",
+   "date": "2010-05-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-05-19",
+   "date": "2010-05-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-05-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-05-24",
+   "date": "2010-05-25",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-05-27",
+   "date": "2010-05-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-06-02",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2010-06-03",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2010-06-07",
+   "date": "2010-06-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-06-10",
+   "date": "2010-06-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-06-15",
+   "date": "2010-06-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-06-18",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2010-06-21",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2010-06-23",
+   "date": "2010-06-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-06-28",
+   "date": "2010-06-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-07-01",
+   "date": "2010-07-02",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-07-07",
+   "date": "2010-07-08",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-07-12",
+   "date": "2010-07-13",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-07-15",
+   "date": "2010-07-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-07-20",
+   "date": "2010-07-21",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-07-23",
+   "date": "2010-07-26",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-07-28",
+   "date": "2010-07-29",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-08-02",
+   "date": "2010-08-03",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-08-05",
+   "date": "2010-08-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-08-10",
+   "date": "2010-08-11",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-08-13",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2010-08-16",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2010-08-18",
+   "date": "2010-08-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-08-23",
+   "date": "2010-08-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-08-26",
+   "date": "2010-08-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-08-31",
+   "date": "2010-09-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-09-03",
+   "date": "2010-09-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-09-09",
-   "cycleBin": 2,
-   "swingBin": 2
-  },
-  {
-   "date": "2010-09-14",
+   "date": "2010-09-10",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-09-17",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2010-09-15",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2010-09-22",
+   "date": "2010-09-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-09-27",
+   "date": "2010-09-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-09-30",
+   "date": "2010-09-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-10-05",
+   "date": "2010-10-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-10-08",
+   "date": "2010-10-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-10-13",
+   "date": "2010-10-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-10-18",
+   "date": "2010-10-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-10-21",
+   "date": "2010-10-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-10-26",
+   "date": "2010-10-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-10-29",
+   "date": "2010-10-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-11-03",
+   "date": "2010-11-01",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2010-11-08",
+   "date": "2010-11-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-11-11",
+   "date": "2010-11-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2010-11-16",
-   "cycleBin": 0,
-   "swingBin": 0
-  },
-  {
-   "date": "2010-11-19",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2010-11-12",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2010-11-24",
+   "date": "2010-11-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-11-30",
+   "date": "2010-11-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-12-03",
+   "date": "2010-11-26",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2010-12-08",
+   "date": "2010-12-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-12-13",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2010-12-06",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2010-12-16",
+   "date": "2010-12-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-12-21",
+   "date": "2010-12-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-12-27",
+   "date": "2010-12-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2010-12-30",
+   "date": "2010-12-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-01-04",
+   "date": "2010-12-28",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2010-12-31",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2011-01-07",
+   "date": "2011-01-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-01-12",
+   "date": "2011-01-10",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-01-18",
+   "date": "2011-01-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-01-21",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2011-01-19",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-01-26",
+   "date": "2011-01-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-01-31",
+   "date": "2011-01-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-02-03",
+   "date": "2011-02-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-02-08",
+   "date": "2011-02-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-02-11",
+   "date": "2011-02-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-02-16",
+   "date": "2011-02-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-02-22",
+   "date": "2011-02-17",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2011-02-23",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2011-02-25",
+   "date": "2011-02-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-03-02",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2011-03-03",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-03-07",
+   "date": "2011-03-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-03-10",
+   "date": "2011-03-11",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-03-15",
+   "date": "2011-03-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-03-18",
+   "date": "2011-03-21",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-03-23",
+   "date": "2011-03-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-03-28",
+   "date": "2011-03-29",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-03-31",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2011-04-01",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2011-04-05",
+   "date": "2011-04-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-04-08",
+   "date": "2011-04-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-04-13",
-   "cycleBin": 3,
-   "swingBin": 3
-  },
-  {
-   "date": "2011-04-18",
+   "date": "2011-04-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-04-21",
+   "date": "2011-04-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-04-27",
+   "date": "2011-04-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-05-02",
+   "date": "2011-04-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-05-05",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2011-05-03",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-05-10",
+   "date": "2011-05-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-05-13",
+   "date": "2011-05-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-05-18",
+   "date": "2011-05-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-05-23",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2011-05-19",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2011-05-26",
+   "date": "2011-05-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-06-01",
+   "date": "2011-05-27",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2011-06-02",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2011-06-06",
+   "date": "2011-06-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-06-09",
+   "date": "2011-06-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-06-14",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2011-06-15",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-06-17",
+   "date": "2011-06-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-06-22",
+   "date": "2011-06-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-06-27",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2011-06-28",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-06-30",
+   "date": "2011-07-01",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-07-06",
+   "date": "2011-07-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-07-11",
+   "date": "2011-07-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-07-14",
+   "date": "2011-07-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-07-19",
-   "cycleBin": 1,
-   "swingBin": 1
-  },
-  {
-   "date": "2011-07-22",
+   "date": "2011-07-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-07-27",
+   "date": "2011-07-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-08-01",
+   "date": "2011-07-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-08-04",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2011-08-02",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2011-08-09",
+   "date": "2011-08-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-08-10",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-08-12",
+   "date": "2011-08-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-08-17",
+   "date": "2011-08-18",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-08-22",
+   "date": "2011-08-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2011-08-25",
+   "date": "2011-08-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-08-30",
+   "date": "2011-08-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-09-02",
+   "date": "2011-09-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-09-08",
+   "date": "2011-09-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-09-13",
+   "date": "2011-09-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-09-16",
+   "date": "2011-09-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-09-21",
+   "date": "2011-09-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-09-26",
+   "date": "2011-09-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-09-29",
+   "date": "2011-09-30",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-10-04",
+   "date": "2011-10-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-10-07",
+   "date": "2011-10-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-10-12",
+   "date": "2011-10-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-10-17",
+   "date": "2011-10-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-10-20",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2011-10-21",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2011-10-25",
+   "date": "2011-10-26",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-10-28",
+   "date": "2011-10-31",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2011-11-02",
+   "date": "2011-11-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-11-07",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2011-11-08",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-11-10",
+   "date": "2011-11-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-11-15",
+   "date": "2011-11-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-11-18",
+   "date": "2011-11-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-11-23",
+   "date": "2011-11-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-11-29",
+   "date": "2011-11-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-12-02",
+   "date": "2011-12-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-12-07",
+   "date": "2011-12-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-12-12",
+   "date": "2011-12-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-12-15",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2011-12-16",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2011-12-20",
+   "date": "2011-12-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-12-23",
+   "date": "2011-12-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2011-12-29",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2011-12-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2012-01-04",
+   "date": "2012-01-05",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-01-09",
+   "date": "2012-01-10",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2012-01-12",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2012-01-18",
+   "date": "2012-01-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-01-23",
+   "date": "2012-01-19",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-01-26",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2012-01-24",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2012-01-31",
+   "date": "2012-01-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-02-03",
+   "date": "2012-02-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-02-08",
+   "date": "2012-02-06",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2012-02-09",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2012-02-13",
+   "date": "2012-02-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-02-16",
+   "date": "2012-02-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-02-22",
+   "date": "2012-02-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-02-27",
+   "date": "2012-02-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-03-01",
+   "date": "2012-03-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-03-06",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2012-03-07",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2012-03-09",
+   "date": "2012-03-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-03-14",
+   "date": "2012-03-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-03-19",
+   "date": "2012-03-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-03-22",
+   "date": "2012-03-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-03-27",
+   "date": "2012-03-28",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2012-03-30",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2012-04-04",
+   "date": "2012-04-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-04-10",
+   "date": "2012-04-05",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-04-13",
+   "date": "2012-04-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-04-18",
+   "date": "2012-04-16",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-04-23",
+   "date": "2012-04-19",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-04-26",
+   "date": "2012-04-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-05-01",
+   "date": "2012-04-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-05-04",
+   "date": "2012-05-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-05-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-05-09",
+   "date": "2012-05-10",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-05-14",
+   "date": "2012-05-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-05-17",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2012-05-18",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2012-05-22",
+   "date": "2012-05-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-05-25",
-   "cycleBin": 0,
-   "swingBin": 0
-  },
-  {
-   "date": "2012-05-31",
+   "date": "2012-05-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-06-05",
+   "date": "2012-06-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-06-08",
+   "date": "2012-06-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-06-13",
+   "date": "2012-06-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-06-18",
+   "date": "2012-06-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-06-21",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2012-06-19",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2012-06-26",
+   "date": "2012-06-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-06-29",
+   "date": "2012-06-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-05",
+   "date": "2012-07-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-10",
+   "date": "2012-07-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-13",
+   "date": "2012-07-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-18",
+   "date": "2012-07-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-23",
+   "date": "2012-07-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-26",
+   "date": "2012-07-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-07-31",
+   "date": "2012-07-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-08-03",
+   "date": "2012-08-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-08-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2012-08-08",
+   "date": "2012-08-09",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2012-08-13",
+   "date": "2012-08-14",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2012-08-16",
+   "date": "2012-08-17",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2012-08-21",
+   "date": "2012-08-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-08-24",
+   "date": "2012-08-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-08-29",
+   "date": "2012-08-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-09-04",
+   "date": "2012-09-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-09-07",
+   "date": "2012-09-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-09-12",
+   "date": "2012-09-13",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2012-09-17",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2012-09-20",
+   "date": "2012-09-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-09-25",
+   "date": "2012-09-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-09-28",
+   "date": "2012-09-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-10-03",
+   "date": "2012-10-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-10-08",
+   "date": "2012-10-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2012-10-11",
+   "date": "2012-10-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-10-16",
+   "date": "2012-10-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-10-19",
+   "date": "2012-10-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-10-24",
+   "date": "2012-10-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-10-31",
+   "date": "2012-10-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-11-05",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2012-11-01",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2012-11-08",
+   "date": "2012-11-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-11-13",
+   "date": "2012-11-09",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2012-11-16",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2012-11-21",
+   "date": "2012-11-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-11-27",
+   "date": "2012-11-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-11-23",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-11-30",
+   "date": "2012-11-28",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2012-12-05",
+   "date": "2012-12-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-12-10",
+   "date": "2012-12-06",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2012-12-11",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2012-12-13",
+   "date": "2012-12-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-12-18",
+   "date": "2012-12-19",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2012-12-21",
+   "date": "2012-12-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2012-12-27",
+   "date": "2012-12-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-01-02",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-01-03",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-01-07",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-01-08",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-01-10",
+   "date": "2013-01-11",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-01-15",
+   "date": "2013-01-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-01-18",
+   "date": "2013-01-22",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-01-24",
+   "date": "2013-01-25",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-01-29",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-01-30",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2013-02-01",
+   "date": "2013-02-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-02-06",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-02-07",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-02-11",
+   "date": "2013-02-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2013-02-14",
+   "date": "2013-02-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-02-20",
+   "date": "2013-02-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-02-25",
+   "date": "2013-02-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-02-28",
+   "date": "2013-03-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-03-05",
+   "date": "2013-03-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-03-08",
+   "date": "2013-03-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-03-13",
+   "date": "2013-03-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-03-18",
+   "date": "2013-03-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-03-21",
+   "date": "2013-03-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-03-26",
+   "date": "2013-03-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-04-01",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2013-04-02",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2013-04-04",
+   "date": "2013-04-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-04-09",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2013-04-10",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2013-04-12",
+   "date": "2013-04-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-04-17",
+   "date": "2013-04-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-04-22",
+   "date": "2013-04-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2013-04-25",
-   "cycleBin": 0,
-   "swingBin": 0
-  },
-  {
-   "date": "2013-04-30",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-04-26",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-05-03",
+   "date": "2013-05-01",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-05-08",
+   "date": "2013-05-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-05-13",
+   "date": "2013-05-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-05-16",
+   "date": "2013-05-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-05-21",
+   "date": "2013-05-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-05-24",
+   "date": "2013-05-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-05-30",
+   "date": "2013-05-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-05-31",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2013-06-04",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-06-05",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2013-06-07",
+   "date": "2013-06-10",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-06-12",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-06-13",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2013-06-17",
+   "date": "2013-06-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-06-20",
+   "date": "2013-06-21",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-06-25",
+   "date": "2013-06-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-06-28",
+   "date": "2013-07-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-07-03",
+   "date": "2013-07-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-07-09",
+   "date": "2013-07-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-07-12",
+   "date": "2013-07-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2013-07-17",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-07-18",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-07-22",
+   "date": "2013-07-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-07-25",
+   "date": "2013-07-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-07-30",
+   "date": "2013-07-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-02",
+   "date": "2013-08-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-07",
+   "date": "2013-08-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-12",
+   "date": "2013-08-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-15",
+   "date": "2013-08-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-20",
+   "date": "2013-08-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-23",
+   "date": "2013-08-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-08-28",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2013-08-29",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2013-09-03",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2013-09-04",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2013-09-06",
+   "date": "2013-09-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-09-11",
+   "date": "2013-09-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-09-16",
+   "date": "2013-09-17",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-09-19",
+   "date": "2013-09-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-09-24",
+   "date": "2013-09-25",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-09-27",
+   "date": "2013-09-30",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-10-02",
+   "date": "2013-10-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-07",
+   "date": "2013-10-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-10",
+   "date": "2013-10-11",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-10-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-15",
+   "date": "2013-10-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-18",
+   "date": "2013-10-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-23",
+   "date": "2013-10-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-28",
+   "date": "2013-11-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-10-31",
+   "date": "2013-11-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2013-11-05",
+   "date": "2013-11-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-11-08",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-11-14",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-11-13",
+   "date": "2013-11-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-11-18",
+   "date": "2013-11-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-11-21",
+   "date": "2013-11-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-11-26",
-   "cycleBin": 2,
-   "swingBin": 2
-  },
-  {
-   "date": "2013-12-02",
+   "date": "2013-12-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2013-12-05",
+   "date": "2013-12-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-12-10",
+   "date": "2013-12-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-12-13",
+   "date": "2013-12-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2013-12-18",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2013-12-19",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2013-12-23",
+   "date": "2013-12-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2013-12-27",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2013-12-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2014-01-02",
+   "date": "2014-01-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-01-07",
+   "date": "2014-01-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-01-10",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-01-13",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2014-01-15",
+   "date": "2014-01-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-01-21",
+   "date": "2014-01-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-01-24",
+   "date": "2014-01-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-01-29",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2014-01-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2014-02-03",
+   "date": "2014-02-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-02-06",
+   "date": "2014-02-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-02-11",
+   "date": "2014-02-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-02-14",
+   "date": "2014-02-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-02-20",
+   "date": "2014-02-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-02-25",
+   "date": "2014-02-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-02-28",
+   "date": "2014-03-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-03-05",
+   "date": "2014-03-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-03-10",
+   "date": "2014-03-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-03-13",
+   "date": "2014-03-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-03-18",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-03-19",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2014-03-21",
+   "date": "2014-03-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-03-26",
+   "date": "2014-03-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-03-31",
+   "date": "2014-04-01",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-04-03",
+   "date": "2014-04-04",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2014-04-08",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2014-04-11",
+   "date": "2014-04-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-04-16",
+   "date": "2014-04-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-04-22",
+   "date": "2014-04-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-04-25",
+   "date": "2014-04-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-04-30",
+   "date": "2014-04-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-05-05",
+   "date": "2014-05-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-05-08",
+   "date": "2014-05-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-05-13",
+   "date": "2014-05-09",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2014-05-16",
+   "date": "2014-05-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-05-21",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2014-05-19",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2014-05-27",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-05-22",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2014-05-30",
+   "date": "2014-05-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-06-04",
+   "date": "2014-06-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-06-09",
+   "date": "2014-06-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-06-12",
+   "date": "2014-06-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2014-06-17",
+   "date": "2014-06-13",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2014-06-20",
+   "date": "2014-06-18",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2014-06-25",
+   "date": "2014-06-23",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2014-06-30",
+   "date": "2014-06-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-07-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-07-03",
+   "date": "2014-07-07",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2014-07-09",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2014-07-14",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-07-10",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2014-07-17",
+   "date": "2014-07-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-07-22",
+   "date": "2014-07-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-07-25",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2014-07-23",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2014-07-30",
+   "date": "2014-07-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-08-04",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2014-07-31",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2014-08-07",
+   "date": "2014-08-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-08-12",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2014-08-08",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2014-08-15",
+   "date": "2014-08-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-08-20",
+   "date": "2014-08-18",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-08-25",
+   "date": "2014-08-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-08-28",
+   "date": "2014-08-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-09-03",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-08-29",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2014-09-08",
+   "date": "2014-09-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-09-11",
+   "date": "2014-09-09",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-09-16",
+   "date": "2014-09-12",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-09-19",
+   "date": "2014-09-17",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-09-24",
+   "date": "2014-09-22",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2014-09-29",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-09-25",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2014-10-02",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2014-09-30",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2014-10-07",
+   "date": "2014-10-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-10-10",
+   "date": "2014-10-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-10-15",
+   "date": "2014-10-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-10-20",
+   "date": "2014-10-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-10-23",
+   "date": "2014-10-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-10-28",
+   "date": "2014-10-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-10-31",
+   "date": "2014-10-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-11-05",
+   "date": "2014-11-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-11-10",
+   "date": "2014-11-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-11-13",
+   "date": "2014-11-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2014-11-18",
+   "date": "2014-11-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-11-21",
+   "date": "2014-11-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-11-26",
+   "date": "2014-11-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-12-02",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2014-11-28",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2014-12-05",
+   "date": "2014-12-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2014-12-10",
+   "date": "2014-12-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-12-15",
+   "date": "2014-12-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-12-18",
+   "date": "2014-12-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2014-12-23",
+   "date": "2014-12-19",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2014-12-24",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2014-12-29",
+   "date": "2014-12-30",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-01-02",
+   "date": "2015-01-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-01-07",
+   "date": "2015-01-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-01-12",
+   "date": "2015-01-13",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-01-15",
+   "date": "2015-01-16",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-01-21",
+   "date": "2015-01-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-01-26",
+   "date": "2015-01-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-01-29",
+   "date": "2015-01-30",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-02-03",
+   "date": "2015-02-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-02-06",
+   "date": "2015-02-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-02-11",
+   "date": "2015-02-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-02-17",
+   "date": "2015-02-18",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2015-02-20",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2015-02-25",
+   "date": "2015-02-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-03-02",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2015-02-26",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2015-03-05",
+   "date": "2015-03-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-03-10",
+   "date": "2015-03-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-03-13",
+   "date": "2015-03-11",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-03-18",
+   "date": "2015-03-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-03-23",
+   "date": "2015-03-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-03-26",
+   "date": "2015-03-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-03-31",
+   "date": "2015-03-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-04-06",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2015-04-01",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2015-04-09",
+   "date": "2015-04-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-04-14",
+   "date": "2015-04-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-04-17",
+   "date": "2015-04-15",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-04-22",
+   "date": "2015-04-20",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2015-04-23",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2015-04-27",
+   "date": "2015-04-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-04-30",
+   "date": "2015-05-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-05-05",
+   "date": "2015-05-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-05-08",
+   "date": "2015-05-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-05-13",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2015-05-14",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2015-05-18",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2015-05-19",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2015-05-21",
+   "date": "2015-05-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-05-27",
+   "date": "2015-05-28",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-06-01",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2015-06-02",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2015-06-04",
+   "date": "2015-06-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-06-09",
+   "date": "2015-06-10",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-06-12",
+   "date": "2015-06-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-06-17",
+   "date": "2015-06-18",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-06-22",
+   "date": "2015-06-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-06-25",
+   "date": "2015-06-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-06-30",
+   "date": "2015-07-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-07-06",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2015-07-07",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2015-07-09",
+   "date": "2015-07-10",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2015-07-14",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2015-07-17",
+   "date": "2015-07-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-07-22",
+   "date": "2015-07-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-07-27",
+   "date": "2015-07-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-07-30",
+   "date": "2015-07-28",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2015-08-04",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2015-08-07",
+   "date": "2015-07-31",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-08-12",
+   "date": "2015-08-05",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2015-08-10",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2015-08-17",
+   "date": "2015-08-13",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-08-20",
+   "date": "2015-08-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-08-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-08-25",
+   "date": "2015-08-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-08-28",
+   "date": "2015-08-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-09-02",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2015-09-03",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2015-09-08",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2015-09-09",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2015-09-11",
+   "date": "2015-09-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-09-16",
+   "date": "2015-09-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-09-21",
+   "date": "2015-09-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-09-24",
+   "date": "2015-09-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-09-29",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2015-09-30",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2015-10-02",
+   "date": "2015-10-05",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-10-07",
+   "date": "2015-10-08",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-10-12",
+   "date": "2015-10-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-10-15",
+   "date": "2015-10-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-10-20",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2015-10-21",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2015-10-23",
+   "date": "2015-10-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-10-28",
-   "cycleBin": 1,
-   "swingBin": 1
-  },
-  {
-   "date": "2015-11-02",
+   "date": "2015-10-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-11-05",
+   "date": "2015-11-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2015-11-10",
+   "date": "2015-11-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-11-13",
+   "date": "2015-11-11",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-11-18",
+   "date": "2015-11-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2015-11-23",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2015-11-19",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2015-11-27",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2015-11-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-11-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2015-12-02",
+   "date": "2015-12-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-12-07",
+   "date": "2015-12-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-12-10",
+   "date": "2015-12-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2015-12-15",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2015-12-16",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2015-12-18",
+   "date": "2015-12-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2015-12-23",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2015-12-24",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2015-12-29",
+   "date": "2015-12-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-01-04",
+   "date": "2016-01-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-01-07",
+   "date": "2016-01-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-01-12",
+   "date": "2016-01-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-01-15",
+   "date": "2016-01-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-01-21",
+   "date": "2016-01-22",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2016-01-26",
-   "cycleBin": 0,
-   "swingBin": 0
   },
   {
-   "date": "2016-01-29",
+   "date": "2016-01-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-02-03",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-02-01",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-02-08",
+   "date": "2016-02-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-02-11",
+   "date": "2016-02-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-02-17",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-02-12",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-02-22",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-02-18",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-02-25",
+   "date": "2016-02-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-03-01",
+   "date": "2016-02-26",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-03-04",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2016-03-02",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2016-03-09",
+   "date": "2016-03-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-03-14",
+   "date": "2016-03-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-03-17",
+   "date": "2016-03-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-03-22",
+   "date": "2016-03-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-03-28",
+   "date": "2016-03-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-03-31",
+   "date": "2016-03-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-05",
+   "date": "2016-04-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-08",
+   "date": "2016-04-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-13",
+   "date": "2016-04-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-18",
+   "date": "2016-04-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-21",
+   "date": "2016-04-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-26",
+   "date": "2016-04-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-04-29",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2016-04-27",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2016-05-04",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2016-05-02",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2016-05-09",
+   "date": "2016-05-05",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2016-05-12",
+   "date": "2016-05-10",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2016-05-17",
+   "date": "2016-05-13",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2016-05-20",
+   "date": "2016-05-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-05-25",
+   "date": "2016-05-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-05-31",
+   "date": "2016-05-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-06-03",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-06-01",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-06-08",
+   "date": "2016-06-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-06-13",
+   "date": "2016-06-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-06-16",
+   "date": "2016-06-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-06-21",
+   "date": "2016-06-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-06-24",
-   "cycleBin": 0,
-   "swingBin": 0
-  },
-  {
-   "date": "2016-06-29",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2016-06-22",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2016-07-05",
+   "date": "2016-06-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-07-08",
+   "date": "2016-06-30",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-07-13",
+   "date": "2016-07-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-07-18",
+   "date": "2016-07-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-07-21",
+   "date": "2016-07-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-07-26",
+   "date": "2016-07-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-07-29",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-07-22",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-08-03",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-07-27",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-08-08",
+   "date": "2016-08-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-08-11",
+   "date": "2016-08-04",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-08-16",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2016-08-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-08-12",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2016-08-19",
+   "date": "2016-08-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-08-24",
+   "date": "2016-08-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-08-29",
+   "date": "2016-08-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-09-01",
+   "date": "2016-08-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-09-07",
+   "date": "2016-09-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-09-12",
+   "date": "2016-09-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-09-15",
+   "date": "2016-09-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-09-20",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2016-09-16",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-09-23",
+   "date": "2016-09-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-09-28",
+   "date": "2016-09-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-10-03",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2016-09-29",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2016-10-06",
+   "date": "2016-10-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-10-12",
+   "date": "2016-10-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-10-17",
+   "date": "2016-10-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-10-20",
+   "date": "2016-10-18",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-10-25",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2016-10-21",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-10-28",
+   "date": "2016-10-26",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-11-02",
+   "date": "2016-10-31",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-11-07",
+   "date": "2016-11-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-11-10",
+   "date": "2016-11-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2016-11-16",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2016-11-14",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2016-11-21",
+   "date": "2016-11-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-11-25",
+   "date": "2016-11-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-11-30",
+   "date": "2016-11-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-12-05",
+   "date": "2016-12-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-12-08",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2016-12-06",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2016-12-13",
+   "date": "2016-12-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-12-16",
+   "date": "2016-12-14",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2016-12-19",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2016-12-21",
+   "date": "2016-12-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2016-12-27",
+   "date": "2016-12-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2016-12-30",
+   "date": "2017-01-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-01-05",
+   "date": "2017-01-06",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2017-01-10",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2017-01-13",
+   "date": "2017-01-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-01-19",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2017-01-17",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2017-01-24",
+   "date": "2017-01-20",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-01-27",
+   "date": "2017-01-25",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-02-01",
+   "date": "2017-01-30",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-02-06",
+   "date": "2017-02-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-02-09",
+   "date": "2017-02-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-02-14",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2017-02-10",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2017-02-17",
+   "date": "2017-02-15",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-02-23",
+   "date": "2017-02-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-02-28",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2017-02-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-03-01",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2017-03-03",
+   "date": "2017-03-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-03-08",
+   "date": "2017-03-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-03-13",
+   "date": "2017-03-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-03-16",
+   "date": "2017-03-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-03-21",
+   "date": "2017-03-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-03-24",
+   "date": "2017-03-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-03-29",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2017-03-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2017-04-03",
+   "date": "2017-04-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-04-06",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2017-04-07",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2017-04-11",
+   "date": "2017-04-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-04-17",
+   "date": "2017-04-18",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-04-20",
+   "date": "2017-04-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-04-25",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2017-04-26",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2017-04-28",
+   "date": "2017-05-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-05-03",
+   "date": "2017-05-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-05-08",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2017-05-09",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2017-05-11",
+   "date": "2017-05-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-05-16",
+   "date": "2017-05-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-05-19",
+   "date": "2017-05-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-05-24",
+   "date": "2017-05-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-05-30",
+   "date": "2017-05-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-06-02",
+   "date": "2017-06-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-06-07",
+   "date": "2017-06-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-06-12",
+   "date": "2017-06-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-06-15",
+   "date": "2017-06-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-06-20",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2017-06-21",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2017-06-23",
+   "date": "2017-06-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-06-28",
+   "date": "2017-06-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-07-03",
+   "date": "2017-07-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-07-07",
+   "date": "2017-07-10",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2017-07-12",
+   "date": "2017-07-13",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2017-07-17",
+   "date": "2017-07-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-07-20",
+   "date": "2017-07-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-07-25",
+   "date": "2017-07-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-07-28",
+   "date": "2017-07-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-08-02",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2017-08-03",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2017-08-07",
+   "date": "2017-08-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-08-10",
+   "date": "2017-08-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-08-15",
+   "date": "2017-08-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-08-18",
+   "date": "2017-08-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-08-23",
+   "date": "2017-08-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-08-28",
+   "date": "2017-08-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-08-31",
+   "date": "2017-09-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-09-06",
+   "date": "2017-09-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-09-11",
+   "date": "2017-09-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-09-14",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2017-09-15",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2017-09-19",
+   "date": "2017-09-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-09-22",
+   "date": "2017-09-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-09-27",
+   "date": "2017-09-28",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2017-10-02",
+   "date": "2017-10-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-10-05",
+   "date": "2017-10-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-10-10",
+   "date": "2017-10-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-10-13",
+   "date": "2017-10-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-10-18",
+   "date": "2017-10-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-10-23",
+   "date": "2017-10-24",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2017-10-26",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2017-10-31",
+   "date": "2017-10-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-11-03",
+   "date": "2017-11-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-11-08",
+   "date": "2017-11-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-11-13",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2017-11-09",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2017-11-16",
+   "date": "2017-11-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-11-21",
+   "date": "2017-11-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-11-27",
+   "date": "2017-11-22",
    "cycleBin": 3,
    "swingBin": 3
+  },
+  {
+   "date": "2017-11-28",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2017-11-30",
+   "date": "2017-12-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-12-05",
+   "date": "2017-12-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-12-08",
+   "date": "2017-12-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-12-13",
+   "date": "2017-12-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-12-18",
+   "date": "2017-12-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2017-12-21",
+   "date": "2017-12-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2017-12-27",
+   "date": "2017-12-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-01-02",
+   "date": "2018-01-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-01-05",
+   "date": "2018-01-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-01-10",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2018-01-11",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2018-01-16",
+   "date": "2018-01-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-01-19",
+   "date": "2018-01-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-01-24",
+   "date": "2018-01-25",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-01-30",
+   "date": "2018-01-31",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-02-02",
+   "date": "2018-02-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-02-07",
+   "date": "2018-02-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-02-12",
+   "date": "2018-02-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-02-15",
+   "date": "2018-02-16",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-02-21",
+   "date": "2018-02-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-02-26",
+   "date": "2018-02-27",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2018-03-01",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2018-03-06",
+   "date": "2018-03-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-03-09",
+   "date": "2018-03-07",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-03-14",
+   "date": "2018-03-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-03-19",
+   "date": "2018-03-15",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-03-22",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2018-03-20",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2018-03-27",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2018-03-23",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2018-04-02",
+   "date": "2018-03-28",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-04-05",
+   "date": "2018-04-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-04-10",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2018-04-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-04-11",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2018-04-13",
+   "date": "2018-04-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-04-18",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2018-04-19",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2018-04-23",
+   "date": "2018-04-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-04-26",
+   "date": "2018-04-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-05-01",
+   "date": "2018-05-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-05-04",
+   "date": "2018-05-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-05-09",
+   "date": "2018-05-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-05-14",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2018-05-15",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2018-05-17",
+   "date": "2018-05-18",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-05-22",
+   "date": "2018-05-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-05-25",
+   "date": "2018-05-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-05-31",
+   "date": "2018-06-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-06-05",
+   "date": "2018-06-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-06-08",
+   "date": "2018-06-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-06-13",
+   "date": "2018-06-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-06-18",
+   "date": "2018-06-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-06-21",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2018-06-22",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2018-06-26",
+   "date": "2018-06-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-06-29",
+   "date": "2018-07-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-07-05",
+   "date": "2018-07-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-07-10",
+   "date": "2018-07-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-07-13",
+   "date": "2018-07-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-07-18",
+   "date": "2018-07-19",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2018-07-23",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2018-07-26",
+   "date": "2018-07-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-07-31",
+   "date": "2018-07-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-08-03",
+   "date": "2018-08-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-08-08",
+   "date": "2018-08-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-08-13",
+   "date": "2018-08-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-08-16",
+   "date": "2018-08-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-08-21",
+   "date": "2018-08-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-08-24",
+   "date": "2018-08-22",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2018-08-27",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2018-08-29",
+   "date": "2018-08-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-09-04",
+   "date": "2018-09-05",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-09-07",
+   "date": "2018-09-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-09-12",
+   "date": "2018-09-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-09-17",
+   "date": "2018-09-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-09-20",
+   "date": "2018-09-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2018-09-25",
+   "date": "2018-09-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2018-09-28",
+   "date": "2018-10-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-10-03",
+   "date": "2018-10-04",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-10-08",
+   "date": "2018-10-09",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2018-10-12",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2018-10-11",
+   "date": "2018-10-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-10-16",
+   "date": "2018-10-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-10-19",
+   "date": "2018-10-25",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-10-24",
+   "date": "2018-10-30",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-10-29",
+   "date": "2018-11-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-01",
+   "date": "2018-11-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-06",
+   "date": "2018-11-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-09",
+   "date": "2018-11-15",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-14",
+   "date": "2018-11-20",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-19",
+   "date": "2018-11-26",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-23",
+   "date": "2018-11-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-11-28",
+   "date": "2018-12-04",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-12-03",
+   "date": "2018-12-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-12-07",
+   "date": "2018-12-13",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-12-12",
+   "date": "2018-12-18",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-12-17",
+   "date": "2018-12-21",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2018-12-20",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2018-12-27",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2018-12-26",
+   "date": "2019-01-02",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2018-12-31",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2019-01-04",
+   "date": "2019-01-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-01-09",
+   "date": "2019-01-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-01-14",
+   "date": "2019-01-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-01-17",
+   "date": "2019-01-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-01-23",
+   "date": "2019-01-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-01-28",
+   "date": "2019-01-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-01-31",
+   "date": "2019-02-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-02-05",
+   "date": "2019-02-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-02-08",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2019-02-11",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-02-13",
+   "date": "2019-02-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2019-02-19",
+   "date": "2019-02-20",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2019-02-22",
+   "date": "2019-02-25",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2019-02-27",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2019-03-04",
+   "date": "2019-02-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-03-07",
+   "date": "2019-03-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-03-12",
+   "date": "2019-03-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-03-15",
+   "date": "2019-03-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-03-20",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2019-03-18",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-03-25",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2019-03-21",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-03-28",
+   "date": "2019-03-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-04-02",
+   "date": "2019-03-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-04-05",
+   "date": "2019-04-03",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2019-04-10",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2019-04-15",
+   "date": "2019-04-08",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2019-04-11",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-04-18",
+   "date": "2019-04-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-04-24",
+   "date": "2019-04-22",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2019-04-25",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-04-29",
+   "date": "2019-04-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-05-02",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2019-05-03",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2019-05-07",
+   "date": "2019-05-08",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-05-10",
+   "date": "2019-05-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-05-15",
+   "date": "2019-05-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-05-20",
+   "date": "2019-05-21",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-05-23",
+   "date": "2019-05-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-05-29",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2019-05-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2019-06-03",
+   "date": "2019-06-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-06-06",
+   "date": "2019-06-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-06-11",
+   "date": "2019-06-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-06-14",
+   "date": "2019-06-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-06-19",
+   "date": "2019-06-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-06-24",
+   "date": "2019-06-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-06-27",
+   "date": "2019-06-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-02",
+   "date": "2019-07-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-08",
+   "date": "2019-07-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-11",
+   "date": "2019-07-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-16",
+   "date": "2019-07-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-19",
+   "date": "2019-07-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-24",
+   "date": "2019-07-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-07-29",
+   "date": "2019-07-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-08-01",
+   "date": "2019-08-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-08-06",
+   "date": "2019-08-07",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-08-09",
+   "date": "2019-08-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-08-14",
+   "date": "2019-08-15",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2019-08-19",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2019-08-22",
+   "date": "2019-08-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-08-27",
+   "date": "2019-08-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2019-08-30",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2019-08-28",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-09-05",
+   "date": "2019-09-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-09-10",
+   "date": "2019-09-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-09-13",
+   "date": "2019-09-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-09-18",
+   "date": "2019-09-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-09-23",
+   "date": "2019-09-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-09-26",
+   "date": "2019-09-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-10-01",
+   "date": "2019-09-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-10-04",
+   "date": "2019-10-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-10-09",
+   "date": "2019-10-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-10-14",
+   "date": "2019-10-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-10-17",
+   "date": "2019-10-15",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-10-22",
+   "date": "2019-10-18",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-10-25",
+   "date": "2019-10-23",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-10-30",
+   "date": "2019-10-28",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-11-04",
+   "date": "2019-10-31",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-11-07",
+   "date": "2019-11-05",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-11-12",
+   "date": "2019-11-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-11-15",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2019-11-13",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2019-11-20",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2019-11-18",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2019-11-25",
+   "date": "2019-11-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-11-29",
+   "date": "2019-11-26",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2019-12-02",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2019-12-04",
+   "date": "2019-12-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-12-09",
+   "date": "2019-12-10",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-12-12",
+   "date": "2019-12-13",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-12-17",
+   "date": "2019-12-18",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2019-12-20",
+   "date": "2019-12-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-12-26",
+   "date": "2019-12-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2019-12-31",
+   "date": "2020-01-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-01-06",
+   "date": "2020-01-07",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-01-09",
+   "date": "2020-01-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-01-14",
+   "date": "2020-01-15",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2020-01-17",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2020-01-23",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2020-01-21",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-01-28",
+   "date": "2020-01-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-01-31",
+   "date": "2020-01-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-02-05",
+   "date": "2020-02-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-02-10",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2020-02-06",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2020-02-13",
+   "date": "2020-02-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-02-19",
+   "date": "2020-02-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-02-24",
+   "date": "2020-02-20",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-02-27",
+   "date": "2020-02-25",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2020-02-28",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2020-03-03",
+   "date": "2020-03-04",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-03-06",
+   "date": "2020-03-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-03-11",
+   "date": "2020-03-12",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-03-16",
+   "date": "2020-03-17",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-03-19",
+   "date": "2020-03-20",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-03-24",
+   "date": "2020-03-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-03-27",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2020-03-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-04-01",
+   "date": "2020-04-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-04-06",
+   "date": "2020-04-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-04-09",
+   "date": "2020-04-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-04-15",
+   "date": "2020-04-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-04-20",
+   "date": "2020-04-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-04-23",
+   "date": "2020-04-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-04-28",
+   "date": "2020-04-29",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-05-01",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2020-05-04",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-05-06",
+   "date": "2020-05-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-05-11",
+   "date": "2020-05-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-05-14",
+   "date": "2020-05-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-05-19",
+   "date": "2020-05-20",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-05-22",
+   "date": "2020-05-26",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-05-28",
+   "date": "2020-05-29",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-06-02",
+   "date": "2020-06-03",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-06-05",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2020-06-08",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-06-10",
+   "date": "2020-06-11",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-06-15",
+   "date": "2020-06-16",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-06-18",
+   "date": "2020-06-19",
    "cycleBin": 3,
    "swingBin": 3
-  },
-  {
-   "date": "2020-06-23",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2020-06-26",
+   "date": "2020-06-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-07-01",
+   "date": "2020-06-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-07-07",
+   "date": "2020-07-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-07-10",
+   "date": "2020-07-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-07-15",
+   "date": "2020-07-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-07-20",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2020-07-16",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-07-23",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2020-07-21",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2020-07-28",
+   "date": "2020-07-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-07-31",
+   "date": "2020-07-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-08-05",
+   "date": "2020-08-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-08-10",
+   "date": "2020-08-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2020-08-13",
+   "date": "2020-08-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-08-18",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2020-08-14",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-08-21",
+   "date": "2020-08-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-08-26",
+   "date": "2020-08-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-08-31",
+   "date": "2020-08-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-09-03",
+   "date": "2020-09-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-09-09",
+   "date": "2020-09-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-09-14",
+   "date": "2020-09-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-09-17",
+   "date": "2020-09-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-09-22",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2020-09-18",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-09-25",
+   "date": "2020-09-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-09-30",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2020-09-28",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2020-10-05",
+   "date": "2020-10-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-10-08",
+   "date": "2020-10-06",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2020-10-09",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2020-10-13",
+   "date": "2020-10-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-10-16",
+   "date": "2020-10-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2020-10-21",
+   "date": "2020-10-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-10-26",
+   "date": "2020-10-27",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2020-10-29",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2020-11-03",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2020-10-30",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2020-11-06",
+   "date": "2020-11-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-11-11",
+   "date": "2020-11-09",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-11-16",
+   "date": "2020-11-12",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-11-19",
+   "date": "2020-11-17",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-11-24",
+   "date": "2020-11-20",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-11-30",
+   "date": "2020-11-25",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2020-12-03",
+   "date": "2020-12-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-12-08",
+   "date": "2020-12-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-12-11",
+   "date": "2020-12-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-12-16",
+   "date": "2020-12-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-12-21",
+   "date": "2020-12-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-12-24",
+   "date": "2020-12-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2020-12-30",
+   "date": "2020-12-28",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2021-01-05",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2021-01-08",
+   "date": "2020-12-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-01-13",
+   "date": "2021-01-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-01-19",
+   "date": "2021-01-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-01-22",
+   "date": "2021-01-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-01-27",
+   "date": "2021-01-20",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2021-02-01",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2021-02-04",
+   "date": "2021-01-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-02-09",
+   "date": "2021-01-28",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2021-02-02",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2021-02-12",
+   "date": "2021-02-05",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2021-02-10",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2021-02-18",
+   "date": "2021-02-16",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2021-02-19",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2021-02-23",
+   "date": "2021-02-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2021-02-26",
+   "date": "2021-03-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-03-03",
+   "date": "2021-03-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-03-08",
+   "date": "2021-03-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-03-11",
+   "date": "2021-03-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-03-16",
+   "date": "2021-03-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-03-19",
+   "date": "2021-03-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-03-24",
+   "date": "2021-03-25",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-03-29",
+   "date": "2021-03-30",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2021-04-01",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2021-04-07",
+   "date": "2021-04-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-04-12",
+   "date": "2021-04-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-04-15",
+   "date": "2021-04-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-04-20",
+   "date": "2021-04-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-04-23",
+   "date": "2021-04-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-04-28",
+   "date": "2021-04-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-05-03",
+   "date": "2021-04-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-05-06",
+   "date": "2021-05-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-05-11",
+   "date": "2021-05-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-05-14",
+   "date": "2021-05-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-05-19",
+   "date": "2021-05-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-05-24",
+   "date": "2021-05-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-05-27",
+   "date": "2021-05-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-06-02",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2021-05-28",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2021-06-07",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2021-06-03",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2021-06-10",
+   "date": "2021-06-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-06-15",
+   "date": "2021-06-11",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2021-06-16",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2021-06-18",
+   "date": "2021-06-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-06-23",
+   "date": "2021-06-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-06-28",
+   "date": "2021-06-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-07-01",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2021-07-02",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2021-07-07",
+   "date": "2021-07-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-07-12",
+   "date": "2021-07-13",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-07-15",
+   "date": "2021-07-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-07-20",
+   "date": "2021-07-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-07-23",
+   "date": "2021-07-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-07-28",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2021-07-29",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2021-08-02",
+   "date": "2021-08-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-08-05",
+   "date": "2021-08-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-08-10",
+   "date": "2021-08-11",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2021-08-13",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2021-08-18",
+   "date": "2021-08-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-08-23",
+   "date": "2021-08-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-08-26",
+   "date": "2021-08-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-08-31",
+   "date": "2021-08-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-09-03",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2021-09-01",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2021-09-09",
+   "date": "2021-09-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-09-14",
+   "date": "2021-09-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-09-17",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2021-09-15",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2021-09-22",
+   "date": "2021-09-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-09-27",
+   "date": "2021-09-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-09-30",
+   "date": "2021-09-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-10-05",
+   "date": "2021-10-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-10-08",
+   "date": "2021-10-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-10-13",
+   "date": "2021-10-11",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2021-10-14",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2021-10-18",
+   "date": "2021-10-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-10-21",
+   "date": "2021-10-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-10-26",
+   "date": "2021-10-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-10-29",
+   "date": "2021-11-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-11-03",
+   "date": "2021-11-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-11-08",
+   "date": "2021-11-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-11-11",
+   "date": "2021-11-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2021-11-16",
+   "date": "2021-11-17",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2021-11-19",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2021-11-24",
+   "date": "2021-11-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-11-30",
+   "date": "2021-11-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2021-12-03",
+   "date": "2021-12-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-12-08",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2021-12-06",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2021-12-13",
+   "date": "2021-12-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-12-16",
+   "date": "2021-12-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-12-21",
+   "date": "2021-12-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-12-27",
+   "date": "2021-12-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2021-12-30",
+   "date": "2021-12-28",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2021-12-31",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2022-01-04",
+   "date": "2022-01-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-01-07",
+   "date": "2022-01-10",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-01-12",
+   "date": "2022-01-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-01-18",
+   "date": "2022-01-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-01-21",
+   "date": "2022-01-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-01-26",
+   "date": "2022-01-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-01-31",
+   "date": "2022-02-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-02-03",
+   "date": "2022-02-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-02-08",
+   "date": "2022-02-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-02-11",
+   "date": "2022-02-14",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2022-02-16",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2022-02-22",
+   "date": "2022-02-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-02-25",
+   "date": "2022-02-23",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-02",
+   "date": "2022-02-28",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-07",
+   "date": "2022-03-03",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-10",
+   "date": "2022-03-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-15",
+   "date": "2022-03-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-18",
+   "date": "2022-03-16",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-23",
+   "date": "2022-03-21",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-28",
+   "date": "2022-03-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-03-31",
+   "date": "2022-03-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-04-05",
+   "date": "2022-04-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-04-08",
+   "date": "2022-04-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-04-13",
+   "date": "2022-04-11",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-04-19",
+   "date": "2022-04-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-04-22",
+   "date": "2022-04-20",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2022-04-25",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-04-27",
+   "date": "2022-04-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-05-02",
+   "date": "2022-05-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-05-05",
+   "date": "2022-05-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-05-10",
+   "date": "2022-05-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-05-13",
+   "date": "2022-05-16",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-05-18",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2022-05-19",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2022-05-23",
+   "date": "2022-05-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-05-26",
+   "date": "2022-05-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-06-01",
+   "date": "2022-06-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-06-06",
+   "date": "2022-06-07",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-06-09",
+   "date": "2022-06-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-06-14",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2022-06-15",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2022-06-17",
+   "date": "2022-06-21",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-06-23",
+   "date": "2022-06-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-06-28",
+   "date": "2022-06-29",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-07-01",
+   "date": "2022-07-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-07-07",
+   "date": "2022-07-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-07-12",
+   "date": "2022-07-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-07-15",
+   "date": "2022-07-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-07-20",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2022-07-21",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-07-25",
+   "date": "2022-07-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-07-28",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2022-07-29",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-08-02",
+   "date": "2022-08-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-08-05",
+   "date": "2022-08-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-08-10",
+   "date": "2022-08-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-08-15",
+   "date": "2022-08-16",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2022-08-18",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2022-08-23",
+   "date": "2022-08-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-08-26",
+   "date": "2022-08-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-08-31",
+   "date": "2022-08-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-09-06",
+   "date": "2022-09-01",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2022-09-07",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-09-09",
+   "date": "2022-09-12",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-09-14",
+   "date": "2022-09-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-09-19",
+   "date": "2022-09-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-09-22",
+   "date": "2022-09-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-09-27",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2022-09-28",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-09-30",
+   "date": "2022-10-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-10-05",
+   "date": "2022-10-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-10-10",
+   "date": "2022-10-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-10-13",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2022-10-14",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-10-18",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2022-10-19",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2022-10-21",
+   "date": "2022-10-24",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-10-26",
+   "date": "2022-10-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-10-31",
+   "date": "2022-11-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-11-03",
+   "date": "2022-11-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-11-08",
+   "date": "2022-11-09",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-11-11",
+   "date": "2022-11-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-11-16",
+   "date": "2022-11-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2022-11-21",
+   "date": "2022-11-22",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2022-11-25",
-   "cycleBin": 0,
-   "swingBin": 0
   },
   {
-   "date": "2022-11-30",
+   "date": "2022-11-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-12-05",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2022-12-01",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2022-12-08",
+   "date": "2022-12-06",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2022-12-09",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2022-12-13",
+   "date": "2022-12-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2022-12-16",
+   "date": "2022-12-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-12-21",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2022-12-22",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2022-12-27",
+   "date": "2022-12-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2022-12-30",
+   "date": "2023-01-03",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-01-05",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2023-01-06",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2023-01-10",
+   "date": "2023-01-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-01-13",
+   "date": "2023-01-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-01-19",
+   "date": "2023-01-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-01-24",
+   "date": "2023-01-25",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-01-27",
+   "date": "2023-01-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-02-01",
+   "date": "2023-02-02",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-02-06",
+   "date": "2023-02-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-02-09",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2023-02-10",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-02-14",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2023-02-15",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-02-17",
+   "date": "2023-02-21",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-02-23",
+   "date": "2023-02-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-02-28",
+   "date": "2023-03-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-03-03",
+   "date": "2023-03-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-03-08",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2023-03-09",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2023-03-13",
+   "date": "2023-03-14",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-03-16",
+   "date": "2023-03-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-03-21",
+   "date": "2023-03-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-03-24",
+   "date": "2023-03-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-03-29",
+   "date": "2023-03-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-04-03",
+   "date": "2023-04-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-04-06",
+   "date": "2023-04-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-04-12",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2023-04-13",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-04-17",
+   "date": "2023-04-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-04-20",
+   "date": "2023-04-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-04-25",
+   "date": "2023-04-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-04-28",
+   "date": "2023-05-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-05-03",
+   "date": "2023-05-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-05-08",
+   "date": "2023-05-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-05-11",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2023-05-12",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-05-16",
+   "date": "2023-05-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-05-19",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2023-05-22",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-05-24",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2023-05-25",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-05-30",
+   "date": "2023-05-31",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-06-02",
+   "date": "2023-06-05",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-06-07",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2023-06-08",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-06-12",
+   "date": "2023-06-13",
    "cycleBin": 0,
    "swingBin": 0
+  },
+  {
+   "date": "2023-06-16",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-06-15",
+   "date": "2023-06-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-06-21",
+   "date": "2023-06-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-06-26",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2023-06-30",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2023-06-29",
+   "date": "2023-07-06",
    "cycleBin": 1,
    "swingBin": 1
-  },
-  {
-   "date": "2023-07-05",
-   "cycleBin": 0,
-   "swingBin": 0
   },
   {
-   "date": "2023-07-10",
+   "date": "2023-07-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-07-13",
+   "date": "2023-07-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-07-18",
+   "date": "2023-07-19",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-07-21",
+   "date": "2023-07-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-07-26",
+   "date": "2023-07-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-07-31",
+   "date": "2023-08-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-08-03",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2023-08-04",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2023-08-08",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2023-08-09",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2023-08-11",
+   "date": "2023-08-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-08-16",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2023-08-17",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2023-08-21",
+   "date": "2023-08-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2023-08-24",
+   "date": "2023-08-25",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-08-29",
+   "date": "2023-08-30",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-09-01",
+   "date": "2023-09-05",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-09-07",
+   "date": "2023-09-08",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-09-12",
+   "date": "2023-09-13",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-09-15",
+   "date": "2023-09-18",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-09-20",
+   "date": "2023-09-21",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-09-25",
+   "date": "2023-09-26",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2023-09-28",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2023-10-03",
+   "date": "2023-09-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-10-06",
+   "date": "2023-10-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-10-11",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2023-10-09",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-10-16",
+   "date": "2023-10-12",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-10-19",
+   "date": "2023-10-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-10-24",
+   "date": "2023-10-20",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-10-27",
+   "date": "2023-10-25",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-11-01",
+   "date": "2023-10-30",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2023-11-06",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2023-11-09",
+   "date": "2023-11-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2023-11-14",
+   "date": "2023-11-07",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2023-11-10",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2023-11-17",
+   "date": "2023-11-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-11-22",
+   "date": "2023-11-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-11-28",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2023-11-24",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2023-12-01",
+   "date": "2023-11-29",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2023-12-04",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2023-12-06",
+   "date": "2023-12-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-12-11",
+   "date": "2023-12-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-12-14",
+   "date": "2023-12-15",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2023-12-19",
+   "date": "2023-12-20",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2023-12-22",
+   "date": "2023-12-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2023-12-28",
+   "date": "2023-12-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-01-03",
+   "date": "2024-01-04",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-01-08",
+   "date": "2024-01-09",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-01-11",
+   "date": "2024-01-12",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-01-17",
+   "date": "2024-01-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-01-22",
+   "date": "2024-01-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-01-25",
+   "date": "2024-01-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-01-30",
+   "date": "2024-01-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-02-02",
+   "date": "2024-02-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-02-07",
+   "date": "2024-02-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-02-12",
+   "date": "2024-02-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-02-15",
+   "date": "2024-02-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-02-21",
+   "date": "2024-02-22",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-02-26",
+   "date": "2024-02-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-02-29",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2024-03-01",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2024-03-05",
+   "date": "2024-03-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-03-08",
+   "date": "2024-03-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-03-13",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2024-03-14",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2024-03-18",
+   "date": "2024-03-19",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-03-21",
+   "date": "2024-03-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-03-26",
+   "date": "2024-03-27",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-01",
+   "date": "2024-04-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-04",
+   "date": "2024-04-05",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-09",
+   "date": "2024-04-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-12",
+   "date": "2024-04-15",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-17",
+   "date": "2024-04-18",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-22",
+   "date": "2024-04-23",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-25",
+   "date": "2024-04-26",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-04-30",
+   "date": "2024-05-01",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-05-03",
+   "date": "2024-05-06",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-05-08",
+   "date": "2024-05-09",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-05-13",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2024-05-14",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2024-05-16",
+   "date": "2024-05-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-05-21",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-05-22",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2024-05-24",
+   "date": "2024-05-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-05-30",
+   "date": "2024-05-31",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-06-04",
+   "date": "2024-06-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-06-07",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-06-10",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2024-06-12",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-06-13",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2024-06-17",
+   "date": "2024-06-18",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-06-21",
+   "date": "2024-06-24",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-06-26",
+   "date": "2024-06-27",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-07-01",
+   "date": "2024-07-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-07-05",
+   "date": "2024-07-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-07-10",
+   "date": "2024-07-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-07-15",
+   "date": "2024-07-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-07-18",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-07-19",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2024-07-23",
+   "date": "2024-07-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-07-26",
+   "date": "2024-07-29",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-07-31",
+   "date": "2024-08-01",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-08-05",
+   "date": "2024-08-06",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-08-08",
+   "date": "2024-08-09",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-08-13",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-08-14",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2024-08-16",
+   "date": "2024-08-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-08-21",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-08-22",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2024-08-26",
+   "date": "2024-08-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-08-29",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2024-08-30",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2024-09-04",
+   "date": "2024-09-05",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-09-09",
+   "date": "2024-09-10",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2024-09-12",
+   "date": "2024-09-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-09-17",
+   "date": "2024-09-18",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-09-20",
+   "date": "2024-09-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-09-25",
+   "date": "2024-09-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-09-30",
+   "date": "2024-10-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-10-03",
+   "date": "2024-10-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-10-08",
+   "date": "2024-10-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-10-11",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2024-10-14",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2024-10-16",
+   "date": "2024-10-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-10-21",
+   "date": "2024-10-22",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-10-24",
+   "date": "2024-10-25",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-10-29",
+   "date": "2024-10-30",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-11-01",
+   "date": "2024-11-04",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2024-11-06",
+   "date": "2024-11-07",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-11-11",
+   "date": "2024-11-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-11-14",
+   "date": "2024-11-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2024-11-19",
+   "date": "2024-11-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-11-22",
+   "date": "2024-11-25",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-11-27",
+   "date": "2024-11-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-12-03",
+   "date": "2024-12-04",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-12-06",
+   "date": "2024-12-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-12-11",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2024-12-12",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2024-12-16",
+   "date": "2024-12-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-12-19",
+   "date": "2024-12-20",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-12-24",
+   "date": "2024-12-26",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2024-12-30",
+   "date": "2024-12-31",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-01-03",
+   "date": "2025-01-06",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-01-08",
+   "date": "2025-01-09",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-01-13",
+   "date": "2025-01-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-01-16",
+   "date": "2025-01-17",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2025-01-22",
+   "date": "2025-01-23",
    "cycleBin": 0,
    "swingBin": 0
-  },
-  {
-   "date": "2025-01-27",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2025-01-30",
+   "date": "2025-01-28",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2025-02-04",
+   "date": "2025-01-31",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2025-02-07",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2025-02-05",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2025-02-12",
+   "date": "2025-02-10",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2025-02-18",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2025-02-13",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2025-02-21",
+   "date": "2025-02-19",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-02-26",
+   "date": "2025-02-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-03-03",
+   "date": "2025-02-27",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2025-03-06",
+   "date": "2025-03-04",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2025-03-11",
+   "date": "2025-03-07",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2025-03-14",
+   "date": "2025-03-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-03-19",
+   "date": "2025-03-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-03-24",
+   "date": "2025-03-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-03-27",
+   "date": "2025-03-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-04-01",
+   "date": "2025-03-28",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-04-04",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2025-04-02",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2025-04-09",
+   "date": "2025-04-07",
    "cycleBin": 3,
    "swingBin": 3
+  },
+  {
+   "date": "2025-04-10",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2025-04-14",
+   "date": "2025-04-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-04-17",
+   "date": "2025-04-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-04-23",
+   "date": "2025-04-24",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-04-28",
+   "date": "2025-04-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-05-01",
+   "date": "2025-05-02",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2025-05-06",
+   "date": "2025-05-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-05-09",
+   "date": "2025-05-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-05-14",
+   "date": "2025-05-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-05-19",
+   "date": "2025-05-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-05-22",
+   "date": "2025-05-23",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-05-28",
+   "date": "2025-05-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-02",
+   "date": "2025-06-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-05",
+   "date": "2025-06-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-10",
+   "date": "2025-06-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-13",
+   "date": "2025-06-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-18",
+   "date": "2025-06-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-24",
+   "date": "2025-06-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-06-27",
+   "date": "2025-06-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-07-02",
+   "date": "2025-07-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-07-07",
+   "date": "2025-07-08",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-07-10",
+   "date": "2025-07-11",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-07-15",
+   "date": "2025-07-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-07-18",
+   "date": "2025-07-21",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-07-23",
+   "date": "2025-07-24",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2025-07-28",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2025-07-31",
+   "date": "2025-07-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-08-05",
+   "date": "2025-08-01",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-08-08",
+   "date": "2025-08-06",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2025-08-13",
-   "cycleBin": 3,
-   "swingBin": 3
   },
   {
-   "date": "2025-08-18",
+   "date": "2025-08-11",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-08-21",
+   "date": "2025-08-14",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-08-26",
+   "date": "2025-08-19",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2025-08-22",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2025-08-29",
+   "date": "2025-08-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-09-04",
+   "date": "2025-09-02",
    "cycleBin": 0,
    "swingBin": 0
   },
   {
-   "date": "2025-09-09",
+   "date": "2025-09-05",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-09-12",
+   "date": "2025-09-10",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-09-17",
+   "date": "2025-09-15",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-09-22",
+   "date": "2025-09-18",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2025-09-25",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2025-09-30",
+   "date": "2025-09-23",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2025-09-26",
+   "cycleBin": 0,
+   "swingBin": 0
   },
   {
-   "date": "2025-10-03",
+   "date": "2025-10-01",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-10-08",
+   "date": "2025-10-06",
    "cycleBin": 1,
    "swingBin": 1
+  },
+  {
+   "date": "2025-10-09",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2025-10-13",
+   "date": "2025-10-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-10-16",
+   "date": "2025-10-17",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2025-10-21",
+   "date": "2025-10-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-10-24",
+   "date": "2025-10-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-10-29",
+   "date": "2025-10-30",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-03",
+   "date": "2025-11-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-06",
+   "date": "2025-11-07",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-11",
+   "date": "2025-11-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-14",
+   "date": "2025-11-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-19",
+   "date": "2025-11-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-24",
+   "date": "2025-11-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-11-28",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2025-12-01",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2025-12-03",
+   "date": "2025-12-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-12-08",
-   "cycleBin": 3,
-   "swingBin": 3
+   "date": "2025-12-09",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2025-12-11",
+   "date": "2025-12-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-12-16",
+   "date": "2025-12-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-12-19",
+   "date": "2025-12-22",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-12-24",
+   "date": "2025-12-26",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2025-12-30",
+   "date": "2025-12-31",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-01-05",
+   "date": "2026-01-06",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-01-08",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2026-01-09",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2026-01-13",
+   "date": "2026-01-14",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2026-01-16",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2026-01-20",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2026-01-22",
+   "date": "2026-01-23",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2026-01-27",
+   "date": "2026-01-28",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2026-01-30",
+   "date": "2026-02-02",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-02-04",
+   "date": "2026-02-05",
    "cycleBin": 3,
    "swingBin": 3
-  },
-  {
-   "date": "2026-02-09",
-   "cycleBin": 2,
-   "swingBin": 2
   },
   {
-   "date": "2026-02-12",
+   "date": "2026-02-10",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-02-18",
+   "date": "2026-02-13",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-02-23",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2026-02-19",
+   "cycleBin": 3,
+   "swingBin": 3
   },
   {
-   "date": "2026-02-26",
+   "date": "2026-02-24",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-03-03",
+   "date": "2026-02-27",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-03-06",
+   "date": "2026-03-04",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-03-11",
+   "date": "2026-03-09",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-03-16",
+   "date": "2026-03-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-03-19",
+   "date": "2026-03-17",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-03-24",
+   "date": "2026-03-20",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-03-27",
+   "date": "2026-03-25",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-04-01",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2026-03-30",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2026-04-07",
+   "date": "2026-04-02",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2026-04-10",
+   "date": "2026-04-08",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2026-04-15",
+   "date": "2026-04-13",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-04-20",
+   "date": "2026-04-16",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-04-23",
-   "cycleBin": 1,
-   "swingBin": 1
+   "date": "2026-04-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-04-24",
+   "cycleBin": 2,
+   "swingBin": 2
   },
   {
-   "date": "2026-04-28",
+   "date": "2026-04-29",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-05-01",
+   "date": "2026-05-04",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-05-06",
+   "date": "2026-05-07",
    "cycleBin": 3,
    "swingBin": 3
   },
   {
-   "date": "2026-05-11",
+   "date": "2026-05-12",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-05-14",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2026-05-15",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2026-05-19",
-   "cycleBin": 2,
-   "swingBin": 2
+   "date": "2026-05-20",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
-   "date": "2026-05-22",
+   "date": "2026-05-26",
    "cycleBin": 2,
    "swingBin": 2
-  },
-  {
-   "date": "2026-05-28",
-   "cycleBin": 1,
-   "swingBin": 1
   },
   {
-   "date": "2026-06-02",
+   "date": "2026-05-29",
    "cycleBin": 1,
    "swingBin": 1
   },
   {
-   "date": "2026-06-05",
+   "date": "2026-06-03",
    "cycleBin": 2,
    "swingBin": 2
   },
   {
-   "date": "2026-06-10",
+   "date": "2026-06-08",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2026-06-11",
+   "cycleBin": 3,
+   "swingBin": 3
   }
  ],
  "note": "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa."
