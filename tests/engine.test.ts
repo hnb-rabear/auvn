@@ -307,6 +307,21 @@ describe("backtest", () => {
     expect(timeline.points.length).toBe(bt.observations);
   });
 
+  it("does not duplicate the last point when the final bar is on the step grid", () => {
+    // n=1300: (1300-1-756)=543 divisible by STEP=3, so the last grid index IS
+    // the final bar — the append guard must suppress a duplicate.
+    const bars = range(1300, (i) => ({
+      date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+      close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
+    }));
+    const { backtest: bt, timeline } = runBacktest(bars, null, null);
+    const pts = timeline.points;
+    expect(pts[pts.length - 1].date).toBe(bars[bars.length - 1].date);
+    // no duplicate final point
+    expect(pts[pts.length - 1].date).not.toBe(pts[pts.length - 2].date);
+    expect(pts.length).toBe(bt.observations);
+  });
+
   it("includes the macro criterion when DXY is present but Fed is missing", () => {
     const mkBars = (n: number, base: number, f: (i: number) => number) =>
       range(n, (i) => ({
