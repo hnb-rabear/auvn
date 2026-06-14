@@ -218,6 +218,45 @@ body {
   flex-wrap: wrap;
 }
 
+.guidance {
+  border-left: 4px solid var(--neutral);
+}
+.guidance.buy {
+  border-left-color: var(--buy);
+}
+.guidance.sell {
+  border-left-color: var(--sell);
+}
+.guidance-when {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 4px 0 6px;
+}
+.guidance.buy .guidance-when {
+  color: var(--buy);
+}
+.guidance.sell .guidance-when {
+  color: var(--sell);
+}
+.guidance-how {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.guidance-reasons {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.guidance-reasons li::before {
+  content: "· ";
+}
+
 .card h2 {
   font-size: 1.05rem;
   margin: 0 0 6px;
