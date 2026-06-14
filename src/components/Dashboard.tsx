@@ -100,7 +100,9 @@ export default function Dashboard({
   }, []);
 
   const [nowMs, setNowMs] = useState(() => Date.parse(analysis.generatedAt));
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     setNowMs(Date.now());
     const id = setInterval(() => setNowMs(Date.now()), 1000);
     return () => clearInterval(id);
@@ -285,15 +287,21 @@ export default function Dashboard({
           </div>
         )}
         <div className="freshness">
-          <div>Bây giờ: {clock} (giờ VN)</div>
-          {st ? (
-            <div className="freshness-sources">
-              Số liệu thế giới:{" "}
-              {worldAge ?? "không có dữ liệu"}
-              {" · "}
-              Giá SJC: ngày {vnDateLabel}
-              {vnGoldAge ? ` (${vnGoldAge})` : ""}
-            </div>
+          {mounted ? (
+            <>
+              <div>Bây giờ: {clock} (giờ VN)</div>
+              {st ? (
+                <div className="freshness-sources">
+                  Số liệu thế giới (phiên gần nhất):{" "}
+                  {worldAge ?? "không có dữ liệu"}
+                  {" · "}
+                  Giá SJC: ngày {vnDateLabel}
+                  {vnGoldAge ? ` (${vnGoldAge})` : ""}
+                </div>
+              ) : (
+                <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
+              )}
+            </>
           ) : (
             <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
           )}

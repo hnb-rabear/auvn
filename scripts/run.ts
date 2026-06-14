@@ -225,7 +225,7 @@ async function main() {
     // vnRes ghi vào history với date=today; chỉ coi là "vừa chụp" khi fetch thành công lần này
     vnGold: vnRes && vnRes.sjcSell !== null ? nowIso : null,
     usdVnd: usdVndRes ? nowIso : null,
-    fed: fedRes && fedRes.length ? new Date(fedRes[fedRes.length - 1].date + "T00:00:00Z").toISOString() : null,
+    fed: fedRes && fedRes.length ? nowIso : null,
   };
   const analysis: Analysis = {
     generatedAt: nowIso,

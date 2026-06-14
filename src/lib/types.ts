@@ -53,7 +53,7 @@ export interface Analysis {
   /** ISO thời điểm chụp theo nguồn; null = nguồn lỗi/không có lần chạy này.
    *  world/dxy/yield10y = epoch bar ngày cuối (≈ cập nhật cuối phiên, KHÔNG phải tick live).
    *  vnGold/usdVnd = giờ fetch của ta (nguồn không có giờ server đáng tin).
-   *  fed = date bar FRED cuối. */
+   *  fed = giờ fetch của ta khi lấy FRED thành công. */
   sourceTimes?: {
     world?: string | null;
     dxy?: string | null;

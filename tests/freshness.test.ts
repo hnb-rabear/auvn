@@ -20,4 +20,8 @@ describe("timeAgo", () => {
     expect(timeAgo(null, NOW)).toBeNull();
     expect(timeAgo("không-phải-ngày", NOW)).toBeNull();
   });
+
+  it("biên 59.5s vẫn là vừa xong", () => {
+    expect(timeAgo("2026-06-14T09:59:00.500Z", NOW)).toBe("vừa xong");
+  });
 });
