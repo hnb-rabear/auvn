@@ -215,6 +215,18 @@ async function main() {
       : 0;
 
   const composite = compositeScore(criteria, DEFAULT_WEIGHTS);
+  const nowIso = new Date().toISOString();
+  const tsFromEpoch = (s: number | null | undefined) =>
+    s == null ? null : new Date(s * 1000).toISOString();
+  const sourceTimes = {
+    world: xauRes.lastTs != null ? tsFromEpoch(xauRes.lastTs) : null,
+    dxy: dxyRes?.lastTs != null ? tsFromEpoch(dxyRes.lastTs) : null,
+    yield10y: yieldRes?.lastTs != null ? tsFromEpoch(yieldRes.lastTs) : null,
+    // vnRes ghi vào history với date=today; chỉ coi là "vừa chụp" khi fetch thành công lần này
+    vnGold: vnRes && vnRes.sjcSell !== null ? nowIso : null,
+    usdVnd: usdVndRes ? nowIso : null,
+    fed: fedRes && fedRes.length ? fedRes[fedRes.length - 1].date : null,
+  };
   const analysis: Analysis = {
     generatedAt: new Date().toISOString(),
     dataDate: dates[dates.length - 1],
@@ -232,6 +244,7 @@ async function main() {
       sortedPrems.length >= 90
         ? { p20: pct(0.2), p50: pct(0.5), p80: pct(0.8) }
         : undefined,
+    sourceTimes,
   };
 
   // --- backtest + timeline giả lập lịch sử (cùng bộ tín hiệu với phân tích live)
