@@ -6,6 +6,7 @@ import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import ActionGuidance from "./ActionGuidance";
 import { deriveGuidance } from "@/lib/guidance";
+import { timeAgo } from "@/lib/freshness";
 import {
   compositeScore,
   zoneOf,
@@ -98,6 +99,13 @@ export default function Dashboard({
     }
   }, []);
 
+  const [nowMs, setNowMs] = useState(() => Date.parse(analysis.generatedAt));
+  useEffect(() => {
+    setNowMs(Date.now());
+    const id = setInterval(() => setNowMs(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
   const customized = useMemo(
     () => !preset && JSON.stringify(weights) !== JSON.stringify(DEFAULT_WEIGHTS),
     [preset, weights]
@@ -156,7 +164,27 @@ export default function Dashboard({
     saveSettings(s);
   };
 
-  const freshness = new Date(analysis.generatedAt).toLocaleString("vi-VN", {
+  const clock = new Date(nowMs).toLocaleString("vi-VN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "Asia/Ho_Chi_Minh",
+  });
+
+  const st = analysis.sourceTimes;
+  const worldAge = st ? timeAgo(st.world, nowMs) : null;
+  const vnGoldAge = st ? timeAgo(st.vnGold, nowMs) : null;
+  // dataDate dạng "YYYY-MM-DD" → "DD/MM"
+  const vnDateLabel = (() => {
+    const p = analysis.dataDate?.split("-");
+    return p && p.length === 3 ? `${p[2]}/${p[1]}` : analysis.dataDate;
+  })();
+
+  // dòng tóm tắt; fallback về generatedAt nếu thiếu sourceTimes (file data cũ)
+  const freshnessFallback = new Date(analysis.generatedAt).toLocaleString("vi-VN", {
     hour: "2-digit",
     minute: "2-digit",
     day: "2-digit",
@@ -256,7 +284,20 @@ export default function Dashboard({
             Vùng trung lập — không có khuyến nghị hành động. Chờ tín hiệu rõ hơn.
           </div>
         )}
-        <div className="freshness">Cập nhật: {freshness} (giờ VN)</div>
+        <div className="freshness">
+          <div>Bây giờ: {clock} (giờ VN)</div>
+          {st ? (
+            <div className="freshness-sources">
+              Số liệu thế giới:{" "}
+              {worldAge ?? "không có dữ liệu"}
+              {" · "}
+              Giá SJC: ngày {vnDateLabel}
+              {vnGoldAge ? ` (${vnGoldAge})` : ""}
+            </div>
+          ) : (
+            <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
+          )}
+        </div>
       </section>
 
       <ActionGuidance guidance={guidance} />
