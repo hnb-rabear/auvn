@@ -35,37 +35,42 @@ async function fetchStooq(symbol: string): Promise<DailyBar[]> {
   return bars;
 }
 
-async function fetchYahoo(symbol: string): Promise<DailyBar[]> {
+async function fetchYahoo(symbol: string): Promise<{ bars: DailyBar[]; lastTs: number | null }> {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=20y&interval=1d`;
   const json = JSON.parse(await get(url));
   const r = json?.chart?.result?.[0];
   const ts: number[] = r?.timestamp ?? [];
   const closes: (number | null)[] = r?.indicators?.quote?.[0]?.close ?? [];
   const out: DailyBar[] = [];
+  let lastTs: number | null = null;
   for (let i = 0; i < ts.length; i++) {
     const c = closes[i];
-    if (c != null && Number.isFinite(c))
+    if (c != null && Number.isFinite(c)) {
       out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), close: c });
+      lastTs = ts[i]; // epoch (giây) của bar hợp lệ cuối
+    }
   }
   if (out.length < 500) throw new Error(`yahoo ${symbol}: only ${out.length} rows`);
-  return out;
+  return { bars: out, lastTs };
 }
 
-export async function fetchXau(): Promise<{ bars: DailyBar[]; source: string }> {
+export async function fetchXau(): Promise<{ bars: DailyBar[]; source: string; lastTs: number | null }> {
   try {
-    return { bars: await fetchYahoo("GC=F"), source: "yahoo:GC=F" };
+    const y = await fetchYahoo("GC=F");
+    return { bars: y.bars, source: "yahoo:GC=F", lastTs: y.lastTs };
   } catch {
-    return { bars: await fetchStooq("xauusd"), source: "stooq:xauusd" };
+    return { bars: await fetchStooq("xauusd"), source: "stooq:xauusd", lastTs: null };
   }
 }
 
-export async function fetchDxy(): Promise<{ bars: DailyBar[]; source: string } | null> {
+export async function fetchDxy(): Promise<{ bars: DailyBar[]; source: string; lastTs: number | null } | null> {
   try {
-    return { bars: await fetchYahoo("DX-Y.NYB"), source: "yahoo:DX-Y.NYB" };
+    const y = await fetchYahoo("DX-Y.NYB");
+    return { bars: y.bars, source: "yahoo:DX-Y.NYB", lastTs: y.lastTs };
   } catch {
     for (const s of ["dx.f", "^dxy", "usdidx"]) {
       try {
-        return { bars: await fetchStooq(s), source: `stooq:${s}` };
+        return { bars: await fetchStooq(s), source: `stooq:${s}`, lastTs: null };
       } catch {
         /* thử symbol kế tiếp */
       }
@@ -102,19 +107,21 @@ export async function fetchFedFunds(): Promise<{ date: string; value: number }[]
  * bằng chứng test trong docs/presets.md được kiểm chứng trên ^TNX; DFII10
  * (lợi suất thực — mạnh hơn về lý thuyết nhưng FRED hay 504) chỉ là dự phòng.
  */
-export async function fetchYield10y(): Promise<{ bars: DailyBar[]; real: boolean; source: string } | null> {
+export async function fetchYield10y(): Promise<{ bars: DailyBar[]; real: boolean; source: string; lastTs: number | null } | null> {
   try {
-    return { bars: await fetchYahoo("^TNX"), real: false, source: "yahoo:^TNX" };
+    const y = await fetchYahoo("^TNX");
+    return { bars: y.bars, real: false, source: "yahoo:^TNX", lastTs: y.lastTs };
   } catch {
     const fred = await fetchFredSeries("DFII10", 500);
-    if (fred) return { bars: fred, real: true, source: "fred:DFII10" };
+    if (fred) return { bars: fred, real: true, source: "fred:DFII10", lastTs: null };
     return null;
   }
 }
 
 export async function fetchVix(): Promise<{ bars: DailyBar[]; source: string } | null> {
   try {
-    return { bars: await fetchYahoo("^VIX"), source: "yahoo:^VIX" };
+    const y = await fetchYahoo("^VIX");
+    return { bars: y.bars, source: "yahoo:^VIX" };
   } catch {
     return null;
   }
