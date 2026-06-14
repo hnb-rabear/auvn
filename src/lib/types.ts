@@ -101,6 +101,9 @@ export interface TimelinePoint {
   scores: Partial<Record<CriterionKey, number>>;
   /** lợi suất % sau 21/63/126 phiên; null nếu chưa đủ tương lai */
   returns: Record<"21" | "63" | "126", number | null>;
+  /** bin đáy past-only tại ngày này (0..binEdges.length); undefined nếu trước warmup đáy. Optional — timeline.json cũ không có. */
+  cycleBin?: number;
+  swingBin?: number;
 }
 
 export interface Timeline {
@@ -273,12 +276,21 @@ export interface BottomTierResult {
   drivers: BottomDriver[];
 }
 
+/** Bin đáy past-only theo ngày (cho Time Machine). bin: 0..binEdges.length. */
+export interface BottomSignalRow {
+  date: string;
+  cycleBin: number;
+  swingBin: number;
+}
+
 export interface BottomAnalysis {
   generatedAt: string;
   dataDate: string;
   cycle: BottomTierResult;
   swing: BottomTierResult;
   confirmedBottoms: ConfirmedBottom[];
+  /** lịch sử bin đáy theo ngày (past-only) để dựng gợi ý hành động lịch sử */
+  signalHistory: BottomSignalRow[];
   note: string;
 }
 

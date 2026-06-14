@@ -2,7 +2,7 @@
 
 import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, blockBootstrapCi } from "./indicators";
 import type { BottomDriver } from "./types";
-import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig } from "./types";
+import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig, type BottomSignalRow } from "./types";
 
 /**
  * Dán nhãn "gần đáy" cho ngày i: giá thấp nhất trong H phiên kế tiếp KHÔNG thấp
@@ -236,12 +236,23 @@ export function runBottom(
   collect(cycle.rows, "cycle");
   collect(swing.rows, "swing");
 
+  // Lịch sử bin theo ngày (past-only) để Time Machine dựng "Gợi ý hành động" cho mỗi
+  // điểm lịch sử mà KHÔNG dùng prob% (prob là base-rate toàn lịch sử ⇒ look-ahead).
+  // cycle.rows và swing.rows cùng lưới i/date (chung featuresAt), chỉ khác binEdges.
+  const swingBinByI = new Map(swing.rows.map((r) => [r.i, r.bin]));
+  const signalHistory: BottomSignalRow[] = cycle.rows.map((r) => ({
+    date: r.date,
+    cycleBin: r.bin,
+    swingBin: swingBinByI.get(r.i) ?? r.bin,
+  }));
+
   return {
     generatedAt: new Date().toISOString(),
     dataDate: dates[dates.length - 1] ?? "",
     cycle: { ...cycle.result, drivers: cycle.currentDrivers },
     swing: { ...swing.result, drivers: swing.currentDrivers },
     confirmedBottoms,
+    signalHistory,
     note: "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa.",
   };
 }

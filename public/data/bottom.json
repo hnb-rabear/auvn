@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-13T14:06:16.581Z",
+ "generatedAt": "2026-06-14T02:19:16.925Z",
  "dataDate": "2026-06-12",
  "cycle": {
   "prob": 40.4,
@@ -387,6 +387,7133 @@
    "date": "2025-07-31",
    "price": 3293.2,
    "tier": "swing"
+  }
+ ],
+ "signalHistory": [
+  {
+   "date": "2009-06-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-06-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-06-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-06-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-07-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-08-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-08-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-08-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-08-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-08-21",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2009-08-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2009-08-31",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2009-09-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-09-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-09-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-09-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-09-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-09-25",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2009-09-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-10-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-10-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-10-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-10-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-10-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-10-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2009-10-29",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2009-11-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-11-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-11-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-11-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-11-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-11-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-11-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-12-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-12-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-12-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-12-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-12-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2009-12-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2009-12-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-01-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-01-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-01-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-01-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-01-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-01-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-02-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-02-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-02-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-02-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-02-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-02-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-02-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-03-29",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-04-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-04-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-04-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-04-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-04-20",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-04-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-04-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-05-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-05-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-05-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-05-14",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-05-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-05-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-05-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-06-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-06-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-06-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-06-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-06-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-06-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-06-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-07-01",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-07-07",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-07-12",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-07-15",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-07-20",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-07-23",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-07-28",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-08-02",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-08-05",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-08-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-08-13",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-08-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-08-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-08-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-08-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-09-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-09-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-09-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-09-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-09-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-09-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-09-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-10-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-10-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-10-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-10-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-10-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-10-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-10-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-11-03",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2010-11-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-11-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2010-11-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-11-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-11-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-11-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-12-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2010-12-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-12-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-12-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-12-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-12-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2010-12-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-01-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-01-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-01-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-01-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-01-21",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-01-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-01-31",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-02-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-02-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-02-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-02-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-02-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-02-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-03-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-03-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-03-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-03-15",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-03-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-03-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-03-28",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-03-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-04-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-04-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-04-13",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-04-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-04-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-04-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-05-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-05-05",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-05-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-05-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-05-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-05-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-05-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-06-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-06-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-06-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-06-14",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-06-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-06-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-06-27",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-06-30",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-07-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-07-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-07-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-07-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-07-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-07-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-08-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-08-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2011-08-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-08-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-08-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-08-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-08-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-08-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-09-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-09-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-09-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-09-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-09-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-09-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-09-29",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-10-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-10-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-10-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-10-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-10-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-10-25",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-10-28",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-11-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-11-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2011-11-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-11-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-11-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-11-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-11-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-12-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-12-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-12-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-12-15",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2011-12-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-12-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2011-12-29",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2012-01-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-01-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-01-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-01-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-01-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-01-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-01-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-02-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-02-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-02-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-02-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-02-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-02-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-03-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-03-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-03-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-03-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-03-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-03-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-03-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-03-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-04-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-04-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-04-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-04-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-04-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-04-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-05-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-05-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-05-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-05-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-05-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-05-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-05-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-05-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-06-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-06-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-06-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-06-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-06-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-06-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-06-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-07-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-08-03",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2012-08-08",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2012-08-13",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2012-08-16",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2012-08-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-08-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-08-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-09-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-09-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-09-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-09-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-09-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-09-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-09-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-10-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-10-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-10-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-10-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-10-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-10-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-10-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-11-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-11-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-11-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-11-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2012-11-21",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-11-27",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-11-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-12-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-12-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2012-12-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-12-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2012-12-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2012-12-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-01-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-01-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-01-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-01-15",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-01-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-01-24",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-01-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-02-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-02-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-02-11",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-02-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-02-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-02-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-02-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-03-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-03-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-03-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-03-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-03-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-03-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-04-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2013-04-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-04-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-04-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-04-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-04-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-04-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2013-04-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-05-03",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-05-08",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-05-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-05-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-05-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-05-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-05-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-06-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-06-07",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-06-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-06-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-06-20",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-06-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-06-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-07-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-07-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-07-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-07-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-07-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-07-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-07-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-08-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-09-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2013-09-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-09-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-09-16",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-09-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-09-24",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-09-27",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-10-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-10-31",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2013-11-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-11-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-11-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-11-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-11-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-11-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-12-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-12-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-12-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-12-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-12-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2013-12-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2013-12-27",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-01-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-01-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-01-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-01-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-01-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-01-24",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-01-29",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-02-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-02-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-02-11",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-02-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-02-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-02-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-02-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-03-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-03-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-03-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-03-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-03-21",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-03-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-03-31",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-04-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-04-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-04-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-04-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-04-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-04-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-04-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-05-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-05-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-05-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-05-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-05-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-05-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-05-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-06-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-06-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-06-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-06-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-06-20",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-06-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-06-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-07-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-07-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-07-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-07-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-07-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-07-25",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-07-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-08-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-08-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-08-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-08-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-08-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-08-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-08-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-09-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-09-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-09-11",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-09-16",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-09-19",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-09-24",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2014-09-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-10-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-10-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-11-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-11-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-11-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2014-11-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-11-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-11-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-12-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-12-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2014-12-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-12-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-12-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-12-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2014-12-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-01-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-01-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-01-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-01-15",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-01-21",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-01-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-01-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-02-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-02-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-02-11",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-02-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-02-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-02-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-03-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-03-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-03-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-03-13",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-03-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-03-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-03-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-03-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-04-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-04-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-04-14",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-04-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-04-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-04-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-04-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-05-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-05-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-05-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-05-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-05-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-05-27",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-06-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-06-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-06-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-06-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-06-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-06-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-06-25",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-06-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-07-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-07-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-07-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-07-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-07-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-07-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-07-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-08-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-08-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-08-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-08-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-08-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-08-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-08-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-09-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-10-02",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-10-07",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-10-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-10-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-10-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-10-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-10-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-11-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-11-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2015-11-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-11-13",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-11-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-11-23",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-11-27",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2015-12-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-12-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-12-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2015-12-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-12-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-12-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2015-12-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-01-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-01-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-01-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-01-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-01-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-01-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-01-29",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-02-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-02-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-02-11",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-02-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-02-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-02-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-03-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-03-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-03-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-03-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-03-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-03-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-03-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-03-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-04-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-05-04",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2016-05-09",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2016-05-12",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2016-05-17",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2016-05-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-05-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-05-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-06-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-06-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-06-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-06-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-06-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-06-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-06-29",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-07-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-07-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-07-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-07-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-07-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-07-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-07-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-08-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-08-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-08-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-08-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-08-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-08-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-08-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-09-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-09-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-09-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-09-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-09-20",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-09-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-09-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-10-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-10-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-10-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-10-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-10-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-10-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-10-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-11-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-11-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-11-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2016-11-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-11-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-11-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-11-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-12-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-12-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-12-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-12-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-12-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2016-12-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2016-12-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-01-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-01-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-01-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-01-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-01-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-01-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-02-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-02-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-02-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-02-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-02-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-02-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-02-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-03-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-03-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-03-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-03-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-03-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-03-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-03-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-04-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-04-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-04-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-04-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-04-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-04-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-04-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-05-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-06-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-06-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-06-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-06-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-06-20",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2017-06-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-06-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-07-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-07-07",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2017-07-12",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2017-07-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-07-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-07-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-07-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-08-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-08-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-08-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-08-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-08-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-08-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-08-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-08-31",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-09-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-09-11",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-09-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-09-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-09-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-09-27",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2017-10-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-10-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-10-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-10-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-10-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-10-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-10-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-10-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-11-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-11-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-11-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-11-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-11-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-11-27",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2017-11-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-12-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-12-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-12-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-12-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2017-12-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2017-12-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-01-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-01-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-01-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-01-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-01-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-01-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-01-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-02-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-02-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-02-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-02-15",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-02-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-02-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-03-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-03-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-03-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-03-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-03-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-03-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-03-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-04-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-04-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-04-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-04-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-04-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-04-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-04-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-05-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-05-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-05-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-05-14",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-05-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-05-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-05-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-05-31",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-06-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-06-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-06-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-06-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-06-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-06-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-06-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-07-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-07-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-07-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-07-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-07-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-07-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-07-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-08-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-08-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-08-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-08-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-08-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-08-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-08-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-09-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-09-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-09-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-09-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-09-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-09-25",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2018-09-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-10-29",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-14",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-11-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-12-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-12-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-12-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-12-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-12-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2018-12-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2018-12-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-01-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-02-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-02-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-02-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-02-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-02-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-02-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-03-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-03-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-03-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-03-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-03-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-03-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-03-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-04-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-04-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-04-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-04-15",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2019-04-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-04-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-04-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-05-02",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-05-07",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-05-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-05-15",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-05-20",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-05-23",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-05-29",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-06-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-06-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-06-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-06-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-06-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-06-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-06-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-07-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-08-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-08-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-08-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-08-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-08-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-08-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-08-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-08-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-09-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-09-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-09-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-09-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-09-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-09-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-10-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-10-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-10-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-10-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-10-17",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-10-22",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-10-25",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-10-30",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-11-04",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-11-07",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-11-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-11-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-11-20",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-11-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-11-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2019-12-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-12-09",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-12-12",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-12-17",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2019-12-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-12-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2019-12-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-01-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-01-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-01-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-01-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-01-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-01-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-01-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-02-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-02-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-02-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-02-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-02-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-02-27",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-03-03",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-03-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-03-11",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-03-16",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-03-19",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-03-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-03-27",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-04-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-04-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-04-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-04-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-04-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-04-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-04-28",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-05-01",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-05-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-05-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-05-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-05-19",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-05-22",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-05-28",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-06-02",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-06-05",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-06-10",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-06-15",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-06-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-06-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-06-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-07-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-07-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-07-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-07-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-07-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-07-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-07-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-07-31",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-08-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-08-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-08-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-08-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-08-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-08-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-08-31",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-09-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-09-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-09-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-09-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-09-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-09-25",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-09-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2020-10-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-10-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-10-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-10-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-10-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-10-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-10-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-11-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2020-11-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-11-11",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-11-16",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-11-19",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-11-24",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-11-30",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2020-12-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-12-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-12-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-12-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-12-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-12-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2020-12-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-01-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-01-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-01-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-01-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-01-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-01-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-02-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-02-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-02-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-02-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-02-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-02-23",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2021-02-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-03-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-03-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-03-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-03-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-03-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-03-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-03-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-04-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-04-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-04-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-04-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-04-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-04-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-04-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-05-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-05-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-05-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-05-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-05-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-05-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-05-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-06-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2021-06-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-06-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-06-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-06-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-06-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-06-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-07-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-07-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-07-12",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-07-15",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-07-20",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-07-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-07-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-08-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-08-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-08-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-08-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-08-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-08-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-08-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-08-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-09-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-09-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-09-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-09-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-09-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-09-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-09-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-10-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-11-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-11-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-11-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2021-11-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2021-11-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-11-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-11-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2021-12-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-12-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2021-12-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-12-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-12-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-12-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2021-12-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-01-04",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-01-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-01-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-01-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-01-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-01-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-01-31",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-02-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-02-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-02-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-02-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-02-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-02-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-02",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-10",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-15",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-03-31",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-04-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-04-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-04-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-04-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-04-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-04-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-05-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-05-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-05-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-05-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-05-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-05-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-05-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-06-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-06-06",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-06-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-06-14",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-06-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-06-23",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-06-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-07-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-07-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-07-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-07-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-07-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-07-25",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-07-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-08-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-08-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-08-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-08-15",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-08-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-08-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-08-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-08-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-09-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-09-09",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-09-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-09-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-09-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-09-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-09-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-10-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-10-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-10-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-10-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-10-21",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-10-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-10-31",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-11-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-11-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-11-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-11-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-11-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-11-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2022-11-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-12-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-12-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-12-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-12-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-12-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2022-12-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2022-12-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-01-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-01-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-01-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-01-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-01-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-01-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-02-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-02-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-02-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-02-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-02-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-02-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-02-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-03-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-03-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-03-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-03-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-03-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-03-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-03-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-04-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-05-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-05-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-05-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-05-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-05-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-05-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-05-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-06-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-06-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-06-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-06-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-06-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-06-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-06-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-07-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-07-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-07-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-07-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-07-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-07-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-07-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-08-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-08-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-08-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-08-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-08-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-08-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-08-29",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-15",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-20",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-09-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-10-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-10-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-10-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-10-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-10-19",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-10-24",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-10-27",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-11-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-11-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-11-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-11-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-11-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-11-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-11-28",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2023-12-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2023-12-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-12-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-12-14",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2023-12-19",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2023-12-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2023-12-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-01-03",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-01-08",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-01-11",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-01-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-01-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-01-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-01-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-02-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-02-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-02-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-02-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-02-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-02-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-02-29",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-03-05",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-03-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-03-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-03-18",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-03-21",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-03-26",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-09",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-17",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-04-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-05-03",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-05-08",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-05-13",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-05-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-05-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-05-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-05-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-06-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-06-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-06-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-06-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-06-21",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-06-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-07-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-07-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-07-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-07-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-07-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-07-23",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-07-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-07-31",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-08-05",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-08-08",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-08-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-08-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-08-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-08-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-08-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-09-04",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-09-09",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2024-09-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-09-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-09-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-09-25",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-09-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-10-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-10-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-10-11",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-10-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-10-21",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-10-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-10-29",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-11-01",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-11-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-11-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-11-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2024-11-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-11-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-11-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-12-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-12-06",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-12-11",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2024-12-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-12-19",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-12-24",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2024-12-30",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-01-03",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-01-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-01-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-01-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-01-22",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-01-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-01-30",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-02-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-02-07",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-02-12",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-02-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-02-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-02-26",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-03-03",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-03-06",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-03-11",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-03-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-03-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-03-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-03-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-04-01",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-04-04",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-04-09",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-04-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-04-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-04-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-04-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-05-01",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-05-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-05-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-05-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-05-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-05-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-05-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-13",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-06-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-07",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-10",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-18",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-07-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-07-31",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-08-05",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-08-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-08-13",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-08-18",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-08-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-08-26",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-08-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-09-04",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2025-09-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-09-12",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-09-17",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-09-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-09-25",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-09-30",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-10-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-10-08",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-10-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-10-16",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2025-10-21",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-10-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-10-29",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-11-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-12-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-12-08",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2025-12-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-12-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-12-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-12-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2025-12-30",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-01-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-01-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-01-13",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-01-16",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2026-01-22",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-01-27",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-01-30",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-02-04",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-02-09",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-02-12",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-02-18",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-02-23",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-02-26",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-03-03",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-03-06",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-03-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-03-16",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-03-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-03-24",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-03-27",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-04-01",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-04-07",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-04-10",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-04-15",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-04-20",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-04-23",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-04-28",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-05-01",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-05-06",
+   "cycleBin": 3,
+   "swingBin": 3
+  },
+  {
+   "date": "2026-05-11",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-05-14",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-05-19",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-05-22",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-05-28",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-06-02",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-06-05",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-06-10",
+   "cycleBin": 2,
+   "swingBin": 2
   }
  ],
  "note": "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa."
