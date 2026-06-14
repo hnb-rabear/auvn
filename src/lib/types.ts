@@ -50,6 +50,18 @@ export interface Analysis {
   premiumSeries?: { date: string; value: number }[];
   /** percentile 20/50/80 của premium lịch sử */
   premiumPercentiles?: { p20: number; p50: number; p80: number };
+  /** ISO thời điểm chụp theo nguồn; null = nguồn lỗi/không có lần chạy này.
+   *  world/dxy/yield10y = epoch bar ngày cuối (≈ cập nhật cuối phiên, KHÔNG phải tick live).
+   *  vnGold/usdVnd = giờ fetch của ta (nguồn không có giờ server đáng tin).
+   *  fed = date bar FRED cuối. */
+  sourceTimes?: {
+    world?: string | null;
+    dxy?: string | null;
+    yield10y?: string | null;
+    vnGold?: string | null;
+    usdVnd?: string | null;
+    fed?: string | null;
+  };
 }
 
 /** Sức khỏe preset — tính lại mỗi cron bởi scripts/monitor-presets.ts */
