@@ -306,7 +306,7 @@ export default function Dashboard({
             <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
           )}
           {mounted && isGoldMarketClosed(nowMs) && (
-            <div className="freshness-note muted small">
+            <div className="freshness-note muted">
               Thị trường vàng thế giới nghỉ cuối tuần — đây là phiên gần nhất, không phải dữ liệu cũ.
             </div>
           )}
