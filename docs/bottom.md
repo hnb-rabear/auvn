@@ -65,12 +65,29 @@ Mỗi cron chạy lại cấu hình trên ~2 năm gần nhất, so bin điểm c
 4. **Chỉ kiểm chứng trên XAU/USD**; chiều chênh lệch VN KHÔNG nằm trong mô hình này — đây là **đáy XAU, không phải đáy SJC**. Premium vẫn là tín hiệu riêng (xem `docs/presets.md`).
 5. **Đầu ra là xác suất kèm CI, không bao giờ là "đây là đáy".** Quá khứ không bảo đảm tương lai.
 
+## Săn đáy vs Điểm mua — chúng bật ở HAI chế độ khác nhau (thực nghiệm)
+
+Câu hỏi tự nhiên: "đáy xuất hiện trước hay điểm mua xuất hiện trước, và chúng có trùng nhau không?". Đo trên dữ liệu đã commit (`scripts/bottom-vs-buy-study.ts`, 2009–2026) cho kết quả **đảo ngược trực giác "rẻ thì composite báo mua"**:
+
+| Quan sát | Số liệu |
+| --- | --- |
+| Zone composite **tại** 24 đáy chu kỳ | MUA 1 · **TRUNG TÍNH 22** · BÁN 1 |
+| Composite trung bình tại đáy | **≈ −1** (gần giữa thang) |
+| Tỷ lệ điểm-lưới ở vùng MUA (composite ≥ +40) | **46/1425 ≈ 3%** |
+| 46 ngày MUA so với đáy gần nhất | SAU 22 · TRƯỚC 23 · offset median 0, trải −714..+715 ngày |
+| Composite thế giới lịch sử | min −73 · median −10 · **max chỉ 55** |
+
+**Kết luận:** săn đáy và điểm mua **không xếp hàng trước–sau**, mà bật ở **hai chế độ thị trường khác nhau**. Tại đáy giá nhọn (săn đáy sáng) composite ~trung tính, vì tín hiệu "rẻ" (percentile thấp) bị triệt tiêu bởi kỹ thuật xấu (giá dưới MA50/200) + động lượng âm. Vùng MUA của composite hiếm (3%), rải rác, **không bám đáy** — nó nghiêng về "kỹ thuật/xu hướng đang thuận" chứ không phải "đã chạm đáy". Hai lớp **bổ sung** đúng nghĩa: săn đáy bắt điểm rơi cạn, composite xác nhận xu hướng/định giá — hiếm khi cùng sáng.
+
+**Giới hạn:** (1) composite trong `timeline.json` là composite **thế giới**, không gồm premium VN (chưa đủ lịch sử backtest) — so với săn đáy thuần XAU là cùng vũ trụ, công bằng, nhưng không phải composite *live* đầy đủ; (2) không tính lại được gauge săn đáy theo ngày offline (fetch XAU daily bị chặn), nên dùng `confirmedBottoms` làm đại diện cho "nơi gauge đạt đỉnh" — hợp lệ vì gauge được validate quanh chính các đáy đó.
+
 ## Tái lập kết quả
 
 ```bash
 npm run collect                      # sinh dữ liệu thật cho study
 npx tsx scripts/bottom-study.ts      # tuyển ε/H + trọng số (grid search, gate 2 giai đoạn)
 npx tsx scripts/bottom-ml-study.ts   # cổng kiểm chứng ML (Brier vs rule-based)
+npx tsx scripts/bottom-vs-buy-study.ts  # quan hệ thời điểm săn đáy vs điểm mua (dùng data đã commit)
 ```
 
 `BOTTOM_CONFIG` khai báo tại `src/lib/types.ts` — số liệu evidence trong code phải khớp doc này (cùng quy ước presets.md ↔ PRESETS); đổi cấu hình thì cập nhật cả hai.
