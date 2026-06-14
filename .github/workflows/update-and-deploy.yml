@@ -2,8 +2,8 @@ name: Update data & deploy
 
 on:
   schedule:
-    # 01:23 & 13:23 UTC = 08:23 & 20:23 giờ VN
-    - cron: "23 1,13 * * *"
+    # mỗi giờ, phút :23
+    - cron: "23 * * * *"
   push:
     branches: [main]
   workflow_dispatch:
