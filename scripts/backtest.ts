@@ -59,7 +59,10 @@ export function runBacktest(
   const vixBars = extras.vix ?? null;
   const gprBars = extras.gpr ?? null;
 
-  for (let i = WARMUP; i < closes.length; i += STEP) {
+  const idxs: number[] = [];
+  for (let i = WARMUP; i < closes.length; i += STEP) idxs.push(i);
+  if (idxs.length && idxs[idxs.length - 1] !== closes.length - 1) idxs.push(closes.length - 1);
+  for (const i of idxs) {
     const date = dates[i];
     const closesUpTo = closes.slice(0, i + 1);
     const datesUpTo = dates.slice(0, i + 1);

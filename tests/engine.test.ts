@@ -293,6 +293,20 @@ describe("backtest", () => {
     }
   });
 
+  it("timeline's last point is the final bar even when off the step grid", () => {
+    // 1400 bars: with WARMUP=756, STEP=3 the last grid index is 1398, so the
+    // true last bar (1399) is off-grid and must be appended.
+    const bars = range(1400, (i) => ({
+      date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+      close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
+    }));
+    const { backtest: bt, timeline } = runBacktest(bars, null, null);
+    const lastBarDate = bars[bars.length - 1].date;
+    expect(timeline.points[timeline.points.length - 1].date).toBe(lastBarDate);
+    expect(timeline.points[timeline.points.length - 1].returns["21"]).toBeNull();
+    expect(timeline.points.length).toBe(bt.observations);
+  });
+
   it("includes the macro criterion when DXY is present but Fed is missing", () => {
     const mkBars = (n: number, base: number, f: (i: number) => number) =>
       range(n, (i) => ({
