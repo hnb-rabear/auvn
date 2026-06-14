@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
+  BOTTOM_CONFIG,
   CRITERION_LABELS,
   ZONE_LABELS,
   zoneOf,
@@ -11,6 +12,8 @@ import {
   type Timeline,
   type Zone,
 } from "@/lib/types";
+import { deriveGuidance } from "@/lib/guidance";
+import ActionGuidance from "./ActionGuidance";
 import { centerWindow } from "@/lib/brush";
 import {
   composites,
@@ -159,6 +162,25 @@ export default function TimeMachine({
   // preset chỉ kiểm chứng phía mua — vùng bán chỉ hiện khi người dùng bật toggle tham khảo
   const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
+
+  // Gợi ý hành động lịch sử: world-only (premium tắt) + bin đáy past-only (KHÔNG dùng prob%).
+  // Dùng rawZone (chưa ép neutral khi tắt showSell) để phản ánh đúng cả vùng bán, nhất quán với live.
+  const histGuidance = useMemo(() => {
+    const topBin = BOTTOM_CONFIG.cycle.binEdges.length; // KHÔNG hardcode 3
+    const bin = p?.cycleBin;
+    const hasBin = bin !== undefined;
+    return deriveGuidance({
+      zone: rawZone,
+      composite,
+      bottom: {
+        high: hasBin && bin === topBin,
+        verified: hasBin,
+        label: `Săn đáy: nhóm điểm đáy ${bin === topBin ? "CAO" : "chưa cao"} (chu kỳ bin ${bin}/${topBin}).`,
+      },
+      premiumPct: null, // world-only ở lịch sử
+      premiumP80: null, // ⇒ cổng premium tắt
+    });
+  }, [rawZone, composite, p]);
 
   const spark = useMemo(() => {
     const win = points.slice(start, end);
@@ -396,6 +418,12 @@ export default function TimeMachine({
             </span>
           </div>
         </div>
+
+        <ActionGuidance guidance={histGuidance} />
+        <p className="muted small">
+          Ở chế độ lịch sử: chỉ tín hiệu thế giới (điểm mua + nhóm điểm đáy past-only);
+          chênh lệch VN không tham gia backtest.
+        </p>
 
         <div className="tm-scores">
           {(Object.keys(p.scores) as CriterionKey[]).map((k) => (

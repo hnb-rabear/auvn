@@ -1,13 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { deriveGuidance, type GuidanceInput } from "../src/lib/guidance";
+import { deriveGuidance, type GuidanceInput, type BottomDescriptor } from "../src/lib/guidance";
+
+const bottomLow: BottomDescriptor = { high: false, verified: true, label: "Săn đáy: xác suất gần đáy thấp (chu kỳ 40%, sóng 40%)." };
+const bottomHigh: BottomDescriptor = { high: true, verified: true, label: "Săn đáy: xác suất gần đáy cao (chu kỳ 72%, sóng 40%)." };
 
 const base: GuidanceInput = {
   zone: "neutral",
   composite: 0,
-  cycleProb: 40,
-  cycleVerified: true,
-  swingProb: 40,
-  swingVerified: true,
+  bottom: bottomLow,
   premiumPct: 5,
   premiumP80: 16,
 };
@@ -21,24 +21,24 @@ describe("deriveGuidance — ma trận điểm mua × săn đáy", () => {
   });
 
   it("mua + đáy cao → strong (tín hiệu mạnh nhất)", () => {
-    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, cycleProb: 72 });
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, bottom: bottomHigh });
     expect(g.level).toBe("strong");
     expect(g.tone).toBe("buy");
   });
 
   it("mua + đáy thấp → buy theo kế hoạch", () => {
-    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, cycleProb: 40, swingProb: 40 });
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, bottom: bottomLow });
     expect(g.level).toBe("buy");
   });
 
   it("trung tính + đáy cao → dca (gom rải)", () => {
-    const g = deriveGuidance({ ...base, zone: "neutral", composite: 5, cycleProb: 65 });
+    const g = deriveGuidance({ ...base, zone: "neutral", composite: 5, bottom: bottomHigh });
     expect(g.level).toBe("dca");
     expect(g.how).toMatch(/RẢI/);
   });
 
   it("trung tính + đáy thấp → wait", () => {
-    const g = deriveGuidance({ ...base, zone: "neutral", composite: 5, cycleProb: 40, swingProb: 40 });
+    const g = deriveGuidance({ ...base, zone: "neutral", composite: 5, bottom: bottomLow });
     expect(g.level).toBe("wait");
     expect(g.tone).toBe("neutral");
   });
@@ -46,7 +46,7 @@ describe("deriveGuidance — ma trận điểm mua × săn đáy", () => {
 
 describe("deriveGuidance — cổng premium VN", () => {
   it("chênh ≥ p80 chặn ngay cả khi tín hiệu thế giới thuận", () => {
-    const g = deriveGuidance({ ...base, zone: "buy", composite: 50, cycleProb: 70, premiumPct: 18, premiumP80: 16 });
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 50, bottom: bottomHigh, premiumPct: 18, premiumP80: 16 });
     expect(g.level).toBe("premium-wait");
     expect(g.how).toMatch(/đợi chênh lệch hạ/);
   });
@@ -57,25 +57,33 @@ describe("deriveGuidance — cổng premium VN", () => {
   });
 
   it("chưa đủ lịch sử premium (p80 null) → không chặn, ghi chú chưa xếp hạng", () => {
-    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, cycleProb: 70, premiumPct: 18, premiumP80: null });
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, bottom: bottomHigh, premiumPct: 18, premiumP80: null });
     expect(g.level).toBe("strong");
     expect(g.reasons.some((r) => /chưa đủ lịch sử/.test(r))).toBe(true);
+  });
+
+  it("premium null (lịch sử world-only) → cổng tắt, ghi 'chưa có dữ liệu'", () => {
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 50, bottom: bottomHigh, premiumPct: null, premiumP80: null });
+    expect(g.level).toBe("strong");
+    expect(g.reasons.some((r) => /Chênh VN: chưa có dữ liệu/.test(r))).toBe(true);
   });
 });
 
 describe("deriveGuidance — kiểm chứng đáy", () => {
-  it("đáy chưa kiểm chứng (chưa verified) không kích hoạt tín hiệu đáy", () => {
+  it("đáy chưa kiểm chứng (verified:false) không kích hoạt tín hiệu đáy", () => {
     const g = deriveGuidance({
       ...base,
       zone: "neutral",
       composite: 5,
-      cycleProb: 90,
-      cycleVerified: false,
-      swingProb: 90,
-      swingVerified: false,
+      bottom: { high: true, verified: false, label: "(không dùng vì chưa verified)" },
     });
     expect(g.level).toBe("wait");
     expect(g.reasons.some((r) => /chưa đủ dữ liệu kiểm chứng/.test(r))).toBe(true);
+  });
+
+  it("dùng label do caller dựng khi đã verified", () => {
+    const g = deriveGuidance({ ...base, bottom: { high: false, verified: true, label: "Săn đáy: nhóm điểm đáy chưa cao (chu kỳ bin 1/3)." } });
+    expect(g.reasons.some((r) => /nhóm điểm đáy chưa cao/.test(r))).toBe(true);
   });
 
   it("luôn có đủ 3 lý do (điểm mua, săn đáy, chênh VN)", () => {

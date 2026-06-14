@@ -121,20 +121,25 @@ export default function Dashboard({
   // Gợi ý hành động: kết hợp điểm mua (zone) + săn đáy + chênh lệch VN. Chỉ đọc.
   const cycleVerified = !BOTTOM_CONFIG.cycle.provisional && bottom.cycle.n >= 10;
   const swingVerified = !BOTTOM_CONFIG.swing.provisional && bottom.swing.n >= 10;
-  const guidance = useMemo(
-    () =>
-      deriveGuidance({
-        zone,
-        composite,
-        cycleProb: bottom.cycle.prob,
-        cycleVerified,
-        swingProb: bottom.swing.prob,
-        swingVerified,
-        premiumPct: analysis.prices.premiumPct,
-        premiumP80: analysis.premiumPercentiles?.p80 ?? null,
-      }),
-    [zone, composite, bottom, cycleVerified, swingVerified, analysis]
-  );
+  const guidance = useMemo(() => {
+    // best = max prob của tầng đã kiểm chứng (khớp ngưỡng gauge ≥60/≥35), giữ nguyên hành vi live cũ
+    const c = cycleVerified ? bottom.cycle.prob : -1;
+    const s = swingVerified ? bottom.swing.prob : -1;
+    const best = Math.max(c, s);
+    const lvl = best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
+    const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
+    return deriveGuidance({
+      zone,
+      composite,
+      bottom: {
+        high: best >= 60,
+        verified: cycleVerified || swingVerified,
+        label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(bottom.cycle.prob)}%, sóng ${fmt1(bottom.swing.prob)}%).`,
+      },
+      premiumPct: analysis.prices.premiumPct,
+      premiumP80: analysis.premiumPercentiles?.p80 ?? null,
+    });
+  }, [zone, composite, bottom, cycleVerified, swingVerified, analysis]);
 
   const setWeight = (k: CriterionKey, v: number) => {
     const s: Settings = { weights: { ...weights, [k]: v }, presetId: null };

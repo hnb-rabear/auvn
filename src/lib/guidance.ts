@@ -19,15 +19,25 @@ export type GuidanceLevel =
   | "premium-wait" // tín hiệu thế giới có nhưng vàng VN đang đắt
   | "reduce"; // composite vùng bán
 
+/**
+ * Mô tả tín hiệu đáy do caller tự dựng — tách khỏi nguồn (prob% live vs bin lịch sử).
+ * Live: high = cycleProb≥60 & verified; History: high = cycleBin===topBin (past-only,
+ * không dùng prob% vì prob là base-rate toàn lịch sử ⇒ look-ahead).
+ */
+export interface BottomDescriptor {
+  /** tín hiệu đáy đang ở mức "cao" (đủ để kích hoạt dca/strong) */
+  high: boolean;
+  /** có dữ liệu kiểm chứng / đã qua warmup; false ⇒ ghi "chưa đủ dữ liệu kiểm chứng" */
+  verified: boolean;
+  /** chuỗi lý do hiển thị, do caller dựng (live: prob%; history: bin) */
+  label: string;
+}
+
 export interface GuidanceInput {
   zone: Zone;
   composite: number;
-  /** xác suất đáy chu kỳ (%) — tầng robust hơn, dùng làm tín hiệu đáy chính */
-  cycleProb: number;
-  cycleVerified: boolean;
-  /** xác suất đáy sóng (%) — phụ */
-  swingProb: number;
-  swingVerified: boolean;
+  /** mô tả tín hiệu đáy (caller dựng từ prob% hoặc bin) */
+  bottom: BottomDescriptor;
   /** chênh lệch VN−TG hiện tại (%), null nếu thiếu */
   premiumPct: number | null;
   /** ngưỡng p80 của chênh lệch lịch sử; null nếu chưa đủ lịch sử (<90 ngày) để xếp hạng */
@@ -48,20 +58,12 @@ export interface Guidance {
 const fmt = (n: number, d = 1) => n.toLocaleString("vi-VN", { maximumFractionDigits: d });
 const signed = (n: number) => (n >= 0 ? `+${fmt(n)}` : fmt(n));
 
-/** Mức tín hiệu đáy gộp 2 tầng (chỉ tính tầng đã kiểm chứng), khớp ngưỡng màu của gauge (≥60 / ≥35). */
-function bottomBest(inp: GuidanceInput): number {
-  const c = inp.cycleVerified ? inp.cycleProb : -1;
-  const s = inp.swingVerified ? inp.swingProb : -1;
-  return Math.max(c, s);
-}
-
 export function deriveGuidance(inp: GuidanceInput): Guidance {
   const isSell = inp.zone === "sell" || inp.zone === "strong-sell";
   const isBuy = inp.zone === "buy" || inp.zone === "strong-buy";
   const strongBuy = inp.zone === "strong-buy";
-  const best = bottomBest(inp);
-  const bottomHigh = best >= 60; // cùng ngưỡng "buy" của gauge săn đáy
-  const anyVerified = inp.cycleVerified || inp.swingVerified;
+  const bottomHigh = inp.bottom.verified && inp.bottom.high;
+  const anyVerified = inp.bottom.verified;
 
   const premiumKnown = inp.premiumPct !== null && inp.premiumP80 !== null;
   const premiumHigh = premiumKnown && (inp.premiumPct as number) >= (inp.premiumP80 as number);
@@ -75,14 +77,9 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
         ? `Điểm mua: vùng BÁN (${signed(inp.composite)}).`
         : `Điểm mua: trung tính (${signed(inp.composite)}) — chưa có tín hiệu mua.`
   );
-  if (!anyVerified) {
-    reasons.push("Săn đáy: chưa đủ dữ liệu kiểm chứng.");
-  } else {
-    const lvl = best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
-    reasons.push(
-      `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt(inp.cycleProb)}%, sóng ${fmt(inp.swingProb)}%).`
-    );
-  }
+  reasons.push(
+    anyVerified ? inp.bottom.label : "Săn đáy: chưa đủ dữ liệu kiểm chứng."
+  );
   if (!premiumKnown) {
     reasons.push(
       inp.premiumPct === null

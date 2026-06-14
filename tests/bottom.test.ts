@@ -23,6 +23,7 @@ describe("bottom types & config", () => {
       cycle: { prob: 50, ci: [40, 60], bin: 3, n: 100, drivers: [] },
       swing: { prob: 30, ci: [20, 40], bin: 2, n: 80, drivers: [] },
       confirmedBottoms: [],
+      signalHistory: [],
       note: "x",
     };
     expect(a.cycle.prob).toBe(50);

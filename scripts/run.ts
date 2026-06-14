@@ -250,6 +250,18 @@ async function main() {
     { yield10y: yieldRes }
   );
 
+  // Làm giàu timeline bằng bin đáy past-only (cho Gợi ý hành động lịch sử ở Time Machine).
+  // Merge theo NGÀY (không index): hai lưới hiện trùng khít nhưng date-map bền nếu constant lệch.
+  // Không có bin cho ngày nào ⇒ để undefined (0 là bin hợp lệ).
+  const binByDate = new Map(bottom.signalHistory.map((s) => [s.date, s]));
+  for (const pt of timeline.points) {
+    const s = binByDate.get(pt.date);
+    if (s) {
+      pt.cycleBin = s.cycleBin;
+      pt.swingBin = s.swingBin;
+    }
+  }
+
   const bottomHealth: BottomHealth = monitorBottom(
     xauRes.bars,
     dxyRes?.bars ?? null,

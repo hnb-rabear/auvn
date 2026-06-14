@@ -29,8 +29,8 @@ Hai bẫy bắt buộc tránh:
 - **Top bin:** với `binEdges=[-40,0,40]`, `binOf` trả 0..3; nhóm đáy cao nhất = `bin === binEdges.length` (=3, score ≥ 40). Khớp `recentTopFav` của `monitor-bottom.ts`. ĐỪNG hardcode 3 — lấy `binEdges.length`.
 
 **`scripts/run.ts`:**
-- Sau khi có `timeline` và `bottom.signalHistory`, làm giàu mỗi `timeline.points[i]` bằng `cycleBin`/`swingBin` qua tra cứu nearest-≤-date (hai lưới lấy mẫu khác nhau: backtest vs bottom STEP=3 → map theo NGÀY, không theo index). Dựng Map/binary-search trên `signalHistory` đã sort.
-- Điểm timeline trước warmup đáy (i<756 ⇒ ~trước 2012, tùy xau bắt đầu) sẽ KHÔNG có bin → để `undefined`, đừng gán 0 (0 là bin hợp lệ).
+- Sau khi có `timeline` và `bottom.signalHistory`, làm giàu mỗi `timeline.points[i]` bằng `cycleBin`/`swingBin`. **Thực tế hai lưới TRÙNG NHAU** (backtest và bottom đều `WARMUP=756, STEP=3` trên cùng `xau.bars` → đã kiểm chứng: 1425 điểm, 0 lệch ngày). Dù vậy vẫn merge qua **Map theo NGÀY** (không theo index) để phòng hai constant lệch nhau về sau — rẻ và bền hơn, không phải vì lưới khác nhau.
+- Ngày nào trong `signalHistory` không có bin (về lý thuyết: timeline point < bottom warmup) → để `undefined`, đừng gán 0 (0 là bin hợp lệ). **Lưu ý với dữ liệu hiện tại không có điểm nào như vậy**: timeline point đầu = `2009-06-15` (i=756) trùng đúng warmup đáy, nên mọi điểm đều có bin. Vẫn xử lý `undefined` đề phòng dữ liệu xau ngắn hơn về sau.
 
 **`src/lib/types.ts`:**
 - `TimelinePoint`: thêm `cycleBin?: number; swingBin?: number;` (optional — tương thích ngược timeline.json cũ).
@@ -109,7 +109,10 @@ bottom: {
 2. `npm run collect` (hoặc chạy `run.ts`) regenerate `timeline.json` có `cycleBin/swingBin`; kiểm tra điểm pre-2012 có bin `undefined`.
 3. `npx tsx scripts/check-modes.ts` — không vỡ.
 4. `npm run build` (PC có mạng đầy đủ — môi trường web bị chặn package `xlsx`).
-5. Spot-check trực giác: tua tới đáy đã xác nhận (2015-12, 2018-08) → guidance nên ra `dca` (đáy bin cao + composite thường trung tính, đúng phát hiện thực nghiệm trong docs/bottom.md). Tua tới nhịp tăng giữa chu kỳ → `wait` hoặc `buy`.
+5. Spot-check trực giác (đã backtest, KỲ VỌNG SỬA LẠI):
+   - **Đáy đã xác nhận KHÔNG ra `dca`.** Backtest mọi đáy cycle xác nhận: `cycleBin` của chúng nằm ở bin 1–2/3, KHÔNG bao giờ bin 3 (2015-12→1, 2018-08→2, 2020-05→2, 2022-11→1, 2024-12→1, 2025-05→2). Vì `bottomHigh = bin===topBin(3)` chỉ bật ở bin 3 (base-rate đáy 63%, khớp ngưỡng live prob≥60; bin 0–2 chỉ 35–40%), nên tại đáy xác nhận guidance ra `wait`/`buy` theo composite, KHÔNG `dca`. Đây đúng luận điểm docs/bottom.md: "đáy thật" và "chấm điểm đáy top-bin real-time" hiếm khi trùng.
+   - **Để xác minh `dca`:** tìm ngày có `cycleBin===3` (toàn lịch sử có 146 ngày như vậy) + composite < buyThr → phải ra `dca`. Phân bố guidance toàn lịch sử (world-only, premium off): `wait 78.5%, dca 9.3%, reduce 9.0%, buy 2.3%, strong 0.9%`.
+   - Tua tới vùng composite ≥ +40 → `buy`/`strong`; vùng composite ≤ −40 → `reduce`.
 
 ## Thứ tự làm
 
@@ -119,8 +122,9 @@ bottom: {
 
 ## Rủi ro / lưu ý
 
-- **Look-ahead:** chỉ dùng `bin` (past-only) cho lịch sử, KHÔNG tái dùng prob% live.
-- **Map hai lưới theo ngày**, không theo index — backtest grid ≠ bottom grid.
-- **`undefined` bin ≠ bin 0** — phân biệt rõ ở cả merge lẫn render.
+- **Look-ahead:** chỉ dùng `bin` (past-only) cho lịch sử, KHÔNG tái dùng prob% live. Đã kiểm chứng `featuresAt` lọc `b.date <= di` nên bin chỉ dùng quá khứ.
+- **Merge theo NGÀY** (không theo index) — như biện pháp phòng hờ. Đã kiểm chứng hai lưới hiện TRÙNG khít (cùng `WARMUP=756/STEP=3`, 1425 điểm, 0 lệch); date-map chỉ để bền nếu constant lệch về sau, KHÔNG vì lưới khác nhau.
+- **`undefined` bin ≠ bin 0** — phân biệt rõ ở cả merge lẫn render. (Dữ liệu hiện tại không sinh `undefined` nào, nhưng giữ nhánh xử lý.)
+- **Đáy xác nhận → `wait`/`buy`, không `dca`** (xem Bước 5.5) — đừng kỳ vọng `dca` sáng ở đáy thật.
 - **Premium world-only ở lịch sử** — đừng tái dựng percentile lịch sử (mẫu quá ngắn → sai).
 - `data/` là database tích lũy: `cycleBin/swingBin` là field mới optional, không phá dữ liệu cũ; chỉ đầy đủ sau lần `collect` kế tiếp.
