@@ -101,7 +101,7 @@ Expected: FAIL — `points.length` là 216 (STEP=3), không phải 644.
 
 Thay khối `scripts/backtest.ts:62-151`. Cấu trúc mới: rút phần tính-một-index thành closure `evalAt(i)` trả về `{ point, zone }`; lưới stat đẩy returns + đếm observations; lưới timeline đẩy points.
 
-Thay từ dòng 62 (`const idxs: number[] = [];`) đến hết `points.push({...})` (dòng 150) bằng:
+Thay từ dòng 62 (`const idxs: number[] = [];`) đến **dòng 151 — dấu `}` đóng vòng `for (const i of idxs)`** (bao gồm cả dòng 151 này; nếu bỏ sót sẽ thừa một `}` lủng lẳng) bằng:
 
 ```typescript
   // Tính criteria/composite/scores/returns past-only cho MỘT index. Dùng chung
