@@ -178,9 +178,15 @@ body {
 
 .prices {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   margin-bottom: 14px;
+}
+
+@media (min-width: 520px) {
+  .prices {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
 }
 
 .price-item {
@@ -649,4 +655,86 @@ td.neutral {
   text-align: center;
   border-top: 1px solid var(--border);
   padding-top: 14px;
+}
+
+/* ── Hero: dòng cô đọng zone · điểm · gần đáy dưới phần gợi ý ── */
+.guidance-meta {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.guidance-meta b {
+  color: var(--text);
+}
+
+/* ── Accordion (details/summary) cho 6 phần phân tích ── */
+.acc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.acc[open] {
+  border-color: #e6b84c33;
+}
+.acc-sum {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.acc-sum::-webkit-details-marker {
+  display: none;
+}
+.acc-sum:hover {
+  border-color: var(--gold);
+}
+.acc-sum-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.acc-sum-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.acc-sum-meta {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+.acc-chev {
+  color: var(--muted);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+.acc[open] .acc-chev {
+  transform: rotate(90deg);
+}
+.acc-body {
+  padding: 0 14px 14px;
+}
+/* Phần chứa một component tự-đóng-khung (.card): làm phẳng để không lồng khung */
+.acc-body.flat > .card {
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+/* Mục giá phụ (XAU/USD, USD/VND) trong accordion chi tiết điểm số */
+.acc-prices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
 }

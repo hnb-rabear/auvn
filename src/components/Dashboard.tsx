@@ -151,6 +151,24 @@ export default function Dashboard({
     });
   }, [zone, composite, bottom, cycleVerified, swingVerified, analysis]);
 
+  // nhãn xác suất gần đáy cho dòng cô đọng ở hero (khớp ngưỡng gauge 60/35)
+  const nearBottomLabel = useMemo(() => {
+    const c = cycleVerified ? bottom.cycle.prob : -1;
+    const s = swingVerified ? bottom.swing.prob : -1;
+    const best = Math.max(c, s);
+    if (best < 0) return "chưa đủ dữ liệu";
+    return best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
+  }, [cycleVerified, swingVerified, bottom]);
+
+  const heroMeta = (
+    <>
+      <b>{verdictLabel}</b> · điểm{" "}
+      <b>{composite > 0 ? `+${fmtNum(composite)}` : fmtNum(composite)}</b>
+      {preset && ` · preset ${preset.label} (ngưỡng mua +${preset.buyThreshold})`}
+      {customized && " · trọng số tùy chỉnh"} · xác suất gần đáy {nearBottomLabel}
+    </>
+  );
+
   const setWeight = (k: CriterionKey, v: number) => {
     const s: Settings = { weights: { ...weights, [k]: v }, presetId: null };
     setSettings(s);
@@ -223,98 +241,31 @@ export default function Dashboard({
         </div>
       )}
 
-      <section className={`verdict ${zoneClass(zone)}`}>
-        <div className="verdict-label">{verdictLabel}</div>
-        {isSellZone && (
-          <div className="verdict-note">
-            ⚠ Cảnh báo tham khảo, KHÔNG phải khuyến nghị thoát vị thế: trong backtest 17
-            năm, tín hiệu bán chỉ đúng 49% sau 1 tháng và sai tới 75% sau 12 tháng. Ý
-            nghĩa thực tế: bớt mua thêm, không phải bán ra.
-          </div>
-        )}
-        {preset && !isBuyZone && (
-          <div className="verdict-note muted">
-            Preset chỉ kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
-            im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN
-            vượt vạch đỏ p80 ở biểu đồ bên dưới.
-          </div>
-        )}
-        <div className="gauge">
-          <div className="gauge-track">
-            <div className="gauge-zero" />
-            <div
-              className="gauge-needle"
-              style={{ left: `${((composite + 100) / 200) * 100}%` }}
-            />
-          </div>
-          <div className="gauge-scale">
-            <span>−100 bán</span>
-            <span>0</span>
-            <span>mua +100</span>
-          </div>
-        </div>
-        <div className="verdict-score">
-          Điểm tổng hợp: <b>{composite > 0 ? `+${fmtNum(composite)}` : fmtNum(composite)}</b>
-          {preset && <span className="customized"> · preset {preset.label} (ngưỡng mua +{preset.buyThreshold})</span>}
-          {customized && <span className="customized"> (trọng số tùy chỉnh)</span>}
-        </div>
-        {preset ? (
-          <div className="verdict-bt">
-            Kiểm chứng preset ({preset.horizonDays === 21 ? "1 tháng" : preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}):
-            tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
-            và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026 (n={preset.evidence.testN}),
-            so với mua ngày bất kỳ {fmtNum(preset.evidence.trainBaseline)}% / {fmtNum(preset.evidence.testBaseline)}%.
-            {presetHealth?.testFavCi95 && (
-              <>
-                {" "}Khoảng tin cậy 95% (bootstrap, đã tính tín hiệu bắn chùm):{" "}
-                <b>
-                  {fmtNum(presetHealth.testFavCi95[0])}–{fmtNum(presetHealth.testFavCi95[1])}%
-                </b>
-                .
-              </>
+      {/* ── HERO: câu chốt 3 giây (gộp verdict + gợi ý hành động) ── */}
+      <ActionGuidance
+        guidance={guidance}
+        meta={heroMeta}
+        note={
+          <>
+            {isSellZone && (
+              <div className="verdict-note">
+                ⚠ Cảnh báo tham khảo, KHÔNG phải khuyến nghị thoát vị thế: trong backtest 17
+                năm, tín hiệu bán chỉ đúng 49% sau 1 tháng và sai tới 75% sau 12 tháng. Ý
+                nghĩa thực tế: bớt mua thêm, không phải bán ra.
+              </div>
             )}
-          </div>
-        ) : bt63 && bt63.pctFavorable !== null ? (
-          <div className="verdict-bt">
-            Kiểm chứng lịch sử: tín hiệu &quot;{ZONE_LABELS[zone]}&quot; xuất hiện{" "}
-            <b>{bt63.count}</b> lần, <b>{fmtNum(bt63.pctFavorable)}%</b> diễn biến thuận chiều
-            sau 3 tháng (trung vị {bt63.medianReturnPct! >= 0 ? "+" : ""}
-            {fmtNum(bt63.medianReturnPct)}%).
-          </div>
-        ) : (
-          <div className="verdict-bt muted">
-            Vùng trung lập — không có khuyến nghị hành động. Chờ tín hiệu rõ hơn.
-          </div>
-        )}
-        <div className="freshness">
-          {mounted ? (
-            <>
-              <div>Bây giờ: {clock} (giờ VN)</div>
-              {st ? (
-                <div className="freshness-sources">
-                  Số liệu thế giới (phiên gần nhất):{" "}
-                  {worldAge ?? "không có dữ liệu"}
-                  {" · "}
-                  Giá SJC: ngày {vnDateLabel}
-                  {vnGoldAge ? ` (${vnGoldAge})` : ""}
-                </div>
-              ) : (
-                <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
-              )}
-            </>
-          ) : (
-            <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
-          )}
-          {mounted && isGoldMarketClosed(nowMs) && (
-            <div className="freshness-note muted">
-              Thị trường vàng thế giới nghỉ cuối tuần — đây là phiên gần nhất, không phải dữ liệu cũ.
-            </div>
-          )}
-        </div>
-      </section>
+            {preset && !isBuyZone && (
+              <div className="verdict-note muted">
+                Preset chỉ kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
+                im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN
+                vượt vạch đỏ p80 ở biểu đồ bên dưới.
+              </div>
+            )}
+          </>
+        }
+      />
 
-      <ActionGuidance guidance={guidance} />
-
+      {/* ── GIÁ: 4 ô chính, mở sẵn ── */}
       <section className="prices">
         <div className="price-item">
           <span>SJC mua / bán</span>
@@ -338,54 +289,45 @@ export default function Dashboard({
             {fmtNum(analysis.prices.premiumPct)}% ({fmtMoney(analysis.prices.premiumVnd)})
           </b>
         </div>
-        <div className="price-item">
-          <span>XAU/USD</span>
-          <b>${fmtNum(analysis.prices.xauUsd, 0)}</b>
-        </div>
-        <div className="price-item">
-          <span>USD/VND</span>
-          <b>{fmtNum(analysis.prices.usdVnd, 0)}</b>
-        </div>
       </section>
 
+      {/* ── PRESET: hàng chọn chế độ, gần đầu ── */}
+      <div className="preset-row">
+        <button
+          className={`iconbtn ${!preset && !customized ? "active" : ""}`}
+          onClick={() => applyPreset(null)}
+        >
+          Toàn cảnh
+        </button>
+        {PRESETS.map((p) => {
+          const hStatus = health.items.find((i) => i.presetId === p.id)?.status;
+          return (
+            <button
+              key={p.id}
+              className={`iconbtn ${preset?.id === p.id ? "active" : ""}`}
+              onClick={() => applyPreset(p.id)}
+              title={`Đúng ${p.evidence.trainFav}% (2009–2018) / ${p.evidence.testFav}% (2019–2026)`}
+            >
+              {hStatus === "degraded" ? "⚠ " : ""}
+              {p.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── PANEL ⚙: chỉ còn slider trọng số ── */}
       {showSettings && (
         <section className="card settings">
-          <h2>Chọn chế độ</h2>
+          <h2>Trọng số tiêu chí</h2>
           <p className="muted small">
             <b>Toàn cảnh</b> = radar 4 nhóm tiêu chí (duy nhất có tiêu chí chênh lệch VN
             25% và cảnh báo bán) — dùng để hiểu thị trường. <b>Preset</b> = cò súng MUA
             theo kỳ hạn, tuyển bằng grid search 17 năm, thắng baseline ở cả 2 giai đoạn
-            độc lập (2009–2018, 2019–2026) — dùng để quyết định gom mua. Preset không
-            xem chênh lệch VN (chưa đủ lịch sử kiểm chứng) nên trước khi mua hãy liếc
-            biểu đồ chênh lệch bên dưới. Chi tiết: docs/presets.md.
+            độc lập — dùng để quyết định gom mua. Chi tiết: docs/presets.md.
           </p>
-          <div className="preset-row">
-            <button
-              className={`iconbtn ${!preset && !customized ? "active" : ""}`}
-              onClick={() => applyPreset(null)}
-            >
-              Toàn cảnh
-            </button>
-            {PRESETS.map((p) => {
-              const hStatus = health.items.find((i) => i.presetId === p.id)?.status;
-              return (
-                <button
-                  key={p.id}
-                  className={`iconbtn ${preset?.id === p.id ? "active" : ""}`}
-                  onClick={() => applyPreset(p.id)}
-                  title={`Đúng ${p.evidence.trainFav}% (2009–2018) / ${p.evidence.testFav}% (2019–2026)`}
-                >
-                  {hStatus === "degraded" ? "⚠ " : ""}
-                  {p.label}
-                </button>
-              );
-            })}
-          </div>
-          <h2>Trọng số tiêu chí</h2>
           <p className="muted">
             Điểm tổng hợp tính lại ngay theo trọng số bạn chọn. Lưu trên máy bạn. Kéo
-            slider sẽ thoát chế độ preset. Lưu ý: bảng % kiểm chứng bên dưới tính theo
-            trọng số mặc định.
+            slider sẽ thoát chế độ preset. Lưu ý: bảng % kiểm chứng tính theo trọng số mặc định.
           </p>
           {analysis.criteria.map((c) => (
             <label key={c.key} className="slider-row">
@@ -404,83 +346,228 @@ export default function Dashboard({
         </section>
       )}
 
-      {analysis.criteria.map((c: CriterionResult) => (
-        <section key={c.key} className="card">
-          <div className="card-head">
-            <h2>{c.label}</h2>
-            <div className="card-score">
-              {scoreChip(Math.round(c.score * 10) / 10)}
-              <span className="muted"> trọng số {Math.round(weights[c.key] * 100)}%</span>
+      {/* ── ACCORDION 1: Chi tiết điểm số (gauge + kiểm chứng + giá phụ + freshness) ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Chi tiết điểm số</span>
+            <span className="acc-sum-meta">thước đo · kiểm chứng · giá phụ</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body">
+          <div className="gauge">
+            <div className="gauge-track">
+              <div className="gauge-zero" />
+              <div
+                className="gauge-needle"
+                style={{ left: `${((composite + 100) / 200) * 100}%` }}
+              />
+            </div>
+            <div className="gauge-scale">
+              <span>−100 bán</span>
+              <span>0</span>
+              <span>mua +100</span>
             </div>
           </div>
-          {c.provisional && (
-            <div className="banner info small">
-              Đang dùng ngưỡng tham chiếu — dữ liệu chênh lệch tự thu thập mới{" "}
-              {analysis.vnHistoryDays} ngày, cần ≥ 90 ngày để so theo lịch sử thật.
+          {preset ? (
+            <div className="verdict-bt">
+              Kiểm chứng preset ({preset.horizonDays === 21 ? "1 tháng" : preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}):
+              tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
+              và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026 (n={preset.evidence.testN}),
+              so với mua ngày bất kỳ {fmtNum(preset.evidence.trainBaseline)}% / {fmtNum(preset.evidence.testBaseline)}%.
+              {presetHealth?.testFavCi95 && (
+                <>
+                  {" "}Khoảng tin cậy 95% (bootstrap, đã tính tín hiệu bắn chùm):{" "}
+                  <b>
+                    {fmtNum(presetHealth.testFavCi95[0])}–{fmtNum(presetHealth.testFavCi95[1])}%
+                  </b>
+                  .
+                </>
+              )}
+            </div>
+          ) : bt63 && bt63.pctFavorable !== null ? (
+            <div className="verdict-bt">
+              Kiểm chứng lịch sử: tín hiệu &quot;{ZONE_LABELS[zone]}&quot; xuất hiện{" "}
+              <b>{bt63.count}</b> lần, <b>{fmtNum(bt63.pctFavorable)}%</b> diễn biến thuận chiều
+              sau 3 tháng (trung vị {bt63.medianReturnPct! >= 0 ? "+" : ""}
+              {fmtNum(bt63.medianReturnPct)}%).
+            </div>
+          ) : (
+            <div className="verdict-bt muted">
+              Vùng trung lập — không có khuyến nghị hành động. Chờ tín hiệu rõ hơn.
             </div>
           )}
-          <ul className="signals">
-            {c.signals.map((s) => (
-              <li key={s.id} className={s.available ? "" : "muted"}>
-                {scoreChip(s.score)}
-                <div>
-                  <div className="sig-label">{s.label}</div>
-                  <div className="sig-expl">{s.explanation}</div>
+          <div className="acc-prices">
+            <div className="price-item">
+              <span>XAU/USD</span>
+              <b>${fmtNum(analysis.prices.xauUsd, 0)}</b>
+            </div>
+            <div className="price-item">
+              <span>USD/VND</span>
+              <b>{fmtNum(analysis.prices.usdVnd, 0)}</b>
+            </div>
+          </div>
+          <div className="freshness">
+            {mounted ? (
+              <>
+                <div>Bây giờ: {clock} (giờ VN)</div>
+                {st ? (
+                  <div className="freshness-sources">
+                    Số liệu thế giới (phiên gần nhất):{" "}
+                    {worldAge ?? "không có dữ liệu"}
+                    {" · "}
+                    Giá SJC: ngày {vnDateLabel}
+                    {vnGoldAge ? ` (${vnGoldAge})` : ""}
+                  </div>
+                ) : (
+                  <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
+                )}
+              </>
+            ) : (
+              <div className="freshness-sources">Cập nhật: {freshnessFallback} (giờ VN)</div>
+            )}
+            {mounted && isGoldMarketClosed(nowMs) && (
+              <div className="freshness-note muted">
+                Thị trường vàng thế giới nghỉ cuối tuần — đây là phiên gần nhất, không phải dữ liệu cũ.
+              </div>
+            )}
+          </div>
+        </div>
+      </details>
+
+      {/* ── ACCORDION 2: 4 nhóm tiêu chí ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">4 nhóm tiêu chí</span>
+            <span className="acc-sum-meta">kỹ thuật · chênh VN · vĩ mô · thống kê</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body">
+          {analysis.criteria.map((c: CriterionResult) => (
+            <section key={c.key} className="card">
+              <div className="card-head">
+                <h2>{c.label}</h2>
+                <div className="card-score">
+                  {scoreChip(Math.round(c.score * 10) / 10)}
+                  <span className="muted"> trọng số {Math.round(weights[c.key] * 100)}%</span>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-
-      <section className="card">
-        <div className="card-head">
-          <h2>Kiểm chứng lịch sử (backtest)</h2>
-        </div>
-        <p className="muted small">
-          {backtest.note} Giai đoạn {backtest.fromDate} → {backtest.toDate},{" "}
-          {backtest.observations.toLocaleString("vi-VN")} quan sát.
-        </p>
-        <div className="bt-table-wrap">
-          <table className="bt-table">
-            <thead>
-              <tr>
-                <th>Tín hiệu</th>
-                <th>Kỳ hạn</th>
-                <th>Số lần</th>
-                <th>% thuận chiều</th>
-                <th>Trung vị</th>
-              </tr>
-            </thead>
-            <tbody>
-              {backtest.buckets
-                .filter((b) => b.count > 0)
-                .map((b) => (
-                  <tr
-                    key={`${b.zone}-${b.horizonDays}`}
-                    className={b.zone === zone ? "hl" : ""}
-                  >
-                    <td className={zoneClass(b.zone)}>{ZONE_LABELS[b.zone]}</td>
-                    <td>{b.horizonDays === 21 ? "1 tháng" : b.horizonDays === 63 ? "3 tháng" : "6 tháng"}</td>
-                    <td>{b.count}</td>
-                    <td>{b.pctFavorable === null ? "—" : `${fmtNum(b.pctFavorable)}%`}</td>
-                    <td>
-                      {b.medianReturnPct === null
-                        ? "—"
-                        : `${b.medianReturnPct >= 0 ? "+" : ""}${fmtNum(b.medianReturnPct)}%`}
-                    </td>
-                  </tr>
+              </div>
+              {c.provisional && (
+                <div className="banner info small">
+                  Đang dùng ngưỡng tham chiếu — dữ liệu chênh lệch tự thu thập mới{" "}
+                  {analysis.vnHistoryDays} ngày, cần ≥ 90 ngày để so theo lịch sử thật.
+                </div>
+              )}
+              <ul className="signals">
+                {c.signals.map((s) => (
+                  <li key={s.id} className={s.available ? "" : "muted"}>
+                    {scoreChip(s.score)}
+                    <div>
+                      <div className="sig-label">{s.label}</div>
+                      <div className="sig-expl">{s.explanation}</div>
+                    </div>
+                  </li>
                 ))}
-            </tbody>
-          </table>
+              </ul>
+            </section>
+          ))}
         </div>
-      </section>
+      </details>
 
-      <PremiumChart analysis={analysis} />
+      {/* ── ACCORDION 3: Kiểm chứng lịch sử (backtest) ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Kiểm chứng lịch sử</span>
+            <span className="acc-sum-meta">backtest đa kỳ hạn</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body">
+          <p className="muted small">
+            {backtest.note} Giai đoạn {backtest.fromDate} → {backtest.toDate},{" "}
+            {backtest.observations.toLocaleString("vi-VN")} quan sát.
+          </p>
+          <div className="bt-table-wrap">
+            <table className="bt-table">
+              <thead>
+                <tr>
+                  <th>Tín hiệu</th>
+                  <th>Kỳ hạn</th>
+                  <th>Số lần</th>
+                  <th>% thuận chiều</th>
+                  <th>Trung vị</th>
+                </tr>
+              </thead>
+              <tbody>
+                {backtest.buckets
+                  .filter((b) => b.count > 0)
+                  .map((b) => (
+                    <tr
+                      key={`${b.zone}-${b.horizonDays}`}
+                      className={b.zone === zone ? "hl" : ""}
+                    >
+                      <td className={zoneClass(b.zone)}>{ZONE_LABELS[b.zone]}</td>
+                      <td>{b.horizonDays === 21 ? "1 tháng" : b.horizonDays === 63 ? "3 tháng" : "6 tháng"}</td>
+                      <td>{b.count}</td>
+                      <td>{b.pctFavorable === null ? "—" : `${fmtNum(b.pctFavorable)}%`}</td>
+                      <td>
+                        {b.medianReturnPct === null
+                          ? "—"
+                          : `${b.medianReturnPct >= 0 ? "+" : ""}${fmtNum(b.medianReturnPct)}%`}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
 
-      <BottomGauges bottom={bottom} />
+      {/* ── ACCORDION 4: Chênh lệch VN−Thế giới ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Chênh lệch VN−Thế giới</span>
+            <span className="acc-sum-meta">biểu đồ + vạch p80</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body flat">
+          <PremiumChart analysis={analysis} />
+        </div>
+      </details>
 
-      <TimeMachine timeline={timeline} weights={weights} preset={preset} confirmedBottoms={bottom.confirmedBottoms} />
+      {/* ── ACCORDION 5: Săn đáy ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Săn đáy</span>
+            <span className="acc-sum-meta">đáy chu kỳ + đáy sóng</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body flat">
+          <BottomGauges bottom={bottom} />
+        </div>
+      </details>
+
+      {/* ── ACCORDION 6: Máy thời gian ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Máy thời gian</span>
+            <span className="acc-sum-meta">tua lại lịch sử</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body flat">
+          <TimeMachine timeline={timeline} weights={weights} preset={preset} confirmedBottoms={bottom.confirmedBottoms} />
+        </div>
+      </details>
 
       <footer className="disclaimer">
         Công cụ hỗ trợ quyết định dựa trên thống kê quá khứ — không phải khuyến nghị đầu tư,
