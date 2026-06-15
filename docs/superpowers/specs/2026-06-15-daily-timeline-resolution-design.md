@@ -71,7 +71,7 @@ Không đổi logic merge (run.ts:269-276 đã merge theo NGÀY, bền). Giờ
 ### UI — không đổi code
 
 `TimeMachine.tsx` đọc `timeline.points`; date picker đã dùng `indexOnOrBefore`
-nên T7/CN tự lùi về T6. Comment `POINTS_PER_MONTH = 7` (backtest.tsx:62-63)
+nên T7/CN tự lùi về T6. Comment `POINTS_PER_MONTH = 7` (TimeMachine.tsx:62-63)
 giả định "mẫu mỗi 3 phiên → ~7 điểm/tháng" giờ sai — cập nhật thành ~21
 phiên/tháng để các nút zoom (6 tháng, 1 năm…) căn cửa sổ đúng số điểm.
 
