@@ -59,8 +59,8 @@ function verdictFor(zone: Zone, ret: number | null, h: "21" | "63" | "126"): "ri
   return (buyish ? ret > 0 : ret < 0) ? "right" : "wrong";
 }
 
-// timeline lấy mẫu mỗi 3 phiên -> ~7 điểm/tháng
-const POINTS_PER_MONTH = 7;
+// timeline lấy mẫu mỗi phiên giao dịch -> ~21 phiên/tháng
+const POINTS_PER_MONTH = 21;
 /** cửa sổ nhỏ nhất của brush/zoom (~2 tuần) */
 const MIN_SPAN = 14;
 
