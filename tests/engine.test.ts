@@ -338,9 +338,9 @@ describe("backtest", () => {
     }
   });
 
-  it("timeline's last point is the final bar even when off the step grid", () => {
-    // 1400 bars: with WARMUP=756, STEP=3 the last grid index is 1398, so the
-    // true last bar (1399) is off-grid and must be appended.
+  it("timeline's last point is the final bar (lưới dày STEP=1)", () => {
+    // Lưới timeline bước 1: bar cuối luôn nằm trong lưới, điểm cuối = bar cuối,
+    // chưa có dữ liệu tương lai nên returns ngắn hạn null.
     const bars = range(1400, (i) => ({
       date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
       close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
@@ -351,9 +351,8 @@ describe("backtest", () => {
     expect(timeline.points[timeline.points.length - 1].returns["21"]).toBeNull();
   });
 
-  it("does not duplicate the last point when the final bar is on the step grid", () => {
-    // n=1300: (1300-1-756)=543 divisible by STEP=3, so the last grid index IS
-    // the final bar — the append guard must suppress a duplicate.
+  it("timeline không trùng điểm cuối, phủ đúng số bar sau warmup", () => {
+    // Lưới dày bước 1: không có ngày trùng, độ dài = số bar sau warmup.
     const bars = range(1300, (i) => ({
       date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
       close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
