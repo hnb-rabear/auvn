@@ -260,6 +260,51 @@ describe("bootstrap CI", () => {
 });
 
 describe("backtest", () => {
+  it("tách sampling KHÔNG đổi buckets thống kê (golden)", () => {
+    const bars = range(1400, (i) => ({
+      date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+      close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
+    }));
+    const { backtest: bt } = runBacktest(bars, null, null);
+    // Giá trị chốt từ engine STEP=3 hiện tại (đặc trưng hóa trước khi đổi).
+    expect(bt.observations).toBe(216);
+    const snap = bt.buckets
+      .filter((b) => b.count > 0)
+      .map((b) => `${b.zone}|${b.horizonDays}:${b.count}:${b.pctFavorable}:${b.medianReturnPct}`);
+    expect(snap).toEqual([
+      "buy|21:99:12.1:-3.5",
+      "buy|63:85:20:-8.5",
+      "buy|126:64:42.2:-5.5",
+      "neutral|21:50:null:2.3",
+      "neutral|63:50:null:10.9",
+      "neutral|126:50:null:26.7",
+      "sell|21:51:17.6:3.6",
+      "sell|63:51:31.4:7.9",
+      "sell|126:51:37.3:6.1",
+      "strong-sell|21:8:0:1.9",
+      "strong-sell|63:8:0:2.6",
+      "strong-sell|126:8:100:-4",
+    ]);
+  });
+
+  it("timeline lấy mẫu mỗi phiên (phủ mọi bar sau warmup)", () => {
+    const bars = range(1400, (i) => ({
+      date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+      close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
+    }));
+    const WARMUP = 756;
+    const { timeline } = runBacktest(bars, null, null);
+    // STEP=1: mỗi bar từ WARMUP đến hết là một điểm.
+    expect(timeline.points.length).toBe(bars.length - WARMUP); // 644
+    // không trùng ngày liền kề
+    for (let i = 1; i < timeline.points.length; i++) {
+      expect(timeline.points[i].date).not.toBe(timeline.points[i - 1].date);
+    }
+    // điểm cuối là bar cuối, chưa có dữ liệu tương lai
+    expect(timeline.points[timeline.points.length - 1].date).toBe(bars[bars.length - 1].date);
+    expect(timeline.points[timeline.points.length - 1].returns["21"]).toBeNull();
+  });
+
   it("runs on synthetic series and produces sane buckets", () => {
     const bars = range(1400, (i) => ({
       date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
@@ -280,8 +325,8 @@ describe("backtest", () => {
       .reduce((a, b) => a + b.count, 0);
     expect(total21).toBeGreaterThan(0);
 
-    // timeline: mỗi quan sát một điểm, điểm cuối chưa có dữ liệu tương lai
-    expect(timeline.points.length).toBe(bt.observations);
+    // timeline dày hơn thống kê: mỗi phiên một điểm, observations lấy mẫu thưa
+    expect(timeline.points.length).toBeGreaterThan(bt.observations);
     const lastP = timeline.points[timeline.points.length - 1];
     expect(lastP.returns["126"]).toBeNull();
     const firstP = timeline.points[0];
@@ -300,11 +345,10 @@ describe("backtest", () => {
       date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
       close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
     }));
-    const { backtest: bt, timeline } = runBacktest(bars, null, null);
+    const { timeline } = runBacktest(bars, null, null);
     const lastBarDate = bars[bars.length - 1].date;
     expect(timeline.points[timeline.points.length - 1].date).toBe(lastBarDate);
     expect(timeline.points[timeline.points.length - 1].returns["21"]).toBeNull();
-    expect(timeline.points.length).toBe(bt.observations);
   });
 
   it("does not duplicate the last point when the final bar is on the step grid", () => {
@@ -314,12 +358,13 @@ describe("backtest", () => {
       date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
       close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
     }));
-    const { backtest: bt, timeline } = runBacktest(bars, null, null);
+    const { timeline } = runBacktest(bars, null, null);
     const pts = timeline.points;
     expect(pts[pts.length - 1].date).toBe(bars[bars.length - 1].date);
     // no duplicate final point
     expect(pts[pts.length - 1].date).not.toBe(pts[pts.length - 2].date);
-    expect(pts.length).toBe(bt.observations);
+    const WARMUP = 756;
+    expect(pts.length).toBe(bars.length - WARMUP); // 1300-756=544, lưới dày STEP=1
   });
 
   it("includes the macro criterion when DXY is present but Fed is missing", () => {

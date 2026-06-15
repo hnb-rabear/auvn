@@ -59,10 +59,10 @@ export function runBacktest(
   const vixBars = extras.vix ?? null;
   const gprBars = extras.gpr ?? null;
 
-  const idxs: number[] = [];
-  for (let i = WARMUP; i < closes.length; i += STEP) idxs.push(i);
-  if (idxs.length && idxs[idxs.length - 1] !== closes.length - 1) idxs.push(closes.length - 1);
-  for (const i of idxs) {
+  // Tính criteria/composite/scores/returns past-only cho MỘT index. Dùng chung
+  // cho cả lưới thống kê (thưa) lẫn lưới hiển thị (dày) — giá trị một ngày là
+  // hàm thuần của ngày đó, không phụ thuộc lưới.
+  const evalAt = (i: number): { point: TimelinePoint; zone: Zone } => {
     const date = dates[i];
     const closesUpTo = closes.slice(0, i + 1);
     const datesUpTo = dates.slice(0, i + 1);
@@ -117,37 +117,65 @@ export function runBacktest(
 
     const composite = compositeScore(criteria, DEFAULT_WEIGHTS);
     const zone = zoneOf(composite);
-    observations++;
 
     const fwd: TimelinePoint["returns"] = { "21": null, "63": null, "126": null };
     for (const h of horizons) {
       if (i + h >= closes.length) continue;
       const r = (closes[i + h] / closes[i] - 1) * 100;
       fwd[String(h) as keyof TimelinePoint["returns"]] = Math.round(r * 10) / 10;
-      const key = `${zone}|${h}`;
-      const arr = returns.get(key) ?? [];
-      arr.push(r);
-      returns.set(key, arr);
     }
 
     const scores: TimelinePoint["scores"] = {};
     for (const c of criteria) {
       if (c.available) scores[c.key] = Math.round(c.score * 100) / 100;
     }
-
     if (extras.momentum12m) {
       const mc = momentumCriterion(closesUpTo);
       if (mc.available) scores[mc.key] = Math.round(mc.score * 100) / 100;
     }
 
-    points.push({
+    const point: TimelinePoint = {
       date,
       price: Math.round(closes[i] * 10) / 10,
       composite,
       zone,
       scores,
       returns: fwd,
-    });
+    };
+    return { point, zone };
+  };
+
+  // --- Lưới THỐNG KÊ (thưa, STEP) — nuôi returns map + observations. Giữ STEP
+  // để chống pseudo-replication: cửa sổ return của ngày liền kề chồng lấn nặng,
+  // chấm mỗi ngày sẽ phình n giả và co CI giả. KHÔNG đổi sang bước 1.
+  const statIdxs: number[] = [];
+  for (let i = WARMUP; i < closes.length; i += STEP) statIdxs.push(i);
+  if (statIdxs.length && statIdxs[statIdxs.length - 1] !== closes.length - 1)
+    statIdxs.push(closes.length - 1);
+  for (const i of statIdxs) {
+    const { zone } = evalAt(i);
+    observations++;
+    for (const h of horizons) {
+      if (i + h >= closes.length) continue;
+      const r = (closes[i + h] / closes[i] - 1) * 100;
+      const key = `${zone}|${h}`;
+      const arr = returns.get(key) ?? [];
+      arr.push(r);
+      returns.set(key, arr);
+    }
+  }
+
+  // --- Lưới HIỂN THỊ (dày, mỗi phiên) — nuôi timeline.points để tra cứu mọi
+  // ngày T2–T6. KHÔNG đẩy vào returns map (thống kê đã xong ở lưới thưa).
+  // Pointer dxyPtr/fedPtr/... được evalAt tua tiến đơn điệu; reset về 0 trước
+  // lưới dày vì các index quay lại từ WARMUP.
+  dxyPtr = 0;
+  fedPtr = 0;
+  yieldPtr = 0;
+  vixPtr = 0;
+  gprPtr = 0;
+  for (let i = WARMUP; i < closes.length; i += 1) {
+    points.push(evalAt(i).point);
   }
 
   const zones: Zone[] = ["strong-buy", "buy", "neutral", "sell", "strong-sell"];
