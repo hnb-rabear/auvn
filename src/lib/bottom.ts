@@ -178,28 +178,39 @@ function buildTier(
   cfg: BottomTierConfig,
   featuresAt: (i: number) => BottomDriver[]
 ): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[] } {
-  const rows: HistRow[] = [];
-  const idxs: number[] = [];
-  for (let i = WARMUP; i < closes.length; i += STEP) idxs.push(i);
-  if (idxs.length && idxs[idxs.length - 1] !== closes.length - 1) idxs.push(closes.length - 1);
-  for (const i of idxs) {
+  // Đánh giá một index: drivers + score + bin + label (đều past-only, hàm thuần
+  // của index — không phụ thuộc lưới nào gọi).
+  const evalRow = (i: number): HistRow => {
     const drivers = featuresAt(i);
     const score = bottomScore(drivers, cfg.weights);
     const bin = binOf(score, cfg.binEdges);
     const label = labelNearBottom(closes, i, cfg.horizonDays, cfg.epsPct);
-    rows.push({ i, date: dates[i], score, bin, label });
-  }
-  const currentDrivers = featuresAt(closes.length - 1);
-  const curScore = bottomScore(currentDrivers, cfg.weights);
+    return { i, date: dates[i], score, bin, label };
+  };
+
+  const curDrivers = featuresAt(closes.length - 1);
+  const curScore = bottomScore(curDrivers, cfg.weights);
   const curBin = binOf(curScore, cfg.binEdges);
 
-  const labeled = rows.filter((r) => r.label !== null && r.bin === curBin);
+  // --- Lưới THƯA (STEP) — base-rate prob/ci/n. Giữ STEP để chống
+  // pseudo-replication: ngày liền kề có cửa sổ near-bottom chồng lấn, chấm mỗi
+  // ngày sẽ phình n giả và co CI giả. KHÔNG đổi sang bước 1.
+  const statRows: HistRow[] = [];
+  for (let i = WARMUP; i < closes.length; i += STEP) statRows.push(evalRow(i));
+  if (statRows.length && statRows[statRows.length - 1].i !== closes.length - 1)
+    statRows.push(evalRow(closes.length - 1));
+  const labeled = statRows.filter((r) => r.label !== null && r.bin === curBin);
   const favArr = labeled.map((r) => (r.label ? 1 : -1));
   const n = labeled.length;
   const prob = n ? Math.round((favArr.filter((x) => x > 0).length / n) * 1000) / 10 : 0;
   const ci = blockBootstrapCi(favArr, Math.max(1, Math.round(cfg.horizonDays / 3)));
 
-  return { result: { prob, ci, bin: curBin, n }, rows, currentDrivers };
+  // --- Lưới DÀY (mỗi phiên) — rows cho signalHistory (bin từng ngày cho Time
+  // Machine) + confirmedBottoms (không sót đáy off-grid). KHÔNG nuôi prob/ci/n.
+  const rows: HistRow[] = [];
+  for (let i = WARMUP; i < closes.length; i += 1) rows.push(evalRow(i));
+
+  return { result: { prob, ci, bin: curBin, n }, rows, currentDrivers: curDrivers };
 }
 
 /** Chạy engine xác suất đáy 2 tầng. closes/dxy/fed/yield giống runBacktest. */
@@ -213,13 +224,21 @@ export function runBottom(
   const dates = xau.map((b) => b.date);
   const yieldBars = extras.yield10y?.bars ?? null;
 
+  // featuresAt là hàm thuần của i nhưng đắt (O(i) slice/filter + chỉ báo). Cả hai
+  // tầng cycle/swing và lưới thưa/dày đều gọi lại cùng index ⇒ memo theo i để
+  // tránh tính lặp (lưới dày STEP=1 nay chấm mỗi phiên).
+  const featCache = new Map<number, BottomDriver[]>();
   const featuresAt = (i: number): BottomDriver[] => {
+    const hit = featCache.get(i);
+    if (hit) return hit;
     const upTo = closes.slice(0, i + 1);
     const di = dates[i];
     const dxyCloses = dxy ? dxy.filter((b) => b.date <= di).map((b) => b.close) : [];
     const yieldCloses = yieldBars ? yieldBars.filter((b) => b.date <= di).map((b) => b.close) : null;
     const fedRates = fed ? fed.filter((f) => f.date <= di).map((f) => f.value) : [];
-    return bottomFeatures({ closes: upTo, dxyCloses, yieldCloses, fedRates });
+    const out = bottomFeatures({ closes: upTo, dxyCloses, yieldCloses, fedRates });
+    featCache.set(i, out);
+    return out;
   };
 
   const cycle = buildTier(closes, dates, BOTTOM_CONFIG.cycle, featuresAt);

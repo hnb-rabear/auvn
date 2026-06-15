@@ -198,6 +198,18 @@ describe("runBottom", () => {
     expect(r.confirmedBottoms[0]).toHaveProperty("tier");
   });
 
+  it("signalHistory dày mỗi phiên nhưng prob/n giữ lưới thưa", () => {
+    const WARMUP = 756;
+    const r = runBottom(bars, null, null, {});
+    // signalHistory phủ mọi bar sau warmup (lưới dày STEP=1)
+    expect(r.signalHistory.length).toBe(bars.length - WARMUP); // 1600-756=844
+    // prob/n KHÔNG đổi: vẫn lưới thưa STEP=3 (đặc trưng hóa giá trị hiện tại)
+    expect(r.cycle.n).toBe(94);
+    expect(r.cycle.prob).toBe(78.7);
+    expect(r.swing.n).toBe(95);
+    expect(r.swing.prob).toBe(100);
+  });
+
   it("signalHistory bao phủ bar mới nhất (cycleBin/swingBin không undefined trên điểm cuối)", () => {
     // Kiểm tra fix: loop buildTier phải append bar cuối kể cả khi không khớp lưới STEP
     const r = runBottom(bars, null, null, {});
