@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-16T23:17:49.271Z",
+ "generatedAt": "2026-06-16T23:53:33.918Z",
  "dataDate": "2026-06-16",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4355.5,
+  "xauUsd": 4353,
   "usdVnd": 26423,
-  "worldVndPerLuong": 138753029,
+  "worldVndPerLuong": 138673387,
   "premiumPct": 8.97,
-  "premiumVnd": 11746971
+  "premiumVnd": 11826613
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 45,5: trung tính.",
+     "explanation": "RSI ngày = 45,3: trung tính.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 24,9%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 24,8%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-16T04:00:00.000Z",
   "yield10y": "2026-06-16T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-16T23:17:49.271Z",
+  "usdVnd": "2026-06-16T23:53:33.918Z",
   "fed": null
  }
 }
