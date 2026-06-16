@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { applyBrushDrag, centerWindow } from "../src/lib/brush";
+import { applyBrushDrag, centerWindow, zoomTo } from "../src/lib/brush";
 
 // total = 100 điểm, minSpan = 14, cửa sổ neo: start 40, span 20
 const TOTAL = 100;
@@ -100,5 +100,25 @@ describe("centerWindow — biên hiếm", () => {
   });
   it("span > total: kẹp về toàn cửa sổ", () => {
     expect(centerWindow(5, 200, TOTAL)).toBe(0);
+  });
+});
+
+describe("zoomTo", () => {
+  it("factor < 1 = phóng to: span hẹp lại, căn tâm", () => {
+    // anchorSpan 40, factor 0.5 -> span 20, center 50 -> start 40
+    expect(zoomTo(40, 0.5, 50, TOTAL, MIN)).toEqual({ start: 40, span: 20 });
+  });
+  it("factor > 1 = thu nhỏ: span rộng ra", () => {
+    expect(zoomTo(20, 2, 50, TOTAL, MIN)).toEqual({ start: 30, span: 40 });
+  });
+  it("kẹp span tại minSpan khi phóng quá sâu", () => {
+    expect(zoomTo(20, 0.1, 50, TOTAL, MIN)).toEqual({ start: 43, span: 14 });
+  });
+  it("kẹp span tại total khi thu quá rộng", () => {
+    expect(zoomTo(80, 5, 50, TOTAL, MIN)).toEqual({ start: 0, span: 100 });
+  });
+  it("căn tâm kẹp biên trái", () => {
+    // span 20 quanh center 3 -> start kẹp 0
+    expect(zoomTo(40, 0.5, 3, TOTAL, MIN)).toEqual({ start: 0, span: 20 });
   });
 });

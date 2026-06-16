@@ -37,3 +37,19 @@ export function centerWindow(centerIdx: number, span: number, total: number): nu
   const sp = Math.min(span, total);
   return clamp(centerIdx - Math.floor(sp / 2), 0, total - sp);
 }
+
+/**
+ * Zoom cửa sổ: nhân span với factor (factor<1 = phóng to, >1 = thu nhỏ),
+ * kẹp [minSpan, total], rồi căn tâm quanh centerIdx. Dùng cho pinch + wheel.
+ */
+export function zoomTo(
+  anchorSpan: number,
+  factor: number,
+  centerIdx: number,
+  total: number,
+  minSpan: number
+): { start: number; span: number } {
+  const min = Math.min(minSpan, total);
+  const span = clamp(Math.round(anchorSpan * factor), min, total);
+  return { start: centerWindow(centerIdx, span, total), span };
+}
