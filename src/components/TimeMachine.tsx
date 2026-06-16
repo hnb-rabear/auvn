@@ -62,6 +62,8 @@ function verdictFor(zone: Zone, ret: number | null, h: "21" | "63" | "126"): "ri
 const POINTS_PER_MONTH = 21;
 /** cửa sổ nhỏ nhất của brush/zoom (~2 tuần) */
 const MIN_SPAN = 14;
+/** ngưỡng px phân biệt chạm (chọn ngày) vs kéo (pan) */
+const TAP_PX = 6;
 
 export default function TimeMachine({
   timeline,
@@ -170,11 +172,14 @@ export default function TimeMachine({
   const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
     pts.current.set(e.pointerId, e.clientX);
     svgRef.current?.setPointerCapture(e.pointerId);
-    if (pts.current.size === 2) {
-      const xs = [...pts.current.values()];
-      const dist = Math.abs(xs[0] - xs[1]) || 1;
-      const centerX = (xs[0] + xs[1]) / 2;
-      pinch.current = { startDist: dist, anchorSpan: span, centerIdx: xToIdx(centerX) };
+    if (pts.current.size >= 2) {
+      // chỉ khởi tạo pinch khi vừa chạm ngón thứ 2; ngón thứ 3+ bỏ qua, không đụng drag
+      if (pts.current.size === 2) {
+        const xs = [...pts.current.values()];
+        const dist = Math.abs(xs[0] - xs[1]) || 1;
+        const centerX = (xs[0] + xs[1]) / 2;
+        pinch.current = { startDist: dist, anchorSpan: span, centerIdx: xToIdx(centerX) };
+      }
       drag.current = null;
       return;
     }
@@ -201,7 +206,7 @@ export default function TimeMachine({
     const rect = svgRef.current?.getBoundingClientRect();
     if (!rect || rect.width === 0) return;
     const dxPx = e.clientX - d.originX;
-    if (!d.moved && Math.abs(dxPx) < 6) return;
+    if (!d.moved && Math.abs(dxPx) < TAP_PX) return;
     d.moved = true;
     const deltaIdx = -Math.round((dxPx / rect.width) * span);
     const next = applyBrushDrag("pan", d.anchorStart, span, deltaIdx, points.length, MIN_SPAN);
@@ -213,8 +218,22 @@ export default function TimeMachine({
     if (wasTap) setIdx(xToIdx(e.clientX));
     pts.current.delete(e.pointerId);
     svgRef.current?.releasePointerCapture(e.pointerId);
-    if (pts.current.size < 2) pinch.current = null;
     if (drag.current?.pointerId === e.pointerId) drag.current = null;
+    if (pts.current.size < 2) {
+      pinch.current = null;
+      // còn đúng 1 ngón sau khi nhả khỏi pinch ⇒ tiếp tục cho phép pan bằng ngón đó
+      if (pts.current.size === 1) {
+        const [pid, clientX] = [...pts.current.entries()][0];
+        drag.current = { pointerId: pid, originX: clientX, anchorStart: startRef.current, moved: false };
+      }
+    }
+  };
+
+  const onPointerCancel = (e: React.PointerEvent<SVGSVGElement>) => {
+    pts.current.delete(e.pointerId);
+    svgRef.current?.releasePointerCapture(e.pointerId);
+    if (drag.current?.pointerId === e.pointerId) drag.current = null;
+    if (pts.current.size < 2) pinch.current = null;
   };
 
   const composite = p ? comps[idx] : 0;
@@ -421,7 +440,7 @@ export default function TimeMachine({
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
+            onPointerCancel={onPointerCancel}
             aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
           >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
