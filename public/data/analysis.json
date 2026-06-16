@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-06-16T00:01:06.224Z",
+ "generatedAt": "2026-06-16T00:05:29.352Z",
  "dataDate": "2026-06-15",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 144000000,
-  "sjcSell": 147000000,
-  "ringBuy": 144000000,
-  "ringSell": 147000000,
-  "xauUsd": 4338.5,
+  "sjcBuy": 148000000,
+  "sjcSell": 150500000,
+  "ringBuy": 148000000,
+  "ringSell": 150500000,
+  "xauUsd": 4340.10009765625,
   "usdVnd": 26423,
-  "worldVndPerLuong": 138211461,
-  "premiumPct": 8.91,
-  "premiumVnd": 8788539
+  "worldVndPerLuong": 138262435,
+  "premiumPct": 8.97,
+  "premiumVnd": 12237565
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 44,3: trung tính.",
+     "explanation": "RSI ngày = 44,4: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 44,8: trung tính.",
+     "explanation": "RSI tuần = 44,9: trung tính.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 99,7 (trên MA50, +0,8% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 99,6 (trên MA50, +0,8% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 25,8%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 25,9%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +26,4% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +26,5% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -186,7 +186,10 @@
  "composite": 10.3,
  "zone": "neutral",
  "vnHistoryDays": 491,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2163,7 +2166,7 @@
   "dxy": "2026-06-15T04:00:00.000Z",
   "yield10y": "2026-06-15T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-16T00:01:06.224Z",
+  "usdVnd": "2026-06-16T00:05:29.352Z",
   "fed": null
  }
 }
