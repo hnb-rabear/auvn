@@ -508,6 +508,8 @@ td.neutral {
   font-size: 11px;
   line-height: 1;
   color: #4cc97a;
+  /* đặt ngay DƯỚI đáy, mũi nhọn chỉ lên vào điểm giá (không đè đường giá) */
+  transform: translate(-50%, 2px);
 }
 .tm-mk.bottom.swing {
   color: #86efac;
