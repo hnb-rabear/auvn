@@ -460,6 +460,67 @@ td.neutral {
   user-select: none;
   cursor: crosshair;
 }
+/* marker overlay — luôn tròn (SVG circle bị preserveAspectRatio:none kéo méo).
+   bottom:6px khớp margin-bottom của .tm-chart ⇒ overlay phủ đúng vùng 200px vẽ. */
+.tm-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  pointer-events: none;
+}
+.tm-mk {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.tm-mk.buy,
+.tm-mk.sell,
+.tm-mk.cursor {
+  border-radius: 50%;
+}
+.tm-mk.buy {
+  width: 7px;
+  height: 7px;
+  background: #4cc97a;
+  opacity: 0.85;
+}
+.tm-mk.sell {
+  width: 7px;
+  height: 7px;
+  background: #e05c5c;
+  opacity: 0.8;
+}
+.tm-mk.exp {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.3px solid #5ca8e0;
+  box-sizing: border-box;
+  opacity: 0.85;
+}
+.tm-mk.cursor {
+  width: 8px;
+  height: 8px;
+  background: #ece5d8;
+}
+.tm-mk.bottom {
+  font-size: 11px;
+  line-height: 1;
+  color: #4cc97a;
+}
+.tm-mk.bottom.swing {
+  color: #86efac;
+}
+.tm-markers.dense .tm-mk.buy,
+.tm-markers.dense .tm-mk.sell {
+  width: 5px;
+  height: 5px;
+}
+.tm-markers.dense .tm-mk.exp {
+  width: 6px;
+  height: 6px;
+}
 /* nút nổi nhảy tín hiệu mua — 2 mép chart */
 .tm-fab {
   position: absolute;

@@ -330,9 +330,10 @@ export default function TimeMachine({
 
   if (!p) return null;
 
-  // chấm tín hiệu/bán nhỏ lại khi zoom rộng; vòng ngưỡng thử luôn +1 để bao quanh chấm cùng ngày
-  const dotR = span > 24 * POINTS_PER_MONTH ? 2 : 3.5;
-  const ringR = dotR + 1;
+  // marker vẽ bằng HTML overlay (luôn tròn) thay vì <circle> trong SVG —
+  // SVG dùng preserveAspectRatio="none" nên <circle> bị kéo méo thành elip.
+  // chấm nhỏ lại khi zoom rộng để đỡ rối.
+  const denseDots = span > 24 * POINTS_PER_MONTH;
 
   return (
     <section className="card">
@@ -444,35 +445,34 @@ export default function TimeMachine({
             aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
           >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
-          {spark.expMarkers.map((m, i) => (
-            <circle
-              key={`x${i}`}
-              cx={m.cx}
-              cy={m.cy}
-              r={ringR}
-              fill="none"
-              stroke="#5ca8e0"
-              strokeWidth="1.3"
-              opacity="0.8"
-            />
-          ))}
-          {spark.sellMarkers.map((m, i) => (
-            <circle key={`s${i}`} cx={m.cx} cy={m.cy} r={dotR} fill="#e05c5c" opacity="0.7" />
-          ))}
-          {spark.markers.map((m, i) => (
-            <circle key={i} cx={m.cx} cy={m.cy} r={dotR} fill="#4cc97a" opacity="0.75" />
-          ))}
-          {spark.bottomMarkers.map((m, i) => (
-            <text key={`bm${i}`} x={m.cx} y={m.cy + 13} fontSize={11}
-                  fill={m.tier === "cycle" ? "#4cc97a" : "#86efac"} textAnchor="middle">▲</text>
-          ))}
           {spark.cx !== null && (
-            <>
-              <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
-              <circle cx={spark.cx} cy={spark.cy!} r="4" fill="#ece5d8" />
-            </>
+            <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
           )}
           </svg>
+          {/* marker overlay HTML — tròn tuyệt đối, không méo theo SVG stretch.
+              left/top theo % của viewBox (preserveAspectRatio="none" ⇒ map tuyến tính). */}
+          <div className={`tm-markers ${denseDots ? "dense" : ""}`} aria-hidden>
+            {spark.expMarkers.map((m, i) => (
+              <span key={`x${i}`} className="tm-mk exp"
+                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
+            ))}
+            {spark.sellMarkers.map((m, i) => (
+              <span key={`s${i}`} className="tm-mk sell"
+                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
+            ))}
+            {spark.markers.map((m, i) => (
+              <span key={i} className="tm-mk buy"
+                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
+            ))}
+            {spark.bottomMarkers.map((m, i) => (
+              <span key={`bm${i}`} className={`tm-mk bottom ${m.tier}`}
+                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }}>▲</span>
+            ))}
+            {spark.cx !== null && (
+              <span className="tm-mk cursor"
+                style={{ left: `${(spark.cx / spark.W) * 100}%`, top: `${(spark.cy! / spark.H) * 100}%` }} />
+            )}
+          </div>
           <button
             className="tm-fab left"
             disabled={prevSignal === undefined}
