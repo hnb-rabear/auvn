@@ -445,50 +445,79 @@ td.neutral {
   margin-bottom: 8px;
 }
 
-.premium-spark {
-  height: 160px;
+/* chart TimeMachine — class riêng, KHÔNG đụng .spark (dùng chung PremiumChart) */
+.tm-chartwrap {
+  position: relative;
 }
-
-.tm-brush {
+.tm-chart {
   width: 100%;
-  height: 34px;
+  height: 200px;
   display: block;
   background: var(--card2);
-  border-radius: 6px;
-  margin-bottom: 12px;
-  touch-action: none;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  touch-action: none; /* pan/pinch không cuộn trang */
   user-select: none;
-  outline-color: var(--gold);
+  cursor: crosshair;
 }
-
-.tm-brush-dim {
-  fill: rgba(0, 0, 0, 0.45);
+/* nút nổi nhảy tín hiệu mua — 2 mép chart */
+.tm-fab {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(21, 19, 15, 0.82);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
+.tm-fab.left { left: 6px; }
+.tm-fab.right { right: 6px; }
+.tm-fab:disabled { opacity: 0.3; cursor: default; }
 
-.tm-brush-win {
-  fill: rgba(230, 184, 76, 0.12);
-  stroke: var(--gold);
-  stroke-width: 1;
-  cursor: grab;
+/* dải ngày + zone dán ngay dưới chart */
+.tm-dateband {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 2px 0 10px;
+}
+.tm-dateband .d { font-weight: 700; }
+
+/* hàng kết quả 1T/3T/6T gọn 1 dải */
+.tm-results {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 0.86rem;
+  margin: 8px 0;
+}
+.tm-results .r b.buy { color: var(--buy); }
+.tm-results .r b.sell { color: var(--sell); }
+.tm-results .r.hl { font-weight: 700; }
+
+/* panel ⚙ tùy chọn phụ */
+.tm-gear {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.tm-brush-win:active {
-  cursor: grabbing;
-}
-
-.tm-brush-grip {
-  fill: var(--gold);
-  pointer-events: none;
-}
-
-.tm-brush-handle {
-  fill: transparent;
-  cursor: ew-resize;
-}
-
-.tm-clickable {
-  cursor: crosshair;
+.premium-spark {
+  height: 160px;
 }
 
 .tm-zoom {
@@ -515,34 +544,6 @@ td.neutral {
 
 .tm-toggle input {
   accent-color: var(--sell);
-}
-
-.tm-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.tm-nav .iconbtn:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.tm-detail {
-  background: var(--card2);
-  border-radius: 10px;
-  padding: 12px;
-}
-
-.tm-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 .tm-zone {
@@ -582,30 +583,6 @@ td.neutral {
   color: var(--neutral);
 }
 
-.tm-outcomes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 8px;
-}
-
-.tm-outcome {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.tm-outcome b.buy {
-  color: var(--buy);
-}
-
-.tm-outcome b.sell {
-  color: var(--sell);
-}
-
 .verdict-note {
   margin: 10px auto 0;
   max-width: 560px;
@@ -615,10 +592,6 @@ td.neutral {
   border-radius: 8px;
   padding: 8px 12px;
   text-align: left;
-}
-
-.tm-outcome.hl-horizon {
-  border-color: var(--gold);
 }
 
 .tm-verdict {
