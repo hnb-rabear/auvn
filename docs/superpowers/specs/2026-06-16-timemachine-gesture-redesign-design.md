@@ -47,7 +47,7 @@ Chart là bề mặt cử chỉ duy nhất, dùng chung mobile + desktop:
 
 - `applyBrushDrag(mode="pan")` — pan cửa sổ (đã có trong `src/lib/brush.ts`).
 - `centerWindow` — căn tâm khi zoom/pinch (đã có).
-- Logic phân biệt tap/drag theo px màn hình + `setPointerCapture` — đã có trong `TimelineBrush`/`TimeMachine`, chuyển vào TimeMachine.
+- Logic phân biệt tap/drag theo px màn hình + `setPointerCapture` — hiện chỉ có trong `TimelineBrush` (`onPointerDown/Move/Up`); `TimeMachine.onChartClick` mới chỉ là click `MouseEvent` thường. Chuyển cơ chế pointer của `TimelineBrush` vào `TimeMachine`, thay `onChartClick`.
 
 ## Bố cục dọc mới (trên → dưới)
 
@@ -67,7 +67,7 @@ Sau 1T +2,1%  ·  Sau 3T +5,4% ✓  ·  Sau 6T … (hàng kết quả gọn, pre
 Thứ tự: `chart → dải ngày+zone → Gợi ý hành động (đầy đủ) → hàng kết quả 1T/3T/6T → ▸ 4 điểm số (gập)`.
 
 Thay đổi so với hiện tại:
-1. **Chart cao ~200px** (thay 120px) — dễ đọc + dễ chạm, marker bớt chồng.
+1. **Chart cao ~200px** (thay 120px) — dễ đọc + dễ chạm, marker bớt chồng. *Lưu ý:* chart hiện dùng class `.spark` (cao 120px) **dùng chung với `PremiumChart`** (override `.premium-spark{height:160px}`). Phải đặt **class riêng** cho chart TimeMachine (vd `.tm-chart`) để đổi chiều cao mà không đụng `PremiumChart`; đổi thẳng `.spark` là sai.
 2. **Dải ngày + zone dán ngay dưới chart** (đang ở `tm-row` xa phía dưới) — chạm/kéo tới đâu thấy ngay.
 3. **Hàng kết quả 1T/3T/6T rút thành 1 dải gọn** thay 3 ô to; vẫn highlight kỳ hạn của preset, giữ verdict ✓/✗ theo `verdictFor`.
 4. **Gập phần nặng** vào 1 `<details>` "Chi tiết điểm số": 4 điểm số tiêu chí (`tm-scores`) + đoạn ghi chú "ở chế độ lịch sử…". Mở app thấy ngay chart + ngày + Gợi ý + kết quả.
@@ -93,7 +93,7 @@ Giữ 4 nhóm marker, ý nghĩa không đổi (chart cao hơn giúp bớt chồn
 
 - `src/components/TimeMachine.tsx` — viết lại render + thêm handler pan/tap/pinch/wheel; bố cục dọc mới; FAB; ⚙ panel gom tùy chọn phụ. Giữ nguyên toàn bộ logic tính toán.
 - `src/lib/brush.ts` — thêm helper pinch zoom thuần (+ export).
-- `src/app/globals.css` — `.tm-*`: chart cao 200px, `touch-action:none`, style FAB, dải ngày dưới chart, hàng kết quả gọn, ⚙ panel; bỏ `.tm-nav`, `.tm-brush*` (sau khi xóa component).
+- `src/app/globals.css` — thêm class chart riêng `.tm-chart` (cao ~200px, `touch-action:none`) thay vì sửa `.spark` (dùng chung `PremiumChart`); style FAB, dải ngày dưới chart, hàng kết quả gọn, ⚙ panel; bỏ `.tm-nav`, `.tm-brush*` (sau khi xóa component). Giữ `.spark`/`.premium-spark` nguyên cho `PremiumChart`.
 - `src/components/TimelineBrush.tsx` — **xóa**. `applyBrushDrag` trong `brush.ts` vẫn giữ (pan tái dùng).
 
 ## Test / kiểm chứng
