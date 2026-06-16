@@ -448,6 +448,8 @@ td.neutral {
 /* chart TimeMachine — class riêng, KHÔNG đụng .spark (dùng chung PremiumChart) */
 .tm-chartwrap {
   position: relative;
+  margin-bottom: 6px; /* khoảng cách tới dải ngày — đặt ở wrapper, KHÔNG ở .tm-chart,
+                         để wrapper cao đúng bằng SVG ⇒ overlay khớp tuyệt đối */
 }
 .tm-chart {
   width: 100%;
@@ -455,19 +457,15 @@ td.neutral {
   display: block;
   background: var(--card2);
   border-radius: 8px;
-  margin-bottom: 6px;
   touch-action: none; /* pan/pinch không cuộn trang */
   user-select: none;
   cursor: crosshair;
 }
 /* marker overlay — luôn tròn (SVG circle bị preserveAspectRatio:none kéo méo).
-   bottom:6px khớp margin-bottom của .tm-chart ⇒ overlay phủ đúng vùng 200px vẽ. */
+   inset:0 phủ đúng 200px của .tm-chart (wrapper cao bằng SVG) ⇒ chấm khớp đường giá. */
 .tm-markers {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 6px;
+  inset: 0;
   pointer-events: none;
 }
 .tm-mk {
