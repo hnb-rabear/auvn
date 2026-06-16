@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-16T23:03:49.410Z",
+ "generatedAt": "2026-06-16T23:17:49.271Z",
  "dataDate": "2026-06-16",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4353.60009765625,
+  "xauUsd": 4355.5,
   "usdVnd": 26423,
-  "worldVndPerLuong": 138692504,
+  "worldVndPerLuong": 138753029,
   "premiumPct": 8.97,
-  "premiumVnd": 11807496
+  "premiumVnd": 11746971
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 45,3: trung tính.",
+     "explanation": "RSI ngày = 45,5: trung tính.",
      "available": true
     },
     {
@@ -107,6 +107,13 @@
      "available": true
     },
     {
+     "id": "yield10y",
+     "label": "Lợi suất Mỹ 10 năm",
+     "score": -1,
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,43%, thay đổi 3 tháng +0,21 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "available": true
+    },
+    {
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
@@ -114,7 +121,7 @@
      "available": true
     }
    ],
-   "score": 0,
+   "score": -0.25,
    "available": true
   },
   {
@@ -146,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 24,8%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 24,9%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -176,13 +183,12 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 12.8,
+ "composite": 10.3,
  "zone": "neutral",
  "vnHistoryDays": 491,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất.",
-  "Không lấy được lợi suất Mỹ 10 năm — tín hiệu lợi suất tạm bỏ qua."
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
  ],
  "premiumSeries": [
   {
@@ -2158,9 +2164,9 @@
  "sourceTimes": {
   "world": "2026-06-16T04:00:00.000Z",
   "dxy": "2026-06-16T04:00:00.000Z",
-  "yield10y": null,
+  "yield10y": "2026-06-16T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-16T23:03:49.410Z",
+  "usdVnd": "2026-06-16T23:17:49.271Z",
   "fed": null
  }
 }
