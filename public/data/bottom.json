@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-16T18:48:13.980Z",
+ "generatedAt": "2026-06-16T20:25:10.783Z",
  "dataDate": "2026-06-16",
  "cycle": {
   "prob": 35.1,
@@ -14,28 +14,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 1,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 18%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 18,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -12,8% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -12,9% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 45,8: trung tính.",
+    "explanation": "RSI ngày = 45,4: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -4,25: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -4,7: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -49,7 +49,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +28,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +28,2% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    }
   ]
@@ -67,28 +67,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 1,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 18%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 18,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -12,8% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -12,9% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 45,8: trung tính.",
+    "explanation": "RSI ngày = 45,4: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -4,25: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -4,7: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -102,7 +102,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +28,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +28,2% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    }
   ]
