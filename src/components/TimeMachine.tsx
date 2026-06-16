@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BOTTOM_CONFIG,
   CRITERION_LABELS,
@@ -14,7 +14,7 @@ import {
 } from "@/lib/types";
 import { deriveGuidance } from "@/lib/guidance";
 import ActionGuidance from "./ActionGuidance";
-import { centerWindow } from "@/lib/brush";
+import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
 import {
   composites,
   idxsAtOrAbove,
@@ -22,7 +22,6 @@ import {
   indexOnOrAfter,
   indexOnOrBefore,
 } from "@/lib/timeline";
-import TimelineBrush from "./TimelineBrush";
 
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
@@ -87,12 +86,39 @@ export default function TimeMachine({
    * null = chưa kéo, bám theo ngưỡng chuẩn của chế độ đang chọn. */
   const [showExp, setShowExp] = useState(false);
   const [expThr, setExpThr] = useState<number | null>(null);
+  const [showGear, setShowGear] = useState(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
+  // trạng thái cử chỉ 1 ngón (pan/tap) — px màn hình
+  const drag = useRef<{
+    pointerId: number;
+    originX: number;
+    anchorStart: number;
+    moved: boolean;
+  } | null>(null);
+  // trạng thái pinch 2 ngón
+  const pinch = useRef<{
+    startDist: number;
+    anchorSpan: number;
+    centerIdx: number;
+  } | null>(null);
+  const pts = useRef<Map<number, number>>(new Map()); // pointerId -> clientX
   const p = points[idx];
 
   const span = Math.min(points.length, Math.max(Math.min(MIN_SPAN, points.length), viewSpan));
   const start = Math.max(0, Math.min(viewStart, points.length - span));
   const end = start + span;
+  const startRef = useRef(start);
+  startRef.current = start;
+
+  const xToIdx = useCallback(
+    (clientX: number) => {
+      const rect = svgRef.current?.getBoundingClientRect();
+      if (!rect || rect.width === 0) return idx;
+      const frac = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      return start + Math.round(frac * (span - 1));
+    },
+    [idx, start, span]
+  );
 
   const buyThr = preset?.buyThreshold ?? 40;
   const effThr = expThr ?? buyThr;
@@ -104,7 +130,6 @@ export default function TimeMachine({
     () => (showExp ? idxsAtOrAbove(comps, effThr) : []),
     [showExp, comps, effThr]
   );
-  const prices = useMemo(() => points.map((q) => q.price), [points]);
   const dates = useMemo(() => points.map((q) => q.date), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
@@ -133,12 +158,6 @@ export default function TimeMachine({
     else centerOn(idx, s);
   };
 
-  const onBrush = useCallback((s: number, sp: number) => {
-    setViewStart(s);
-    setViewSpan(sp);
-    setZoomMonths("custom");
-  }, []);
-
   /** Đặt cửa sổ theo khoảng index [fromIdx, toIdx] (kẹp biên, tối thiểu MIN_SPAN). */
   const applyDateRange = (fromIdx: number, toIdx: number) => {
     const lo = Math.max(0, Math.min(fromIdx, points.length - 1));
@@ -148,11 +167,54 @@ export default function TimeMachine({
     setZoomMonths("custom");
   };
 
-  const onChartClick = (e: React.MouseEvent<SVGSVGElement>) => {
+  const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    pts.current.set(e.pointerId, e.clientX);
+    svgRef.current?.setPointerCapture(e.pointerId);
+    if (pts.current.size === 2) {
+      const xs = [...pts.current.values()];
+      const dist = Math.abs(xs[0] - xs[1]) || 1;
+      const centerX = (xs[0] + xs[1]) / 2;
+      pinch.current = { startDist: dist, anchorSpan: span, centerIdx: xToIdx(centerX) };
+      drag.current = null;
+      return;
+    }
+    drag.current = { pointerId: e.pointerId, originX: e.clientX, anchorStart: start, moved: false };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!pts.current.has(e.pointerId)) return;
+    pts.current.set(e.pointerId, e.clientX);
+
+    if (pinch.current && pts.current.size >= 2) {
+      const xs = [...pts.current.values()];
+      const dist = Math.abs(xs[0] - xs[1]) || 1;
+      const factor = pinch.current.startDist / dist;
+      const next = zoomTo(pinch.current.anchorSpan, factor, pinch.current.centerIdx, points.length, MIN_SPAN);
+      setViewStart(next.start);
+      setViewSpan(next.span);
+      setZoomMonths("custom");
+      return;
+    }
+
+    const d = drag.current;
+    if (!d || e.pointerId !== d.pointerId) return;
     const rect = svgRef.current?.getBoundingClientRect();
     if (!rect || rect.width === 0) return;
-    const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    setIdx(start + Math.round(frac * (span - 1)));
+    const dxPx = e.clientX - d.originX;
+    if (!d.moved && Math.abs(dxPx) < 6) return;
+    d.moved = true;
+    const deltaIdx = -Math.round((dxPx / rect.width) * span);
+    const next = applyBrushDrag("pan", d.anchorStart, span, deltaIdx, points.length, MIN_SPAN);
+    setViewStart(next.start);
+  };
+
+  const onPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    const wasTap = drag.current?.pointerId === e.pointerId && drag.current?.moved === false;
+    if (wasTap) setIdx(xToIdx(e.clientX));
+    pts.current.delete(e.pointerId);
+    svgRef.current?.releasePointerCapture(e.pointerId);
+    if (pts.current.size < 2) pinch.current = null;
+    if (drag.current?.pointerId === e.pointerId) drag.current = null;
   };
 
   const composite = p ? comps[idx] : 0;
@@ -222,6 +284,31 @@ export default function TimeMachine({
     };
   }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end, confirmedBottoms, dates]);
 
+  // wheel zoom — listener gốc non-passive để preventDefault chặn cuộn trang
+  // (React onWheel là passive ⇒ preventDefault vô hiệu). Ref cập nhật để không
+  // gắn/gỡ listener mỗi lần span/start đổi.
+  const wheelState = useRef({ span, total: points.length });
+  wheelState.current = { span, total: points.length };
+  useEffect(() => {
+    const el = svgRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      e.preventDefault();
+      const rect = el.getBoundingClientRect();
+      if (rect.width === 0) return;
+      const { span: sp, total } = wheelState.current;
+      const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const centerIdx = startRef.current + Math.round(frac * (sp - 1));
+      const factor = e.deltaY > 0 ? 1.2 : 1 / 1.2;
+      const next = zoomTo(sp, factor, centerIdx, total, MIN_SPAN);
+      setViewStart(next.start);
+      setViewSpan(next.span);
+      setZoomMonths("custom");
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, [points.length]);
+
   if (!p) return null;
 
   // chấm tín hiệu/bán nhỏ lại khi zoom rộng; vòng ngưỡng thử luôn +1 để bao quanh chấm cùng ngày
@@ -239,9 +326,7 @@ export default function TimeMachine({
         </div>
       </div>
       <p className="muted small">
-        <b>Bấm vào biểu đồ</b> để chọn ngày — engine chấm điểm theo chế độ bạn đang chọn,
-        chỉ bằng dữ liệu có đến ngày đó, rồi đối chiếu giá thực tế sau 1/3/6 tháng xem
-        quyết định đúng hay sai. {timeline.note}
+        Kéo để trượt thời gian · chạm để chọn ngày · chụm 2 ngón (hoặc lăn chuột) để zoom. {timeline.note}
       </p>
 
       <div className="tm-zoom">
@@ -262,49 +347,49 @@ export default function TimeMachine({
             {label}
           </button>
         ))}
-        {spark && (
-          <span className="tm-daterange muted small" title="Chọn khung thời gian hiển thị">
-            <input
-              type="date"
-              value={points[start].date}
-              min={dates[0]}
-              max={points[end - 1].date}
-              onChange={(e) =>
-                e.target.value && applyDateRange(indexOnOrAfter(dates, e.target.value), end - 1)
-              }
-            />
-            <span aria-hidden>→</span>
-            <input
-              type="date"
-              value={points[end - 1].date}
-              min={points[start].date}
-              max={dates[dates.length - 1]}
-              onChange={(e) =>
-                e.target.value && applyDateRange(start, indexOnOrBefore(dates, e.target.value))
-              }
-            />
-          </span>
-        )}
-        <label className="tm-toggle muted small" title="Bán chỉ đúng 49% sau 1 tháng; kỳ hạn dài thì NGƯỢC (sau 6 tháng giá tăng trung vị +9,5%). Tín hiệu bán đáng tin hơn cho vàng VN: chênh lệch vượt p80 — xem biểu đồ chênh lệch.">
-          <input
-            type="checkbox"
-            checked={showSell}
-            onChange={(e) => setShowSell(e.target.checked)}
-          />
-          Hiện vùng bán (chỉ tham khảo 1 tháng)
-        </label>
-        <label
-          className="tm-toggle muted small"
-          title="Highlight mọi ngày có điểm ≥ ngưỡng bạn chọn — chỉ để khám phá, không phải tín hiệu kiểm chứng."
-        >
-          <input
-            type="checkbox"
-            checked={showExp}
-            onChange={(e) => setShowExp(e.target.checked)}
-          />
-          Ngưỡng thử nghiệm
-        </label>
+        <button
+          className="iconbtn small-btn"
+          onClick={() => setShowGear((v) => !v)}
+          aria-label="Tùy chọn"
+          title="Tùy chọn: vùng bán, ngưỡng thử, khoảng ngày"
+        >⚙</button>
       </div>
+
+      {showGear && (
+        <div className="tm-gear">
+          <label className="tm-toggle muted small">
+            <input type="checkbox" checked={showSell} onChange={(e) => setShowSell(e.target.checked)} />
+            Hiện vùng bán (chỉ tham khảo 1 tháng)
+          </label>
+          <label className="tm-toggle muted small">
+            <input type="checkbox" checked={showExp} onChange={(e) => setShowExp(e.target.checked)} />
+            Ngưỡng thử nghiệm
+          </label>
+          {spark && (
+            <span className="tm-daterange muted small">
+              <input
+                type="date"
+                value={points[start].date}
+                min={dates[0]}
+                max={points[end - 1].date}
+                onChange={(e) => e.target.value && applyDateRange(indexOnOrAfter(dates, e.target.value), end - 1)}
+              />
+              <span aria-hidden>→</span>
+              <input
+                type="date"
+                value={points[end - 1].date}
+                min={points[start].date}
+                max={dates[dates.length - 1]}
+                onChange={(e) => e.target.value && applyDateRange(start, indexOnOrBefore(dates, e.target.value))}
+              />
+            </span>
+          )}
+          <span className="muted small">
+            {signalIdxs.length} ngày tín hiệu mua
+            {showSell ? ` · ${sellIdxs.length} ngày vùng bán` : ""} / {points.length} ngày — chế độ này
+          </span>
+        </div>
+      )}
 
       {showExp && (
         <label className="slider-row tm-exp">
@@ -327,14 +412,18 @@ export default function TimeMachine({
       )}
 
       {spark && (
-        <svg
-          ref={svgRef}
-          className="spark tm-clickable"
-          viewBox={`0 0 ${spark.W} ${spark.H}`}
-          preserveAspectRatio="none"
-          onClick={onChartClick}
-          aria-label="Biểu đồ giá XAU/USD — bấm để chọn ngày"
-        >
+        <div className="tm-chartwrap">
+          <svg
+            ref={svgRef}
+            className="tm-chart"
+            viewBox={`0 0 ${spark.W} ${spark.H}`}
+            preserveAspectRatio="none"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
+          >
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
           {spark.expMarkers.map((m, i) => (
             <circle
@@ -364,120 +453,82 @@ export default function TimeMachine({
               <circle cx={spark.cx} cy={spark.cy!} r="4" fill="#ece5d8" />
             </>
           )}
-        </svg>
+          </svg>
+          <button
+            className="tm-fab left"
+            disabled={prevSignal === undefined}
+            onClick={() => prevSignal !== undefined && goTo(prevSignal)}
+            aria-label="Tín hiệu mua trước"
+          >◀</button>
+          <button
+            className="tm-fab right"
+            disabled={nextSignal === undefined}
+            onClick={() => nextSignal !== undefined && goTo(nextSignal)}
+            aria-label="Tín hiệu mua sau"
+          >▶</button>
+        </div>
       )}
 
-      {points.length > MIN_SPAN && (
-        <TimelineBrush
-          prices={prices}
-          start={start}
-          span={span}
-          minSpan={MIN_SPAN}
-          onChange={onBrush}
-        />
-      )}
-
-      <div className="tm-nav">
-        <button
-          className="iconbtn"
-          disabled={prevSignal === undefined}
-          onClick={() => prevSignal !== undefined && goTo(prevSignal)}
-        >
-          ◀ Tín hiệu mua trước
-        </button>
-        <span className="muted small">
-          {signalIdxs.length} ngày tín hiệu mua
-          {showSell ? ` · ${sellIdxs.length} ngày vùng bán` : ""} / {points.length} ngày —
-          chế độ này
+      <div className="tm-dateband">
+        <span className="d">
+          {fmtDate(p.date)}{idx === points.length - 1 ? " (mới nhất)" : ""} · XAU ${fmtNum(p.price, 0)}
         </span>
-        <button
-          className="iconbtn"
-          disabled={nextSignal === undefined}
-          onClick={() => nextSignal !== undefined && goTo(nextSignal)}
-        >
-          Tín hiệu mua sau ▶
-        </button>
+        <span className={`tm-zone ${zoneClass(zone)}`}>
+          {zone === "sell" || zone === "strong-sell"
+            ? `${ZONE_LABELS[zone]} (tham khảo)`
+            : preset && !isBuy
+              ? "CHƯA CÓ TÍN HIỆU MUA"
+              : ZONE_LABELS[zone]}
+          <span className="muted small"> ({composite > 0 ? "+" : ""}{fmtNum(composite)})</span>
+        </span>
       </div>
 
-      <div className="tm-detail">
-        <div className="tm-row">
-          <div>
-            <div className="muted small">Ngày giả lập{idx === points.length - 1 ? " (mới nhất)" : ""}</div>
-            <b>{fmtDate(p.date)}</b> · XAU ${fmtNum(p.price, 0)}
-          </div>
-          <div className={`tm-zone ${zoneClass(zone)}`}>
-            {zone === "sell" || zone === "strong-sell"
-              ? `${ZONE_LABELS[zone]} (tham khảo)`
-              : preset && !isBuy
-                ? "CHƯA CÓ TÍN HIỆU MUA"
-                : ZONE_LABELS[zone]}
-            <span className="muted small">
-              {" "}
-              ({composite > 0 ? "+" : ""}
-              {fmtNum(composite)})
-            </span>
-          </div>
-        </div>
+      <ActionGuidance guidance={histGuidance} />
 
-        <ActionGuidance guidance={histGuidance} />
-        <p className="muted small">
-          Ở chế độ lịch sử: chỉ tín hiệu thế giới (điểm mua + nhóm điểm đáy past-only);
-          chênh lệch VN không tham gia backtest. Tín hiệu cho hôm nay xem ở
-          <b> Gợi ý hành động</b> đầu trang.
-        </p>
-
-        <div className="tm-scores">
-          {(Object.keys(p.scores) as CriterionKey[]).map((k) => (
-            <span key={k} className="tm-score">
-              {CRITERION_LABELS[k].split(" (")[0]}:{" "}
-              <b className={p.scores[k]! > 0 ? "buy" : p.scores[k]! < 0 ? "sell" : "neutral"}>
-                {p.scores[k]! > 0 ? "+" : ""}
-                {fmtNum(p.scores[k]!, 2)}
+      <div className="tm-results">
+        {(["21", "63", "126"] as const).map((h) => {
+          const ret = p.returns[h];
+          const v = verdictFor(zone, ret, h);
+          const isPresetHorizon = presetH === h;
+          return (
+            <span key={h} className={`r ${isPresetHorizon ? "hl" : ""}`}>
+              Sau {HORIZON_LABELS[h]}{isPresetHorizon ? " (preset)" : ""}:{" "}
+              <b className={ret === null ? "muted" : ret >= 0 ? "buy" : "sell"}>
+                {ret === null ? "chưa có" : `${ret >= 0 ? "+" : ""}${fmtNum(ret)}%`}
               </b>
+              {v === "right" && <span className="tm-verdict buy"> ✓</span>}
+              {v === "wrong" && <span className="tm-verdict sell"> ✗</span>}
             </span>
-          ))}
-        </div>
-
-        <div className="tm-outcomes">
-          {(["21", "63", "126"] as const).map((h) => {
-            const ret = p.returns[h];
-            const v = verdictFor(zone, ret, h);
-            const isPresetHorizon = presetH === h;
-            return (
-              <div key={h} className={`tm-outcome ${isPresetHorizon ? "hl-horizon" : ""}`}>
-                <span className="muted small">
-                  Sau {HORIZON_LABELS[h]}
-                  {isPresetHorizon ? " — kỳ hạn preset" : ""}
-                </span>
-                <b className={ret === null ? "muted" : ret >= 0 ? "buy" : "sell"}>
-                  {ret === null ? "chưa có" : `${ret >= 0 ? "+" : ""}${fmtNum(ret)}%`}
-                  {ret !== null && (
-                    <span className="muted small">
-                      {" "}
-                      · ${fmtNum(p.price * (1 + ret / 100), 0)}
-                    </span>
-                  )}
-                </b>
-                {v === "n/a" && (
-                  <span className="muted small">
-                    bán dài hạn: không chấm — lịch sử cho thấy thường ngược
-                  </span>
-                )}
-                {(v === "right" || v === "wrong") && (
-                  <span className={`tm-verdict ${v === "right" ? "buy" : "sell"}`}>
-                    {v === "right" ? "✓ quyết định đúng" : "✗ quyết định sai"}
-                  </span>
-                )}
-                {zone === "neutral" && ret !== null && (
-                  <span className="muted small">
-                    {preset ? "không tín hiệu — đứng ngoài" : "trung lập — không khuyến nghị"}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
+          );
+        })}
       </div>
+
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Chi tiết điểm số</span>
+            <span className="acc-sum-meta">4 nhóm tiêu chí · ghi chú lịch sử</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body">
+          <div className="tm-scores">
+            {(Object.keys(p.scores) as CriterionKey[]).map((k) => (
+              <span key={k} className="tm-score">
+                {CRITERION_LABELS[k].split(" (")[0]}:{" "}
+                <b className={p.scores[k]! > 0 ? "buy" : p.scores[k]! < 0 ? "sell" : "neutral"}>
+                  {p.scores[k]! > 0 ? "+" : ""}{fmtNum(p.scores[k]!, 2)}
+                </b>
+              </span>
+            ))}
+          </div>
+          <p className="muted small">
+            Ở chế độ lịch sử: chỉ tín hiệu thế giới (điểm mua + nhóm điểm đáy past-only);
+            chênh lệch VN không tham gia backtest. Tín hiệu cho hôm nay xem ở
+            <b> Gợi ý hành động</b> đầu trang.
+          </p>
+        </div>
+      </details>
     </section>
   );
 }
