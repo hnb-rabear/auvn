@@ -321,14 +321,48 @@ Thêm vào component (thay `onChartClick` cũ):
     if (drag.current?.pointerId === e.pointerId) drag.current = null;
   };
 
-  const onWheel = (e: React.WheelEvent<SVGSVGElement>) => {
-    e.preventDefault();
-    const factor = e.deltaY > 0 ? 1.2 : 1 / 1.2; // cuộn xuống = thu nhỏ
-    const next = zoomTo(span, factor, xToIdx(e.clientX), points.length, MIN_SPAN);
-    setViewStart(next.start);
-    setViewSpan(next.span);
-    setZoomMonths("custom");
-  };
+```
+
+Wheel zoom KHÔNG dùng React `onWheel` — React 19 gắn `wheel` ở root dạng **passive**, nên `e.preventDefault()` trong `onWheel` vô hiệu (chỉ log cảnh báo) và trang vẫn cuộn. Phải gắn listener gốc `{ passive: false }` qua `useEffect`:
+
+```ts
+  // wheel zoom — listener gốc non-passive để preventDefault chặn cuộn trang
+  // (React onWheel là passive ⇒ preventDefault vô hiệu). Ref cập nhật để không
+  // gắn/gỡ listener mỗi lần span/start đổi.
+  const wheelState = useRef({ span, total: points.length });
+  wheelState.current = { span, total: points.length };
+  useEffect(() => {
+    const el = svgRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      e.preventDefault();
+      const rect = el.getBoundingClientRect();
+      if (rect.width === 0) return;
+      const { span: sp, total } = wheelState.current;
+      const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const centerIdx = startRef.current + Math.round(frac * (sp - 1));
+      const factor = e.deltaY > 0 ? 1.2 : 1 / 1.2; // cuộn xuống = thu nhỏ
+      const next = zoomTo(sp, factor, centerIdx, total, MIN_SPAN);
+      setViewStart(next.start);
+      setViewSpan(next.span);
+      setZoomMonths("custom");
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, [points.length]);
+```
+
+Vì handler gốc đọc `start` qua closure cũ, thêm một ref bám `start` (đặt cạnh các ref khác):
+
+```ts
+  const startRef = useRef(start);
+  startRef.current = start;
+```
+
+Và thêm `useEffect`, `useRef` vào import React đầu file nếu thiếu:
+
+```ts
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 ```
 
 > Lưu ý hướng pan: kéo ngón sang phải nên lộ dữ liệu **quá khứ** (cửa sổ lùi về trái) ⇒ `deltaIdx = -round(dxPx/width*span)`. Kiểm tra tay ở Step 6; nếu thấy ngược trực giác, đổi dấu.
@@ -349,7 +383,6 @@ Thay khối `<svg className="spark tm-clickable" ... onClick={onChartClick}>` b�
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerUp}
-            onWheel={onWheel}
             aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
           >
             {/* GIỮ NGUYÊN nội dung bên trong: path, expMarkers, sellMarkers, markers, bottomMarkers, con trỏ */}
