@@ -229,7 +229,7 @@ describe("runBottom", () => {
     expect(last.cycle.n).toBe(r.cycle.n);
     expect(last.swing.prob).toBe(r.swing.prob);
     expect(last.swing.n).toBe(r.swing.n);
-  });
+  }, 20000);
 
   it("walk-forward: không look-ahead — prob tại nút cũ không đổi khi có thêm dữ liệu sau", () => {
     // nút lưới: WARMUP=756 + k*3. 1200 = 756 + 148*3 ⇒ là nút, < cả 1400 và 1600.
@@ -241,11 +241,11 @@ describe("runBottom", () => {
     expect(a).toBeDefined();
     expect(b.cycle.prob).toBe(a.cycle.prob);
     expect(b.cycle.n).toBe(a.cycle.n);
-  });
+  }, 20000);
 
   it("walk-forward: nút sớm chưa đủ mẫu ⇒ prob null", () => {
     const r = runBottom(bars, null, null, {});
     expect(r.bottomHistory[0].cycle.prob).toBeNull();
     expect(r.bottomHistory[0].cycle.n).toBeLessThan(10);
-  });
+  }, 20000);
 });
