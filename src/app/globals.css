@@ -542,6 +542,22 @@ td.neutral {
 .tm-fab.right { right: 6px; }
 .tm-fab:disabled { opacity: 0.3; cursor: default; }
 
+/* nhãn ngày ở 2 góc trên của chart — biết khung thời gian khi vuốt */
+.tm-edge {
+  position: absolute;
+  top: 6px;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  background: rgba(21, 19, 15, 0.7);
+  padding: 1px 6px;
+  border-radius: 5px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.tm-edge.from { left: 6px; }
+.tm-edge.to { right: 6px; }
+
 /* dải ngày + zone dán ngay dưới chart */
 .tm-dateband {
   display: flex;
@@ -592,6 +608,22 @@ td.neutral {
 .iconbtn.small-btn {
   padding: 4px 10px;
   font-size: 0.8rem;
+}
+
+/* khung thời gian ngắn: mobile hiện "1T/3T", PC hiện đầy đủ */
+.tm-zoom-full {
+  display: none;
+}
+.tm-zoom-short {
+  display: inline;
+}
+@media (min-width: 520px) {
+  .tm-zoom-full {
+    display: inline;
+  }
+  .tm-zoom-short {
+    display: none;
+  }
 }
 
 .tm-toggle {

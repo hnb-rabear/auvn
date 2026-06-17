@@ -352,19 +352,28 @@ export default function TimeMachine({
       <div className="tm-zoom">
         {(
           [
+            [1, "1 tháng", "1T"],
+            [3, "3 tháng", "3T"],
             [6, "6 tháng"],
             [12, "1 năm"],
             [24, "2 năm"],
             [60, "5 năm"],
             [null, "Tất cả"],
-          ] as [number | null, string][]
-        ).map(([m, label]) => (
+          ] as [number | null, string, string?][]
+        ).map(([m, label, short]) => (
           <button
             key={label}
             className={`iconbtn small-btn ${zoomMonths === m ? "active" : ""}`}
             onClick={() => applyZoom(m)}
           >
-            {label}
+            {short ? (
+              <>
+                <span className="tm-zoom-full">{label}</span>
+                <span className="tm-zoom-short">{short}</span>
+              </>
+            ) : (
+              label
+            )}
           </button>
         ))}
         <button
@@ -473,6 +482,9 @@ export default function TimeMachine({
                 style={{ left: `${(spark.cx / spark.W) * 100}%`, top: `${(spark.cy! / spark.H) * 100}%` }} />
             )}
           </div>
+          {/* dải ngày 2 góc: biết đang xem khung thời gian nào khi vuốt */}
+          <span className="tm-edge from" aria-hidden>{fmtDate(points[start].date)}</span>
+          <span className="tm-edge to" aria-hidden>{fmtDate(points[end - 1].date)}</span>
           <button
             className="tm-fab left"
             disabled={prevSignal === undefined}
