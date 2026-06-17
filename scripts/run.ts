@@ -27,6 +27,7 @@ import {
   type BottomAnalysis,
 } from "../src/lib/types";
 import { runBottom } from "../src/lib/bottom";
+import { forwardFillBottomHistory } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
@@ -274,6 +275,10 @@ async function main() {
       pt.swingBin = s.swingBin;
     }
   }
+
+  // Forward-fill xác suất đáy as-of-ngày (walk-forward) lên timeline để Time Machine
+  // hiển thị đúng read live của từng ngày. Lưới thưa ⇒ snap nút gần nhất ≤ ngày.
+  forwardFillBottomHistory(timeline.points, bottom.bottomHistory);
 
   const bottomHealth: BottomHealth = monitorBottom(
     xauRes.bars,

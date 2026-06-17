@@ -1,6 +1,6 @@
 /** Toán composite cho điểm timeline — thuần, không React. */
 
-import type { CriterionKey, TimelinePoint } from "./types";
+import type { CriterionKey, TimelinePoint, BottomHistoryRow } from "./types";
 
 /** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
 export function pointComposite(
@@ -58,4 +58,22 @@ export function indexOnOrBefore(dates: string[], target: string): number {
     if (dates[i] <= target) return i;
   }
   return 0;
+}
+
+/**
+ * Gán xác suất đáy as-of-ngày cho từng điểm timeline: lấy entry lưới thưa gần nhất
+ * ≤ ngày (forward-fill). Trước nút đầu ⇒ để undefined. Mutate tại chỗ.
+ * points & history đều phải sắp theo date tăng dần.
+ */
+export function forwardFillBottomHistory(points: TimelinePoint[], history: BottomHistoryRow[]): void {
+  if (!history.length) return;
+  let h = 0;
+  for (const pt of points) {
+    while (h + 1 < history.length && history[h + 1].date <= pt.date) h++;
+    if (history[h].date <= pt.date) {
+      const { cycle: c, swing: s } = history[h];
+      pt.cycleProb = c.prob; pt.cycleCi = c.ci; pt.cycleN = c.n;
+      pt.swingProb = s.prob; pt.swingCi = s.ci; pt.swingN = s.n;
+    }
+  }
 }

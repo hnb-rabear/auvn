@@ -108,3 +108,35 @@ describe("indexOnOrBefore", () => {
     expect(indexOnOrBefore(dates, "2021-01-01")).toBe(2);
   });
 });
+
+import { forwardFillBottomHistory } from "../src/lib/timeline";
+import type { BottomHistoryRow, TimelinePoint } from "../src/lib/types";
+
+describe("forwardFillBottomHistory", () => {
+  const mkPt = (date: string): TimelinePoint => ({
+    date, price: 1, composite: 0, zone: "neutral", scores: {},
+    returns: { "21": null, "63": null, "126": null },
+  });
+  const hist: BottomHistoryRow[] = [
+    { date: "2020-01-03", cycle: { bin: 2, prob: 50, ci: [40, 60], n: 30 }, swing: { bin: 1, prob: 40, ci: null, n: 12 } },
+    { date: "2020-01-06", cycle: { bin: 3, prob: 70, ci: [60, 80], n: 40 }, swing: { bin: 2, prob: 55, ci: [45, 65], n: 20 } },
+  ];
+
+  it("gán prob từ nút lưới gần nhất ≤ ngày; trước nút đầu để undefined", () => {
+    const pts = ["2020-01-02", "2020-01-03", "2020-01-05", "2020-01-06", "2020-01-09"].map(mkPt);
+    forwardFillBottomHistory(pts, hist);
+    expect(pts[0].cycleProb).toBeUndefined(); // trước nút đầu
+    expect(pts[1].cycleProb).toBe(50);        // đúng nút
+    expect(pts[2].cycleProb).toBe(50);        // snap về nút 01-03
+    expect(pts[3].cycleProb).toBe(70);        // nút 01-06
+    expect(pts[4].cycleProb).toBe(70);        // sau nút cuối -> giữ nút cuối
+    expect(pts[2].swingN).toBe(12);
+    expect(pts[3].swingCi).toEqual([45, 65]);
+  });
+
+  it("history rỗng ⇒ không gán gì", () => {
+    const pts = [mkPt("2020-01-03")];
+    forwardFillBottomHistory(pts, []);
+    expect(pts[0].cycleProb).toBeUndefined();
+  });
+});
