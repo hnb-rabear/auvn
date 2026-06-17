@@ -242,7 +242,8 @@ export default function TimeMachine({
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
 
   // Gợi ý hành động lịch sử: world-only (premium tắt) + xác suất đáy as-of-ngày
-  // (walk-forward) — ĐÚNG ngưỡng live (prob≥60 & verified), để "quá khứ = hiện tại".
+  // (walk-forward) — cùng ngưỡng live (prob≥60 & verified) nhưng chỉ tầng cycle
+  // (live gộp max(cycle,swing)); past-only để "quá khứ = hiện tại".
   const histGuidance = useMemo(() => {
     const prob = p?.cycleProb ?? null;
     const n = p?.cycleN ?? 0;
