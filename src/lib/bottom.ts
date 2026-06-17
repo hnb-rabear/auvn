@@ -35,6 +35,10 @@ export interface BottomFeatureInputs {
   yieldCloses: number[] | null;
   /** Fed funds theo tháng cũ -> mới */
   fedRates: number[];
+  /** lợi suất thực (DFII10) đóng cửa cũ->mới, đã ≤ ngày xét; null/thiếu nếu không có */
+  realYieldCloses?: number[] | null;
+  /** chuỗi tỉ lệ Vàng/Bạc đã ghép theo ngày (≤ ngày xét); NaN ở ngày chưa có bạc */
+  gsrCloses?: number[] | null;
 }
 
 function na(id: string, label: string): BottomDriver {
@@ -131,6 +135,35 @@ export function bottomFeatures(inp: BottomFeatureInputs): BottomDriver[] {
     out.push({
       id: "mom", label: "Động lượng 12 tháng", score: clamp2(score),
       explanation: `XAU ${mom >= 0 ? "+" : ""}${fmt(mom)}% so với 12 tháng trước: ${mom < 0 ? "đã giảm dài, gần vùng kiệt" : "đang trên cao, ít khả năng đáy lớn"}.`,
+      available: true,
+    });
+  }
+
+  // ryield: lợi suất thực đảo chiều — Δ ~63 phiên (đỉnh thực quay xuống = thuận đáy vàng).
+  const ry = inp.realYieldCloses;
+  if (!ry || ry.length < 64) out.push(na("ryield", "Lợi suất thực đảo chiều"));
+  else {
+    const dy = ry[ry.length - 1] - ry[ry.length - 64];
+    const score = dy <= -0.2 ? 2 : dy <= -0.05 ? 1 : dy < 0.05 ? 0 : dy < 0.2 ? -1 : -2;
+    out.push({
+      id: "ryield", label: "Lợi suất thực đảo chiều", score: clamp2(score),
+      explanation: `Lợi suất thực Δ3 tháng ${dy >= 0 ? "+" : ""}${fmt(dy, 2)}đ: ${score > 0 ? "đỉnh thực quay xuống, thuận đáy vàng" : score < 0 ? "thực đang lên, bất lợi" : "đi ngang"}.`,
+      available: true,
+    });
+  }
+
+  // gsr: tỉ lệ Vàng/Bạc cực đoan — percentile cửa sổ trượt 504 phiên QUÁ KHỨ (bạc bị
+  // bán tháo ⇒ tỉ lệ cao ⇒ capitulation nhóm kim loại quý ⇒ gần đáy). Lọc NaN.
+  const gsrAll = inp.gsrCloses ? inp.gsrCloses.filter(Number.isFinite) : null;
+  if (!gsrAll || gsrAll.length < 504) out.push(na("gsr", "Tỉ lệ Vàng/Bạc cực đoan"));
+  else {
+    const win = gsrAll.slice(-504);
+    const last = win[win.length - 1];
+    const pct = win.filter((v) => v <= last).length / win.length;
+    const score = pct >= 0.85 ? 2 : pct >= 0.7 ? 1 : pct > 0.3 ? 0 : pct > 0.15 ? -1 : -2;
+    out.push({
+      id: "gsr", label: "Tỉ lệ Vàng/Bạc cực đoan", score: clamp2(score),
+      explanation: `Vàng/Bạc ${fmt(last, 1)} (percentile ${(pct * 100).toFixed(0)}% trong 2 năm): ${score > 0 ? "bạc bị bán tháo, capitulation nhóm kim loại quý" : score < 0 ? "chưa cực đoan" : "trung tính"}.`,
       available: true,
     });
   }
