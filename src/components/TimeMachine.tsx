@@ -2,17 +2,16 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  BOTTOM_CONFIG,
   CRITERION_LABELS,
   ZONE_LABELS,
   zoneOf,
-  type ConfirmedBottom,
   type CriterionKey,
   type Preset,
   type Timeline,
   type Zone,
 } from "@/lib/types";
 import { deriveGuidance } from "@/lib/guidance";
+import { bottomPctClass } from "@/lib/bottom";
 import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
 import {
@@ -69,12 +68,10 @@ export default function TimeMachine({
   timeline,
   weights,
   preset,
-  confirmedBottoms = [],
 }: {
   timeline: Timeline;
   weights: Record<CriterionKey, number>;
   preset: Preset | null;
-  confirmedBottoms?: ConfirmedBottom[];
 }) {
   const points = timeline.points;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
@@ -244,19 +241,22 @@ export default function TimeMachine({
   const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
 
-  // Gợi ý hành động lịch sử: world-only (premium tắt) + bin đáy past-only (KHÔNG dùng prob%).
-  // Dùng rawZone (chưa ép neutral khi tắt showSell) để phản ánh đúng cả vùng bán, nhất quán với live.
+  // Gợi ý hành động lịch sử: world-only (premium tắt) + xác suất đáy as-of-ngày
+  // (walk-forward) — cùng ngưỡng live (prob≥60 & verified) nhưng chỉ tầng cycle
+  // (live gộp max(cycle,swing)); past-only để "quá khứ = hiện tại".
   const histGuidance = useMemo(() => {
-    const topBin = BOTTOM_CONFIG.cycle.binEdges.length; // KHÔNG hardcode 3
-    const bin = p?.cycleBin;
-    const hasBin = bin !== undefined;
+    const prob = p?.cycleProb ?? null;
+    const n = p?.cycleN ?? 0;
+    const verified = prob !== null && n >= 10;
+    const high = verified && prob >= 60;
+    const ciStr = p?.cycleCi ? ` (CI ${p.cycleCi[0]}–${p.cycleCi[1]}%)` : "";
     return deriveGuidance({
       zone: rawZone,
       composite,
       bottom: {
-        high: hasBin && bin === topBin,
-        verified: hasBin,
-        label: `Săn đáy: nhóm điểm đáy ${bin === topBin ? "CAO" : "chưa cao"} (chu kỳ bin ${bin}/${topBin}).`,
+        high,
+        verified,
+        label: verified ? `Săn đáy: xác suất gần đáy ${Math.round(prob)}%${ciStr}.` : "Săn đáy: chưa đủ dữ liệu kiểm chứng.",
       },
       premiumPct: null, // world-only ở lịch sử
       premiumP80: null, // ⇒ cổng premium tắt
@@ -283,10 +283,6 @@ export default function TimeMachine({
     const markers = toMarkers(signalIdxs);
     const sellMarkers = showSell ? toMarkers(sellIdxs) : [];
     const expMarkers = toMarkers(expIdxs); // đã rỗng sẵn khi tắt lớp thử
-    const bottomMarkers = confirmedBottoms
-      .map((b) => ({ i: indexOnOrAfter(dates, b.date), tier: b.tier }))
-      .filter((m) => m.i >= start && m.i < end && m.i < points.length)
-      .map((m) => ({ cx: x(m.i), cy: y(points[m.i].price), tier: m.tier }));
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -297,11 +293,10 @@ export default function TimeMachine({
       markers,
       sellMarkers,
       expMarkers,
-      bottomMarkers,
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end, confirmedBottoms, dates]);
+  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end]);
 
   // wheel zoom — listener gốc non-passive để preventDefault chặn cuộn trang
   // (React onWheel là passive ⇒ preventDefault vô hiệu). Ref cập nhật để không
@@ -473,10 +468,6 @@ export default function TimeMachine({
               <span key={i} className="tm-mk buy"
                 style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
             ))}
-            {spark.bottomMarkers.map((m, i) => (
-              <span key={`bm${i}`} className={`tm-mk bottom ${m.tier}`}
-                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }}>▲</span>
-            ))}
             {spark.cx !== null && (
               <span className="tm-mk cursor"
                 style={{ left: `${(spark.cx / spark.W) * 100}%`, top: `${(spark.cy! / spark.H) * 100}%` }} />
@@ -512,6 +503,30 @@ export default function TimeMachine({
               : ZONE_LABELS[zone]}
           <span className="muted small"> ({composite > 0 ? "+" : ""}{fmtNum(composite)})</span>
         </span>
+      </div>
+
+      <div className="tm-bottom">
+        {(
+          [
+            ["Đáy chu kỳ", "≈6 tháng", p.cycleProb ?? null, p.cycleCi ?? null, p.cycleN ?? 0],
+            ["Đáy sóng", "≈1 tháng", p.swingProb ?? null, p.swingCi ?? null, p.swingN ?? 0],
+          ] as [string, string, number | null, [number, number] | null, number][]
+        ).map(([title, sub, prob, ci, n]) => {
+          const ok = prob !== null && n >= 10;
+          return (
+            <div key={title} className="tm-bottom-item">
+              <span className="muted small">{title} <span className="muted small">{sub}</span></span>
+              {ok ? (
+                <span className={`bottom-gauge-pct ${bottomPctClass(prob)}`}>
+                  {Math.round(prob)}%
+                  {ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
+                </span>
+              ) : (
+                <span className="muted small">Chưa đủ dữ liệu kiểm chứng</span>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <ActionGuidance guidance={histGuidance} />

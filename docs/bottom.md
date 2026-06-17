@@ -18,6 +18,15 @@ min(close[t+1 .. t+H]) >= close[t] * (1 - ε/100)
 
 Tức là trong `H` phiên tới, giá sẽ **không rơi quá ε%** dưới mức đóng cửa hôm nay. Đây là nhãn **nhìn về tương lai** — chỉ dùng để gán nhãn khi backtest/tuyển chọn. Khi chạy live, engine **chỉ dùng dữ liệu quá khứ** (RSI, vĩ mô đến hôm nay) để chấm điểm, không hề biết tương lai.
 
+## Xác suất as-of-ngày (walk-forward) — cho Time Machine
+
+Gauge live hôm nay là base-rate near-bottom trên mọi ngày lịch sử có nhãn đã hoàn tất (`i+H < hiện tại`), cùng bin với hôm nay. `runBottom` tổng quát hoá thành chuỗi `bottomHistory` (lưới thưa STEP=3): với MỖI nút ngày D, base-rate chỉ tính trên các ngày `e` đã **đáo hạn nhãn trước D** (`e+H ≤ idx_D`) và cùng bin với D. `n<10` ⇒ "chưa đủ dữ liệu".
+
+- **Bất biến:** điểm cuối chuỗi == prob/n của gauge live hiện tại (cùng tập ngày). Không đổi gauge hôm nay. Khoá bằng test `bottom.test.ts`.
+- **Không look-ahead:** prob tại D chỉ phụ thuộc ngày đã đáo hạn trước D; thêm dữ liệu sau D không đổi prob_D.
+- **Hiển thị:** Time Machine forward-fill nút thưa gần nhất ≤ ngày được chọn (lệch ≤2 phiên; ngày cuối luôn được ghim nên hôm nay chính xác). Gợi ý "Gom rải" lịch sử bật khi cycle prob ≥ 60 (đúng ngưỡng live; live gộp max(cycle,swing)).
+- **Tam giác "đáy đã xác nhận"** (cần ±9 phiên tương lai) KHÔNG còn hiển thị trên Time Machine — chỉ giữ trong `confirmedBottoms` cho `scripts/bottom-vs-buy-study.ts`.
+
 ## Phương pháp tuyển chọn (`scripts/bottom-study.ts`)
 
 1. **Grid search:** 126 hồ sơ trọng số × 3 bộ ranh giới bin của bottomScore.

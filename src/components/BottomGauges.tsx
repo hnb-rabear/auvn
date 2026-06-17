@@ -1,12 +1,13 @@
 "use client";
 import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult } from "@/lib/types";
+import { bottomPctClass } from "@/lib/bottom";
 
 function Gauge({ title, sub, tier, provisional }: { title: string; sub: string; tier: BottomTierResult; provisional: boolean }) {
   const lowSample = tier.n < 10;
   const unverified = provisional || lowSample;
   const pct = Math.round(tier.prob);
   const ci = tier.ci ? ` (CI ${tier.ci[0]}–${tier.ci[1]}%)` : "";
-  const cls = pct >= 60 ? "buy" : pct >= 35 ? "neutral" : "sell";
+  const cls = bottomPctClass(pct);
   return (
     <div className="bottom-gauge">
       <div className="bottom-gauge-title">{title} <span className="muted small">{sub}</span></div>

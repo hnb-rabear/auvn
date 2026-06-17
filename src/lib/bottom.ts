@@ -2,7 +2,7 @@
 
 import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, blockBootstrapCi } from "./indicators";
 import type { BottomDriver } from "./types";
-import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig, type BottomSignalRow } from "./types";
+import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig, type BottomSignalRow, type BottomHistoryRow } from "./types";
 
 /**
  * Dán nhãn "gần đáy" cho ngày i: giá thấp nhất trong H phiên kế tiếp KHÔNG thấp
@@ -162,6 +162,11 @@ export function binOf(score: number, edges: number[]): number {
   return b;
 }
 
+/** Ngưỡng màu gauge săn đáy: ≥60 mua / ≥35 trung tính / còn lại bán. Dùng chung UI. */
+export function bottomPctClass(pct: number): "buy" | "neutral" | "sell" {
+  return pct >= 60 ? "buy" : pct >= 35 ? "neutral" : "sell";
+}
+
 interface Bar { date: string; close: number; }
 const WARMUP = 756;
 const STEP = 3;
@@ -177,7 +182,7 @@ function buildTier(
   dates: string[],
   cfg: BottomTierConfig,
   featuresAt: (i: number) => BottomDriver[]
-): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[] } {
+): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[]; history: { date: string; bin: number; prob: number | null; ci: [number, number] | null; n: number }[] } {
   // Đánh giá một index: drivers + score + bin + label (đều past-only, hàm thuần
   // của index — không phụ thuộc lưới nào gọi).
   const evalRow = (i: number): HistRow => {
@@ -205,12 +210,39 @@ function buildTier(
   const prob = n ? Math.round((favArr.filter((x) => x > 0).length / n) * 1000) / 10 : 0;
   const ci = blockBootstrapCi(favArr, Math.max(1, Math.round(cfg.horizonDays / 3)));
 
+  // --- Walk-forward: tại mỗi nút lưới g, base-rate chỉ trên ngày đã ĐÁO HẠN nhãn
+  // trước g (e.i + H <= g.i) và cùng bin với g. Điểm cuối == prob/n hiện tại
+  // (cùng tập: e.i + H <= last ⇔ label != null). Past-only, không look-ahead.
+  const H = cfg.horizonDays;
+  const matured = new Map<number, number[]>(); // bin -> nhãn ±1 đã đáo hạn
+  let mk = 0;
+  const history: { date: string; bin: number; prob: number | null; ci: [number, number] | null; n: number }[] = [];
+  for (const g of statRows) {
+    while (mk < statRows.length && statRows[mk].i + H <= g.i) {
+      const e = statRows[mk];
+      if (e.label !== null) {
+        const arr = matured.get(e.bin) ?? [];
+        arr.push(e.label ? 1 : -1);
+        matured.set(e.bin, arr);
+      }
+      mk++;
+    }
+    const arr = matured.get(g.bin) ?? [];
+    const nn = arr.length;
+    if (nn < 10) {
+      history.push({ date: g.date, bin: g.bin, prob: null, ci: null, n: nn });
+    } else {
+      const prob = Math.round((arr.filter((x) => x > 0).length / nn) * 1000) / 10;
+      history.push({ date: g.date, bin: g.bin, prob, ci: blockBootstrapCi(arr, Math.max(1, Math.round(H / 3))), n: nn });
+    }
+  }
+
   // --- Lưới DÀY (mỗi phiên) — rows cho signalHistory (bin từng ngày cho Time
   // Machine) + confirmedBottoms (không sót đáy off-grid). KHÔNG nuôi prob/ci/n.
   const rows: HistRow[] = [];
   for (let i = WARMUP; i < closes.length; i += 1) rows.push(evalRow(i));
 
-  return { result: { prob, ci, bin: curBin, n }, rows, currentDrivers: curDrivers };
+  return { result: { prob, ci, bin: curBin, n }, rows, currentDrivers: curDrivers, history };
 }
 
 /** Chạy engine xác suất đáy 2 tầng. closes/dxy/fed/yield giống runBacktest. */
@@ -268,6 +300,17 @@ export function runBottom(
     swingBin: swingBinByI.get(r.i) ?? r.bin,
   }));
 
+  // Gộp walk-forward 2 tầng theo ngày (cycle.history & swing.history cùng lưới/ngày).
+  const swingHByDate = new Map(swing.history.map((s) => [s.date, s]));
+  const bottomHistory: BottomHistoryRow[] = cycle.history.map((c) => {
+    const s = swingHByDate.get(c.date)!;
+    return {
+      date: c.date,
+      cycle: { bin: c.bin, prob: c.prob, ci: c.ci, n: c.n },
+      swing: { bin: s.bin, prob: s.prob, ci: s.ci, n: s.n },
+    };
+  });
+
   return {
     generatedAt: new Date().toISOString(),
     dataDate: dates[dates.length - 1] ?? "",
@@ -275,6 +318,7 @@ export function runBottom(
     swing: { ...swing.result, drivers: swing.currentDrivers },
     confirmedBottoms,
     signalHistory,
+    bottomHistory,
     note: "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa.",
   };
 }
