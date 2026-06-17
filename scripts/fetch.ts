@@ -127,6 +127,21 @@ export async function fetchVix(): Promise<{ bars: DailyBar[]; source: string } |
   }
 }
 
+export async function fetchSilver(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  try {
+    const y = await fetchYahoo("SI=F");
+    return { bars: y.bars, source: "yahoo:SI=F" };
+  } catch {
+    return null;
+  }
+}
+
+/** Lợi suất thực 10 năm (TIPS) — FRED DFII10. Free, từ ~2003. */
+export async function fetchRealYield(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  const bars = await fetchFredSeries("DFII10", 500);
+  return bars ? { bars, source: "fred:DFII10" } : null;
+}
+
 /** Geopolitical Risk Index (Caldara & Iacoviello) — file XLS hàng ngày. */
 export async function fetchGpr(): Promise<{ bars: DailyBar[]; source: string } | null> {
   try {
