@@ -63,8 +63,9 @@ Mượn khung `bottom-study.ts`.
    - precision TEST > mốc `{rsi:.5,macro:.5}` (chạy cùng harness) với **CI 95% block-bootstrap của precision mới KHÔNG chồng** điểm precision mốc;
    - feature mới có **trọng số > 0** trong cấu hình thắng (nếu grid tự đưa ryield/gsr về 0 ⇒ "không thêm gì" ⇒ NO-GO);
    - giữ recall sàn.
-6. **Cross-check ML (sanity):** logistic walk-forward (như `bottom-ml-study.ts`) với 4 feature; hệ số ryield/gsr ≈ 0 hoặc Brier không cải thiện > 0,005 ⇒ củng cố NO-GO.
-7. **Đầu ra:** bảng (mốc vs cấu hình mới: precision/recall/n/CI, train+test) + dòng **GO/NO-GO**. Ghi kết luận (kể cả null) vào `docs/bottom.md`.
+6. **Đầu ra:** bảng (mốc vs cấu hình mới: precision/recall/n/CI, train+test) + dòng **GO/NO-GO**. Ghi kết luận (kể cả null) vào `docs/bottom.md`.
+
+**KHÔNG làm trong Pha 1 (tránh gold-plating):** cross-check ML (logistic walk-forward) — gate rule-based (2 giai đoạn + CI-không-chồng + trọng số>0 + recall sàn) đã đủ kiểm soát overfit cho câu hỏi hẹp "2 feature có giúp không". Chỉ chạy ML cross-check SAU nếu kết quả **biên giới** (CI gần chạm mốc) cần thêm bằng chứng — quyết định lúc đó, không build sẵn.
 
 ## File (Pha 1)
 
@@ -94,7 +95,7 @@ Mượn khung `bottom-study.ts`.
 
 ## Rủi ro
 
-- **Multiple-comparisons:** kiểm soát bằng grid nhỏ (4 feature) + CI-không-chồng + cross-check ML + gate 2 giai đoạn. Đọc kết quả là "ước lượng lạc quan".
+- **Multiple-comparisons:** kiểm soát bằng grid nhỏ (4 feature) + CI-không-chồng + gate 2 giai đoạn (+ cross-check ML chỉ khi biên giới). Đọc kết quả là "ước lượng lạc quan".
 - **Dữ liệu:** DFII10 từ ~2003 + FRED hay 504; bạc SI=F lịch sử Yahoo. Thiếu/lệch ⇒ feature `na` nhiều ngày ⇒ grid tự loại. Phải in độ phủ.
 - **Look-ahead:** `gsr` percentile chỉ dùng cửa sổ trượt quá khứ (≤ ngày xét) — bắt buộc trong code, có test gián tiếp qua dấu.
 - **Lịch sử lệch nhau:** XAU 20y nhưng DFII10 ~2003, bạc tùy nguồn — train (<2019) có thể mỏng cho ryield; báo cáo n từng giai đoạn để đánh giá độ tin.
