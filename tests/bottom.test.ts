@@ -24,6 +24,7 @@ describe("bottom types & config", () => {
       swing: { prob: 30, ci: [20, 40], bin: 2, n: 80, drivers: [] },
       confirmedBottoms: [],
       signalHistory: [],
+      bottomHistory: [],
       note: "x",
     };
     expect(a.cycle.prob).toBe(50);
@@ -218,5 +219,33 @@ describe("runBottom", () => {
     expect(lastEntry.date).toBe(lastDate);
     expect(lastEntry.cycleBin).toBeDefined();
     expect(lastEntry.swingBin).toBeDefined();
+  });
+
+  it("walk-forward: điểm cuối bottomHistory == prob/n gauge hiện tại", () => {
+    const r = runBottom(bars, null, null, {});
+    const last = r.bottomHistory[r.bottomHistory.length - 1];
+    expect(last.date).toBe(bars[bars.length - 1].date);
+    expect(last.cycle.prob).toBe(r.cycle.prob);
+    expect(last.cycle.n).toBe(r.cycle.n);
+    expect(last.swing.prob).toBe(r.swing.prob);
+    expect(last.swing.n).toBe(r.swing.n);
+  });
+
+  it("walk-forward: không look-ahead — prob tại nút cũ không đổi khi có thêm dữ liệu sau", () => {
+    // nút lưới: WARMUP=756 + k*3. 1200 = 756 + 148*3 ⇒ là nút, < cả 1400 và 1600.
+    const D = bars[1200].date;
+    const rShort = runBottom(bars.slice(0, 1400), null, null, {});
+    const rFull = runBottom(bars, null, null, {});
+    const a = rShort.bottomHistory.find((x) => x.date === D)!;
+    const b = rFull.bottomHistory.find((x) => x.date === D)!;
+    expect(a).toBeDefined();
+    expect(b.cycle.prob).toBe(a.cycle.prob);
+    expect(b.cycle.n).toBe(a.cycle.n);
+  });
+
+  it("walk-forward: nút sớm chưa đủ mẫu ⇒ prob null", () => {
+    const r = runBottom(bars, null, null, {});
+    expect(r.bottomHistory[0].cycle.prob).toBeNull();
+    expect(r.bottomHistory[0].cycle.n).toBeLessThan(10);
   });
 });

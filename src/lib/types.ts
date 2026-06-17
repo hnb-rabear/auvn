@@ -116,6 +116,13 @@ export interface TimelinePoint {
   /** bin đáy past-only tại ngày này (0..binEdges.length); undefined nếu trước warmup đáy. Optional — timeline.json cũ không có. */
   cycleBin?: number;
   swingBin?: number;
+  /** xác suất gần đáy as-of-ngày (walk-forward, forward-fill từ lưới thưa). null = đã đủ warmup nhưng <10 mẫu; undefined = trước nút đầu. */
+  cycleProb?: number | null;
+  cycleCi?: [number, number] | null;
+  cycleN?: number;
+  swingProb?: number | null;
+  swingCi?: [number, number] | null;
+  swingN?: number;
 }
 
 export interface Timeline {
@@ -295,6 +302,21 @@ export interface BottomSignalRow {
   swingBin: number;
 }
 
+/** Một mục xác suất đáy as-of-ngày (walk-forward) cho 1 tầng. prob/ci null khi n<10. */
+export interface BottomHistoryEntry {
+  bin: number;
+  prob: number | null;
+  ci: [number, number] | null;
+  n: number;
+}
+
+/** Hàng walk-forward thưa (STEP grid): xác suất đáy 2 tầng tính chỉ bằng dữ liệu đến ngày này. */
+export interface BottomHistoryRow {
+  date: string;
+  cycle: BottomHistoryEntry;
+  swing: BottomHistoryEntry;
+}
+
 export interface BottomAnalysis {
   generatedAt: string;
   dataDate: string;
@@ -303,6 +325,8 @@ export interface BottomAnalysis {
   confirmedBottoms: ConfirmedBottom[];
   /** lịch sử bin đáy theo ngày (past-only) để dựng gợi ý hành động lịch sử */
   signalHistory: BottomSignalRow[];
+  /** xác suất đáy as-of-ngày (walk-forward, lưới thưa) — Time Machine forward-fill để "quá khứ = hiện tại" */
+  bottomHistory: BottomHistoryRow[];
   note: string;
 }
 
