@@ -19,15 +19,15 @@ type Pt = {
 const tl: Pt[] = JSON.parse(readFileSync(join(DATA, "timeline.json"), "utf8")).points;
 const bottom = JSON.parse(readFileSync(join(DATA, "bottom.json"), "utf8"));
 
-const idxByDate = new Map(tl.map((p, i) => [p.date, i]));
+const idxByDate = new Map(tl.map((p, i): [string, number] => [p.date, i]));
 const cycleBottomIdx = [
-  ...new Set(
+  ...new Set<number>(
     bottom.confirmedBottoms
       .filter((b: any) => b.tier === "cycle")
       .map((b: any) => idxByDate.get(b.date))
       .filter((i: number | undefined): i is number => i !== undefined)
   ),
-].sort((a, b) => a - b) as number[];
+].sort((a, b) => a - b);
 
 const W = 10; // cửa sổ "gần đáy" tính theo phiên (±10 ≈ nửa tháng)
 const inZone = (i: number) => cycleBottomIdx.some((b) => Math.abs(b - i) <= W);
