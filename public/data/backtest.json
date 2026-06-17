@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-16T23:03:57.087Z",
+ "generatedAt": "2026-06-16T23:53:42.359Z",
  "fromDate": "2009-06-18",
  "toDate": "2026-06-16",
  "observations": 1426,
@@ -12,107 +12,107 @@
   {
    "zone": "strong-buy",
    "horizonDays": 21,
-   "count": 1,
-   "pctFavorable": 100,
-   "medianReturnPct": 3.9
+   "count": 0,
+   "pctFavorable": null,
+   "medianReturnPct": null
   },
   {
    "zone": "strong-buy",
    "horizonDays": 63,
-   "count": 1,
-   "pctFavorable": 100,
-   "medianReturnPct": 6.5
+   "count": 0,
+   "pctFavorable": null,
+   "medianReturnPct": null
   },
   {
    "zone": "strong-buy",
    "horizonDays": 126,
-   "count": 1,
-   "pctFavorable": 0,
-   "medianReturnPct": -3.9
+   "count": 0,
+   "pctFavorable": null,
+   "medianReturnPct": null
   },
   {
    "zone": "buy",
    "horizonDays": 21,
-   "count": 48,
-   "pctFavorable": 64.6,
-   "medianReturnPct": 1.6
+   "count": 46,
+   "pctFavorable": 63,
+   "medianReturnPct": 1
   },
   {
    "zone": "buy",
    "horizonDays": 63,
-   "count": 48,
-   "pctFavorable": 64.6,
-   "medianReturnPct": 2.2
+   "count": 46,
+   "pctFavorable": 73.9,
+   "medianReturnPct": 3.3
   },
   {
    "zone": "buy",
    "horizonDays": 126,
-   "count": 48,
-   "pctFavorable": 50,
-   "medianReturnPct": 0.1
+   "count": 46,
+   "pctFavorable": 65.2,
+   "medianReturnPct": 1.9
   },
   {
    "zone": "neutral",
    "horizonDays": 21,
-   "count": 1201,
+   "count": 1244,
    "pctFavorable": null,
    "medianReturnPct": 0.7
   },
   {
    "zone": "neutral",
    "horizonDays": 63,
-   "count": 1187,
+   "count": 1230,
    "pctFavorable": null,
-   "medianReturnPct": 2.8
+   "medianReturnPct": 2.7
   },
   {
    "zone": "neutral",
    "horizonDays": 126,
-   "count": 1172,
+   "count": 1218,
    "pctFavorable": null,
    "medianReturnPct": 4.8
   },
   {
    "zone": "sell",
    "horizonDays": 21,
-   "count": 166,
-   "pctFavorable": 50,
-   "medianReturnPct": 0
+   "count": 125,
+   "pctFavorable": 55.2,
+   "medianReturnPct": -0.3
   },
   {
    "zone": "sell",
    "horizonDays": 63,
-   "count": 166,
-   "pctFavorable": 42.8,
-   "medianReturnPct": 1.4
+   "count": 125,
+   "pctFavorable": 40.8,
+   "medianReturnPct": 1.9
   },
   {
    "zone": "sell",
    "horizonDays": 126,
-   "count": 160,
-   "pctFavorable": 30,
-   "medianReturnPct": 10
+   "count": 116,
+   "pctFavorable": 29.3,
+   "medianReturnPct": 11.7
   },
   {
    "zone": "strong-sell",
    "horizonDays": 21,
-   "count": 2,
-   "pctFavorable": 100,
-   "medianReturnPct": -2.1
+   "count": 3,
+   "pctFavorable": 66.7,
+   "medianReturnPct": -0.9
   },
   {
    "zone": "strong-sell",
    "horizonDays": 63,
-   "count": 2,
-   "pctFavorable": 50,
-   "medianReturnPct": -2
+   "count": 3,
+   "pctFavorable": 33.3,
+   "medianReturnPct": 2.8
   },
   {
    "zone": "strong-sell",
    "horizonDays": 126,
-   "count": 2,
-   "pctFavorable": 50,
-   "medianReturnPct": 0.5
+   "count": 3,
+   "pctFavorable": 33.3,
+   "medianReturnPct": 12.7
   }
  ],
  "note": "Backtest chạy trên giá XAU/USD với các tiêu chí thế giới (kỹ thuật, thống kê, DXY + lãi suất Fed). Tiêu chí chênh lệch VN chưa đủ lịch sử kiểm chứng nên không tham gia backtest."
