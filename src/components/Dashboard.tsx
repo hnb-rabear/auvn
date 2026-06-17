@@ -565,7 +565,7 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <TimeMachine timeline={timeline} weights={weights} preset={preset} confirmedBottoms={bottom.confirmedBottoms} />
+          <TimeMachine timeline={timeline} weights={weights} preset={preset} />
         </div>
       </details>
 

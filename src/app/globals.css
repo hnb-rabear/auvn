@@ -581,6 +581,22 @@ td.neutral {
 .tm-results .r b.sell { color: var(--sell); }
 .tm-results .r.hl { font-weight: 700; }
 
+/* gauge săn đáy as-of-ngày trong Time Machine (mượn màu .bottom-gauge-pct, cỡ nhỏ hơn) */
+.tm-bottom {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 6px 0 10px;
+}
+.tm-bottom-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.tm-bottom .bottom-gauge-pct {
+  font-size: 1.15rem;
+}
+
 /* panel ⚙ tùy chọn phụ */
 .tm-gear {
   background: var(--card2);
