@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-17T10:01:33.387Z",
+ "generatedAt": "2026-06-17T11:59:02.454Z",
  "dataDate": "2026-06-17",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4346.7001953125,
+  "xauUsd": 4343.7001953125,
   "usdVnd": 26433,
-  "worldVndPerLuong": 138525100,
+  "worldVndPerLuong": 138429493,
   "premiumPct": 8.97,
-  "premiumVnd": 11974900
+  "premiumVnd": 12070507
  },
  "criteria": [
   {
@@ -23,21 +23,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 45: trung tính.",
+     "explanation": "RSI ngày = 44,8: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 46,8: trung tính.",
+     "explanation": "RSI tuần = 46,7: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 1,9%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 2%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 99,6 (trên MA50, +0,6% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 99,7 (trên MA50, +0,7% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-17T04:00:00.000Z",
   "yield10y": "2026-06-12T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-17T10:01:33.387Z",
+  "usdVnd": "2026-06-17T11:59:02.454Z",
   "fed": null
  }
 }
