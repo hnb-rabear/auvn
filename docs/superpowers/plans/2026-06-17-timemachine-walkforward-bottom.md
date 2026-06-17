@@ -271,7 +271,13 @@ Expected: FAIL — `forwardFillBottomHistory` chưa export.
 
 - [ ] **Step 3: Cài đặt `forwardFillBottomHistory`**
 
-Trong `src/lib/timeline.ts`, thêm ở cuối file (và đảm bảo import type ở đầu file có `TimelinePoint`, `BottomHistoryRow` — nếu file chưa import từ `./types`, thêm `import type { TimelinePoint, BottomHistoryRow } from "./types";`):
+Trong `src/lib/timeline.ts`, dòng 3 hiện là `import type { CriterionKey, TimelinePoint } from "./types";` — thêm `BottomHistoryRow`:
+
+```ts
+import type { CriterionKey, TimelinePoint, BottomHistoryRow } from "./types";
+```
+
+Rồi thêm ở cuối file:
 
 ```ts
 /**
