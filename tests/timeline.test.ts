@@ -110,7 +110,7 @@ describe("indexOnOrBefore", () => {
 });
 
 import { forwardFillBottomHistory } from "../src/lib/timeline";
-import type { BottomHistoryRow, TimelinePoint } from "../src/lib/types";
+import type { BottomHistoryRow } from "../src/lib/types";
 
 describe("forwardFillBottomHistory", () => {
   const mkPt = (date: string): TimelinePoint => ({
