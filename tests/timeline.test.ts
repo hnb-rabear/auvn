@@ -141,28 +141,41 @@ describe("forwardFillBottomHistory", () => {
   });
 });
 
-import { bottomBandRuns } from "../src/lib/timeline";
+import { bottomPercentileRank, maskRuns } from "../src/lib/timeline";
 
-describe("bottomBandRuns", () => {
+describe("bottomPercentileRank", () => {
   const mk = (cycleProb: number | null): any => ({
     date: "x", price: 1, composite: 0, zone: "neutral", scores: {},
     returns: { "21": null, "63": null, "126": null }, cycleProb,
   });
-  it("gom dải liên tiếp cycleProb>=ngưỡng; null & dưới-ngưỡng cắt dải", () => {
-    const pts = [null, 70, 71, 50, 80, null, 90].map(mk);
-    expect(bottomBandRuns(pts, 60)).toEqual([
+  it("percentile cycleProb trong cửa sổ trượt past-only", () => {
+    const pts = [50, 10, 30, 90, 20].map(mk);
+    expect(bottomPercentileRank(pts, 5, 1)).toEqual([100, 50, 66.7, 100, 40]);
+  });
+  it("cycleProb null ⇒ NaN tại ngày đó, và bị loại khỏi cửa sổ ngày khác", () => {
+    const r = bottomPercentileRank([10, null, 30].map(mk), 5, 1);
+    expect(Number.isNaN(r[1])).toBe(true);
+    expect(r[0]).toBe(100); // [10] → 100
+    expect(r[2]).toBe(100); // window {10,30}, 30 cao nhất → 100
+  });
+  it("cửa sổ < minSamples ⇒ NaN", () => {
+    const r = bottomPercentileRank([10, 20].map(mk), 5, 5);
+    expect(r.every((x) => Number.isNaN(x))).toBe(true);
+  });
+});
+
+describe("maskRuns", () => {
+  it("gom dải true liên tiếp", () => {
+    expect(maskRuns([false, true, true, false, true])).toEqual([
       { start: 1, end: 2 },
       { start: 4, end: 4 },
-      { start: 6, end: 6 },
     ]);
   });
-  it("biên: >= chứ không >", () => {
-    expect(bottomBandRuns([60, 59].map(mk), 60)).toEqual([{ start: 0, end: 0 }]);
+  it("toàn false / rỗng ⇒ []", () => {
+    expect(maskRuns([false, false])).toEqual([]);
+    expect(maskRuns([])).toEqual([]);
   });
-  it("dải chạm cuối mảng được đóng", () => {
-    expect(bottomBandRuns([10, 80, 90].map(mk), 60)).toEqual([{ start: 1, end: 2 }]);
-  });
-  it("rỗng khi không ngày nào đạt", () => {
-    expect(bottomBandRuns([null, 10, 20].map(mk), 60)).toEqual([]);
+  it("dải chạm cuối được đóng", () => {
+    expect(maskRuns([false, true, true])).toEqual([{ start: 1, end: 2 }]);
   });
 });

@@ -20,7 +20,8 @@ import {
   idxsAtOrBelow,
   indexOnOrAfter,
   indexOnOrBefore,
-  bottomBandRuns,
+  bottomPercentileRank,
+  maskRuns,
 } from "@/lib/timeline";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -64,6 +65,8 @@ const POINTS_PER_MONTH = 21;
 const MIN_SPAN = 14;
 /** ngưỡng px phân biệt chạm (chọn ngày) vs kéo (pan) */
 const TAP_PX = 6;
+const BOTTOM_WINDOWS: [number, string][] = [[126, "6T"], [252, "1N"], [504, "2N"], [756, "3N"]];
+const WINDOW_LABEL: Record<number, string> = { 126: "6 tháng", 252: "1 năm", 504: "2 năm", 756: "3 năm" };
 
 export default function TimeMachine({
   timeline,
@@ -87,7 +90,8 @@ export default function TimeMachine({
   const [showExp, setShowExp] = useState(false);
   const [expThr, setExpThr] = useState<number | null>(null);
   const [showBottomExp, setShowBottomExp] = useState(false);
-  const [bottomThr, setBottomThr] = useState(60);
+  const [bottomPctl, setBottomPctl] = useState(85);
+  const [bottomWindow, setBottomWindow] = useState(504);
   const [showGear, setShowGear] = useState(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
   // trạng thái cử chỉ 1 ngón (pan/tap) — px màn hình
@@ -132,14 +136,17 @@ export default function TimeMachine({
     () => (showExp ? idxsAtOrAbove(comps, effThr) : []),
     [showExp, comps, effThr]
   );
-  const bottomRuns = useMemo(
-    () => (showBottomExp ? bottomBandRuns(points, bottomThr) : []),
-    [showBottomExp, bottomThr, points]
+  const bottomRank = useMemo(
+    () => (showBottomExp ? bottomPercentileRank(points, bottomWindow) : []),
+    [showBottomExp, bottomWindow, points]
   );
-  const bottomDataCount = useMemo(() => points.filter((q) => q.cycleProb != null).length, [points]);
+  const bottomRuns = useMemo(
+    () => maskRuns(bottomRank.map((r) => !Number.isNaN(r) && r >= bottomPctl)),
+    [bottomRank, bottomPctl]
+  );
   const bottomHitCount = useMemo(
-    () => points.filter((q) => q.cycleProb != null && q.cycleProb >= bottomThr).length,
-    [points, bottomThr]
+    () => bottomRank.filter((r) => !Number.isNaN(r) && r >= bottomPctl).length,
+    [bottomRank, bottomPctl]
   );
   const dates = useMemo(() => points.map((q) => q.date), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
@@ -462,12 +469,24 @@ export default function TimeMachine({
       )}
 
       {showBottomExp && (
-        <label className="slider-row tm-exp">
+        <div className="tm-exp">
+          <div className="tm-zoom">
+            {BOTTOM_WINDOWS.map(([w, label]) => (
+              <button
+                key={w}
+                className={`iconbtn small-btn ${bottomWindow === w ? "active" : ""}`}
+                onClick={() => setBottomWindow(w)}
+              >
+                {label}
+              </button>
+            ))}
+            <span className="muted small">cửa sổ so sánh</span>
+          </div>
           <span>
-            Ngưỡng đáy ≥ {bottomThr}% — <b>{bottomHitCount}</b> ngày đạt / {bottomDataCount} ngày có dữ liệu
+            Top {100 - bottomPctl}% giống đáy nhất · cửa sổ {WINDOW_LABEL[bottomWindow]} — <b>{bottomHitCount}</b> ngày
             <span className="muted small">
               {" "}
-              · vùng tool báo gần-đáy real-time (walk-forward) — chỉ để khám phá
+              · tương đối trong cửa sổ, KHÔNG khẳng định là đáy thật (walk-forward)
             </span>
           </span>
           <input
@@ -475,10 +494,10 @@ export default function TimeMachine({
             min={0}
             max={100}
             step={1}
-            value={bottomThr}
-            onChange={(e) => setBottomThr(Number(e.target.value))}
+            value={bottomPctl}
+            onChange={(e) => setBottomPctl(Number(e.target.value))}
           />
-        </label>
+        </div>
       )}
 
       {spark && (

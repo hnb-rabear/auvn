@@ -78,22 +78,45 @@ export function forwardFillBottomHistory(points: TimelinePoint[], history: Botto
   }
 }
 
-/** Các dải index LIÊN TIẾP có cycleProb != null && >= threshold (lớp lọc đáy walk-forward). */
-export function bottomBandRuns(
+/** Percentile (0..100) của cycleProb mỗi ngày trong cửa sổ trượt windowSessions phiên
+ *  (gồm ngày đó, chỉ quá khứ). NaN nếu cycleProb[i]==null hoặc cửa sổ < minSamples mẫu. */
+export function bottomPercentileRank(
   points: TimelinePoint[],
-  threshold: number
-): { start: number; end: number }[] {
+  windowSessions: number,
+  minSamples = 60
+): number[] {
+  const out: number[] = [];
+  for (let i = 0; i < points.length; i++) {
+    const cur = points[i].cycleProb;
+    if (cur == null) {
+      out.push(NaN);
+      continue;
+    }
+    const lo = Math.max(0, i - windowSessions + 1);
+    let le = 0;
+    let n = 0;
+    for (let j = lo; j <= i; j++) {
+      const v = points[j].cycleProb;
+      if (v == null) continue;
+      n++;
+      if (v <= cur) le++;
+    }
+    out.push(n < minSamples ? NaN : Math.round((le / n) * 1000) / 10);
+  }
+  return out;
+}
+
+/** Gom các dải index có mask[i]===true liên tiếp. */
+export function maskRuns(mask: boolean[]): { start: number; end: number }[] {
   const runs: { start: number; end: number }[] = [];
   let s = -1;
-  for (let i = 0; i < points.length; i++) {
-    const p = points[i].cycleProb;
-    const hit = p != null && p >= threshold;
-    if (hit && s === -1) s = i;
-    else if (!hit && s !== -1) {
+  for (let i = 0; i < mask.length; i++) {
+    if (mask[i] && s === -1) s = i;
+    else if (!mask[i] && s !== -1) {
       runs.push({ start: s, end: i - 1 });
       s = -1;
     }
   }
-  if (s !== -1) runs.push({ start: s, end: points.length - 1 });
+  if (s !== -1) runs.push({ start: s, end: mask.length - 1 });
   return runs;
 }
