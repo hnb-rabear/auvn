@@ -78,45 +78,12 @@ export function forwardFillBottomHistory(points: TimelinePoint[], history: Botto
   }
 }
 
-/** Percentile (0..100) của cycleProb mỗi ngày trong cửa sổ trượt windowSessions phiên
- *  (gồm ngày đó, chỉ quá khứ). NaN nếu cycleProb[i]==null hoặc cửa sổ < minSamples mẫu. */
-export function bottomPercentileRank(
-  points: TimelinePoint[],
-  windowSessions: number,
-  minSamples = 60
-): number[] {
+/** Các ngày "bắt đầu vùng đáy" = cạnh lên bin đáy cao nhất:
+ *  cycleBin[i]===3 && cycleBin[i-1]!==3 (oversold+vĩ mô vừa bật). Walk-forward. */
+export function bottomStartIdxs(points: TimelinePoint[]): number[] {
   const out: number[] = [];
   for (let i = 0; i < points.length; i++) {
-    const cur = points[i].cycleProb;
-    if (cur == null) {
-      out.push(NaN);
-      continue;
-    }
-    const lo = Math.max(0, i - windowSessions + 1);
-    let le = 0;
-    let n = 0;
-    for (let j = lo; j <= i; j++) {
-      const v = points[j].cycleProb;
-      if (v == null) continue;
-      n++;
-      if (v <= cur) le++;
-    }
-    out.push(n < minSamples ? NaN : Math.round((le / n) * 1000) / 10);
+    if (points[i].cycleBin === 3 && points[i - 1]?.cycleBin !== 3) out.push(i);
   }
   return out;
-}
-
-/** Gom các dải index có mask[i]===true liên tiếp. */
-export function maskRuns(mask: boolean[]): { start: number; end: number }[] {
-  const runs: { start: number; end: number }[] = [];
-  let s = -1;
-  for (let i = 0; i < mask.length; i++) {
-    if (mask[i] && s === -1) s = i;
-    else if (!mask[i] && s !== -1) {
-      runs.push({ start: s, end: i - 1 });
-      s = -1;
-    }
-  }
-  if (s !== -1) runs.push({ start: s, end: mask.length - 1 });
-  return runs;
 }
