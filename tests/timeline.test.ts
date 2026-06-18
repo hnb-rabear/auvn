@@ -141,41 +141,20 @@ describe("forwardFillBottomHistory", () => {
   });
 });
 
-import { bottomPercentileRank, maskRuns } from "../src/lib/timeline";
+import { bottomStartIdxs } from "../src/lib/timeline";
 
-describe("bottomPercentileRank", () => {
-  const mk = (cycleProb: number | null): any => ({
+describe("bottomStartIdxs", () => {
+  const mk = (cycleBin: number | undefined): any => ({
     date: "x", price: 1, composite: 0, zone: "neutral", scores: {},
-    returns: { "21": null, "63": null, "126": null }, cycleProb,
+    returns: { "21": null, "63": null, "126": null }, cycleBin,
   });
-  it("percentile cycleProb trong cửa sổ trượt past-only", () => {
-    const pts = [50, 10, 30, 90, 20].map(mk);
-    expect(bottomPercentileRank(pts, 5, 1)).toEqual([100, 50, 66.7, 100, 40]);
+  it("cạnh lên bin==3 (vừa vào, hôm trước chưa)", () => {
+    expect(bottomStartIdxs([1, 3, 3, 2, 3, undefined, 3, 3].map(mk))).toEqual([1, 4, 6]);
   });
-  it("cycleProb null ⇒ NaN tại ngày đó, và bị loại khỏi cửa sổ ngày khác", () => {
-    const r = bottomPercentileRank([10, null, 30].map(mk), 5, 1);
-    expect(Number.isNaN(r[1])).toBe(true);
-    expect(r[0]).toBe(100); // [10] → 100
-    expect(r[2]).toBe(100); // window {10,30}, 30 cao nhất → 100
+  it("bin==3 ngay đầu mảng cũng là cạnh", () => {
+    expect(bottomStartIdxs([3, 3, 1].map(mk))).toEqual([0]);
   });
-  it("cửa sổ < minSamples ⇒ NaN", () => {
-    const r = bottomPercentileRank([10, 20].map(mk), 5, 5);
-    expect(r.every((x) => Number.isNaN(x))).toBe(true);
-  });
-});
-
-describe("maskRuns", () => {
-  it("gom dải true liên tiếp", () => {
-    expect(maskRuns([false, true, true, false, true])).toEqual([
-      { start: 1, end: 2 },
-      { start: 4, end: 4 },
-    ]);
-  });
-  it("toàn false / rỗng ⇒ []", () => {
-    expect(maskRuns([false, false])).toEqual([]);
-    expect(maskRuns([])).toEqual([]);
-  });
-  it("dải chạm cuối được đóng", () => {
-    expect(maskRuns([false, true, true])).toEqual([{ start: 1, end: 2 }]);
+  it("không có bin==3 ⇒ []", () => {
+    expect(bottomStartIdxs([1, 2, 2, 0].map(mk))).toEqual([]);
   });
 });

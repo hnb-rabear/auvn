@@ -468,7 +468,12 @@ td.neutral {
   inset: 0;
   pointer-events: none;
 }
-.tm-band { fill: rgba(230, 184, 76, 0.14); }
+.tm-mk.start {
+  width: 9px;
+  height: 9px;
+  background: var(--gold);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
 .tm-mk {
   position: absolute;
   transform: translate(-50%, -50%);
