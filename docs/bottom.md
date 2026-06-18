@@ -27,6 +27,26 @@ Gauge live hôm nay là base-rate near-bottom trên mọi ngày lịch sử có 
 - **Hiển thị:** Time Machine forward-fill nút thưa gần nhất ≤ ngày được chọn (lệch ≤2 phiên; ngày cuối luôn được ghim nên hôm nay chính xác). Gợi ý "Gom rải" lịch sử bật khi cycle prob ≥ 60 (đúng ngưỡng live; live gộp max(cycle,swing)).
 - **Tam giác "đáy đã xác nhận"** (cần ±9 phiên tương lai) KHÔNG còn hiển thị trên Time Machine — chỉ giữ trong `confirmedBottoms` cho `scripts/bottom-vs-buy-study.ts`.
 
+## Đánh dấu "khởi đầu vùng đáy" trên Time Machine + các hướng ĐÃ LOẠI (thực nghiệm 2026-06)
+
+Lớp "lọc đáy" trên Time Machine (toggle ⚙ "Đánh dấu khởi đầu vùng đáy") đánh dấu **cạnh lên của `cycleBin==3`**: ngày `cycleBin[i]===3 && cycleBin[i-1]!==3` (oversold + vĩ mô lần đầu bật). Hàm thuần `bottomStartIdxs` (`src/lib/timeline.ts`). Walk-forward thuần (chỉ bin hôm nay vs hôm qua), tham-số-0, marker hình thoi hổ phách; panel ngày báo "◆ Điểm BẮT ĐẦU vùng đáy".
+
+Trước khi chốt, đo nhiều hướng trên dữ liệu commit (`scripts/bottom-approach-compare.ts` + `…-compare2.ts`, ground truth = `confirmedBottoms` chu kỳ). Cột chính: phủ năm + win 6 tháng + trung vị + độ gần đáy thật.
+
+| Hướng (cờ walk-forward) | Phủ năm | Win 6T | Trung vị 6T | Phán quyết |
+| --- | --- | --- | --- | --- |
+| Nền (mọi ngày) | 17 | 65% | +4,1% | tham chiếu |
+| `cycleProb≥60` (ngưỡng tuyệt đối) | **4** (2010–13) | 54% | +1,5% | **LOẠI** — base-rate toàn cục bị gấu 2011–15 đầu độc, tắt từ 2014 |
+| `cycleProb` top-X% percentile (cửa sổ trượt) | 17 | 77% | +8,8% | LOẠI — lập bập (cycleProb thưa-giá-trị), chỉ "Top 0%" dùng được |
+| Chiết khấu (drawdown) ≥15% / percentile | 9–13 | 64–65% | +2,2…2,6% | **LOẠI** — ngang nền, "rẻ" ≠ đáy trong sóng tăng |
+| Hội tụ rẻ + bin | 13 | 56% | +0,9% | **LOẠI** — dưới nền |
+| `cycleBin==3` (oversold+vĩ mô) | 15 | **75%** | **+11,4%** | gốc tín hiệu — tốt nhất, bắn mọi năm |
+| **Cạnh lên `cycleBin==3` (CHỐT)** | 15 | **78%** | +9,2% | báo sớm đáy thật ~3 phiên; thưa (~6/năm) |
+
+**Bài học:** tín hiệu chưa bao giờ là vấn đề — `cycleBin==3` đã tốt; hỏng nằm ở lớp **calibration** (`cycleProb` base-rate toàn cục) và ở việc cố "gọi đáy tuyệt đối" trong xu hướng tăng. Cheapness/confluence/percentile/ngưỡng-tuyệt-đối **không được tái thêm** nếu chưa chạy lại `bottom-approach-compare*.ts`.
+
+**Giới hạn (trung thực):** tín hiệu phụ thuộc chế độ — mạnh trong xu hướng tăng (test ≥2019: win 6T 92–93%), yếu trong gấu (train <2019: ~61–69%; dương nhưng khiêm tốn). Đây là **điểm dò đáy sớm để bắt đầu gom rải**, KHÔNG phải lời hứa đáy.
+
 ## Phương pháp tuyển chọn (`scripts/bottom-study.ts`)
 
 1. **Grid search:** 126 hồ sơ trọng số × 3 bộ ranh giới bin của bottomScore.
@@ -97,6 +117,8 @@ npm run collect                      # sinh dữ liệu thật cho study
 npx tsx scripts/bottom-study.ts      # tuyển ε/H + trọng số (grid search, gate 2 giai đoạn)
 npx tsx scripts/bottom-ml-study.ts   # cổng kiểm chứng ML (Brier vs rule-based)
 npx tsx scripts/bottom-vs-buy-study.ts  # quan hệ thời điểm săn đáy vs điểm mua (dùng data đã commit)
+npx tsx scripts/bottom-approach-compare.ts   # so các hướng phát hiện đáy (cheapness/confluence/percentile/bin) — data commit
+npx tsx scripts/bottom-approach-compare2.ts  # đào sâu cycleBin==3: bền 2 giai đoạn + cạnh lên ("bắt đầu đáy")
 ```
 
 `BOTTOM_CONFIG` khai báo tại `src/lib/types.ts` — số liệu evidence trong code phải khớp doc này (cùng quy ước presets.md ↔ PRESETS); đổi cấu hình thì cập nhật cả hai.
