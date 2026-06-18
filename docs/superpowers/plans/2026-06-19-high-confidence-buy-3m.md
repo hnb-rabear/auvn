@@ -155,14 +155,18 @@ function composite(p: TimelinePoint, w: Record<string, number>): number {
   }
   return tw === 0 ? 0 : (s / tw) * 50;
 }
+const STEP = 3;
+const buy = (p: TimelinePoint) => composite(p, preset.weights) >= preset.buyThreshold;
 const pts = tl.points.filter((p) => p.returns["63"] !== null && p.cycleBin !== undefined);
 const B = (seg: TimelinePoint[]) =>
-  seg.filter((p) => composite(p, preset.weights) >= preset.buyThreshold && p.cycleBin === HIGH_CONFIDENCE_BIN);
+  seg.filter((p) => buy(p) && p.cycleBin === HIGH_CONFIDENCE_BIN);
 const favPct = (seg: TimelinePoint[]) => {
   const r = seg.map((p) => p.returns["63"] as number);
   return (r.filter((x) => x > 0).length / r.length) * 100;
 };
 
+// Khóa TẤT CẢ số hiển thị trong HIGH_CONF_3M_EVIDENCE để chúng không trôi âm thầm
+// khỏi dữ liệu (CLAUDE.md: không bao giờ bịa số kiểm chứng).
 describe("HIGH_CONF_3M_EVIDENCE khớp timeline.json", () => {
   it("train (2009–2018)", () => {
     const tr = B(pts.filter((p) => p.date < "2019-01-01"));
@@ -174,8 +178,31 @@ describe("HIGH_CONF_3M_EVIDENCE khớp timeline.json", () => {
     expect(te.length).toBe(HIGH_CONF_3M_EVIDENCE.testN);
     expect(favPct(te)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.testFav, 0);
   });
+  it("lưới thưa STEP=3 (toàn giai đoạn)", () => {
+    const sparseB = tl.points.filter(
+      (p, i) =>
+        i % STEP === 0 &&
+        p.returns["63"] !== null &&
+        p.cycleBin !== undefined &&
+        buy(p) &&
+        p.cycleBin === HIGH_CONFIDENCE_BIN
+    );
+    expect(sparseB.length).toBe(HIGH_CONF_3M_EVIDENCE.sparseN);
+    expect(favPct(sparseB)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.sparseFav, 0);
+  });
+  it("placebo đồng-n train (thông tin trực giao)", () => {
+    const train = pts.filter((p) => p.date < "2019-01-01");
+    const bTrain = B(train);
+    const topN = train
+      .filter(buy)
+      .sort((a, b) => composite(b, preset.weights) - composite(a, preset.weights))
+      .slice(0, bTrain.length);
+    expect(favPct(bTrain) - favPct(topN)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt, 0);
+  });
 });
 ```
+
+(`sparseCi` là CI bootstrap seeded — KHÔNG khóa exact ở đây để tránh test giòn; point estimate `sparseFav`/`sparseN` đã khóa là đủ chống bịa số.)
 
 - [ ] **Step 6: Chạy test để xác nhận PASS**
 
@@ -414,10 +441,12 @@ Trong khối destructure props của `Dashboard` (nơi có `bottom,`), thêm `fu
 
 - [ ] **Step 4: Thêm tag vào `heroMeta`**
 
-Trong JSX của `heroMeta`, ngay sau `<b>{verdictLabel}</b>`, chèn:
+Tag xuất hiện ở DÒNG TÓM TẮT (`meta`, render trong `.guidance-meta`), KHÔNG sửa
+`guidance.when`. Dùng `<b>` trơn (kế thừa màu tone mua từ `.guidance.buy` cha) — KHÔNG
+bịa class CSS mới. Trong JSX của `heroMeta`, ngay sau `<b>{verdictLabel}</b>`, chèn:
 
 ```tsx
-      {highConf && <span className="hc-tag"> (đã kiểm chứng — 3 tháng)</span>}
+      {highConf && <b> · đã kiểm chứng (3 tháng)</b>}
 ```
 
 - [ ] **Step 5: Thêm khối evidence vào `note` của `ActionGuidance`**
@@ -426,7 +455,7 @@ Trong fragment `note={ <> ... </> }`, thêm (sau khối `{preset && !isBuyZone &
 
 ```tsx
             {highConf && (
-              <div className="verdict-note hc-evidence">
+              <div className="verdict-note">
                 Lịch sử ở kỳ 3 tháng, khi composite báo MUA <b>VÀ</b> giá ở vùng đáy: đúng{" "}
                 <b>{HIGH_CONF_3M_EVIDENCE.trainFav}%</b> (2009–2018, n={HIGH_CONF_3M_EVIDENCE.trainN}) /{" "}
                 <b>{HIGH_CONF_3M_EVIDENCE.testFav}%</b> (2019–2026, n={HIGH_CONF_3M_EVIDENCE.testN}); lưới thưa{" "}
