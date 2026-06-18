@@ -77,3 +77,23 @@ export function forwardFillBottomHistory(points: TimelinePoint[], history: Botto
     }
   }
 }
+
+/** Các dải index LIÊN TIẾP có cycleProb != null && >= threshold (lớp lọc đáy walk-forward). */
+export function bottomBandRuns(
+  points: TimelinePoint[],
+  threshold: number
+): { start: number; end: number }[] {
+  const runs: { start: number; end: number }[] = [];
+  let s = -1;
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i].cycleProb;
+    const hit = p != null && p >= threshold;
+    if (hit && s === -1) s = i;
+    else if (!hit && s !== -1) {
+      runs.push({ start: s, end: i - 1 });
+      s = -1;
+    }
+  }
+  if (s !== -1) runs.push({ start: s, end: points.length - 1 });
+  return runs;
+}
