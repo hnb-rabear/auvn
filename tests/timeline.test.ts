@@ -140,3 +140,29 @@ describe("forwardFillBottomHistory", () => {
     expect(pts[0].cycleProb).toBeUndefined();
   });
 });
+
+import { bottomBandRuns } from "../src/lib/timeline";
+
+describe("bottomBandRuns", () => {
+  const mk = (cycleProb: number | null): any => ({
+    date: "x", price: 1, composite: 0, zone: "neutral", scores: {},
+    returns: { "21": null, "63": null, "126": null }, cycleProb,
+  });
+  it("gom dải liên tiếp cycleProb>=ngưỡng; null & dưới-ngưỡng cắt dải", () => {
+    const pts = [null, 70, 71, 50, 80, null, 90].map(mk);
+    expect(bottomBandRuns(pts, 60)).toEqual([
+      { start: 1, end: 2 },
+      { start: 4, end: 4 },
+      { start: 6, end: 6 },
+    ]);
+  });
+  it("biên: >= chứ không >", () => {
+    expect(bottomBandRuns([60, 59].map(mk), 60)).toEqual([{ start: 0, end: 0 }]);
+  });
+  it("dải chạm cuối mảng được đóng", () => {
+    expect(bottomBandRuns([10, 80, 90].map(mk), 60)).toEqual([{ start: 1, end: 2 }]);
+  });
+  it("rỗng khi không ngày nào đạt", () => {
+    expect(bottomBandRuns([null, 10, 20].map(mk), 60)).toEqual([]);
+  });
+});
