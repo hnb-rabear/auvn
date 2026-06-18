@@ -116,6 +116,36 @@ describe("bottomFeatures", () => {
     const macro = f.find((d) => d.id === "macro")!;
     expect(macro.available).toBe(true);
   });
+
+  it("ryield: lợi suất thực rơi 3 tháng ⇒ score > 0; tăng ⇒ < 0", () => {
+    const closes = rng(800, () => 2000);
+    const falling = rng(70, (i) => 2.0 - i * 0.02); // Δ63 ≈ -1.26đ
+    const rising = rng(70, (i) => 0.5 + i * 0.02);
+    const sFall = bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [], realYieldCloses: falling }).find((d) => d.id === "ryield")!;
+    const sRise = bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [], realYieldCloses: rising }).find((d) => d.id === "ryield")!;
+    expect(sFall.available).toBe(true);
+    expect(sFall.score).toBeGreaterThan(0);
+    expect(sRise.score).toBeLessThan(0);
+  });
+
+  it("gsr: tỉ lệ vàng/bạc percentile cao ⇒ score > 0; thấp ⇒ < 0", () => {
+    const closes = rng(800, () => 2000);
+    const hi = rng(510, (i) => 60 + i * 0.05);  // tăng dần -> last là cao nhất -> pct ~1
+    const lo = rng(510, (i) => 120 - i * 0.05);  // giảm dần -> last thấp nhất -> pct ~0
+    const sHi = bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [], gsrCloses: hi }).find((d) => d.id === "gsr")!;
+    const sLo = bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [], gsrCloses: lo }).find((d) => d.id === "gsr")!;
+    expect(sHi.score).toBeGreaterThan(0);
+    expect(sLo.score).toBeLessThan(0);
+  });
+
+  it("ryield/gsr: thiếu input hoặc lịch sử ngắn ⇒ na (available:false)", () => {
+    const f = bottomFeatures({ closes: rng(800, () => 2000), dxyCloses: [], yieldCloses: null, fedRates: [] });
+    expect(f.find((d) => d.id === "ryield")!.available).toBe(false);
+    expect(f.find((d) => d.id === "gsr")!.available).toBe(false);
+    const short = bottomFeatures({ closes: rng(800, () => 2000), dxyCloses: [], yieldCloses: null, fedRates: [], realYieldCloses: rng(30, () => 1), gsrCloses: rng(100, () => 80) });
+    expect(short.find((d) => d.id === "ryield")!.available).toBe(false);
+    expect(short.find((d) => d.id === "gsr")!.available).toBe(false);
+  });
 });
 
 describe("bottomScore & binOf", () => {

@@ -100,3 +100,19 @@ npx tsx scripts/bottom-vs-buy-study.ts  # quan hệ thời điểm săn đáy vs
 ```
 
 `BOTTOM_CONFIG` khai báo tại `src/lib/types.ts` — số liệu evidence trong code phải khớp doc này (cùng quy ước presets.md ↔ PRESETS); đổi cấu hình thì cập nhật cả hai.
+
+## Thử feature 2026-06: lợi suất thực (DFII10) + Vàng/Bạc — kết quả
+
+`scripts/bottom-feature-study.ts` (grid {rsi,macro,ryield,gsr} bước .25 × 3 bộ bin, gate train<2019/test≥2019, tối ưu precision bin-cao chu kỳ H=126/ε3%, recall sàn n≥40, CI 95% block-bootstrap). Đối chiếu mốc `scripts/bottom-detection-compare.ts`: confluence 2 tầng = no-op (chung điểm số); cycle=3 hiện tại đã 76% win 6 tháng.
+
+**Độ phủ:** ryield 1425/1425, gsr 1425/1425 ngày lưới (2009-06→2026-06).
+
+| Cấu hình | train prec (n, base 33%) | test prec (n, base 52%) | CI test |
+| --- | --- | --- | --- |
+| Mốc {rsi:.5, macro:.5} | 40% (n=86) | 72% (n=57) | [54.4–89.5] |
+| {rsi:.5, ryield:.25, gsr:.25} | **39%** (n=99) | **82%** (n=72) | [72.2–91.7] |
+| {rsi:.25, macro:.25, ryield:.25, gsr:.25} | 38% (n=64) | 76% (n=101) | [66.3–84.2] |
+
+**Phán quyết: NO-GO (GO theo chữ, nhưng overfit giai đoạn test).** Script in "GO" vì CI-lo test (72,2%) > mốc (72,0%) — nhưng biên chỉ **0,2 điểm**, và quan trọng hơn: cấu hình thắng **bỏ macro về 0** và có **train precision 39% — THẤP HƠN mốc (40%)** và sát base-rate train (33%). Tức 2 feature mới **không giúp gì ở giai đoạn train (2009–2018)**; toàn bộ "cải thiện" nằm ở test (2019–2026). Đây đúng dấu hiệu **overfit theo chế độ thị trường**: thắng test, thua train, vứt feature đã kiểm chứng (macro), vượt mốc 0,2đ.
+
+→ **Giữ cấu hình hiện tại `{rsi:.5, macro:.5}`.** Không wire live ryield/gsr (Pha 2 hoãn). Theo chính tiêu chí spec, kết quả biên giới ⇒ cần ML cross-check + một held-out thật trước khi tin; bằng chứng hiện tại KHÔNG đủ để đổi config. Ghi nhận như đã loại GPR/VIX: feature hợp lý về lý thuyết nhưng không sống sót kiểm chứng 2 giai đoạn.
