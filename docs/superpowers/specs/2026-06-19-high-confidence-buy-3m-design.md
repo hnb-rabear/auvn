@@ -11,6 +11,13 @@ mà composite hiện không nắm. Cụ thể: khi tín hiệu mua composite (pr
 **chính xác nhất** ở kỳ 3 tháng — vượt cả việc siết composite xuống cùng cỡ mẫu. Ta hiển thị tập con
 này như một tầng **"MUA — ĐỘ TIN CAO"**, không thay đổi điểm composite.
 
+**Đối chiếu thực tế code (quan trọng):** app ĐÃ có một dạng fusion — `deriveGuidance`
+(`src/lib/guidance.ts`) có cấp `level: "strong"` = `isBuy && bottomHigh` (bottomHigh =
+xác suất đáy `prob ≥ 60`, mọi kỳ hạn), nhãn "Tín hiệu mạnh nhất". Tầng này KHÔNG gắn bằng
+chứng và KHÔNG giới hạn kỳ hạn. Spec này KHÔNG tạo khái niệm/nhãn mới: nó **bồi bằng chứng
+đã kiểm chứng vào đúng cấp "strong" sẵn có, chỉ khi đang ở 3m và đúng điều kiện đã backtest**
+(`cycleBin==3`). Các kỳ khác giữ "strong" như cũ (không evidence). Tránh đẻ thêm tầng trùng lặp.
+
 Không nằm trong phạm vi (đã cân nhắc và LOẠI bằng study — xem §6):
 - Tầng "Gom rải sớm" (hợp nhất OR / đáy-ngoài-composite) cho 1m/6m — trùng lặp Bottom Hunter gauge, precision thấp hơn.
 - Gấp feature oversold vào composite (hướng C) — sống sót grid nhưng mùi overfit (mẫu nhỏ).
@@ -80,13 +87,21 @@ hiện tại đã nằm trong `bottom.json`.
 
 ## 5. Thay đổi UI
 
-Trên verdict card (chỉ khi `highConf === true`):
-- Nhãn verdict nâng từ "VÙNG MUA" / "VÙNG MUA MẠNH" → **"VÙNG MUA — ĐỘ TIN CAO"** (badge nổi bật, ví dụ viền/màu khác).
-- Dòng lý do (tiếng Việt): *"Composite báo MUA VÀ giá đang ở vùng đáy (RSI quá bán + vĩ mô đảo chiều). Lịch sử: ở kỳ 3 tháng đây là tập mua chính xác nhất — vượt cả khi siết composite cùng cỡ mẫu."*
-- Evidence (đọc từ `HIGH_CONF_3M_EVIDENCE`): "Đúng 92,8% train (n=69) / 100% test (n=89); lưới thưa 96,3% (n=54, CI 88,9–100). Lớp đáy thêm +10,1pt trực giao." + **câu cảnh báo bắn chùm** (§2): không đọc 100% là chắc thắng.
-- Quan hệ với gauge: KHÔNG trùng lặp — gauge Bottom Hunter vẫn là lớp "săn đáy / gom rải" độc lập. Badge độ-tin-cao chỉ là dấu hai lớp **đồng thuận** ở đúng kỳ 3m. Có thể thêm một dòng nối: "Xem thêm xác suất gần đáy ở phần Săn đáy."
+KHÔNG đổi nhãn/tone của cấp `strong` (giữ "Tín hiệu mạnh nhất — định giá thuận VÀ XAU đang
+dò đáy"). Chỉ **bồi một khối evidence** vào hero verdict khi `highConf === true` (tức đang ở 3m
++ vùng MUA + `cycleBin==3` + verified — tập con của các trường hợp `level==="strong"`):
 
-Khi không phải 3m, hoặc đáy không bật: hiển thị nguyên như hiện tại (không có badge). Không có badge cho 1m/6m.
+- Thêm tag nhỏ cạnh nhãn strong: **"(đã kiểm chứng — 3 tháng)"**.
+- Khối evidence (đọc từ `HIGH_CONF_3M_EVIDENCE`): *"Lịch sử ở kỳ 3 tháng, khi composite báo MUA
+  VÀ giá ở vùng đáy: đúng 92,8% (2009–2018, n=69) / 100% (2019–2026, n=89); lưới thưa 96,3%
+  (n=54, CI 88,9–100). Lớp đáy thêm +10,1pt so với chỉ siết composite cùng cỡ mẫu."*
+- **Câu cảnh báo bắn chùm** (bắt buộc, §2): *"Con số 100% là ước lượng lạc quan do tín hiệu bắn
+  chùm trong một chu kỳ nới lỏng — bằng chứng vững là lợi thế giai đoạn 2009–2018."*
+- Khi `degraded` (§7): ẩn khối evidence (vẫn giữ tag? không — ẩn cả tag), hiển thị strong như cũ.
+
+Khi KHÔNG phải 3m, hoặc `cycleBin<3`, hoặc chưa verified: hero hiển thị **nguyên như hiện tại**
+(cấp strong/buy/... không kèm evidence). Không có tag/evidence cho 1m/6m. Gauge Bottom Hunter giữ
+nguyên vai trò độc lập — không trùng lặp vì đây chỉ là phần evidence bồi vào verdict sẵn có.
 
 ## 6. Các biến thể đã LOẠI (ghi để không tái thử mù)
 
