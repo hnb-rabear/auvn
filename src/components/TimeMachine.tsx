@@ -20,6 +20,7 @@ import {
   idxsAtOrBelow,
   indexOnOrAfter,
   indexOnOrBefore,
+  bottomBandRuns,
 } from "@/lib/timeline";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -85,6 +86,8 @@ export default function TimeMachine({
    * null = chưa kéo, bám theo ngưỡng chuẩn của chế độ đang chọn. */
   const [showExp, setShowExp] = useState(false);
   const [expThr, setExpThr] = useState<number | null>(null);
+  const [showBottomExp, setShowBottomExp] = useState(false);
+  const [bottomThr, setBottomThr] = useState(60);
   const [showGear, setShowGear] = useState(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
   // trạng thái cử chỉ 1 ngón (pan/tap) — px màn hình
@@ -128,6 +131,15 @@ export default function TimeMachine({
   const expIdxs = useMemo(
     () => (showExp ? idxsAtOrAbove(comps, effThr) : []),
     [showExp, comps, effThr]
+  );
+  const bottomRuns = useMemo(
+    () => (showBottomExp ? bottomBandRuns(points, bottomThr) : []),
+    [showBottomExp, bottomThr, points]
+  );
+  const bottomDataCount = useMemo(() => points.filter((q) => q.cycleProb != null).length, [points]);
+  const bottomHitCount = useMemo(
+    () => points.filter((q) => q.cycleProb != null && q.cycleProb >= bottomThr).length,
+    [points, bottomThr]
   );
   const dates = useMemo(() => points.map((q) => q.date), [points]);
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
@@ -283,6 +295,15 @@ export default function TimeMachine({
     const markers = toMarkers(signalIdxs);
     const sellMarkers = showSell ? toMarkers(sellIdxs) : [];
     const expMarkers = toMarkers(expIdxs); // đã rỗng sẵn khi tắt lớp thử
+    const step = W / (win.length - 1);
+    const bands = bottomRuns
+      .map((r) => ({ s: Math.max(r.start, start), e: Math.min(r.end, end - 1) }))
+      .filter((r) => r.s <= r.e)
+      .map((r) => {
+        const left = x(r.s);
+        const right = Math.min(x(r.e) + step, W); // +step để dải 1 ngày vẫn hiện; kẹp W
+        return { x: left, w: right - left };
+      });
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -291,12 +312,13 @@ export default function TimeMachine({
       cx: inWindow ? x(idx) : null,
       cy: inWindow ? y(p.price) : null,
       markers,
+      bands,
       sellMarkers,
       expMarkers,
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end]);
+  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end, bottomRuns]);
 
   // wheel zoom — listener gốc non-passive để preventDefault chặn cuộn trang
   // (React onWheel là passive ⇒ preventDefault vô hiệu). Ref cập nhật để không
@@ -389,6 +411,10 @@ export default function TimeMachine({
             <input type="checkbox" checked={showExp} onChange={(e) => setShowExp(e.target.checked)} />
             Ngưỡng thử nghiệm
           </label>
+          <label className="tm-toggle muted small">
+            <input type="checkbox" checked={showBottomExp} onChange={(e) => setShowBottomExp(e.target.checked)} />
+            Ngưỡng đáy thử nghiệm
+          </label>
           {spark && (
             <span className="tm-daterange muted small">
               <input
@@ -435,6 +461,26 @@ export default function TimeMachine({
         </label>
       )}
 
+      {showBottomExp && (
+        <label className="slider-row tm-exp">
+          <span>
+            Ngưỡng đáy ≥ {bottomThr}% — <b>{bottomHitCount}</b> ngày đạt / {bottomDataCount} ngày có dữ liệu
+            <span className="muted small">
+              {" "}
+              · vùng tool báo gần-đáy real-time (walk-forward) — chỉ để khám phá
+            </span>
+          </span>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={bottomThr}
+            onChange={(e) => setBottomThr(Number(e.target.value))}
+          />
+        </label>
+      )}
+
       {spark && (
         <div className="tm-chartwrap">
           <svg
@@ -448,6 +494,9 @@ export default function TimeMachine({
             onPointerCancel={onPointerCancel}
             aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
           >
+          {spark.bands.map((b, i) => (
+            <rect key={`bd${i}`} className="tm-band" x={b.x} y={0} width={b.w} height={spark.H} />
+          ))}
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
           {spark.cx !== null && (
             <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />

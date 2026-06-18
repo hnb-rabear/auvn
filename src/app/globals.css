@@ -468,6 +468,7 @@ td.neutral {
   inset: 0;
   pointer-events: none;
 }
+.tm-band { fill: rgba(230, 184, 76, 0.14); }
 .tm-mk {
   position: absolute;
   transform: translate(-50%, -50%);
