@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-17T23:56:58.569Z",
+ "generatedAt": "2026-06-18T00:04:23.207Z",
  "dataDate": "2026-06-17",
  "cycle": {
   "prob": 36.4,
@@ -28,14 +28,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 41,8: trung tính.",
+    "explanation": "RSI ngày = 41,7: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 0,
-    "explanation": "MACD histogram -0,81: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -0,88: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -49,8 +49,22 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +26,8% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +26,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
+   },
+   {
+    "id": "ryield",
+    "label": "Lợi suất thực đảo chiều",
+    "score": 0,
+    "explanation": "Không có dữ liệu.",
+    "available": false
+   },
+   {
+    "id": "gsr",
+    "label": "Tỉ lệ Vàng/Bạc cực đoan",
+    "score": 0,
+    "explanation": "Không có dữ liệu.",
+    "available": false
    }
   ]
  },
@@ -81,14 +95,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 41,8: trung tính.",
+    "explanation": "RSI ngày = 41,7: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 0,
-    "explanation": "MACD histogram -0,81: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -0,88: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -102,8 +116,22 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +26,8% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +26,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
+   },
+   {
+    "id": "ryield",
+    "label": "Lợi suất thực đảo chiều",
+    "score": 0,
+    "explanation": "Không có dữ liệu.",
+    "available": false
+   },
+   {
+    "id": "gsr",
+    "label": "Tỉ lệ Vàng/Bạc cực đoan",
+    "score": 0,
+    "explanation": "Không có dữ liệu.",
+    "available": false
    }
   ]
  },

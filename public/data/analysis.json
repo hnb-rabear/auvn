@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-17T23:54:45.979Z",
+ "generatedAt": "2026-06-18T00:02:34.288Z",
  "dataDate": "2026-06-17",
  "stale": true,
  "staleDays": 2,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4292.7998046875,
+  "xauUsd": 4291.7998046875,
   "usdVnd": 26433,
-  "worldVndPerLuong": 136807347,
+  "worldVndPerLuong": 136775478,
   "premiumPct": 8.97,
-  "premiumVnd": 13692653
+  "premiumVnd": 13724522
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 41,8: trung tính.",
+     "explanation": "RSI ngày = 41,7: trung tính.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +26,8% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +26,7% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-17T04:00:00.000Z",
   "yield10y": "2026-06-17T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-17T23:54:45.979Z",
+  "usdVnd": "2026-06-18T00:02:34.288Z",
   "fed": null
  }
 }
