@@ -1,55 +1,55 @@
 {
- "generatedAt": "2026-06-18T15:37:21.068Z",
+ "generatedAt": "2026-06-18T17:31:07.103Z",
  "dataDate": "2026-06-18",
  "cycle": {
-  "prob": 36.4,
+  "prob": 42.1,
   "ci": [
-   26.6,
-   46.7
+   29.2,
+   55
   ],
-  "bin": 1,
-  "n": 368,
+  "bin": 2,
+  "n": 613,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
-    "score": 1,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 19,9%: vùng chiết khấu sâu.",
+    "score": 2,
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -7,4% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -7,6% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 0,
-    "explanation": "RSI ngày = 40,5: trung tính.",
+    "score": 1,
+    "explanation": "RSI ngày = 39,9: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +3,88: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +3,14: động lượng đang đảo lên.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -1,
-    "explanation": "USD trên MA50, lợi suất +0,2đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,22đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +25,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -69,54 +69,54 @@
   ]
  },
  "swing": {
-  "prob": 45.9,
+  "prob": 44,
   "ci": [
-   38.1,
-   53.1
+   37.9,
+   50.5
   ],
-  "bin": 1,
-  "n": 375,
+  "bin": 2,
+  "n": 630,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
-    "score": 1,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 19,9%: vùng chiết khấu sâu.",
+    "score": 2,
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 20,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -7,4% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -7,6% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 0,
-    "explanation": "RSI ngày = 40,5: trung tính.",
+    "score": 1,
+    "explanation": "RSI ngày = 39,9: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +3,88: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +3,14: động lượng đang đảo lên.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -1,
-    "explanation": "USD trên MA50, lợi suất +0,2đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,22đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +25,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22490,8 +22490,8 @@
   },
   {
    "date": "2026-06-18",
-   "cycleBin": 1,
-   "swingBin": 1
+   "cycleBin": 2,
+   "swingBin": 2
   }
  ],
  "bottomHistory": [
@@ -51928,22 +51928,22 @@
   {
    "date": "2026-06-18",
    "cycle": {
-    "bin": 1,
-    "prob": 36.4,
+    "bin": 2,
+    "prob": 42.1,
     "ci": [
-     26.6,
-     46.7
+     29.2,
+     55
     ],
-    "n": 368
+    "n": 613
    },
    "swing": {
-    "bin": 1,
-    "prob": 45.9,
+    "bin": 2,
+    "prob": 44,
     "ci": [
-     38.1,
-     53.1
+     37.9,
+     50.5
     ],
-    "n": 375
+    "n": 630
    }
   }
  ],
