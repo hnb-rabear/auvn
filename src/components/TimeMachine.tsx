@@ -11,6 +11,7 @@ import {
   type Zone,
 } from "@/lib/types";
 import { deriveGuidance } from "@/lib/guidance";
+import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { bottomPctClass } from "@/lib/bottom";
 import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
@@ -68,10 +69,13 @@ export default function TimeMachine({
   timeline,
   weights,
   preset,
+  fusionDegraded,
 }: {
   timeline: Timeline;
   weights: Record<CriterionKey, number>;
   preset: Preset | null;
+  /** monitor báo tầng độ-tin-cao đang thoái hóa ⇒ ẩn tag "đã kiểm chứng" mọi nơi */
+  fusionDegraded: boolean;
 }) {
   const points = timeline.points;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
@@ -241,6 +245,11 @@ export default function TimeMachine({
   const composite = p ? comps[idx] : 0;
   const rawZone = zoneOf(composite, buyThr);
   const isBuy = rawZone === "buy" || rawZone === "strong-buy";
+  // Tầng "MUA độ tin cao" 3m của NGÀY ĐANG XEM: dùng cycleBin past-only (KHÔNG dùng
+  // prob — prob là base-rate look-ahead). Cùng điều kiện với verdict live; ẩn khi degraded.
+  const highConfDay =
+    highConfidenceBuy3m(preset?.id ?? null, isBuy, p.cycleBin ?? -1, p.cycleBin !== undefined) &&
+    !fusionDegraded;
   const isSell = rawZone === "sell" || rawZone === "strong-sell";
   // preset chỉ kiểm chứng phía mua — vùng bán chỉ hiện khi người dùng bật toggle tham khảo
   const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
@@ -523,8 +532,19 @@ export default function TimeMachine({
               ? "CHƯA CÓ TÍN HIỆU MUA"
               : ZONE_LABELS[zone]}
           <span className="muted small"> ({composite > 0 ? "+" : ""}{fmtNum(composite)})</span>
+          {highConfDay && <b> · đã kiểm chứng</b>}
         </span>
       </div>
+
+      {highConfDay && (
+        <div className="muted small">
+          ✓ MUA độ tin cao (3 tháng): composite báo MUA VÀ giá ở vùng đáy (RSI quá bán + vĩ mô đảo
+          chiều). Lịch sử đúng {HIGH_CONF_3M_EVIDENCE.trainFav}% (2009–2018) /{" "}
+          {HIGH_CONF_3M_EVIDENCE.testFav}% (2019–2026); lưới thưa {HIGH_CONF_3M_EVIDENCE.sparseFav}%
+          (CI {HIGH_CONF_3M_EVIDENCE.sparseCi[0]}–{HIGH_CONF_3M_EVIDENCE.sparseCi[1]}). Con số 100%
+          là lạc quan do tín hiệu bắn chùm — bằng chứng vững là giai đoạn 2009–2018.
+        </div>
+      )}
 
       {showBottomStart && bottomStarts.includes(idx) && (
         <div className="muted small">
