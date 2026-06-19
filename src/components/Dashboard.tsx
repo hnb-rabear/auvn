@@ -6,6 +6,7 @@ import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import ActionGuidance from "./ActionGuidance";
 import { deriveGuidance } from "@/lib/guidance";
+import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
 import {
   compositeScore,
@@ -17,6 +18,7 @@ import {
   type Analysis,
   type Backtest,
   type BottomAnalysis,
+  type FusionHealthFile,
   type CriterionKey,
   type CriterionResult,
   type PresetHealthFile,
@@ -77,12 +79,14 @@ export default function Dashboard({
   timeline,
   health,
   bottom,
+  fusionHealth,
 }: {
   analysis: Analysis;
   backtest: Backtest;
   timeline: Timeline;
   health: PresetHealthFile;
   bottom: BottomAnalysis;
+  fusionHealth: FusionHealthFile;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [showSettings, setShowSettings] = useState(false);
@@ -131,6 +135,13 @@ export default function Dashboard({
   // Gợi ý hành động: kết hợp điểm mua (zone) + săn đáy + chênh lệch VN. Chỉ đọc.
   const cycleVerified = !BOTTOM_CONFIG.cycle.provisional && bottom.cycle.n >= 10;
   const swingVerified = !BOTTOM_CONFIG.swing.provisional && bottom.swing.n >= 10;
+  // Tầng "độ tin cao" 3m: bồi evidence khi composite-buy ∧ vùng đáy (cycleBin==3,
+  // điểm đáy hiện tại — KHÁC với prob≥60 của guidance "strong") + verified + monitor
+  // không báo thoái hóa. Đồng hành với verdict, không phải tập con chặt của "strong".
+  const fusionDegraded = fusionHealth.item.status === "degraded";
+  const highConf =
+    highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified) &&
+    !fusionDegraded;
   const guidance = useMemo(() => {
     // best = max prob của tầng đã kiểm chứng (khớp ngưỡng gauge ≥60/≥35), giữ nguyên hành vi live cũ
     const c = cycleVerified ? bottom.cycle.prob : -1;
@@ -162,7 +173,7 @@ export default function Dashboard({
 
   const heroMeta = (
     <>
-      <b>{verdictLabel}</b> · điểm{" "}
+      <b>{verdictLabel}</b>{highConf && <b> · đã kiểm chứng (3 tháng)</b>} · điểm{" "}
       <b>{composite > 0 ? `+${fmtNum(composite)}` : fmtNum(composite)}</b>
       {preset && ` · preset ${preset.label} (ngưỡng mua +${preset.buyThreshold})`}
       {customized && " · trọng số tùy chỉnh"} · xác suất gần đáy {nearBottomLabel}
@@ -259,6 +270,20 @@ export default function Dashboard({
                 Preset chỉ kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
                 im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN
                 vượt vạch đỏ p80 ở biểu đồ bên dưới.
+              </div>
+            )}
+            {highConf && (
+              <div className="verdict-note">
+                Lịch sử ở kỳ 3 tháng, khi composite báo MUA <b>VÀ</b> giá ở vùng đáy: đúng{" "}
+                <b>{HIGH_CONF_3M_EVIDENCE.trainFav}%</b> (2009–2018, n={HIGH_CONF_3M_EVIDENCE.trainN}) /{" "}
+                <b>{HIGH_CONF_3M_EVIDENCE.testFav}%</b> (2019–2026, n={HIGH_CONF_3M_EVIDENCE.testN}); lưới thưa{" "}
+                {HIGH_CONF_3M_EVIDENCE.sparseFav}% (n={HIGH_CONF_3M_EVIDENCE.sparseN}, CI{" "}
+                {HIGH_CONF_3M_EVIDENCE.sparseCi[0]}–{HIGH_CONF_3M_EVIDENCE.sparseCi[1]}). Lớp đáy thêm +
+                {HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt}pt so với chỉ siết composite cùng cỡ mẫu.{" "}
+                <i>
+                  Con số 100% là ước lượng lạc quan do tín hiệu bắn chùm trong một chu kỳ nới lỏng —
+                  bằng chứng vững là lợi thế giai đoạn 2009–2018.
+                </i>
               </div>
             )}
           </>
@@ -565,7 +590,7 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <TimeMachine timeline={timeline} weights={weights} preset={preset} />
+          <TimeMachine timeline={timeline} weights={weights} preset={preset} fusionDegraded={fusionDegraded} />
         </div>
       </details>
 

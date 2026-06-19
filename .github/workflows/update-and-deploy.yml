@@ -39,6 +39,9 @@ jobs:
       - name: Monitor preset health
         run: npx tsx scripts/monitor-presets.ts
 
+      - name: Monitor fusion health
+        run: npx tsx scripts/monitor-fusion.ts
+
       - name: Send notifications (optional)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
