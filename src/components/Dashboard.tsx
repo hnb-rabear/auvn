@@ -135,8 +135,9 @@ export default function Dashboard({
   // Gợi ý hành động: kết hợp điểm mua (zone) + săn đáy + chênh lệch VN. Chỉ đọc.
   const cycleVerified = !BOTTOM_CONFIG.cycle.provisional && bottom.cycle.n >= 10;
   const swingVerified = !BOTTOM_CONFIG.swing.provisional && bottom.swing.n >= 10;
-  // Tầng "độ tin cao" 3m: chỉ bồi evidence khi composite-buy ∧ vùng đáy (cycleBin==3)
-  // + verified, và monitor không báo thoái hóa. Tập con của guidance "strong".
+  // Tầng "độ tin cao" 3m: bồi evidence khi composite-buy ∧ vùng đáy (cycleBin==3,
+  // điểm đáy hiện tại — KHÁC với prob≥60 của guidance "strong") + verified + monitor
+  // không báo thoái hóa. Đồng hành với verdict, không phải tập con chặt của "strong".
   const fusionDegraded = fusionHealth.item.status === "degraded";
   const highConf =
     highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified) &&

@@ -41,7 +41,7 @@ lưới thưa decorrelated. B là tầng **ít tín hiệu hơn nhưng tin cậy
 Cờ dẫn xuất `highConfidenceBuy3m` (`src/lib/fusion.ts`) — KHÔNG sửa composite/engine đáy. Bồi evidence
 vào cấp guidance "strong" sẵn có, chỉ khi 3m + vùng mua + cycleBin==3 + verified. `scripts/monitor-fusion.ts`
 mỗi cron tính lại → `fusion-health.json`; degraded khi B không còn vượt composite cả 2 giai đoạn hoặc
-placebo train ≤ 0 ⇒ UI ẩn evidence.
+placebo train ≤ 0 ⇒ UI ẩn evidence. `public/data/fusion-health.json` là file seed đã commit, cần cho static build (Next.js import tĩnh trong `page.tsx`); mỗi cron `monitor-fusion.ts` tạo lại — tương tự `preset-health.json`.
 
 ## Tái lập
 ```bash
