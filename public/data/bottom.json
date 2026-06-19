@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-06-19T00:01:56.725Z",
- "dataDate": "2026-06-18",
+ "generatedAt": "2026-06-19T01:39:09.751Z",
+ "dataDate": "2026-06-19",
  "cycle": {
   "prob": 42.1,
   "ci": [
@@ -35,7 +35,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +0,41: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +0,38: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -102,7 +102,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +0,41: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +0,38: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -22489,7 +22489,7 @@
    "swingBin": 1
   },
   {
-   "date": "2026-06-18",
+   "date": "2026-06-19",
    "cycleBin": 2,
    "swingBin": 2
   }
@@ -51926,7 +51926,7 @@
    }
   },
   {
-   "date": "2026-06-18",
+   "date": "2026-06-19",
    "cycle": {
     "bin": 2,
     "prob": 42.1,

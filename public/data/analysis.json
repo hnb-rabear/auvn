@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-06-19T00:00:06.257Z",
- "dataDate": "2026-06-18",
+ "generatedAt": "2026-06-19T01:37:02.496Z",
+ "dataDate": "2026-06-19",
  "stale": true,
  "staleDays": 3,
  "prices": {
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4207.2001953125,
-  "usdVnd": 26431,
-  "worldVndPerLuong": 134069226,
+  "xauUsd": 4206.7001953125,
+  "usdVnd": 26440,
+  "worldVndPerLuong": 134098939,
   "premiumPct": 8.97,
-  "premiumVnd": 16430774
+  "premiumVnd": 16401061
  },
  "criteria": [
   {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 100,8 (trên MA50, +1,5% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 100,8 (trên MA50, +1,7% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 25%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 25,1%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -2162,11 +2162,11 @@
   "p80": 16.62
  },
  "sourceTimes": {
-  "world": "2026-06-18T04:00:00.000Z",
-  "dxy": "2026-06-18T04:00:00.000Z",
+  "world": "2026-06-19T01:25:54.000Z",
+  "dxy": "2026-06-19T01:25:59.000Z",
   "yield10y": "2026-06-18T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-19T00:00:06.257Z",
+  "usdVnd": "2026-06-19T01:37:02.496Z",
   "fed": null
  }
 }
