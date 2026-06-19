@@ -1,0 +1,17 @@
+{
+ "generatedAt": "2026-06-19T00:12:24.030Z",
+ "item": {
+  "presetId": "3m",
+  "bTrainFav": 92.8,
+  "bTestFav": 100,
+  "compTrainFav": 81.6,
+  "compTestFav": 95.3,
+  "bTestN": 89,
+  "bTestCi95": [
+   100,
+   100
+  ],
+  "orthoTrainPt": 10.1,
+  "status": "ok"
+ }
+}

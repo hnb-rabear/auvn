@@ -83,6 +83,27 @@ export interface PresetHealthFile {
   items: PresetHealth[];
 }
 
+/** Sức khỏe tầng "MUA độ tin cao" 3m — tính lại mỗi cron bởi scripts/monitor-fusion.ts.
+ *  degraded khi B (composite∧đáy) KHÔNG còn vượt composite ở cả 2 giai đoạn,
+ *  hoặc placebo đồng-n train ≤ 0 (đáy hết thông tin trực giao). */
+export interface FusionHealth {
+  presetId: "3m";
+  bTrainFav: number | null;
+  bTestFav: number | null;
+  compTrainFav: number | null;
+  compTestFav: number | null;
+  bTestN: number;
+  bTestCi95: [number, number] | null;
+  /** placebo đồng-n train: B − composite-top-n (pt) */
+  orthoTrainPt: number | null;
+  status: "ok" | "degraded" | "insufficient";
+}
+
+export interface FusionHealthFile {
+  generatedAt: string;
+  item: FusionHealth;
+}
+
 export interface BacktestBucket {
   zone: Zone;
   horizonDays: number;
