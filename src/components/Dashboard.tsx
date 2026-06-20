@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import TimeMachine from "./TimeMachine";
 import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
+import AccumulationCard from "./AccumulationCard";
 import ActionGuidance from "./ActionGuidance";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
@@ -15,6 +16,8 @@ import {
   BOTTOM_CONFIG,
   DEFAULT_WEIGHTS,
   PRESETS,
+  type AccumulationAnalysis,
+  type AccumulationHealth,
   type Analysis,
   type Backtest,
   type BottomAnalysis,
@@ -80,6 +83,8 @@ export default function Dashboard({
   health,
   bottom,
   fusionHealth,
+  accumulation,
+  accumulationHealth,
 }: {
   analysis: Analysis;
   backtest: Backtest;
@@ -87,6 +92,8 @@ export default function Dashboard({
   health: PresetHealthFile;
   bottom: BottomAnalysis;
   fusionHealth: FusionHealthFile;
+  accumulation: AccumulationAnalysis;
+  accumulationHealth: AccumulationHealth;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [showSettings, setShowSettings] = useState(false);
@@ -577,6 +584,20 @@ export default function Dashboard({
         </summary>
         <div className="acc-body flat">
           <BottomGauges bottom={bottom} />
+        </div>
+      </details>
+
+      {/* ── ACCORDION: Vùng tích lũy (DCA) ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Vùng tích lũy (DCA)</span>
+            <span className="acc-sum-meta">phanh chống mua đỉnh 2 năm</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body flat">
+          <AccumulationCard accumulation={accumulation} health={accumulationHealth} />
         </div>
       </details>
 
