@@ -144,6 +144,10 @@ export interface TimelinePoint {
   swingProb?: number | null;
   swingCi?: [number, number] | null;
   swingN?: number;
+  /** hệ số phanh DCA as-of-ngày (lớp Vùng tích lũy). undefined = timeline.json cũ. */
+  accumMult?: number;
+  /** percentile giá so dải 2 năm (0..1) tại ngày này. undefined = timeline.json cũ. */
+  pricePct2y?: number | null;
 }
 
 export interface Timeline {
@@ -392,3 +396,87 @@ export const BOTTOM_CONFIG: BottomConfig = {
     binEdges: [-40, 0, 40],
   },
 };
+
+/** Một điểm tối thiểu để chấm Vùng tích lũy (lấy từ timeline.points). */
+export interface AccumPoint {
+  date: string;
+  price: number;
+  composite: number;
+}
+
+/** Một phanh đang bật + giải thích tiếng Việt. */
+export interface AccumBrake {
+  id: "price-top" | "comp-bear";
+  label: string;
+  explanation: string;
+}
+
+/**
+ * Cấu hình phanh DCA "Vùng tích lũy". Tuyển bằng scripts/accumulation-study.ts
+ * (lưới 54 cấu hình, 48 vượt cổng 2 giai đoạn train<2019/test>=2019, xếp min-excess
+ * + CI block-bootstrap + placebo). Chốt config B (nhẹ) thay winner thuần min-excess (A)
+ * vì trực giác hơn, CI chồng nhau. Chỉ phanh, không boost. Loại bằng bằng chứng:
+ * Bottom Hunter (train âm), real-yield (overfit bull). Chi tiết: docs/accumulation.md.
+ */
+export interface AccumConfig {
+  /** cửa sổ percentile giá (phiên), past-only */
+  win: number;
+  /** phanh khi percentile giá > expHi (0..1) */
+  expHi: number;
+  /** hệ số khi giá đắt */
+  mExp: number;
+  /** phanh thêm khi composite < compThr */
+  compThr: number;
+  /** hệ số khi composite bi quan */
+  mComp: number;
+  /** sàn hệ số */
+  floor: number;
+  evidence: {
+    trainImprPct: number;
+    trainCi: [number, number];
+    testImprPct: number;
+    testCi: [number, number];
+  };
+}
+
+export const ACCUM_CONFIG: AccumConfig = {
+  win: 504,
+  expHi: 0.75,
+  mExp: 0.25,
+  compThr: -30,
+  mComp: 0.5,
+  floor: 0.2,
+  evidence: {
+    trainImprPct: 2.26,
+    trainCi: [0.63, 4.27],
+    testImprPct: 8.24,
+    testCi: [2.55, 13.76],
+  },
+};
+
+export interface AccumulationAnalysis {
+  generatedAt: string;
+  dataDate: string;
+  /** percentile giá so 2 năm hôm nay (0..1); null nếu < warmup */
+  pricePct2y: number | null;
+  /** composite (world) hôm nay */
+  composite: number;
+  /** hệ số phanh hôm nay ∈ {1,0.5,0.25,0.2} */
+  mult: number;
+  /** các phanh đang bật */
+  brakes: AccumBrake[];
+  /** true khi chưa đủ 2 năm lịch sử (pricePct2y null) */
+  provisional: boolean;
+  /** hệ số + percentile theo NGÀY (mọi phiên) cho Time Machine */
+  history: { date: string; pricePct2y: number | null; mult: number }[];
+  note: string;
+}
+
+/** Sức khỏe lớp Vùng tích lũy — tính lại mỗi cron bởi scripts/monitor-accumulation.ts. */
+export interface AccumulationHealth {
+  generatedAt: string;
+  /** cải thiện giá vốn vs phẳng trên ~2 năm gần nhất (pt %) */
+  recentImprPct: number | null;
+  recentBrakedMonths: number;
+  status: "ok" | "degraded" | "insufficient";
+}
