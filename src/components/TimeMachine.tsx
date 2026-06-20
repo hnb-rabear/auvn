@@ -536,6 +536,17 @@ export default function TimeMachine({
         </span>
       </div>
 
+      {p.accumMult !== undefined && (
+        <div className="muted small">
+          DCA tích lũy:{" "}
+          <b className={p.accumMult >= 1 ? "buy" : p.accumMult <= 0.25 ? "sell" : "neutral"}>
+            ×{p.accumMult}
+          </b>
+          {p.pricePct2y != null && ` · giá ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`}
+          {p.accumMult < 1 ? " — ghìm mua" : " — mua đều"}
+        </div>
+      )}
+
       {highConfDay && (
         <div className="muted small">
           ✓ MUA độ tin cao (3 tháng): composite báo MUA VÀ giá ở vùng đáy (RSI quá bán + vĩ mô đảo
