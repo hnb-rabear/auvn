@@ -816,3 +816,28 @@ td.neutral {
   gap: 8px;
   margin-top: 10px;
 }
+
+/* ── Vùng tích lũy (DCA) card ── */
+.accum-why {
+  margin: 6px 0 12px;
+  line-height: 1.45;
+}
+.accum-bar-wrap {
+  position: relative;
+  margin: 4px 0 2px;
+}
+.accum-brake-tick {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: #e6b84c;
+  transform: translateX(-50%);
+}
+.accum-info p {
+  margin: 0 0 10px;
+  line-height: 1.45;
+}
+.accum-info p:last-child {
+  margin-bottom: 0;
+}

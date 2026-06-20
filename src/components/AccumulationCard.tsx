@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { ACCUM_CONFIG, type AccumulationAnalysis, type AccumulationHealth } from "@/lib/types";
 
 const pct = (x: number | null) => (x === null ? "—" : `${Math.round(x * 100)}%`);
@@ -12,63 +13,121 @@ export default function AccumulationCard({
 }) {
   const a = accumulation;
   const ev = ACCUM_CONFIG.evidence;
+  const [showInfo, setShowInfo] = useState(false);
+
   const ppNum = a.pricePct2y === null ? 0 : Math.round(a.pricePct2y * 100);
-  const verdict =
-    a.mult >= 1
-      ? `Vùng thường (${pct(a.pricePct2y)}) — mua đều ×1`
-      : `${a.pricePct2y !== null && a.pricePct2y > ACCUM_CONFIG.expHi ? "Đỉnh vùng 2 năm" : "Composite bất lợi"} (${pct(
-          a.pricePct2y
-        )}) — ghìm mua ×${a.mult}`;
-  const cls = a.mult >= 1 ? "buy" : a.mult <= 0.25 ? "sell" : "neutral";
+  const ppLabel = pct(a.pricePct2y);
+  const brakeHi = Math.round(ACCUM_CONFIG.expHi * 100); // 75
+  const hasPrice = a.brakes.some((b) => b.id === "price-top");
+  const hasComp = a.brakes.some((b) => b.id === "comp-bear");
+
+  // Câu hành động (theo hệ số) + màu
+  let action: string;
+  let tone: "buy" | "neutral" | "sell";
+  if (a.mult >= 1) {
+    action = "Tháng này: MUA NHƯ BÌNH THƯỜNG";
+    tone = "buy";
+  } else if (a.mult <= 0.2) {
+    action = "Tháng này: MUA RẤT ÍT (≈⅕)";
+    tone = "sell";
+  } else if (a.mult <= 0.25) {
+    action = "Tháng này: MUA ÍT LẠI (≈¼)";
+    tone = "sell";
+  } else {
+    action = "Tháng này: MUA BỚT LẠI (một nửa)";
+    tone = "neutral";
+  }
+
+  // Câu giải thích (theo phanh nào bật) — luôn dịch số sang lời
+  let why: string;
+  if (a.mult >= 1) {
+    why = `Giá đang ở ${ppLabel} so với giá vàng 2 năm qua — chưa tới vùng đắt (${brakeHi}%) cần ghìm mua.`;
+  } else if (hasPrice && hasComp) {
+    why = `Vàng vừa đắt (${ppLabel}) vừa gặp xu hướng bất lợi — nên ghìm mạnh.`;
+  } else if (hasPrice) {
+    why = `Giá đang ở vùng đắt nhất 2 năm (${ppLabel}) — dễ mua hớ, nên gom ít lại và để dành tiền cho lúc rẻ hơn.`;
+  } else {
+    why = "Xu hướng thị trường đang bất lợi nên tạm gom ít lại.";
+  }
 
   return (
     <section className="card">
       <div className="card-head">
-        <h2>Vùng tích lũy — phanh DCA chống mua đỉnh</h2>
+        <h2>Mức mua tháng này</h2>
+        <button
+          className="iconbtn small-btn"
+          aria-label="Giải thích card này"
+          aria-expanded={showInfo}
+          onClick={() => setShowInfo((v) => !v)}
+        >
+          {showInfo ? "✕" : "ⓘ"}
+        </button>
       </div>
-      <p className="muted small">
-        DCA đều, nhưng ghìm khối lượng (không bao giờ về 0) khi vàng đắt bất thường so với dải 2 năm
-        hoặc composite bi quan. Lan can chống FOMO mua đỉnh — KHÔNG phải máy đẻ vàng.
-      </p>
 
       {health.status === "degraded" && (
         <div className="banner warn">
-          ⚠ Lớp Vùng tích lũy đang mất hiệu quả trên ~2 năm gần nhất (biên lợi gần đây{" "}
-          {health.recentImprPct}% ≤ 0, kiểm tra tự động mỗi cron) — cân nhắc bỏ qua gợi ý phanh.
+          ⚠ Lớp này đang mất hiệu quả trên ~2 năm gần nhất (biên lợi gần đây {health.recentImprPct}% ≤ 0,
+          kiểm tra tự động mỗi cron) — cân nhắc bỏ qua gợi ý dưới đây.
+        </div>
+      )}
+
+      {showInfo && (
+        <div className="banner info accum-info">
+          <p>
+            <b>Card này để làm gì?</b>
+            <br />
+            Bạn mua vàng đều đặn mỗi tháng. Card nhắc: tháng nào vàng đang <b>đắt bất thường</b> thì mua
+            ít lại, để dành tiền cho lúc rẻ hơn. Nó <b>không</b> bảo bạn mua hay bán — chỉ chỉnh mua
+            nhiều hay ít.
+          </p>
+          <p>
+            <b>Con số {ppLabel} là gì?</b>
+            <br />
+            Là so giá hôm nay với chính giá vàng <b>2 năm qua</b>. {ppLabel} nghĩa là hôm nay vàng đang
+            đắt hơn {ppLabel} số ngày trong 2 năm gần đây. Càng gần 100 càng đắt. <b>Vượt {brakeHi} là
+            vùng đắt</b> → card khuyên mua ít lại.
+          </p>
+          <p>
+            <b>Có đáng tin không?</b>
+            <br />
+            Đã thử lại trên <b>17 năm lịch sử giá vàng</b> (chia 2 thời kỳ khác nhau để chắc không phải
+            ăn may): cách &quot;đắt thì ghìm mua&quot; cho ra <b>giá vốn trung bình rẻ hơn</b> so với mua
+            đều một cách máy móc.
+          </p>
+          <p>
+            <b>Đừng kỳ vọng quá.</b>
+            <br />
+            Lợi ích thật khá nhỏ — <b>rẻ hơn khoảng 2%</b> ở điều kiện thường (có lúc nhiều hơn khi giá
+            tăng mạnh, nhưng đừng trông vào đó). Đôi khi 2% còn không bù nổi chênh lệch mua–bán ở tiệm
+            vàng. Đây là <b>lan can chống mua hớ lúc đỉnh</b>, không phải cách làm giàu.
+          </p>
+          <p className="muted small">
+            Chi tiết kỹ thuật: rẻ hơn +{ev.trainImprPct}% (2009–2018) / +{ev.testImprPct}% (2019–2026).
+          </p>
         </div>
       )}
 
       {a.provisional ? (
-        <div className="muted small">Chưa đủ 2 năm dữ liệu để chấm — chưa kích hoạt phanh.</div>
+        <div className="muted small">Chưa đủ 2 năm dữ liệu để chấm — chưa kích hoạt gợi ý.</div>
       ) : (
         <>
-          <div className={`bottom-gauge-pct ${cls}`}>{verdict}</div>
-          <div className="bottom-gauge-bar">
-            <div className="bottom-gauge-fill neutral" style={{ width: `${ppNum}%` }} />
+          <div className={`bottom-gauge-pct ${tone}`}>{action}</div>
+          <p className="accum-why">{why}</p>
+
+          <div className="accum-bar-wrap">
+            <div className="bottom-gauge-bar">
+              <div className={`bottom-gauge-fill ${tone}`} style={{ width: `${ppNum}%` }} />
+            </div>
+            <span className="accum-brake-tick" style={{ left: `${brakeHi}%` }} aria-hidden />
           </div>
           <div className="gauge-scale">
-            <span>0 rẻ</span>
-            <span>phanh ở {pct(ACCUM_CONFIG.expHi)}</span>
-            <span>đắt 100</span>
+            <span>rẻ</span>
+            <span>đắt</span>
           </div>
-          {a.brakes.length > 0 && (
-            <ul className="signals">
-              {a.brakes.map((b) => (
-                <li key={b.id}>
-                  <div>
-                    <div className="sig-label">{b.label}</div>
-                    <div className="sig-expl">{b.explanation}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="verdict-bt muted">
-            Kiểm chứng: phanh này hạ giá vốn trung bình +{ev.trainImprPct}% (2009–2018, CI{" "}
-            {ev.trainCi[0]}–{ev.trainCi[1]}%) / +{ev.testImprPct}% (2019–2026, CI {ev.testCi[0]}–
-            {ev.testCi[1]}%). Lưu ý: số 2019–2026 bị sóng tăng tô hồng; biên lợi chế độ thường ~2% có
-            thể trong tầm spread mua-bán vật chất.
-          </div>
+          <p className="muted small">
+            Thanh trên = vị trí giá hôm nay trong dải 2 năm; vạch vàng ({brakeHi}) là mốc bắt đầu ghìm
+            mua. Bấm ⓘ ở góc để xem giải thích.
+          </p>
         </>
       )}
     </section>
