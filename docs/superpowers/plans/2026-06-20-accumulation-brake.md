@@ -229,12 +229,14 @@ describe("brakeDescriptors", () => {
 });
 
 describe("realizedCostImpr", () => {
-  it("phanh ở tháng giá cao -> giá vốn rẻ hơn (impr > 0)", () => {
-    // 5 tháng, tháng cuối rất đắt; warmup nhỏ để pricePct có giá trị
-    const closes = [100, 100, 100, 100, 100, 100, 100, 200];
+  it("phanh ở tháng đắt (khác tháng rẻ) -> giá vốn rẻ hơn (impr > 0)", () => {
+    // win=4. Giá xen kẽ cao/thấp -> tháng cao bị phanh x0.25, tháng thấp giữ x1,
+    // dồn trọng số sang tháng rẻ -> giá vốn TB thấp hơn. (Phanh ĐỒNG ĐỀU mọi tháng
+    // sẽ cho impr=0 vì chỉ là co giãn tỉ lệ — phải phân biệt mới có lợi.)
+    const closes = [50, 50, 50, 50, 100, 50, 100, 50];
     const composites = closes.map(() => 0);
     const cfg = { ...ACCUM_CONFIG, win: 4, expHi: 0.75 };
-    const idxs = [4, 5, 6, 7];
+    const idxs = [4, 5, 6, 7]; // giá [100,50,100,50] -> mult [0.25,1,0.25,1]
     expect(realizedCostImpr(closes, composites, idxs, cfg)).toBeGreaterThan(0);
   });
 });
@@ -414,34 +416,27 @@ import { describe, it, expect } from "vitest";
 import { monitorAccumulation } from "./monitor-accumulation";
 import type { AccumPoint } from "../src/lib/types";
 
-// 3 năm dữ liệu tháng-ngày giả: warmup đủ + cửa sổ 2 năm gần nhất có phanh
-function makePoints(n: number, priceAt: (i: number) => number): AccumPoint[] {
-  return Array.from({ length: n }, (_, i) => ({
-    date: `2020-01-${String((i % 28) + 1).padStart(2, "0")}`.replace(/^(\d{4})-(\d{2})-(\d{2})$/, `2${String(2000 + Math.floor(i / 300)).slice(1)}-01-$3`),
-    price: priceAt(i),
-    composite: 0,
-  }));
+/** n ngày LIÊN TIẾP từ `start`, giá theo priceAt(i), composite=0. */
+function makePoints(n: number, priceAt: (i: number) => number, start = "2014-01-01"): AccumPoint[] {
+  const out: AccumPoint[] = [];
+  let t = Date.parse(start + "T00:00:00Z");
+  for (let i = 0; i < n; i++) {
+    out.push({ date: new Date(t).toISOString().slice(0, 10), price: priceAt(i), composite: 0 });
+    t += 86400000;
+  }
+  return out;
 }
 
 describe("monitorAccumulation", () => {
   it("insufficient khi quá ít điểm", () => {
-    const pts: AccumPoint[] = Array.from({ length: 50 }, (_, i) => ({
-      date: `d${i}`,
-      price: 100 + i,
-      composite: 0,
-    }));
-    expect(monitorAccumulation(pts).status).toBe("insufficient");
+    expect(monitorAccumulation(makePoints(50, (i) => 100 + i)).status).toBe("insufficient");
   });
-  it("ok/degraded có giá trị recentImprPct khi đủ dữ liệu", () => {
-    // tăng đều dài -> đủ warmup, ngày gần đây ở đỉnh -> có phanh
-    const pts: AccumPoint[] = Array.from({ length: 1400 }, (_, i) => ({
-      date: `2009-06-${String((i % 28) + 1).padStart(2, "0")}`,
-      price: 100 + i,
-      composite: 0,
-    }));
-    const h = monitorAccumulation(pts);
+  it("trả status hợp lệ + recentImprPct số khi đủ dữ liệu", () => {
+    // 1400 ngày tăng đều -> đủ warmup; cửa sổ 2 năm gần nhất có tháng bị phanh
+    const h = monitorAccumulation(makePoints(1400, (i) => 100 + i));
     expect(["ok", "degraded"]).toContain(h.status);
     expect(h.recentImprPct).not.toBeNull();
+    expect(h.recentBrakedMonths).toBeGreaterThan(0);
   });
 });
 ```
@@ -455,7 +450,7 @@ Expected: FAIL ("Failed to resolve import './monitor-accumulation'").
 
 ```ts
 /** Giám sát lớp Vùng tích lũy ~2 năm gần nhất. Gọi trong run.ts; ghi accumulation-health.json. */
-import { realizedCostImpr } from "../src/lib/accumulation";
+import { realizedCostImpr, pricePct2y, accumMult } from "../src/lib/accumulation";
 import { ACCUM_CONFIG, type AccumPoint, type AccumulationHealth } from "../src/lib/types";
 
 const STEP = 21; // nhịp DCA tháng
@@ -470,11 +465,10 @@ export function monitorAccumulation(points: AccumPoint[]): AccumulationHealth {
     ? new Date(new Date(lastDate).getTime() - 730 * 86400000).toISOString().slice(0, 10)
     : "";
 
-  const monthly: number[] = [];
-  for (let i = 0; i < points.length; i += STEP) monthly.push(i);
-  const recent = monthly.filter((i) => dates[i] >= cutoff);
+  const recent: number[] = [];
+  for (let i = 0; i < points.length; i += STEP) if (dates[i] >= cutoff) recent.push(i);
   const braked = recent.filter(
-    (i) => accumMultLocal(closes, composites, i) < 1
+    (i) => accumMult(pricePct2y(closes, i, ACCUM_CONFIG.win), composites[i]) < 1
   ).length;
 
   let status: "ok" | "degraded" | "insufficient" = "insufficient";
@@ -490,12 +484,6 @@ export function monitorAccumulation(points: AccumPoint[]): AccumulationHealth {
     recentBrakedMonths: braked,
     status,
   };
-}
-
-// nội bộ: tránh import vòng — tái dùng realizedCostImpr cho 1 điểm để biết có phanh không
-import { pricePct2y, accumMult } from "../src/lib/accumulation";
-function accumMultLocal(closes: number[], composites: number[], i: number): number {
-  return accumMult(pricePct2y(closes, i, ACCUM_CONFIG.win), composites[i]);
 }
 ```
 
@@ -573,21 +561,62 @@ Chèn:
 Sửa template log cuối `main()` — thêm vào cuối chuỗi trước backtick đóng:
 ` accumMult=${accumulation.mult} pricePct2y=${accumulation.pricePct2y}`
 
-- [ ] **Step 5: Chạy collect để sinh file + kiểm tra**
+- [ ] **Step 5: Kiểm tra biên dịch run.ts**
 
-Run: `npm run collect`
-Expected: chạy xong, in dòng OK có `accumMult=...`; tạo `public/data/accumulation.json` và `accumulation-health.json`.
+Run: `npx tsc --noEmit`
+Expected: exit 0 (không lỗi type).
 
-- [ ] **Step 6: Xác nhận timeline có field mới**
+- [ ] **Step 6: Sinh dữ liệu TẤT ĐỊNH từ `timeline.json` đã commit (KHÔNG cần mạng)**
+
+Lý do: `npm run collect` phụ thuộc fetch mạng (không tất định) và làm bẩn nhiều file data. Seed từ `timeline.json` đã commit cho diff đúng 3 file, tái lập được. Cùng hàm `runAccumulation` đã nối ở Step 2, nên cron thật sẽ sinh y hệt.
+
+Tạo file tạm `scripts/seed-accum.tmp.ts`:
+
+```ts
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { runAccumulation } from "../src/lib/accumulation";
+import { monitorAccumulation } from "./monitor-accumulation";
+import type { AccumPoint } from "../src/lib/types";
+
+const DATA = join(process.cwd(), "public", "data");
+const tl = JSON.parse(readFileSync(join(DATA, "timeline.json"), "utf8"));
+const pts: AccumPoint[] = tl.points.map((p: { date: string; price: number; composite: number }) => ({
+  date: p.date,
+  price: p.price,
+  composite: p.composite,
+}));
+const a = runAccumulation(pts);
+const byDate = new Map(a.history.map((h) => [h.date, h]));
+for (const pt of tl.points) {
+  const h = byDate.get(pt.date);
+  if (h) {
+    pt.accumMult = h.mult;
+    pt.pricePct2y = h.pricePct2y;
+  }
+}
+writeFileSync(join(DATA, "accumulation.json"), JSON.stringify(a, null, 1));
+writeFileSync(join(DATA, "accumulation-health.json"), JSON.stringify(monitorAccumulation(pts), null, 1));
+writeFileSync(join(DATA, "timeline.json"), JSON.stringify(tl));
+console.log("seeded: mult", a.mult, "pricePct2y", a.pricePct2y, "provisional", a.provisional);
+```
+
+Run: `npx tsx scripts/seed-accum.tmp.ts`
+Expected: in `seeded: mult <số> pricePct2y <số> provisional false`.
+
+Xóa file tạm:
+Run: `rm scripts/seed-accum.tmp.ts`
+
+- [ ] **Step 7: Xác nhận timeline có field mới**
 
 Run: `node -e "const t=require('./public/data/timeline.json');const p=t.points[t.points.length-1];console.log('accumMult',p.accumMult,'pricePct2y',p.pricePct2y)"`
 Expected: in ra số (không undefined).
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add scripts/run.ts public/data/accumulation.json public/data/accumulation-health.json public/data/timeline.json
-git commit -m "feat(accumulation): nối vào pipeline collect + enrich timeline"
+git commit -m "feat(accumulation): nối vào pipeline collect + enrich timeline (seed tất định)"
 ```
 
 ---
