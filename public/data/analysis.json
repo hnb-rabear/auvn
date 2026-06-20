@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-20T21:49:52.826Z",
+ "generatedAt": "2026-06-20T22:47:12.979Z",
  "dataDate": "2026-06-19",
  "stale": true,
  "staleDays": 5,
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 100,8 (trên MA50, +1,6% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 100,8 (trên MA50, +1,8% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-19T20:59:59.000Z",
   "yield10y": "2026-06-12T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-20T21:49:52.826Z",
+  "usdVnd": "2026-06-20T22:47:12.979Z",
   "fed": null
  }
 }
