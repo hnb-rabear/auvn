@@ -16,7 +16,7 @@ export default function AccumulationCard({
   const verdict =
     a.mult >= 1
       ? `Vùng thường (${pct(a.pricePct2y)}) — mua đều ×1`
-      : `${a.pricePct2y !== null && a.pricePct2y > ACCUM_CONFIG.expHi ? "Đỉnh vùng 2 năm" : "Bất lợi"} (${pct(
+      : `${a.pricePct2y !== null && a.pricePct2y > ACCUM_CONFIG.expHi ? "Đỉnh vùng 2 năm" : "Composite bất lợi"} (${pct(
           a.pricePct2y
         )}) — ghìm mua ×${a.mult}`;
   const cls = a.mult >= 1 ? "buy" : a.mult <= 0.25 ? "sell" : "neutral";
@@ -33,8 +33,8 @@ export default function AccumulationCard({
 
       {health.status === "degraded" && (
         <div className="banner warn">
-          ⚠ Lớp Vùng tích lũy đang mất hiệu quả trên ~2 năm gần nhất (cải thiện {health.recentImprPct}%,
-          kiểm tra tự động mỗi cron) — cân nhắc bỏ qua gợi ý phanh.
+          ⚠ Lớp Vùng tích lũy đang mất hiệu quả trên ~2 năm gần nhất (biên lợi gần đây{" "}
+          {health.recentImprPct}% ≤ 0, kiểm tra tự động mỗi cron) — cân nhắc bỏ qua gợi ý phanh.
         </div>
       )}
 
