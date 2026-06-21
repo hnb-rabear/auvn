@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult } from "@/lib/types";
 import { bottomPctClass } from "@/lib/bottom";
 
@@ -30,11 +31,27 @@ function Gauge({ title, sub, tier, provisional }: { title: string; sub: string; 
 }
 
 export default function BottomGauges({ bottom }: { bottom: BottomAnalysis }) {
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <section className="card">
       <div className="card-head">
         <h2>Săn đáy — xác suất giá không rẻ hơn đáng kể</h2>
+        <button
+          className="iconbtn small-btn"
+          aria-label="Giải thích ô này"
+          aria-expanded={showInfo}
+          onClick={() => setShowInfo((v) => !v)}
+        >
+          {showInfo ? "✕" : "ⓘ"}
+        </button>
       </div>
+      {showInfo && (
+        <div className="banner info">
+          Ước lượng giá có đang <b>gần đáy</b> không, để <b>gom rải</b> lúc giá lao dốc. Là xác suất
+          tham khảo kèm khoảng tin cậy — <b>không phải lời khẳng định đáy</b>. Khác với Săn điểm mua
+          (xu hướng) và Vùng tích lũy (giá vốn dài hạn).
+        </div>
+      )}
       <p className="muted small">
         Ước lượng từ base-rate lịch sử XAU/USD theo nhóm điểm số đáy. Công cụ tham khảo, KHÔNG phải dự báo chắc chắn — quá khứ không bảo đảm tương lai.
       </p>

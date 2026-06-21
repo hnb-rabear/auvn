@@ -842,28 +842,9 @@ td.neutral {
   margin-bottom: 0;
 }
 
-/* ── Bản đồ 3 góc nhìn ── */
-.lens-map {
-  background: #181818;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin: 14px 0;
-}
-.lens-map h2 {
-  font-size: 0.95rem;
-  margin: 0 0 4px;
-}
-.lens-map ul {
-  list-style: none;
-  padding: 0;
-  margin: 8px 0;
-}
-.lens-map li {
-  padding: 5px 0;
-  border-top: 1px solid #232323;
-  line-height: 1.4;
-}
-.lens-map li:first-child {
-  border-top: none;
+/* nhóm tiêu đề + nút (i) bên trái card-head (giữ chip/score bên phải) */
+.card-head-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

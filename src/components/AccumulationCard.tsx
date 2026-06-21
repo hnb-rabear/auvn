@@ -74,42 +74,27 @@ export default function AccumulationCard({
       {showInfo && (
         <div className="banner info accum-info">
           <p>
-            <b>Card này để làm gì?</b>
+            <b>Để làm gì?</b>
             <br />
-            Bạn mua vàng đều đặn mỗi tháng. Card nhắc: tháng nào vàng đang <b>đắt bất thường</b> thì mua
-            ít lại, để dành tiền cho lúc rẻ hơn. Nó <b>không</b> bảo bạn mua hay bán — chỉ chỉnh mua
-            nhiều hay ít.
+            Bạn mua đều mỗi tháng. Card nhắc: tháng nào vàng <b>đắt bất thường</b> thì gom ít lại, để
+            dành cho lúc rẻ hơn. Không bảo mua/bán — chỉ chỉnh nhiều/ít.
           </p>
           <p>
             <b>Con số {ppLabel} là gì?</b>
             <br />
-            Là so giá hôm nay với chính giá vàng <b>2 năm qua</b>. {ppLabel} nghĩa là hôm nay vàng đang
-            đắt hơn {ppLabel} số ngày trong 2 năm gần đây. Càng gần 100 càng đắt. <b>Vượt {brakeHi} là
-            vùng đắt</b> → card khuyên mua ít lại.
-          </p>
-          <p>
-            <b>Có đáng tin không?</b>
-            <br />
-            Đã thử lại trên <b>17 năm lịch sử giá vàng</b> (chia 2 thời kỳ khác nhau để chắc không phải
-            ăn may): cách &quot;đắt thì ghìm mua&quot; cho ra <b>giá vốn trung bình rẻ hơn</b> so với mua
-            đều một cách máy móc.
-          </p>
-          <p>
-            <b>Đừng kỳ vọng quá.</b>
-            <br />
-            Lợi ích thật khá nhỏ — <b>rẻ hơn khoảng 2%</b> ở điều kiện thường (có lúc nhiều hơn khi giá
-            tăng mạnh, nhưng đừng trông vào đó). Đôi khi 2% còn không bù nổi chênh lệch mua–bán ở tiệm
-            vàng. Đây là <b>lan can chống mua hớ lúc đỉnh</b>, không phải cách làm giàu.
+            So giá hôm nay với giá vàng <b>2 năm qua</b>: càng gần 100 càng đắt. <b>Vượt {brakeHi} là
+            vùng đắt</b> → gom ít lại.
           </p>
           <p>
             <b>Vì sao đôi khi ngược &quot;Săn điểm mua&quot;?</b>
             <br />
-            Săn điểm mua nhìn <b>xu hướng 1–3 tháng</b>; lớp này nhìn <b>giá vốn 2–3 năm</b>. Ở đỉnh
-            sóng tăng, hai bên có thể nói ngược nhau — bình thường: một bên giục mua theo đà, một bên
-            nhắc đừng trả giá đỉnh. Lướt ngắn thì nghe điểm-mua; tích sản dài thì nghe lớp này.
+            Săn điểm mua nhìn <b>1–3 tháng</b>; lớp này nhìn <b>giá vốn 2–3 năm</b>. Ở đỉnh sóng tăng,
+            chúng có thể nói ngược nhau — đó là bình thường.
           </p>
           <p className="muted small">
-            Chi tiết kỹ thuật: rẻ hơn +{ev.trainImprPct}% (2009–2018) / +{ev.testImprPct}% (2019–2026).
+            Đừng kỳ vọng quá: lợi ích thật chỉ <b>~2% rẻ hơn</b>, đôi khi không bù nổi chênh lệch mua–
+            bán ở tiệm vàng. Lan can chống mua hớ, không phải cách làm giàu. (Kiểm chứng: +
+            {ev.trainImprPct}% / +{ev.testImprPct}% giai đoạn 2009–2018 / 2019–2026.)
           </p>
         </div>
       )}
