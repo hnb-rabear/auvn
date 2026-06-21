@@ -29,6 +29,9 @@ import {
 import { runBottom } from "../src/lib/bottom";
 import { forwardFillBottomHistory } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
+import { runAccumulation } from "../src/lib/accumulation";
+import { monitorAccumulation } from "./monitor-accumulation";
+import type { AccumPoint } from "../src/lib/types";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const HISTORY_DIR = join(DATA_DIR, "history");
@@ -280,6 +283,24 @@ async function main() {
   // hiển thị đúng read live của từng ngày. Lưới thưa ⇒ snap nút gần nhất ≤ ngày.
   forwardFillBottomHistory(timeline.points, bottom.bottomHistory);
 
+  // --- Lớp Vùng tích lũy (phanh DCA). Dùng composite + giá của timeline (world composite).
+  const accumPoints: AccumPoint[] = timeline.points.map((pt) => ({
+    date: pt.date,
+    price: pt.price,
+    composite: pt.composite,
+  }));
+  const accumulation = runAccumulation(accumPoints);
+  // enrich timeline cho Time Machine (merge theo NGÀY như cycleBin)
+  const accumByDate = new Map(accumulation.history.map((h) => [h.date, h]));
+  for (const pt of timeline.points) {
+    const a = accumByDate.get(pt.date);
+    if (a) {
+      pt.accumMult = a.mult;
+      pt.pricePct2y = a.pricePct2y;
+    }
+  }
+  const accumulationHealth = monitorAccumulation(accumPoints);
+
   const bottomHealth: BottomHealth = monitorBottom(
     xauRes.bars,
     dxyRes?.bars ?? null,
@@ -299,9 +320,14 @@ async function main() {
   writeFileSync(join(DATA_DIR, "timeline.json"), JSON.stringify(timeline));
   writeFileSync(join(DATA_DIR, "bottom.json"), JSON.stringify(bottom, null, 1));
   writeFileSync(join(DATA_DIR, "bottom-health.json"), JSON.stringify(bottomHealth, null, 1));
+  writeFileSync(join(DATA_DIR, "accumulation.json"), JSON.stringify(accumulation, null, 1));
+  writeFileSync(
+    join(DATA_DIR, "accumulation-health.json"),
+    JSON.stringify(accumulationHealth, null, 1)
+  );
 
   console.log(
-    `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}%`
+    `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}% accumMult=${accumulation.mult} pricePct2y=${accumulation.pricePct2y}`
   );
 }
 

@@ -5,7 +5,9 @@ import timelineJson from "../../public/data/timeline.json";
 import healthJson from "../../public/data/preset-health.json";
 import bottomJson from "../../public/data/bottom.json";
 import fusionHealthJson from "../../public/data/fusion-health.json";
-import type { Analysis, Backtest, BottomAnalysis, FusionHealthFile, PresetHealthFile, Timeline } from "@/lib/types";
+import accumulationJson from "../../public/data/accumulation.json";
+import accumulationHealthJson from "../../public/data/accumulation-health.json";
+import type { Analysis, Backtest, BottomAnalysis, FusionHealthFile, PresetHealthFile, Timeline, AccumulationAnalysis, AccumulationHealth } from "@/lib/types";
 
 export default function Home() {
   const analysis = analysisJson as unknown as Analysis;
@@ -14,7 +16,9 @@ export default function Home() {
   const health = healthJson as unknown as PresetHealthFile;
   const bottom = bottomJson as unknown as BottomAnalysis;
   const fusionHealth = fusionHealthJson as unknown as FusionHealthFile;
+  const accumulation = accumulationJson as unknown as AccumulationAnalysis;
+  const accumulationHealth = accumulationHealthJson as unknown as AccumulationHealth;
   return (
-    <Dashboard analysis={analysis} backtest={backtest} timeline={timeline} health={health} bottom={bottom} fusionHealth={fusionHealth} />
+    <Dashboard analysis={analysis} backtest={backtest} timeline={timeline} health={health} bottom={bottom} fusionHealth={fusionHealth} accumulation={accumulation} accumulationHealth={accumulationHealth} />
   );
 }

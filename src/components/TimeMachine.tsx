@@ -536,6 +536,24 @@ export default function TimeMachine({
         </span>
       </div>
 
+      {p.accumMult !== undefined && (
+        <div className="muted small">
+          {p.accumMult < 1 ? (
+            <>
+              <b className={p.accumMult <= 0.25 ? "sell" : "neutral"}>DCA dài hạn:</b> giá
+              {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} → nếu gom,
+              mỗi đợt nhỏ lại (×{p.accumMult}). Góc định giá — có thể ngược điểm-mua ngắn hạn.
+            </>
+          ) : (
+            <>
+              <b className="buy">DCA dài hạn:</b> giá
+              {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} — gom đều
+              bình thường.
+            </>
+          )}
+        </div>
+      )}
+
       {highConfDay && (
         <div className="muted small">
           ✓ MUA độ tin cao (3 tháng): composite báo MUA VÀ giá ở vùng đáy (RSI quá bán + vĩ mô đảo
