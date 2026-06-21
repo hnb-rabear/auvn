@@ -49,6 +49,8 @@ như mọi tháng; chọn B (đắt>0.75) để ship vì trực giác hơn, CI c
 | Bottom Hunter làm booster | train −2.15% | LOẠI |
 | Real-yield (DFII10) làm neo định giá | test +10.7% nhưng train âm | NO-GO — overfit bull (hồ sơ `scripts/accumulation-ryield.ts`) |
 | Cửa sổ 3/4/5 năm | dương nhưng yếu hơn 2 năm | chọn 2 năm |
+| Phanh "linh hoạt theo chu kỳ" (suppress/scale theo MA200, momentum 1y, detrend) | mọi biến thể TỆ HƠN bản cứng; 2011 (đỉnh→sập) và 2020 (bull) có chữ ký real-time y hệt nên bộ lọc không tách được | NO-GO (hồ sơ `scripts/accumulation-regime-study.ts`) |
+| DCA dựa trên Săn đáy/điểm-mua thay cheapness | boost-đáy hại giá vốn (train −1.8%); chỉ giúp return 6–12 tháng (= việc Bottom Hunter đã làm), không phục vụ tích lũy 2–3 năm | NO-GO (hồ sơ `scripts/accumulation-signal-study.ts`) |
 
 ## Tái lập
 
@@ -56,6 +58,8 @@ như mọi tháng; chọn B (đắt>0.75) để ship vì trực giác hơn, CI c
 npm run collect
 npx tsx scripts/accumulation-study.ts    # tuyển config + cổng 2 giai đoạn + CI + placebo
 npx tsx scripts/accumulation-ryield.ts   # hồ sơ NO-GO real-yield (cần mạng)
+npx tsx scripts/accumulation-regime-study.ts   # hồ sơ NO-GO phanh linh hoạt theo chu kỳ
+npx tsx scripts/accumulation-signal-study.ts   # hồ sơ NO-GO DCA dựa trên đáy/điểm-mua
 ```
 
 `ACCUM_CONFIG` khai báo tại `src/lib/types.ts` — số evidence trong code phải khớp doc này.
