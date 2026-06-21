@@ -378,6 +378,32 @@ export default function Dashboard({
         </section>
       )}
 
+      {/* ── BẢN ĐỒ 3 GÓC NHÌN ── */}
+      <section className="lens-map">
+        <h2>3 góc nhìn — mỗi góc một câu hỏi</h2>
+        <p className="muted small">
+          Đôi khi chúng khác hướng vì trả lời câu hỏi khác nhau — đó là bình thường.
+        </p>
+        <ul>
+          <li>
+            <b>Săn điểm mua</b> — Xu hướng có thuận để vào không?{" "}
+            <span className="muted small">· 1–3 tháng</span>
+          </li>
+          <li>
+            <b>Săn đáy</b> — Giá có gần đáy để bắt nhịp rơi không?{" "}
+            <span className="muted small">· bắt đáy nhọn</span>
+          </li>
+          <li>
+            <b>Vùng tích lũy (DCA)</b> — Mua đều dài hạn thì tháng này gom nhiều hay ít?{" "}
+            <span className="muted small">· 2–3 năm</span>
+          </li>
+        </ul>
+        <p className="muted small">
+          → <b>Săn điểm mua</b> + <b>Săn đáy</b> gộp thành <b>“Gợi ý hành động”</b> ở trên (khi canh
+          thời điểm vào). <b>Vùng DCA</b> dành cho người mua đều mỗi tháng. Chọn góc hợp cách bạn mua.
+        </p>
+      </section>
+
       {/* ── ACCORDION 1: Chi tiết điểm số (gauge + kiểm chứng + giá phụ + freshness) ── */}
       <details className="acc">
         <summary className="acc-sum">
@@ -578,7 +604,7 @@ export default function Dashboard({
         <summary className="acc-sum">
           <span className="acc-sum-text">
             <span className="acc-sum-title">Săn đáy</span>
-            <span className="acc-sum-meta">đáy chu kỳ + đáy sóng</span>
+            <span className="acc-sum-meta">gần đáy chưa? · bắt nhịp rơi</span>
           </span>
           <span className="acc-chev">▸</span>
         </summary>
@@ -592,7 +618,7 @@ export default function Dashboard({
         <summary className="acc-sum">
           <span className="acc-sum-text">
             <span className="acc-sum-title">Vùng tích lũy (DCA)</span>
-            <span className="acc-sum-meta">phanh chống mua đỉnh 2 năm</span>
+            <span className="acc-sum-meta">tích sản dài hạn · 2–3 năm</span>
           </span>
           <span className="acc-chev">▸</span>
         </summary>

@@ -538,12 +538,19 @@ export default function TimeMachine({
 
       {p.accumMult !== undefined && (
         <div className="muted small">
-          DCA tích lũy:{" "}
-          <b className={p.accumMult >= 1 ? "buy" : p.accumMult <= 0.25 ? "sell" : "neutral"}>
-            ×{p.accumMult}
-          </b>
-          {p.pricePct2y != null && ` · giá ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`}
-          {p.accumMult < 1 ? " — ghìm mua" : " — mua đều"}
+          {p.accumMult < 1 ? (
+            <>
+              <b className={p.accumMult <= 0.25 ? "sell" : "neutral"}>DCA dài hạn:</b> giá
+              {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} → nếu gom,
+              mỗi đợt nhỏ lại (×{p.accumMult}). Góc định giá — có thể ngược điểm-mua ngắn hạn.
+            </>
+          ) : (
+            <>
+              <b className="buy">DCA dài hạn:</b> giá
+              {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} — gom đều
+              bình thường.
+            </>
+          )}
         </div>
       )}
 

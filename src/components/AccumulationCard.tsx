@@ -25,16 +25,16 @@ export default function AccumulationCard({
   let action: string;
   let tone: "buy" | "neutral" | "sell";
   if (a.mult >= 1) {
-    action = "Tháng này: MUA NHƯ BÌNH THƯỜNG";
+    action = "Tháng này: GOM ĐỀU NHƯ THƯỜNG";
     tone = "buy";
   } else if (a.mult <= 0.2) {
-    action = "Tháng này: MUA RẤT ÍT (≈⅕)";
+    action = "Tháng này: GOM RẤT DÈ (mỗi đợt ≈⅕)";
     tone = "sell";
   } else if (a.mult <= 0.25) {
-    action = "Tháng này: MUA ÍT LẠI (≈¼)";
+    action = "Tháng này: GOM ÍT LẠI (mỗi đợt ≈¼)";
     tone = "sell";
   } else {
-    action = "Tháng này: MUA BỚT LẠI (một nửa)";
+    action = "Tháng này: GOM BỚT LẠI (mỗi đợt ½)";
     tone = "neutral";
   }
 
@@ -100,6 +100,13 @@ export default function AccumulationCard({
             Lợi ích thật khá nhỏ — <b>rẻ hơn khoảng 2%</b> ở điều kiện thường (có lúc nhiều hơn khi giá
             tăng mạnh, nhưng đừng trông vào đó). Đôi khi 2% còn không bù nổi chênh lệch mua–bán ở tiệm
             vàng. Đây là <b>lan can chống mua hớ lúc đỉnh</b>, không phải cách làm giàu.
+          </p>
+          <p>
+            <b>Vì sao đôi khi ngược &quot;Săn điểm mua&quot;?</b>
+            <br />
+            Săn điểm mua nhìn <b>xu hướng 1–3 tháng</b>; lớp này nhìn <b>giá vốn 2–3 năm</b>. Ở đỉnh
+            sóng tăng, hai bên có thể nói ngược nhau — bình thường: một bên giục mua theo đà, một bên
+            nhắc đừng trả giá đỉnh. Lướt ngắn thì nghe điểm-mua; tích sản dài thì nghe lớp này.
           </p>
           <p className="muted small">
             Chi tiết kỹ thuật: rẻ hơn +{ev.trainImprPct}% (2009–2018) / +{ev.testImprPct}% (2019–2026).
