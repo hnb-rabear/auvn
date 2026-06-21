@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-21T03:36:47.629Z",
+ "generatedAt": "2026-06-21T06:05:23.253Z",
  "dataDate": "2026-06-19",
  "stale": true,
  "staleDays": 5,
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,49%, thay đổi 3 tháng +0,2 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,45%, thay đổi 3 tháng +0,17 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -146,7 +146,7 @@
      "id": "season",
      "label": "Mùa vụ theo tháng",
      "score": 1,
-     "explanation": "Tháng 6: lợi suất 3 tháng tiếp theo trung bình +2,9% trong lịch sử: lịch sử 3 tháng sau thời điểm này giá thường tăng — thuận mua sớm.",
+     "explanation": "Tháng 6: lợi suất 3 tháng tiếp theo trung bình +3% trong lịch sử: lịch sử 3 tháng sau thời điểm này giá thường tăng — thuận mua sớm.",
      "available": true
     },
     {
@@ -2163,10 +2163,10 @@
  },
  "sourceTimes": {
   "world": "2026-06-19T16:59:56.000Z",
-  "dxy": "2026-06-19T20:59:59.000Z",
-  "yield10y": "2026-06-12T12:20:00.000Z",
+  "dxy": "2026-06-18T04:00:00.000Z",
+  "yield10y": "2026-06-18T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-21T03:36:47.629Z",
+  "usdVnd": "2026-06-21T06:05:23.253Z",
   "fed": null
  }
 }
