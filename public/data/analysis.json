@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-22T20:21:07.100Z",
+ "generatedAt": "2026-06-22T21:22:11.551Z",
  "dataDate": "2026-06-22",
  "stale": true,
  "staleDays": 7,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4208.7001953125,
+  "xauUsd": 4209.7001953125,
   "usdVnd": 26442,
-  "worldVndPerLuong": 134172843,
+  "worldVndPerLuong": 134204722,
   "premiumPct": 8.97,
-  "premiumVnd": 16327157
+  "premiumVnd": 16295278
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 38: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 38,1: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-22T04:00:00.000Z",
   "yield10y": "2026-06-22T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-22T20:21:07.100Z",
+  "usdVnd": "2026-06-22T21:22:11.551Z",
   "fed": null
  }
 }
