@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-23T19:09:25.379Z",
+ "generatedAt": "2026-06-23T20:08:16.831Z",
  "dataDate": "2026-06-23",
  "cycle": {
   "prob": 41.4,
@@ -28,14 +28,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 34,8: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 34,7: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -5,72: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -5,75: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -95,14 +95,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 34,8: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 34,7: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -5,72: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -5,75: chưa có dấu đảo chiều.",
     "available": true
    },
    {

@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-23T19:07:20.575Z",
+ "generatedAt": "2026-06-23T20:05:56.539Z",
  "dataDate": "2026-06-23",
  "stale": true,
  "staleDays": 8,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4134.2001953125,
+  "xauUsd": 4133.7001953125,
   "usdVnd": 26448,
-  "worldVndPerLuong": 131827698,
+  "worldVndPerLuong": 131811755,
   "premiumPct": 8.97,
-  "premiumVnd": 18672302
+  "premiumVnd": 18688245
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 34,8: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 34,7: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
-     "score": 0,
-     "explanation": "RSI tuần = 40: trung tính.",
+     "score": 1,
+     "explanation": "RSI tuần = 40: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -55,7 +55,7 @@
      "available": true
     }
    ],
-   "score": 0.8,
+   "score": 1,
    "available": true
   },
   {
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 14.8,
+ "composite": 18.3,
  "zone": "neutral",
  "vnHistoryDays": 491,
  "warnings": [
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-23T04:00:00.000Z",
   "yield10y": "2026-06-23T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-23T19:07:20.575Z",
+  "usdVnd": "2026-06-23T20:05:56.539Z",
   "fed": null
  }
 }
