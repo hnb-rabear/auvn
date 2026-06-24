@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-24T13:09:54.231Z",
+ "generatedAt": "2026-06-24T14:07:34.001Z",
  "dataDate": "2026-06-24",
  "stale": true,
  "staleDays": 8,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4009.89990234375,
+  "xauUsd": 4044.5,
   "usdVnd": 26451,
-  "worldVndPerLuong": 127878625,
+  "worldVndPerLuong": 128982047,
   "premiumPct": 8.97,
-  "premiumVnd": 22621375
+  "premiumVnd": 21517953
  },
  "criteria": [
   {
@@ -22,29 +22,29 @@
     {
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
-     "score": 2,
-     "explanation": "RSI ngày = 30: quá bán — vùng mua hiếm gặp.",
+     "score": 1,
+     "explanation": "RSI ngày = 31,2: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 38,2: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 38,8: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 9,8%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 36% biên độ 52 tuần (đáy 3.274 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 38% biên độ 52 tuần (đáy 3.274 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -55,7 +55,7 @@
      "available": true
     }
    ],
-   "score": 1,
+   "score": 0.8,
    "available": true
   },
   {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,8 (trên MA50, +2,5% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,6 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": 0,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,44%, thay đổi 3 tháng +0,05 điểm: lợi suất đi ngang.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,42%, thay đổi 3 tháng +0,03 điểm: lợi suất đi ngang.",
      "available": true
     },
     {
@@ -132,7 +132,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 34% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 35% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 25,6%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 25%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +20,9% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +21,9% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 20.8,
+ "composite": 17.3,
  "zone": "neutral",
  "vnHistoryDays": 491,
  "warnings": [
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-24T04:00:00.000Z",
   "yield10y": "2026-06-24T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-24T13:09:54.231Z",
+  "usdVnd": "2026-06-24T14:07:34.001Z",
   "fed": null
  }
 }
