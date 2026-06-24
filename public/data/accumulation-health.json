@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-06-24T03:37:36.064Z",
- "recentImprPct": 1,
- "recentBrakedMonths": 24,
- "status": "ok"
+ "generatedAt": "2026-06-24T05:49:50.171Z",
+ "recentImprPct": -1.6,
+ "recentBrakedMonths": 23,
+ "status": "degraded"
 }
