@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-25T18:06:56.641Z",
+ "generatedAt": "2026-06-25T19:05:52.940Z",
  "dataDate": "2026-06-25",
  "stale": true,
  "staleDays": 10,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4049.699951171875,
+  "xauUsd": 4050.5,
   "usdVnd": 26456,
-  "worldVndPerLuong": 129172290,
+  "worldVndPerLuong": 129197809,
   "premiumPct": 8.97,
-  "premiumVnd": 21327710
+  "premiumVnd": 21302191
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 33,9: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 34: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": 0,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,38%, thay đổi 3 tháng -0,01 điểm: lợi suất đi ngang.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,4%, thay đổi 3 tháng +0,01 điểm: lợi suất đi ngang.",
      "available": true
     },
     {
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-25T04:00:00.000Z",
   "yield10y": "2026-06-25T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-25T18:06:56.641Z",
+  "usdVnd": "2026-06-25T19:05:52.940Z",
   "fed": null
  }
 }
