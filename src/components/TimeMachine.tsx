@@ -369,6 +369,7 @@ export default function TimeMachine({
             [12, "1 năm"],
             [24, "2 năm"],
             [60, "5 năm"],
+            [120, "10 năm"],
             [null, "Tất cả"],
           ] as [number | null, string, string?][]
         ).map(([m, label, short]) => (
