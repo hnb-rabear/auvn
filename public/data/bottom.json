@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-25T07:36:59.842Z",
+ "generatedAt": "2026-06-25T07:41:56.004Z",
  "dataDate": "2026-06-25",
  "cycle": {
   "prob": 40.2,
@@ -14,28 +14,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,8%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,7%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -12,1% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -12% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 30,1: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 30,4: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,71: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -20,4: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -81,28 +81,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,8%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,7%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -12,1% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -12% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 30,1: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 30,4: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,71: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -20,4: chưa có dấu đảo chiều.",
     "available": true
    },
    {
