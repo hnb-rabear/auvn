@@ -6,6 +6,7 @@ import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import AccumulationCard from "./AccumulationCard";
 import ActionGuidance from "./ActionGuidance";
+import { zoneClass } from "@/lib/settings";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
@@ -42,12 +43,6 @@ const fmtMoney = (v: number | null) =>
   v === null ? "—" : (v / 1_000_000).toLocaleString("vi-VN", { maximumFractionDigits: 2 }) + " tr";
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
-
-function zoneClass(zone: Zone): string {
-  if (zone === "buy" || zone === "strong-buy") return "buy";
-  if (zone === "sell" || zone === "strong-sell") return "sell";
-  return "neutral";
-}
 
 function scoreChip(score: number) {
   const cls = score > 0 ? "chip buy" : score < 0 ? "chip sell" : "chip neutral";
