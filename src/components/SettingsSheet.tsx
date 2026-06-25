@@ -69,6 +69,7 @@ export default function SettingsSheet({
         role="dialog"
         aria-modal="true"
         aria-label="Thiết lập preset và trọng số"
+        aria-hidden={!open}
       >
         <div className="sheet-handle" />
         <div className="sheet-head">

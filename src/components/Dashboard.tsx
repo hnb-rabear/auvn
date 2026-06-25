@@ -321,6 +321,7 @@ export default function Dashboard({
         className="fab"
         onClick={() => setSheetOpen(true)}
         aria-label="Mở thiết lập preset và trọng số"
+        hidden={sheetOpen}
       >
         ⚙ {fabLabel(preset, customized)}
       </button>
