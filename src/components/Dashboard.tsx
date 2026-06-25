@@ -6,7 +6,8 @@ import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import AccumulationCard from "./AccumulationCard";
 import ActionGuidance from "./ActionGuidance";
-import { zoneClass } from "@/lib/settings";
+import SettingsSheet from "./SettingsSheet";
+import { fabLabel, zoneClass } from "@/lib/settings";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
@@ -91,7 +92,7 @@ export default function Dashboard({
   accumulationHealth: AccumulationHealth;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
-  const [showSettings, setShowSettings] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const weights = settings.weights;
   const preset = PRESETS.find((p) => p.id === settings.presetId) ?? null;
   const presetHealth = preset
@@ -232,9 +233,6 @@ export default function Dashboard({
         <h1>
           Vùng<span className="gold">Vàng</span>
         </h1>
-        <button className="iconbtn" onClick={() => setShowSettings(!showSettings)}>
-          ⚙ Trọng số
-        </button>
       </header>
 
       {analysis.stale && (
@@ -318,60 +316,28 @@ export default function Dashboard({
         </div>
       </section>
 
-      {/* ── PRESET: hàng chọn chế độ, gần đầu ── */}
-      <div className="preset-row">
-        <button
-          className={`iconbtn ${!preset && !customized ? "active" : ""}`}
-          onClick={() => applyPreset(null)}
-        >
-          Toàn cảnh
-        </button>
-        {PRESETS.map((p) => {
-          const hStatus = health.items.find((i) => i.presetId === p.id)?.status;
-          return (
-            <button
-              key={p.id}
-              className={`iconbtn ${preset?.id === p.id ? "active" : ""}`}
-              onClick={() => applyPreset(p.id)}
-              title={`Đúng ${p.evidence.trainFav}% (2009–2018) / ${p.evidence.testFav}% (2019–2026)`}
-            >
-              {hStatus === "degraded" ? "⚠ " : ""}
-              {p.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── PANEL ⚙: chỉ còn slider trọng số ── */}
-      {showSettings && (
-        <section className="card settings">
-          <h2>Trọng số tiêu chí</h2>
-          <p className="muted small">
-            <b>Toàn cảnh</b> = radar 4 nhóm tiêu chí (duy nhất có tiêu chí chênh lệch VN
-            25% và cảnh báo bán) — dùng để hiểu thị trường. <b>Preset</b> = cò súng MUA
-            theo kỳ hạn, tuyển bằng grid search 17 năm, thắng baseline ở cả 2 giai đoạn
-            độc lập — dùng để quyết định gom mua. Chi tiết: docs/presets.md.
-          </p>
-          <p className="muted">
-            Điểm tổng hợp tính lại ngay theo trọng số bạn chọn. Lưu trên máy bạn. Kéo
-            slider sẽ thoát chế độ preset. Lưu ý: bảng % kiểm chứng tính theo trọng số mặc định.
-          </p>
-          {analysis.criteria.map((c) => (
-            <label key={c.key} className="slider-row">
-              <span>
-                {c.label} — {Math.round(weights[c.key] * 100)}%
-              </span>
-              <input
-                type="range"
-                min={0}
-                max={50}
-                value={Math.round(weights[c.key] * 100)}
-                onChange={(e) => setWeight(c.key, Number(e.target.value) / 100)}
-              />
-            </label>
-          ))}
-        </section>
-      )}
+      {/* ── FAB + bottom sheet: preset + trọng số gom 1 chỗ ── */}
+      <button
+        className="fab"
+        onClick={() => setSheetOpen(true)}
+        aria-label="Mở thiết lập preset và trọng số"
+      >
+        ⚙ {fabLabel(preset, customized)}
+      </button>
+      <SettingsSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        criteria={analysis.criteria}
+        weights={weights}
+        preset={preset}
+        customized={customized}
+        health={health}
+        composite={composite}
+        zone={zone}
+        verdictLabel={verdictLabel}
+        applyPreset={applyPreset}
+        setWeight={setWeight}
+      />
 
       {/* ── ACCORDION 1: Chi tiết điểm số (gauge + kiểm chứng + giá phụ + freshness) ── */}
       <details className="acc">
