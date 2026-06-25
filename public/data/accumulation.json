@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-06-25T09:36:24.604Z",
+ "generatedAt": "2026-06-25T11:20:15.211Z",
  "dataDate": "2026-06-25",
- "pricePct2y": 0.6726190476190477,
- "composite": 1.8,
+ "pricePct2y": 0.6666666666666666,
+ "composite": 6.4,
  "mult": 1,
  "brakes": [],
  "provisional": false,
@@ -21374,7 +21374,7 @@
   },
   {
    "date": "2026-06-25",
-   "pricePct2y": 0.6726190476190477,
+   "pricePct2y": 0.6666666666666666,
    "mult": 1
   }
  ],
