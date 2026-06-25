@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-25T20:07:17.353Z",
+ "generatedAt": "2026-06-25T21:04:34.582Z",
  "dataDate": "2026-06-25",
  "cycle": {
   "prob": 40.2,
@@ -14,7 +14,7 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,1%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24%: vùng chiết khấu sâu.",
     "available": true
    },
    {
@@ -35,7 +35,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -18,14: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -18,11: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -81,7 +81,7 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,1%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24%: vùng chiết khấu sâu.",
     "available": true
    },
    {
@@ -102,7 +102,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -18,14: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -18,11: chưa có dấu đảo chiều.",
     "available": true
    },
    {

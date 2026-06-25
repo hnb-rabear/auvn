@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-25T20:05:17.437Z",
+ "generatedAt": "2026-06-25T21:02:45.889Z",
  "dataDate": "2026-06-25",
  "stale": true,
  "staleDays": 10,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4039.199951171875,
+  "xauUsd": 4039.60009765625,
   "usdVnd": 26456,
-  "worldVndPerLuong": 128837374,
+  "worldVndPerLuong": 128850137,
   "premiumPct": 8.97,
-  "premiumVnd": 21662626
+  "premiumVnd": 21649863
  },
  "criteria": [
   {
@@ -37,7 +37,7 @@
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 9,2%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 9,1%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,5 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,4 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-25T04:00:00.000Z",
   "yield10y": "2026-06-25T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-25T20:05:17.437Z",
+  "usdVnd": "2026-06-25T21:02:45.889Z",
   "fed": null
  }
 }
