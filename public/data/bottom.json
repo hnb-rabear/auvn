@@ -1,41 +1,41 @@
 {
- "generatedAt": "2026-06-25T11:20:15.200Z",
+ "generatedAt": "2026-06-25T12:12:05.391Z",
  "dataDate": "2026-06-25",
  "cycle": {
-  "prob": 40.2,
+  "prob": 63,
   "ci": [
-   27.3,
-   53.3
+   42,
+   81.2
   ],
-  "bin": 2,
-  "n": 615,
+  "bin": 3,
+  "n": 138,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,8%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,9%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -12,1% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -12,2% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 1,
-    "explanation": "RSI ngày = 30,1: đà giảm cạn dần.",
+    "score": 2,
+    "explanation": "RSI ngày = 29,8: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,66: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -20,89: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -49,7 +49,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +20,2% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +20,1% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -69,40 +69,40 @@
   ]
  },
  "swing": {
-  "prob": 43.9,
+  "prob": 57.5,
   "ci": [
-   37.2,
-   50.6
+   45.9,
+   69.2
   ],
-  "bin": 2,
-  "n": 631,
+  "bin": 3,
+  "n": 146,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,8%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,9%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -12,1% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -12,2% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 1,
-    "explanation": "RSI ngày = 30,1: đà giảm cạn dần.",
+    "score": 2,
+    "explanation": "RSI ngày = 29,8: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,66: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -20,89: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -116,7 +116,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +20,2% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +20,1% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22475,8 +22475,8 @@
   },
   {
    "date": "2026-06-25",
-   "cycleBin": 2,
-   "swingBin": 2
+   "cycleBin": 3,
+   "swingBin": 3
   }
  ],
  "bottomHistory": [
@@ -51913,22 +51913,22 @@
   {
    "date": "2026-06-25",
    "cycle": {
-    "bin": 2,
-    "prob": 40.2,
+    "bin": 3,
+    "prob": 63,
     "ci": [
-     27.3,
-     53.3
+     42,
+     81.2
     ],
-    "n": 615
+    "n": 138
    },
    "swing": {
-    "bin": 2,
-    "prob": 43.9,
+    "bin": 3,
+    "prob": 57.5,
     "ci": [
-     37.2,
-     50.6
+     45.9,
+     69.2
     ],
-    "n": 631
+    "n": 146
    }
   }
  ],
