@@ -283,11 +283,10 @@ async function main() {
   // hiển thị đúng read live của từng ngày. Lưới thưa ⇒ snap nút gần nhất ≤ ngày.
   forwardFillBottomHistory(timeline.points, bottom.bottomHistory);
 
-  // --- Lớp Vùng tích lũy (phanh DCA). Dùng composite + giá của timeline (world composite).
+  // --- Lớp Vùng tích lũy (phanh DCA). Ghìm khi giá đắt so dải 2 năm của chính nó.
   const accumPoints: AccumPoint[] = timeline.points.map((pt) => ({
     date: pt.date,
     price: pt.price,
-    composite: pt.composite,
   }));
   const accumulation = runAccumulation(accumPoints);
   // enrich timeline cho Time Machine (merge theo NGÀY như cycleBin)

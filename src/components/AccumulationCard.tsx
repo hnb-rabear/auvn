@@ -18,37 +18,16 @@ export default function AccumulationCard({
   const ppNum = a.pricePct2y === null ? 0 : Math.round(a.pricePct2y * 100);
   const ppLabel = pct(a.pricePct2y);
   const brakeHi = Math.round(ACCUM_CONFIG.expHi * 100); // 75
-  const hasPrice = a.brakes.some((b) => b.id === "price-top");
-  const hasComp = a.brakes.some((b) => b.id === "comp-bear");
 
-  // Câu hành động (theo hệ số) + màu
-  let action: string;
-  let tone: "buy" | "neutral" | "sell";
-  if (a.mult >= 1) {
-    action = "Tháng này: GOM ĐỀU NHƯ THƯỜNG";
-    tone = "buy";
-  } else if (a.mult <= 0.2) {
-    action = "Tháng này: GOM RẤT DÈ (mỗi đợt ≈⅕)";
-    tone = "sell";
-  } else if (a.mult <= 0.25) {
-    action = "Tháng này: GOM ÍT LẠI (mỗi đợt ≈¼)";
-    tone = "sell";
-  } else {
-    action = "Tháng này: GOM BỚT LẠI (mỗi đợt ½)";
-    tone = "neutral";
-  }
-
-  // Câu giải thích (theo phanh nào bật) — luôn dịch số sang lời
-  let why: string;
-  if (a.mult >= 1) {
-    why = `Giá đang ở ${ppLabel} so với giá vàng 2 năm qua — chưa tới vùng đắt (${brakeHi}%) cần ghìm mua.`;
-  } else if (hasPrice && hasComp) {
-    why = `Vàng vừa đắt (${ppLabel}) vừa gặp xu hướng bất lợi — nên ghìm mạnh.`;
-  } else if (hasPrice) {
-    why = `Giá đang ở vùng đắt nhất 2 năm (${ppLabel}) — dễ mua hớ, nên gom ít lại và để dành tiền cho lúc rẻ hơn.`;
-  } else {
-    why = "Xu hướng thị trường đang bất lợi nên tạm gom ít lại.";
-  }
+  // Câu hành động + giải thích — chỉ 2 trạng thái: gom đều (×1) / gom ít lại (×0.25)
+  const braking = a.mult < 1;
+  const tone: "buy" | "sell" = braking ? "sell" : "buy";
+  const action = braking
+    ? "Tháng này: GOM ÍT LẠI (mỗi đợt ≈¼)"
+    : "Tháng này: GOM ĐỀU NHƯ THƯỜNG";
+  const why = braking
+    ? `Giá đang ở vùng đắt nhất 2 năm (${ppLabel}) — dễ mua hớ, nên gom ít lại và để dành tiền cho lúc rẻ hơn.`
+    : `Giá đang ở ${ppLabel} so với giá vàng 2 năm qua — chưa tới vùng đắt (${brakeHi}%) cần ghìm mua.`;
 
   return (
     <section className="card">

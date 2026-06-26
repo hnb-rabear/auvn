@@ -541,7 +541,7 @@ export default function TimeMachine({
         <div className="muted small">
           {p.accumMult < 1 ? (
             <>
-              <b className={p.accumMult <= 0.25 ? "sell" : "neutral"}>DCA dài hạn:</b> giá
+              <b className="sell">DCA dài hạn:</b> giá
               {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} → nếu gom,
               mỗi đợt nhỏ lại (×{p.accumMult}). Góc định giá — có thể ngược điểm-mua ngắn hạn.
             </>

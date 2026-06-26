@@ -25,43 +25,32 @@ describe("pricePct2y", () => {
 });
 
 describe("accumMult", () => {
-  it("x1 khi không đắt, composite ổn", () => {
-    expect(accumMult(0.5, 0)).toBe(1);
+  it("x1 khi không đắt", () => {
+    expect(accumMult(0.5)).toBe(1);
   });
-  it("x0.25 khi giá đắt (>expHi), composite ổn", () => {
-    expect(accumMult(0.8, 0)).toBe(0.25);
-  });
-  it("x0.5 khi composite bi quan, giá không đắt", () => {
-    expect(accumMult(0.5, -40)).toBe(0.5);
-  });
-  it("stack đắt + bi quan bị kẹp ở sàn 0.2 (0.25*0.5=0.125 -> 0.2)", () => {
-    expect(accumMult(0.9, -50)).toBe(0.2);
+  it("x0.25 khi giá đắt (>expHi)", () => {
+    expect(accumMult(0.8)).toBe(0.25);
   });
   it("pricePct null (warmup) coi như không đắt", () => {
-    expect(accumMult(null, 0)).toBe(1);
+    expect(accumMult(null)).toBe(1);
   });
-  it("không bao giờ >1 hay =0 trên dải đầu vào", () => {
+  it("chỉ nhận 2 giá trị {1, 0.25} trên dải đầu vào, không bao giờ >1 hay =0", () => {
     for (const pp of [null, 0, 0.5, 0.75, 0.76, 1]) {
-      for (const c of [-100, -30, 0, 55]) {
-        const m = accumMult(pp as number | null, c);
-        expect(m).toBeGreaterThanOrEqual(ACCUM_CONFIG.floor);
-        expect(m).toBeLessThanOrEqual(1);
-      }
+      const m = accumMult(pp as number | null);
+      expect([1, ACCUM_CONFIG.mExp]).toContain(m);
+      expect(m).toBeGreaterThanOrEqual(ACCUM_CONFIG.floor);
+      expect(m).toBeLessThanOrEqual(1);
     }
   });
 });
 
 describe("brakeDescriptors", () => {
   it("rỗng khi không phanh", () => {
-    expect(brakeDescriptors(0.5, 0)).toEqual([]);
+    expect(brakeDescriptors(0.5)).toEqual([]);
   });
   it("price-top khi đắt", () => {
-    const b = brakeDescriptors(0.8, 0);
+    const b = brakeDescriptors(0.8);
     expect(b.map((x) => x.id)).toEqual(["price-top"]);
-  });
-  it("cả hai khi đắt + bi quan", () => {
-    const b = brakeDescriptors(0.9, -40);
-    expect(b.map((x) => x.id)).toEqual(["price-top", "comp-bear"]);
   });
 });
 
@@ -71,10 +60,9 @@ describe("realizedCostImpr", () => {
     // dồn trọng số sang tháng rẻ -> giá vốn TB thấp hơn. (Phanh ĐỒNG ĐỀU mọi tháng
     // sẽ cho impr=0 vì chỉ là co giãn tỉ lệ — phải phân biệt mới có lợi.)
     const closes = [50, 50, 50, 50, 100, 50, 100, 50];
-    const composites = closes.map(() => 0);
     const cfg = { ...ACCUM_CONFIG, win: 4, expHi: 0.75 };
     const idxs = [4, 5, 6, 7]; // giá [100,50,100,50] -> mult [0.25,1,0.25,1]
-    expect(realizedCostImpr(closes, composites, idxs, cfg)).toBeGreaterThan(0);
+    expect(realizedCostImpr(closes, idxs, cfg)).toBeGreaterThan(0);
   });
 });
 
@@ -82,7 +70,6 @@ describe("runAccumulation", () => {
   const points: AccumPoint[] = Array.from({ length: 520 }, (_, i) => ({
     date: `d${String(i).padStart(4, "0")}`,
     price: 100 + i, // tăng đều -> ngày cuối ở đỉnh percentile
-    composite: 0,
   }));
   it("ngày cuối ở đỉnh 2 năm -> phanh x0.25, provisional=false", () => {
     const a = runAccumulation(points);

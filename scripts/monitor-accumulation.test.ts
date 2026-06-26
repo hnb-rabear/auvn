@@ -2,12 +2,12 @@ import { describe, it, expect } from "vitest";
 import { monitorAccumulation } from "./monitor-accumulation";
 import type { AccumPoint } from "../src/lib/types";
 
-/** n ngày LIÊN TIẾP từ `start`, giá theo priceAt(i), composite=0. */
+/** n ngày LIÊN TIẾP từ `start`, giá theo priceAt(i). */
 function makePoints(n: number, priceAt: (i: number) => number, start = "2014-01-01"): AccumPoint[] {
   const out: AccumPoint[] = [];
   let t = Date.parse(start + "T00:00:00Z");
   for (let i = 0; i < n; i++) {
-    out.push({ date: new Date(t).toISOString().slice(0, 10), price: priceAt(i), composite: 0 });
+    out.push({ date: new Date(t).toISOString().slice(0, 10), price: priceAt(i) });
     t += 86400000;
   }
   return out;

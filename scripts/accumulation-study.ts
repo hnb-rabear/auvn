@@ -200,9 +200,10 @@ console.log(
   `\nKết luận: nếu placebo ≈ 0 và CI test không chứa 0 → tín hiệu thật, không phải "phanh gì cũng lợi".`
 );
 
-// ---- CẤU HÌNH KHÓA (B) — chọn để SHIP: nhẹ/trực giác hơn winner min-excess (A),
-//      CI chồng nhau nên chênh lệch không có ý nghĩa thống kê. In CI + placebo cho spec. ----
-const LOCKED: Cfg = { win: 504, expHi: 0.75, mExp: 0.25, cThr: -30, mComp: 0.5 };
+// ---- CẤU HÌNH KHÓA (SHIP) — MỘT cổng: chỉ ghìm khi giá đắt so dải 2 năm.
+//      Cổng composite cũ bị loại bằng ablation (đóng góp biên ≈0 train, CI chồng;
+//      composite-only CI train chứa 0) — xem scripts/accumulation-ablation.ts. ----
+const LOCKED: Cfg = { win: 504, expHi: 0.75, mExp: 0.25, cThr: null, mComp: 0.5 };
 console.log(`\n================= CẤU HÌNH KHÓA (SHIP) =================`);
 console.log(fc(LOCKED));
 const lTr = costOf(trainIdx, (i) => mult(i, LOCKED)).impr;

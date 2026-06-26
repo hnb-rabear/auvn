@@ -47,7 +47,7 @@ Composite: weighted sum normalized to −100..+100. Thresholds: ≥+40 BUY zone 
 
 An independent **Bottom Hunter** layer (2-tier cycle/swing near-bottom probability, driven by RSI oversold + macro reversal, validated out-of-sample, see `docs/bottom.md`) reports a near-bottom % with CI and does NOT touch the buy/sell composite.
 
-An independent **Accumulation brake** layer (DCA sizing: ease off buying — never to zero — when XAU is expensive vs its trailing 2-year range or composite is bearish; validated 2-period, see `docs/accumulation.md`) suggests a buy-size multiplier and does NOT touch the composite or Bottom Hunter.
+An independent **Accumulation brake** layer (DCA sizing: ease off buying — never to zero — when XAU is expensive vs its trailing 2-year range; single price gate, validated 2-period, see `docs/accumulation.md` — the old composite co-gate was dropped by ablation, `scripts/accumulation-ablation.ts`) suggests a buy-size multiplier and does NOT touch the composite or Bottom Hunter.
 
 **Backtest rule (integrity-critical):** confidence % must come from replaying the engine over ~15 years of XAU/USD history (e.g., "BUY signal at this level: 134 occurrences, 71% higher after 3 months, avg +4.2%"). VN-premium criterion is only backtested once ≥6 months of self-collected data exists; before that the UI must say "chưa đủ dữ liệu kiểm chứng" — never fabricate a number.
 

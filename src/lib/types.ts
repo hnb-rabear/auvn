@@ -401,22 +401,22 @@ export const BOTTOM_CONFIG: BottomConfig = {
 export interface AccumPoint {
   date: string;
   price: number;
-  composite: number;
 }
 
 /** Một phanh đang bật + giải thích tiếng Việt. */
 export interface AccumBrake {
-  id: "price-top" | "comp-bear";
+  id: "price-top";
   label: string;
   explanation: string;
 }
 
 /**
  * Cấu hình phanh DCA "Vùng tích lũy". Tuyển bằng scripts/accumulation-study.ts
- * (lưới 54 cấu hình, 48 vượt cổng 2 giai đoạn train<2019/test>=2019, xếp min-excess
- * + CI block-bootstrap + placebo). Chốt config B (nhẹ) thay winner thuần min-excess (A)
- * vì trực giác hơn, CI chồng nhau. Chỉ phanh, không boost. Loại bằng bằng chứng:
- * Bottom Hunter (train âm), real-yield (overfit bull). Chi tiết: docs/accumulation.md.
+ * (cổng 2 giai đoạn train<2019/test>=2019, xếp min-excess + CI block-bootstrap +
+ * placebo). MỘT cổng duy nhất: ghìm khi giá đắt so dải 2 năm. Cổng composite cũ đã
+ * bị loại bằng ablation (đóng góp biên ≈0 train, CI chồng — scripts/accumulation-ablation.ts).
+ * Chỉ phanh, không boost. Cũng đã loại: Bottom Hunter (train âm), real-yield (overfit
+ * bull). Chi tiết: docs/accumulation.md.
  */
 export interface AccumConfig {
   /** cửa sổ percentile giá (phiên), past-only */
@@ -425,10 +425,6 @@ export interface AccumConfig {
   expHi: number;
   /** hệ số khi giá đắt */
   mExp: number;
-  /** phanh thêm khi composite < compThr */
-  compThr: number;
-  /** hệ số khi composite bi quan */
-  mComp: number;
   /** sàn hệ số */
   floor: number;
   evidence: {
@@ -443,14 +439,12 @@ export const ACCUM_CONFIG: AccumConfig = {
   win: 504,
   expHi: 0.75,
   mExp: 0.25,
-  compThr: -30,
-  mComp: 0.5,
   floor: 0.2,
   evidence: {
-    trainImprPct: 2.26,
-    trainCi: [0.63, 4.27],
-    testImprPct: 8.24,
-    testCi: [2.55, 13.76],
+    trainImprPct: 2.82,
+    trainCi: [0.92, 5.02],
+    testImprPct: 7.15,
+    testCi: [1.71, 12.37],
   },
 };
 
@@ -459,9 +453,7 @@ export interface AccumulationAnalysis {
   dataDate: string;
   /** percentile giá so 2 năm hôm nay (0..1); null nếu < warmup */
   pricePct2y: number | null;
-  /** composite (world) hôm nay */
-  composite: number;
-  /** hệ số phanh hôm nay ∈ {1,0.5,0.25,0.2} */
+  /** hệ số phanh hôm nay ∈ {1, 0.25} */
   mult: number;
   /** các phanh đang bật */
   brakes: AccumBrake[];
