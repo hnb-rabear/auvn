@@ -1,8 +1,7 @@
 {
- "generatedAt": "2026-06-25T23:53:34.637Z",
- "dataDate": "2026-06-25",
+ "generatedAt": "2026-06-26T00:35:56.254Z",
+ "dataDate": "2026-06-26",
  "pricePct2y": 0.6726190476190477,
- "composite": 6.2,
  "mult": 1,
  "brakes": [],
  "provisional": false,
@@ -380,7 +379,7 @@
   {
    "date": "2009-10-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-10-13",
@@ -475,127 +474,127 @@
   {
    "date": "2009-11-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-10",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-13",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-17",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-19",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-20",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-27",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-11-30",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-10",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-14",
@@ -605,12 +604,12 @@
   {
    "date": "2009-12-15",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-17",
@@ -620,7 +619,7 @@
   {
    "date": "2009-12-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-21",
@@ -640,17 +639,17 @@
   {
    "date": "2009-12-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-29",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2009-12-30",
@@ -665,57 +664,57 @@
   {
    "date": "2010-01-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-05",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-13",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-14",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-15",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-19",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-01-20",
@@ -760,22 +759,22 @@
   {
    "date": "2010-02-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-05",
@@ -790,12 +789,12 @@
   {
    "date": "2010-02-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-10",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-11",
@@ -810,82 +809,82 @@
   {
    "date": "2010-02-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-17",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-19",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-22",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-02-26",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-05",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-10",
@@ -910,7 +909,7 @@
   {
    "date": "2010-03-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-17",
@@ -920,7 +919,7 @@
   {
    "date": "2010-03-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-03-19",
@@ -980,27 +979,27 @@
   {
    "date": "2010-04-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-13",
@@ -1010,7 +1009,7 @@
   {
    "date": "2010-04-14",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-15",
@@ -1040,97 +1039,97 @@
   {
    "date": "2010-04-22",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-26",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-27",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-29",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-04-30",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-05",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-10",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-13",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-14",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-17",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-19",
@@ -1150,62 +1149,62 @@
   {
    "date": "2010-05-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-26",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-27",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-05-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-10",
@@ -1215,7 +1214,7 @@
   {
    "date": "2010-06-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-14",
@@ -1225,62 +1224,62 @@
   {
    "date": "2010-06-15",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-17",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-21",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-22",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-29",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-06-30",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-07-01",
@@ -1510,12 +1509,12 @@
   {
    "date": "2010-09-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-09-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-09-08",
@@ -1555,7 +1554,7 @@
   {
    "date": "2010-09-17",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-09-20",
@@ -1590,7 +1589,7 @@
   {
    "date": "2010-09-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-09-29",
@@ -1600,67 +1599,67 @@
   {
    "date": "2010-09-30",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-05",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-13",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-14",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-15",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-10-19",
@@ -1730,42 +1729,42 @@
   {
    "date": "2010-11-05",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-10",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-15",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-17",
@@ -1775,157 +1774,157 @@
   {
    "date": "2010-11-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-19",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-22",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-26",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-29",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-11-30",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-09",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-10",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-13",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-14",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-15",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-16",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-17",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-20",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-21",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-22",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-27",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-29",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-30",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2010-12-31",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-01-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-01-04",
@@ -1940,12 +1939,12 @@
   {
    "date": "2011-01-06",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-01-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-01-10",
@@ -1955,12 +1954,12 @@
   {
    "date": "2011-01-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-01-12",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-01-13",
@@ -2100,52 +2099,52 @@
   {
    "date": "2011-02-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-02-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-02-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-02-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-01",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-03",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-04",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-07",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-08",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-03-09",
@@ -2245,7 +2244,7 @@
   {
    "date": "2011-04-05",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-06",
@@ -2265,7 +2264,7 @@
   {
    "date": "2011-04-11",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-12",
@@ -2290,12 +2289,12 @@
   {
    "date": "2011-04-18",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-19",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-20",
@@ -2305,37 +2304,37 @@
   {
    "date": "2011-04-21",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-26",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-27",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-28",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-04-29",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-05-02",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-05-03",
@@ -2410,22 +2409,22 @@
   {
    "date": "2011-05-23",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-05-24",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-05-25",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-05-26",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-05-27",
@@ -2515,7 +2514,7 @@
   {
    "date": "2011-06-22",
    "pricePct2y": null,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2011-06-23",
@@ -2580,7 +2579,7 @@
   {
    "date": "2011-07-12",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-07-13",
@@ -2590,22 +2589,22 @@
   {
    "date": "2011-07-14",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-07-15",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-07-18",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-07-19",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-07-20",
@@ -2655,97 +2654,97 @@
   {
    "date": "2011-08-02",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-04",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-05",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-08",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-09",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-10",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-11",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-12",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-15",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-17",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-18",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-19",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-23",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-24",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-25",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-26",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-29",
@@ -2755,57 +2754,57 @@
   {
    "date": "2011-08-30",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-08-31",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-01",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-02",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-06",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-07",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-08",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-09",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-12",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-13",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-14",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-15",
@@ -2815,7 +2814,7 @@
   {
    "date": "2011-09-16",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-19",
@@ -2825,12 +2824,12 @@
   {
    "date": "2011-09-20",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-21",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2011-09-22",
@@ -4140,7 +4139,7 @@
   {
    "date": "2012-10-04",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2012-10-05",
@@ -7020,7 +7019,7 @@
   {
    "date": "2015-01-22",
    "pricePct2y": 0.5138888888888888,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2015-01-23",
@@ -8350,12 +8349,12 @@
   {
    "date": "2016-02-11",
    "pricePct2y": 0.6884920634920635,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-02-12",
    "pricePct2y": 0.6666666666666666,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-02-16",
@@ -8370,12 +8369,12 @@
   {
    "date": "2016-02-18",
    "pricePct2y": 0.628968253968254,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-02-19",
    "pricePct2y": 0.6468253968253969,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-02-22",
@@ -8400,32 +8399,32 @@
   {
    "date": "2016-02-26",
    "pricePct2y": 0.6091269841269841,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-02-29",
    "pricePct2y": 0.6686507936507936,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-01",
    "pricePct2y": 0.6527777777777778,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-02",
    "pricePct2y": 0.6944444444444444,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-03",
    "pricePct2y": 0.7301587301587301,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-04",
    "pricePct2y": 0.7559523809523809,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-03-07",
@@ -8435,22 +8434,22 @@
   {
    "date": "2016-03-08",
    "pricePct2y": 0.7420634920634921,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-09",
    "pricePct2y": 0.7301587301587301,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-10",
    "pricePct2y": 0.7658730158730159,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-03-11",
    "pricePct2y": 0.7341269841269841,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2016-03-14",
@@ -8470,7 +8469,7 @@
   {
    "date": "2016-03-17",
    "pricePct2y": 0.7599206349206349,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-03-18",
@@ -8770,27 +8769,27 @@
   {
    "date": "2016-06-13",
    "pricePct2y": 0.8928571428571429,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-14",
    "pricePct2y": 0.8928571428571429,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-15",
    "pricePct2y": 0.8948412698412699,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-16",
    "pricePct2y": 0.9265873015873016,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-17",
    "pricePct2y": 0.9067460317460317,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-20",
@@ -8815,87 +8814,87 @@
   {
    "date": "2016-06-24",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-27",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-28",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-29",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-06-30",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-01",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-07",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-08",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-11",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-12",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-13",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-14",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-15",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-18",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-19",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-20",
@@ -8905,22 +8904,22 @@
   {
    "date": "2016-07-21",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-22",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-25",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-26",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-07-27",
@@ -8935,27 +8934,27 @@
   {
    "date": "2016-07-29",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-08-01",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-08-02",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-08-03",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-08-04",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-08-05",
@@ -8975,7 +8974,7 @@
   {
    "date": "2016-08-10",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-08-11",
@@ -9270,7 +9269,7 @@
   {
    "date": "2016-11-03",
    "pricePct2y": 0.8591269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2016-11-04",
@@ -10300,32 +10299,32 @@
   {
    "date": "2017-08-31",
    "pricePct2y": 0.8809523809523809,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2017-09-01",
    "pricePct2y": 0.9166666666666666,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2017-09-05",
    "pricePct2y": 0.9543650793650794,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2017-09-06",
    "pricePct2y": 0.9365079365079365,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2017-09-07",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2017-09-08",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2017-09-11",
@@ -10735,7 +10734,7 @@
   {
    "date": "2018-01-05",
    "pricePct2y": 0.875,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-08",
@@ -10760,17 +10759,17 @@
   {
    "date": "2018-01-12",
    "pricePct2y": 0.9305555555555556,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-16",
    "pricePct2y": 0.9345238095238095,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-17",
    "pricePct2y": 0.9464285714285714,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-18",
@@ -10780,7 +10779,7 @@
   {
    "date": "2018-01-19",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-22",
@@ -10790,22 +10789,22 @@
   {
    "date": "2018-01-23",
    "pricePct2y": 0.9325396825396826,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-24",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-25",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-26",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-01-30",
@@ -10820,7 +10819,7 @@
   {
    "date": "2018-02-01",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-02-02",
@@ -10865,17 +10864,17 @@
   {
    "date": "2018-02-14",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-02-15",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-02-16",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-02-20",
@@ -10885,7 +10884,7 @@
   {
    "date": "2018-02-21",
    "pricePct2y": 0.8829365079365079,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-02-22",
@@ -10995,17 +10994,17 @@
   {
    "date": "2018-03-23",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-03-26",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-03-27",
    "pricePct2y": 0.9424603174603174,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-03-28",
@@ -11020,17 +11019,17 @@
   {
    "date": "2018-04-02",
    "pricePct2y": 0.9424603174603174,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-03",
    "pricePct2y": 0.8888888888888888,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-04",
    "pricePct2y": 0.9107142857142857,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-05",
@@ -11045,7 +11044,7 @@
   {
    "date": "2018-04-09",
    "pricePct2y": 0.9107142857142857,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-10",
@@ -11055,7 +11054,7 @@
   {
    "date": "2018-04-11",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-12",
@@ -11065,27 +11064,27 @@
   {
    "date": "2018-04-13",
    "pricePct2y": 0.9523809523809523,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-16",
    "pricePct2y": 0.9563492063492064,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-17",
    "pricePct2y": 0.9543650793650794,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-18",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-19",
    "pricePct2y": 0.9503968253968254,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-20",
@@ -11100,7 +11099,7 @@
   {
    "date": "2018-04-24",
    "pricePct2y": 0.8571428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2018-04-25",
@@ -12130,12 +12129,12 @@
   {
    "date": "2019-02-19",
    "pricePct2y": 0.9603174603174603,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-02-20",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-02-21",
@@ -12640,12 +12639,12 @@
   {
    "date": "2019-07-16",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-17",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-18",
@@ -12660,17 +12659,17 @@
   {
    "date": "2019-07-22",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-23",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-24",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-25",
@@ -12680,22 +12679,22 @@
   {
    "date": "2019-07-26",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-29",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-30",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-07-31",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-01",
@@ -12705,62 +12704,62 @@
   {
    "date": "2019-08-02",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-07",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-08",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-09",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-12",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-13",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-14",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-15",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-16",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-19",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-20",
@@ -12780,27 +12779,27 @@
   {
    "date": "2019-08-23",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-26",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-27",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-28",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-29",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-08-30",
@@ -12810,12 +12809,12 @@
   {
    "date": "2019-09-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-09-04",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-09-05",
@@ -12885,7 +12884,7 @@
   {
    "date": "2019-09-24",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2019-09-25",
@@ -13235,22 +13234,22 @@
   {
    "date": "2020-01-03",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-07",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-08",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-09",
@@ -13260,7 +13259,7 @@
   {
    "date": "2020-01-10",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-13",
@@ -13285,7 +13284,7 @@
   {
    "date": "2020-01-17",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-21",
@@ -13305,12 +13304,12 @@
   {
    "date": "2020-01-24",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-27",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-28",
@@ -13320,12 +13319,12 @@
   {
    "date": "2020-01-29",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-30",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-01-31",
@@ -13335,7 +13334,7 @@
   {
    "date": "2020-02-03",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-04",
@@ -13355,12 +13354,12 @@
   {
    "date": "2020-02-07",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-10",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-11",
@@ -13375,52 +13374,52 @@
   {
    "date": "2020-02-13",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-14",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-18",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-19",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-21",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-24",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-25",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-26",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-27",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-02-28",
@@ -13510,7 +13509,7 @@
   {
    "date": "2020-03-24",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-03-25",
@@ -13555,27 +13554,27 @@
   {
    "date": "2020-04-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-07",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-08",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-09",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-13",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-14",
@@ -13585,12 +13584,12 @@
   {
    "date": "2020-04-15",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-16",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-17",
@@ -13615,7 +13614,7 @@
   {
    "date": "2020-04-23",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-04-24",
@@ -13685,17 +13684,17 @@
   {
    "date": "2020-05-13",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-05-14",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-05-15",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-05-18",
@@ -13855,42 +13854,42 @@
   {
    "date": "2020-07-01",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-02",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-06",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-07",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-08",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-09",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-10",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-13",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-14",
@@ -13900,107 +13899,107 @@
   {
    "date": "2020-07-15",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-16",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-17",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-21",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-23",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-24",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-27",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-28",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-29",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-30",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-07-31",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-04",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-07",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-10",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-11",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-12",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-13",
@@ -14015,12 +14014,12 @@
   {
    "date": "2020-08-17",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-18",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-19",
@@ -14060,17 +14059,17 @@
   {
    "date": "2020-08-28",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-08-31",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-01",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-02",
@@ -14100,7 +14099,7 @@
   {
    "date": "2020-09-10",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-11",
@@ -14120,7 +14119,7 @@
   {
    "date": "2020-09-16",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-17",
@@ -14140,17 +14139,17 @@
   {
    "date": "2020-09-22",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-23",
    "pricePct2y": 0.9126984126984127,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-24",
    "pricePct2y": 0.9146825396825397,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-25",
@@ -14165,12 +14164,12 @@
   {
    "date": "2020-09-29",
    "pricePct2y": 0.9166666666666666,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-09-30",
    "pricePct2y": 0.9126984126984127,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2020-10-01",
@@ -15900,7 +15899,7 @@
   {
    "date": "2022-02-14",
    "pricePct2y": 0.7777777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-15",
@@ -15910,232 +15909,232 @@
   {
    "date": "2022-02-16",
    "pricePct2y": 0.7817460317460317,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-17",
    "pricePct2y": 0.8690476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-18",
    "pricePct2y": 0.8650793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-22",
    "pricePct2y": 0.8908730158730159,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-23",
    "pricePct2y": 0.9027777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-24",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-25",
    "pricePct2y": 0.8174603174603174,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-02-28",
    "pricePct2y": 0.8591269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-01",
    "pricePct2y": 0.9484126984126984,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-02",
    "pricePct2y": 0.9087301587301587,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-03",
    "pricePct2y": 0.9325396825396826,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-04",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-07",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-08",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-09",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-10",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-11",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-14",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-15",
    "pricePct2y": 0.9067460317460317,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-16",
    "pricePct2y": 0.871031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-17",
    "pricePct2y": 0.9305555555555556,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-18",
    "pricePct2y": 0.9027777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-21",
    "pricePct2y": 0.9047619047619048,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-22",
    "pricePct2y": 0.8829365079365079,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-23",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-24",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-25",
    "pricePct2y": 0.9503968253968254,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-28",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-29",
    "pricePct2y": 0.8670634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-30",
    "pricePct2y": 0.9027777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-03-31",
    "pricePct2y": 0.9384920634920635,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-01",
    "pricePct2y": 0.8670634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-04",
    "pricePct2y": 0.8928571428571429,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-05",
    "pricePct2y": 0.875,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-06",
    "pricePct2y": 0.8611111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-07",
    "pricePct2y": 0.9027777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-08",
    "pricePct2y": 0.9226190476190477,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-11",
    "pricePct2y": 0.9285714285714286,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-12",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-13",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-14",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-18",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-19",
    "pricePct2y": 0.9444444444444444,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-20",
    "pricePct2y": 0.9325396825396826,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-21",
    "pricePct2y": 0.9226190476190477,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-22",
    "pricePct2y": 0.875,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2022-04-25",
@@ -16170,22 +16169,22 @@
   {
    "date": "2022-05-03",
    "pricePct2y": 0.6785714285714286,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-04",
    "pricePct2y": 0.6666666666666666,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-05",
    "pricePct2y": 0.6944444444444444,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-06",
    "pricePct2y": 0.7142857142857143,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-09",
@@ -16230,17 +16229,17 @@
   {
    "date": "2022-05-19",
    "pricePct2y": 0.5793650793650794,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-20",
    "pricePct2y": 0.5813492063492064,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-23",
    "pricePct2y": 0.5952380952380952,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-24",
@@ -16250,22 +16249,22 @@
   {
    "date": "2022-05-25",
    "pricePct2y": 0.5873015873015873,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-26",
    "pricePct2y": 0.5892857142857143,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-27",
    "pricePct2y": 0.6011904761904762,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-05-31",
    "pricePct2y": 0.5753968253968254,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-06-01",
@@ -16295,7 +16294,7 @@
   {
    "date": "2022-06-08",
    "pricePct2y": 0.5992063492063492,
-   "mult": 0.5
+   "mult": 1
   },
   {
    "date": "2022-06-09",
@@ -17245,237 +17244,237 @@
   {
    "date": "2023-03-13",
    "pricePct2y": 0.9007936507936508,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-14",
    "pricePct2y": 0.8888888888888888,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-15",
    "pricePct2y": 0.9246031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-16",
    "pricePct2y": 0.9067460317460317,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-17",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-20",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-21",
    "pricePct2y": 0.9503968253968254,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-22",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-23",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-24",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-27",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-28",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-29",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-30",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-03-31",
    "pricePct2y": 0.9702380952380952,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-03",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-04",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-05",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-06",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-10",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-11",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-12",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-13",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-14",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-17",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-18",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-19",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-20",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-21",
    "pricePct2y": 0.9543650793650794,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-24",
    "pricePct2y": 0.9702380952380952,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-25",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-26",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-27",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-04-28",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-01",
    "pricePct2y": 0.9543650793650794,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-02",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-03",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-04",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-05",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-08",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-09",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-10",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-11",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-12",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-15",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-16",
    "pricePct2y": 0.9404761904761905,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-17",
    "pricePct2y": 0.9226190476190477,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-18",
@@ -17485,17 +17484,17 @@
   {
    "date": "2023-05-19",
    "pricePct2y": 0.9146825396825397,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-22",
    "pricePct2y": 0.9126984126984127,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-23",
    "pricePct2y": 0.9107142857142857,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-05-24",
@@ -17845,7 +17844,7 @@
   {
    "date": "2023-09-01",
    "pricePct2y": 0.7996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-09-05",
@@ -17905,7 +17904,7 @@
   {
    "date": "2023-09-20",
    "pricePct2y": 0.8253968253968254,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-09-21",
@@ -18005,62 +18004,62 @@
   {
    "date": "2023-10-18",
    "pricePct2y": 0.8432539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-19",
    "pricePct2y": 0.8888888888888888,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-20",
    "pricePct2y": 0.9265873015873016,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-23",
    "pricePct2y": 0.9047619047619048,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-24",
    "pricePct2y": 0.9027777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-25",
    "pricePct2y": 0.9345238095238095,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-26",
    "pricePct2y": 0.9384920634920635,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-27",
    "pricePct2y": 0.9404761904761905,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-30",
    "pricePct2y": 0.9583333333333334,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-10-31",
    "pricePct2y": 0.9285714285714286,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-11-01",
    "pricePct2y": 0.9027777777777778,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-11-02",
    "pricePct2y": 0.9285714285714286,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-11-03",
@@ -18145,12 +18144,12 @@
   {
    "date": "2023-11-28",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-11-29",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2023-11-30",
@@ -18465,302 +18464,302 @@
   {
    "date": "2024-03-01",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-04",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-07",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-08",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-11",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-12",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-13",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-14",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-15",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-18",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-19",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-20",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-21",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-22",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-25",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-26",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-27",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-03-28",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-01",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-02",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-04",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-08",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-09",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-10",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-11",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-12",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-15",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-17",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-18",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-19",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-22",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-23",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-24",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-25",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-26",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-29",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-04-30",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-01",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-02",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-03",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-06",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-07",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-08",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-09",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-10",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-13",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-14",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-15",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-16",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-17",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-21",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-22",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-23",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-24",
    "pricePct2y": 0.9603174603174603,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-28",
@@ -18770,12 +18769,12 @@
   {
    "date": "2024-05-29",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-30",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-05-31",
@@ -18830,7 +18829,7 @@
   {
    "date": "2024-06-14",
    "pricePct2y": 0.9384920634920635,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-06-17",
@@ -18840,12 +18839,12 @@
   {
    "date": "2024-06-18",
    "pricePct2y": 0.9365079365079365,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-06-20",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-06-21",
@@ -18890,12 +18889,12 @@
   {
    "date": "2024-07-03",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-07-05",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-07-08",
@@ -18930,7 +18929,7 @@
   {
    "date": "2024-07-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-07-17",
@@ -19165,37 +19164,37 @@
   {
    "date": "2024-09-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-09-23",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-09-24",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-09-25",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-09-26",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-09-27",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-09-30",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-01",
@@ -19210,17 +19209,17 @@
   {
    "date": "2024-10-03",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-04",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-07",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-08",
@@ -19235,112 +19234,112 @@
   {
    "date": "2024-10-10",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-11",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-14",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-15",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-17",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-18",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-21",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-23",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-24",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-25",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-28",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-29",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-30",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-10-31",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-01",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-04",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-05",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-06",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-07",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-08",
    "pricePct2y": 0.9702380952380952,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-11",
@@ -19380,17 +19379,17 @@
   {
    "date": "2024-11-20",
    "pricePct2y": 0.9503968253968254,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-21",
    "pricePct2y": 0.9662698412698413,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-22",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-11-25",
@@ -19410,7 +19409,7 @@
   {
    "date": "2024-11-29",
    "pricePct2y": 0.9484126984126984,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-12-02",
@@ -19425,7 +19424,7 @@
   {
    "date": "2024-12-04",
    "pricePct2y": 0.9464285714285714,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-12-05",
@@ -19440,22 +19439,22 @@
   {
    "date": "2024-12-09",
    "pricePct2y": 0.9563492063492064,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-12-10",
    "pricePct2y": 0.9702380952380952,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-12-11",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-12-12",
    "pricePct2y": 0.9642857142857143,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2024-12-13",
@@ -19545,57 +19544,57 @@
   {
    "date": "2025-01-09",
    "pricePct2y": 0.9603174603174603,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-10",
    "pricePct2y": 0.9702380952380952,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-13",
    "pricePct2y": 0.9543650793650794,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-14",
    "pricePct2y": 0.9563492063492064,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-15",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-16",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-17",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-21",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-22",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-23",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-24",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-27",
@@ -19605,67 +19604,67 @@
   {
    "date": "2025-01-28",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-29",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-30",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-01-31",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-04",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-06",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-07",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-10",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-11",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-12",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-13",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-14",
@@ -19680,7 +19679,7 @@
   {
    "date": "2025-02-19",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-02-20",
@@ -19750,47 +19749,47 @@
   {
    "date": "2025-03-11",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-12",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-13",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-14",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-17",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-18",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-19",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-21",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-24",
@@ -19810,32 +19809,32 @@
   {
    "date": "2025-03-27",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-28",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-03-31",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-01",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-02",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-03",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-04",
@@ -19855,77 +19854,77 @@
   {
    "date": "2025-04-09",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-10",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-11",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-14",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-15",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-17",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-21",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-22",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-23",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-24",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-25",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-28",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-29",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-04-30",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-01",
@@ -19940,27 +19939,27 @@
   {
    "date": "2025-05-05",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-07",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-08",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-09",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-12",
@@ -19995,62 +19994,62 @@
   {
    "date": "2025-05-20",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-21",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-22",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-23",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-27",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-28",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-29",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-05-30",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-02",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-03",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-04",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-05",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-06",
@@ -20075,37 +20074,37 @@
   {
    "date": "2025-06-12",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-13",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-16",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-17",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-18",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-20",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-23",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-06-24",
@@ -20210,7 +20209,7 @@
   {
    "date": "2025-07-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-07-23",
@@ -20250,17 +20249,17 @@
   {
    "date": "2025-08-01",
    "pricePct2y": 0.9503968253968254,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-04",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-05",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-06",
@@ -20270,12 +20269,12 @@
   {
    "date": "2025-08-07",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-08",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-11",
@@ -20330,17 +20329,17 @@
   {
    "date": "2025-08-25",
    "pricePct2y": 0.9623015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-26",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-27",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-08-28",
@@ -20355,197 +20354,197 @@
   {
    "date": "2025-09-02",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-04",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-05",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-08",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-09",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-10",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-11",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-12",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-15",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-17",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-18",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-19",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-23",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-24",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-25",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-26",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-29",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-09-30",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-01",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-02",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-03",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-06",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-07",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-08",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-09",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-10",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-13",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-14",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-15",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-16",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-17",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-21",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-22",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-23",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-24",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-27",
@@ -20555,27 +20554,27 @@
   {
    "date": "2025-10-28",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-29",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-30",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-10-31",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-03",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-04",
@@ -20585,7 +20584,7 @@
   {
    "date": "2025-11-05",
    "pricePct2y": 0.9682539682539683,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-06",
@@ -20605,22 +20604,22 @@
   {
    "date": "2025-11-11",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-12",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-13",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-14",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-17",
@@ -20635,7 +20634,7 @@
   {
    "date": "2025-11-19",
    "pricePct2y": 0.9722222222222222,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-20",
@@ -20645,37 +20644,37 @@
   {
    "date": "2025-11-21",
    "pricePct2y": 0.9702380952380952,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-24",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-25",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-26",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-11-28",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-01",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-02",
    "pricePct2y": 0.9861111111111112,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-03",
@@ -20700,12 +20699,12 @@
   {
    "date": "2025-12-09",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-10",
    "pricePct2y": 0.9821428571428571,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-11",
@@ -20715,12 +20714,12 @@
   {
    "date": "2025-12-12",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-15",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-16",
@@ -20730,7 +20729,7 @@
   {
    "date": "2025-12-17",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-18",
@@ -20740,27 +20739,27 @@
   {
    "date": "2025-12-19",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-23",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-24",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-26",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2025-12-29",
@@ -20785,92 +20784,92 @@
   {
    "date": "2026-01-05",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-06",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-07",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-08",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-09",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-12",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-13",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-14",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-15",
    "pricePct2y": 0.998015873015873,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-16",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-20",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-21",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-22",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-23",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-26",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-27",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-28",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-29",
    "pricePct2y": 1,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-01-30",
@@ -20880,42 +20879,42 @@
   {
    "date": "2026-02-02",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-03",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-04",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-05",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-06",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-09",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-10",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-11",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-12",
@@ -20925,7 +20924,7 @@
   {
    "date": "2026-02-13",
    "pricePct2y": 0.9880952380952381,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-17",
@@ -20935,107 +20934,107 @@
   {
    "date": "2026-02-18",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-19",
    "pricePct2y": 0.9801587301587301,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-20",
    "pricePct2y": 0.9900793650793651,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-23",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-24",
    "pricePct2y": 0.9940476190476191,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-25",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-26",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-02-27",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-02",
    "pricePct2y": 0.996031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-03",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-04",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-05",
    "pricePct2y": 0.9742063492063492,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-06",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-09",
    "pricePct2y": 0.9781746031746031,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-10",
    "pricePct2y": 0.9920634920634921,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-11",
    "pricePct2y": 0.9841269841269841,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-12",
    "pricePct2y": 0.9761904761904762,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-13",
    "pricePct2y": 0.9603174603174603,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-16",
    "pricePct2y": 0.9523809523809523,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-17",
    "pricePct2y": 0.9523809523809523,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-18",
    "pricePct2y": 0.9325396825396826,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-19",
@@ -21070,12 +21069,12 @@
   {
    "date": "2026-03-27",
    "pricePct2y": 0.9007936507936508,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-30",
    "pricePct2y": 0.9007936507936508,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-03-31",
@@ -21085,12 +21084,12 @@
   {
    "date": "2026-04-01",
    "pricePct2y": 0.9246031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-04-02",
    "pricePct2y": 0.9186507936507936,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-04-06",
@@ -21105,17 +21104,17 @@
   {
    "date": "2026-04-08",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-04-09",
    "pricePct2y": 0.9246031746031746,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-04-10",
    "pricePct2y": 0.9206349206349206,
-   "mult": 0.2
+   "mult": 0.25
   },
   {
    "date": "2026-04-13",
@@ -21373,10 +21372,10 @@
    "mult": 1
   },
   {
-   "date": "2026-06-25",
+   "date": "2026-06-26",
    "pricePct2y": 0.6726190476190477,
    "mult": 1
   }
  ],
- "note": "Phanh DCA chống mua đỉnh: ghìm khi giá đắt so dải 2 năm hoặc composite bi quan. Lan can chống FOMO, không phải máy đẻ vàng."
+ "note": "Phanh DCA chống mua đỉnh: ghìm khi giá đắt so dải 2 năm. Lan can chống FOMO, không phải máy đẻ vàng."
 }
