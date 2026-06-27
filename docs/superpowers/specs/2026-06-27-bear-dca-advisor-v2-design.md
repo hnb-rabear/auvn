@@ -143,6 +143,7 @@ bằng `qtyForPhase`. Hiển thị tín hiệu thô (dd, ddChange, pct2y) để 
 | BH xác nhận RECOVERY | vô hiệu 0.00% | `bear-combine-signals-study.ts` |
 | Premium VN | không backtest được (data ngắn) | — |
 | Bull tilt-down (BOOST/HALF) | tài sản −20%..−31% | `bear-phase-taxonomy-study.ts` |
+| Ranh giới bull/bear = MA200 hoặc momentum 6T (thay dd 15%) | MA200 trông hơn ở test nhanh nhưng MA200−DD15 CI chứa 0 cả train+test; placebo (bear ngẫu nhiên) gần bằng tín hiệu thật → chọn ranh giới không thêm kỹ năng; momentum 6T còn báo bear giả trong bull | `bear-trend-boundary-study.ts`, `bear-ma200-rigorous-study.ts` |
 
 ## Tái lập
 
@@ -151,4 +152,5 @@ npm run collect
 npx tsx scripts/bear-phase-taxonomy-study.ts    # bằng chứng 4 pha (giá vốn + tài sản)
 npx tsx scripts/bear-combine-signals-study.ts   # 3 hướng kết hợp (đều loại) + placebo
 npx tsx scripts/bear-bh-timing-value.ts         # BH timing vô ích
+npx tsx scripts/bear-ma200-rigorous-study.ts    # MA200 vs dd15 (CI+placebo) — không đủ bằng chứng đổi
 ```
