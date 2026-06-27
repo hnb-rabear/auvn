@@ -302,7 +302,7 @@ async function main() {
   }
   const accumulationHealth = monitorAccumulation(accumPoints);
 
-  // --- Lớp Bear DCA Advisor. Hai chế độ: DEPTH (cấp tính) + BOOST (bình thường).
+  // --- Lớp Bear DCA Advisor. 4 pha: bull (gom đều) / acute (DEPTH) / grind (BOOST) / recovery (×1.5).
   const bearDcaPoints: BearDcaPoint[] = timeline.points.map((pt) => ({
     date: pt.date,
     price: pt.price,
