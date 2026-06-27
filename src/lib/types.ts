@@ -477,24 +477,21 @@ export interface BearDcaPoint {
   date: string;
   price: number;
   pricePct2y: number | null; // từ accumulation engine (win=504)
-  cycleProb: number | null;  // từ timeline
-  swingProb: number | null;
 }
 
-export type BearDcaMode = "bull" | "normal" | "acute";
+export type BearPhase = "bull" | "acute" | "recovery" | "grind";
 
 export interface BearDcaAnalysis {
   generatedAt: string;
   dataDate: string;
-  isBear: boolean;           // ddFromAth >= 0.15
-  ddFromAth: number;         // 0..1, rolling ATH
-  ddChange: number;          // dd hôm nay - dd 21 phiên trước (pp/tháng)
-  isAcute: boolean;          // ddChange > 0.03
+  isBear: boolean;          // phase !== "bull" (dd >= 0.15)
+  ddFromAth: number;        // 0..1, rolling ATH
+  ddChange: number;         // dd hôm nay - dd 21 phiên trước (pp/tháng)
+  phase: BearPhase;         // pha gợi ý tự động
   pricePct2y: number | null;
-  mult: number;              // ∈ {0.5, 0.75, 1.0, 1.5}
-  mode: BearDcaMode;
-  bhFiredThisCycle: boolean; // BH bắn trong 21 phiên gần nhất
-  note: string;              // giải thích tiếng Việt
+  mult: number;             // hệ số cho pha tự động ∈ {0.5, 0.75, 1.0, 1.5}
+  recoveryRisk: boolean;    // true khi phase === "recovery"
+  note: string;             // giải thích tiếng Việt
 }
 
 export interface BearDcaHealth {
