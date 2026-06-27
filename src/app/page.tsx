@@ -7,7 +7,9 @@ import bottomJson from "../../public/data/bottom.json";
 import fusionHealthJson from "../../public/data/fusion-health.json";
 import accumulationJson from "../../public/data/accumulation.json";
 import accumulationHealthJson from "../../public/data/accumulation-health.json";
-import type { Analysis, Backtest, BottomAnalysis, FusionHealthFile, PresetHealthFile, Timeline, AccumulationAnalysis, AccumulationHealth } from "@/lib/types";
+import bearDcaJson from "../../public/data/bear-dca.json";
+import bearDcaHealthJson from "../../public/data/bear-dca-health.json";
+import type { Analysis, Backtest, BottomAnalysis, FusionHealthFile, PresetHealthFile, Timeline, AccumulationAnalysis, AccumulationHealth, BearDcaAnalysis, BearDcaHealth } from "@/lib/types";
 
 export default function Home() {
   const analysis = analysisJson as unknown as Analysis;
@@ -18,7 +20,9 @@ export default function Home() {
   const fusionHealth = fusionHealthJson as unknown as FusionHealthFile;
   const accumulation = accumulationJson as unknown as AccumulationAnalysis;
   const accumulationHealth = accumulationHealthJson as unknown as AccumulationHealth;
+  const bearDca = bearDcaJson as unknown as BearDcaAnalysis;
+  const bearDcaHealth = bearDcaHealthJson as unknown as BearDcaHealth;
   return (
-    <Dashboard analysis={analysis} backtest={backtest} timeline={timeline} health={health} bottom={bottom} fusionHealth={fusionHealth} accumulation={accumulation} accumulationHealth={accumulationHealth} />
+    <Dashboard analysis={analysis} backtest={backtest} timeline={timeline} health={health} bottom={bottom} fusionHealth={fusionHealth} accumulation={accumulation} accumulationHealth={accumulationHealth} bearDca={bearDca} bearDcaHealth={bearDcaHealth} />
   );
 }

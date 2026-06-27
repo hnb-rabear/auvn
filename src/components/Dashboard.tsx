@@ -5,6 +5,7 @@ import TimeMachine from "./TimeMachine";
 import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import AccumulationCard from "./AccumulationCard";
+import BearDcaCard from "./BearDcaCard";
 import ActionGuidance from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
 import { fabLabel, zoneClass } from "@/lib/settings";
@@ -20,6 +21,8 @@ import {
   PRESETS,
   type AccumulationAnalysis,
   type AccumulationHealth,
+  type BearDcaAnalysis,
+  type BearDcaHealth,
   type Analysis,
   type Backtest,
   type BottomAnalysis,
@@ -81,6 +84,8 @@ export default function Dashboard({
   fusionHealth,
   accumulation,
   accumulationHealth,
+  bearDca,
+  bearDcaHealth,
 }: {
   analysis: Analysis;
   backtest: Backtest;
@@ -90,6 +95,8 @@ export default function Dashboard({
   fusionHealth: FusionHealthFile;
   accumulation: AccumulationAnalysis;
   accumulationHealth: AccumulationHealth;
+  bearDca: BearDcaAnalysis;
+  bearDcaHealth: BearDcaHealth;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -559,7 +566,7 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <AccumulationCard accumulation={accumulation} health={accumulationHealth} />
+          <BearDcaCard bearDca={bearDca} health={bearDcaHealth} />
         </div>
       </details>
 
