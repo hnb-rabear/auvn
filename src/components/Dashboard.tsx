@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import TimeMachine from "./TimeMachine";
 import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
-import AccumulationCard from "./AccumulationCard";
 import BearDcaCard from "./BearDcaCard";
 import ActionGuidance from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
