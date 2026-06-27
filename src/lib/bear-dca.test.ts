@@ -69,6 +69,7 @@ describe("runBearDca", () => {
     // dd trong 21 phiên cuối tăng mạnh
     expect(r.isBear).toBe(true);
     expect(typeof r.ddChange).toBe("number");
+    expect(r.isAcute).toBe(true);
   });
 
   it("bhFiredThisCycle=true khi có cycleProb>=60 trong 21 phiên cuối", () => {
