@@ -472,3 +472,33 @@ export interface AccumulationHealth {
   recentBrakedMonths: number;
   status: "ok" | "degraded" | "insufficient";
 }
+
+export interface BearDcaPoint {
+  date: string;
+  price: number;
+  pricePct2y: number | null; // từ accumulation engine (win=504)
+  cycleProb: number | null;  // từ timeline
+  swingProb: number | null;
+}
+
+export type BearDcaMode = "bull" | "normal" | "acute";
+
+export interface BearDcaAnalysis {
+  generatedAt: string;
+  dataDate: string;
+  isBear: boolean;           // ddFromAth >= 0.15
+  ddFromAth: number;         // 0..1, rolling ATH
+  ddChange: number;          // dd hôm nay - dd 21 phiên trước (pp/tháng)
+  isAcute: boolean;          // ddChange > 0.03
+  pricePct2y: number | null;
+  mult: number;              // ∈ {0.5, 0.75, 1.0, 1.5}
+  mode: BearDcaMode;
+  bhFiredThisCycle: boolean; // BH bắn trong 21 phiên gần nhất
+  note: string;              // giải thích tiếng Việt
+}
+
+export interface BearDcaHealth {
+  generatedAt: string;
+  recentImprPct: number | null; // % cải thiện giá vốn vs BASE trên ~2 năm gần nhất
+  status: "ok" | "degraded" | "insufficient";
+}
