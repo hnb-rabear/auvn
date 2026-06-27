@@ -32,6 +32,8 @@ import { monitorBottom, type BottomHealth } from "./monitor-bottom";
 import { runAccumulation } from "../src/lib/accumulation";
 import { monitorAccumulation } from "./monitor-accumulation";
 import type { AccumPoint } from "../src/lib/types";
+import { runBearDca, monitorBearDca } from "../src/lib/bear-dca";
+import type { BearDcaPoint } from "../src/lib/types";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const HISTORY_DIR = join(DATA_DIR, "history");
@@ -300,6 +302,17 @@ async function main() {
   }
   const accumulationHealth = monitorAccumulation(accumPoints);
 
+  // --- Lớp Bear DCA Advisor. Hai chế độ: DEPTH (cấp tính) + BOOST (bình thường).
+  const bearDcaPoints: BearDcaPoint[] = timeline.points.map((pt) => ({
+    date: pt.date,
+    price: pt.price,
+    pricePct2y: pt.pricePct2y ?? null,
+    cycleProb: pt.cycleProb ?? null,
+    swingProb: pt.swingProb ?? null,
+  }));
+  const bearDca = runBearDca(bearDcaPoints);
+  const bearDcaHealth = monitorBearDca(bearDcaPoints);
+
   const bottomHealth: BottomHealth = monitorBottom(
     xauRes.bars,
     dxyRes?.bars ?? null,
@@ -324,6 +337,8 @@ async function main() {
     join(DATA_DIR, "accumulation-health.json"),
     JSON.stringify(accumulationHealth, null, 1)
   );
+  writeFileSync(join(DATA_DIR, "bear-dca.json"), JSON.stringify(bearDca, null, 1));
+  writeFileSync(join(DATA_DIR, "bear-dca-health.json"), JSON.stringify(bearDcaHealth, null, 1));
 
   console.log(
     `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}% accumMult=${accumulation.mult} pricePct2y=${accumulation.pricePct2y}`
