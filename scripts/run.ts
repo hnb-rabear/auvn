@@ -307,8 +307,6 @@ async function main() {
     date: pt.date,
     price: pt.price,
     pricePct2y: pt.pricePct2y ?? null,
-    cycleProb: pt.cycleProb ?? null,
-    swingProb: pt.swingProb ?? null,
   }));
   const bearDca = runBearDca(bearDcaPoints);
   const bearDcaHealth = monitorBearDca(bearDcaPoints);
