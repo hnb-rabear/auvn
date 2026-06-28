@@ -4,7 +4,9 @@
 
 **Goal:** Xây engine "DCA Co-pilot" Module A — mỗi ngày báo hôm nay có phải vùng giá đẹp để mua DCA tháng này, với luật được tuyển bằng backtest giá-vốn-dài-hạn vượt baseline + placebo ở cả train/test.
 
-**Architecture:** Một bộ mô phỏng DCA thuần (`dca-sim.ts`) tính giá vốn = tổng tiền ÷ tổng chỉ; một bộ luật "vùng đẹp" thuần (`dca-zone.ts`) chấm past-only; một study script đua các luật chọn cấu hình thắng gate; một engine live (`dca-copilot.ts`) phát trạng thái 🟢/🟡/🔴; wiring vào cron (`run.ts`) ghi `dca-copilot.json`; một card UI mới. Tái dùng `percentileRank`/`rsi`/`macd`/`blockBootstrapCi`/`seededRandom` có sẵn trong `indicators.ts`.
+**Architecture:** Một bộ mô phỏng DCA thuần (`dca-sim.ts`) tính giá vốn = tổng tiền ÷ tổng chỉ; một bộ luật "vùng đẹp" thuần (`dca-zone.ts`) chấm past-only; một study script đua các luật chọn cấu hình thắng gate; một engine live (`dca-copilot.ts`) phát trạng thái 🟢/🟡/🔴; wiring vào cron (`run.ts`) ghi `dca-copilot.json`; một card UI mới. Tái dùng `rsi`/`blockBootstrapCi`/`seededRandom` có sẵn trong `indicators.ts`.
+
+**Họ luật ứng viên (3, không dùng zscore):** R1 `relpos` (giá ≤ percentile p của W phiên), R3 `signal` (relpos ∧ RSI quá bán), R4 `monthdd` (giá ≤ x% dưới đỉnh-trong-tháng). Spec liệt kê cả R2 `zscore` nhưng plan BỎ vì trùng ý R1 mà kém vững hơn (giả định phân phối chuẩn). **Không dùng `macd` trong R3** — `macd()` là O(n²)/lần gọi, gọi per-day trong study sẽ thành O(n³); RSI quá bán đủ vai trò xác nhận trũng và rẻ.
 
 **Tech Stack:** TypeScript, Next.js (static export), vitest, tsx. Không thêm dependency.
 
@@ -31,7 +33,7 @@
 | `src/lib/dca-sim.test.ts` | Test simulator | 1 |
 | `src/lib/dca-zone.ts` | Luật "vùng đẹp" past-only (thuần) | 2 |
 | `src/lib/dca-zone.test.ts` | Test luật vùng | 2 |
-| `scripts/dca-timing-study.ts` | Đua luật R1-R4, gate giá vốn vs baseline+placebo | 3 |
+| `scripts/dca-timing-study.ts` | Đua luật R1/R3/R4, gate giá vốn vs baseline+placebo | 3 |
 | `src/lib/dca-copilot.types.ts` *(hoặc thêm vào `types.ts`)* | Kiểu `ZoneRule`, `DcaCopilotConfig`, `DcaCopilotAnalysis`, hằng `DCA_CONFIG` | 2, 4 |
 | `docs/dca-copilot.md` | Phương pháp + bảng bằng chứng study | 4 |
 | `src/lib/dca-copilot.ts` | Engine live `runDcaCopilot` | 5 |
@@ -204,14 +206,13 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 - Modify: `src/lib/types.ts` (thêm kiểu `ZoneRule` ở cuối, trước `export const` cuối cùng hợp lý — đặt cạnh khối Bottom)
 
 **Interfaces:**
-- Consumes: `rsi`, `macd`, `sma` từ `./indicators`.
+- Consumes: `rsi` từ `./indicators`.
 - Produces (trong `types.ts`):
   ```ts
   export interface ZoneRule {
-    kind: "relpos" | "zscore" | "signal" | "monthdd";
+    kind: "relpos" | "signal" | "monthdd";
     window?: number; // W phiên trailing
     pct?: number;    // ngưỡng percentile 0..100 (relpos / signal)
-    k?: number;      // số độ lệch chuẩn (zscore)
     x?: number;      // % dưới đỉnh-trong-tháng (monthdd)
   }
   ```
@@ -274,13 +275,11 @@ Thêm khối sau (đặt ngay TRƯỚC `export const BOTTOM_CONFIG` để gom c�
 ```ts
 /** Luật "vùng giá đẹp" trong tháng cho DCA Co-pilot. Tuyển bằng scripts/dca-timing-study.ts. */
 export interface ZoneRule {
-  kind: "relpos" | "zscore" | "signal" | "monthdd";
+  kind: "relpos" | "signal" | "monthdd";
   /** số phiên trailing để xét vị trí tương đối */
   window?: number;
   /** ngưỡng percentile 0..100 (relpos / signal): bật khi giá ≤ pct */
   pct?: number;
-  /** số độ lệch chuẩn dưới SMA (zscore): bật khi z ≤ −k */
-  k?: number;
   /** % dưới đỉnh-trong-tháng (monthdd): bật khi giá ≤ đỉnh×(1−x/100) */
   x?: number;
 }
@@ -291,7 +290,7 @@ export interface ZoneRule {
 ```ts
 // src/lib/dca-zone.ts
 /** Luật "vùng giá đẹp" past-only cho DCA Co-pilot. Chấm ngày i chỉ bằng closes[0..i]. */
-import { rsi, macd, sma } from "./indicators";
+import { rsi } from "./indicators";
 import type { ZoneRule } from "@/lib/types";
 
 /** Percentile (0..100) của closes[i] trong cửa sổ `window` phiên KẾT THÚC ở i. */
@@ -310,25 +309,11 @@ export function inZone(closes: number[], i: number, rule: ZoneRule, monthStartId
   switch (rule.kind) {
     case "relpos":
       return pricePercentile(closes, i, W) <= (rule.pct ?? 25);
-    case "zscore": {
-      const sub = closes.slice(0, i + 1);
-      const mean = sma(sub, Math.min(W, sub.length));
-      if (mean === null) return false;
-      const from = Math.max(0, i - W + 1);
-      const win = closes.slice(from, i + 1);
-      const varr = win.reduce((a, b) => a + (b - mean) ** 2, 0) / Math.max(1, win.length - 1);
-      const sd = Math.sqrt(varr);
-      if (sd === 0) return false;
-      return (closes[i] - mean) / sd <= -(rule.k ?? 1);
-    }
     case "signal": {
+      // relpos ∧ RSI quá bán. KHÔNG dùng macd (O(n²)/lần → O(n³) trong study).
       if (pricePercentile(closes, i, W) > (rule.pct ?? 30)) return false;
-      const sub = closes.slice(0, i + 1);
-      const r = rsi(sub, 14);
-      const m = macd(sub);
-      const oversold = r !== null && r < 35;
-      const turningUp = m !== null && m.histogram > 0 && m.line < 0;
-      return oversold || turningUp;
+      const r = rsi(closes.slice(0, i + 1), 14);
+      return r !== null && r < 35;
     }
     case "monthdd": {
       let hi = -Infinity;
@@ -375,14 +360,14 @@ Thêm vào `src/lib/dca-sim.test.ts`:
 import { monthsBetterFraction } from "./dca-sim";
 
 describe("monthsBetterFraction", () => {
-  it("đếm tháng luật mua rẻ hơn baseline", () => {
+  it("đếm tháng luật mua ≤ baseline", () => {
     const closes = [10, 8, /*m2*/ 5, 6];
     const months = [[0, 1], [2, 3]];
-    const rulePick = (m: number[]) => (closes[m[1]] < closes[m[0]] ? m[1] : m[0]); // mua phiên rẻ hơn
-    const basePick = (m: number[]) => m[0];
+    const rulePick = (m: number[]) => m[1]; // luôn mua phiên 2 của tháng
+    const basePick = (m: number[]) => m[0]; // baseline mua phiên 1
     const { favArr, pct } = monthsBetterFraction(closes, months, rulePick, basePick);
-    // tháng1: rule mua idx1=8 < base idx0=10 -> +1 ; tháng2: rule idx2=5 < base idx2=5? base idx2 -> bằng -> -1
-    expect(favArr.length).toBe(2);
+    // tháng1: rule idx1=8 ≤ base idx0=10 -> +1 ; tháng2: rule idx3=6 ≤ base idx2=5? 6≤5 sai -> -1
+    expect(favArr).toEqual([1, -1]);
     expect(pct).toBeCloseTo(50, 6);
   });
 });
@@ -447,7 +432,6 @@ function ruleGrid(): ZoneRule[] {
   const out: ZoneRule[] = [];
   for (const window of [21, 42, 63]) {
     for (const pct of [20, 25, 30, 35]) out.push({ kind: "relpos", window, pct });
-    for (const k of [1, 1.5, 2]) out.push({ kind: "zscore", window, k });
     for (const pct of [25, 30, 35]) out.push({ kind: "signal", window, pct });
   }
   for (const x of [2, 3, 4, 5]) out.push({ kind: "monthdd", x });
@@ -573,7 +557,7 @@ export const DCA_CONFIG: DcaCopilotConfig = {
 
 Nội dung bắt buộc (mirror `docs/bottom.md`/`docs/bear-dca.md`):
 - Mục tiêu: canh vùng vào DCA trong tháng, thước đo giá vốn.
-- Phương pháp: luật ứng viên R1-R4, gate giá vốn vs B0+placebo, train/test, % tháng tốt + block-bootstrap CI.
+- Phương pháp: luật ứng viên R1 relpos / R3 signal(rsi) / R4 monthdd, gate giá vốn vs B0+placebo, train/test, % tháng tốt + block-bootstrap CI.
 - **Bảng bằng chứng** điền từ output Task 3 (luật thắng, improvement train/test, baseline, placebo, % tháng ≤ B0 + CI). Nếu NO-GO: ghi thẳng "không có edge bền vững — chỉ mua vào dip đơn giản".
 - Ghi rõ: validate trên XAU, caveat giá vốn VND chưa kiểm chứng.
 - Dòng "Tested and REJECTED" nếu loại được luật nào.
