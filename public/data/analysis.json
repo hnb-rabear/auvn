@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-06-28T16:46:39.885Z",
+ "generatedAt": "2026-06-28T17:48:24.559Z",
  "dataDate": "2026-06-26",
  "stale": true,
- "staleDays": 12,
+ "staleDays": 13,
  "prices": {
   "sjcBuy": 148000000,
   "sjcSell": 150500000,
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-26T04:00:00.000Z",
   "yield10y": "2026-06-26T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-28T16:46:39.885Z",
+  "usdVnd": "2026-06-28T17:48:24.559Z",
   "fed": null
  }
 }
