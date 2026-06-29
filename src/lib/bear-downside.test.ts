@@ -1,6 +1,7 @@
 // src/lib/bear-downside.test.ts
 import { describe, it, expect } from "vitest";
-import { bucketOf, furtherDrawdownPct, computeHorizonStat, BUCKETS, HORIZONS } from "./bear-downside";
+import { bucketOf, furtherDrawdownPct, computeHorizonStat, BUCKETS, HORIZONS, runBearDownside } from "./bear-downside";
+import type { BearDownsideConfig } from "@/lib/types";
 
 describe("bucketOf", () => {
   it("ánh xạ dd fraction sang 0..3", () => {
@@ -36,5 +37,25 @@ describe("computeHorizonStat", () => {
     expect(s.n).toBe(40);
     expect(s.pBottomBehind).toBeCloseTo(50, 0);
     expect(s.median).toBeCloseTo(-5, 6); // nội suy giữa -10 và 0
+  });
+});
+
+describe("runBearDownside", () => {
+  // chuỗi tăng dài để có ATH rõ rồi rơi cuối -> bucket hiện tại > 0
+  const bars = [
+    ...Array.from({ length: 400 }, (_, i) => ({ date: `2020-${String((i % 12) + 1).padStart(2, "0")}-01`, close: 100 + i })),
+    ...Array.from({ length: 60 }, (_, i) => ({ date: "2024-01-01", close: 499 - i * 3 })), // rơi từ ~499
+  ];
+  it("báo bucket hiện tại theo drawdown và bảng đầy đủ 4 horizon", () => {
+    const a = runBearDownside(bars, { conditioningWorks: true });
+    expect(a.currentDdPct).toBeGreaterThan(0);
+    expect(a.buckets.length).toBe(4);
+    expect(a.unconditional.length).toBe(4);
+    expect(a.unconditional[0].horizonDays).toBe(21);
+  });
+  it("conditioningWorks=false -> shownSource unconditional", () => {
+    const a = runBearDownside(bars, { conditioningWorks: false });
+    expect(a.shownSource).toBe("unconditional");
+    expect(a.shown).toEqual(a.unconditional);
   });
 });
