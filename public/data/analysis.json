@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-29T20:04:52.102Z",
+ "generatedAt": "2026-06-29T20:57:52.465Z",
  "dataDate": "2026-06-29",
  "stale": true,
  "staleDays": 14,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4028.199951171875,
+  "xauUsd": 4030.199951171875,
   "usdVnd": 26461,
-  "worldVndPerLuong": 128510793,
+  "worldVndPerLuong": 128574598,
   "premiumPct": 8.97,
-  "premiumVnd": 21989207
+  "premiumVnd": 21925402
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 34,1: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 34,2: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -37,7 +37,7 @@
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 9,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 9,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +23% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +23,1% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-29T04:00:00.000Z",
   "yield10y": "2026-06-29T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-29T20:04:52.102Z",
+  "usdVnd": "2026-06-29T20:57:52.465Z",
   "fed": null
  }
 }
