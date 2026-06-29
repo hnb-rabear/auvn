@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-29T09:59:13.308Z",
+ "generatedAt": "2026-06-29T12:04:42.340Z",
  "dataDate": "2026-06-29",
  "stale": true,
  "staleDays": 13,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4053.60009765625,
+  "xauUsd": 4051.5,
   "usdVnd": 26461,
-  "worldVndPerLuong": 129321128,
+  "worldVndPerLuong": 129254129,
   "premiumPct": 8.97,
-  "premiumVnd": 21178872
+  "premiumVnd": 21245871
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 35,1: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 35: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -37,14 +37,14 @@
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 8,9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 38% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 37% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,3 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,2 (trên MA50, +2,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-29T04:00:00.000Z",
   "yield10y": "2026-06-26T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-29T09:59:13.308Z",
+  "usdVnd": "2026-06-29T12:04:42.340Z",
   "fed": null
  }
 }
