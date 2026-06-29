@@ -1,6 +1,6 @@
 # DCA Co-pilot — thiết kế (thay Bottom Hunter)
 
-Ngày: 2026-06-29. Trạng thái: đã brainstorm + duyệt, chờ viết plan.
+Ngày: 2026-06-29. Trạng thái: **Module A đã thực thi → NO-GO** (xem `docs/dca-copilot.md`). Canh thời điểm trong tháng không có lợi thế giá-vốn bền vững; không ship UI Module A, giữ Bottom Hunter. Module B/C chưa làm.
 
 ## Bối cảnh & động cơ
 

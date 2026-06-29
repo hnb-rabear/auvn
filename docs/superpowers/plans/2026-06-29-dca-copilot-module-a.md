@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **TRẠNG THÁI (2026-06-29): Tasks 1-3 đã chạy → study NO-GO.** Canh thời điểm trong tháng không có lợi thế giá-vốn bền vững (vượt qua review opus tái lập). **Tasks 4-7 KHÔNG thực thi**: Task 4 thay bằng `docs/dca-copilot.md` ghi nhận kết quả âm (không thêm engine config/types); Tasks 5-7 (engine/wiring/UI) bỏ vì không có tín hiệu validated để ship — dựng UI cho giả thuyết đã bác bỏ là hallucination + nợ. Giữ nguyên Bottom Hunter. Chi tiết: `docs/dca-copilot.md`.
+
 **Goal:** Xây engine "DCA Co-pilot" Module A — mỗi ngày báo hôm nay có phải vùng giá đẹp để mua DCA tháng này, với luật được tuyển bằng backtest giá-vốn-dài-hạn vượt baseline + placebo ở cả train/test.
 
 **Architecture:** Một bộ mô phỏng DCA thuần (`dca-sim.ts`) tính giá vốn = tổng tiền ÷ tổng chỉ; một bộ luật "vùng đẹp" thuần (`dca-zone.ts`) chấm past-only; một study script đua các luật chọn cấu hình thắng gate; một engine live (`dca-copilot.ts`) phát trạng thái 🟢/🟡/🔴; wiring vào cron (`run.ts`) ghi `dca-copilot.json`; một card UI mới. Tái dùng `rsi`/`blockBootstrapCi`/`seededRandom` có sẵn trong `indicators.ts`.
