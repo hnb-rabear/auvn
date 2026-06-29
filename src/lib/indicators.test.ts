@@ -1,4 +1,4 @@
-// src/lib/indicators.test.ts  (nếu file đã tồn tại, chỉ THÊM 2 describe dưới đây)
+// src/lib/indicators.test.ts
 import { describe, it, expect } from "vitest";
 import { percentile, blockBootstrapPercentileCi } from "./indicators";
 

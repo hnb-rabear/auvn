@@ -1,7 +1,6 @@
 // src/lib/bear-downside.test.ts
 import { describe, it, expect } from "vitest";
-import { bucketOf, furtherDrawdownPct, computeHorizonStat, BUCKETS, HORIZONS, runBearDownside } from "./bear-downside";
-import type { BearDownsideConfig } from "@/lib/types";
+import { bucketOf, furtherDrawdownPct, computeHorizonStat, BUCKETS, runBearDownside } from "./bear-downside";
 
 describe("bucketOf", () => {
   it("ánh xạ dd fraction sang 0..3", () => {

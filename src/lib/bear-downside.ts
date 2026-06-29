@@ -59,6 +59,22 @@ export function runBearDownside(
   bars: { date: string; close: number }[],
   cfg: BearDownsideConfig = BEAR_DOWNSIDE_CONFIG
 ): BearDownsideAnalysis {
+  if (bars.length === 0) {
+    const empty = HORIZONS.map((H) => computeHorizonStat([], H));
+    return {
+      generatedAt: new Date().toISOString(),
+      dataDate: "",
+      currentDdPct: 0,
+      currentBucketIdx: 0,
+      conditioningWorks: cfg.conditioningWorks,
+      shownSource: "unconditional",
+      shown: empty,
+      buckets: BUCKETS.map((bk, b) => ({ bucketIdx: b, ddLowPct: Math.round(bk.lo * 100), ddHighPct: bk.hi === null ? null : Math.round(bk.hi * 100), horizons: HORIZONS.map((H) => computeHorizonStat([], H)) })),
+      unconditional: empty,
+      note: "Chưa có dữ liệu.",
+    };
+  }
+
   const closes = bars.map((b) => b.close);
   const dates = bars.map((b) => b.date);
   const ath = rollingAth(closes);
