@@ -1,16 +1,11 @@
 {
- "generatedAt": "2026-06-29T03:38:23.126Z",
+ "generatedAt": "2026-06-29T06:04:39.510Z",
  "dataDate": "2026-06-29",
- "pricePct2y": 0.6904761904761905,
+ "pricePct2y": 0.6785714285714286,
  "mult": 1,
  "brakes": [],
  "provisional": false,
  "history": [
-  {
-   "date": "2009-06-30",
-   "pricePct2y": null,
-   "mult": 1
-  },
   {
    "date": "2009-07-01",
    "pricePct2y": null,
@@ -2528,8 +2523,8 @@
   },
   {
    "date": "2011-06-29",
-   "pricePct2y": 0.9404761904761905,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-06-30",
@@ -21373,7 +21368,7 @@
   },
   {
    "date": "2026-06-29",
-   "pricePct2y": 0.6904761904761905,
+   "pricePct2y": 0.6785714285714286,
    "mult": 1
   }
  ],
