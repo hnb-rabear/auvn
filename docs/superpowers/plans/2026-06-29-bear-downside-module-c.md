@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **TRẠNG THÁI (2026-06-29): ĐÃ THỰC THI XONG cả 7 task, MERGE-READY.** Study Task 4 → `conditioningWorks=false` (điều kiện hóa theo drawdown không thêm thông tin bền vững, validated SOUND). UI ship phân phối vô-điều-kiện kèm câu trung thực. Final whole-branch review MERGE-READY, đã dọn nợ. Bằng chứng: `docs/bear-downside.md`.
+
 **Goal:** Lớp "phân phối rủi ro bear" — báo phân phối lịch sử mức-rơi-thêm (đáy tệ nhất về sau) ở 1/3/6/12 tháng, có điều kiện theo độ sâu drawdown hiện tại, kèm CI; validate điều kiện hóa có thêm thông tin không, luôn ship được phân phối vô-điều-kiện.
 
 **Architecture:** Stats tính tại collection-time (như backtest/bottom): engine thuần (`bear-downside.ts`) gom mức-rơi-thêm theo (bucket × horizon) trên lưới thưa STEP=3, tính trung vị/p10/p90/P(đáy phía sau) + block-bootstrap CI; study kiểm 3 điều kiện train/test → cờ `conditioningWorks`; engine chọn hiển thị bucket hiện tại hay phân phối tổng theo cờ; cron ghi JSON; UI tra cứu. Lớp độc lập, chỉ đọc, không đụng composite/Bottom Hunter/Bear DCA/Accumulation.

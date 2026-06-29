@@ -1,6 +1,6 @@
 # Module C — Phân phối rủi ro bear (Bear Downside) — thiết kế
 
-Ngày: 2026-06-29. Trạng thái: đã brainstorm + duyệt, chờ viết plan. Module C của DCA Co-pilot (spec gốc `2026-06-29-dca-copilot-design.md`; Module A đã NO-GO, xem `docs/dca-copilot.md`).
+Ngày: 2026-06-29. Trạng thái: **ĐÃ THỰC THI & SHIP** (7 task, MERGE-READY). Study → `conditioningWorks=false` (điều kiện hóa theo drawdown không thêm thông tin bền vững); UI ship phân phối vô-điều-kiện. Bằng chứng: `docs/bear-downside.md`. Module C của DCA Co-pilot (spec gốc `2026-06-29-dca-copilot-design.md`; Module A đã NO-GO, xem `docs/dca-copilot.md`).
 
 ## Bối cảnh & mục tiêu
 
