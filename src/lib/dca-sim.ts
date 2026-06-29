@@ -2,9 +2,7 @@
 /** Mô phỏng DCA ngân sách cố định/tháng + tính giá vốn. Thuần, dùng chung study + engine. */
 import { seededRandom } from "./indicators";
 import { inZone } from "./dca-zone";
-import type { ZoneRule } from "@/lib/types";
-
-export interface DcaBar { date: string; close: number; }
+import type { ZoneRule } from "./types";
 
 /** Trả GLOBAL index ngày mua trong tháng (monthIdxs là các global index của tháng đó). */
 export type BuyPicker = (monthIdxs: number[], closes: number[]) => number;

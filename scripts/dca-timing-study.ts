@@ -43,7 +43,7 @@ async function main() {
   const placTr = improvementPct(simulateDca(closes, tr, plac), baseTr);
   const placTe = improvementPct(simulateDca(closes, te, plac), baseTe);
   console.log(`Baseline B0 giá vốn: train ${baseTr.costBasis.toFixed(2)} / test ${baseTe.costBasis.toFixed(2)}`);
-  console.log(`B1 (giữa tháng): train +${improvementPct(simulateDca(closes, tr, pickMid), baseTr).toFixed(2)}% / test +${improvementPct(simulateDca(closes, te, pickMid), baseTe).toFixed(2)}%`);
+  console.log(`B1 (giữa tháng): train ${improvementPct(simulateDca(closes, tr, pickMid), baseTr).toFixed(2)}% / test ${improvementPct(simulateDca(closes, te, pickMid), baseTe).toFixed(2)}%`);
   console.log(`Placebo (ngẫu nhiên): train ${placTr.toFixed(2)}% / test ${placTe.toFixed(2)}%`);
 
   let best: any = null;

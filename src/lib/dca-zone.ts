@@ -1,7 +1,7 @@
 // src/lib/dca-zone.ts
 /** Luật "vùng giá đẹp" past-only cho DCA Co-pilot. Chấm ngày i chỉ bằng closes[0..i]. */
 import { rsi } from "./indicators";
-import type { ZoneRule } from "@/lib/types";
+import type { ZoneRule } from "./types";
 
 /** Percentile (0..100) của closes[i] trong cửa sổ `window` phiên KẾT THÚC ở i. */
 export function pricePercentile(closes: number[], i: number, window: number): number {

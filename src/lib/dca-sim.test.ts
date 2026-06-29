@@ -2,10 +2,8 @@
 import { describe, it, expect } from "vitest";
 import {
   groupByMonth, simulateDca, improvementPct,
-  pickFirst, pickMid, pickSeededRandom, monthsBetterFraction, type BuyPicker,
+  pickFirst, pickMid, pickSeededRandom, monthsBetterFraction,
 } from "./dca-sim";
-
-const dates = (...ds: string[]) => ds;
 
 describe("groupByMonth", () => {
   it("gom index theo YYYY-MM giữ thứ tự", () => {
