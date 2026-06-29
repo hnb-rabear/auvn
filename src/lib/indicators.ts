@@ -208,3 +208,47 @@ export function blockBootstrapCi(
   const hi = favs[Math.floor(0.975 * (iterations - 1))];
   return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
 }
+
+/** Bách phân vị q∈[0,1] với nội suy tuyến tính. NaN nếu rỗng. */
+export function percentile(values: number[], q: number): number {
+  if (values.length === 0) return NaN;
+  const s = [...values].sort((a, b) => a - b);
+  if (s.length === 1) return s[0];
+  const idx = q * (s.length - 1);
+  const lo = Math.floor(idx);
+  const hi = Math.ceil(idx);
+  if (lo === hi) return s[lo];
+  return s[lo] + (s[hi] - s[lo]) * (idx - lo);
+}
+
+/**
+ * Block bootstrap CI 95% cho bách phân vị q. Resample theo KHỐI liên tiếp (tôn
+ * trọng autocorrelation — chuỗi mức-rơi-thêm cách STEP phiên vẫn chồng lấn cửa sổ).
+ * null nếu n<10. Trả [lo, hi] làm tròn 0.1.
+ */
+export function blockBootstrapPercentileCi(
+  values: number[],
+  q: number,
+  blockSize: number,
+  iterations = 2000,
+  seed = 20260629
+): [number, number] | null {
+  const n = values.length;
+  if (n < 10) return null;
+  const b = Math.max(1, Math.min(blockSize, n));
+  const nBlocks = Math.ceil(n / b);
+  const rand = seededRandom(seed);
+  const ests: number[] = [];
+  for (let it = 0; it < iterations; it++) {
+    const sample: number[] = [];
+    for (let k = 0; k < nBlocks && sample.length < n; k++) {
+      const start = Math.floor(rand() * n);
+      for (let j = 0; j < b && sample.length < n; j++) sample.push(values[(start + j) % n]);
+    }
+    ests.push(percentile(sample, q));
+  }
+  ests.sort((a, c) => a - c);
+  const lo = ests[Math.floor(0.025 * (iterations - 1))];
+  const hi = ests[Math.floor(0.975 * (iterations - 1))];
+  return [Math.round(lo * 10) / 10, Math.round(hi * 10) / 10];
+}
