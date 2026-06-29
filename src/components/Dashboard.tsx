@@ -5,6 +5,7 @@ import TimeMachine from "./TimeMachine";
 import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import BearDcaCard from "./BearDcaCard";
+import BearDownsideCard from "./BearDownsideCard";
 import ActionGuidance from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
 import { fabLabel, zoneClass } from "@/lib/settings";
@@ -22,6 +23,7 @@ import {
   type AccumulationHealth,
   type BearDcaAnalysis,
   type BearDcaHealth,
+  type BearDownsideAnalysis,
   type Analysis,
   type Backtest,
   type BottomAnalysis,
@@ -85,6 +87,7 @@ export default function Dashboard({
   accumulationHealth,
   bearDca,
   bearDcaHealth,
+  bearDownside,
 }: {
   analysis: Analysis;
   backtest: Backtest;
@@ -96,6 +99,7 @@ export default function Dashboard({
   accumulationHealth: AccumulationHealth;
   bearDca: BearDcaAnalysis;
   bearDcaHealth: BearDcaHealth;
+  bearDownside: BearDownsideAnalysis;
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -566,6 +570,20 @@ export default function Dashboard({
         </summary>
         <div className="acc-body flat">
           <BearDcaCard bearDca={bearDca} health={bearDcaHealth} />
+        </div>
+      </details>
+
+      {/* ── ACCORDION: Nếu giá còn rơi (rủi ro bear) ── */}
+      <details className="acc">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Nếu giá còn rơi</span>
+            <span className="acc-sum-meta">rủi ro bear · 1/3/6/12 tháng</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body flat">
+          <BearDownsideCard bd={bearDownside} />
         </div>
       </details>
 
