@@ -510,3 +510,34 @@ export interface BearDcaHealth {
   recentImprPct: number | null; // % cải thiện giá vốn vs BASE trên ~2 năm gần nhất
   status: "ok" | "degraded" | "insufficient";
 }
+
+export interface BearHorizonStat {
+  horizonDays: number;
+  median: number;        // % mức rơi thêm
+  p10: number;           // % kịch bản xấu
+  p90: number;           // %
+  pBottomBehind: number; // % (furtherDrawdown ≥ 0)
+  pCi: [number, number] | null;      // CI cho pBottomBehind
+  medianCi: [number, number] | null; // CI cho median
+  n: number;
+}
+export interface BearBucketStat {
+  bucketIdx: number;          // 0..3
+  ddLowPct: number;           // 0,10,20,30
+  ddHighPct: number | null;   // 10,20,30,null
+  horizons: BearHorizonStat[];
+}
+export interface BearDownsideAnalysis {
+  generatedAt: string;
+  dataDate: string;
+  currentDdPct: number;       // %
+  currentBucketIdx: number;   // 0..3
+  conditioningWorks: boolean;
+  shownSource: "bucket" | "unconditional";
+  shown: BearHorizonStat[];
+  buckets: BearBucketStat[];
+  unconditional: BearHorizonStat[];
+  note: string;
+}
+export interface BearDownsideConfig { conditioningWorks: boolean; }
+export const BEAR_DOWNSIDE_CONFIG: BearDownsideConfig = { conditioningWorks: false };
