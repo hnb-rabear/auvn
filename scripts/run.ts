@@ -33,7 +33,9 @@ import { runAccumulation } from "../src/lib/accumulation";
 import { monitorAccumulation } from "./monitor-accumulation";
 import type { AccumPoint } from "../src/lib/types";
 import { runBearDca, monitorBearDca } from "../src/lib/bear-dca";
+import { runBearDownside } from "../src/lib/bear-downside";
 import type { BearDcaPoint } from "../src/lib/types";
+import type { BearDownsideAnalysis } from "../src/lib/types";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const HISTORY_DIR = join(DATA_DIR, "history");
@@ -309,6 +311,7 @@ async function main() {
     pricePct2y: pt.pricePct2y ?? null,
   }));
   const bearDca = runBearDca(bearDcaPoints);
+  const bearDownside: BearDownsideAnalysis = runBearDownside(xauRes.bars);
   const bearDcaHealth = monitorBearDca(bearDcaPoints);
 
   const bottomHealth: BottomHealth = monitorBottom(
@@ -337,9 +340,10 @@ async function main() {
   );
   writeFileSync(join(DATA_DIR, "bear-dca.json"), JSON.stringify(bearDca, null, 1));
   writeFileSync(join(DATA_DIR, "bear-dca-health.json"), JSON.stringify(bearDcaHealth, null, 1));
+  writeFileSync(join(DATA_DIR, "bear-downside.json"), JSON.stringify(bearDownside, null, 1));
 
   console.log(
-    `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}% accumMult=${accumulation.mult} pricePct2y=${accumulation.pricePct2y}`
+    `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}% accumMult=${accumulation.mult} pricePct2y=${accumulation.pricePct2y} bearDdNow=${bearDownside.currentDdPct}% bucket=${bearDownside.currentBucketIdx} cond=${bearDownside.conditioningWorks}`
   );
 }
 
