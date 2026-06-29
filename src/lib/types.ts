@@ -382,6 +382,17 @@ export interface BottomConfig {
  * Cả hai chốt cùng trọng số {rsi:0.5, macro:0.5} — quá bán + vĩ mô đảo chiều là 2 feature mang tín hiệu đáy.
  * Tên feature: dd=drawdown, spd=tốc độ rơi, rsi=quá bán+phân kỳ, macd, macro=vĩ mô đảo chiều, mom=động lượng 12m.
  */
+/** Luật "vùng giá đẹp" trong tháng cho DCA Co-pilot. Tuyển bằng scripts/dca-timing-study.ts. */
+export interface ZoneRule {
+  kind: "relpos" | "signal" | "monthdd";
+  /** số phiên trailing để xét vị trí tương đối */
+  window?: number;
+  /** ngưỡng percentile 0..100 (relpos / signal): bật khi giá ≤ pct */
+  pct?: number;
+  /** % dưới đỉnh-trong-tháng (monthdd): bật khi giá ≤ đỉnh×(1−x/100) */
+  x?: number;
+}
+
 export const BOTTOM_CONFIG: BottomConfig = {
   cycle: {
     horizonDays: 126,
