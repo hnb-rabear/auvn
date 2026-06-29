@@ -1,6 +1,8 @@
 // src/lib/dca-sim.ts
 /** Mô phỏng DCA ngân sách cố định/tháng + tính giá vốn. Thuần, dùng chung study + engine. */
 import { seededRandom } from "./indicators";
+import { inZone } from "./dca-zone";
+import type { ZoneRule } from "@/lib/types";
 
 export interface DcaBar { date: string; close: number; }
 
@@ -48,4 +50,26 @@ export const pickMid: BuyPicker = (m) => m[Math.floor(m.length / 2)];
 export function pickSeededRandom(seed: number): BuyPicker {
   const rand = seededRandom(seed);
   return (m) => m[Math.floor(rand() * m.length)];
+}
+
+/** Picker theo luật: phiên ĐẦU trong tháng có inZone=true; không có -> phiên cuối (buộc mua). */
+export function buildRulePicker(rule: ZoneRule, monthStart: Map<number, number>): BuyPicker {
+  return (m, closes) => {
+    const start = monthStart.get(m[0]) ?? m[0];
+    for (const idx of m) if (inZone(closes, idx, rule, start)) return idx;
+    return m[m.length - 1];
+  };
+}
+
+/** Mảng ±1: 1 nếu giá mua theo luật ≤ giá baseline trong cùng tháng. + tỉ lệ % (0..100). */
+export function monthsBetterFraction(
+  closes: number[], months: number[][], rulePick: BuyPicker, basePick: BuyPicker
+): { favArr: number[]; pct: number } {
+  const favArr: number[] = [];
+  for (const m of months) {
+    if (m.length === 0) continue;
+    favArr.push(closes[rulePick(m, closes)] <= closes[basePick(m, closes)] ? 1 : -1);
+  }
+  const pos = favArr.filter((x) => x > 0).length;
+  return { favArr, pct: favArr.length ? (pos / favArr.length) * 100 : 0 };
 }

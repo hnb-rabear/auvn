@@ -2,7 +2,7 @@
 import { describe, it, expect } from "vitest";
 import {
   groupByMonth, simulateDca, improvementPct,
-  pickFirst, pickMid, pickSeededRandom, type BuyPicker,
+  pickFirst, pickMid, pickSeededRandom, monthsBetterFraction, type BuyPicker,
 } from "./dca-sim";
 
 const dates = (...ds: string[]) => ds;
@@ -42,6 +42,19 @@ describe("pickers", () => {
     const p2 = pickSeededRandom(42);
     expect(simulateDca(closes, months, p1).costBasis)
       .toBe(simulateDca(closes, months, p2).costBasis);
+  });
+});
+
+describe("monthsBetterFraction", () => {
+  it("đếm tháng luật mua ≤ baseline", () => {
+    const closes = [10, 8, /*m2*/ 5, 6];
+    const months = [[0, 1], [2, 3]];
+    const rulePick = (m: number[]) => m[1]; // luôn mua phiên 2 của tháng
+    const basePick = (m: number[]) => m[0]; // baseline mua phiên 1
+    const { favArr, pct } = monthsBetterFraction(closes, months, rulePick, basePick);
+    // tháng1: rule idx1=8 ≤ base idx0=10 -> +1 ; tháng2: rule idx3=6 ≤ base idx2=5? 6≤5 sai -> -1
+    expect(favArr).toEqual([1, -1]);
+    expect(pct).toBeCloseTo(50, 6);
   });
 });
 
