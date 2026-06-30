@@ -209,6 +209,28 @@ export function blockBootstrapCi(
   return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
 }
 
+/** Bollinger %B(n,k): (P − dải dưới)/(dải trên − dải dưới). null nếu < n. Có thể ra ngoài [0,1]. */
+export function bollingerPercentB(values: number[], n = 20, k = 2): number | null {
+  if (values.length < n) return null;
+  const w = values.slice(-n);
+  const mean = w.reduce((a, b) => a + b, 0) / n;
+  const sd = Math.sqrt(w.reduce((a, b) => a + (b - mean) ** 2, 0) / n);
+  if (sd === 0) return 0.5;
+  const lower = mean - k * sd;
+  const upper = mean + k * sd;
+  return (values[values.length - 1] - lower) / (upper - lower);
+}
+
+/** Stochastic %K(n) trên close (close-only): (P − min_n)/(max_n − min_n)×100. null nếu < n. */
+export function stochasticK(values: number[], n = 14): number | null {
+  if (values.length < n) return null;
+  const w = values.slice(-n);
+  const lo = Math.min(...w);
+  const hi = Math.max(...w);
+  if (hi === lo) return 50;
+  return ((values[values.length - 1] - lo) / (hi - lo)) * 100;
+}
+
 /** Bách phân vị q∈[0,1] với nội suy tuyến tính. NaN nếu rỗng. */
 export function percentile(values: number[], q: number): number {
   if (values.length === 0) return NaN;

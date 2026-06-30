@@ -1,6 +1,6 @@
 // src/lib/indicators.test.ts
 import { describe, it, expect } from "vitest";
-import { percentile, blockBootstrapPercentileCi } from "./indicators";
+import { percentile, blockBootstrapPercentileCi, bollingerPercentB, stochasticK } from "./indicators";
 
 describe("percentile", () => {
   it("trung vị khớp giữa mảng", () => {
@@ -27,5 +27,32 @@ describe("blockBootstrapPercentileCi", () => {
     const med = percentile(v, 0.5);
     expect(ci1[0]).toBeLessThanOrEqual(med);
     expect(ci1[1]).toBeGreaterThanOrEqual(med);
+  });
+});
+
+describe("bollingerPercentB", () => {
+  it("null khi thiếu dữ liệu", () => {
+    expect(bollingerPercentB([1, 2, 3], 20)).toBeNull();
+  });
+  it("≈0.5 khi giá ở giữa dải (chuỗi quanh trung bình)", () => {
+    const v = Array.from({ length: 20 }, (_, i) => (i % 2 ? 101 : 99)); // dao động quanh 100 (cuối = 101, %B ≈ 0.75)
+    const b = bollingerPercentB(v, 20, 2)!;
+    expect(b).toBeGreaterThan(0);
+    expect(b).toBeLessThan(1);
+  });
+  it("≤0 khi giá thủng dải dưới", () => {
+    const v = [...Array.from({ length: 19 }, () => 100), 90]; // cú sụt mạnh cuối
+    expect(bollingerPercentB(v, 20, 2)!).toBeLessThanOrEqual(0);
+  });
+});
+
+describe("stochasticK", () => {
+  it("0 khi giá là đáy cửa sổ", () => {
+    const v = [105, 104, 103, 102, 101, 100]; // giảm dần, cuối thấp nhất
+    expect(stochasticK(v, 6)!).toBeCloseTo(0, 6);
+  });
+  it("100 khi giá là đỉnh cửa sổ", () => {
+    const v = [100, 101, 102, 103, 104, 105];
+    expect(stochasticK(v, 6)!).toBeCloseTo(100, 6);
   });
 });
