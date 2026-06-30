@@ -1,6 +1,6 @@
 // src/lib/bear-downside.test.ts
 import { describe, it, expect } from "vitest";
-import { bucketOf, furtherDrawdownPct, computeHorizonStat, BUCKETS, runBearDownside } from "./bear-downside";
+import { bucketOf, furtherDrawdownPct, terminalReturnPct, computeHorizonStat, BUCKETS, runBearDownside } from "./bear-downside";
 
 describe("bucketOf", () => {
   it("ánh xạ dd fraction sang 0..3", () => {
@@ -27,6 +27,16 @@ describe("furtherDrawdownPct", () => {
   });
 });
 
+describe("terminalReturnPct", () => {
+  it("lợi suất tại mốc H (KHÔNG phải đáy giữa kỳ)", () => {
+    const closes = [100, 90, 110]; // i=0,H=2: closes[2]/closes[0]-1 = +10% (bỏ qua nhịp dúi 90)
+    expect(terminalReturnPct(closes, 0, 2)!).toBeCloseTo(10, 6);
+  });
+  it("null khi chưa đủ H phiên tương lai", () => {
+    expect(terminalReturnPct([100, 90], 0, 5)).toBeNull();
+  });
+});
+
 describe("computeHorizonStat", () => {
   it("tính trung vị, P(đáy phía sau), n", () => {
     // 40 giá trị: 20 âm (-10), 20 bằng 0 -> pBottomBehind 50%, median -5
@@ -36,6 +46,18 @@ describe("computeHorizonStat", () => {
     expect(s.n).toBe(40);
     expect(s.pBottomBehind).toBeCloseTo(50, 0);
     expect(s.median).toBeCloseTo(-5, 6); // nội suy giữa -10 và 0
+  });
+  it("endMedian & pUp từ termValues (mặt kết cục)", () => {
+    const vals = Array(40).fill(-2); // dip bất kỳ
+    const term = [...Array(15).fill(5), ...Array(5).fill(-3)]; // 15 tăng / 5 giảm -> pUp 75%, trung vị 5
+    const s = computeHorizonStat(vals, 63, term);
+    expect(s.pUp).toBeCloseTo(75, 0);
+    expect(s.endMedian).toBeCloseTo(5, 6);
+  });
+  it("endMedian/pUp = 0 khi không truyền termValues (tương thích cũ)", () => {
+    const s = computeHorizonStat([-1, -2, -3], 63);
+    expect(s.endMedian).toBe(0);
+    expect(s.pUp).toBe(0);
   });
 });
 

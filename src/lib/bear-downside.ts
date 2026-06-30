@@ -30,12 +30,24 @@ export function furtherDrawdownPct(closes: number[], i: number, H: number): numb
   return (mn / closes[i] - 1) * 100;
 }
 
-/** Thống kê một nhóm mức-rơi-thêm (%) cho horizon H. blockSize lưới-thưa = round(H/STEP). */
-export function computeHorizonStat(values: number[], H: number): BearHorizonStat {
+/** Lợi suất TẠI MỐC H so với hôm nay, %: closes[i+H]/closes[i]-1. null nếu chưa đáo hạn. */
+export function terminalReturnPct(closes: number[], i: number, H: number): number | null {
+  if (i + H >= closes.length) return null;
+  return (closes[i + H] / closes[i] - 1) * 100;
+}
+
+/**
+ * Thống kê một nhóm cho horizon H. `values` = mức-rơi-thêm (%); `termValues` = lợi suất
+ * tại mốc (%) cho mặt KẾT CỤC (endMedian/pUp). blockSize lưới-thưa = round(H/STEP).
+ */
+export function computeHorizonStat(values: number[], H: number, termValues: number[] = []): BearHorizonStat {
   const n = values.length;
   const blk = Math.max(1, Math.round(H / STEP));
   const favArr = values.map((v) => (v >= 0 ? 1 : -1));
   const pos = favArr.filter((x) => x > 0).length;
+  const tn = termValues.length;
+  const upArr = termValues.map((v) => (v > 0 ? 1 : -1));
+  const upPos = upArr.filter((x) => x > 0).length;
   return {
     horizonDays: H,
     median: n ? Math.round(percentile(values, 0.5) * 10) / 10 : 0,
@@ -44,6 +56,9 @@ export function computeHorizonStat(values: number[], H: number): BearHorizonStat
     pBottomBehind: n ? Math.round((pos / n) * 1000) / 10 : 0,
     pCi: blockBootstrapCi(favArr, blk),
     medianCi: blockBootstrapPercentileCi(values, 0.5, blk),
+    endMedian: tn ? Math.round(percentile(termValues, 0.5) * 10) / 10 : 0,
+    pUp: tn ? Math.round((upPos / tn) * 1000) / 10 : 0,
+    pUpCi: blockBootstrapCi(upArr, blk),
     n,
   };
 }
@@ -81,9 +96,11 @@ export function runBearDownside(
   const ath = rollingAth(closes);
   const ddFrac = closes.map((c, i) => (ath[i] === 0 ? 0 : (ath[i] - c) / ath[i]));
 
-  // gom mức-rơi-thêm theo bucket × horizon + vô-điều-kiện, trên lưới thưa
+  // gom mức-rơi-thêm (dip) + lợi suất tại mốc (term) theo bucket × horizon + vô-điều-kiện
   const byBucket: number[][][] = BUCKETS.map(() => HORIZONS.map(() => []));
+  const byBucketTerm: number[][][] = BUCKETS.map(() => HORIZONS.map(() => []));
   const uncond: number[][] = HORIZONS.map(() => []);
+  const uncondTerm: number[][] = HORIZONS.map(() => []);
   for (let i = 0; i < closes.length; i += STEP) {
     const b = bucketOf(ddFrac[i]);
     HORIZONS.forEach((H, h) => {
@@ -91,6 +108,8 @@ export function runBearDownside(
       if (fd === null) return;
       byBucket[b][h].push(fd);
       uncond[h].push(fd);
+      const tr = terminalReturnPct(closes, i, H);
+      if (tr !== null) { byBucketTerm[b][h].push(tr); uncondTerm[h].push(tr); }
     });
   }
 
@@ -98,9 +117,9 @@ export function runBearDownside(
     bucketIdx: b,
     ddLowPct: Math.round(bk.lo * 100),
     ddHighPct: bk.hi === null ? null : Math.round(bk.hi * 100),
-    horizons: HORIZONS.map((H, h) => computeHorizonStat(byBucket[b][h], H)),
+    horizons: HORIZONS.map((H, h) => computeHorizonStat(byBucket[b][h], H, byBucketTerm[b][h])),
   }));
-  const unconditional = HORIZONS.map((H, h) => computeHorizonStat(uncond[h], H));
+  const unconditional = HORIZONS.map((H, h) => computeHorizonStat(uncond[h], H, uncondTerm[h]));
 
   const last = closes.length - 1;
   const currentBucketIdx = bucketOf(ddFrac[last]);

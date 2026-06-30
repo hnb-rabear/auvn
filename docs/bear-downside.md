@@ -17,6 +17,8 @@ mức rơi thêm = min(close[t+1 .. t+H]) / close[t] − 1
 - Luôn ≤ 0 (hoặc = 0 nếu giá không rơi thêm).
 - **P(đáy phía sau)** = tỉ lệ mẫu có mức rơi thêm ≥ 0 (tức giá không bao giờ xuống thêm trong H phiên tới).
 
+**Mặt kết cục (hai chiều — thêm 2026-06-30 để card không một chiều/bi quan):** ngoài mức-rơi-thêm (rủi ro giữa kỳ), engine còn tính **lợi suất TẠI MỐC** `close[t+H]/close[t] − 1` → `endMedian` (trung vị kết cục) + `pUp` (% lần giá kết CAO hơn hôm nay, kèm CI). Card hiển thị cả hai cạnh nhau theo mức giá USD: trái = đáy điển hình giữa kỳ (rủi ro chịu đựng), phải = kết cục điển hình + cơ hội tăng. Mặt kết cục cũng vô-điều-kiện và **phụ thuộc chế độ thị trường** (bull cao hơn) — ghi caveat trên card, không phải dự đoán.
+
 ## Phương pháp
 
 1. **Dữ liệu:** XAU/USD daily, ~2005–2026.

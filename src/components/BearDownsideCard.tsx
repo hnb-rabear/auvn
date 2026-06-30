@@ -6,7 +6,7 @@ const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1
 const signed = (n: number) => `${n >= 0 ? "+" : ""}${fmt1(n)}%`;
 const usd = (n: number) => `$${Math.round(n).toLocaleString("vi-VN")}`;
 
-/** Một hàng kỳ hạn: quy % mức-rơi-thêm lên giá USD hiện tại. */
+/** Một hàng kỳ hạn — hai chiều: đáy điển hình giữa kỳ (rủi ro) vs kết cục tại mốc (cơ hội). */
 function Row({ s, price }: { s: BearHorizonStat; price: number }) {
   const label = HLABEL[s.horizonDays] ?? String(s.horizonDays);
   if (s.n < 30) {
@@ -22,17 +22,15 @@ function Row({ s, price }: { s: BearHorizonStat; price: number }) {
     <tr>
       <td>{label}</td>
       <td>{at(s.median)} <span className="muted">({signed(s.median)})</span></td>
-      <td>{at(s.p10)} <span className="muted">({signed(s.p10)})</span></td>
-      <td>{fmt1(s.pBottomBehind)}%</td>
+      <td>{at(s.endMedian)} <span className="muted">({signed(s.endMedian)})</span></td>
+      <td>{fmt1(s.pUp)}%</td>
     </tr>
   );
 }
 
 export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
-  const ciLine = bd.shown
-    .filter((s) => s.n >= 30 && s.pCi)
-    .map((s) => `${HSHORT[s.horizonDays] ?? s.horizonDays} ${fmt1(s.pCi![0])}–${fmt1(s.pCi![1])}%`)
-    .join(" · ");
+  const rows = bd.shown.filter((s) => s.n >= 30);
+  const tail = rows.map((s) => `${HSHORT[s.horizonDays] ?? s.horizonDays} ${signed(s.p10)}`).join(" · ");
   return (
     <section className="card">
       <div className="card-head">
@@ -48,8 +46,8 @@ export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
             <tr>
               <th>Kỳ hạn</th>
               <th>Đáy điển hình</th>
-              <th>Đáy xấu (10%)</th>
-              <th>Đã qua đáy?</th>
+              <th>Kết cục điển hình</th>
+              <th>Cơ hội tăng</th>
             </tr>
           </thead>
           <tbody>
@@ -57,12 +55,12 @@ export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
           </tbody>
         </table>
       </div>
-      {ciLine && (
-        <p className="muted small">CI 95% cột “đã qua đáy”: {ciLine}.</p>
-      )}
       <p className="muted small">
-        Phân phối XAU/USD ({bd.shownSource === "bucket" ? "các lần cùng độ sâu drawdown" : "mọi thời điểm"}),
-        đáy tệ nhất trong kỳ. Tham khảo rủi ro, không dự đoán.
+        Trái = nhịp dúi sâu nhất *giữa* kỳ (rủi ro chịu đựng); phải = giá *kết* tại mốc + % lần giá cao hơn hôm nay (kết cục).
+        {tail && <> Kịch bản xấu (10% lần) đáy sâu tới: {tail}.</>}
+      </p>
+      <p className="muted small">
+        Phân phối lịch sử XAU/USD (mọi thời điểm). Kết cục & cơ hội tăng phụ thuộc chế độ thị trường (giai đoạn bull cao hơn), không phải hằng số. Tham khảo rủi ro, không dự đoán.
       </p>
     </section>
   );

@@ -519,6 +519,9 @@ export interface BearHorizonStat {
   pBottomBehind: number; // % (furtherDrawdown ≥ 0)
   pCi: [number, number] | null;      // CI cho pBottomBehind
   medianCi: [number, number] | null; // CI cho median
+  endMedian: number;                 // % trung vị lợi suất TẠI MỐC H (giá[t+H]/giá[t]−1) — mặt kết cục
+  pUp: number;                       // % lần giá kết CAO hơn hôm nay tại mốc H
+  pUpCi: [number, number] | null;    // CI cho pUp
   n: number;
 }
 export interface BearBucketStat {
