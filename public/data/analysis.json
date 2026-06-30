@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-30T09:24:39.942Z",
+ "generatedAt": "2026-06-30T09:35:51.648Z",
  "dataDate": "2026-06-30",
  "stale": true,
  "staleDays": 14,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4032.89990234375,
+  "xauUsd": 4032.199951171875,
   "usdVnd": 26466,
-  "worldVndPerLuong": 128685046,
+  "worldVndPerLuong": 128662711,
   "premiumPct": 8.97,
-  "premiumVnd": 21814954
+  "premiumVnd": 21837289
  },
  "criteria": [
   {
@@ -44,7 +44,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 37% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 36% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,3 (trên MA50, +2,5% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,4 (trên MA50, +2,5% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 26,2%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 26,1%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -2166,7 +2166,7 @@
   "dxy": "2026-06-30T04:00:00.000Z",
   "yield10y": "2026-06-26T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-30T09:24:39.942Z",
+  "usdVnd": "2026-06-30T09:35:51.648Z",
   "fed": null
  }
 }
