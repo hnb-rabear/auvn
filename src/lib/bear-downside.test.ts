@@ -48,6 +48,7 @@ describe("runBearDownside", () => {
   it("báo bucket hiện tại theo drawdown và bảng đầy đủ 4 horizon", () => {
     const a = runBearDownside(bars, { conditioningWorks: true });
     expect(a.currentDdPct).toBeGreaterThan(0);
+    expect(a.currentPrice).toBe(322); // last close = 499 − 59×3
     expect(a.buckets.length).toBe(4);
     expect(a.unconditional.length).toBe(4);
     expect(a.unconditional[0].horizonDays).toBe(21);

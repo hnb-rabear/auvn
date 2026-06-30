@@ -530,6 +530,7 @@ export interface BearBucketStat {
 export interface BearDownsideAnalysis {
   generatedAt: string;
   dataDate: string;
+  currentPrice: number;       // giá XAU/USD close mà engine dùng làm mốc quy % → giá kịch bản
   currentDdPct: number;       // %
   currentBucketIdx: number;   // 0..3
   conditioningWorks: boolean;

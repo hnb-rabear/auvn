@@ -64,6 +64,7 @@ export function runBearDownside(
     return {
       generatedAt: new Date().toISOString(),
       dataDate: "",
+      currentPrice: 0,
       currentDdPct: 0,
       currentBucketIdx: 0,
       conditioningWorks: cfg.conditioningWorks,
@@ -114,6 +115,7 @@ export function runBearDownside(
   return {
     generatedAt: new Date().toISOString(),
     dataDate: dates[last] ?? "",
+    currentPrice: Math.round(closes[last] * 100) / 100,
     currentDdPct: Math.round(ddFrac[last] * 1000) / 10,
     currentBucketIdx,
     conditioningWorks: cfg.conditioningWorks,
