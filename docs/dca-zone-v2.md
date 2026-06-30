@@ -47,13 +47,13 @@ Mỗi luật chỉ dùng dữ liệu *trước* phiên hiện tại (no look-ahe
 
 | Họ luật | Mô tả | Tham số |
 | --- | --- | --- |
-| `relpos` | Giá ≤ percentile p của W phiên gần nhất | W ∈ {10,21,42}, p ∈ {20,25,30} |
-| `zscore` | z-score(close, W) ≤ −z | W ∈ {10,21,42}, z ∈ {0.5,1.0,1.5} |
-| `stoch` | Stochastic %K(W) ≤ k | W ∈ {10,14,21}, k ∈ {20,25,30} |
-| `bollinger` | Close ≤ lower Bollinger Band(W, m×σ) | W ∈ {10,20}, m ∈ {1.5,2.0} |
-| `rsi` | RSI(W) ≤ r | W ∈ {7,14}, r ∈ {30,35} |
-| `drawWin` | Drawdown từ đỉnh W phiên ≥ d% | W ∈ {10,21}, d ∈ {3,5} |
-| `pullback` | Giá giảm p% so với W phiên trước | W ∈ {5,10}, p ∈ {2,3} |
+| `relpos` | Giá ≤ percentile p của W phiên gần nhất | W ∈ {10,21,42,63}, p ∈ {20,25,30,35} |
+| `zscore` | z-score(close, W) ≤ −k | W ∈ {10,21,42,63}, k ∈ {1,1.5,2} |
+| `stoch` | Stochastic %K(W) ≤ k | W ∈ {10,21,42,63}, k ∈ {15,20,25} |
+| `bollinger` | %B(20,2σ) ≤ pctB (window=20, mult=2 CỐ ĐỊNH) | pctB ∈ {0,0.1,0.2} |
+| `rsi` | RSI(14) ≤ thr (window=14 CỐ ĐỊNH) | thr ∈ {25,30,35} |
+| `drawWin` | Giá ≤ đỉnh-toàn-cửa-sổ-tới-giờ × (1−x%) | x ∈ {2,3,4} |
+| `pullback` | Giá giảm ≥ n% so với n phiên trước | n ∈ {2,3} |
 
 ### Cổng biến động (volatility gate)
 

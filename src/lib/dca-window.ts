@@ -1,6 +1,6 @@
 // src/lib/dca-window.ts
 /** Đánh giá luật canh vào DCA trên cửa sổ trượt 30-ngày-tới. Thuần, past-only cho quyết định. */
-import { rsi, sma, percentileRank, bollingerPercentB, stochasticK, volatility30 } from "./indicators";
+import { rsi, percentileRank, bollingerPercentB, stochasticK, volatility30 } from "./indicators";
 
 export type ZoneRuleV2 =
   | { kind: "relpos"; window: number; pct: number }
