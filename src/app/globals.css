@@ -981,3 +981,26 @@ td.neutral {
     transition: none;
   }
 }
+
+/* Triển vọng card: màu chữ tăng/giảm + thanh "cơ hội tăng" nhỏ */
+.up { color: var(--buy); }
+.down { color: var(--sell); }
+.minibar {
+  display: inline-block;
+  width: 44px;
+  height: 7px;
+  margin-right: 6px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.minibar-fill {
+  display: block;
+  height: 100%;
+  background: var(--buy);
+}
+.minibar-fill.mid {
+  background: var(--neutral);
+}
