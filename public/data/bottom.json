@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-30T22:53:04.046Z",
+ "generatedAt": "2026-06-30T23:00:16.681Z",
  "dataDate": "2026-06-30",
  "cycle": {
   "prob": 41.9,
@@ -14,7 +14,7 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,2%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,3%: vùng chiết khấu sâu.",
     "available": true
    },
    {
@@ -28,14 +28,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 34,5: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 34,3: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -12,18: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -12,31: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -81,7 +81,7 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,2%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,3%: vùng chiết khấu sâu.",
     "available": true
    },
    {
@@ -95,14 +95,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 34,5: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 34,3: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -12,18: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -12,31: chưa có dấu đảo chiều.",
     "available": true
    },
    {
