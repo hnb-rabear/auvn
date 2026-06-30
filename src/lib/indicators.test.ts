@@ -1,6 +1,6 @@
 // src/lib/indicators.test.ts
 import { describe, it, expect } from "vitest";
-import { percentile, blockBootstrapPercentileCi, bollingerPercentB, stochasticK } from "./indicators";
+import { percentile, blockBootstrapPercentileCi, bollingerPercentB, stochasticK, pairedBlockBootstrapCi } from "./indicators";
 
 describe("percentile", () => {
   it("trung vị khớp giữa mảng", () => {
@@ -54,5 +54,26 @@ describe("stochasticK", () => {
   it("100 khi giá là đỉnh cửa sổ", () => {
     const v = [100, 101, 102, 103, 104, 105];
     expect(stochasticK(v, 6)!).toBeCloseTo(100, 6);
+  });
+});
+
+describe("pairedBlockBootstrapCi", () => {
+  it("null khi n<10", () => {
+    expect(pairedBlockBootstrapCi([0.1, -0.2, 0.0], 2)).toBeNull();
+  });
+  it("CI quanh trung bình thật, tái lập, lo≤hi", () => {
+    const d = Array.from({ length: 200 }, (_, i) => -0.1 + (i % 5) * 0.01); // mean ≈ -0.08
+    const c1 = pairedBlockBootstrapCi(d, 4, 500, 7)!;
+    const c2 = pairedBlockBootstrapCi(d, 4, 500, 7)!;
+    expect(c1).toEqual(c2);
+    expect(c1[0]).toBeLessThanOrEqual(c1[1]);
+    const mean = d.reduce((a, b) => a + b, 0) / d.length;
+    expect(c1[0]).toBeLessThanOrEqual(mean);
+    expect(c1[1]).toBeGreaterThanOrEqual(mean);
+  });
+  it("CI âm hẳn khi mọi delta âm rõ", () => {
+    const d = Array.from({ length: 100 }, () => -0.2);
+    const c = pairedBlockBootstrapCi(d, 4, 500, 7)!;
+    expect(c[1]).toBeLessThan(0); // cận trên < 0
   });
 });

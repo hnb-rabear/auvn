@@ -274,3 +274,31 @@ export function blockBootstrapPercentileCi(
   const hi = ests[Math.floor(0.975 * (iterations - 1))];
   return [Math.round(lo * 10) / 10, Math.round(hi * 10) / 10];
 }
+
+/** CI 95% cho TRUNG BÌNH chuỗi chênh-lệch ghép-cặp, resample khối liên tiếp. null nếu n<10. */
+export function pairedBlockBootstrapCi(
+  deltas: number[],
+  blockSize: number,
+  iterations = 2000,
+  seed = 20260630
+): [number, number] | null {
+  const n = deltas.length;
+  if (n < 10) return null;
+  const b = Math.max(1, Math.min(blockSize, n));
+  const nBlocks = Math.ceil(n / b);
+  const rand = seededRandom(seed);
+  const means: number[] = [];
+  for (let it = 0; it < iterations; it++) {
+    let sum = 0;
+    let cnt = 0;
+    for (let k = 0; k < nBlocks && cnt < n; k++) {
+      const start = Math.floor(rand() * n);
+      for (let j = 0; j < b && cnt < n; j++) { sum += deltas[(start + j) % n]; cnt++; }
+    }
+    means.push(sum / cnt);
+  }
+  means.sort((a, c) => a - c);
+  const lo = means[Math.floor(0.025 * (iterations - 1))];
+  const hi = means[Math.floor(0.975 * (iterations - 1))];
+  return [Math.round(lo * 10000) / 10000, Math.round(hi * 10000) / 10000];
+}
