@@ -62,7 +62,7 @@ export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
             <li><b className="up">Kết cục điển hình</b> — giá <i>kết</i> tại mốc kỳ hạn.</li>
             <li><b>Cơ hội tăng</b> — % số lần giá cao hơn hôm nay.</li>
           </ul>
-          {tail && <p>Kịch bản xấu (10% số lần), đáy có thể sâu tới: {tail}.</p>}
+          {tail && <p>Hiếm gặp (~1/10 lần tệ nhất), giá có lúc dúi sâu tới: {tail}. Phần lớn các lần khác dúi nông hơn (xem cột “Đáy điển hình”).</p>}
           <p>
             ⚠ <b>Lưu ý:</b> &quot;Kết cục&quot; &amp; &quot;cơ hội tăng&quot; dựa trên mẫu XAU/USD ~20 năm <b>chủ yếu bull</b> nên
             cao hơn thực tế ở chế độ khác — phụ thuộc chế độ thị trường, KHÔNG phải xác suất chắc nịch.
