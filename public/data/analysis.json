@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-30T01:09:33.963Z",
+ "generatedAt": "2026-06-30T01:22:11.565Z",
  "dataDate": "2026-06-30",
  "stale": true,
  "staleDays": 14,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 3997,
+  "xauUsd": 3976.10009765625,
   "usdVnd": 26461,
-  "worldVndPerLuong": 127515427,
+  "worldVndPerLuong": 126848662,
   "premiumPct": 8.97,
-  "premiumVnd": 22984573
+  "premiumVnd": 23651338
  },
  "criteria": [
   {
@@ -23,28 +23,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 32,9: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 32,2: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 34,3: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 33,8: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 10,2%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 10,6%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 1,
-     "explanation": "Giá ở mức 35% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): vùng thấp của biên độ năm.",
+     "explanation": "Giá ở mức 34% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): vùng thấp của biên độ năm.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,2 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,3 (trên MA50, +2,4% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -131,8 +131,8 @@
     {
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
-     "score": 0,
-     "explanation": "Giá hiện tại cao hơn 32% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "score": 1,
+     "explanation": "Giá hiện tại cao hơn 29% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
@@ -153,11 +153,11 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 27,1%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 27,4%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
-   "score": -0.25,
+   "score": 0,
    "available": true
   },
   {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +22,1% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +21,5% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 20.8,
+ "composite": 23.3,
  "zone": "neutral",
  "vnHistoryDays": 491,
  "warnings": [
@@ -2162,11 +2162,11 @@
   "p80": 16.62
  },
  "sourceTimes": {
-  "world": "2026-06-30T00:58:32.000Z",
-  "dxy": "2026-06-30T00:58:32.000Z",
+  "world": "2026-06-30T01:11:09.000Z",
+  "dxy": "2026-06-30T01:11:09.000Z",
   "yield10y": "2026-06-29T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-06-30T01:09:33.963Z",
+  "usdVnd": "2026-06-30T01:22:11.565Z",
   "fed": null
  }
 }
