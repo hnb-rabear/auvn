@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-06-30T21:54:30.469Z",
+ "generatedAt": "2026-06-30T22:53:04.060Z",
  "dataDate": "2026-06-30",
  "isBear": true,
- "ddFromAth": 0.24379512635379053,
- "ddChange": 0.10128986161251502,
+ "ddFromAth": 0.24232851985559564,
+ "ddChange": 0.09982325511432014,
  "phase": "acute",
- "pricePct2y": 0.6666666666666666,
+ "pricePct2y": 0.6686507936507936,
  "mult": 0.75,
  "recoveryRisk": false,
  "note": "Giá đang sụp cấp tính (−10%/tháng). Cách đỉnh 24% — dùng độ sâu để tính khối lượng."
