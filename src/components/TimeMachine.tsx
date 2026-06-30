@@ -559,8 +559,8 @@ export default function TimeMachine({
         <div className="muted small">
           ✓ MUA độ tin cao (3 tháng): composite báo MUA VÀ giá ở vùng đáy (RSI quá bán + vĩ mô đảo
           chiều). Lịch sử đúng {HIGH_CONF_3M_EVIDENCE.trainFav}% (2009–2018) /{" "}
-          {HIGH_CONF_3M_EVIDENCE.testFav}% (2019–2026); lưới thưa {HIGH_CONF_3M_EVIDENCE.sparseFav}%
-          (CI {HIGH_CONF_3M_EVIDENCE.sparseCi[0]}–{HIGH_CONF_3M_EVIDENCE.sparseCi[1]}). Con số 100%
+          {HIGH_CONF_3M_EVIDENCE.testFav}% (2019–2026); toàn giai đoạn {HIGH_CONF_3M_EVIDENCE.fullFav}%
+          (CI {HIGH_CONF_3M_EVIDENCE.fullCi[0]}–{HIGH_CONF_3M_EVIDENCE.fullCi[1]}). Con số 100%
           là lạc quan do tín hiệu bắn chùm — bằng chứng vững là giai đoạn 2009–2018.
         </div>
       )}

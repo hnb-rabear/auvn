@@ -15,10 +15,12 @@ export interface HighConfEvidence {
   trainN: number;
   testFav: number;
   testN: number;
-  /** lưới thưa STEP=3 (mẫu decorrelated) */
-  sparseFav: number;
-  sparseN: number;
-  sparseCi: [number, number];
+  /** toàn giai đoạn (train+test gộp, chọn theo NGÀY): tỉ lệ thuận chiều, cỡ mẫu, CI 95%
+   *  block-bootstrap (block=H/3, xử lý tín hiệu bắn chùm). Thay lưới-thưa i%STEP cũ vốn
+   *  trôi theo canh-pha khi cron đổi độ dài đầu chuỗi timeline. */
+  fullFav: number;
+  fullN: number;
+  fullCi: [number, number];
   /** placebo đồng-n train: B vượt composite-top-n cùng cỡ mẫu (pt) — đo "thông tin trực giao" */
   orthogonalTrainPt: number;
 }
@@ -28,9 +30,9 @@ export const HIGH_CONF_3M_EVIDENCE: HighConfEvidence = {
   trainN: 69,
   testFav: 100.0,
   testN: 89,
-  sparseFav: 96.3,
-  sparseN: 54,
-  sparseCi: [88.9, 100],
+  fullFav: 96.8,
+  fullN: 158,
+  fullCi: [91.1, 100],
   orthogonalTrainPt: 10.1,
 };
 

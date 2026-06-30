@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import tlJson from "../../public/data/timeline.json";
 import { HIGH_CONF_3M_EVIDENCE, HIGH_CONFIDENCE_BIN } from "./fusion";
+import { blockBootstrapCi } from "./indicators";
 import { PRESETS, type Timeline, type TimelinePoint } from "./types";
 
 const tl = tlJson as unknown as Timeline;
@@ -15,7 +16,6 @@ function composite(p: TimelinePoint, w: Record<string, number>): number {
   }
   return tw === 0 ? 0 : (s / tw) * 50;
 }
-const STEP = 3;
 const buy = (p: TimelinePoint) => composite(p, preset.weights) >= preset.buyThreshold;
 const pts = tl.points.filter((p) => p.returns["63"] !== null && p.cycleBin !== undefined);
 const B = (seg: TimelinePoint[]) =>
@@ -38,17 +38,16 @@ describe("HIGH_CONF_3M_EVIDENCE khớp timeline.json", () => {
     expect(te.length).toBe(HIGH_CONF_3M_EVIDENCE.testN);
     expect(favPct(te)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.testFav, 0);
   });
-  it("lưới thưa STEP=3 (toàn giai đoạn)", () => {
-    const sparseB = tl.points.filter(
-      (p, i) =>
-        i % STEP === 0 &&
-        p.returns["63"] !== null &&
-        p.cycleBin !== undefined &&
-        buy(p) &&
-        p.cycleBin === HIGH_CONFIDENCE_BIN
-    );
-    expect(sparseB.length).toBe(HIGH_CONF_3M_EVIDENCE.sparseN);
-    expect(favPct(sparseB)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.sparseFav, 0);
+  // Toàn giai đoạn + CI block-bootstrap (block=H/3). Tập B chọn theo NGÀY (không
+  // decimate theo chỉ-số), nên ổn định khi cron tái sinh timeline đổi độ dài đầu chuỗi
+  // — khác lưới-thưa i%STEP cũ (số trôi 54/58/46 theo canh-pha). Block-bootstrap đã
+  // xử lý autocorrelation của tín hiệu bắn chùm, thay cho việc decimate để decorrelate.
+  it("toàn giai đoạn + CI block-bootstrap", () => {
+    const all = B(pts);
+    expect(all.length).toBe(HIGH_CONF_3M_EVIDENCE.fullN);
+    expect(favPct(all)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.fullFav, 0);
+    const fav = all.map((p) => ((p.returns["63"] as number) > 0 ? 1 : -1));
+    expect(blockBootstrapCi(fav, Math.round(63 / 3))).toEqual(HIGH_CONF_3M_EVIDENCE.fullCi);
   });
   it("placebo đồng-n train (thông tin trực giao)", () => {
     const train = pts.filter((p) => p.date < "2019-01-01");

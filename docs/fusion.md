@@ -22,13 +22,15 @@ phiên sau tín hiệu > 0. excess = precision − baseline (mua ngày bất k�
 
 Ba kiểm chứng robust cho 3m (đều PASS): (1) placebo đồng-n train **+10,1pt** (B vs composite-top-n
 cùng cỡ mẫu) ⇒ lớp đáy thêm thông tin trực giao, không chỉ "kén hơn"; (2) chia nhiều giai đoạn:
-2009–2013 +6,1pt, 2019–2026 +4,7pt (2014–2018 là sa mạc tín hiệu n=2, bỏ); (3) lưới thưa STEP=3:
-B n=54 96,3% CI[88,9–100] vs composite 88,7%.
+2009–2013 +6,1pt, 2019–2026 +4,7pt (2014–2018 là sa mạc tín hiệu n=2, bỏ); (3) toàn giai đoạn (gộp
+train+test, chọn theo NGÀY): B n=158 96,8% CI block-bootstrap[91,1–100]. (Trước đây dùng lưới-thưa
+STEP=3 nhưng số trôi theo canh-pha `i%STEP` khi cron đổi độ dài đầu chuỗi timeline; block-bootstrap
+trên toàn tập đã xử lý autocorrelation của tín hiệu bắn chùm, ổn định và là thước trung thực hơn.)
 
 ## Cảnh báo (đọc trước khi tin số)
 Con số test 100% (CI[100–100]) là **ảo do tín hiệu bắn chùm** trong một chu kỳ nới lỏng 2019–2026 —
 KHÔNG đọc là "chắc thắng". Bằng chứng ràng buộc là lợi thế **train +10,1pt** (giai đoạn chứa bear) và
-lưới thưa decorrelated. B là tầng **ít tín hiệu hơn nhưng tin cậy hơn** (~136→69 tín hiệu train).
+CI block-bootstrap toàn giai đoạn. B là tầng **ít tín hiệu hơn nhưng tin cậy hơn** (~136→69 tín hiệu train).
 
 ## Biến thể đã LOẠI (không tái thử mù khi chưa chạy lại fusion-study.ts)
 - **A — hợp nhất (OR):** recall↑ nhưng precision loãng ở 3m/6m (composite đã gần trần). Chức năng "gom

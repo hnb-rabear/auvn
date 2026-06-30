@@ -280,14 +280,16 @@ function verifyB() {
       );
     }
 
-    // (3) Lưới THƯA STEP=3 (mẫu hiệu dụng) + CI block-bootstrap.
-    const sparse = pts.filter((p) => IDX.get(p.date)! % STEP === 0);
-    const Bsp = sparse.filter((p) => comp(p) && bot(p));
-    const Csp = sparse.filter(comp);
-    const fBsp = favOf(Bsp, h), fCsp = favOf(Csp, h);
-    const ciB = blockBootstrapCi(Bsp.map((p) => p.returns[h] as number), Math.max(1, Math.round(Number(h) / 3)));
+    // (3) TOÀN GIAI ĐOẠN (gộp train+test, chọn theo NGÀY) + CI block-bootstrap (block=H/3).
+    //     Khớp HIGH_CONF_3M_EVIDENCE.full* cho preset 3m (h=63). Thay lưới-thưa i%STEP cũ
+    //     vốn trôi theo canh-pha khi cron đổi độ dài đầu chuỗi timeline; block-bootstrap
+    //     đã xử lý autocorrelation thay cho việc decimate để decorrelate.
+    const Bfull = pts.filter((p) => comp(p) && bot(p));
+    const Cfull = pts.filter(comp);
+    const fBfull = favOf(Bfull, h), fCfull = favOf(Cfull, h);
+    const ciB = blockBootstrapCi(Bfull.map((p) => p.returns[h] as number), Math.max(1, Math.round(Number(h) / 3)));
     console.log(
-      `  [thưa STEP=3] B n=${fBsp.n} ${pct(fBsp.fav)}% CI${ciB ? `[${ciB[0]}–${ciB[1]}]` : "—"} | composite n=${fCsp.n} ${pct(fCsp.fav)}%`
+      `  [toàn giai đoạn] B n=${fBfull.n} ${pct(fBfull.fav)}% CI${ciB ? `[${ciB[0]}–${ciB[1]}]` : "—"} | composite n=${fCfull.n} ${pct(fCfull.fav)}%`
     );
   }
 }

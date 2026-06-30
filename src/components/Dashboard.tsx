@@ -286,9 +286,9 @@ export default function Dashboard({
               <div className="verdict-note">
                 Lịch sử ở kỳ 3 tháng, khi composite báo MUA <b>VÀ</b> giá ở vùng đáy: đúng{" "}
                 <b>{HIGH_CONF_3M_EVIDENCE.trainFav}%</b> (2009–2018, n={HIGH_CONF_3M_EVIDENCE.trainN}) /{" "}
-                <b>{HIGH_CONF_3M_EVIDENCE.testFav}%</b> (2019–2026, n={HIGH_CONF_3M_EVIDENCE.testN}); lưới thưa{" "}
-                {HIGH_CONF_3M_EVIDENCE.sparseFav}% (n={HIGH_CONF_3M_EVIDENCE.sparseN}, CI{" "}
-                {HIGH_CONF_3M_EVIDENCE.sparseCi[0]}–{HIGH_CONF_3M_EVIDENCE.sparseCi[1]}). Lớp đáy thêm +
+                <b>{HIGH_CONF_3M_EVIDENCE.testFav}%</b> (2019–2026, n={HIGH_CONF_3M_EVIDENCE.testN}); toàn giai đoạn{" "}
+                {HIGH_CONF_3M_EVIDENCE.fullFav}% (n={HIGH_CONF_3M_EVIDENCE.fullN}, CI block-bootstrap{" "}
+                {HIGH_CONF_3M_EVIDENCE.fullCi[0]}–{HIGH_CONF_3M_EVIDENCE.fullCi[1]}). Lớp đáy thêm +
                 {HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt}pt so với chỉ siết composite cùng cỡ mẫu.{" "}
                 <i>
                   Con số 100% là ước lượng lạc quan do tín hiệu bắn chùm trong một chu kỳ nới lỏng —
