@@ -6,7 +6,7 @@ Cập nhật: 2026-06-29. Sinh bởi `scripts/bear-downside-study.ts` trên dữ
 
 ## Mục tiêu
 
-Cung cấp phân phối lịch sử **mức rơi thêm** (worst future drawdown) ở 4 tầm nhìn (21/63/126/252 phiên), để người dùng DCA vàng hiểu rủi ro bear trước khi quyết mua thêm.
+Cung cấp phân phối lịch sử **mức rơi thêm** (worst future drawdown) + **kết cục tại mốc** ở 3 tầm nhìn (21/63/126 phiên ≈ 1/3/6 tháng), để người dùng DCA vàng hiểu rủi ro & triển vọng trước khi quyết mua thêm. Card UI tên **"Triển vọng 1/3/6 tháng tới"** (đổi từ "Nếu giá còn rơi" vì giờ hai chiều). Bỏ tầm 12 tháng (252 phiên): chỉ ~20 cửa sổ độc lập + nhiễm thiên lệch bull mạnh nhất.
 
 ## Metric
 
@@ -24,7 +24,7 @@ mức rơi thêm = min(close[t+1 .. t+H]) / close[t] − 1
 1. **Dữ liệu:** XAU/USD daily, ~2005–2026.
 2. **Drawdown từ ATH:** `dd[t] = 1 − close[t]/ATH[t]`. Chia 4 bucket:
    - 0–10% (nhẹ), 10–20%, 20–30%, 30+% (sâu).
-3. **Horizon:** 21 / 63 / 126 / 252 phiên giao dịch (~1/3/6/12 tháng).
+3. **Horizon:** 21 / 63 / 126 phiên giao dịch (~1/3/6 tháng). (Bỏ 252/12T: ~20 cửa sổ độc lập + thiên lệch bull mạnh nhất ⇒ kém tin.)
 4. **Lưới thưa STEP=3:** lấy mẫu mỗi 3 phiên để tránh pseudo-replication (các ngày kế tiếp có cửa sổ tương lai trùng nhau → thổi phồng n và siết CI giả tạo).
 5. **CI:** block-bootstrap (`blockBootstrapCi`) cho P(đáy phía sau); `blockBootstrapPercentileCi` cho trung vị mức rơi thêm. `blockSize = max(1, round(H/STEP))`.
 6. **Split train/test:** train `<2019`, test `≥2019`.

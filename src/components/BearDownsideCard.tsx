@@ -34,12 +34,15 @@ export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
   return (
     <section className="card">
       <div className="card-head">
-        <h2>Nếu giá còn rơi (rủi ro bear)</h2>
+        <h2>Triển vọng 1/3/6 tháng tới</h2>
         <span className="muted">
           {bd.currentPrice > 0 && <>{usd(bd.currentPrice)} · </>}−{fmt1(bd.currentDdPct)}% dưới đỉnh
         </span>
       </div>
-      <p className="sig-expl">{bd.note}</p>
+      <p className="sig-expl">
+        Nếu mua/giữ vàng hôm nay — lịch sử các tầm nhìn tới thường <b>dúi sâu nhất</b> tới đâu (rủi ro)
+        và <b>kết cục</b> ra sao (cơ hội). Tham khảo, không phải dự đoán.
+      </p>
       <div className="bt-table-wrap">
         <table className="bt-table">
           <thead>
@@ -56,11 +59,12 @@ export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
         </table>
       </div>
       <p className="muted small">
-        Trái = nhịp dúi sâu nhất *giữa* kỳ (rủi ro chịu đựng); phải = giá *kết* tại mốc + % lần giá cao hơn hôm nay (kết cục).
+        Trái = nhịp dúi sâu nhất *giữa* kỳ (rủi ro chịu đựng); phải = giá *kết* tại mốc + % lần giá cao hơn hôm nay (cơ hội).
         {tail && <> Kịch bản xấu (10% lần) đáy sâu tới: {tail}.</>}
       </p>
       <p className="muted small">
-        Phân phối lịch sử XAU/USD (mọi thời điểm). Kết cục & cơ hội tăng phụ thuộc chế độ thị trường (giai đoạn bull cao hơn), không phải hằng số. Tham khảo rủi ro, không dự đoán.
+        ⚠ &quot;Kết cục&quot; &amp; &quot;cơ hội tăng&quot; dựa trên mẫu XAU/USD ~20 năm <b>chủ yếu bull</b> → cao hơn thực tế ở chế độ khác;
+        phụ thuộc chế độ thị trường, KHÔNG phải xác suất chắc nịch. Độ sâu drawdown hiện tại không làm các con số đổi (phân phối chung).
       </p>
     </section>
   );

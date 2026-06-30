@@ -9,7 +9,7 @@ export const BUCKETS: { lo: number; hi: number | null }[] = [
   { lo: 0.20, hi: 0.30 },
   { lo: 0.30, hi: null },
 ];
-export const HORIZONS = [21, 63, 126, 252];
+export const HORIZONS = [21, 63, 126]; // 1/3/6 tháng — bỏ 12T (252) vì ~20 cửa sổ độc lập + thiên lệch bull mạnh nhất
 export const STEP = 3;
 export const MIN_N = 30;
 

@@ -67,13 +67,14 @@ describe("runBearDownside", () => {
     ...Array.from({ length: 400 }, (_, i) => ({ date: `2020-${String((i % 12) + 1).padStart(2, "0")}-01`, close: 100 + i })),
     ...Array.from({ length: 60 }, (_, i) => ({ date: "2024-01-01", close: 499 - i * 3 })), // rơi từ ~499
   ];
-  it("báo bucket hiện tại theo drawdown và bảng đầy đủ 4 horizon", () => {
+  it("báo bucket hiện tại theo drawdown và bảng 3 horizon (1/3/6 tháng)", () => {
     const a = runBearDownside(bars, { conditioningWorks: true });
     expect(a.currentDdPct).toBeGreaterThan(0);
     expect(a.currentPrice).toBe(322); // last close = 499 − 59×3
-    expect(a.buckets.length).toBe(4);
-    expect(a.unconditional.length).toBe(4);
+    expect(a.buckets.length).toBe(4); // 4 bucket độ sâu (không đổi)
+    expect(a.unconditional.length).toBe(3); // 1/3/6 tháng (bỏ 12T)
     expect(a.unconditional[0].horizonDays).toBe(21);
+    expect(a.unconditional.map((s) => s.horizonDays)).toEqual([21, 63, 126]);
   });
   it("conditioningWorks=false -> shownSource unconditional", () => {
     const a = runBearDownside(bars, { conditioningWorks: false });

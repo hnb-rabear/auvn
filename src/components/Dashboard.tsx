@@ -573,12 +573,12 @@ export default function Dashboard({
         </div>
       </details>
 
-      {/* ── ACCORDION: Nếu giá còn rơi (rủi ro bear) ── */}
+      {/* ── ACCORDION: Triển vọng 1/3/6 tháng tới (rủi ro & kết cục) ── */}
       <details className="acc">
         <summary className="acc-sum">
           <span className="acc-sum-text">
-            <span className="acc-sum-title">Nếu giá còn rơi</span>
-            <span className="acc-sum-meta">rủi ro bear · 1/3/6/12 tháng</span>
+            <span className="acc-sum-title">Triển vọng 1/3/6 tháng tới</span>
+            <span className="acc-sum-meta">rủi ro &amp; kết cục lịch sử</span>
           </span>
           <span className="acc-chev">▸</span>
         </summary>
