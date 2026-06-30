@@ -56,12 +56,19 @@ export default function BearDownsideCard({ bd }: { bd: BearDownsideAnalysis }) {
       </div>
       {showInfo && (
         <div className="banner info">
-          Nếu mua/giữ vàng hôm nay: <b>Đáy điển hình</b> = nhịp dúi sâu nhất *giữa* kỳ (rủi ro chịu đựng);{" "}
-          <b>Kết cục điển hình</b> = giá *kết* tại mốc; <b>Cơ hội tăng</b> = % lần giá cao hơn hôm nay.
-          {tail && <> Kịch bản xấu (10% lần) đáy sâu tới: {tail}.</>}
-          {" "}⚠ &quot;Kết cục&quot; &amp; &quot;cơ hội tăng&quot; dựa trên mẫu XAU/USD ~20 năm <b>chủ yếu bull</b> → cao hơn
-          thực tế ở chế độ khác; phụ thuộc chế độ thị trường, KHÔNG phải xác suất chắc nịch. Độ sâu drawdown
-          hiện tại không làm các con số đổi (phân phối chung). Tham khảo, không phải dự đoán.
+          <p>Nếu mua/giữ vàng hôm nay, mỗi cột nghĩa là:</p>
+          <ul className="info-defs">
+            <li><b className="down">Đáy điển hình</b> — nhịp dúi sâu nhất <i>giữa</i> kỳ (rủi ro phải chịu).</li>
+            <li><b className="up">Kết cục điển hình</b> — giá <i>kết</i> tại mốc kỳ hạn.</li>
+            <li><b>Cơ hội tăng</b> — % số lần giá cao hơn hôm nay.</li>
+          </ul>
+          {tail && <p>Kịch bản xấu (10% số lần), đáy có thể sâu tới: {tail}.</p>}
+          <p>
+            ⚠ <b>Lưu ý:</b> &quot;Kết cục&quot; &amp; &quot;cơ hội tăng&quot; dựa trên mẫu XAU/USD ~20 năm <b>chủ yếu bull</b> nên
+            cao hơn thực tế ở chế độ khác — phụ thuộc chế độ thị trường, KHÔNG phải xác suất chắc nịch.
+            Độ sâu drawdown hiện tại không làm các con số này đổi.
+          </p>
+          <p className="muted">Phân phối lịch sử — tham khảo rủi ro, không phải dự đoán.</p>
         </div>
       )}
       <div className="bt-table-wrap">

@@ -1004,3 +1004,17 @@ td.neutral {
 .minibar-fill.mid {
   background: var(--neutral);
 }
+/* Khối ⓘ nhiều đoạn: khoảng cách gọn, dễ đọc */
+.banner p {
+  margin: 0 0 6px;
+}
+.banner p:last-child {
+  margin-bottom: 0;
+}
+.banner .info-defs {
+  margin: 4px 0 8px;
+  padding-left: 18px;
+}
+.banner .info-defs li {
+  margin: 2px 0;
+}
