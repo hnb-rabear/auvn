@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-06-30T18:05:46.382Z",
+ "generatedAt": "2026-06-30T19:04:52.459Z",
  "dataDate": "2026-06-30",
  "cycle": {
   "prob": 41.9,
@@ -35,14 +35,14 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -11,06: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -11,08: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD trên MA50, lợi suất -0,03đ/3 tháng, Fed -0,01đ: trung tính.",
+    "explanation": "USD trên MA50, lợi suất -0,02đ/3 tháng, Fed -0,01đ: trung tính.",
     "available": true
    },
    {
@@ -102,14 +102,14 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -11,06: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -11,08: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD trên MA50, lợi suất -0,03đ/3 tháng, Fed -0,01đ: trung tính.",
+    "explanation": "USD trên MA50, lợi suất -0,02đ/3 tháng, Fed -0,01đ: trung tính.",
     "available": true
    },
    {
