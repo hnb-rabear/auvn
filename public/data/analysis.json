@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-01T22:49:38.190Z",
+ "generatedAt": "2026-07-01T23:51:28.794Z",
  "dataDate": "2026-07-01",
  "stale": true,
  "staleDays": 16,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 4051,
+  "xauUsd": 4047.800048828125,
   "usdVnd": 26466,
-  "worldVndPerLuong": 129262598,
+  "worldVndPerLuong": 129160492,
   "premiumPct": 8.97,
-  "premiumVnd": 21237402
+  "premiumVnd": 21339508
  },
  "criteria": [
   {
@@ -23,21 +23,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 36,3: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 36: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 39,7: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 39,6: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 9,1%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -50,12 +50,12 @@
     {
      "id": "sr",
      "label": "Hỗ trợ / kháng cự 6 tháng",
-     "score": 0,
-     "explanation": "Giá nằm giữa hỗ trợ và kháng cự, không có lợi thế rõ.",
+     "score": 1,
+     "explanation": "Giá bám sát hỗ trợ 3.990 — điểm vào có cơ sở kỹ thuật.",
      "available": true
     }
    ],
-   "score": 0.8,
+   "score": 1,
    "available": true
   },
   {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +21,4% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +21,3% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 17.3,
+ "composite": 20.8,
  "zone": "neutral",
  "vnHistoryDays": 491,
  "warnings": [
@@ -2166,7 +2166,7 @@
   "dxy": "2026-07-01T04:00:00.000Z",
   "yield10y": "2026-07-01T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-01T22:49:38.190Z",
+  "usdVnd": "2026-07-01T23:51:28.794Z",
   "fed": null
  }
 }
