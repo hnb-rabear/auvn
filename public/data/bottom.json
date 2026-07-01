@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-01T17:09:32.832Z",
+ "generatedAt": "2026-07-01T18:06:32.064Z",
  "dataDate": "2026-07-01",
  "cycle": {
   "prob": 41.3,
@@ -28,21 +28,21 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 39: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 38,9: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -5,62: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -5,65: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD trên MA50, lợi suất +0,03đ/3 tháng, Fed -0,01đ: trung tính.",
+    "explanation": "USD trên MA50, lợi suất +0,02đ/3 tháng, Fed -0,01đ: trung tính.",
     "available": true
    },
    {
@@ -95,21 +95,21 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 39: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 38,9: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -5,62: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -5,65: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD trên MA50, lợi suất +0,03đ/3 tháng, Fed -0,01đ: trung tính.",
+    "explanation": "USD trên MA50, lợi suất +0,02đ/3 tháng, Fed -0,01đ: trung tính.",
     "available": true
    },
    {
