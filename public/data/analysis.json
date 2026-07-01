@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-01T01:27:56.067Z",
+ "generatedAt": "2026-07-01T03:36:08.178Z",
  "dataDate": "2026-07-01",
  "stale": true,
  "staleDays": 15,
@@ -8,11 +8,11 @@
   "sjcSell": 150500000,
   "ringBuy": 148000000,
   "ringSell": 150500000,
-  "xauUsd": 3993.39990234375,
+  "xauUsd": 3996,
   "usdVnd": 26466,
-  "worldVndPerLuong": 127424648,
+  "worldVndPerLuong": 127507614,
   "premiumPct": 8.97,
-  "premiumVnd": 23075352
+  "premiumVnd": 22992386
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 32,7: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 32,8: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 37: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 38: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -50,12 +50,12 @@
     {
      "id": "sr",
      "label": "Hỗ trợ / kháng cự 6 tháng",
-     "score": 0,
-     "explanation": "Giá nằm giữa hỗ trợ và kháng cự, không có lợi thế rõ.",
+     "score": 1,
+     "explanation": "Giá bám sát hỗ trợ 3.990 — điểm vào có cơ sở kỹ thuật.",
      "available": true
     }
    ],
-   "score": 1,
+   "score": 1.2,
    "available": true
   },
   {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,3 (trên MA50, +2,4% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,3 (trên MA50, +2,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -167,12 +167,12 @@
     {
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
-     "score": 2,
-     "explanation": "XAU/USD thay đổi +21,2% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "score": 1,
+     "explanation": "XAU/USD thay đổi +19,8% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
-   "score": 2,
+   "score": 1,
    "available": true
   }
  ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 20.8,
+ "composite": 24.3,
  "zone": "neutral",
  "vnHistoryDays": 491,
  "warnings": [
@@ -2162,11 +2162,11 @@
   "p80": 16.62
  },
  "sourceTimes": {
-  "world": "2026-07-01T01:16:48.000Z",
-  "dxy": "2026-07-01T01:16:54.000Z",
+  "world": "2026-07-01T03:25:04.000Z",
+  "dxy": "2026-07-01T03:25:06.000Z",
   "yield10y": "2026-06-30T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-01T01:27:56.067Z",
+  "usdVnd": "2026-07-01T03:36:08.178Z",
   "fed": null
  }
 }
