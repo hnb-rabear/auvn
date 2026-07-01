@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-07-01T07:55:35.720Z",
+ "generatedAt": "2026-07-01T09:38:51.175Z",
  "dataDate": "2026-07-01",
- "currentPrice": 3982.8,
- "currentDdPct": 25.1,
+ "currentPrice": 3991.4,
+ "currentDdPct": 25,
  "currentBucketIdx": 2,
  "conditioningWorks": false,
  "shownSource": "unconditional",
@@ -178,7 +178,7 @@
     {
      "horizonDays": 63,
      "median": -4,
-     "p10": -14.2,
+     "p10": -14.1,
      "p90": -0.1,
      "pBottomBehind": 9.3,
      "pCi": [
