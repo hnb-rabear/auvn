@@ -1,6 +1,6 @@
 /** Toán composite cho điểm timeline — thuần, không React. */
 
-import type { CriterionKey, TimelinePoint, BottomHistoryRow } from "./types";
+import type { CriterionKey, TimelinePoint, BottomHistoryRow, BearAsOfRow } from "./types";
 
 /** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
 export function pointComposite(
@@ -75,6 +75,16 @@ export function forwardFillBottomHistory(points: TimelinePoint[], history: Botto
       pt.cycleProb = c.prob; pt.cycleCi = c.ci; pt.cycleN = c.n;
       pt.swingProb = s.prob; pt.swingCi = s.ci; pt.swingN = s.n;
     }
+  }
+}
+
+/** Forward-fill dải Bear Downside as-of lên timeline (snap nút gần nhất ≤ ngày). */
+export function forwardFillBearAsOf(points: TimelinePoint[], rows: BearAsOfRow[]): void {
+  if (!rows.length) return;
+  let h = 0;
+  for (const pt of points) {
+    while (h + 1 < rows.length && rows[h + 1].date <= pt.date) h++;
+    if (rows[h].date <= pt.date) pt.bearAsOf = rows[h].bands;
   }
 }
 
