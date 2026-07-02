@@ -109,6 +109,6 @@ npx tsx scripts/bear-downside-study.ts   # chạy study, in 3 điều kiện
 Card có thanh trượt riêng: cuộn về ngày X bất kỳ và xem **dải card LÚC ĐÓ nói** cạnh **thứ THỰC TẾ xảy ra** từ X.
 
 - **Dải as-of** — `runBearDownsideHistory(bars)` (`src/lib/bear-downside.ts`) tính walk-forward: tại ngày X, phân phối vô-điều-kiện trên mẫu lưới thưa STEP=3 đã đáo hạn (`j+H ≤ X`). Cùng mảng `bars` với engine live ⇒ tái hiện chính xác; golden test khóa: dải ngày cuối === `runBearDownside(bars).unconditional`. Forward-fill lên `timeline.points[*].bearAsOf` (mirror `forwardFillBottomHistory`).
-- **Thực tế** — đáy tệ nhất `min(price[X+1..X+H])/price[X]-1` + kết cục `returns[H]`, tính client-side từ giá điểm.
-- **✓/✗ hai mặt** — đáy thực vs p10 (rủi ro có thủng đuôi không), kết cục thực vs endMedian (triển vọng có đạt không). Chỉ chấm khi đủ mẫu + đã đáo hạn.
+- **Thực tế** — cột riêng hiển thị đáy tệ nhất thực tế `min(price[X+1..X+H])/price[X]-1` + kết cục thực tế `returns[H]`, tính client-side từ giá điểm. Chỉ hiện khi đã đáo hạn (`X+H` trong dữ liệu), ngược lại "chưa đáo hạn".
+- Trước đây đối chiếu bằng ✓/✗ (đáy thực vs p10, kết cục thực vs endMedian) nhưng bị bỏ vì khó hiểu (2026-07-02) — thay bằng cột "Thực tế" hiển thị thẳng giá đã xảy ra để người dùng tự so.
 - Không look-ahead; conditioning theo bucket vẫn bị bác; không sync với Time Machine. Reaction/đối chiếu, KHÔNG dự đoán.

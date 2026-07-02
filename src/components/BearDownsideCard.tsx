@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
-import { ddAsOfPct, actualWorstDipPct, verdict, monthAnchors, monthPosOf } from "@/lib/bear-downside-view";
+import { ddAsOfPct, actualWorstDipPct, monthAnchors, monthPosOf } from "@/lib/bear-downside-view";
 
 const HLABEL: Record<string, string> = { "21": "1 tháng", "63": "3 tháng", "126": "6 tháng" };
 const HSHORT: Record<string, string> = { "21": "1T", "63": "3T", "126": "6T" };
@@ -12,16 +12,9 @@ const usd = (n: number) => `$${Math.round(n).toLocaleString("vi-VN")}`;
 const fmtDate = (iso: string) =>
   new Date(iso + "T00:00:00Z").toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "UTC" });
 
-/** Dấu ✓ (dự đoán đúng) / ✗ (sai); rỗng khi chưa đáo hạn. */
-function Mark({ v }: { v: "right" | "wrong" | null }) {
-  if (v === "right") return <span className="tm-verdict buy"> ✓</span>;
-  if (v === "wrong") return <span className="tm-verdict sell"> ✗</span>;
-  return null;
-}
-
 /**
- * Một hàng kỳ hạn — giữ layout UI cũ: đáy (đỏ, rủi ro) · kết cục (xanh/đỏ) · cơ hội tăng (thanh).
- * Bổ sung ✓/✗ vào cột đáy & kết cục khi xem ngày quá khứ đã đáo hạn (đối chiếu thực tế).
+ * Một hàng kỳ hạn — đáy điển hình (đỏ, rủi ro) · kết cục điển hình (xanh/đỏ) ·
+ * THỰC TẾ (đáy + kết cục thực tế khi xem ngày quá khứ đã đáo hạn) · cơ hội tăng (thanh).
  */
 function Row({ H, band, price, actualDip, actualTerm }: {
   H: (typeof HS)[number];
@@ -35,22 +28,31 @@ function Row({ H, band, price, actualDip, actualTerm }: {
     return (
       <tr>
         <td>{label}</td>
-        <td className="muted" colSpan={3}>chưa đủ dữ liệu</td>
+        <td className="muted" colSpan={4}>chưa đủ dữ liệu</td>
       </tr>
     );
   }
   const at = (pct: number) => usd(price * (1 + pct / 100));
   const pct = Math.max(0, Math.min(100, band.pUp));
+  const matured = actualDip != null && actualTerm != null;
   return (
     <tr>
       <td>{label}</td>
       <td>
         {at(band.median)} <span className="down">({signed(band.median)})</span>
-        <Mark v={verdict(actualDip, band.p10)} />
       </td>
       <td>
         {at(band.endMedian)} <span className={band.endMedian >= 0 ? "up" : "down"}>({signed(band.endMedian)})</span>
-        <Mark v={verdict(actualTerm, band.endMedian)} />
+      </td>
+      <td>
+        {matured ? (
+          <>
+            <div>đáy {at(actualDip!)} <span className="down">({signed(actualDip!)})</span></div>
+            <div>kết {at(actualTerm!)} <span className={actualTerm! >= 0 ? "up" : "down"}>({signed(actualTerm!)})</span></div>
+          </>
+        ) : (
+          <span className="muted">chưa đáo hạn</span>
+        )}
       </td>
       <td>
         <span className="minibar"><span className={`minibar-fill${band.pUp >= 50 ? "" : " mid"}`} style={{ width: `${pct}%` }} /></span>
@@ -60,11 +62,11 @@ function Row({ H, band, price, actualDip, actualTerm }: {
   );
 }
 
-/** Hàng UI cũ cho fallback (timeline.json cũ không có bearAsOf) — không ✓/✗. */
+/** Hàng UI cũ cho fallback (timeline.json cũ không có bearAsOf) — chỉ ngày mới nhất nên không có thực tế. */
 function LegacyRow({ s, price }: { s: BearHorizonStat; price: number }) {
   const label = HLABEL[String(s.horizonDays)] ?? String(s.horizonDays);
   if (s.n < 30) {
-    return (<tr><td>{label}</td><td className="muted" colSpan={3}>chưa đủ dữ liệu (n={s.n})</td></tr>);
+    return (<tr><td>{label}</td><td className="muted" colSpan={4}>chưa đủ dữ liệu (n={s.n})</td></tr>);
   }
   const at = (pv: number) => usd(price * (1 + pv / 100));
   const pct = Math.max(0, Math.min(100, s.pUp));
@@ -73,6 +75,7 @@ function LegacyRow({ s, price }: { s: BearHorizonStat; price: number }) {
       <td>{label}</td>
       <td>{at(s.median)} <span className="down">({signed(s.median)})</span></td>
       <td>{at(s.endMedian)} <span className={s.endMedian >= 0 ? "up" : "down"}>({signed(s.endMedian)})</span></td>
+      <td className="muted">chưa đáo hạn</td>
       <td>
         <span className="minibar"><span className={`minibar-fill${s.pUp >= 50 ? "" : " mid"}`} style={{ width: `${pct}%` }} /></span>
         {fmt1(s.pUp)}%
@@ -110,6 +113,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
             <ul className="info-defs">
               <li><b className="down">Đáy điển hình</b> — nhịp dúi sâu nhất <i>giữa</i> kỳ (rủi ro phải chịu).</li>
               <li><b className="up">Kết cục điển hình</b> — giá <i>kết</i> tại mốc kỳ hạn.</li>
+              <li><b>Thực tế</b> — đáy sâu nhất & giá kết THỰC TẾ đã xảy ra (khi xem ngày quá khứ đã đủ tương lai).</li>
               <li><b>Cơ hội tăng</b> — % số lần giá cao hơn hôm nay.</li>
             </ul>
             {tailOld && <p>Hiếm gặp (~1/10 lần tệ nhất), giá có lúc dúi sâu tới: {tailOld}.</p>}
@@ -119,7 +123,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
         <div className="bt-table-wrap">
           <table className="bt-table">
             <thead>
-              <tr><th>Kỳ hạn</th><th>Đáy điển hình</th><th>Kết cục điển hình</th><th>Cơ hội tăng</th></tr>
+              <tr><th>Kỳ hạn</th><th>Đáy điển hình</th><th>Kết cục điển hình</th><th>Thực tế</th><th>Cơ hội tăng</th></tr>
             </thead>
             <tbody>
               {bd.shown.map((s) => <LegacyRow key={s.horizonDays} s={s} price={bd.currentPrice} />)}
@@ -193,9 +197,9 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
           <ul className="info-defs">
             <li><b className="down">Đáy điển hình</b> — nhịp dúi sâu nhất <i>giữa</i> kỳ (rủi ro phải chịu).</li>
             <li><b className="up">Kết cục điển hình</b> — giá <i>kết</i> tại mốc kỳ hạn.</li>
+            <li><b>Thực tế</b> — đáy sâu nhất & giá kết THỰC TẾ đã xảy ra (khi xem ngày quá khứ đã đủ tương lai).</li>
             <li><b>Cơ hội tăng</b> — % số lần giá cao hơn hôm nay.</li>
           </ul>
-          <p>Khi xem ngày quá khứ đã đủ tương lai, <b className="buy">✓</b> = thực tế khớp dự đoán (đáy không thủng đuôi 1/10 · kết cục ≥ điển hình), <b className="sell">✗</b> = lệch.</p>
           {tail && <p>Hiếm gặp (~1/10 lần tệ nhất), giá có lúc dúi sâu tới: {tail}.</p>}
           <p className="muted">Tái hiện lịch sử để đối chiếu — KHÔNG phải dự đoán. Mẫu XAU/USD ~20 năm chủ yếu bull.</p>
         </div>
