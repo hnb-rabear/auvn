@@ -103,3 +103,12 @@ npx tsx scripts/bear-downside-study.ts   # chạy study, in 3 điều kiện
 ## Tested and REJECTED (đừng tái thêm nếu chưa chạy lại study)
 
 Điều kiện hóa phân phối mức-rơi-thêm theo độ sâu drawdown (bucket 0-10/10-20/20-30/30+%) — cả 4 kiểm tra (đơn điệu × tách bạch × 2 giai đoạn) đều KHÔNG đạt. Bucket sâu bất ổn định nghiêm trọng giữa train và test (P=2.1% vs 29.4% ở 20-30%). `conditioningWorks=false`, chỉ ship phân phối vô-điều-kiện.
+
+## Máy thời gian as-of (card Triển Vọng)
+
+Card có thanh trượt riêng: cuộn về ngày X bất kỳ và xem **dải card LÚC ĐÓ nói** cạnh **thứ THỰC TẾ xảy ra** từ X.
+
+- **Dải as-of** — `runBearDownsideHistory(bars)` (`src/lib/bear-downside.ts`) tính walk-forward: tại ngày X, phân phối vô-điều-kiện trên mẫu lưới thưa STEP=3 đã đáo hạn (`j+H ≤ X`). Cùng mảng `bars` với engine live ⇒ tái hiện chính xác; golden test khóa: dải ngày cuối === `runBearDownside(bars).unconditional`. Forward-fill lên `timeline.points[*].bearAsOf` (mirror `forwardFillBottomHistory`).
+- **Thực tế** — đáy tệ nhất `min(price[X+1..X+H])/price[X]-1` + kết cục `returns[H]`, tính client-side từ giá điểm.
+- **✓/✗ hai mặt** — đáy thực vs p10 (rủi ro có thủng đuôi không), kết cục thực vs endMedian (triển vọng có đạt không). Chỉ chấm khi đủ mẫu + đã đáo hạn.
+- Không look-ahead; conditioning theo bucket vẫn bị bác; không sync với Time Machine. Reaction/đối chiếu, KHÔNG dự đoán.

@@ -1,7 +1,7 @@
 // src/lib/bear-downside.ts
 /** Phân phối rủi ro bear: mức-rơi-thêm có điều kiện theo độ sâu drawdown. Tính tại collection-time. */
 import { blockBootstrapCi, blockBootstrapPercentileCi, percentile } from "./indicators";
-import { BEAR_DOWNSIDE_CONFIG, type BearHorizonStat, type BearDownsideAnalysis, type BearBucketStat, type BearDownsideConfig } from "./types";
+import { BEAR_DOWNSIDE_CONFIG, type BearHorizonStat, type BearDownsideAnalysis, type BearBucketStat, type BearDownsideConfig, type BearAsOfRow, type BearAsOfBand } from "./types";
 
 export const BUCKETS: { lo: number; hi: number | null }[] = [
   { lo: 0, hi: 0.10 },
@@ -39,8 +39,12 @@ export function terminalReturnPct(closes: number[], i: number, H: number): numbe
 /**
  * Thống kê một nhóm cho horizon H. `values` = mức-rơi-thêm (%); `termValues` = lợi suất
  * tại mốc (%) cho mặt KẾT CỤC (endMedian/pUp). blockSize lưới-thưa = round(H/STEP).
+ * `skipCi` (mặc định false, không đổi hành vi cũ): bỏ 3 lần block-bootstrap (2000 vòng lặp
+ * mỗi lần) khi gọi viên chỉ cần median/p10/endMedian/pUp/n — dùng cho walk-forward as-of
+ * (runBearDownsideHistory) nơi CI bị bỏ (BearAsOfBand không lưu CI) nhưng lại được gọi
+ * hàng trăm lần trên các mẫu ngày càng lớn, nếu không sẽ rất chậm.
  */
-export function computeHorizonStat(values: number[], H: number, termValues: number[] = []): BearHorizonStat {
+export function computeHorizonStat(values: number[], H: number, termValues: number[] = [], skipCi = false): BearHorizonStat {
   const n = values.length;
   const blk = Math.max(1, Math.round(H / STEP));
   const favArr = values.map((v) => (v >= 0 ? 1 : -1));
@@ -54,11 +58,11 @@ export function computeHorizonStat(values: number[], H: number, termValues: numb
     p10: n ? Math.round(percentile(values, 0.1) * 10) / 10 : 0,
     p90: n ? Math.round(percentile(values, 0.9) * 10) / 10 : 0,
     pBottomBehind: n ? Math.round((pos / n) * 1000) / 10 : 0,
-    pCi: blockBootstrapCi(favArr, blk),
-    medianCi: blockBootstrapPercentileCi(values, 0.5, blk),
+    pCi: skipCi ? null : blockBootstrapCi(favArr, blk),
+    medianCi: skipCi ? null : blockBootstrapPercentileCi(values, 0.5, blk),
     endMedian: tn ? Math.round(percentile(termValues, 0.5) * 10) / 10 : 0,
     pUp: tn ? Math.round((upPos / tn) * 1000) / 10 : 0,
-    pUpCi: blockBootstrapCi(upArr, blk),
+    pUpCi: skipCi ? null : blockBootstrapCi(upArr, blk),
     n,
   };
 }
@@ -144,4 +148,45 @@ export function runBearDownside(
     unconditional,
     note,
   };
+}
+
+/**
+ * Dải Bear Downside as-of từng ngày (walk-forward). Lưới thưa STEP để chống
+ * pseudo-replication; mẫu chỉ tính khi đã đáo hạn as-of ngày đó (j+H ≤ X).
+ * Vô-điều-kiện (conditioning đã bị bác). Byte-đồng nhất runBearDownside ở ngày cuối.
+ */
+export function runBearDownsideHistory(bars: { date: string; close: number }[]): BearAsOfRow[] {
+  const closes = bars.map((b) => b.close);
+  const dates = bars.map((b) => b.date);
+  const n = closes.length;
+  if (n === 0) return [];
+
+  // các ngày X phát dải: bội STEP + ép index cuối (như statIdxs của backtest)
+  const gridX: number[] = [];
+  for (let i = 0; i < n; i += STEP) gridX.push(i);
+  if (gridX[gridX.length - 1] !== n - 1) gridX.push(n - 1);
+
+  const toBand = (dips: number[], terms: number[], H: number): BearAsOfBand | null => {
+    if (dips.length < MIN_N) return null;
+    const s = computeHorizonStat(dips, H, terms, true); // skipCi: as-of band không lưu CI, tránh bootstrap thừa
+    return { median: s.median, p10: s.p10, endMedian: s.endMedian, pUp: s.pUp, n: s.n };
+  };
+
+  return gridX.map((X) => {
+    const bands = {} as Record<"21" | "63" | "126", BearAsOfBand | null>;
+    HORIZONS.forEach((H) => {
+      const dips: number[] = [];
+      const terms: number[] = [];
+      for (let j = 0; j <= X; j += STEP) {
+        if (j + H > X) continue; // chỉ mẫu đã đáo hạn as-of X
+        const fd = furtherDrawdownPct(closes, j, H);
+        if (fd === null) continue;
+        dips.push(fd);
+        const tr = terminalReturnPct(closes, j, H);
+        if (tr !== null) terms.push(tr);
+      }
+      bands[String(H) as "21" | "63" | "126"] = toBand(dips, terms, H);
+    });
+    return { date: dates[X], bands };
+  });
 }

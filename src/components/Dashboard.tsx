@@ -583,7 +583,7 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <BearDownsideCard bd={bearDownside} />
+          <BearDownsideCard bd={bearDownside} timeline={timeline} />
         </div>
       </details>
 

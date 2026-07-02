@@ -148,6 +148,8 @@ export interface TimelinePoint {
   accumMult?: number;
   /** percentile giá so dải 2 năm (0..1) tại ngày này. undefined = timeline.json cũ. */
   pricePct2y?: number | null;
+  /** Dải Bear Downside as-of-ngày (walk-forward, forward-fill lưới thưa). undefined = timeline.json cũ; band từng H = null khi chưa đủ mẫu. */
+  bearAsOf?: Record<"21" | "63" | "126", BearAsOfBand | null>;
 }
 
 export interface Timeline {
@@ -543,5 +545,21 @@ export interface BearDownsideAnalysis {
   unconditional: BearHorizonStat[];
   note: string;
 }
+
+/** Một dải Bear Downside as-of-ngày (walk-forward). CI bỏ vì card không hiển thị. */
+export interface BearAsOfBand {
+  median: number;    // đáy điển hình (worst-dip) %
+  p10: number;       // đuôi 1/10 rủi ro %
+  endMedian: number; // kết cục điển hình % tại mốc
+  pUp: number;       // % lần giá cao hơn hôm nay
+  n: number;
+}
+
+/** Dải as-of của một ngày lưới thưa, mọi horizon. band=null khi n<MIN_N. */
+export interface BearAsOfRow {
+  date: string;
+  bands: Record<"21" | "63" | "126", BearAsOfBand | null>;
+}
+
 export interface BearDownsideConfig { conditioningWorks: boolean; }
 export const BEAR_DOWNSIDE_CONFIG: BearDownsideConfig = { conditioningWorks: false };
