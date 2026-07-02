@@ -208,7 +208,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
       <div className="bt-table-wrap">
         <table className="bt-table">
           <thead>
-            <tr><th>Kỳ hạn</th><th>Đáy điển hình</th><th>Kết cục điển hình</th><th>Cơ hội tăng</th></tr>
+            <tr><th>Kỳ hạn</th><th>Đáy điển hình</th><th>Kết cục điển hình</th><th>Thực tế</th><th>Cơ hội tăng</th></tr>
           </thead>
           <tbody>
             {HS.map((H) => (
