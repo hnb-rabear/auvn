@@ -20,3 +20,24 @@ export function verdict(actual: number | null, threshold: number | null): "right
   if (actual === null || threshold === null) return null;
   return actual >= threshold ? "right" : "wrong";
 }
+
+/** Chỉ số phiên ĐẦU của mỗi năm-tháng (YYYY-MM) — mốc snap cho slider tháng. dates phải tăng dần. */
+export function monthAnchors(dates: string[]): number[] {
+  const out: number[] = [];
+  let prev = "";
+  for (let i = 0; i < dates.length; i++) {
+    const ym = dates[i].slice(0, 7);
+    if (ym !== prev) { out.push(i); prev = ym; }
+  }
+  return out;
+}
+
+/** Vị trí tháng của idx = chỉ số anchor lớn nhất ≤ idx (anchors tăng dần). 0 nếu idx trước anchor đầu. */
+export function monthPosOf(anchors: number[], idx: number): number {
+  let pos = 0;
+  for (let k = 0; k < anchors.length; k++) {
+    if (anchors[k] <= idx) pos = k;
+    else break;
+  }
+  return pos;
+}

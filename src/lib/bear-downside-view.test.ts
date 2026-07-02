@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { ddAsOfPct, actualWorstDipPct, verdict } from "./bear-downside-view";
+import { ddAsOfPct, actualWorstDipPct, verdict, monthAnchors, monthPosOf } from "./bear-downside-view";
 
 describe("ddAsOfPct", () => {
   it("dùng ATH tới X, không nhìn tương lai", () => {
@@ -33,5 +33,30 @@ describe("verdict", () => {
   it("null khi thiếu đầu vào", () => {
     expect(verdict(null, -8)).toBeNull();
     expect(verdict(-5, null)).toBeNull();
+  });
+});
+
+describe("monthAnchors", () => {
+  it("chỉ số phiên đầu của mỗi năm-tháng", () => {
+    const dates = ["2020-01-03", "2020-01-31", "2020-02-04", "2020-02-20", "2020-03-02"];
+    expect(monthAnchors(dates)).toEqual([0, 2, 4]);
+  });
+  it("bỏ khoảng trống dữ liệu (tháng thiếu vẫn tính theo tháng có mặt)", () => {
+    const dates = ["2020-01-03", "2020-03-10", "2020-03-25", "2021-01-05"];
+    expect(monthAnchors(dates)).toEqual([0, 1, 3]); // 01, 03, next-year-01
+  });
+  it("rỗng khi không có ngày", () => {
+    expect(monthAnchors([])).toEqual([]);
+  });
+});
+
+describe("monthPosOf", () => {
+  const anchors = [0, 2, 4];
+  it("trả anchor lớn nhất ≤ idx", () => {
+    expect(monthPosOf(anchors, 0)).toBe(0);
+    expect(monthPosOf(anchors, 1)).toBe(0); // vẫn trong tháng đầu
+    expect(monthPosOf(anchors, 2)).toBe(1);
+    expect(monthPosOf(anchors, 3)).toBe(1);
+    expect(monthPosOf(anchors, 5)).toBe(2); // sau anchor cuối
   });
 });
