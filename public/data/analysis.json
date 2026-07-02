@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-02T23:09:19.748Z",
+ "generatedAt": "2026-07-02T23:39:15.657Z",
  "dataDate": "2026-07-02",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148400000,
   "ringBuy": 145000000,
   "ringSell": 148000000,
-  "xauUsd": 4136.60009765625,
+  "xauUsd": 4142.60009765625,
   "usdVnd": 26465,
-  "worldVndPerLuong": 131989008,
+  "worldVndPerLuong": 132180454,
   "premiumPct": 12.63,
-  "premiumVnd": 16410992
+  "premiumVnd": 16219546
  },
  "criteria": [
   {
@@ -23,21 +23,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 42,9: trung tính.",
+     "explanation": "RSI ngày = 43,3: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 43,2: trung tính.",
+     "explanation": "RSI tuần = 43,4: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 7,2%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -132,7 +132,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 41% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 42% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 27%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 27,1%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +23,6% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +23,7% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2170,7 +2170,7 @@
   "dxy": "2026-07-02T04:00:00.000Z",
   "yield10y": "2026-07-02T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-02T23:09:19.748Z",
+  "usdVnd": "2026-07-02T23:39:15.657Z",
   "fed": null
  }
 }
