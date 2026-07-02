@@ -123,6 +123,21 @@ Chẩn đoán: bệnh chính là **BIAS do trôi chế độ**, không phải va
 
 **Recency-weighting** (trọng số `0.5^(tuổi/halflife)`) sửa đúng bệnh: giảm |bias| ở **cả hai chiều, cả hai chế độ** (126p: train −5.57→−3.13, test +7.10→+5.69 ở hl=504), cải thiện MAE nhẹ. Kiểm định drawdown-state: ngày dd>10% recency **không** overshoot (footgun đảo chiều KHÔNG xảy ra trong lịch sử) — vẫn undershoot nhẹ như baseline.
 
+### Study 3 — calibration "Cơ hội tăng" (pUp) (`scripts/bear-downside-pup-study.ts`)
+
+Phản hồi tiếp: "pUp luôn >50%, 6T >70% — có ảo giác lạc quan không?" pUp là XÁC SUẤT nên thước đo đúng = **Brier score** (proper scoring rule) + reliability, không phải MAE. Backtest walk-forward, train/test.
+
+Tần suất tăng THỰC TẾ phụ thuộc chế độ rất mạnh: TRAIN 2009–2018 (có bear 2013) chỉ **49,9/52,1/51,2%** (1/3/6T); TEST 2019–2026 (bull) **60,1/69,1/79,6%**.
+
+| pUp (126p) | Brier train | predBias train | Brier test | predBias test |
+| --- | --- | --- | --- | --- |
+| unconditional | 0.3122 | **+18.5%** (quá lạc quan trong bear) | 0.1978 | **−18.2%** (quá bi quan trong bull) |
+| **recency-504 (đang chạy)** | 0.3002 | +10.9% | 0.1877 | −12.3% |
+| recency-252 | 0.2960 | +7.4% | 0.1861 | −8.1% |
+| shrink→unc/50 | tệ hơn | thiên lệch hơn | tệ hơn | thiên lệch hơn |
+
+**Kết luận: pUp KHÔNG quá lạc quan.** Cái "luôn ~65-70% cố định" là bản VÔ-ĐIỀU-KIỆN — nó mới quá lạc quan trong bear (predBias +18.5% ở 2013). Recency **sửa hai chiều** (hạ trong bear, nâng trong bull), Brier tốt hơn ở cả hai giai đoạn. Kéo pUp xuống (shrink về 50%/unconditional) làm Brier TỆ hơn → tạo *ảo giác bi quan*. Reliability recency-504: bin "80-90%" thực tế tăng 88% → nếu lệch là hơi dè dặt. **Giữ recency-504, KHÔNG đổi.** (252 Brier nhỉnh hơn chút ở 126p nhưng chọn 504 cho bền mặt median — chênh lệch Brier không đáng kể.)
+
 ### Quyết định: `recencyHalflife = 504` (~2 năm)
 
 - 252 khử-bias sạch nhất (xóa significance) nhưng đọc số cực đoan ở đỉnh/hậu-parabolic (126p +18%/pUp 91% khi đang −22% dưới đỉnh). 252 vs 504 **không phân biệt được thống kê** (CI bias chồng nhau) → theo nguyên tắc "artifact decision-support cho người chịu rủi ro thì chọn bảo thủ", ship **504** (126p +13.5%/83.5%).
