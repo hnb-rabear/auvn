@@ -1,6 +1,7 @@
 // src/lib/bear-downside.test.ts
 import { describe, it, expect } from "vitest";
 import { bucketOf, furtherDrawdownPct, terminalReturnPct, computeHorizonStat, BUCKETS, runBearDownside } from "./bear-downside";
+import { runBearDownsideHistory } from "./bear-downside";
 
 describe("bucketOf", () => {
   it("ánh xạ dd fraction sang 0..3", () => {
@@ -80,5 +81,44 @@ describe("runBearDownside", () => {
     const a = runBearDownside(bars, { conditioningWorks: false });
     expect(a.shownSource).toBe("unconditional");
     expect(a.shown).toEqual(a.unconditional);
+  });
+});
+
+describe("runBearDownsideHistory", () => {
+  // chuỗi tăng dần có nhịp dúi định kỳ để có mẫu cả hai phía
+  const bars = Array.from({ length: 900 }, (_, i) => ({
+    date: `2020-${String(1 + Math.floor(i / 300)).padStart(2, "0")}-${String(1 + (i % 28)).padStart(2, "0")}`,
+    close: 1000 + i - (i % 30 === 0 ? 50 : 0),
+  }));
+
+  it("phát 1 dòng mỗi ngày lưới thưa + ép index cuối", () => {
+    const rows = runBearDownsideHistory(bars);
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows[rows.length - 1].date).toBe(bars[bars.length - 1].date); // ép ngày cuối
+    // ngày sớm chưa đủ mẫu đáo hạn -> band null
+    expect(rows[0].bands["126"]).toBeNull();
+  });
+
+  it("GOLDEN: dải as-of ngày cuối === runBearDownside(bars).unconditional (5 trường)", () => {
+    const rows = runBearDownsideHistory(bars);
+    const last = rows[rows.length - 1];
+    const uncond = runBearDownside(bars).unconditional; // BearHorizonStat[]
+    for (const H of [21, 63, 126] as const) {
+      const band = last.bands[H];
+      const u = uncond.find((s) => s.horizonDays === H)!;
+      expect(band).not.toBeNull();
+      expect(band!.median).toBeCloseTo(u.median, 6);
+      expect(band!.p10).toBeCloseTo(u.p10, 6);
+      expect(band!.endMedian).toBeCloseTo(u.endMedian, 6);
+      expect(band!.pUp).toBeCloseTo(u.pUp, 6);
+      expect(band!.n).toBe(u.n);
+    }
+  });
+
+  it("không look-ahead: n của dải as-of không giảm theo thời gian", () => {
+    const rows = runBearDownsideHistory(bars).filter((r) => r.bands["21"] !== null);
+    for (let i = 1; i < rows.length; i++) {
+      expect(rows[i].bands["21"]!.n).toBeGreaterThanOrEqual(rows[i - 1].bands["21"]!.n);
+    }
   });
 });
