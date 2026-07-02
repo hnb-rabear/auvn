@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-02T14:36:24.624Z",
+ "generatedAt": "2026-07-02T16:29:58.239Z",
  "dataDate": "2026-07-02",
  "cycle": {
   "prob": 41.3,
@@ -28,28 +28,28 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 43,1: trung tính.",
+    "explanation": "RSI ngày = 42,8: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +2,94: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +2,64: động lượng đang đảo lên.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD trên MA50, lợi suất +0,04đ/3 tháng, Fed -0,01đ: trung tính.",
+    "explanation": "USD trên MA50, lợi suất +0,03đ/3 tháng, Fed -0,01đ: trung tính.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +23,6% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +23,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -95,28 +95,28 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 43,1: trung tính.",
+    "explanation": "RSI ngày = 42,8: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +2,94: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +2,64: động lượng đang đảo lên.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD trên MA50, lợi suất +0,04đ/3 tháng, Fed -0,01đ: trung tính.",
+    "explanation": "USD trên MA50, lợi suất +0,03đ/3 tháng, Fed -0,01đ: trung tính.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +23,6% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +23,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
