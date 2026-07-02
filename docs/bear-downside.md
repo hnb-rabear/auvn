@@ -100,9 +100,39 @@ npx tsx scripts/bear-downside-study.ts   # chạy study, in 3 điều kiện
 2. **Bucket sâu (20–30%, 30+%) thưa mẫu** — vàng ít rơi sâu hơn cổ phiếu, nên thống kê bucket sâu luôn nhiễu.
 3. **Phân phối vô-điều-kiện phụ thuộc chế độ thị trường** — trung vị và P thay đổi theo giai đoạn (train vs test), đừng đọc như hằng số.
 
+## Cải thiện độ chính xác trung vị (2026-07-03) — recency-weighting ĐƯỢC NHẬN, conditioning BỊ BÁC
+
+Người dùng phản ánh trung vị "lệch xa" giá thực khi xem lại lịch sử. Hai study mới chẩn đoán & thử sửa (đọc `public/data/timeline.json` — composite/zone/price/returns walk-forward past-only, production-faithful).
+
+### Study 1 — điều kiện hóa (`scripts/bear-downside-conditioning-study.ts`)
+
+Thử làm trung vị bám hơn bằng cách điều kiện hóa phân phối theo **composite/zone** (câu hỏi user: "ghép Composite được không?"), **composite-bins**, **MA200**, **momentum126**, **zone×MA200**. Thước đo = MAE trung vị walk-forward, tách train(<2019)/test(≥2019), CI block-bootstrap trên ΔMAE, placebo xáo nhãn.
+
+**Kết quả: KHÔNG ứng viên nào đạt** (không cell nào có CIΔ loại 0). MA200 & zone×MA200 **làm TỆ đi** đáng kể (mẫu con thưa → overfit). Zone ≈ baseline. → **Ghép Composite/zone/trend KHÔNG giúp** trung vị bám hơn. Lý do: composite là tín hiệu value/contrarian, nằm yên ở neutral suốt bull nên không sửa được undershoot; zone cực lệch (buy=141, strong-buy=0, và test-era gần như không có ngày buy) → không kiểm chứng được out-of-sample.
+
+### Study 2 — bias & calibration (`scripts/bear-downside-calibration-study.ts`)
+
+Chẩn đoán: bệnh chính là **BIAS do trôi chế độ**, không phải variance. Baseline vô-điều-kiện có bias term **CÓ ý nghĩa thống kê**, ĐẢO DẤU giữa giai đoạn:
+
+| Horizon | TRAIN <2019 (bear 2013) | TEST ≥2019 (bull) |
+| --- | --- | --- |
+| 63p | −2.48% (overshoot, sig) | +3.07% (undershoot, sig) |
+| 126p | −5.57% (overshoot, sig) | **+7.10%** (undershoot, sig) |
+
+Ở 126p term test, dải [p10,p90] chỉ phủ **61%** (kỳ vọng 80) — dải quá hẹp/lệch tâm trong bull.
+
+**Recency-weighting** (trọng số `0.5^(tuổi/halflife)`) sửa đúng bệnh: giảm |bias| ở **cả hai chiều, cả hai chế độ** (126p: train −5.57→−3.13, test +7.10→+5.69 ở hl=504), cải thiện MAE nhẹ. Kiểm định drawdown-state: ngày dd>10% recency **không** overshoot (footgun đảo chiều KHÔNG xảy ra trong lịch sử) — vẫn undershoot nhẹ như baseline.
+
+### Quyết định: `recencyHalflife = 504` (~2 năm)
+
+- 252 khử-bias sạch nhất (xóa significance) nhưng đọc số cực đoan ở đỉnh/hậu-parabolic (126p +18%/pUp 91% khi đang −22% dưới đỉnh). 252 vs 504 **không phân biệt được thống kê** (CI bias chồng nhau) → theo nguyên tắc "artifact decision-support cho người chịu rủi ro thì chọn bảo thủ", ship **504** (126p +13.5%/83.5%).
+- **Trung thực:** cải thiện MAE **KHÔNG** significant (variance chi phối) — đây là hiệu chỉnh **BIAS/chế-độ**, KHÔNG phải dự đoán, KHÔNG làm trung vị = giá thực từng lần. Rủi ro còn lại: hạ trọng số chế độ xa (kiểu bear 2013) nên kém bền nếu lặp lại kịch bản đó — mặt ĐÁY hiển thị cạnh bên là đối trọng rủi ro, và card ghi caveat.
+- Áp cho cả `runBearDownside` (bảng hiện tại) lẫn `runBearDownsideHistory` (máy thời gian as-of) qua cùng `computeHorizonStat(..., {ages, termAges, halflife})` → golden test (as-of ngày cuối === unconditional) tự giữ vì cả hai path cùng trọng số. `computeHorizonStat` không truyền ages ⇒ vô trọng số (giữ unit test cũ).
+
 ## Tested and REJECTED (đừng tái thêm nếu chưa chạy lại study)
 
-Điều kiện hóa phân phối mức-rơi-thêm theo độ sâu drawdown (bucket 0-10/10-20/20-30/30+%) — cả 4 kiểm tra (đơn điệu × tách bạch × 2 giai đoạn) đều KHÔNG đạt. Bucket sâu bất ổn định nghiêm trọng giữa train và test (P=2.1% vs 29.4% ở 20-30%). `conditioningWorks=false`, chỉ ship phân phối vô-điều-kiện.
+1. **Điều kiện hóa theo độ sâu drawdown** (bucket 0-10/10-20/20-30/30+%) — cả 4 kiểm tra (đơn điệu × tách bạch × 2 giai đoạn) đều KHÔNG đạt. Bucket sâu bất ổn định nghiêm trọng train vs test (P=2.1% vs 29.4% ở 20-30%). `conditioningWorks=false`.
+2. **Điều kiện hóa theo composite/zone/MA200/momentum/zone×trend** (2026-07-03, Study 1 trên) — không cải thiện MAE trung vị; MA200/zone×MA200 làm tệ đi. Ghép Composite KHÔNG giúp. Chỉ ship phân phối vô-điều-kiện + recency-weighting.
 
 ## Máy thời gian as-of (card Triển Vọng)
 

@@ -36,6 +36,30 @@ export function terminalReturnPct(closes: number[], i: number, H: number): numbe
   return (closes[i + H] / closes[i] - 1) * 100;
 }
 
+/** Trọng số recency theo tuổi (phiên): 0.5^(tuổi/halflife). halflife≤0 ⇒ đều (=1). */
+function recencyWeights(ages: number[], halflife: number): number[] {
+  if (!(halflife > 0)) return ages.map(() => 1);
+  return ages.map((a) => Math.pow(0.5, a / halflife));
+}
+/** Phân vị q có trọng số (bậc thang): value tại điểm cum-weight vượt q·tổng. */
+function weightedPercentile(values: number[], weights: number[], q: number): number {
+  if (!values.length) return 0;
+  const idx = values.map((_, k) => k).sort((a, b) => values[a] - values[b]);
+  const tot = weights.reduce((s, w) => s + w, 0);
+  if (tot === 0) return values[idx[Math.floor(q * (idx.length - 1))]];
+  let cum = 0;
+  for (const k of idx) { cum += weights[k]; if (cum >= q * tot) return values[k]; }
+  return values[idx[idx.length - 1]];
+}
+/** Tỉ lệ % có trọng số của các phần tử thỏa pred. */
+function weightedFrac(values: number[], weights: number[], pred: (v: number) => boolean): number {
+  const tot = weights.reduce((s, w) => s + w, 0);
+  if (tot === 0) return 0;
+  let s = 0;
+  for (let k = 0; k < values.length; k++) if (pred(values[k])) s += weights[k];
+  return (s / tot) * 100;
+}
+
 /**
  * Thống kê một nhóm cho horizon H. `values` = mức-rơi-thêm (%); `termValues` = lợi suất
  * tại mốc (%) cho mặt KẾT CỤC (endMedian/pUp). blockSize lưới-thưa = round(H/STEP).
@@ -43,25 +67,49 @@ export function terminalReturnPct(closes: number[], i: number, H: number): numbe
  * mỗi lần) khi gọi viên chỉ cần median/p10/endMedian/pUp/n — dùng cho walk-forward as-of
  * (runBearDownsideHistory) nơi CI bị bỏ (BearAsOfBand không lưu CI) nhưng lại được gọi
  * hàng trăm lần trên các mẫu ngày càng lớn, nếu không sẽ rất chậm.
+ *
+ * `opts.halflife>0` + `opts.ages` (cùng độ dài `values`, tuổi mỗi mẫu tính bằng phiên tới
+ * ngày as-of) ⇒ TÁI TRỌNG SỐ recency: phân phối bám chế độ gần đây, sửa thiên lệch
+ * trôi-chế-độ. Khi TẮT (mặc định) dùng percentile nội suy như cũ (giữ nguyên unit test +
+ * dữ liệu cũ). CI luôn tính trên mảng KHÔNG trọng số (chỉ là trường legacy, card không hiển thị).
  */
-export function computeHorizonStat(values: number[], H: number, termValues: number[] = [], skipCi = false): BearHorizonStat {
+export function computeHorizonStat(
+  values: number[], H: number, termValues: number[] = [], skipCi = false,
+  opts: { ages?: number[]; termAges?: number[]; halflife?: number } = {}
+): BearHorizonStat {
   const n = values.length;
-  const blk = Math.max(1, Math.round(H / STEP));
-  const favArr = values.map((v) => (v >= 0 ? 1 : -1));
-  const pos = favArr.filter((x) => x > 0).length;
   const tn = termValues.length;
+  const blk = Math.max(1, Math.round(H / STEP));
+  const hl = opts.halflife ?? 0;
+  const weighted = hl > 0 && !!opts.ages && opts.ages.length === n;
+  const r1 = (x: number) => Math.round(x * 10) / 10;
+
+  let median = 0, p10 = 0, p90 = 0, pBottomBehind = 0, endMedian = 0, pUp = 0;
+  if (weighted) {
+    const w = recencyWeights(opts.ages!, hl);
+    median = n ? r1(weightedPercentile(values, w, 0.5)) : 0;
+    p10 = n ? r1(weightedPercentile(values, w, 0.1)) : 0;
+    p90 = n ? r1(weightedPercentile(values, w, 0.9)) : 0;
+    pBottomBehind = n ? Math.round(weightedFrac(values, w, (v) => v >= 0) * 10) / 10 : 0;
+    const tw = opts.termAges && opts.termAges.length === tn ? recencyWeights(opts.termAges, hl) : termValues.map(() => 1);
+    endMedian = tn ? r1(weightedPercentile(termValues, tw, 0.5)) : 0;
+    pUp = tn ? Math.round(weightedFrac(termValues, tw, (v) => v > 0) * 10) / 10 : 0;
+  } else {
+    median = n ? r1(percentile(values, 0.5)) : 0;
+    p10 = n ? r1(percentile(values, 0.1)) : 0;
+    p90 = n ? r1(percentile(values, 0.9)) : 0;
+    pBottomBehind = n ? Math.round((values.filter((v) => v >= 0).length / n) * 1000) / 10 : 0;
+    endMedian = tn ? r1(percentile(termValues, 0.5)) : 0;
+    pUp = tn ? Math.round((termValues.filter((v) => v > 0).length / tn) * 1000) / 10 : 0;
+  }
+  const favArr = values.map((v) => (v >= 0 ? 1 : -1));
   const upArr = termValues.map((v) => (v > 0 ? 1 : -1));
-  const upPos = upArr.filter((x) => x > 0).length;
   return {
     horizonDays: H,
-    median: n ? Math.round(percentile(values, 0.5) * 10) / 10 : 0,
-    p10: n ? Math.round(percentile(values, 0.1) * 10) / 10 : 0,
-    p90: n ? Math.round(percentile(values, 0.9) * 10) / 10 : 0,
-    pBottomBehind: n ? Math.round((pos / n) * 1000) / 10 : 0,
+    median, p10, p90, pBottomBehind,
     pCi: skipCi ? null : blockBootstrapCi(favArr, blk),
     medianCi: skipCi ? null : blockBootstrapPercentileCi(values, 0.5, blk),
-    endMedian: tn ? Math.round(percentile(termValues, 0.5) * 10) / 10 : 0,
-    pUp: tn ? Math.round((upPos / tn) * 1000) / 10 : 0,
+    endMedian, pUp,
     pUpCi: skipCi ? null : blockBootstrapCi(upArr, blk),
     n,
   };
@@ -99,21 +147,29 @@ export function runBearDownside(
   const dates = bars.map((b) => b.date);
   const ath = rollingAth(closes);
   const ddFrac = closes.map((c, i) => (ath[i] === 0 ? 0 : (ath[i] - c) / ath[i]));
+  const hl = cfg.recencyHalflife ?? 0;
+  const last = closes.length - 1;
 
-  // gom mức-rơi-thêm (dip) + lợi suất tại mốc (term) theo bucket × horizon + vô-điều-kiện
+  // gom mức-rơi-thêm (dip) + lợi suất tại mốc (term) theo bucket × horizon + vô-điều-kiện,
+  // kèm tuổi mẫu (phiên) tính tới ngày as-of = last, để tái trọng số recency.
   const byBucket: number[][][] = BUCKETS.map(() => HORIZONS.map(() => []));
   const byBucketTerm: number[][][] = BUCKETS.map(() => HORIZONS.map(() => []));
+  const byBucketAge: number[][][] = BUCKETS.map(() => HORIZONS.map(() => []));
+  const byBucketTermAge: number[][][] = BUCKETS.map(() => HORIZONS.map(() => []));
   const uncond: number[][] = HORIZONS.map(() => []);
   const uncondTerm: number[][] = HORIZONS.map(() => []);
+  const uncondAge: number[][] = HORIZONS.map(() => []);
+  const uncondTermAge: number[][] = HORIZONS.map(() => []);
   for (let i = 0; i < closes.length; i += STEP) {
     const b = bucketOf(ddFrac[i]);
+    const age = last - i;
     HORIZONS.forEach((H, h) => {
       const fd = furtherDrawdownPct(closes, i, H);
       if (fd === null) return;
-      byBucket[b][h].push(fd);
-      uncond[h].push(fd);
+      byBucket[b][h].push(fd); byBucketAge[b][h].push(age);
+      uncond[h].push(fd); uncondAge[h].push(age);
       const tr = terminalReturnPct(closes, i, H);
-      if (tr !== null) { byBucketTerm[b][h].push(tr); uncondTerm[h].push(tr); }
+      if (tr !== null) { byBucketTerm[b][h].push(tr); byBucketTermAge[b][h].push(age); uncondTerm[h].push(tr); uncondTermAge[h].push(age); }
     });
   }
 
@@ -121,11 +177,10 @@ export function runBearDownside(
     bucketIdx: b,
     ddLowPct: Math.round(bk.lo * 100),
     ddHighPct: bk.hi === null ? null : Math.round(bk.hi * 100),
-    horizons: HORIZONS.map((H, h) => computeHorizonStat(byBucket[b][h], H, byBucketTerm[b][h])),
+    horizons: HORIZONS.map((H, h) => computeHorizonStat(byBucket[b][h], H, byBucketTerm[b][h], false, { ages: byBucketAge[b][h], termAges: byBucketTermAge[b][h], halflife: hl })),
   }));
-  const unconditional = HORIZONS.map((H, h) => computeHorizonStat(uncond[h], H, uncondTerm[h]));
+  const unconditional = HORIZONS.map((H, h) => computeHorizonStat(uncond[h], H, uncondTerm[h], false, { ages: uncondAge[h], termAges: uncondTermAge[h], halflife: hl }));
 
-  const last = closes.length - 1;
   const currentBucketIdx = bucketOf(ddFrac[last]);
   const useBucket = cfg.conditioningWorks && buckets[currentBucketIdx].horizons[0].n >= MIN_N;
   const shownSource: "bucket" | "unconditional" = useBucket ? "bucket" : "unconditional";
@@ -166,9 +221,11 @@ export function runBearDownsideHistory(bars: { date: string; close: number }[]):
   for (let i = 0; i < n; i += STEP) gridX.push(i);
   if (gridX[gridX.length - 1] !== n - 1) gridX.push(n - 1);
 
-  const toBand = (dips: number[], terms: number[], H: number): BearAsOfBand | null => {
+  const hl = BEAR_DOWNSIDE_CONFIG.recencyHalflife ?? 0;
+  const toBand = (dips: number[], terms: number[], dipAges: number[], termAges: number[], H: number): BearAsOfBand | null => {
     if (dips.length < MIN_N) return null;
-    const s = computeHorizonStat(dips, H, terms, true); // skipCi: as-of band không lưu CI, tránh bootstrap thừa
+    // skipCi: as-of band không lưu CI, tránh bootstrap thừa. ages+halflife: tái trọng số recency (khớp runBearDownside).
+    const s = computeHorizonStat(dips, H, terms, true, { ages: dipAges, termAges, halflife: hl });
     return { median: s.median, p10: s.p10, endMedian: s.endMedian, pUp: s.pUp, n: s.n };
   };
 
@@ -177,15 +234,17 @@ export function runBearDownsideHistory(bars: { date: string; close: number }[]):
     HORIZONS.forEach((H) => {
       const dips: number[] = [];
       const terms: number[] = [];
+      const dipAges: number[] = [];
+      const termAges: number[] = [];
       for (let j = 0; j <= X; j += STEP) {
         if (j + H > X) continue; // chỉ mẫu đã đáo hạn as-of X
         const fd = furtherDrawdownPct(closes, j, H);
         if (fd === null) continue;
-        dips.push(fd);
+        dips.push(fd); dipAges.push(X - j);
         const tr = terminalReturnPct(closes, j, H);
-        if (tr !== null) terms.push(tr);
+        if (tr !== null) { terms.push(tr); termAges.push(X - j); }
       }
-      bands[String(H) as "21" | "63" | "126"] = toBand(dips, terms, H);
+      bands[String(H) as "21" | "63" | "126"] = toBand(dips, terms, dipAges, termAges, H);
     });
     return { date: dates[X], bands };
   });

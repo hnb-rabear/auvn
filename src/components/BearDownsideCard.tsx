@@ -117,7 +117,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
               <li><b>Cơ hội tăng</b> — % số lần giá cao hơn hôm nay.</li>
             </ul>
             {tailOld && <p>Hiếm gặp (~1/10 lần tệ nhất), giá có lúc dúi sâu tới: {tailOld}.</p>}
-            <p className="muted">Phân phối lịch sử — tham khảo rủi ro, không phải dự đoán.</p>
+            <p className="muted">Phân phối theo trọng số hồi quy (ưu tiên ~2 năm gần) để bám chế độ hiện tại — tham khảo rủi ro, không phải dự đoán.</p>
           </div>
         )}
         <div className="bt-table-wrap">
@@ -201,7 +201,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
             <li><b>Cơ hội tăng</b> — % số lần giá cao hơn hôm nay.</li>
           </ul>
           {tail && <p>Hiếm gặp (~1/10 lần tệ nhất), giá có lúc dúi sâu tới: {tail}.</p>}
-          <p className="muted">Tái hiện lịch sử để đối chiếu — KHÔNG phải dự đoán. Mẫu XAU/USD ~20 năm chủ yếu bull.</p>
+          <p className="muted">Phân phối tính theo trọng số hồi quy (ưu tiên ~2 năm gần) để bám chế độ thị trường hiện tại — nên cột kết cục nghiêng theo xu hướng gần đây; cột đáy là đối trọng rủi ro. Tái hiện lịch sử để đối chiếu, KHÔNG phải dự đoán.</p>
         </div>
       )}
 

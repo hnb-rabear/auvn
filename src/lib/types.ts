@@ -561,5 +561,20 @@ export interface BearAsOfRow {
   bands: Record<"21" | "63" | "126", BearAsOfBand | null>;
 }
 
-export interface BearDownsideConfig { conditioningWorks: boolean; }
-export const BEAR_DOWNSIDE_CONFIG: BearDownsideConfig = { conditioningWorks: false };
+export interface BearDownsideConfig {
+  conditioningWorks: boolean;
+  /**
+   * Half-life (phiên) cho trọng số recency của phân phối Triển vọng. Mẫu cũ
+   * giảm trọng số theo 0.5^(tuổi/halflife) → phân phối bám CHẾ ĐỘ gần đây, sửa
+   * thiên lệch trôi-chế-độ (baseline vô-điều-kiện undershoot ~+7% ở 126p trong
+   * bull, CÓ ý nghĩa thống kê — xem scripts/bear-downside-calibration-study.ts).
+   * 0 = tắt (đều). Mặc định 504 (~2 năm): giảm undershoot & MAE ở cả train/test,
+   * nhưng bảo thủ hơn 252 — vì 252/504 KHÔNG phân biệt được thống kê (CI bias
+   * chồng nhau) mà card là decision-support, chọn cái tiết chế đọc số cực đoan ở
+   * đỉnh (đỡ footgun mua đỉnh). LƯU Ý: cải thiện MAE KHÔNG significant (variance
+   * chi phối) — đây là hiệu chỉnh BIAS/chế-độ, KHÔNG phải dự đoán; đảo chiều mạnh
+   * có thể làm overshoot tạm thời (mặt đáy hiển thị cạnh bên là đối trọng rủi ro).
+   */
+  recencyHalflife?: number;
+}
+export const BEAR_DOWNSIDE_CONFIG: BearDownsideConfig = { conditioningWorks: false, recencyHalflife: 504 };
