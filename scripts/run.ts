@@ -27,13 +27,13 @@ import {
   type BottomAnalysis,
 } from "../src/lib/types";
 import { runBottom } from "../src/lib/bottom";
-import { forwardFillBottomHistory } from "../src/lib/timeline";
+import { forwardFillBottomHistory, forwardFillBearAsOf } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
 import { runAccumulation } from "../src/lib/accumulation";
 import { monitorAccumulation } from "./monitor-accumulation";
 import type { AccumPoint } from "../src/lib/types";
 import { runBearDca, monitorBearDca } from "../src/lib/bear-dca";
-import { runBearDownside } from "../src/lib/bear-downside";
+import { runBearDownside, runBearDownsideHistory } from "../src/lib/bear-downside";
 import type { BearDcaPoint } from "../src/lib/types";
 import type { BearDownsideAnalysis } from "../src/lib/types";
 
@@ -312,6 +312,8 @@ async function main() {
   }));
   const bearDca = runBearDca(bearDcaPoints);
   const bearDownside: BearDownsideAnalysis = runBearDownside(xauRes.bars);
+  // Làm giàu timeline bằng dải Bear Downside as-of (walk-forward) cho máy thời gian card Triển Vọng.
+  forwardFillBearAsOf(timeline.points, runBearDownsideHistory(xauRes.bars));
   const bearDcaHealth = monitorBearDca(bearDcaPoints);
 
   const bottomHealth: BottomHealth = monitorBottom(
