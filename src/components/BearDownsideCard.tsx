@@ -156,7 +156,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
               <Row
                 key={H}
                 H={H}
-                band={p.bearAsOf![H]}
+                band={p.bearAsOf?.[H] ?? null}
                 price={p.price}
                 actualDip={actualWorstDipPct(prices, X, Number(H))}
                 actualTerm={p.returns[H]}
