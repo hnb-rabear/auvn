@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-03T00:50:26.339Z",
+ "generatedAt": "2026-07-03T00:56:43.245Z",
  "dataDate": "2026-07-03",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148400000,
   "ringBuy": 145000000,
   "ringSell": 148000000,
-  "xauUsd": 4150.7998046875,
+  "xauUsd": 4149,
   "usdVnd": 26465,
-  "worldVndPerLuong": 132442087,
+  "worldVndPerLuong": 132384660,
   "premiumPct": 12.05,
-  "premiumVnd": 15957913
+  "premiumVnd": 16015340
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 43,9: trung tính.",
+     "explanation": "RSI ngày = 43,8: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 43,6: trung tính.",
+     "explanation": "RSI tuần = 43,5: trung tính.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101 (trên MA50, +1,5% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101 (trên MA50, +1,4% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 27,3%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 27,2%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +24% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +23,9% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -186,7 +186,10 @@
  "composite": 9.7,
  "zone": "neutral",
  "vnHistoryDays": 492,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2163,11 +2166,11 @@
   "p80": 16.62
  },
  "sourceTimes": {
-  "world": "2026-07-03T00:40:21.000Z",
-  "dxy": "2026-07-03T00:40:23.000Z",
+  "world": "2026-07-03T00:45:38.000Z",
+  "dxy": "2026-07-03T00:45:41.000Z",
   "yield10y": "2026-07-02T12:20:00.000Z",
-  "vnGold": "2026-07-03T00:50:26.339Z",
-  "usdVnd": "2026-07-03T00:50:26.339Z",
-  "fed": "2026-07-03T00:50:26.339Z"
+  "vnGold": null,
+  "usdVnd": "2026-07-03T00:56:43.245Z",
+  "fed": null
  }
 }
