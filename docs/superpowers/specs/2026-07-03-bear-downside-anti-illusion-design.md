@@ -15,18 +15,19 @@ Không đụng engine thống kê (recency-504, pUp giữ nguyên — đã kiể
 
 ## Thiết kế
 
-### Bảng — mỗi kỳ hạn 1 hàng
+### Bảng — mỗi kỳ hạn 1 hàng (giá là chính, % nhỏ phụ — gọn cho mobile)
 
 | Cột | Nội dung | Nguồn |
 | --- | --- | --- |
 | Kỳ hạn | 1/3/6 tháng | — |
-| **Rủi ro dúi** (giữa→xấu) | dải `median → p10` của mức-rơi-thêm, kèm % và giá làm tròn | `band.median`, `band.p10` (đã có) |
-| **Kết cục điển hình** (50% giữa) | dải `p25 → p75` của lợi suất tại mốc, kèm % và giá | `band.endP25`, `band.endP75` (**MỚI**) |
+| **Đáy điển hình** | 1 số: `median` mức-rơi-thêm (giá to, % nhỏ). Đuôi p10 để ở dòng "hiếm gặp ~1/10" | `band.median` (đã có) |
+| **Kết cục điển hình** (50% giữa) | dải `p25 → p75` của lợi suất tại mốc: **giá to** `~$4.3k→$5.0k`, **% nhỏ xám** `+3%…+21%` | `band.endP25`, `band.endP75` (**MỚI**) |
 | Thực tế | giá đáy + kết thực tế khi đã đáo hạn; "chưa đáo hạn" nếu chưa | như hiện tại |
 | **Khả năng** | `pUp%↑ / (100−pUp)%↓` (hai chiều, thay "Cơ hội tăng" một chiều) | `band.pUp` |
 
-- **Bỏ số-điểm-median khỏi hiển thị** (chỉ còn dải) — chống neo điểm. `endMedian` vẫn giữ trong dữ liệu nhưng không in.
-- **Làm tròn:** giá → ~$100 gần nhất, hiển thị dạng `~$4.0k`; % → số nguyên; tiền tố `~`.
+- Chỉ **cột Kết cục** thành dải (đủ để lộ độ tản/bất định); **đáy giữ 1 số** để đỡ chật (dải cho cả hai là thừa).
+- **Làm tròn:** giá → ~$100 gần nhất, hiển thị `~$4.0k`; % → số nguyên; tiền tố `~`.
+- **Không đẻ file helper** — format dải/làm tròn inline trong component (đã có `usd/fmt1/signed`).
 
 ### Nhãn chế độ — hiện LUÔN dưới bảng (không giấu trong ⓘ)
 
@@ -38,10 +39,10 @@ Không đụng engine thống kê (recency-504, pUp giữ nguyên — đã kiể
 
 | Ảo giác | Cơ chế chặn |
 | --- | --- |
-| Trung vị-như-dự-đoán | hiện DẢI thay 1 số; bỏ số điểm |
-| Giả-chính-xác | làm tròn ~$100 + `~` + dải rộng lộ bất định |
+| Trung vị-như-dự-đoán | Kết cục hiện DẢI (p25→p75) thay số điểm; đáy giữ "điển hình" |
+| Giả-chính-xác | làm tròn ~$100 + `~` + dải lộ bất định |
 | Không thấy nghiêng bull | nhãn chế độ luôn hiện |
-| Neo pUp/quên rủi ro | dải kết HAI CHIỀU (đầu thấp âm ở 1–3T) + cột rủi ro dúi + ↑/↓ |
+| Neo pUp/quên rủi ro | dải kết HAI CHIỀU (đầu thấp âm ở 1–3T) + cột đáy rủi ro + ↑/↓ |
 
 ## Thay đổi kỹ thuật
 
