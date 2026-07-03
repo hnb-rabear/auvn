@@ -38,19 +38,21 @@ export function qtyForPhase(phase: BearPhase, dd: number, pct2y: number | null):
   }
 }
 
+// Quy ước dấu THỐNG NHẤT với dòng "Gợi ý" trên card: ddChange dương = đáy SÂU THÊM
+// (điểm % của drawdown/tháng — không phải % giá, hai số lệch nhau khi dd sâu).
 function noteFor(phase: BearPhase, dd: number, ddChange: number, pct2y: number | null): string {
   const ddP = Math.round(dd * 100);
-  const chP = Math.round(ddChange * 100);
+  const chP = Math.round(Math.abs(ddChange) * 100);
   switch (phase) {
     case "bull":
       return "Thị trường không ở vùng Bear — gom đều tay.";
     case "acute":
-      return `Giá đang sụp cấp tính (−${chP}%/tháng). Cách đỉnh ${ddP}% — dùng độ sâu để tính khối lượng.`;
+      return `Giá đang sụp cấp tính (đáy sâu thêm +${chP} điểm %/tháng). Cách đỉnh ${ddP}% — dùng độ sâu để tính khối lượng.`;
     case "recovery":
-      return `Giá đang hồi phục (+${Math.abs(chP)}%/tháng từ đáy). Gom mạnh ×1.5 — đây là cược giá tiếp tục lên.`;
+      return `Giá đang hồi phục (đáy thu hẹp ${chP} điểm %/tháng). Gom mạnh ×1.5 — đây là cược giá tiếp tục lên.`;
     case "grind":
       return pct2y !== null
-        ? `Bear rỉ máu. Giá ở ${Math.round(pct2y * 100)}% dải 2 năm — dùng vị trí giá để tính khối lượng.`
+        ? `Bear rỉ máu. Giá ở percentile ${Math.round(pct2y * 100)}% của 2 năm gần — dùng vị trí giá để tính khối lượng.`
         : "Bear rỉ máu. Chưa đủ dữ liệu pct2y — dùng mức trung bình.";
   }
 }
@@ -60,6 +62,31 @@ function rollingAth(prices: number[]): number[] {
   let mx = 0;
   for (const p of prices) { if (p > mx) mx = p; ath.push(mx); }
   return ath;
+}
+
+/**
+ * Pha + hệ số Bear DCA as-of index i (past-only, walk-forward): dd từ rolling ATH
+ * tới i, ddChange so CYCLE_STEP phiên trước. Cho Time Machine hiển thị CÙNG con số
+ * với card "Mức mua tháng này" — trước đây Time Machine hiện lớp phanh cũ (×0.25)
+ * mâu thuẫn với card (×1.0) cùng ngày.
+ */
+export function bearDcaAt(
+  prices: number[],
+  i: number,
+  pct2y: number | null
+): { phase: BearPhase; mult: number; dd: number } {
+  if (i < 0 || i >= prices.length) return { phase: "bull", mult: 1, dd: 0 };
+  const prevIdx = Math.max(0, i - CYCLE_STEP);
+  let athNow = -Infinity;
+  let athPrev = -Infinity;
+  for (let j = 0; j <= i; j++) {
+    if (prices[j] > athNow) athNow = prices[j];
+    if (j <= prevIdx && prices[j] > athPrev) athPrev = prices[j];
+  }
+  const dd = athNow > 0 ? (athNow - prices[i]) / athNow : 0;
+  const ddPrev = athPrev > 0 ? (athPrev - prices[prevIdx]) / athPrev : 0;
+  const phase = classifyPhase(dd, dd - ddPrev);
+  return { phase, mult: qtyForPhase(phase, dd, pct2y), dd };
 }
 
 export function runBearDca(points: BearDcaPoint[]): BearDcaAnalysis {
@@ -90,6 +117,19 @@ export function runBearDca(points: BearDcaPoint[]): BearDcaAnalysis {
   };
 }
 
+const HEALTH_MIN_CYCLES = 12;  // tổng nhịp tối thiểu trong cửa sổ 2 năm
+const HEALTH_MIN_BEAR   = 6;   // nhịp bear tối thiểu — dưới mức này lớp gần như chưa can thiệp
+const HEALTH_NOISE_PP   = 0.5; // vùng nhiễu (điểm %): chỉ "degraded" khi RÕ RÀNG âm
+
+/**
+ * Sức khỏe lớp trên ~2 năm gần. Ba nguyên tắc (sửa 2026-07-03):
+ * 1. Chỉ chấm khi có ≥HEALTH_MIN_BEAR nhịp bear — nhịp bull q=1 y hệt baseline nên
+ *    gộp vào chỉ pha loãng điểm về 0 (phiên bản cũ cho "degraded" oan ngay khi bear
+ *    vừa bắt đầu, hoặc mặc định degraded trong bull thuần vì impr=0 không > 0).
+ * 2. Giá vốn tính TRÊN NHỊP BEAR; kèm metric tài sản cuối TOÀN cửa sổ — chính
+ *    docs/bear-dca.md: "giá vốn thuần đánh lừa" (gom ít → giá vốn đẹp nhưng ít vàng).
+ * 3. Vùng nhiễu ±HEALTH_NOISE_PP: một nhịp xấu không được lật banner cảnh báo.
+ */
 export function monitorBearDca(points: BearDcaPoint[]): BearDcaHealth {
   const prices = points.map(p => p.price);
   const ath = rollingAth(prices);
@@ -104,25 +144,50 @@ export function monitorBearDca(points: BearDcaPoint[]): BearDcaHealth {
     if (dates[i] >= cutoff) recent.push(i);
   }
 
-  if (recent.length < 12) {
-    return { generatedAt: new Date().toISOString(), recentImprPct: null, status: "insufficient" };
+  const generatedAt = new Date().toISOString();
+  if (recent.length < HEALTH_MIN_CYCLES) {
+    return { generatedAt, recentImprPct: null, recentAssetImprPct: null, recentBearCycles: 0, status: "insufficient" };
   }
 
-  let bV = 0, bL = 0, cV = 0, cL = 0;
-  for (const i of recent) {
+  const cycles = recent.map((i) => {
     const ddNow = (ath[i] - prices[i]) / ath[i];
     const prevIdx = Math.max(0, i - CYCLE_STEP);
     const ddPrev = (ath[prevIdx] - prices[prevIdx]) / ath[prevIdx];
     const phase = classifyPhase(ddNow, ddNow - ddPrev);
-    const q = qtyForPhase(phase, ddNow, points[i].pricePct2y);
-    bV += 1; bL += 1 / prices[i];
-    cV += q; cL += q / prices[i];
+    return { phase, q: qtyForPhase(phase, ddNow, points[i].pricePct2y), price: prices[i] };
+  });
+  const bear = cycles.filter((c) => c.phase !== "bull");
+  if (bear.length < HEALTH_MIN_BEAR) {
+    return { generatedAt, recentImprPct: null, recentAssetImprPct: null, recentBearCycles: bear.length, status: "insufficient" };
   }
 
-  const impr = bL > 0 && cL > 0 ? (bV / bL - cV / cL) / (bV / bL) : 0;
+  // Giá vốn vs gom đều — chỉ nhịp bear (nơi q ≠ 1).
+  let bV = 0, bL = 0, cV = 0, cL = 0;
+  for (const c of bear) {
+    bV += 1; bL += 1 / c.price;
+    cV += c.q; cL += c.q / c.price;
+  }
+  const imprCost = bL > 0 && cL > 0 ? (bV / bL - cV / cL) / (bV / bL) : 0;
+
+  // Tài sản cuối vs gom đều — toàn cửa sổ, ngân sách 1/nhịp, tiền chưa tiêu để mặt
+  // (gom quá ngân sách xem như vay 0% — xấp xỉ như study taxonomy).
+  const pEnd = prices[prices.length - 1];
+  let units = 0, spent = 0, unitsFlat = 0;
+  for (const c of cycles) {
+    units += c.q / c.price; spent += c.q;
+    unitsFlat += 1 / c.price;
+  }
+  const assetFlat = unitsFlat * pEnd;
+  const assetStrat = units * pEnd + (cycles.length - spent);
+  const imprAsset = assetFlat > 0 ? (assetStrat - assetFlat) / assetFlat : 0;
+
+  const cPct = Math.round(imprCost * 1000) / 10;
+  const aPct = Math.round(imprAsset * 1000) / 10;
   return {
-    generatedAt: new Date().toISOString(),
-    recentImprPct: Math.round(impr * 1000) / 10,
-    status: impr > 0 ? "ok" : "degraded",
+    generatedAt,
+    recentImprPct: cPct,
+    recentAssetImprPct: aPct,
+    recentBearCycles: bear.length,
+    status: cPct < -HEALTH_NOISE_PP || aPct < -HEALTH_NOISE_PP ? "degraded" : "ok",
   };
 }

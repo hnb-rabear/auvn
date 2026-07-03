@@ -509,7 +509,13 @@ export interface BearDcaAnalysis {
 
 export interface BearDcaHealth {
   generatedAt: string;
-  recentImprPct: number | null; // % cải thiện giá vốn vs BASE trên ~2 năm gần nhất
+  /** % cải thiện giá vốn vs gom đều — CHỈ trên các nhịp bear ~2 năm gần (nhịp bull q=1 pha loãng). null khi chưa đủ nhịp bear. */
+  recentImprPct: number | null;
+  /** % cải thiện tài sản cuối vs gom đều — toàn cửa sổ, ngân sách cố định (giá vốn thuần đánh lừa, xem docs/bear-dca.md). */
+  recentAssetImprPct: number | null;
+  /** số nhịp bear (phase ≠ bull) trong cửa sổ — cần ≥6 mới chấm điểm */
+  recentBearCycles: number;
+  /** degraded chỉ khi một trong hai metric < −0.5 điểm % (vùng nhiễu) */
   status: "ok" | "degraded" | "insufficient";
 }
 
@@ -519,13 +525,16 @@ export interface BearHorizonStat {
   p10: number;           // % kịch bản xấu
   p90: number;           // %
   pBottomBehind: number; // % (furtherDrawdown ≥ 0)
-  pCi: [number, number] | null;      // CI cho pBottomBehind
-  medianCi: [number, number] | null; // CI cho median
+  /** CI 95% cho pBottomBehind — CÙNG hệ trọng số với điểm ước lượng (weighted khi recency bật) */
+  pCi: [number, number] | null;
+  /** CI 95% cho median — cùng hệ trọng số với điểm ước lượng */
+  medianCi: [number, number] | null;
   endMedian: number;                 // % trung vị lợi suất TẠI MỐC H (giá[t+H]/giá[t]−1) — mặt kết cục
   endP25: number;                    // % p25 lợi suất tại mốc — đầu THẤP dải kết cục điển hình
   endP75: number;                    // % p75 lợi suất tại mốc — đầu CAO dải kết cục điển hình
   pUp: number;                       // % lần giá kết CAO hơn hôm nay tại mốc H
-  pUpCi: [number, number] | null;    // CI cho pUp
+  /** CI 95% cho pUp — cùng hệ trọng số với điểm ước lượng */
+  pUpCi: [number, number] | null;
   n: number;
 }
 export interface BearBucketStat {
@@ -559,7 +568,7 @@ export interface BearAsOfBand {
   n: number;
 }
 
-/** Dải as-of của một ngày lưới thưa, mọi horizon. band=null khi n<MIN_N. */
+/** Dải as-of của một ngày lưới thưa, mọi horizon. band=null khi chưa đủ mẫu (enoughSamples: n≥30 VÀ ≥10 cửa sổ độc lập). */
 export interface BearAsOfRow {
   date: string;
   bands: Record<"21" | "63" | "126", BearAsOfBand | null>;

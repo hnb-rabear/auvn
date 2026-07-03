@@ -1,6 +1,6 @@
 // src/lib/bear-downside.test.ts
 import { describe, it, expect } from "vitest";
-import { bucketOf, furtherDrawdownPct, terminalReturnPct, computeHorizonStat, BUCKETS, runBearDownside } from "./bear-downside";
+import { bucketOf, furtherDrawdownPct, terminalReturnPct, computeHorizonStat, enoughSamples, BUCKETS, runBearDownside } from "./bear-downside";
 import { runBearDownsideHistory } from "./bear-downside";
 
 describe("bucketOf", () => {
@@ -66,6 +66,42 @@ describe("computeHorizonStat", () => {
     expect(s.endP25).toBeLessThanOrEqual(s.endMedian);
     expect(s.endMedian).toBeLessThanOrEqual(s.endP75);
   });
+  it("WEIGHTED: CI cùng hệ trọng số — điểm ước lượng nằm TRONG CI của chính nó", () => {
+    // nửa cũ tệ (dip sâu, term âm), nửa mới đẹp (dip nông, term dương) → weighted lệch
+    // hẳn khỏi unweighted; CI phải bám điểm weighted (lỗi cũ: pUp weighted ngoài CI unweighted).
+    const nOld = 60, nNew = 60;
+    const vals = [...Array(nOld).fill(-10), ...Array(nNew).fill(-1)];
+    const term = [...Array(nOld).fill(-8), ...Array(nNew).fill(6)];
+    const ages = [...Array(nOld).fill(3000), ...Array(nNew).fill(60)]; // cũ ~6 half-life → trọng số ≈0
+    const s = computeHorizonStat(vals, 63, term, false, { ages, termAges: ages, halflife: 504 });
+    expect(s.median).toBeCloseTo(-1, 1); // bám chế độ mới
+    expect(s.pUp).toBeGreaterThan(90);   // unweighted chỉ ~50%
+    expect(s.pUpCi).not.toBeNull();
+    expect(s.pUpCi![0]).toBeLessThanOrEqual(s.pUp);
+    expect(s.pUpCi![1]).toBeGreaterThanOrEqual(s.pUp);
+    expect(s.medianCi![0]).toBeLessThanOrEqual(s.median);
+    expect(s.medianCi![1]).toBeGreaterThanOrEqual(s.median);
+    expect(s.pCi![0]).toBeLessThanOrEqual(s.pBottomBehind);
+    expect(s.pCi![1]).toBeGreaterThanOrEqual(s.pBottomBehind);
+  });
+  it("UNWEIGHTED: CI giữ hành vi cũ (điểm nằm trong CI, cùng dữ liệu)", () => {
+    const vals = [...Array(60).fill(-10), ...Array(60).fill(-1)];
+    const term = [...Array(60).fill(-8), ...Array(60).fill(6)];
+    const s = computeHorizonStat(vals, 63, term);
+    expect(s.pUp).toBeCloseTo(50, 0);
+    expect(s.pUpCi![0]).toBeLessThanOrEqual(s.pUp);
+    expect(s.pUpCi![1]).toBeGreaterThanOrEqual(s.pUp);
+  });
+});
+
+describe("enoughSamples", () => {
+  it("cần cả n≥30 VÀ ≥10 cửa sổ độc lập (n·STEP/H)", () => {
+    expect(enoughSamples(69, 21)).toBe(false);  // 69·3/21 = 9.86 < 10
+    expect(enoughSamples(70, 21)).toBe(true);
+    expect(enoughSamples(30, 126)).toBe(false); // 30 mẫu raw ≈ 0.7 cửa sổ 6T — tự tin giả
+    expect(enoughSamples(419, 126)).toBe(false);
+    expect(enoughSamples(420, 126)).toBe(true);
+  });
 });
 
 describe("runBearDownside", () => {
@@ -92,8 +128,9 @@ describe("runBearDownside", () => {
 
 describe("runBearDownsideHistory", () => {
   // chuỗi tăng dần có nhịp dúi định kỳ để có mẫu cả hai phía
-  const bars = Array.from({ length: 900 }, (_, i) => ({
-    date: `2020-${String(1 + Math.floor(i / 300)).padStart(2, "0")}-${String(1 + (i % 28)).padStart(2, "0")}`,
+  // (dài 2000 để 126p đủ ngưỡng enoughSamples: n≥420 mẫu lưới thưa ≈ 10 cửa sổ độc lập)
+  const bars = Array.from({ length: 2000 }, (_, i) => ({
+    date: `20${String(20 + Math.floor(i / 336)).padStart(2, "0")}-${String(1 + (Math.floor(i / 28) % 12)).padStart(2, "0")}-${String(1 + (i % 28)).padStart(2, "0")}`,
     close: 1000 + i - (i % 30 === 0 ? 50 : 0),
   }));
 
@@ -105,7 +142,7 @@ describe("runBearDownsideHistory", () => {
     expect(rows[0].bands["126"]).toBeNull();
   });
 
-  it("GOLDEN: dải as-of ngày cuối === runBearDownside(bars).unconditional (5 trường)", () => {
+  it("GOLDEN: dải as-of ngày cuối === runBearDownside(bars).unconditional (7 trường)", () => {
     const rows = runBearDownsideHistory(bars);
     const last = rows[rows.length - 1];
     const uncond = runBearDownside(bars).unconditional; // BearHorizonStat[]

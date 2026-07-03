@@ -55,6 +55,29 @@ tháng)*, KHÔNG cộng hưởng với bài toán *giá vốn 2–3 năm* của 
 lượng vốn mỏng (placebo gần chạm). Đây là **lan can phản ứng theo pha, không phải máy dự
 báo**. Mô hình tối giản (pha + pct2y/dd) là toàn bộ câu chuyện.
 
+## Health monitor + đồng bộ UI (2026-07-03, sau review)
+
+`monitorBearDca` cũ có 3 lỗi tin cậy: (1) đo CHỈ giá vốn — chính doc này ghi "giá vốn thuần
+đánh lừa"; (2) cửa sổ 2 năm gộp cả nhịp bull (q=1 y hệt baseline) pha loãng điểm về 0 →
+bull thuần cho `impr=0` → "degraded" oan, và bear-vừa-bắt-đầu là lúc banner dễ sai nhất;
+(3) `impr > 0` strict, không vùng nhiễu — một nhịp xấu lật banner. Bản mới:
+
+- Chỉ chấm khi ≥6 **nhịp bear** trong cửa sổ (`recentBearCycles`), thiếu → `insufficient`.
+- Giá vốn tính TRÊN nhịp bear (`recentImprPct`) + metric **tài sản cuối** toàn cửa sổ
+  (`recentAssetImprPct`: ngân sách 1/nhịp, tiền chưa tiêu để mặt, gom quá xem như vay 0%).
+- `degraded` chỉ khi một trong hai metric < **−0.5 điểm %** (vùng nhiễu).
+
+**Đồng bộ Time Machine:** trước đây Time Machine hiện lớp phanh Accumulation cũ (×0.25 khi
+pct2y>75%) — mâu thuẫn trực diện với card này cùng ngày (bull + giá đắt: card nói ×1.0, Time
+Machine nói ×0.25). Giờ Time Machine dùng `bearDcaAt(prices, i, pct2y)` (cùng engine, golden
+test khóa `bearDcaAt` ≡ `runBearDca` ở index cuối) — MỘT con số sizing toàn app.
+`AccumulationCard.tsx` (dead component) đã xóa; engine accumulation + JSON giữ nguyên
+(lớp còn sống, chỉ không còn surface UI riêng).
+
+**Quy ước dấu ddChange (thống nhất):** dương = đáy SÂU THÊM, đơn vị "điểm %/tháng" (pp của
+drawdown, KHÔNG phải % giá — hai số lệch nhau khi dd sâu). Card từng hiện "+5%/tháng" ở dòng
+gợi ý và "−5%/tháng" trong note cho CÙNG một số.
+
 ## Giới hạn (đọc kỹ)
 
 1. Bear lớn duy nhất trong lịch sử (2013–2019), n=76 nhịp; ACUTE n=20, RECOVERY n=11. Mỏng.

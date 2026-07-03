@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { depthQty, boostQty, classifyPhase, qtyForPhase, runBearDca, monitorBearDca } from "./bear-dca";
+import { depthQty, boostQty, classifyPhase, qtyForPhase, runBearDca, monitorBearDca, bearDcaAt } from "./bear-dca";
 import type { BearDcaPoint } from "./types";
 
 describe("depthQty", () => {
@@ -75,6 +75,32 @@ describe("runBearDca", () => {
   });
 });
 
+describe("bearDcaAt", () => {
+  const mk = (n: number, priceAt: (i: number) => number, pct = 0.5): BearDcaPoint[] =>
+    Array.from({ length: n }, (_, i) => ({ date: `d${String(i).padStart(4, "0")}`, price: priceAt(i), pricePct2y: pct }));
+  it("GOLDEN: as-of index cuối === runBearDca (cùng pha, cùng mult)", () => {
+    const series = [
+      mk(600, (i) => 1000 + i * 5), // bull
+      [...mk(500, (i) => 1000 + i), ...mk(50, (i) => 1500 - i * 10, 0.7)], // acute
+      [...mk(300, (i) => 1000 + i * 10, 0.8), ...mk(100, (i) => 4000 - i * 20, 0.4), ...mk(50, (i) => 2000 + i * 12, 0.3)], // recovery
+    ];
+    for (const pts of series) {
+      const full = runBearDca(pts);
+      const at = bearDcaAt(pts.map((q) => q.price), pts.length - 1, pts[pts.length - 1].pricePct2y);
+      expect(at.phase).toBe(full.phase);
+      expect(at.mult).toBe(full.mult);
+      expect(at.dd).toBeCloseTo(full.ddFromAth, 10);
+    }
+  });
+  it("index giữa chuỗi: chỉ dùng quá khứ (không nhìn ATH tương lai)", () => {
+    // đỉnh tương lai 5000 không được tính vào ATH tại i=99
+    const prices = [...Array.from({ length: 100 }, (_, i) => 1000 + i), 5000];
+    const at = bearDcaAt(prices, 99, 0.5);
+    expect(at.dd).toBeCloseTo(0, 6); // đang ở đỉnh as-of
+    expect(at.phase).toBe("bull");
+  });
+});
+
 describe("monitorBearDca", () => {
   const mk = (n: number, priceAt: (i: number) => number, start = "2014-01-01"): BearDcaPoint[] => {
     const out: BearDcaPoint[] = [];
@@ -88,8 +114,26 @@ describe("monitorBearDca", () => {
   it("insufficient khi quá ít điểm", () => {
     expect(monitorBearDca(mk(50, (i) => 100 + i)).status).toBe("insufficient");
   });
-  it("trả status hợp lệ khi đủ dữ liệu", () => {
+  it("bull thuần → insufficient (lớp chưa can thiệp, KHÔNG phải degraded)", () => {
+    // phiên bản cũ: mọi q=1 → impr=0 → 'degraded' oan. Giờ: <6 nhịp bear → không chấm.
     const h = monitorBearDca(mk(1400, (i) => 100 + i));
+    expect(h.status).toBe("insufficient");
+    expect(h.recentBearCycles).toBeLessThan(6);
+    expect(h.recentImprPct).toBeNull();
+  });
+  it("bear đủ nhịp → chấm điểm trên nhịp bear + metric tài sản", () => {
+    // 400 tăng 100→500, rồi 1000 phiên rơi dần về ~250 (dd sâu, nhiều nhịp bear)
+    const h = monitorBearDca(mk(1400, (i) => (i < 400 ? 100 + i : 500 - (i - 400) * 0.25)));
     expect(["ok", "degraded"]).toContain(h.status);
+    expect(h.recentBearCycles).toBeGreaterThanOrEqual(6);
+    expect(h.recentImprPct).not.toBeNull();
+    expect(h.recentAssetImprPct).not.toBeNull();
+  });
+  it("impr ≈ 0 trong bear (q=1 mọi nhịp) → ok, không degraded (vùng nhiễu)", () => {
+    // tăng lên 2000 rồi giữ phẳng 1000 ở đáy: dd=50% ổn định → grind, pct2y=0.5 → q=1.0
+    const pts = mk(1600, (i) => (i < 200 ? 100 + i * 9.5 : 1000));
+    const h = monitorBearDca(pts);
+    expect(h.status).toBe("ok");
+    expect(h.recentImprPct).toBeCloseTo(0, 1);
   });
 });

@@ -1,5 +1,25 @@
 import { describe, it, expect } from "vitest";
-import { ddAsOfPct, actualWorstDipPct, verdict, monthAnchors, monthPosOf } from "./bear-downside-view";
+import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats, monthAnchors, monthPosOf } from "./bear-downside-view";
+import type { TimelinePoint } from "./types";
+
+/** Điểm timeline tối giản cho coverageStats: giá phẳng, returns + band đặt sẵn. */
+function mkPoints(
+  n: number,
+  band: { p10: number; endP25: number; endP75: number } | null,
+  ret: number | null
+): TimelinePoint[] {
+  return Array.from({ length: n }, (_, i) => ({
+    date: `d${String(i).padStart(4, "0")}`,
+    price: 100,
+    composite: 0,
+    zone: "neutral" as TimelinePoint["zone"],
+    scores: {},
+    returns: { "21": ret, "63": ret, "126": ret },
+    bearAsOf: band
+      ? { "21": { median: 0, p10: band.p10, endMedian: 0, endP25: band.endP25, endP75: band.endP75, pUp: 50, n: 100 }, "63": null, "126": null }
+      : undefined,
+  }));
+}
 
 describe("ddAsOfPct", () => {
   it("dùng ATH tới X, không nhìn tương lai", () => {
@@ -21,18 +41,38 @@ describe("actualWorstDipPct", () => {
   });
 });
 
-describe("verdict", () => {
-  it("right khi actual ≥ ngưỡng (đáy không thủng p10)", () => {
-    expect(verdict(-5, -8)).toBe("right");   // -5 ≥ -8
-    expect(verdict(-9, -8)).toBe("wrong");   // thủng đuôi
+describe("pUpTenths", () => {
+  it("làm tròn về bậc 1/10", () => {
+    expect(pUpTenths(83.5)).toBe(8);
+    expect(pUpTenths(62.7)).toBe(6);
+    expect(pUpTenths(36)).toBe(4);
   });
-  it("right khi kết cục ≥ endMedian", () => {
-    expect(verdict(12, 5)).toBe("right");
-    expect(verdict(2, 5)).toBe("wrong");
+  it("clamp 1..9 — không bao giờ tuyên bố chắc chắn 0/10 hay 10/10", () => {
+    expect(pUpTenths(2)).toBe(1);
+    expect(pUpTenths(0)).toBe(1);
+    expect(pUpTenths(97)).toBe(9);
+    expect(pUpTenths(100)).toBe(9);
   });
-  it("null khi thiếu đầu vào", () => {
-    expect(verdict(null, -8)).toBeNull();
-    expect(verdict(-5, null)).toBeNull();
+});
+
+describe("coverageStats", () => {
+  it("dải trùm mọi kết cục → endIn50=100; đáy không thủng p10 → dipBeyond10=0", () => {
+    // giá phẳng ⇒ đáy thực = 0% > p10=−5; kết cục 0 ∈ [−1, 1]
+    const c = coverageStats(mkPoints(200, { p10: -5, endP25: -1, endP75: 1 }, 0), "21");
+    expect(c).not.toBeNull();
+    expect(c!.endIn50).toBe(100);
+    expect(c!.dipBeyond10).toBe(0);
+  });
+  it("dải trượt hết → endIn50=0", () => {
+    const c = coverageStats(mkPoints(200, { p10: -5, endP25: 3, endP75: 7 }, 0), "21");
+    expect(c!.endIn50).toBe(0);
+  });
+  it("null khi thiếu band hoặc <30 mẫu đáo hạn", () => {
+    expect(coverageStats(mkPoints(200, null, 0), "21")).toBeNull();
+    expect(coverageStats(mkPoints(50, { p10: -5, endP25: -1, endP75: 1 }, 0), "21")).toBeNull();
+  });
+  it("bỏ mẫu chưa đáo hạn (returns null)", () => {
+    expect(coverageStats(mkPoints(200, { p10: -5, endP25: -1, endP75: 1 }, null), "21")).toBeNull();
   });
 });
 

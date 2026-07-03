@@ -13,6 +13,8 @@ import {
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { bottomPctClass } from "@/lib/bottom";
+import { bearDcaAt } from "@/lib/bear-dca";
+import type { BearPhase } from "@/lib/types";
 import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
 import {
@@ -26,6 +28,13 @@ import {
 
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
+
+const DCA_PHASE_LABEL: Record<BearPhase, string> = {
+  bull: "Tăng",
+  acute: "Sụp cấp tính",
+  grind: "Rỉ máu",
+  recovery: "Hồi phục",
+};
 
 const fmtDate = (iso: string) =>
   new Date(iso + "T00:00:00Z").toLocaleDateString("vi-VN", {
@@ -139,6 +148,12 @@ export default function TimeMachine({
     [showBottomStart, points]
   );
   const dates = useMemo(() => points.map((q) => q.date), [points]);
+  const allPrices = useMemo(() => points.map((q) => q.price), [points]);
+  // Mức mua Bear DCA as-of ngày đang xem — CÙNG engine với card "Mức mua tháng này"
+  const dcaAt = useMemo(
+    () => bearDcaAt(allPrices, idx, p?.pricePct2y ?? null),
+    [allPrices, idx, p]
+  );
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
 
@@ -537,23 +552,12 @@ export default function TimeMachine({
         </span>
       </div>
 
-      {p.accumMult !== undefined && (
-        <div className="muted small">
-          {p.accumMult < 1 ? (
-            <>
-              <b className="sell">DCA dài hạn:</b> giá
-              {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} → nếu gom,
-              mỗi đợt nhỏ lại (×{p.accumMult}). Góc định giá — có thể ngược điểm-mua ngắn hạn.
-            </>
-          ) : (
-            <>
-              <b className="buy">DCA dài hạn:</b> giá
-              {p.pricePct2y != null && ` ở ${Math.round(p.pricePct2y * 100)}% dải 2 năm`} — gom đều
-              bình thường.
-            </>
-          )}
-        </div>
-      )}
+      <div className="muted small">
+        <b className={dcaAt.mult >= 1 ? "buy" : "sell"}>Mức mua (Vùng tích lũy):</b>{" "}
+        pha {DCA_PHASE_LABEL[dcaAt.phase]} → mỗi đợt ×{dcaAt.mult}
+        {p.pricePct2y != null && ` · giá percentile ${Math.round(p.pricePct2y * 100)}% (2 năm)`}
+        . Cùng con số với thẻ Vùng tích lũy — góc tích sản, có thể ngược điểm-mua ngắn hạn.
+      </div>
 
       {highConfDay && (
         <div className="muted small">

@@ -1,7 +1,8 @@
 "use client";
 import { useMemo, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
-import { ddAsOfPct, actualWorstDipPct, monthAnchors, monthPosOf } from "@/lib/bear-downside-view";
+import { ddAsOfPct, actualWorstDipPct, monthAnchors, monthPosOf, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
+import { enoughSamples } from "@/lib/bear-downside";
 
 const HLABEL: Record<string, string> = { "21": "1 tháng", "63": "3 tháng", "126": "6 tháng" };
 const HSHORT: Record<string, string> = { "21": "1T", "63": "3T", "126": "6T" };
@@ -36,7 +37,7 @@ function Row({ H, band, price, actualDip, actualTerm }: {
     );
   }
   const px = (pct: number) => price * (1 + pct / 100);
-  const up = Math.round(band.pUp);
+  const t = pUpTenths(band.pUp); // bậc 1/10 — chi tiết hơn là giả-chính-xác (ít cửa sổ độc lập)
   const matured = actualDip != null && actualTerm != null;
   return (
     <tr>
@@ -61,9 +62,9 @@ function Row({ H, band, price, actualDip, actualTerm }: {
           <span className="muted">chưa đáo hạn</span>
         )}
       </td>
-      {/* Khả năng: hai chiều ↑/↓ (chống neo một chiều) */}
+      {/* Khả năng: hai chiều ↑/↓, bậc thô 1/10 (chống neo một chiều + giả-chính-xác) */}
       <td>
-        <span className="up">{up}%↑</span> <span className="muted">/</span> <span className="down">{100 - up}%↓</span>
+        <span className="up">≈{t}/10↑</span> <span className="muted">·</span> <span className="down">{10 - t}/10↓</span>
       </td>
     </tr>
   );
@@ -72,11 +73,11 @@ function Row({ H, band, price, actualDip, actualTerm }: {
 /** Hàng UI cũ cho fallback (timeline.json cũ không có bearAsOf) — chỉ ngày mới nhất nên không có thực tế. */
 function LegacyRow({ s, price }: { s: BearHorizonStat; price: number }) {
   const label = HLABEL[String(s.horizonDays)] ?? String(s.horizonDays);
-  if (s.n < 30) {
+  if (!enoughSamples(s.n, s.horizonDays)) {
     return (<tr><td>{label}</td><td className="muted" colSpan={4}>chưa đủ dữ liệu (n={s.n})</td></tr>);
   }
   const at = (pv: number) => usd(price * (1 + pv / 100));
-  const pct = Math.max(0, Math.min(100, s.pUp));
+  const t = pUpTenths(s.pUp);
   return (
     <tr>
       <td>{label}</td>
@@ -84,8 +85,7 @@ function LegacyRow({ s, price }: { s: BearHorizonStat; price: number }) {
       <td>{at(s.endMedian)} <span className={s.endMedian >= 0 ? "up" : "down"}>({signed(s.endMedian)})</span></td>
       <td className="muted">chưa đáo hạn</td>
       <td>
-        <span className="minibar"><span className={`minibar-fill${s.pUp >= 50 ? "" : " mid"}`} style={{ width: `${pct}%` }} /></span>
-        {fmt1(s.pUp)}%
+        <span className="up">≈{t}/10↑</span> <span className="muted">·</span> <span className="down">{10 - t}/10↓</span>
       </td>
     </tr>
   );
@@ -104,7 +104,7 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
 
   // fallback: timeline.json cũ không có bearAsOf -> giữ nguyên UI cũ (dải hiện tại, không thanh thời gian)
   if (!hasAsOf || !p) {
-    const tailOld = bd.shown.filter((s) => s.n >= 30).map((s) => `${HSHORT[String(s.horizonDays)] ?? s.horizonDays} ${signed(s.p10)}`).join(" · ");
+    const tailOld = bd.shown.filter((s) => enoughSamples(s.n, s.horizonDays)).map((s) => `${HSHORT[String(s.horizonDays)] ?? s.horizonDays} ${signed(s.p10)}`).join(" · ");
     return (
       <section className="card">
         <div className="card-head">
@@ -143,8 +143,13 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
 
   const isLatest = X === points.length - 1;
   const ddPct = ddAsOfPct(prices, X);
-  const tail = HS.map((H) => p.bearAsOf?.[H]).filter((b): b is BearAsOfBand => !!b)
-    .map((b, i) => `${HSHORT[HS[i]]} ${signed(b.p10)}`).join(" · ");
+  // calibration đo được của dải trên toàn lịch sử đã đáo hạn (walk-forward)
+  const coverage = useMemo(
+    () => HS.map((H) => ({ H, c: coverageStats(points, H) })).filter((x) => x.c !== null),
+    [points]
+  );
+  const tail = HS.filter((H) => p.bearAsOf?.[H])
+    .map((H) => `${HSHORT[H]} ${signed(p.bearAsOf![H]!.p10)}`).join(" · ");
 
   return (
     <section className="card">
@@ -205,9 +210,16 @@ export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAna
             <li><b className="down">Đáy điển hình</b> — nhịp dúi sâu nhất <i>giữa</i> kỳ (rủi ro phải chịu), giá làm tròn.</li>
             <li><b className="up">Kết cục điển hình</b> — <i>khoảng</i> giá kết rơi vào 50% số lần (p25–p75), KHÔNG phải một mức.</li>
             <li><b>Thực tế</b> — đáy sâu nhất & giá kết THỰC TẾ đã xảy ra (khi xem ngày quá khứ đã đủ tương lai).</li>
-            <li><b>Khả năng</b> — % lần giá kết cao hơn (↑) / thấp hơn (↓) hôm nay.</li>
+            <li><b>Khả năng</b> — số lần giá kết cao hơn (↑) / thấp hơn (↓) hôm nay, làm tròn bậc 1/10: số cửa sổ lịch sử độc lập ít nên chi tiết hơn là độ chính xác ảo.</li>
           </ul>
           {tail && <p>Hiếm gặp (~1/10 lần tệ nhất), giá có lúc dúi sâu tới: {tail}.</p>}
+          {coverage.length > 0 && (
+            <p>
+              <b>Độ khớp đo được</b> (đối chiếu dải với thực tế trên toàn lịch sử đã đáo hạn):
+              kết cục thực rơi vào dải điển hình — {coverage.map(({ H, c }) => `${HSHORT[H]} ${c!.endIn50}%`).join(" · ")} (kỳ vọng ~50%);
+              đáy thực thủng mức hiếm gặp — {coverage.map(({ H, c }) => `${HSHORT[H]} ${c!.dipBeyond10}%`).join(" · ")} (kỳ vọng ~10%).
+            </p>
+          )}
           <p className="muted">Phân phối tính theo trọng số hồi quy (ưu tiên ~2 năm gần) để bám chế độ thị trường hiện tại — nên cột kết cục nghiêng theo xu hướng gần đây; cột đáy là đối trọng rủi ro. Tái hiện lịch sử để đối chiếu, KHÔNG phải dự đoán.</p>
         </div>
       )}

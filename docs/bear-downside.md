@@ -10,7 +10,7 @@ Cung cấp phân phối lịch sử **mức rơi thêm** (worst future drawdown)
 
 ## Metric
 
-```
+```text
 mức rơi thêm = min(close[t+1 .. t+H]) / close[t] − 1
 ```
 
@@ -26,7 +26,7 @@ mức rơi thêm = min(close[t+1 .. t+H]) / close[t] − 1
    - 0–10% (nhẹ), 10–20%, 20–30%, 30+% (sâu).
 3. **Horizon:** 21 / 63 / 126 phiên giao dịch (~1/3/6 tháng). (Bỏ 252/12T: ~20 cửa sổ độc lập + thiên lệch bull mạnh nhất ⇒ kém tin.)
 4. **Lưới thưa STEP=3:** lấy mẫu mỗi 3 phiên để tránh pseudo-replication (các ngày kế tiếp có cửa sổ tương lai trùng nhau → thổi phồng n và siết CI giả tạo).
-5. **CI:** block-bootstrap (`blockBootstrapCi`) cho P(đáy phía sau); `blockBootstrapPercentileCi` cho trung vị mức rơi thêm. `blockSize = max(1, round(H/STEP))`.
+5. **CI:** block-bootstrap (`blockBootstrapCi`) cho P(đáy phía sau); `blockBootstrapPercentileCi` cho trung vị mức rơi thêm. `blockSize = max(1, round(H/STEP))`. (Từ 2026-07-03: khi recency-weighting bật, CI dùng `weightedBlockBootstrapCi` CÙNG hệ trọng số với điểm ước lượng — xem mục "Vá tin cậy" bên dưới.)
 6. **Split train/test:** train `<2019`, test `≥2019`.
 
 ### Câu hỏi kiểm chứng
@@ -144,10 +144,20 @@ Tần suất tăng THỰC TẾ phụ thuộc chế độ rất mạnh: TRAIN 200
 - **Trung thực:** cải thiện MAE **KHÔNG** significant (variance chi phối) — đây là hiệu chỉnh **BIAS/chế-độ**, KHÔNG phải dự đoán, KHÔNG làm trung vị = giá thực từng lần. Rủi ro còn lại: hạ trọng số chế độ xa (kiểu bear 2013) nên kém bền nếu lặp lại kịch bản đó — mặt ĐÁY hiển thị cạnh bên là đối trọng rủi ro, và card ghi caveat.
 - Áp cho cả `runBearDownside` (bảng hiện tại) lẫn `runBearDownsideHistory` (máy thời gian as-of) qua cùng `computeHorizonStat(..., {ages, termAges, halflife})` → golden test (as-of ngày cuối === unconditional) tự giữ vì cả hai path cùng trọng số. `computeHorizonStat` không truyền ages ⇒ vô trọng số (giữ unit test cũ).
 
+## Vá tin cậy (2026-07-03, sau review) — CI weighted, hiển thị bậc 1/10, ngưỡng mẫu độc lập, coverage đo được
+
+Review độ tin cậy tìm ra lỗ hổng: **CI trong JSON tính trên mảng KHÔNG trọng số trong khi điểm ước lượng CÓ trọng số** — data live từng có pUp 126p = 83.5 nằm NGOÀI pUpCi [57, 79.1] của chính nó (CI vô nghĩa). Kèm theo: ESS sau recency-504 ≈ 485 mẫu chồng lấn ≈ **~12 cửa sổ 6T độc lập** → SE pUp ±~10pp, nên "83.5%" là giả-chính-xác ở tầng xác suất (cùng loại ảo giác mà `~$X,Xk` đã chặn ở tầng giá). Bốn vá:
+
+1. **CI cùng hệ trọng số** — `weightedBlockBootstrapCi` (resample khối liên tiếp, mỗi mẫu mang trọng số recency của nó) cho pCi/medianCi/pUpCi khi weighted; path unweighted giữ nguyên. Trên data thật CI mới: pUp 126p 83.5 ∈ [68.7, 92.2] (rộng ±12pp — trung thực). Test khóa: "điểm ước lượng nằm TRONG CI của chính nó" cả weighted lẫn unweighted.
+2. **Hiển thị "Khả năng" bậc 1/10** — `pUpTenths` (làm tròn /10, clamp 1..9): "≈8/10↑ · 2/10↓" thay "83.5%↑". Không bao giờ tuyên bố 0/10 hay 10/10.
+3. **Ngưỡng mẫu theo cửa sổ độc lập** — `enoughSamples(n,H)`: n≥30 VÀ n·STEP/H ≥ 10 (H=21 cần n≥70, 63→210, 126→420). 30 mẫu raw ở 6T chỉ ≈0.7 cửa sổ độc lập — hiện số từ đó là tự tin giả. Dải 126p đầu lịch sử (2009–2011) chuyển thành "chưa đủ dữ liệu".
+4. **Coverage đo được trên card** — `coverageStats` (bear-downside-view): đối chiếu dải as-of với thực tế trên toàn lịch sử đã đáo hạn, hiện trong info banner. Số hiện tại: kết cục thực nằm trong dải p25–p75 = **53/48/46%** (1/3/6T, kỳ vọng ~50); đáy thủng p10 = **8/8/9%** (kỳ vọng ~10). Biến caveat "không phải dự đoán" thành số kiểm được.
+
 ## Tested and REJECTED (đừng tái thêm nếu chưa chạy lại study)
 
 1. **Điều kiện hóa theo độ sâu drawdown** (bucket 0-10/10-20/20-30/30+%) — cả 4 kiểm tra (đơn điệu × tách bạch × 2 giai đoạn) đều KHÔNG đạt. Bucket sâu bất ổn định nghiêm trọng train vs test (P=2.1% vs 29.4% ở 20-30%). `conditioningWorks=false`.
 2. **Điều kiện hóa theo composite/zone/MA200/momentum/zone×trend** (2026-07-03, Study 1 trên) — không cải thiện MAE trung vị; MA200/zone×MA200 làm tệ đi. Ghép Composite KHÔNG giúp. Chỉ ship phân phối vô-điều-kiện + recency-weighting.
+3. **Cột đáy dùng unweighted / min(weighted, unweighted)** (2026-07-03, `scripts/bear-downside-dipside-study.ts`) — đề xuất "đối trọng bảo thủ" cho phía rủi ro sau bull dài. Walk-forward bác: exceed% (đáy thực thủng p10, mục tiêu ~10) của weighted-504 = 8.8/8.5/6.0 train, 12.2/8.4/7.2 test — bám mục tiêu cả hai thời kỳ; unweighted/min sập còn 7.7/4.6/**2.9%** ở test = đáy hiển thị sâu hơn thực tế một cách hệ thống (quá bảo thủ), MAE không cải thiện. Giữ weighted cho CẢ hai cột.
 
 ## Trình bày chống ảo giác (2026-07-03)
 
@@ -156,7 +166,7 @@ Số đúng nhưng dễ đọc sai. Bốn ảo giác được chặn ở lớp T
 1. **Trung vị-như-dự-đoán** → cột **Kết cục** hiện **DẢI p25→p75** (`endP25`/`endP75`, thêm vào `BearHorizonStat`+`BearAsOfBand`), không phải một số.
 2. **Giả-chính-xác** → làm tròn `~$X,Xk` (~$100) + tiền tố `~`, % số nguyên.
 3. **Không thấy nghiêng bull** → nhãn chế độ hiện LUÔN dưới bảng: "nghiêng ~2 năm gần · khoảng rộng = bất định · KHÔNG phải dự đoán".
-4. **Neo pUp, quên rủi ro** → dải kết HAI CHIỀU (đầu thấp p25 âm ở 1–3T); cột "Cơ hội tăng" → **"Khả năng" ↑/↓** (hiện cả % giảm); cột đáy giữ 1 số điển hình.
+4. **Neo pUp, quên rủi ro** → dải kết HAI CHIỀU (đầu thấp p25 âm ở 1–3T); cột "Cơ hội tăng" → **"Khả năng" ↑/↓** (hiện cả hai chiều; từ vá tin cậy cùng ngày hiển thị bậc thô "≈8/10↑ · 2/10↓" thay % lẻ — xem mục "Vá tin cậy").
 
 `endP25/endP75` tính trong `computeHorizonStat` (weighted+unweighted), khóa bởi test `endP25≤endMedian≤endP75` + golden as-of (thêm 2 trường). Không đổi recency-504/pUp. Thiết kế: `docs/superpowers/specs/2026-07-03-bear-downside-anti-illusion-design.md`.
 

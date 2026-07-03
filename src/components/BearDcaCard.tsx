@@ -66,8 +66,9 @@ export default function BearDcaCard({
 
       {/* Tín hiệu thô + gợi ý pha (luôn hiện để người dùng tự phán đoán) */}
       <p className="muted small">
-        Gợi ý: <b>{PHASE_LABEL[a.phase]}</b> · cách đỉnh {fmtPct(a.ddFromAth)} · tốc độ {a.ddChange >= 0 ? "+" : "−"}{fmtPct(Math.abs(a.ddChange))}/tháng
-        {a.pricePct2y !== null && ` · giá ${fmtPct(a.pricePct2y)} dải 2 năm`}
+        Gợi ý: <b>{PHASE_LABEL[a.phase]}</b> · cách đỉnh {fmtPct(a.ddFromAth)} · đáy{" "}
+        {a.ddChange >= 0 ? "sâu thêm" : "thu hẹp"} {Math.round(Math.abs(a.ddChange) * 100)} điểm %/tháng
+        {a.pricePct2y !== null && ` · giá percentile ${fmtPct(a.pricePct2y)} (2 năm)`}
       </p>
 
       {/* Hybrid override: chọn pha */}
@@ -84,10 +85,11 @@ export default function BearDcaCard({
         ))}
       </div>
 
-      {/* Degraded warning (chỉ khi đang ở bear theo gợi ý) */}
+      {/* Degraded warning (chỉ khi đang ở bear theo gợi ý; đã lọc nhiễu: chỉ nhịp bear + ngưỡng −0.5%) */}
       {a.isBear && health.status === "degraded" && (
         <div className="banner warn">
-          ⚠ Lớp này đang mất hiệu quả trên ~2 năm gần nhất ({health.recentImprPct}% ≤ 0) — cân nhắc bỏ qua.
+          ⚠ Lớp này kém hơn gom đều trên {health.recentBearCycles} nhịp bear ~2 năm gần
+          (giá vốn {health.recentImprPct}%, tài sản {health.recentAssetImprPct}%) — cân nhắc bỏ qua.
         </div>
       )}
 
@@ -125,7 +127,7 @@ export default function BearDcaCard({
             <span className="accum-brake-tick" style={{ left: "75%" }} aria-hidden />
           </div>
           <div className="gauge-scale"><span>rẻ</span><span>đắt</span></div>
-          <p className="muted small">Thanh = vị trí giá trong dải 2 năm. Vạch vàng (75%) là mốc giảm khối lượng.</p>
+          <p className="muted small">Thanh = percentile giá so 2 năm gần. Vạch vàng (75%) là mốc giảm khối lượng.</p>
         </>
       )}
 
