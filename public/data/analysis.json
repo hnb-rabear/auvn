@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-03T01:06:23.923Z",
+ "generatedAt": "2026-07-03T01:12:29.230Z",
  "dataDate": "2026-07-03",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148400000,
   "ringBuy": 145000000,
   "ringSell": 148000000,
-  "xauUsd": 4160.7998046875,
+  "xauUsd": 4161.2001953125,
   "usdVnd": 26465,
-  "worldVndPerLuong": 132761163,
+  "worldVndPerLuong": 132773939,
   "premiumPct": 12.05,
-  "premiumVnd": 15638837
+  "premiumVnd": 15626061
  },
  "criteria": [
   {
@@ -2166,11 +2166,11 @@
   "p80": 16.62
  },
  "sourceTimes": {
-  "world": "2026-07-03T00:55:20.000Z",
-  "dxy": "2026-07-03T00:55:22.000Z",
+  "world": "2026-07-03T01:01:25.000Z",
+  "dxy": "2026-07-03T01:01:28.000Z",
   "yield10y": "2026-07-02T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-03T01:06:23.923Z",
+  "usdVnd": "2026-07-03T01:12:29.230Z",
   "fed": null
  }
 }
