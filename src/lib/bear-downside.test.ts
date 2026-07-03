@@ -60,6 +60,12 @@ describe("computeHorizonStat", () => {
     expect(s.endMedian).toBe(0);
     expect(s.pUp).toBe(0);
   });
+  it("endP25 ≤ endMedian ≤ endP75 (dải kết cục hợp lệ)", () => {
+    const term = [...Array(10).fill(-5), ...Array(10).fill(2), ...Array(10).fill(8), ...Array(10).fill(20)];
+    const s = computeHorizonStat(Array(40).fill(-1), 63, term);
+    expect(s.endP25).toBeLessThanOrEqual(s.endMedian);
+    expect(s.endMedian).toBeLessThanOrEqual(s.endP75);
+  });
 });
 
 describe("runBearDownside", () => {
@@ -110,6 +116,8 @@ describe("runBearDownsideHistory", () => {
       expect(band!.median).toBeCloseTo(u.median, 6);
       expect(band!.p10).toBeCloseTo(u.p10, 6);
       expect(band!.endMedian).toBeCloseTo(u.endMedian, 6);
+      expect(band!.endP25).toBeCloseTo(u.endP25, 6);
+      expect(band!.endP75).toBeCloseTo(u.endP75, 6);
       expect(band!.pUp).toBeCloseTo(u.pUp, 6);
       expect(band!.n).toBe(u.n);
     }

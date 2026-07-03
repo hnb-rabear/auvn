@@ -522,6 +522,8 @@ export interface BearHorizonStat {
   pCi: [number, number] | null;      // CI cho pBottomBehind
   medianCi: [number, number] | null; // CI cho median
   endMedian: number;                 // % trung vị lợi suất TẠI MỐC H (giá[t+H]/giá[t]−1) — mặt kết cục
+  endP25: number;                    // % p25 lợi suất tại mốc — đầu THẤP dải kết cục điển hình
+  endP75: number;                    // % p75 lợi suất tại mốc — đầu CAO dải kết cục điển hình
   pUp: number;                       // % lần giá kết CAO hơn hôm nay tại mốc H
   pUpCi: [number, number] | null;    // CI cho pUp
   n: number;
@@ -551,6 +553,8 @@ export interface BearAsOfBand {
   median: number;    // đáy điển hình (worst-dip) %
   p10: number;       // đuôi 1/10 rủi ro %
   endMedian: number; // kết cục điển hình % tại mốc
+  endP25: number;    // đầu THẤP dải kết cục (p25) %
+  endP75: number;    // đầu CAO dải kết cục (p75) %
   pUp: number;       // % lần giá cao hơn hôm nay
   n: number;
 }

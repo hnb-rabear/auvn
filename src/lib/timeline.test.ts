@@ -6,7 +6,7 @@ const pt = (date: string): TimelinePoint => ({
   date, price: 1, composite: 0, zone: "neutral", scores: {},
   returns: { "21": null, "63": null, "126": null },
 });
-const band = { median: -3, p10: -8, endMedian: 5, pUp: 60, n: 100 };
+const band = { median: -3, p10: -8, endMedian: 5, endP25: 1, endP75: 9, pUp: 60, n: 100 };
 
 describe("forwardFillBearAsOf", () => {
   it("snap nút gần nhất ≤ ngày; ngày trước nút đầu để undefined", () => {

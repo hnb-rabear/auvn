@@ -84,7 +84,7 @@ export function computeHorizonStat(
   const weighted = hl > 0 && !!opts.ages && opts.ages.length === n;
   const r1 = (x: number) => Math.round(x * 10) / 10;
 
-  let median = 0, p10 = 0, p90 = 0, pBottomBehind = 0, endMedian = 0, pUp = 0;
+  let median = 0, p10 = 0, p90 = 0, pBottomBehind = 0, endMedian = 0, endP25 = 0, endP75 = 0, pUp = 0;
   if (weighted) {
     const w = recencyWeights(opts.ages!, hl);
     median = n ? r1(weightedPercentile(values, w, 0.5)) : 0;
@@ -93,6 +93,8 @@ export function computeHorizonStat(
     pBottomBehind = n ? Math.round(weightedFrac(values, w, (v) => v >= 0) * 10) / 10 : 0;
     const tw = opts.termAges && opts.termAges.length === tn ? recencyWeights(opts.termAges, hl) : termValues.map(() => 1);
     endMedian = tn ? r1(weightedPercentile(termValues, tw, 0.5)) : 0;
+    endP25 = tn ? r1(weightedPercentile(termValues, tw, 0.25)) : 0;
+    endP75 = tn ? r1(weightedPercentile(termValues, tw, 0.75)) : 0;
     pUp = tn ? Math.round(weightedFrac(termValues, tw, (v) => v > 0) * 10) / 10 : 0;
   } else {
     median = n ? r1(percentile(values, 0.5)) : 0;
@@ -100,6 +102,8 @@ export function computeHorizonStat(
     p90 = n ? r1(percentile(values, 0.9)) : 0;
     pBottomBehind = n ? Math.round((values.filter((v) => v >= 0).length / n) * 1000) / 10 : 0;
     endMedian = tn ? r1(percentile(termValues, 0.5)) : 0;
+    endP25 = tn ? r1(percentile(termValues, 0.25)) : 0;
+    endP75 = tn ? r1(percentile(termValues, 0.75)) : 0;
     pUp = tn ? Math.round((termValues.filter((v) => v > 0).length / tn) * 1000) / 10 : 0;
   }
   const favArr = values.map((v) => (v >= 0 ? 1 : -1));
@@ -109,7 +113,7 @@ export function computeHorizonStat(
     median, p10, p90, pBottomBehind,
     pCi: skipCi ? null : blockBootstrapCi(favArr, blk),
     medianCi: skipCi ? null : blockBootstrapPercentileCi(values, 0.5, blk),
-    endMedian, pUp,
+    endMedian, endP25, endP75, pUp,
     pUpCi: skipCi ? null : blockBootstrapCi(upArr, blk),
     n,
   };
@@ -226,7 +230,7 @@ export function runBearDownsideHistory(bars: { date: string; close: number }[]):
     if (dips.length < MIN_N) return null;
     // skipCi: as-of band không lưu CI, tránh bootstrap thừa. ages+halflife: tái trọng số recency (khớp runBearDownside).
     const s = computeHorizonStat(dips, H, terms, true, { ages: dipAges, termAges, halflife: hl });
-    return { median: s.median, p10: s.p10, endMedian: s.endMedian, pUp: s.pUp, n: s.n };
+    return { median: s.median, p10: s.p10, endMedian: s.endMedian, endP25: s.endP25, endP75: s.endP75, pUp: s.pUp, n: s.n };
   };
 
   return gridX.map((X) => {

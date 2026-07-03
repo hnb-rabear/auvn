@@ -149,6 +149,17 @@ Tần suất tăng THỰC TẾ phụ thuộc chế độ rất mạnh: TRAIN 200
 1. **Điều kiện hóa theo độ sâu drawdown** (bucket 0-10/10-20/20-30/30+%) — cả 4 kiểm tra (đơn điệu × tách bạch × 2 giai đoạn) đều KHÔNG đạt. Bucket sâu bất ổn định nghiêm trọng train vs test (P=2.1% vs 29.4% ở 20-30%). `conditioningWorks=false`.
 2. **Điều kiện hóa theo composite/zone/MA200/momentum/zone×trend** (2026-07-03, Study 1 trên) — không cải thiện MAE trung vị; MA200/zone×MA200 làm tệ đi. Ghép Composite KHÔNG giúp. Chỉ ship phân phối vô-điều-kiện + recency-weighting.
 
+## Trình bày chống ảo giác (2026-07-03)
+
+Số đúng nhưng dễ đọc sai. Bốn ảo giác được chặn ở lớp TRÌNH BÀY (không đụng engine/pUp — đã kiểm chứng):
+
+1. **Trung vị-như-dự-đoán** → cột **Kết cục** hiện **DẢI p25→p75** (`endP25`/`endP75`, thêm vào `BearHorizonStat`+`BearAsOfBand`), không phải một số.
+2. **Giả-chính-xác** → làm tròn `~$X,Xk` (~$100) + tiền tố `~`, % số nguyên.
+3. **Không thấy nghiêng bull** → nhãn chế độ hiện LUÔN dưới bảng: "nghiêng ~2 năm gần · khoảng rộng = bất định · KHÔNG phải dự đoán".
+4. **Neo pUp, quên rủi ro** → dải kết HAI CHIỀU (đầu thấp p25 âm ở 1–3T); cột "Cơ hội tăng" → **"Khả năng" ↑/↓** (hiện cả % giảm); cột đáy giữ 1 số điển hình.
+
+`endP25/endP75` tính trong `computeHorizonStat` (weighted+unweighted), khóa bởi test `endP25≤endMedian≤endP75` + golden as-of (thêm 2 trường). Không đổi recency-504/pUp. Thiết kế: `docs/superpowers/specs/2026-07-03-bear-downside-anti-illusion-design.md`.
+
 ## Máy thời gian as-of (card Triển Vọng)
 
 Card có thanh trượt riêng: cuộn về ngày X bất kỳ và xem **dải card LÚC ĐÓ nói** cạnh **thứ THỰC TẾ xảy ra** từ X.
