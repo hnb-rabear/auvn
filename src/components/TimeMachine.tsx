@@ -270,27 +270,34 @@ export default function TimeMachine({
   const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
 
+  // Cổng acute-crash as-of-ngày — CÙNG chính sách với live (Dashboard): khi phase Bear
+  // DCA của NGÀY ĐANG XEM là "acute", prob recency dễ lạc quan giả ⇒ dùng bản không
+  // trọng số. dcaAt đã walk-forward nên "quá khứ = hiện tại" giữ nguyên.
+  const bottomCrashDay = dcaAt.phase === "acute";
   // Gợi ý hành động lịch sử: world-only (premium tắt) + xác suất đáy as-of-ngày
   // (walk-forward) — cùng ngưỡng live (prob≥60 & verified) nhưng chỉ tầng cycle
   // (live gộp max(cycle,swing)); past-only để "quá khứ = hiện tại".
   const histGuidance = useMemo(() => {
-    const prob = p?.cycleProb ?? null;
+    const rec = p?.cycleProb ?? null;
+    const prob = bottomCrashDay ? (p?.cycleProbUw ?? rec) : rec;
     const n = p?.cycleN ?? 0;
     const verified = prob !== null && n >= 10;
     const high = verified && prob >= 60;
-    const ciStr = p?.cycleCi ? ` (CI ${p.cycleCi[0]}–${p.cycleCi[1]}%)` : "";
+    const ciStr = !bottomCrashDay && p?.cycleCi ? ` (CI ${p.cycleCi[0]}–${p.cycleCi[1]}%)` : "";
     return deriveGuidance({
       zone: rawZone,
       composite,
       bottom: {
         high,
         verified,
-        label: verified ? `Săn đáy: xác suất gần đáy ${Math.round(prob)}%${ciStr}.` : "Săn đáy: chưa đủ dữ liệu kiểm chứng.",
+        label: verified
+          ? `Săn đáy: xác suất gần đáy ${Math.round(prob)}%${ciStr}${bottomCrashDay ? " (đang sụp cấp tính — ước lượng thận trọng)" : ""}.`
+          : "Săn đáy: chưa đủ dữ liệu kiểm chứng.",
       },
       premiumPct: null, // world-only ở lịch sử
       premiumP80: null, // ⇒ cổng premium tắt
     });
-  }, [rawZone, composite, p]);
+  }, [rawZone, composite, p, bottomCrashDay]);
 
   const spark = useMemo(() => {
     const win = points.slice(start, end);
@@ -578,8 +585,8 @@ export default function TimeMachine({
       <div className="tm-bottom">
         {(
           [
-            ["Đáy chu kỳ", "≈6 tháng", p.cycleProb ?? null, p.cycleCi ?? null, p.cycleN ?? 0],
-            ["Đáy sóng", "≈1 tháng", p.swingProb ?? null, p.swingCi ?? null, p.swingN ?? 0],
+            ["Đáy chu kỳ", "≈6 tháng", bottomCrashDay ? (p.cycleProbUw ?? p.cycleProb ?? null) : (p.cycleProb ?? null), p.cycleCi ?? null, p.cycleN ?? 0],
+            ["Đáy sóng", "≈1 tháng", bottomCrashDay ? (p.swingProbUw ?? p.swingProb ?? null) : (p.swingProb ?? null), p.swingCi ?? null, p.swingN ?? 0],
           ] as [string, string, number | null, [number, number] | null, number][]
         ).map(([title, sub, prob, ci, n]) => {
           const ok = prob !== null && n >= 10;
@@ -589,7 +596,7 @@ export default function TimeMachine({
               {ok ? (
                 <span className={`bottom-gauge-pct ${bottomPctClass(prob)}`}>
                   {Math.round(prob)}%
-                  {ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
+                  {!bottomCrashDay && ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
                 </span>
               ) : (
                 <span className="muted small">Chưa đủ dữ liệu kiểm chứng</span>
@@ -598,6 +605,9 @@ export default function TimeMachine({
           );
         })}
       </div>
+      {bottomCrashDay && (p.cycleProb ?? p.swingProb) != null && (
+        <div className="muted small">⚠ Ngày này giá đang sụp cấp tính — hiện ước lượng săn đáy thận trọng (toàn lịch sử).</div>
+      )}
 
       <ActionGuidance guidance={histGuidance} />
 

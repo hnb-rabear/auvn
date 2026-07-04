@@ -1,6 +1,6 @@
 # Bottom Hunter — săn vùng gần đáy XAU/USD: phương pháp & bằng chứng test
 
-Cập nhật: 2026-06-13. Sinh bởi `scripts/bottom-study.ts` + `scripts/bottom-ml-study.ts` + `scripts/monitor-bottom.ts` trên dữ liệu thật.
+Cập nhật: 2026-07-04 (thêm Recency-504). Sinh bởi `scripts/bottom-study.ts` + `scripts/bottom-ml-study.ts` + `scripts/monitor-bottom.ts` + `scripts/bottom-calibration-study.ts` + `scripts/bottom-recency-deep-study.ts` + `scripts/bottom-recency-guard-study.ts` trên dữ liệu thật.
 
 Đây là một **lớp độc lập**, KHÔNG đụng tới điểm tổng hợp mua/bán. Composite trả lời "vùng này nên gom hay không"; Bottom Hunter trả lời một câu khác hẹp hơn: **"hôm nay xác suất gần đáy là bao nhiêu?"** — một xác suất kèm khoảng tin cậy, không bao giờ là lời khẳng định "đây là đáy".
 
@@ -122,6 +122,36 @@ npx tsx scripts/bottom-approach-compare2.ts  # đào sâu cycleBin==3: bền 2 g
 ```
 
 `BOTTOM_CONFIG` khai báo tại `src/lib/types.ts` — số liệu evidence trong code phải khớp doc này (cùng quy ước presets.md ↔ PRESETS); đổi cấu hình thì cập nhật cả hai.
+
+## Recency-504 (2026-07): base-rate bin có trọng số ~2 năm gần — GO kèm cổng hiển thị acute-crash
+
+**Vấn đề (Giới hạn #2 bên dưới, đo được):** base-rate bin toàn cục không trọng số bị chế độ thị trường cũ "đầu độc" — bin cao base 32% train vs 52% test; walk-forward Brier/bias cho thấy gauge **undershoot hệ thống trong bull** (cycle test bias +19,8đ: máy nói 40% khi thực ~60%). Đúng bệnh regime-drift mà lớp Bear Downside đã sửa bằng recency-weight.
+
+**Thay đổi:** `prob` của cả 2 tầng (live + `bottomHistory` walk-forward, cùng công thức để giữ bất biến "điểm cuối == gauge") = base-rate cùng bin có trọng số `0.5^(tuổi/504)` (`BOTTOM_CONFIG.recencyHalflife`). CI block-bootstrap tính **cùng scheme trọng số** (`weightedBlockBootstrapCi` — bài học reliability patch Bear Downside: estimate phải ∈ CI của chính nó, khoá bằng test). Giữ `probUnweighted` (số cũ) + `ess` (cỡ mẫu hiệu dụng, hôm nay ~190/tầng).
+
+**Bằng chứng (3 study, offline trên data commit, walk-forward as-of, cổng train<2019/test≥2019, seed cố định):**
+
+| Kiểm tra | unweighted | recency-504 | Phán quyết |
+| --- | --- | --- | --- |
+| Brier cycle (train/test) | 0,2316 / 0,2897 | 0,2272 / 0,2676 | no-harm cả hai, cải thiện cả hai |
+| Brier swing (train/test) | 0,2454 / 0,2618 | 0,2463 / 0,2619 | no-harm (băng 0,002) |
+| Bias test cycle / swing | +19,8đ / +7,8đ | +10,7đ / +2,9đ | sửa undershoot rõ |
+| Placebo anti-recency (ưu tiên ngày CŨ) | — | tệ hơn hẳn (cycle test Brier 0,3385, bias +29,5đ) | tín hiệu thật |
+| Sweep hl 126–1008 (cycle test) | — | **mọi** hl đều thắng unweighted | hướng robust, không phải may grid |
+| ΔBrier CI (paired block-bootstrap) | — | CI vắt 0 cả 2 tầng/2 giai đoạn | **KHÔNG significant** |
+| recency-252 | — | hại Brier swing (Δtest +0,0064) | LOẠI — 504 duy nhất qua cổng cả 2 tầng |
+
+**TRUNG THỰC — đây là hiệu chỉnh BIAS theo chế độ, không phải "tăng độ chính xác"** (gain variance-dominated, cùng khung với recency của Bear Downside). 504 trùng half-life đã validate ở Bear Downside.
+
+**Failure mode đo được (footgun sập nhanh):** bias theo năm cho thấy recency **overshoot khi giá đang sụp cấp tính** — 2020 cycle −19,0đ (uw −3,2đ), swing 2026 −37,3đ (uw −25,4đ). Con số sinh tử: khi máy tự tin ≥55% mà thị trường **đang sập** (drawdown42 ≥8%), tỷ lệ near-bottom thực = **0/2** (cycle test), 33% (swing test), 0/13 (gấu 2011–15) — so với 71% khi thị trường êm. Regime-guard dạng thống kê (blend theo drawdown) chỉ vá một nửa + thêm tham số ⇒ **NO-GO**; unweighted CŨNG overshoot 2026 (−25đ) nên một phần lỗi là cố hữu của lớp bin-base-rate.
+
+**⇒ Cổng hiển thị acute-crash (chính sách đã chốt):** khi phase Bear DCA == `"acute"` (drawdown≥15% từ ATH + đang sâu thêm — lớp đã validate riêng, không thêm tham số mới), MỌI nơi đọc prob (gauge, guidance, hero, Time Machine — Time Machine dùng `bearDcaAt` as-of nên "quá khứ = hiện tại") **rớt về `probUnweighted` + cờ cảnh báo**. Bình thường hiện prob recency.
+
+**Cờ "Gom rải" prob≥60 sống lại (grid ngưỡng, guard-study E2):** với recency-504 cờ ≥60 bắn 7 đợt độc lập/6 năm, win 6T 85% vs nền 63% (median +8,9% vs +3,5%), plateau vững 55–65; với unweighted nó bắn đúng **1 ngày trong 17 năm** (đúng lý do nó từng bị LOẠI ở bảng trên). Caveat: 7 đợt = mẫu hiệu dụng mỏng, và cờ thừa kế cổng acute-crash.
+
+**A2 — calibration đo được (surface trong `bottom.json.calibration` + banner ⓘ):** reliability walk-forward theo bucket dự đoán (máy nói X% → thực Y%, chỉ đọc bucket n≥20). Đo thêm: **không CI nào** (weighted hay không) phủ nổi rate thực hiện 504 phiên tới (coverage 14–61% vs kỳ vọng 95) — drift áp đảo nhiễu lấy mẫu ⇒ UI ghi rõ "CI chỉ phản ánh nhiễu lấy mẫu, không bao được đổi chế độ".
+
+Tái lập: `npx tsx scripts/bottom-calibration-study.ts` (A1/A2 + phán quyết GO/NO-GO) · `npx tsx scripts/bottom-recency-deep-study.ts` (D1 plateau+significance · D2 bias theo năm · D3 CI/ESS · D4 cờ ≥60) · `npx tsx scripts/bottom-recency-guard-study.ts` (E1 chẩn đoán hôm nay · E2 grid ngưỡng · E3 guard NO-GO · E4 tự-tin-sai theo chế độ).
 
 ## Thử feature 2026-06: lợi suất thực (DFII10) + Vàng/Bạc — kết quả
 

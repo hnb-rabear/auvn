@@ -175,9 +175,13 @@ describe("runBottom", () => {
     date: new Date(Date.UTC(2018, 0, 1) + i * 86400000).toISOString().slice(0, 10),
     close: 1500 + 250 * Math.sin(i / 90) + i * 0.05,
   }));
+  // runBottom trên cùng bars là thuần — chạy MỘT lần, tái dùng cho mọi test (walk-forward
+  // weighted-CI mỗi nút khiến mỗi lần chạy tốn vài giây; gọi lặp làm suite timeout).
+  let shared: ReturnType<typeof runBottom> | null = null;
+  const runShared = () => (shared ??= runBottom(bars, null, null, {}));
 
   it("trả xác suất 2 tầng trong [0,100] và CI hợp lệ", () => {
-    const r = runBottom(bars, null, null, {});
+    const r = runShared();
     for (const tier of [r.cycle, r.swing]) {
       expect(tier.prob).toBeGreaterThanOrEqual(0);
       expect(tier.prob).toBeLessThanOrEqual(100);
@@ -187,18 +191,20 @@ describe("runBottom", () => {
       }
       expect(tier.drivers.length).toBeGreaterThan(0);
     }
-  });
+  }, 20000);
 
-  it("prob của tầng = base-rate near-bottom của các ngày lịch sử cùng bin (kiểm tra wiring)", () => {
+  it("prob = base-rate recency-weighted, probUnweighted = base-rate thường, cùng bin (kiểm tra wiring)", () => {
     const WARMUP = 756, STEP = 3;
     const closes = bars.map((b) => b.close);
     const cfg = BOTTOM_CONFIG.cycle;
+    const hl = BOTTOM_CONFIG.recencyHalflife;
+    const lastI = closes.length - 1;
     // tái dựng độc lập bằng chính các hàm đã export
     const curBin = binOf(
       bottomScore(bottomFeatures({ closes, dxyCloses: [], yieldCloses: null, fedRates: [] }), cfg.weights),
       cfg.binEdges
     );
-    let fav = 0, n = 0;
+    let fav = 0, n = 0, sw = 0, swFav = 0, sw2 = 0;
     for (let i = WARMUP; i < closes.length; i += STEP) {
       const label = labelNearBottom(closes, i, cfg.horizonDays, cfg.epsPct);
       if (label === null) continue;
@@ -208,13 +214,30 @@ describe("runBottom", () => {
       );
       if (bin !== curBin) continue;
       n++;
-      if (label) fav++;
+      const w = Math.pow(0.5, (lastI - i) / hl);
+      sw += w; sw2 += w * w;
+      if (label) { fav++; swFav += w; }
     }
-    const expected = n ? Math.round((fav / n) * 1000) / 10 : 0;
-    const r = runBottom(bars, null, null, {});
+    const expectedUw = n ? Math.round((fav / n) * 1000) / 10 : 0;
+    const expectedW = sw > 0 ? Math.round((swFav / sw) * 1000) / 10 : 0;
+    const expectedEss = sw2 > 0 ? Math.round((sw * sw) / sw2) : 0;
+    const r = runShared();
     expect(r.cycle.bin).toBe(curBin);
     expect(r.cycle.n).toBe(n);
-    expect(r.cycle.prob).toBe(expected);
+    expect(r.cycle.prob).toBe(expectedW);
+    expect(r.cycle.probUnweighted).toBe(expectedUw);
+    expect(r.cycle.ess).toBe(expectedEss);
+    expect(r.cycle.ess!).toBeLessThanOrEqual(n);
+    expect(r.cycle.ess!).toBeGreaterThan(0);
+  });
+
+  it("estimate ∈ own CI: prob recency nằm trong CI weighted của chính nó (bài học Bear Downside)", () => {
+    const r = runShared();
+    for (const tier of [r.cycle, r.swing]) {
+      if (!tier.ci || tier.n < 10) continue;
+      expect(tier.ci[0]).toBeLessThanOrEqual(tier.prob);
+      expect(tier.ci[1]).toBeGreaterThanOrEqual(tier.prob);
+    }
   });
 
   it("đánh dấu được đáy lịch sử cho overlay", () => {
@@ -227,23 +250,24 @@ describe("runBottom", () => {
     expect(r.confirmedBottoms.length).toBeGreaterThan(0);
     expect(r.confirmedBottoms[0]).toHaveProperty("date");
     expect(r.confirmedBottoms[0]).toHaveProperty("tier");
-  });
+  }, 20000);
 
   it("signalHistory dày mỗi phiên nhưng prob/n giữ lưới thưa", () => {
     const WARMUP = 756;
-    const r = runBottom(bars, null, null, {});
+    const r = runShared();
     // signalHistory phủ mọi bar sau warmup (lưới dày STEP=1)
     expect(r.signalHistory.length).toBe(bars.length - WARMUP); // 1600-756=844
     // prob/n KHÔNG đổi: vẫn lưới thưa STEP=3 (đặc trưng hóa giá trị hiện tại)
     expect(r.cycle.n).toBe(94);
-    expect(r.cycle.prob).toBe(78.7);
+    expect(r.cycle.prob).toBe(75.4); // recency-504 weighted (unweighted cũ 78.7 → probUnweighted)
     expect(r.swing.n).toBe(95);
     expect(r.swing.prob).toBe(100);
+    expect(r.cycle.probUnweighted).toBe(78.7); // golden cũ giữ nguyên ở bản không trọng số
   });
 
   it("signalHistory bao phủ bar mới nhất (cycleBin/swingBin không undefined trên điểm cuối)", () => {
     // Kiểm tra fix: loop buildTier phải append bar cuối kể cả khi không khớp lưới STEP
-    const r = runBottom(bars, null, null, {});
+    const r = runShared();
     const lastEntry = r.signalHistory[r.signalHistory.length - 1];
     const lastDate = bars[bars.length - 1].date;
     expect(lastEntry.date).toBe(lastDate);
@@ -251,14 +275,37 @@ describe("runBottom", () => {
     expect(lastEntry.swingBin).toBeDefined();
   });
 
-  it("walk-forward: điểm cuối bottomHistory == prob/n gauge hiện tại", () => {
-    const r = runBottom(bars, null, null, {});
+  it("walk-forward: điểm cuối bottomHistory == prob/probUnweighted/n gauge hiện tại", () => {
+    const r = runShared();
     const last = r.bottomHistory[r.bottomHistory.length - 1];
     expect(last.date).toBe(bars[bars.length - 1].date);
     expect(last.cycle.prob).toBe(r.cycle.prob);
+    expect(last.cycle.probUnweighted).toBe(r.cycle.probUnweighted);
     expect(last.cycle.n).toBe(r.cycle.n);
     expect(last.swing.prob).toBe(r.swing.prob);
+    expect(last.swing.probUnweighted).toBe(r.swing.probUnweighted);
     expect(last.swing.n).toBe(r.swing.n);
+  }, 20000);
+
+  it("calibration (A2): bucket walk-forward có shape hợp lệ và tổng n khớp số nút đã đáo hạn có prob", () => {
+    const r = runShared();
+    expect(r.calibration).toBeDefined();
+    for (const tier of ["cycle", "swing"] as const) {
+      const buckets = r.calibration![tier];
+      expect(buckets.length).toBe(5);
+      for (const b of buckets) {
+        expect(b.hi).toBeGreaterThan(b.lo);
+        expect(b.real).toBeGreaterThanOrEqual(0);
+        expect(b.real).toBeLessThanOrEqual(100);
+        if (b.n > 0) {
+          // pred trung bình phải nằm trong biên bucket (prob 100 rơi vào bucket cuối)
+          expect(b.pred).toBeGreaterThanOrEqual(b.lo);
+          expect(b.pred).toBeLessThanOrEqual(b.hi === 100 ? 100 : b.hi);
+        }
+      }
+      const total = buckets.reduce((s, b) => s + b.n, 0);
+      expect(total).toBeGreaterThan(0);
+    }
   }, 20000);
 
   it("walk-forward: không look-ahead — prob tại nút cũ không đổi khi có thêm dữ liệu sau", () => {
@@ -274,7 +321,7 @@ describe("runBottom", () => {
   }, 20000);
 
   it("walk-forward: nút sớm chưa đủ mẫu ⇒ prob null", () => {
-    const r = runBottom(bars, null, null, {});
+    const r = runShared();
     expect(r.bottomHistory[0].cycle.prob).toBeNull();
     expect(r.bottomHistory[0].cycle.n).toBeLessThan(10);
   }, 20000);

@@ -209,6 +209,48 @@ export function blockBootstrapCi(
   return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
 }
 
+/**
+ * Bản CÓ TRỌNG SỐ của blockBootstrapCi: CI 95% cho tỉ lệ thuận chiều khi mỗi quan sát
+ * mang trọng số (recency). Resample theo khối như bản thường, nhưng tử/mẫu là tổng
+ * trọng số — CI phải tính CÙNG scheme với point estimate (bài học reliability patch
+ * Bear Downside: pUp từng nằm NGOÀI CI unweighted của chính nó). Cùng seed/iterations
+ * mặc định với blockBootstrapCi để walk-forward giữ bất biến "điểm cuối == live".
+ */
+export function weightedBlockBootstrapCi(
+  returns: number[],
+  weights: number[],
+  blockSize: number,
+  iterations = 2000,
+  seed = 20260611
+): [number, number] | null {
+  const n = returns.length;
+  if (n < 10 || weights.length !== n) return null;
+  const b = Math.max(1, Math.min(blockSize, n));
+  const nBlocks = Math.ceil(n / b);
+  const rand = seededRandom(seed);
+  const favs: number[] = [];
+  for (let it = 0; it < iterations; it++) {
+    let fav = 0;
+    let tw = 0;
+    let total = 0;
+    for (let k = 0; k < nBlocks; k++) {
+      const start = Math.floor(rand() * n);
+      for (let j = 0; j < b && total < n; j++) {
+        const idx = (start + j) % n;
+        if (returns[idx] > 0) fav += weights[idx];
+        tw += weights[idx];
+        total++;
+      }
+    }
+    if (tw > 0) favs.push(fav / tw);
+  }
+  if (favs.length < iterations * 0.5) return null;
+  favs.sort((a, c) => a - c);
+  const lo = favs[Math.floor(0.025 * (favs.length - 1))];
+  const hi = favs[Math.floor(0.975 * (favs.length - 1))];
+  return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
+}
+
 /** Bollinger %B(n,k): (P − dải dưới)/(dải trên − dải dưới). null nếu < n. Có thể ra ngoài [0,1]. */
 export function bollingerPercentB(values: number[], n = 20, k = 2): number | null {
   if (values.length < n) return null;

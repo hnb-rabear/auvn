@@ -155,10 +155,19 @@ export default function Dashboard({
   const highConf =
     highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified) &&
     !fusionDegraded;
+  // Cổng hiển thị acute-crash (docs/bottom.md "Recency-504"): prob recency đo được là
+  // lạc quan giả khi giá đang sụp cấp tính ⇒ mọi nơi đọc prob (gauge, guidance, hero)
+  // rớt về bản không trọng số. Tái dùng phase của Bear DCA — không thêm tham số mới.
+  const bottomCrashMode = bearDca.phase === "acute";
+  const effProb = useMemo(() => {
+    const eff = (t: { prob: number; probUnweighted?: number }) =>
+      bottomCrashMode ? (t.probUnweighted ?? t.prob) : t.prob;
+    return { cycle: eff(bottom.cycle), swing: eff(bottom.swing) };
+  }, [bottom, bottomCrashMode]);
   const guidance = useMemo(() => {
     // best = max prob của tầng đã kiểm chứng (khớp ngưỡng gauge ≥60/≥35), giữ nguyên hành vi live cũ
-    const c = cycleVerified ? bottom.cycle.prob : -1;
-    const s = swingVerified ? bottom.swing.prob : -1;
+    const c = cycleVerified ? effProb.cycle : -1;
+    const s = swingVerified ? effProb.swing : -1;
     const best = Math.max(c, s);
     const lvl = best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
     const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
@@ -168,21 +177,21 @@ export default function Dashboard({
       bottom: {
         high: best >= 60,
         verified: cycleVerified || swingVerified,
-        label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(bottom.cycle.prob)}%, sóng ${fmt1(bottom.swing.prob)}%).`,
+        label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(effProb.cycle)}%, sóng ${fmt1(effProb.swing)}%${bottomCrashMode ? " — đang sụp cấp tính, dùng ước lượng thận trọng" : ""}).`,
       },
       premiumPct: analysis.prices.premiumPct,
       premiumP80: analysis.premiumPercentiles?.p80 ?? null,
     });
-  }, [zone, composite, bottom, cycleVerified, swingVerified, analysis]);
+  }, [zone, composite, effProb, bottomCrashMode, cycleVerified, swingVerified, analysis]);
 
   // nhãn xác suất gần đáy cho dòng cô đọng ở hero (khớp ngưỡng gauge 60/35)
   const nearBottomLabel = useMemo(() => {
-    const c = cycleVerified ? bottom.cycle.prob : -1;
-    const s = swingVerified ? bottom.swing.prob : -1;
+    const c = cycleVerified ? effProb.cycle : -1;
+    const s = swingVerified ? effProb.swing : -1;
     const best = Math.max(c, s);
     if (best < 0) return "chưa đủ dữ liệu";
     return best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
-  }, [cycleVerified, swingVerified, bottom]);
+  }, [cycleVerified, swingVerified, effProb]);
 
   const heroMeta = (
     <>
@@ -555,7 +564,7 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <BottomGauges bottom={bottom} />
+          <BottomGauges bottom={bottom} crashMode={bottomCrashMode} />
         </div>
       </details>
 
