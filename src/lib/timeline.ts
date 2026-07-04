@@ -74,6 +74,8 @@ export function forwardFillBottomHistory(points: TimelinePoint[], history: Botto
       const { cycle: c, swing: s } = history[h];
       pt.cycleProb = c.prob; pt.cycleCi = c.ci; pt.cycleN = c.n;
       pt.swingProb = s.prob; pt.swingCi = s.ci; pt.swingN = s.n;
+      pt.cycleProbUw = c.probUnweighted ?? null;
+      pt.swingProbUw = s.probUnweighted ?? null;
     }
   }
 }

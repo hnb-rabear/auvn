@@ -1,6 +1,7 @@
 /** Engine xác suất đáy (Bottom Hunter). Dùng chung với scripts/bottom-study.ts. */
 
-import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, blockBootstrapCi } from "./indicators";
+import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, weightedBlockBootstrapCi } from "./indicators";
+import type { BottomCalibrationBucket } from "./types";
 import type { BottomDriver } from "./types";
 import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig, type BottomSignalRow, type BottomHistoryRow } from "./types";
 
@@ -210,12 +211,30 @@ export interface RunBottomExtras {
 
 interface HistRow { i: number; date: string; score: number; bin: number; label: boolean | null; }
 
+/** prob 0..100 recency-weighted + không trọng số + ESS từ nhãn ±1 và tuổi (phiên). */
+function weightedStats(pm: number[], ages: number[], hl: number): { prob: number; probUw: number; ess: number; weights: number[] } {
+  const weights = ages.map((a) => Math.pow(0.5, a / hl));
+  let sw = 0, swFav = 0, sw2 = 0, fav = 0;
+  for (let k = 0; k < pm.length; k++) {
+    sw += weights[k];
+    sw2 += weights[k] * weights[k];
+    if (pm[k] > 0) { swFav += weights[k]; fav++; }
+  }
+  const prob = sw > 0 ? Math.round((swFav / sw) * 1000) / 10 : 0;
+  const probUw = pm.length ? Math.round((fav / pm.length) * 1000) / 10 : 0;
+  const ess = sw2 > 0 ? Math.round((sw * sw) / sw2) : 0;
+  return { prob, probUw, ess, weights };
+}
+
+const CALIB_EDGES = [0, 20, 40, 60, 80, 100];
+
 function buildTier(
   closes: number[],
   dates: string[],
   cfg: BottomTierConfig,
+  hl: number,
   featuresAt: (i: number) => BottomDriver[]
-): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[]; history: { date: string; bin: number; prob: number | null; ci: [number, number] | null; n: number }[] } {
+): { result: Omit<BottomTierResult, "drivers">; rows: HistRow[]; currentDrivers: BottomDriver[]; history: { date: string; bin: number; prob: number | null; ci: [number, number] | null; probUnweighted: number | null; n: number }[]; calibration: BottomCalibrationBucket[] } {
   // Đánh giá một index: drivers + score + bin + label (đều past-only, hàm thuần
   // của index — không phụ thuộc lưới nào gọi).
   const evalRow = (i: number): HistRow => {
@@ -237,25 +256,31 @@ function buildTier(
   for (let i = WARMUP; i < closes.length; i += STEP) statRows.push(evalRow(i));
   if (statRows.length && statRows[statRows.length - 1].i !== closes.length - 1)
     statRows.push(evalRow(closes.length - 1));
+  // Base-rate cùng bin CÓ TRỌNG SỐ RECENCY 0.5^(tuổi/hl): sửa undershoot theo chế độ
+  // (train 32% vs test 52% — docs/bottom.md "Recency-504"). CI cùng scheme trọng số.
+  const lastI = closes.length - 1;
   const labeled = statRows.filter((r) => r.label !== null && r.bin === curBin);
   const favArr = labeled.map((r) => (r.label ? 1 : -1));
+  const ages = labeled.map((r) => lastI - r.i);
   const n = labeled.length;
-  const prob = n ? Math.round((favArr.filter((x) => x > 0).length / n) * 1000) / 10 : 0;
-  const ci = blockBootstrapCi(favArr, Math.max(1, Math.round(cfg.horizonDays / 3)));
+  const { prob, probUw: probUnweighted, ess, weights } = weightedStats(favArr, ages, hl);
+  const ci = weightedBlockBootstrapCi(favArr, weights, Math.max(1, Math.round(cfg.horizonDays / 3)));
 
   // --- Walk-forward: tại mỗi nút lưới g, base-rate chỉ trên ngày đã ĐÁO HẠN nhãn
-  // trước g (e.i + H <= g.i) và cùng bin với g. Điểm cuối == prob/n hiện tại
-  // (cùng tập: e.i + H <= last ⇔ label != null). Past-only, không look-ahead.
+  // trước g (e.i + H <= g.i) và cùng bin với g, trọng số recency theo tuổi TÍNH TỪ g.
+  // Điểm cuối == prob/n hiện tại (cùng tập + cùng tuổi vì g cuối == lastI). Past-only.
   const H = cfg.horizonDays;
-  const matured = new Map<number, number[]>(); // bin -> nhãn ±1 đã đáo hạn
+  const matured = new Map<number, { pm: number; i: number }[]>(); // bin -> nhãn ±1 + index đã đáo hạn
   let mk = 0;
-  const history: { date: string; bin: number; prob: number | null; ci: [number, number] | null; n: number }[] = [];
+  const history: { date: string; bin: number; prob: number | null; ci: [number, number] | null; probUnweighted: number | null; n: number }[] = [];
+  // A2: reliability đo được — gom (prob dự, nhãn thực) của các nút đã đáo hạn nhãn.
+  const calibAgg = CALIB_EDGES.slice(0, -1).map(() => ({ predSum: 0, favSum: 0, n: 0 }));
   for (const g of statRows) {
     while (mk < statRows.length && statRows[mk].i + H <= g.i) {
       const e = statRows[mk];
       if (e.label !== null) {
         const arr = matured.get(e.bin) ?? [];
-        arr.push(e.label ? 1 : -1);
+        arr.push({ pm: e.label ? 1 : -1, i: e.i });
         matured.set(e.bin, arr);
       }
       mk++;
@@ -263,19 +288,36 @@ function buildTier(
     const arr = matured.get(g.bin) ?? [];
     const nn = arr.length;
     if (nn < 10) {
-      history.push({ date: g.date, bin: g.bin, prob: null, ci: null, n: nn });
+      history.push({ date: g.date, bin: g.bin, prob: null, ci: null, probUnweighted: null, n: nn });
     } else {
-      const prob = Math.round((arr.filter((x) => x > 0).length / nn) * 1000) / 10;
-      history.push({ date: g.date, bin: g.bin, prob, ci: blockBootstrapCi(arr, Math.max(1, Math.round(H / 3))), n: nn });
+      const st = weightedStats(arr.map((x) => x.pm), arr.map((x) => g.i - x.i), hl);
+      history.push({
+        date: g.date, bin: g.bin, prob: st.prob,
+        ci: weightedBlockBootstrapCi(arr.map((x) => x.pm), st.weights, Math.max(1, Math.round(H / 3))),
+        probUnweighted: st.probUw, n: nn,
+      });
+      if (g.label !== null) {
+        const bi = Math.min(calibAgg.length - 1, Math.max(0, Math.floor(st.prob / 20)));
+        calibAgg[bi].predSum += st.prob;
+        calibAgg[bi].favSum += g.label ? 1 : 0;
+        calibAgg[bi].n++;
+      }
     }
   }
+  const calibration: BottomCalibrationBucket[] = calibAgg.map((c, k) => ({
+    lo: CALIB_EDGES[k],
+    hi: CALIB_EDGES[k + 1],
+    pred: c.n ? Math.round((c.predSum / c.n) * 10) / 10 : 0,
+    real: c.n ? Math.round((c.favSum / c.n) * 1000) / 10 : 0,
+    n: c.n,
+  }));
 
   // --- Lưới DÀY (mỗi phiên) — rows cho signalHistory (bin từng ngày cho Time
   // Machine) + confirmedBottoms (không sót đáy off-grid). KHÔNG nuôi prob/ci/n.
   const rows: HistRow[] = [];
   for (let i = WARMUP; i < closes.length; i += 1) rows.push(evalRow(i));
 
-  return { result: { prob, ci, bin: curBin, n }, rows, currentDrivers: curDrivers, history };
+  return { result: { prob, ci, probUnweighted, ess, bin: curBin, n }, rows, currentDrivers: curDrivers, history, calibration };
 }
 
 /** Chạy engine xác suất đáy 2 tầng. closes/dxy/fed/yield giống runBacktest. */
@@ -306,8 +348,8 @@ export function runBottom(
     return out;
   };
 
-  const cycle = buildTier(closes, dates, BOTTOM_CONFIG.cycle, featuresAt);
-  const swing = buildTier(closes, dates, BOTTOM_CONFIG.swing, featuresAt);
+  const cycle = buildTier(closes, dates, BOTTOM_CONFIG.cycle, BOTTOM_CONFIG.recencyHalflife, featuresAt);
+  const swing = buildTier(closes, dates, BOTTOM_CONFIG.swing, BOTTOM_CONFIG.recencyHalflife, featuresAt);
 
   const confirmedBottoms: ConfirmedBottom[] = [];
   const collect = (rows: HistRow[], tier: "cycle" | "swing") => {
@@ -339,8 +381,8 @@ export function runBottom(
     const s = swingHByDate.get(c.date)!;
     return {
       date: c.date,
-      cycle: { bin: c.bin, prob: c.prob, ci: c.ci, n: c.n },
-      swing: { bin: s.bin, prob: s.prob, ci: s.ci, n: s.n },
+      cycle: { bin: c.bin, prob: c.prob, ci: c.ci, probUnweighted: c.probUnweighted, n: c.n },
+      swing: { bin: s.bin, prob: s.prob, ci: s.ci, probUnweighted: s.probUnweighted, n: s.n },
     };
   });
 
@@ -352,6 +394,7 @@ export function runBottom(
     confirmedBottoms,
     signalHistory,
     bottomHistory,
-    note: "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy. Backtest trên XAU/USD; tham khảo, không phải lời hứa.",
+    calibration: { cycle: cycle.calibration, swing: swing.calibration },
+    note: "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy, ưu tiên ~2 năm gần (recency-504, sửa lệch theo chế độ thị trường). Khi giá đang sụp cấp tính, UI hiển thị bản không trọng số (thận trọng hơn). Backtest trên XAU/USD; tham khảo, không phải lời hứa.",
   };
 }

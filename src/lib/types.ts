@@ -144,6 +144,9 @@ export interface TimelinePoint {
   swingProb?: number | null;
   swingCi?: [number, number] | null;
   swingN?: number;
+  /** bản KHÔNG trọng số của cycleProb/swingProb — Time Machine dùng khi phase as-of "acute". undefined = timeline.json cũ. */
+  cycleProbUw?: number | null;
+  swingProbUw?: number | null;
   /** hệ số phanh DCA as-of-ngày (lớp Vùng tích lũy). undefined = timeline.json cũ. */
   accumMult?: number;
   /** percentile giá so dải 2 năm (0..1) tại ngày này. undefined = timeline.json cũ. */
@@ -311,15 +314,36 @@ export interface ConfirmedBottom {
 }
 
 export interface BottomTierResult {
-  /** xác suất gần đáy 0..100 */
+  /**
+   * Xác suất gần đáy 0..100 — base-rate cùng bin CÓ TRỌNG SỐ RECENCY
+   * 0.5^(tuổi/recencyHalflife) (từ 2026-07: sửa undershoot theo chế độ thị trường,
+   * xem docs/bottom.md "Recency-504"). Failure mode đã đo: lạc quan giả khi giá
+   * đang sụp cấp tính — UI phải rớt về probUnweighted khi Bear DCA phase=="acute".
+   */
   prob: number;
-  /** CI 95% block-bootstrap [lo, hi] hoặc null nếu thiếu mẫu */
+  /** CI 95% block-bootstrap CÙNG scheme trọng số với prob (bài học Bear Downside), null nếu thiếu mẫu */
   ci: [number, number] | null;
+  /** base-rate KHÔNG trọng số (số cũ) — hiển thị khi đang sụp cấp tính. undefined = bottom.json cũ. */
+  probUnweighted?: number;
+  /** cỡ mẫu hiệu dụng (Σw)²/Σw² dưới trọng số recency. undefined = bottom.json cũ. */
+  ess?: number;
   /** chỉ số bin của bottomScore hiện tại (0..binEdges.length) */
   bin: number;
   /** số quan sát lịch sử trong cùng bin */
   n: number;
   drivers: BottomDriver[];
+}
+
+/** Một bucket reliability đo được (walk-forward): máy dự pred% ⇒ thực near-bottom real%. */
+export interface BottomCalibrationBucket {
+  /** biên bucket theo prob dự (0..100) */
+  lo: number;
+  hi: number;
+  /** trung bình prob máy dự trong bucket */
+  pred: number;
+  /** tần suất near-bottom thực hiện */
+  real: number;
+  n: number;
 }
 
 /** Bin đáy past-only theo ngày (cho Time Machine). bin: 0..binEdges.length. */
@@ -332,8 +356,11 @@ export interface BottomSignalRow {
 /** Một mục xác suất đáy as-of-ngày (walk-forward) cho 1 tầng. prob/ci null khi n<10. */
 export interface BottomHistoryEntry {
   bin: number;
+  /** recency-weighted (cùng semantics prob live) */
   prob: number | null;
   ci: [number, number] | null;
+  /** không trọng số — Time Machine dùng khi phase as-of == "acute". undefined = data cũ. */
+  probUnweighted?: number | null;
   n: number;
 }
 
@@ -354,6 +381,12 @@ export interface BottomAnalysis {
   signalHistory: BottomSignalRow[];
   /** xác suất đáy as-of-ngày (walk-forward, lưới thưa) — Time Machine forward-fill để "quá khứ = hiện tại" */
   bottomHistory: BottomHistoryRow[];
+  /**
+   * Reliability ĐO ĐƯỢC walk-forward (A2, như coverageStats của Bear Downside): với các
+   * ngày lịch sử máy dự prob trong [lo,hi), tần suất near-bottom thực = real%. UI dùng để
+   * người đọc kiểm toán được con số %. undefined = bottom.json cũ.
+   */
+  calibration?: { cycle: BottomCalibrationBucket[]; swing: BottomCalibrationBucket[] };
   note: string;
 }
 
@@ -373,6 +406,16 @@ export interface BottomTierConfig {
 export interface BottomConfig {
   cycle: BottomTierConfig;
   swing: BottomTierConfig;
+  /**
+   * Half-life (phiên) của trọng số recency 0.5^(tuổi/hl) khi gộp base-rate bin.
+   * Chốt 504 (≈2 năm) bằng scripts/bottom-calibration-study.ts + bottom-recency-deep-study.ts:
+   * duy nhất hl qua cổng no-harm Brier CẢ HAI tầng (252 hại swing), hướng robust ở cycle
+   * (mọi hl 126–1008 thắng unweighted ở test), trùng half-life đã validate của Bear Downside.
+   * TRUNG THỰC: gain Brier KHÔNG significant (CI vắt 0) — đây là hiệu chỉnh BIAS theo chế độ,
+   * không phải cải thiện dự báo; failure mode đo được: overshoot khi đang sụp cấp tính
+   * (2020 −19pt, swing 2026 −37pt) ⇒ UI rớt về unweighted khi Bear DCA phase=="acute".
+   */
+  recencyHalflife: number;
 }
 
 /**
@@ -408,6 +451,7 @@ export const BOTTOM_CONFIG: BottomConfig = {
     weights: { dd: 0, spd: 0, rsi: 0.5, macd: 0, macro: 0.5, mom: 0 },
     binEdges: [-40, 0, 40],
   },
+  recencyHalflife: 504,
 };
 
 /** Một điểm tối thiểu để chấm Vùng tích lũy (lấy từ timeline.points). */
