@@ -1,6 +1,6 @@
 /** Toán composite cho điểm timeline — thuần, không React. */
 
-import type { CriterionKey, TimelinePoint, BottomHistoryRow, BearAsOfRow } from "./types";
+import type { CriterionKey, TimelinePoint, BottomHistoryRow, BearAsOfRow, BearPhase } from "./types";
 
 /** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
 export function pointComposite(
@@ -88,6 +88,44 @@ export function forwardFillBearAsOf(points: TimelinePoint[], rows: BearAsOfRow[]
     while (h + 1 < rows.length && rows[h + 1].date <= pt.date) h++;
     if (rows[h].date <= pt.date) pt.bearAsOf = rows[h].bands;
   }
+}
+
+/**
+ * Các ngày "gom rải" của Máy thời gian — PHẢI trùng TỪNG NGÀY với
+ * deriveGuidance(...).level === "dca" của card guidance lịch sử (golden-tested,
+ * tests/dca-band.test.ts): điểm mua trung tính (không buy, không headwind) VÀ
+ * xác suất đáy chu kỳ as-of ≥60% đã kiểm chứng (n≥10), với cổng acute-crash
+ * từng ngày (pha "acute" ⇒ rớt về probUnweighted — cùng chính sách live).
+ * Nếu điều kiện của histGuidance đổi, hàm này phải đổi theo — đừng để dải
+ * trên chart nói khác card bên dưới (bài học Time Machine ×0.25 vs card ×1.0).
+ */
+export function gomRaiIdxs(
+  points: TimelinePoint[],
+  comps: number[],
+  buyThreshold: number,
+  phases: BearPhase[]
+): number[] {
+  const out: number[] = [];
+  for (let i = 0; i < points.length; i++) {
+    const c = comps[i];
+    if (c >= buyThreshold || c <= -40) continue; // vùng mua hoặc gió ngược — không phải gom rải
+    const p = points[i];
+    const rec = p.cycleProb ?? null;
+    const prob = phases[i] === "acute" ? (p.cycleProbUw ?? rec) : rec;
+    if (prob !== null && (p.cycleN ?? 0) >= 10 && prob >= 60) out.push(i);
+  }
+  return out;
+}
+
+/** Gộp danh sách index tăng dần thành các cụm liên tục [đầu, cuối] (bao gồm 2 đầu). */
+export function idxRuns(idxs: number[]): [number, number][] {
+  const runs: [number, number][] = [];
+  for (const i of idxs) {
+    const last = runs[runs.length - 1];
+    if (last && i === last[1] + 1) last[1] = i;
+    else runs.push([i, i]);
+  }
+  return runs;
 }
 
 /** Các ngày "bắt đầu vùng đáy" = cạnh lên bin đáy cao nhất:
