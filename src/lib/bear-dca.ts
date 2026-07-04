@@ -89,6 +89,21 @@ export function bearDcaAt(
   return { phase, mult: qtyForPhase(phase, dd, pct2y), dd };
 }
 
+/**
+ * Pha Bear DCA cho MỌI index một lần, O(n) — cùng công thức với bearDcaAt
+ * (golden-tested từng index). Cho các lớp cần pha của cả chuỗi (vd dải gom rải
+ * của Máy thời gian: cổng acute từng ngày) — gọi bearDcaAt lặp sẽ thành O(n²).
+ */
+export function bearPhases(prices: number[]): BearPhase[] {
+  const ath = rollingAth(prices);
+  return prices.map((p, i) => {
+    const prevIdx = Math.max(0, i - CYCLE_STEP);
+    const dd = ath[i] > 0 ? (ath[i] - p) / ath[i] : 0;
+    const ddPrev = ath[prevIdx] > 0 ? (ath[prevIdx] - prices[prevIdx]) / ath[prevIdx] : 0;
+    return classifyPhase(dd, dd - ddPrev);
+  });
+}
+
 export function runBearDca(points: BearDcaPoint[]): BearDcaAnalysis {
   const prices = points.map(p => p.price);
   const ath = rollingAth(prices);

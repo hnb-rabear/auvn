@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { depthQty, boostQty, classifyPhase, qtyForPhase, runBearDca, monitorBearDca, bearDcaAt } from "./bear-dca";
+import { depthQty, boostQty, classifyPhase, qtyForPhase, runBearDca, monitorBearDca, bearDcaAt, bearPhases } from "./bear-dca";
 import type { BearDcaPoint } from "./types";
 
 describe("depthQty", () => {
@@ -98,6 +98,24 @@ describe("bearDcaAt", () => {
     const at = bearDcaAt(prices, 99, 0.5);
     expect(at.dd).toBeCloseTo(0, 6); // đang ở đỉnh as-of
     expect(at.phase).toBe("bull");
+  });
+});
+
+describe("bearPhases", () => {
+  it("GOLDEN: bằng bearDcaAt(...).phase tại TỪNG index (chuỗi phủ đủ 4 pha)", () => {
+    // tăng (bull) → sụp nhanh (acute) → hồi (recovery) → rơi chậm giữ dd sâu (grind)
+    const prices = [
+      ...Array.from({ length: 300 }, (_, i) => 1000 + i * 10),
+      ...Array.from({ length: 100 }, (_, i) => 4000 - i * 20),
+      ...Array.from({ length: 50 }, (_, i) => 2000 + i * 12),
+      ...Array.from({ length: 100 }, (_, i) => 2600 - i * 1),
+    ];
+    const phases = bearPhases(prices);
+    expect(phases.length).toBe(prices.length);
+    for (let i = 0; i < prices.length; i++) {
+      expect(phases[i], `index ${i}`).toBe(bearDcaAt(prices, i, 0.5).phase);
+    }
+    expect(new Set(phases).size).toBe(4); // chuỗi thực sự đi qua đủ 4 pha
   });
 });
 
