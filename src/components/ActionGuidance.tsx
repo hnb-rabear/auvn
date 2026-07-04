@@ -8,7 +8,7 @@ const LEVEL_TAG: Record<Guidance["level"], string> = {
   dca: "GOM RẢI",
   wait: "QUAN SÁT",
   "premium-wait": "CHỜ CHÊNH HẠ",
-  reduce: "BỚT MUA",
+  headwind: "QUAN SÁT",
 };
 
 export default function ActionGuidance({

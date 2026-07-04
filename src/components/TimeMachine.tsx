@@ -422,7 +422,7 @@ export default function TimeMachine({
         <div className="tm-gear">
           <label className="tm-toggle muted small">
             <input type="checkbox" checked={showSell} onChange={(e) => setShowSell(e.target.checked)} />
-            Hiện vùng bán (chỉ tham khảo 1 tháng)
+            Hiện vùng bán (tham khảo NGƯỜI BÁN — sai gần 100% trong năm bull)
           </label>
           <label className="tm-toggle muted small">
             <input type="checkbox" checked={showExp} onChange={(e) => setShowExp(e.target.checked)} />
@@ -550,7 +550,7 @@ export default function TimeMachine({
         </span>
         <span className={`tm-zone ${zoneClass(zone)}`}>
           {zone === "sell" || zone === "strong-sell"
-            ? `${ZONE_LABELS[zone]} (tham khảo)`
+            ? `${ZONE_LABELS[zone]} (tham khảo người bán)`
             : preset && !isBuy
               ? "CHƯA CÓ TÍN HIỆU MUA"
               : ZONE_LABELS[zone]}

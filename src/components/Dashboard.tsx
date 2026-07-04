@@ -138,7 +138,15 @@ export default function Dashboard({
   const isBuyZone = rawZone === "buy" || rawZone === "strong-buy";
   const zone: Zone = preset && !isBuyZone ? "neutral" : rawZone;
   const isSellZone = zone === "sell" || zone === "strong-sell";
-  const verdictLabel = preset && !isBuyZone ? "CHƯA CÓ TÍN HIỆU MUA" : ZONE_LABELS[zone];
+  // Trục verdict chính chỉ còn 3 trạng thái với người mua (gộp 2026-07-04, xem
+  // guidance.ts): composite âm sâu KHÔNG hiện "VÙNG BÁN" nữa — nó chưa từng được
+  // kiểm chứng làm cổng mua/bán, chỉ còn là ngữ cảnh gió ngược + tham khảo người bán.
+  const verdictLabel =
+    preset && !isBuyZone
+      ? "CHƯA CÓ TÍN HIỆU MUA"
+      : isSellZone
+        ? "TRUNG LẬP (GIÓ NGƯỢC)"
+        : ZONE_LABELS[zone];
 
   const currentBuckets = backtest.buckets.filter(
     (b) => b.zone === zone && b.count > 0
@@ -279,9 +287,10 @@ export default function Dashboard({
           <>
             {isSellZone && (
               <div className="verdict-note">
-                ⚠ Cảnh báo tham khảo, KHÔNG phải khuyến nghị thoát vị thế: trong backtest 17
-                năm, tín hiệu bán chỉ đúng 49% sau 1 tháng và sai tới 75% sau 12 tháng. Ý
-                nghĩa thực tế: bớt mua thêm, không phải bán ra.
+                ⓘ Tham khảo cho người BÁN (không phải tín hiệu cho người mua): composite ≤ −40
+                trong lịch sử chỉ báo đúng ở thị trường yếu (2011/2016/2018/2022 — giá thấp hơn
+                sau 6 tháng 70–100% số lần) và sai 98–100% trong các năm bull (2010/2024/2025).
+                Không ai biết trước đang ở loại thị trường nào — bán theo kế hoạch kỳ hạn của bạn.
               </div>
             )}
             {preset && !isBuyZone && (
