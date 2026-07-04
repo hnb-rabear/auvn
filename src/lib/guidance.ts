@@ -17,7 +17,7 @@ export type GuidanceLevel =
   | "dca" // composite trung tính nhưng XAU dò đáy: gom rải
   | "wait" // chưa có tín hiệu
   | "premium-wait" // tín hiệu thế giới có nhưng vàng VN đang đắt
-  | "reduce"; // composite vùng bán
+  | "headwind"; // composite âm sâu (≤−40): với người MUA tương đương quan sát, chỉ thêm ngữ cảnh gió ngược
 
 /**
  * Mô tả tín hiệu đáy do caller tự dựng — tách khỏi nguồn (prob% live vs bin lịch sử).
@@ -74,7 +74,7 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
     isBuy
       ? `Điểm mua: vùng MUA${strongBuy ? " mạnh" : ""} (${signed(inp.composite)}).`
       : isSell
-        ? `Điểm mua: vùng BÁN (${signed(inp.composite)}).`
+        ? `Điểm mua: âm sâu (${signed(inp.composite)}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
         : `Điểm mua: trung tính (${signed(inp.composite)}) — chưa có tín hiệu mua.`
   );
   reasons.push(
@@ -92,13 +92,23 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
     );
   }
 
-  // --- vùng bán: không phải lúc mua (giữ nguyên thông điệp backtest của app)
+  // --- composite âm sâu: với người MUA đối xử như vùng quan sát (gộp 2026-07-04),
+  // chỉ khác ở ngữ cảnh. Bằng chứng (timeline 2009–2026, forward return sau ngày
+  // composite ≤ −40): 1 tháng median ≈ 0..−5% ở HẦU HẾT các năm (tín hiệu gió ngược
+  // ngắn hạn bền xuyên regime) — nhưng 6 tháng ĐẢO DẤU theo regime: năm bull
+  // 2010/2024/2025 giá cao hơn 98–100% số lần (median +11..+22%), năm yếu
+  // 2011/2016/2018/2022 giá thấp hơn 70–100% (median −5..−14%). Không biết trước
+  // regime ⇒ không được dịch thành lệnh "bớt mua/cấm mua" cho người tích lũy;
+  // phía BÁN chỉ là tham khảo (Time Machine toggle). Vẫn return TRƯỚC ma trận
+  // gom-rải: giữ hành vi cũ là không gợi ý gom rải khi composite âm sâu.
   if (isSell) {
     return {
-      level: "reduce",
-      tone: "sell",
-      when: "Vùng bán — không phải lúc mua",
-      how: "Bớt mua thêm, KHÔNG bán tháo: backtest 17 năm cho thấy tín hiệu bán sai tới 75% sau 12 tháng. Bán theo kế hoạch kỳ hạn của bạn.",
+      level: "headwind",
+      tone: "neutral",
+      when: "Gió ngược ngắn hạn — chưa phải lúc mua",
+      how:
+        "Với người mua: như vùng quan sát — các đợt như này giá 1 tháng tới thường đi ngang/giảm nhẹ, không cần vội đuổi giá. " +
+        "KHÔNG phải tín hiệu bán: kết cục 6 tháng phụ thuộc thị trường (sai gần như 100% trong năm bull, chỉ đúng ở thị trường yếu) — bán theo kế hoạch kỳ hạn của bạn.",
       reasons,
     };
   }

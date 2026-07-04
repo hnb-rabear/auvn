@@ -13,11 +13,18 @@ const base: GuidanceInput = {
 };
 
 describe("deriveGuidance — ma trận điểm mua × săn đáy", () => {
-  it("vùng bán → reduce, không bán tháo", () => {
+  it("composite âm sâu → headwind: với người mua là quan sát, không phải lệnh bán/bớt mua", () => {
     const g = deriveGuidance({ ...base, zone: "sell", composite: -45 });
-    expect(g.level).toBe("reduce");
-    expect(g.tone).toBe("sell");
-    expect(g.how).toMatch(/KHÔNG bán tháo/);
+    expect(g.level).toBe("headwind");
+    expect(g.tone).toBe("neutral");
+    expect(g.how).toMatch(/KHÔNG phải tín hiệu bán/);
+    // regime caveat: không được hứa hẹn kết cục 6 tháng
+    expect(g.how).toMatch(/năm bull/);
+  });
+
+  it("composite âm sâu + đáy cao → vẫn headwind (không gợi ý gom rải trong gió ngược, giữ hành vi cũ)", () => {
+    const g = deriveGuidance({ ...base, zone: "sell", composite: -45, bottom: bottomHigh });
+    expect(g.level).toBe("headwind");
   });
 
   it("mua + đáy cao → strong (tín hiệu mạnh nhất)", () => {
@@ -51,9 +58,9 @@ describe("deriveGuidance — cổng premium VN", () => {
     expect(g.how).toMatch(/đợi chênh lệch hạ/);
   });
 
-  it("vùng bán vẫn ưu tiên hơn cổng premium", () => {
+  it("composite âm sâu vẫn ưu tiên hơn cổng premium", () => {
     const g = deriveGuidance({ ...base, zone: "sell", composite: -50, premiumPct: 18, premiumP80: 16 });
-    expect(g.level).toBe("reduce");
+    expect(g.level).toBe("headwind");
   });
 
   it("chưa đủ lịch sử premium (p80 null) → không chặn, ghi chú chưa xếp hạng", () => {
