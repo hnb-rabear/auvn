@@ -60,6 +60,11 @@ jobs:
           git pull --rebase -X theirs origin main
           git push
 
+      - name: Set build info
+        run: |
+          echo "NEXT_PUBLIC_BUILD_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_BUILD_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+
       - name: Build static site
         env:
           BASE_PATH: /${{ github.event.repository.name }}
