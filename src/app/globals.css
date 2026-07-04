@@ -735,6 +735,13 @@ td.neutral {
   padding-top: 14px;
 }
 
+.build-info {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
 /* ── Hero: dòng cô đọng zone · điểm · gần đáy dưới phần gợi ý ── */
 .guidance-meta {
   margin-top: 10px;

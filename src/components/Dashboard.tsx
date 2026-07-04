@@ -12,6 +12,7 @@ import { fabLabel, zoneClass } from "@/lib/settings";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
+import { formatBuildInfo } from "@/lib/version";
 import {
   compositeScore,
   zoneOf,
@@ -622,6 +623,7 @@ export default function Dashboard({
       <footer className="disclaimer">
         Công cụ hỗ trợ quyết định dựa trên thống kê quá khứ — không phải khuyến nghị đầu tư,
         không đảm bảo kết quả tương lai. Quyết định và rủi ro thuộc về bạn.
+        <div className="build-info">{formatBuildInfo()}</div>
       </footer>
     </main>
   );
