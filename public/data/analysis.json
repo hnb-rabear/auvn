@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-04T21:16:31.807Z",
+ "generatedAt": "2026-07-04T22:15:06.388Z",
  "dataDate": "2026-07-03",
  "stale": true,
  "staleDays": 2,
@@ -107,13 +107,6 @@
      "available": true
     },
     {
-     "id": "yield10y",
-     "label": "Lợi suất Mỹ 10 năm",
-     "score": 0,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,37%, thay đổi 3 tháng -0,04 điểm: lợi suất đi ngang.",
-     "available": true
-    },
-    {
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
@@ -121,7 +114,7 @@
      "available": true
     }
    ],
-   "score": -0.25,
+   "score": -0.3333333333333333,
    "available": true
   },
   {
@@ -183,12 +176,13 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 6.2,
+ "composite": 5.3,
  "zone": "neutral",
  "vnHistoryDays": 492,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất.",
+  "Không lấy được lợi suất Mỹ 10 năm — tín hiệu lợi suất tạm bỏ qua."
  ],
  "premiumSeries": [
   {
@@ -2168,9 +2162,9 @@
  "sourceTimes": {
   "world": "2026-07-03T16:59:58.000Z",
   "dxy": "2026-07-03T20:59:59.000Z",
-  "yield10y": "2026-06-26T12:20:00.000Z",
+  "yield10y": null,
   "vnGold": null,
-  "usdVnd": "2026-07-04T21:16:31.807Z",
+  "usdVnd": "2026-07-04T22:15:06.388Z",
   "fed": null
  }
 }
