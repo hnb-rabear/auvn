@@ -25,6 +25,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          # full history needed so "Set build info" can find the last commit
+          # that touched app code (as opposed to the hourly public/data commits)
+          fetch-depth: 0
 
       - uses: actions/setup-node@v5
         with:
@@ -61,9 +65,12 @@ jobs:
           git push
 
       - name: Set build info
+        # Version phải chỉ đổi khi CODE app đổi, không phải mỗi lần cron cập
+        # nhật public/data (chạy hàng giờ) — nên lấy SHA/thời điểm của commit
+        # gần nhất có đụng tới thứ gì khác ngoài public/data, không phải HEAD.
         run: |
-          echo "NEXT_PUBLIC_BUILD_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
-          echo "NEXT_PUBLIC_BUILD_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_BUILD_SHA=$(git log -1 --format=%h -- . ':!public/data')" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_BUILD_TIME=$(git log -1 --format=%cI -- . ':!public/data')" >> "$GITHUB_ENV"
 
       - name: Build static site
         env:

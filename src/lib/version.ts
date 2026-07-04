@@ -1,4 +1,8 @@
 // Baked in at build time by CI (see .github/workflows/update-and-deploy.yml).
+// Deliberately the last commit that touched app code, NOT the current HEAD —
+// HEAD moves every hour from the cron's public/data-only commits, which would
+// make the version look like it changes on every data refresh instead of only
+// on real app updates.
 // Unset locally ("dev") since `npm run dev`/`next build` outside CI never sets these.
 export const BUILD_SHA = process.env.NEXT_PUBLIC_BUILD_SHA ?? null;
 export const BUILD_TIME = process.env.NEXT_PUBLIC_BUILD_TIME ?? null;
