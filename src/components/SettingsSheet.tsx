@@ -137,10 +137,12 @@ export default function SettingsSheet({
           </summary>
           <div className="acc-body">
             <p className="muted small">
-              <b>Toàn cảnh</b> = radar 4 nhóm tiêu chí (duy nhất có tiêu chí chênh lệch VN
-              25% và cảnh báo bán) — dùng để hiểu thị trường. <b>Preset</b> = cò súng MUA
-              theo kỳ hạn, tuyển bằng grid search 17 năm, thắng baseline ở cả 2 giai đoạn
-              độc lập — dùng để quyết định gom mua. Chi tiết: docs/presets.md.
+              <b>Toàn cảnh</b> = bảng đồng thuận: verdict chính là &quot;k/3 preset kỳ hạn
+              đang báo MUA&quot; (tái dùng 3 cò súng đã kiểm chứng — không phải composite
+              riêng; cấu hình mặc định cũ bắn 0 tín hiệu mua suốt 2019–2026 nên chỉ còn làm
+              radar ngữ cảnh + cảnh báo gió ngược). <b>Preset</b> = cò súng MUA theo kỳ hạn,
+              tuyển bằng grid search 17 năm, thắng baseline ở cả 2 giai đoạn độc lập — chọn
+              khi bạn muốn nhìn theo đúng một kỳ hạn. Chi tiết: docs/presets.md.
             </p>
             <p className="muted">
               Điểm tổng hợp tính lại ngay theo trọng số bạn chọn. Lưu trên máy bạn. Kéo

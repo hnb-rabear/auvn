@@ -97,3 +97,17 @@ describe("deriveGuidance — kiểm chứng đáy", () => {
     expect(deriveGuidance(base).reasons).toHaveLength(3);
   });
 });
+
+describe("deriveGuidance — scoreReason (chế độ đồng thuận preset)", () => {
+  it("thay câu 'Điểm mua' mặc định, không đổi level/tone", () => {
+    const custom = "Điểm mua: 2/3 preset kỳ hạn đang báo MUA.";
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 10, scoreReason: custom });
+    expect(g.reasons[0]).toBe(custom);
+    expect(g.reasons).toHaveLength(3);
+    expect(g.level).toBe("buy");
+    // không có scoreReason → câu mặc định nói theo composite (sẽ nói dối ở chế độ đồng thuận)
+    const g2 = deriveGuidance({ ...base, zone: "buy", composite: 10 });
+    expect(g2.reasons[0]).not.toBe(custom);
+    expect(g2.level).toBe("buy");
+  });
+});

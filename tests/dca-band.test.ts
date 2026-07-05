@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { gomRaiIdxs, idxRuns } from "../src/lib/timeline";
+import { gomRaiIdxs, gomRaiIdxsBy, idxRuns } from "../src/lib/timeline";
 import { deriveGuidance } from "../src/lib/guidance";
-import { zoneOf, type TimelinePoint, type BearPhase } from "../src/lib/types";
+import { consensusZone } from "../src/lib/consensus";
+import { zoneOf, type TimelinePoint, type BearPhase, type Zone } from "../src/lib/types";
 
 /** Điểm timeline tối giản — gomRaiIdxs chỉ đọc cycleProb/cycleProbUw/cycleN. */
 function pt(bottom: {
@@ -85,6 +86,65 @@ describe("gomRaiIdxs", () => {
       ["grind"]
     );
     expect(got).toEqual([0]);
+  });
+
+  it("gomRaiIdxs ≡ gomRaiIdxsBy với isBuy/isHeadwind dựng từ comps (wrapper không đổi hành vi)", () => {
+    expect(gomRaiIdxs(points, comps, BUY_THR, phases)).toEqual(
+      gomRaiIdxsBy(
+        points,
+        comps.map((c) => c >= BUY_THR),
+        comps.map((c) => c <= -40),
+        phases
+      )
+    );
+  });
+});
+
+describe("gomRaiIdxsBy — chế độ đồng thuận preset", () => {
+  // Cùng dữ liệu đáy, trục mua theo k/3 preset: radar ≥ +40 KHÔNG còn chặn dải khi
+  // k=0; k≥1 chặn dù radar trung tính; gió ngược vẫn theo radar ≤ −40.
+  const CONS: { k: number; radar: number; p: TimelinePoint; phase: BearPhase; expectDca: boolean }[] = [
+    { k: 0, radar: 45, p: pt({ cycleProb: 65, cycleN: 600 }), phase: "grind", expectDca: true }, // radar buy cũ nhưng k=0 ⇒ trung tính ⇒ dca
+    { k: 1, radar: 0, p: pt({ cycleProb: 65, cycleN: 600 }), phase: "grind", expectDca: false }, // preset báo mua ⇒ không dca
+    { k: 0, radar: -45, p: pt({ cycleProb: 65, cycleN: 600 }), phase: "grind", expectDca: false }, // gió ngược radar
+    { k: 0, radar: 0, p: pt({ cycleProb: 65, cycleN: 600 }), phase: "grind", expectDca: true },
+    { k: 0, radar: 0, p: pt({ cycleProb: 59, cycleN: 600 }), phase: "grind", expectDca: false },
+  ];
+  const cPoints = CONS.map((c) => c.p);
+  const cIsBuy = CONS.map((c) => c.k >= 1);
+  const cHead = CONS.map((c) => c.radar <= -40);
+  const cPhases = CONS.map((c) => c.phase);
+
+  it("đánh dấu đúng từng ca", () => {
+    const got = new Set(gomRaiIdxsBy(cPoints, cIsBuy, cHead, cPhases));
+    for (let i = 0; i < CONS.length; i++) {
+      expect(got.has(i), `ca ${i}`).toBe(CONS[i].expectDca);
+    }
+  });
+
+  it("GOLDEN: trùng từng ngày với deriveGuidance level 'dca' khi zone dựng theo đồng thuận (cùng cách với Dashboard/TimeMachine)", () => {
+    const got = new Set(gomRaiIdxsBy(cPoints, cIsBuy, cHead, cPhases));
+    for (let i = 0; i < CONS.length; i++) {
+      const c = CONS[i];
+      const compZone = zoneOf(c.radar, 40);
+      const zone: Zone =
+        c.k >= 1
+          ? consensusZone(c.k)
+          : compZone === "sell" || compZone === "strong-sell"
+            ? compZone
+            : "neutral";
+      const g = deriveGuidance({
+        zone,
+        composite: c.radar,
+        bottom: { high: (c.p.cycleProb ?? 0) >= 60, verified: c.p.cycleProb != null, label: "Săn đáy: (test)." },
+        premiumPct: null,
+        premiumP80: null,
+        scoreReason: "Điểm mua: (test đồng thuận).",
+      });
+      expect(got.has(i), `ca ${i}: dải=${got.has(i)} nhưng guidance=${g.level}`).toBe(
+        g.level === "dca"
+      );
+    }
   });
 });
 

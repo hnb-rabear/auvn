@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CRITERION_LABELS,
+  PRESETS,
   ZONE_LABELS,
   zoneOf,
   type CriterionKey,
@@ -10,6 +11,7 @@ import {
   type Timeline,
   type Zone,
 } from "@/lib/types";
+import { consensusLabel, consensusZone } from "@/lib/consensus";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { bottomPctClass } from "@/lib/bottom";
@@ -19,12 +21,14 @@ import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
 import {
   composites,
+  pointComposite,
   idxsAtOrAbove,
   idxsAtOrBelow,
   indexOnOrAfter,
   indexOnOrBefore,
   bottomStartIdxs,
   gomRaiIdxs,
+  gomRaiIdxsBy,
   idxRuns,
 } from "@/lib/timeline";
 
@@ -80,11 +84,15 @@ export default function TimeMachine({
   timeline,
   weights,
   preset,
+  consensusMode,
   fusionDegraded,
 }: {
   timeline: Timeline;
   weights: Record<CriterionKey, number>;
   preset: Preset | null;
+  /** chế độ Toàn cảnh (không preset, không tùy chỉnh): chấm theo đồng thuận k/3
+   *  preset — PHẢI cùng trục với verdict live của Dashboard (bài học ×0.25 vs ×1.0) */
+  consensusMode: boolean;
   /** monitor báo tầng độ-tin-cao đang thoái hóa ⇒ ẩn tag "đã kiểm chứng" mọi nơi */
   fusionDegraded: boolean;
 }) {
@@ -141,7 +149,22 @@ export default function TimeMachine({
   const effThr = expThr ?? buyThr;
   // composite từng ngày tính một lần; các lớp marker chỉ còn là phép lọc rẻ
   const comps = useMemo(() => composites(points, weights), [points, weights]);
-  const signalIdxs = useMemo(() => idxsAtOrAbove(comps, buyThr), [comps, buyThr]);
+  // Chế độ đồng thuận: số preset báo mua từng ngày (cùng trục với verdict live).
+  // comps (radar mặc định) vẫn dùng cho gió ngược/vùng bán tham khảo + ngưỡng thử.
+  const buyKs = useMemo(() => {
+    if (!consensusMode) return null;
+    const perPreset = PRESETS.map((pr) => composites(points, pr.weights));
+    return points.map((_, i) =>
+      PRESETS.reduce((k, pr, j) => k + (perPreset[j][i] >= pr.buyThreshold ? 1 : 0), 0)
+    );
+  }, [consensusMode, points]);
+  const signalIdxs = useMemo(
+    () =>
+      buyKs
+        ? buyKs.reduce<number[]>((acc, k, i) => (k >= 1 ? (acc.push(i), acc) : acc), [])
+        : idxsAtOrAbove(comps, buyThr),
+    [buyKs, comps, buyThr]
+  );
   const sellIdxs = useMemo(() => idxsAtOrBelow(comps, -40), [comps]);
   const expIdxs = useMemo(
     () => (showExp ? idxsAtOrAbove(comps, effThr) : []),
@@ -162,8 +185,18 @@ export default function TimeMachine({
   // (gomRaiIdxs golden-tested ≡ deriveGuidance level "dca") — cần pha acute từng ngày.
   const phases = useMemo(() => bearPhases(allPrices), [allPrices]);
   const dcaRuns = useMemo(
-    () => idxRuns(gomRaiIdxs(points, comps, buyThr, phases)),
-    [points, comps, buyThr, phases]
+    () =>
+      idxRuns(
+        buyKs
+          ? gomRaiIdxsBy(
+              points,
+              buyKs.map((k) => k >= 1),
+              comps.map((c) => c <= -40),
+              phases
+            )
+          : gomRaiIdxs(points, comps, buyThr, phases)
+      ),
+    [points, comps, buyThr, phases, buyKs]
   );
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
@@ -269,13 +302,32 @@ export default function TimeMachine({
   };
 
   const composite = p ? comps[idx] : 0;
-  const rawZone = zoneOf(composite, buyThr);
+  const kDay = buyKs ? buyKs[idx] : 0;
+  const compZone = zoneOf(composite, buyThr);
+  // Đồng thuận: mua theo k/3 preset; radar composite chỉ giữ vai gió ngược/vùng bán
+  // tham khảo (cùng cách dựng zone với Dashboard live).
+  const rawZone: Zone = buyKs
+    ? kDay >= 1
+      ? consensusZone(kDay)
+      : compZone === "sell" || compZone === "strong-sell"
+        ? compZone
+        : "neutral"
+    : compZone;
   const isBuy = rawZone === "buy" || rawZone === "strong-buy";
   // Tầng "MUA độ tin cao" 3m của NGÀY ĐANG XEM: dùng cycleBin past-only (KHÔNG dùng
   // prob — prob là base-rate look-ahead). Cùng điều kiện với verdict live; ẩn khi degraded.
+  // Đồng thuận: áp dụng khi CHÍNH preset 3m báo mua (điều kiện fusion kiểm chứng trên 3m).
+  const is3mBuyDay = consensusMode
+    ? pointComposite(p, PRESETS.find((q) => q.id === "3m")!.weights) >=
+      PRESETS.find((q) => q.id === "3m")!.buyThreshold
+    : false;
   const highConfDay =
-    highConfidenceBuy3m(preset?.id ?? null, isBuy, p.cycleBin ?? -1, p.cycleBin !== undefined) &&
-    !fusionDegraded;
+    highConfidenceBuy3m(
+      consensusMode ? "3m" : preset?.id ?? null,
+      consensusMode ? is3mBuyDay : isBuy,
+      p.cycleBin ?? -1,
+      p.cycleBin !== undefined
+    ) && !fusionDegraded;
   const isSell = rawZone === "sell" || rawZone === "strong-sell";
   // preset chỉ kiểm chứng phía mua — vùng bán chỉ hiện khi người dùng bật toggle tham khảo
   const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
@@ -295,6 +347,15 @@ export default function TimeMachine({
     const verified = prob !== null && n >= 10;
     const high = verified && prob >= 60;
     const ciStr = !bottomCrashDay && p?.cycleCi ? ` (CI ${p.cycleCi[0]}–${p.cycleCi[1]}%)` : "";
+    const signedC = `${composite > 0 ? "+" : ""}${fmtNum(composite)}`;
+    // Đồng thuận: câu "Điểm mua" nói theo trục thật (k/3 preset) — cùng cách với live.
+    const scoreReason = buyKs
+      ? kDay >= 1
+        ? `Điểm mua: ${kDay}/3 preset kỳ hạn đang báo MUA — cò súng đã kiểm chứng 2 giai đoạn.`
+        : isSell
+          ? `Điểm mua: chưa preset nào báo mua; radar âm sâu (${signedC}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
+          : `Điểm mua: chưa preset nào trong vùng mua (radar ${signedC}).`
+      : undefined;
     return deriveGuidance({
       zone: rawZone,
       composite,
@@ -307,8 +368,9 @@ export default function TimeMachine({
       },
       premiumPct: null, // world-only ở lịch sử
       premiumP80: null, // ⇒ cổng premium tắt
+      scoreReason,
     });
-  }, [rawZone, composite, p, bottomCrashDay]);
+  }, [rawZone, composite, p, bottomCrashDay, buyKs, kDay, isSell]);
 
   const spark = useMemo(() => {
     const win = points.slice(start, end);
@@ -404,7 +466,12 @@ export default function TimeMachine({
         <h2>Xét lại lịch sử — máy thời gian</h2>
         <div className="card-score">
           <span className="muted small">
-            chấm theo: {preset ? `preset ${preset.label}` : "toàn cảnh (tiêu chí thế giới)"}
+            chấm theo:{" "}
+            {preset
+              ? `preset ${preset.label}`
+              : consensusMode
+                ? "đồng thuận 3 preset (toàn cảnh)"
+                : "trọng số tùy chỉnh (tiêu chí thế giới)"}
           </span>
         </div>
       </div>
@@ -600,10 +667,14 @@ export default function TimeMachine({
         <span className={`tm-zone ${zoneClass(zone)}`}>
           {zone === "sell" || zone === "strong-sell"
             ? `${ZONE_LABELS[zone]} (tham khảo người bán)`
-            : preset && !isBuy
-              ? "CHƯA CÓ TÍN HIỆU MUA"
-              : ZONE_LABELS[zone]}
-          <span className="muted small"> ({composite > 0 ? "+" : ""}{fmtNum(composite)})</span>
+            : consensusMode
+              ? consensusLabel(kDay)
+              : preset && !isBuy
+                ? "CHƯA CÓ TÍN HIỆU MUA"
+                : ZONE_LABELS[zone]}
+          <span className="muted small">
+            {" "}({consensusMode ? "radar " : ""}{composite > 0 ? "+" : ""}{fmtNum(composite)})
+          </span>
           {highConfDay && <b> · đã kiểm chứng</b>}
         </span>
       </div>
