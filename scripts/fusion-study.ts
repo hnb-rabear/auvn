@@ -29,7 +29,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Timeline, TimelinePoint } from "../src/lib/types";
-import { PRESETS } from "../src/lib/types";
+import { PRESETS, presetComposite } from "../src/lib/types";
 import { composite, stats, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
 import { rsi, bullishRsiDivergence, blockBootstrapCi } from "../src/lib/indicators";
 
@@ -143,7 +143,6 @@ function row(label: string, set: TimelinePoint[], h: H, baseTr: number, baseTe: 
 function fusionAB() {
   for (const h of HS) {
     const preset = PRESETS.find((p) => String(p.horizonDays) === h)!;
-    const W = preset.weights as unknown as Record<string, number>;
     const T = preset.buyThreshold;
     const pts = PTS.filter((p) => p.returns[h] !== null);
     const tr = pts.filter((p) => p.date < SPLIT_DATE);
@@ -151,7 +150,8 @@ function fusionAB() {
     const baseTr = stats(tr.map((p) => p.returns[h] as number)).fav;
     const baseTe = stats(te.map((p) => p.returns[h] as number)).fav;
 
-    const comp = (p: TimelinePoint) => composite(p, W) >= T;
+    // v4: presetComposite (sub-signal vĩ mô trọng số riêng) — cùng hàm với UI/monitor/evidence test
+    const comp = (p: TimelinePoint) => presetComposite(p.scores, preset) >= T;
     const bot = (p: TimelinePoint) => p.cycleBin === TOP_BIN;
 
     const COMP = pts.filter(comp);
@@ -244,10 +244,10 @@ function verifyB() {
   console.log(`\n\n########## KIỂM CHỨNG B (composite ∧ đáy) — robust ##########`);
   for (const h of HS) {
     const preset = PRESETS.find((p) => String(p.horizonDays) === h)!;
-    const W = preset.weights as unknown as Record<string, number>;
     const T = preset.buyThreshold;
     const pts = PTS.filter((p) => p.returns[h] !== null);
-    const comp = (p: TimelinePoint) => composite(p, W) >= T;
+    // v4: presetComposite — cùng hàm với UI/monitor/evidence test
+    const comp = (p: TimelinePoint) => presetComposite(p.scores, preset) >= T;
     const bot = (p: TimelinePoint) => p.cycleBin === TOP_BIN;
     console.log(`\n----- KỲ HẠN ${h} (preset ${preset.id}) -----`);
 
@@ -256,7 +256,9 @@ function verifyB() {
     for (const [lab, lo, hi] of [["train", "0000", SPLIT_DATE], ["test", SPLIT_DATE, "9999"]] as const) {
       const seg = pts.filter((p) => p.date >= lo && p.date < hi);
       const B = seg.filter((p) => comp(p) && bot(p));
-      const compBuy = seg.filter(comp).sort((a, b) => composite(b, W) - composite(a, W));
+      const compBuy = seg
+        .filter(comp)
+        .sort((a, b) => presetComposite(b.scores, preset) - presetComposite(a.scores, preset));
       const topN = compBuy.slice(0, B.length);
       const fB = favOf(B, h), fT = favOf(topN, h);
       const orth = fB.fav > fT.fav;

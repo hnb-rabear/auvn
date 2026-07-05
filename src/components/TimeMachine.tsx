@@ -21,7 +21,7 @@ import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
 import {
   composites,
-  pointComposite,
+  presetComposites,
   idxsAtOrAbove,
   idxsAtOrBelow,
   indexOnOrAfter,
@@ -147,13 +147,19 @@ export default function TimeMachine({
 
   const buyThr = preset?.buyThreshold ?? 40;
   const effThr = expThr ?? buyThr;
-  // composite từng ngày tính một lần; các lớp marker chỉ còn là phép lọc rẻ
-  const comps = useMemo(() => composites(points, weights), [points, weights]);
+  // composite từng ngày tính một lần; các lớp marker chỉ còn là phép lọc rẻ.
+  // v4: chế độ preset chấm bằng presetComposites (sub-signal vĩ mô trọng số riêng,
+  // fallback macro với timeline cũ) — weights snapshot (macro=0) sẽ rụng vĩ mô nếu
+  // đưa vào composites() thường.
+  const comps = useMemo(
+    () => (preset ? presetComposites(points, preset) : composites(points, weights)),
+    [points, weights, preset]
+  );
   // Chế độ đồng thuận: số preset báo mua từng ngày (cùng trục với verdict live).
   // comps (radar mặc định) vẫn dùng cho gió ngược/vùng bán tham khảo + ngưỡng thử.
   const buyKs = useMemo(() => {
     if (!consensusMode) return null;
-    const perPreset = PRESETS.map((pr) => composites(points, pr.weights));
+    const perPreset = PRESETS.map((pr) => presetComposites(points, pr));
     return points.map((_, i) =>
       PRESETS.reduce((k, pr, j) => k + (perPreset[j][i] >= pr.buyThreshold ? 1 : 0), 0)
     );
@@ -318,7 +324,7 @@ export default function TimeMachine({
   // prob — prob là base-rate look-ahead). Cùng điều kiện với verdict live; ẩn khi degraded.
   // Đồng thuận: áp dụng khi CHÍNH preset 3m báo mua (điều kiện fusion kiểm chứng trên 3m).
   const is3mBuyDay = consensusMode
-    ? pointComposite(p, PRESETS.find((q) => q.id === "3m")!.weights) >=
+    ? presetComposites([p], PRESETS.find((q) => q.id === "3m")!)[0] >=
       PRESETS.find((q) => q.id === "3m")!.buyThreshold
     : false;
   const highConfDay =
@@ -759,14 +765,18 @@ export default function TimeMachine({
         </summary>
         <div className="acc-body">
           <div className="tm-scores">
-            {(Object.keys(p.scores) as CriterionKey[]).map((k) => (
-              <span key={k} className="tm-score">
-                {CRITERION_LABELS[k].split(" (")[0]}:{" "}
-                <b className={p.scores[k]! > 0 ? "buy" : p.scores[k]! < 0 ? "sell" : "neutral"}>
-                  {p.scores[k]! > 0 ? "+" : ""}{fmtNum(p.scores[k]!, 2)}
-                </b>
-              </span>
-            ))}
+            {/* chỉ 4 nhóm tiêu chí — key sub-signal vĩ mô (dxy/fed/yield10y, v4) không có
+                nhãn nhóm riêng, chi tiết của chúng nằm trong card phân tích vĩ mô */}
+            {(Object.keys(p.scores) as CriterionKey[])
+              .filter((k) => CRITERION_LABELS[k] !== undefined)
+              .map((k) => (
+                <span key={k} className="tm-score">
+                  {CRITERION_LABELS[k].split(" (")[0]}:{" "}
+                  <b className={p.scores[k]! > 0 ? "buy" : p.scores[k]! < 0 ? "sell" : "neutral"}>
+                    {p.scores[k]! > 0 ? "+" : ""}{fmtNum(p.scores[k]!, 2)}
+                  </b>
+                </span>
+              ))}
           </div>
           <p className="muted small">
             Ở chế độ lịch sử: chỉ tín hiệu thế giới (điểm mua + nhóm điểm đáy past-only);

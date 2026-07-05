@@ -1,5 +1,8 @@
 export type CriterionKey = "technical" | "premium" | "macro" | "stats" | "momentum";
 
+/** Sub-signal vĩ mô có thể mang trọng số riêng trong preset (v4, docs/presets.md "Tách sub-signal vĩ mô"). */
+export type MacroSubKey = "dxy" | "fed" | "yield10y";
+
 export interface SubSignal {
   id: string;
   label: string;
@@ -84,8 +87,9 @@ export interface PresetHealthFile {
 }
 
 /** Sức khỏe tầng "MUA độ tin cao" 3m — tính lại mỗi cron bởi scripts/monitor-fusion.ts.
- *  degraded khi B (composite∧đáy) KHÔNG còn vượt composite ở cả 2 giai đoạn,
- *  hoặc placebo đồng-n train ≤ 0 (đáy hết thông tin trực giao). */
+ *  degraded khi B (composite∧đáy) THUA composite ở bất kỳ giai đoạn nào (HÒA không tính —
+ *  preset 3m v4 đã 100% test nên B không thể vượt tại trần; fix 2026-07-05), hoặc
+ *  placebo đồng-n train ≤ 0 (đáy hết thông tin trực giao). */
 export interface FusionHealth {
   presetId: "3m";
   bTrainFav: number | null;
@@ -130,8 +134,10 @@ export interface TimelinePoint {
   price: number;
   composite: number;
   zone: Zone;
-  /** điểm -2..+2 của từng tiêu chí thế giới tham gia giả lập */
-  scores: Partial<Record<CriterionKey, number>>;
+  /** điểm -2..+2 của từng tiêu chí thế giới tham gia giả lập; từ v4 kèm cả sub-signal
+   *  vĩ mô (dxy/fed/yield10y) làm key phụ — các đường composite cũ tự bỏ qua (trọng số 0),
+   *  chỉ preset có macroSub đọc chúng. timeline.json cũ không có key phụ. */
+  scores: Partial<Record<CriterionKey | MacroSubKey, number>>;
   /** lợi suất % sau 21/63/126 phiên; null nếu chưa đủ tương lai */
   returns: Record<"21" | "63" | "126", number | null>;
   /** bin đáy past-only tại ngày này (0..binEdges.length); undefined nếu trước warmup đáy. Optional — timeline.json cũ không có. */
@@ -215,6 +221,65 @@ export function compositeScore(
   return Math.round((sum / totalW) * 50 * 10) / 10;
 }
 
+/** Bản đồ điểm cho presetComposite. Key tiêu chí + key sub-signal vĩ mô (v4). */
+export type ScoreMap = Partial<Record<CriterionKey | MacroSubKey, number>>;
+
+/**
+ * Composite của MỘT preset trên bản đồ điểm (TimelinePoint.scores hoặc criteria live đã
+ * map qua scoreMapFromCriteria). Preset có macroSub → sub-signal vĩ mô mang trọng số riêng.
+ * Sub THIẾU trong scores (timeline/analysis cũ chưa có key phụ, hoặc nguồn dữ liệu hỏng)
+ * → trọng số phần thiếu DỒN VỀ điểm macro tổng — không bao giờ âm thầm vứt tín hiệu vĩ mô
+ * (bài học FRED 504: mất macro = mất 50–90% trọng số preset = 0 tín hiệu mua giả).
+ * Đây là hàm DUY NHẤT được chấm preset (chart ≡ card ≡ monitor ≡ evidence test).
+ */
+export function presetComposite(
+  scores: ScoreMap,
+  preset: Pick<Preset, "weights" | "macroSub">
+): number {
+  const w: ScoreMap = { ...preset.weights };
+  if (preset.macroSub) {
+    let missing = 0;
+    for (const [k, wk] of Object.entries(preset.macroSub) as [MacroSubKey, number][]) {
+      if (scores[k] !== undefined) w[k] = (w[k] ?? 0) + wk;
+      else missing += wk;
+    }
+    if (missing > 0) w.macro = (w.macro ?? 0) + missing;
+  }
+  let sum = 0;
+  let totalW = 0;
+  for (const [k, wk] of Object.entries(w) as [keyof ScoreMap, number][]) {
+    const s = scores[k];
+    if (s === undefined || !wk) continue;
+    sum += s * wk;
+    totalW += wk;
+  }
+  if (totalW === 0) return 0;
+  return Math.round((sum / totalW) * 50 * 10) / 10;
+}
+
+/**
+ * Bản đồ điểm từ criteria live (analysis.json): điểm các tiêu chí khả dụng + điểm
+ * sub-signal vĩ mô khả dụng (dxy/fed/yield10y — usdVnd/vix không tham gia preset).
+ */
+export function scoreMapFromCriteria(
+  criteria: (Pick<CriterionResult, "key" | "score" | "available"> & {
+    signals?: Pick<SubSignal, "id" | "score" | "available">[];
+  })[]
+): ScoreMap {
+  const map: ScoreMap = {};
+  for (const c of criteria) {
+    if (!c.available) continue;
+    map[c.key] = c.score;
+    if (c.key === "macro" && c.signals) {
+      for (const s of c.signals) {
+        if (s.available && (s.id === "dxy" || s.id === "fed" || s.id === "yield10y"))
+          map[s.id] = s.score;
+      }
+    }
+  }
+  return map;
+}
+
 export function zoneOf(composite: number, buyThreshold = 40): Zone {
   if (composite >= buyThreshold + 30) return "strong-buy";
   if (composite >= buyThreshold) return "buy";
@@ -223,13 +288,19 @@ export function zoneOf(composite: number, buyThreshold = 40): Zone {
   return "neutral";
 }
 
-/** Bộ cấu hình theo kỳ hạn, tuyển bằng scripts/presets-study.ts. Chi tiết: docs/presets.md */
+/** Bộ cấu hình theo kỳ hạn. v3 tuyển bằng scripts/presets-study.ts; v4 (tách sub-signal
+ *  vĩ mô, 2026-07-05) tuyển bằng scripts/macro-decomp-study.ts. Chi tiết: docs/presets.md */
 export interface Preset {
   id: string;
   label: string;
   horizonDays: 21 | 63 | 126;
   /** premium = 0: tiêu chí chênh lệch VN chưa có lịch sử dài để kiểm chứng nên không tham gia preset */
   weights: Record<CriterionKey, number>;
+  /** v4: trọng số RIÊNG cho từng sub-signal vĩ mô (thay tiêu chí macro trung bình cộng —
+   *  weights.macro để 0). Cả 3 preset v4 đều bỏ Fed (fed vắng mặt = trọng số 0): bằng chứng
+   *  cho thấy án phạt "Fed đang tăng" đè tín hiệu DXY/lợi suất đúng các năm 2017/2023.
+   *  Sub thiếu trong dữ liệu → presetComposite dồn trọng số về điểm macro tổng. */
+  macroSub?: Partial<Record<MacroSubKey, number>>;
   buyThreshold: number;
   evidence: {
     /** % tín hiệu mua đúng (giá tăng sau kỳ hạn) trên giai đoạn 2009–2018 / 2019–2026 */
@@ -243,53 +314,63 @@ export interface Preset {
   };
 }
 
+/**
+ * PRESETS v4 (2026-07-05, scripts/macro-decomp-study.ts — bảng "Tách sub-signal vĩ mô"
+ * trong docs/presets.md). Luật chọn trong nhóm ≤1pt của best min-excess: ưu tiên cấu hình
+ * bắn được 2023 (mục tiêu tuyển chọn — năm câm có sóng thật); 1 tháng không cấu hình nào
+ * bắn 2023 → lấy phủ-max theo n train. Cả 3 đều rơi vào họ FED=0, YLD-nặng.
+ * Số evidence = đầu ra study trên timeline 2026-07-05; monitor-presets tính lại mỗi cron.
+ */
 export const PRESETS: Preset[] = [
   {
     id: "1m",
     label: "Sóng 1 tháng",
     horizonDays: 21,
-    weights: { technical: 0.1, premium: 0, macro: 0.6, stats: 0.1, momentum: 0.2 },
-    buyThreshold: 40,
+    weights: { technical: 0.2, premium: 0, macro: 0, stats: 0.1, momentum: 0.3 },
+    macroSub: { dxy: 0.1, yield10y: 0.3 },
+    buyThreshold: 50,
     evidence: {
-      trainFav: 75.7,
-      trainN: 37,
-      trainBaseline: 51.9,
-      testFav: 82.9,
-      testN: 70,
-      testBaseline: 60.6,
-      medianTestReturnPct: 4.6,
+      trainFav: 82.1,
+      trainN: 106,
+      trainBaseline: 51.7,
+      testFav: 89.1,
+      testN: 64,
+      testBaseline: 59.6,
+      medianTestReturnPct: 4.1,
     },
   },
   {
     id: "3m",
     label: "Sóng 3 tháng",
     horizonDays: 63,
-    weights: { technical: 0.1, premium: 0, macro: 0.9, stats: 0, momentum: 0 },
-    buyThreshold: 50,
+    weights: { technical: 0.1, premium: 0, macro: 0, stats: 0.1, momentum: 0.2 },
+    macroSub: { dxy: 0.2, yield10y: 0.4 },
+    buyThreshold: 60,
     evidence: {
-      trainFav: 82.2,
-      trainN: 45,
-      trainBaseline: 55.7,
-      testFav: 95.7,
-      testN: 69,
-      testBaseline: 69.7,
-      medianTestReturnPct: 7.4,
+      trainFav: 89.5,
+      trainN: 114,
+      trainBaseline: 55.6,
+      testFav: 100.0,
+      testN: 90,
+      testBaseline: 69.0,
+      medianTestReturnPct: 7.3,
     },
   },
   {
     id: "6m",
     label: "Tích lũy 6 tháng",
     horizonDays: 126,
-    weights: { technical: 0, premium: 0, macro: 0.9, stats: 0.1, momentum: 0 },
-    buyThreshold: 50,
+    weights: { technical: 0, premium: 0, macro: 0, stats: 0.2, momentum: 0.2 },
+    macroSub: { dxy: 0.1, yield10y: 0.5 },
+    buyThreshold: 60,
     evidence: {
-      trainFav: 89.4,
-      trainN: 47,
-      trainBaseline: 57.7,
+      trainFav: 80.9,
+      trainN: 136,
+      trainBaseline: 56.8,
       testFav: 100.0,
-      testN: 66,
-      testBaseline: 79.9,
-      medianTestReturnPct: 14.3,
+      testN: 130,
+      testBaseline: 79.6,
+      medianTestReturnPct: 15.4,
     },
   },
 ];

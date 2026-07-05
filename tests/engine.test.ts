@@ -107,8 +107,13 @@ describe("composite & zones", () => {
   it("presets are sane", () => {
     expect(PRESETS.length).toBe(3);
     for (const p of PRESETS) {
-      const sum = Object.values(p.weights).reduce((a, b) => a + b, 0);
+      // v4: tổng trọng số hiệu dụng = weights (macro=0) + macroSub (sub-signal vĩ mô)
+      const sum =
+        Object.values(p.weights).reduce((a, b) => a + b, 0) +
+        Object.values(p.macroSub ?? {}).reduce((a, b) => a + b, 0);
       expect(sum).toBeCloseTo(1, 5);
+      // preset có macroSub thì macro trong weights phải = 0 (không đếm vĩ mô 2 lần)
+      if (p.macroSub) expect(p.weights.macro).toBe(0);
       expect(p.weights.premium).toBe(0);
       expect(p.buyThreshold).toBeGreaterThanOrEqual(40);
       expect(p.evidence.trainFav).toBeGreaterThan(p.evidence.trainBaseline);

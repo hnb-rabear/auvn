@@ -1,34 +1,75 @@
 import { describe, it, expect } from "vitest";
 import { buyCount, buyNames, consensusLabel, consensusZone, presetSignals } from "./consensus";
-import { compositeScore, PRESETS, type CriterionResult } from "./types";
+import {
+  presetComposite,
+  scoreMapFromCriteria,
+  PRESETS,
+  type CriterionResult,
+  type SubSignal,
+} from "./types";
 
-/** Criteria tối giản — compositeScore chỉ đọc key/score/available. */
+/** Criteria tối giản — presetSignals đọc key/score/available (+ signals của macro nếu có). */
 function crit(
   scores: Partial<Record<CriterionResult["key"], number>>,
-  unavailable: CriterionResult["key"][] = []
-): Pick<CriterionResult, "key" | "score" | "available">[] {
+  unavailable: CriterionResult["key"][] = [],
+  macroSignals?: Pick<SubSignal, "id" | "score" | "available">[]
+): (Pick<CriterionResult, "key" | "score" | "available"> & {
+  signals?: Pick<SubSignal, "id" | "score" | "available">[];
+})[] {
   return (Object.entries(scores) as [CriterionResult["key"], number][]).map(([key, score]) => ({
     key,
     score,
     available: !unavailable.includes(key),
+    ...(key === "macro" && macroSignals ? { signals: macroSignals } : {}),
   }));
 }
 
-describe("presetSignals", () => {
-  it("GOLDEN: composite từng preset ≡ compositeScore với trọng số preset đó", () => {
+describe("presetSignals (v4: macroSub)", () => {
+  it("GOLDEN: composite từng preset ≡ presetComposite trên scoreMap của cùng criteria", () => {
     const criteria = crit(
       { technical: -0.6, premium: 1.2, macro: 1.8, stats: 0.25, momentum: 1 },
-      ["premium"] // premium hay unavailable trên đường live thiếu lịch sử
+      ["premium"], // premium hay unavailable trên đường live thiếu lịch sử
+      [
+        { id: "dxy", score: 2, available: true },
+        { id: "fed", score: -1, available: true },
+        { id: "yield10y", score: 1, available: true },
+      ]
     );
+    const map = scoreMapFromCriteria(criteria);
     const signals = presetSignals(criteria);
     expect(signals).toHaveLength(PRESETS.length);
     for (const s of signals) {
-      expect(s.composite).toBe(compositeScore(criteria, s.preset.weights));
+      expect(s.composite).toBe(presetComposite(map, s.preset));
       expect(s.isBuy).toBe(s.composite >= s.preset.buyThreshold);
     }
   });
 
-  it("macro mạnh + momentum thuận → cả 3 preset báo mua (đều macro-nặng)", () => {
+  it("đọc sub-signal vĩ mô: fed KHÔNG tham gia preset v4 (fed -2 không đè dxy/yield dương)", () => {
+    // 2017/2023-scenario: DXY yếu (mua) + lợi suất rơi (mua) nhưng Fed đang TĂNG (bán).
+    const criteria = crit(
+      { technical: 1, macro: 0.33, stats: 1, momentum: 2 },
+      [],
+      [
+        { id: "dxy", score: 2, available: true },
+        { id: "fed", score: -2, available: true },
+        { id: "yield10y", score: 1, available: true },
+      ]
+    );
+    // preset 3m: KT .1×1 + TK .1×1 + MOM .2×2 + DXY .2×2 + YLD .4×1 = 1.4 → 70 ≥ 60
+    const s3m = presetSignals(criteria).find((s) => s.preset.id === "3m")!;
+    expect(s3m.composite).toBe(70);
+    expect(s3m.isBuy).toBe(true);
+  });
+
+  it("FALLBACK: thiếu sub-signal (analysis/timeline cũ) → trọng số sub dồn về điểm macro, KHÔNG rụng vĩ mô", () => {
+    const criteria = crit({ technical: 0, macro: 2, stats: 0, momentum: 0 });
+    // preset 3m fallback: macro nhận .6 (dxy .2 + yield .4) → composite = (2×.6)/1 ×50 = 60 ≥ 60
+    const s3m = presetSignals(criteria).find((s) => s.preset.id === "3m")!;
+    expect(s3m.composite).toBe(60);
+    expect(s3m.isBuy).toBe(true);
+  });
+
+  it("macro mạnh + momentum thuận → cả 3 preset báo mua (fallback macro)", () => {
     const criteria = crit({ technical: 0, premium: 0, macro: 2, stats: 1, momentum: 2 });
     const signals = presetSignals(criteria);
     expect(buyCount(signals)).toBe(3);
@@ -41,11 +82,27 @@ describe("presetSignals", () => {
   });
 
   it("biên ngưỡng: composite đúng bằng buyThreshold vẫn tính là mua (≥)", () => {
-    // preset 1m: KT .1 / TK .1 / VM .6 / MOM .2, ngưỡng 40 ⇒ mọi tiêu chí 0.8 → composite 40
-    const criteria = crit({ technical: 0.8, macro: 0.8, stats: 0.8, momentum: 0.8 });
+    // mọi tiêu chí 1.0 → composite 50 = ngưỡng preset 1m
+    const criteria = crit({ technical: 1, macro: 1, stats: 1, momentum: 1 });
     const s1m = presetSignals(criteria).find((s) => s.preset.id === "1m")!;
-    expect(s1m.composite).toBe(40);
+    expect(s1m.composite).toBe(50);
     expect(s1m.isBuy).toBe(true);
+  });
+});
+
+describe("presetComposite fallback từng phần", () => {
+  it("chỉ thiếu MỘT sub → chỉ trọng số sub đó dồn về macro", () => {
+    const preset = PRESETS.find((p) => p.id === "3m")!; // dxy .2, yield .4
+    // có dxy (=2), thiếu yield, macro tổng = 1
+    const c = presetComposite({ technical: 0, stats: 0, momentum: 0, macro: 1, dxy: 2 }, preset);
+    // KT .1×0 + TK .1×0 + MOM .2×0 + DXY .2×2 + macro(.4 dồn)×1 = 0.8 → 40
+    expect(c).toBe(40);
+  });
+  it("thiếu cả sub lẫn macro → phần vĩ mô rơi khỏi mẫu số (chuẩn hóa như compositeScore)", () => {
+    const preset = PRESETS.find((p) => p.id === "3m")!;
+    const c = presetComposite({ technical: 2, stats: 2, momentum: 2 }, preset);
+    // chỉ còn KT .1 + TK .1 + MOM .2 = .4 → (2×.4)/.4 ×50 = 100
+    expect(c).toBe(100);
   });
 });
 

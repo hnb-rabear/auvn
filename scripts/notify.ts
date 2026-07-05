@@ -8,7 +8,6 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import {
-  compositeScore,
   zoneOf,
   PRESETS,
   ZONE_LABELS,
@@ -16,6 +15,7 @@ import {
   type PresetHealthFile,
   type Zone,
 } from "../src/lib/types";
+import { presetSignals } from "../src/lib/consensus";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const STATE_FILE = join(DATA_DIR, "notify-state.json");
@@ -60,8 +60,9 @@ async function main() {
   const lines: string[] = [];
   const newState: Record<string, string> = {};
 
-  for (const p of PRESETS) {
-    const composite = compositeScore(analysis.criteria, p.weights);
+  // v4: preset chấm bằng presetComposite qua presetSignals (sub-signal vĩ mô trọng số
+  // riêng) — compositeScore(p.weights) sẽ rụng vĩ mô vì weights v4 có macro=0.
+  for (const { preset: p, composite } of presetSignals(analysis.criteria)) {
     const zone = zoneOf(composite, p.buyThreshold);
     newState[p.id] = zone;
     const prev = (state[p.id] as Zone) ?? "neutral";

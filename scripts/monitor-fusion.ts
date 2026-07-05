@@ -8,12 +8,13 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   PRESETS,
+  presetComposite,
   type FusionHealth,
   type FusionHealthFile,
   type Timeline,
   type TimelinePoint,
 } from "../src/lib/types";
-import { composite, stats, blockBootstrapCi, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
+import { stats, blockBootstrapCi, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
 import { HIGH_CONFIDENCE_BIN } from "../src/lib/fusion";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
@@ -30,7 +31,8 @@ function main() {
   const h = String(preset.horizonDays) as H; // "63"
   const pts = tl.points.filter((p) => p.returns[h] !== null && p.cycleBin !== undefined);
 
-  const comp = (p: TimelinePoint) => composite(p, preset.weights) >= preset.buyThreshold;
+  // v4: presetComposite — sub-signal vĩ mô trọng số riêng (cùng hàm với UI/monitor-presets).
+  const comp = (p: TimelinePoint) => presetComposite(p.scores, preset) >= preset.buyThreshold;
   const bot = (p: TimelinePoint) => p.cycleBin === HIGH_CONFIDENCE_BIN;
 
   const train = pts.filter((p) => p.date < SPLIT_DATE);
@@ -44,7 +46,7 @@ function main() {
   // placebo đồng-n train: composite-buy top-n_B theo điểm giảm dần
   const compTrainSorted = train
     .filter(comp)
-    .sort((a, b) => composite(b, preset.weights) - composite(a, preset.weights));
+    .sort((a, b) => presetComposite(b.scores, preset) - presetComposite(a.scores, preset));
   const topN = compTrainSorted.slice(0, bTrain.n);
   const orthoTrainPt =
     bTrain.n >= MIN_SIGNALS ? Math.round((bTrain.fav - favOf(topN, h).fav) * 1000) / 10 : null;
@@ -56,8 +58,12 @@ function main() {
 
   const enough = bTrain.n >= MIN_SIGNALS && bTest.n >= MIN_SIGNALS;
   let status: FusionHealth["status"];
+  // degraded = B THUA composite ở bất kỳ giai đoạn nào, hoặc placebo train ≤ 0.
+  // HÒA không tính (fix 2026-07-05, cùng họ bug monitorBearDca): preset 3m v4 đã 100%
+  // test nên "B phải THẮNG CHẶT cả 2 giai đoạn" bất khả thi tại trần — B 100% = comp
+  // 100% không phải thoái hóa; giá trị của B nằm ở train (95,6% vs 89,5%) + placebo.
   if (!enough) status = "insufficient";
-  else if (!(bTrain.fav > cTrain.fav && bTest.fav > cTest.fav) || (orthoTrainPt !== null && orthoTrainPt <= 0))
+  else if (bTrain.fav < cTrain.fav || bTest.fav < cTest.fav || (orthoTrainPt !== null && orthoTrainPt <= 0))
     status = "degraded";
   else status = "ok";
 

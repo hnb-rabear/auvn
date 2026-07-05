@@ -1,6 +1,7 @@
 /** Toán composite cho điểm timeline — thuần, không React. */
 
-import type { CriterionKey, TimelinePoint, BottomHistoryRow, BearAsOfRow, BearPhase } from "./types";
+import { presetComposite } from "./types";
+import type { CriterionKey, Preset, TimelinePoint, BottomHistoryRow, BearAsOfRow, BearPhase } from "./types";
 
 /** Composite từ điểm tiêu chí của một ngày timeline, theo trọng số đang chọn. */
 export function pointComposite(
@@ -23,6 +24,12 @@ export function composites(
   weights: Record<CriterionKey, number>
 ): number[] {
   return points.map((p) => pointComposite(p, weights));
+}
+
+/** Composite preset (v4: đọc key sub-signal vĩ mô trong scores, fallback macro với
+ *  timeline cũ chưa có key phụ) cho mọi điểm — cùng hàm với verdict live (chart ≡ card). */
+export function presetComposites(points: TimelinePoint[], preset: Preset): number[] {
+  return points.map((p) => presetComposite(p.scores, preset));
 }
 
 /** Index các giá trị >= ngưỡng (marker tín hiệu mua / ngưỡng thử). */

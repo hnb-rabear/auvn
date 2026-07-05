@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-07-05T12:44:19.116Z",
+ "generatedAt": "2026-07-05T14:14:49.194Z",
  "dataDate": "2026-07-03",
- "stale": true,
- "staleDays": 2,
+ "stale": false,
+ "staleDays": 0,
  "prices": {
-  "sjcBuy": 145000000,
-  "sjcSell": 148400000,
-  "ringBuy": 145000000,
-  "ringSell": 148000000,
+  "sjcBuy": 147500000,
+  "sjcSell": 151400000,
+  "ringBuy": 147500000,
+  "ringSell": 151000000,
   "xauUsd": 4187.2998046875,
   "usdVnd": 26463,
   "worldVndPerLuong": 133596618,
-  "premiumPct": 12.05,
-  "premiumVnd": 14803382
+  "premiumPct": 13.33,
+  "premiumVnd": 17803382
  },
  "criteria": [
   {
@@ -65,15 +65,15 @@
     {
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
-     "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,1%, ở percentile 31 so với lịch sử tự thu thập (492 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "score": 0,
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,3%, ở percentile 45 so với lịch sử tự thu thập (493 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
-     "score": 0,
-     "explanation": "Chênh mua–bán SJC = 2,3% giá bán: spread bình thường.",
+     "score": -1,
+     "explanation": "Chênh mua–bán SJC = 2,6% giá bán: spread giãn rộng — thị trường biến động/khan hàng, giao dịch bất lợi.",
      "available": true
     },
     {
@@ -84,7 +84,7 @@
      "available": true
     }
    ],
-   "score": 0.3333333333333333,
+   "score": -0.3333333333333333,
    "available": true,
    "provisional": false
   },
@@ -117,7 +117,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.465, nhịp +0,7%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.463, nhịp +0,7%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -183,13 +183,10 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 3.7,
+ "composite": -4.7,
  "zone": "neutral",
- "vnHistoryDays": 492,
- "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
- ],
+ "vnHistoryDays": 493,
+ "warnings": [],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2158,6 +2155,10 @@
   {
    "date": "2026-07-03",
    "value": 12.05
+  },
+  {
+   "date": "2026-07-05",
+   "value": 13.33
   }
  ],
  "premiumPercentiles": {
@@ -2169,8 +2170,8 @@
   "world": "2026-07-03T16:59:58.000Z",
   "dxy": "2026-07-02T04:00:00.000Z",
   "yield10y": "2026-07-02T12:20:00.000Z",
-  "vnGold": null,
-  "usdVnd": "2026-07-05T12:44:19.116Z",
-  "fed": null
+  "vnGold": "2026-07-05T14:14:49.194Z",
+  "usdVnd": "2026-07-05T14:14:49.194Z",
+  "fed": "2026-07-05T14:14:49.194Z"
  }
 }

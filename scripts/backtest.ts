@@ -128,6 +128,14 @@ export function runBacktest(
     const scores: TimelinePoint["scores"] = {};
     for (const c of criteria) {
       if (c.available) scores[c.key] = Math.round(c.score * 100) / 100;
+      // v4: sub-signal vĩ mô thành key phụ để preset chấm trọng số riêng (macroSub).
+      // Trọng số 0 ở mọi đường composite cũ ⇒ radar/custom/DEFAULT_WEIGHTS không đổi.
+      if (c.key === "macro" && c.available) {
+        for (const s of c.signals) {
+          if (s.available && (s.id === "dxy" || s.id === "fed" || s.id === "yield10y"))
+            scores[s.id] = Math.round(s.score * 100) / 100;
+        }
+      }
     }
     if (extras.momentum12m) {
       const mc = momentumCriterion(closesUpTo);

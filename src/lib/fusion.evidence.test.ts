@@ -2,21 +2,13 @@ import { describe, it, expect } from "vitest";
 import tlJson from "../../public/data/timeline.json";
 import { HIGH_CONF_3M_EVIDENCE, HIGH_CONFIDENCE_BIN } from "./fusion";
 import { blockBootstrapCi } from "./indicators";
-import { PRESETS, type Timeline, type TimelinePoint } from "./types";
+import { PRESETS, presetComposite, type Timeline, type TimelinePoint } from "./types";
 
 const tl = tlJson as unknown as Timeline;
 const preset = PRESETS.find((p) => p.id === "3m")!;
 
-function composite(p: TimelinePoint, w: Record<string, number>): number {
-  let s = 0, tw = 0;
-  for (const [k, v] of Object.entries(p.scores)) {
-    const wk = w[k] ?? 0;
-    s += (v as number) * wk;
-    tw += wk;
-  }
-  return tw === 0 ? 0 : (s / tw) * 50;
-}
-const buy = (p: TimelinePoint) => composite(p, preset.weights) >= preset.buyThreshold;
+// v4: cùng hàm presetComposite với UI/monitor/fusion-study — chart ≡ card ≡ evidence.
+const buy = (p: TimelinePoint) => presetComposite(p.scores, preset) >= preset.buyThreshold;
 const pts = tl.points.filter((p) => p.returns["63"] !== null && p.cycleBin !== undefined);
 const B = (seg: TimelinePoint[]) =>
   seg.filter((p) => buy(p) && p.cycleBin === HIGH_CONFIDENCE_BIN);
@@ -54,7 +46,7 @@ describe("HIGH_CONF_3M_EVIDENCE khớp timeline.json", () => {
     const bTrain = B(train);
     const topN = train
       .filter(buy)
-      .sort((a, b) => composite(b, preset.weights) - composite(a, preset.weights))
+      .sort((a, b) => presetComposite(b.scores, preset) - presetComposite(a.scores, preset))
       .slice(0, bTrain.length);
     expect(favPct(bTrain) - favPct(topN)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt, 0);
   });

@@ -9,8 +9,8 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { PRESETS, type PresetHealth, type PresetHealthFile, type Timeline } from "../src/lib/types";
-import { composite, stats, blockBootstrapCi, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
+import { PRESETS, presetComposite, type PresetHealth, type PresetHealthFile, type Timeline } from "../src/lib/types";
+import { stats, blockBootstrapCi, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const STEP = 3;
@@ -25,8 +25,9 @@ function main() {
     const train = pts.filter((q) => q.date < SPLIT_DATE);
     const test = pts.filter((q) => q.date >= SPLIT_DATE);
 
+    // v4: presetComposite — sub-signal vĩ mô trọng số riêng (cùng hàm với UI/notify).
     const hit = (data: typeof pts) =>
-      data.filter((q) => composite(q, p.weights) >= p.buyThreshold).map((q) => q.returns[h] as number);
+      data.filter((q) => presetComposite(q.scores, p) >= p.buyThreshold).map((q) => q.returns[h] as number);
 
     const trSig = stats(hit(train));
     const teSig = stats(hit(test));

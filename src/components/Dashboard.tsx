@@ -136,10 +136,6 @@ export default function Dashboard({
     () => !preset && JSON.stringify(weights) !== JSON.stringify(DEFAULT_WEIGHTS),
     [preset, weights]
   );
-  const composite = useMemo(
-    () => compositeScore(analysis.criteria, weights),
-    [analysis, weights]
-  );
   // Chế độ đồng thuận (2026-07-05, docs/presets.md "Đồng thuận preset"): trục MUA
   // của "Toàn cảnh" = k/3 preset kỳ hạn đang báo mua — cấu hình mặc định cũ đo được
   // bắn 0 tín hiệu mua suốt 2019–2026 nên không còn là cò súng. Radar composite chỉ
@@ -147,6 +143,16 @@ export default function Dashboard({
   const consensusMode = !preset && !customized;
   const presetSigs = useMemo(() => presetSignals(analysis.criteria), [analysis]);
   const consensusK = buyCount(presetSigs);
+  // v4: preset chấm bằng presetComposite (sub-signal vĩ mô có trọng số riêng) — cùng
+  // hàm với chart/monitor. compositeScore(weights) chỉ còn cho radar/tùy chỉnh; với
+  // weights v4 (macro=0) nó sẽ rụng vĩ mô nên KHÔNG được dùng cho chế độ preset.
+  const composite = useMemo(() => {
+    if (preset) {
+      const sig = presetSigs.find((s) => s.preset.id === preset.id);
+      if (sig) return sig.composite;
+    }
+    return compositeScore(analysis.criteria, weights);
+  }, [analysis, weights, preset, presetSigs]);
   const rawZone = zoneOf(composite, preset?.buyThreshold ?? 40);
   // Preset chỉ được kiểm chứng phía MUA — không bao giờ hiển thị vùng bán dưới preset.
   const rawIsBuy = rawZone === "buy" || rawZone === "strong-buy";

@@ -18,10 +18,12 @@
  * ≤ −40 — validated là headwind 1 tháng, xem guidance.ts), không làm cò súng.
  */
 import {
-  compositeScore,
+  presetComposite,
+  scoreMapFromCriteria,
   PRESETS,
   type CriterionResult,
   type Preset,
+  type SubSignal,
   type Zone,
 } from "./types";
 
@@ -33,12 +35,17 @@ export interface PresetSignal {
   isBuy: boolean;
 }
 
-/** Chấm cả 3 preset trên criteria live (analysis.json). */
+/** Chấm cả 3 preset trên criteria live (analysis.json). Từ v4 preset đọc sub-signal
+ *  vĩ mô (signals của tiêu chí macro); thiếu signals → presetComposite tự rớt về
+ *  điểm macro tổng (không bao giờ âm thầm mất tín hiệu vĩ mô). */
 export function presetSignals(
-  criteria: Pick<CriterionResult, "key" | "score" | "available">[]
+  criteria: (Pick<CriterionResult, "key" | "score" | "available"> & {
+    signals?: Pick<SubSignal, "id" | "score" | "available">[];
+  })[]
 ): PresetSignal[] {
+  const map = scoreMapFromCriteria(criteria);
   return PRESETS.map((preset) => {
-    const composite = compositeScore(criteria, preset.weights);
+    const composite = presetComposite(map, preset);
     return { preset, composite, isBuy: composite >= preset.buyThreshold };
   });
 }

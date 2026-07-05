@@ -53,7 +53,21 @@ Ba ứng viên được test bằng cách bật/tắt từng tín hiệu rồi c
 
 Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằng chứng được kiểm trên nó; DFII10 (lợi suất thực, mạnh hơn về lý thuyết) chỉ làm dự phòng vì FRED hay lỗi 504 với series ngày. Mapping: thay đổi 63 phiên ≤ −0,4 điểm → +2 … ≥ +0,4 điểm → −2.
 
-## Kết quả — 3 preset được chọn (v3)
+## Kết quả — 3 preset ĐANG PHÁT HÀNH (v4, 2026-07-05)
+
+Tuyển bởi `scripts/macro-decomp-study.ts` (tách sub-signal vĩ mô — phương pháp + toàn bộ kiểm chứng ở section "Tách sub-signal vĩ mô" bên dưới). **Luật chọn** trong nhóm ≤1pt của best min-excess: ưu tiên cấu hình bắn được 2023 (mục tiêu tuyển chọn — năm câm có sóng thật); 1 tháng không cấu hình nào bắn 2023 → lấy phủ-max theo n train. Cả 3 rơi vào họ **FED=0, YLD-nặng**.
+
+| Preset | Trọng số (KT / TK / MOM / DXY / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Sóng 1 tháng** | 20% / 10% / 30% / 10% / 30% | +50 | **82,1%** (n=106) | **89,1%** (n=64) | 51,7% / 59,6% | +4,1% |
+| **Sóng 3 tháng** | 10% / 10% / 20% / 20% / 40% | +60 | **89,5%** (n=114) | **100%** (n=90) | 55,6% / 69,0% | +7,3% |
+| **Tích lũy 6 tháng** | 0 / 20% / 20% / 10% / 50% | +60 | **80,9%** (n=136) | **100%** (n=130) | 56,8% / 79,6% | +15,4% |
+
+FED = hướng lãi suất Fed **không tham gia preset v4** (án phạt "Fed đang tăng" đè tín hiệu DXY/lợi suất đúng các năm 2017/2023 — bằng chứng ở section tách sub-signal); Fed vẫn nằm trong tiêu chí vĩ mô hiển thị (radar/chế độ tùy chỉnh). Premium = 0 như v3 (chưa đủ 2 giai đoạn). Số trong bảng = tính lại bằng `presetComposite` trên timeline lúc ship (khớp `PRESETS`, đối chiếu bằng `npx tsx scripts/verify-preset-evidence.ts` — có thể chênh ≤0,5pt so đầu ra study gốc do làm tròn 0,1 tại biên ngưỡng + timeline thêm phiên mới).
+
+Kỹ thuật: preset khai báo `macroSub` trong `PRESETS` (`src/lib/types.ts`); mọi nơi chấm preset dùng MỘT hàm `presetComposite` (UI live, Time Machine, monitor, fusion, evidence test — chart ≡ card). Timeline ghi thêm điểm sub-signal (`scores.dxy/fed/yield10y`, trọng số 0 với mọi composite cũ); dữ liệu cũ thiếu key phụ → trọng số sub tự dồn về điểm macro tổng, không bao giờ âm thầm mất tín hiệu vĩ mô (bài học FRED 504). Fusion "MUA độ tin cao" 3m re-validated trên preset v4 (docs/fusion.md section v4).
+
+## Kết quả — 3 preset v3 (lịch sử, thay bởi v4 ở trên)
 
 | Preset | Trọng số (KT / TK / VM / MOM) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -96,7 +110,7 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
    | Thấp (≤ p20) | 59 | 90% | **+10,4%** |
 
    Gradient đơn điệu ở cả 3 kỳ hạn 21/42/63 ngày — chênh cao thì kết quả kém, đúng cơ chế hồi quy của premium. Hạn chế: 16 tháng dữ liệu, một chế độ thị trường, cửa sổ chồng lấn — đọc là bằng chứng sơ bộ mạnh, không phải kết luận cuối. App hiển thị banner "VÙNG BÁN VN theo chênh lệch" trên biểu đồ premium khi percentile ≥ 80.
-5. **Yếu tố chưa/không đưa vào:** GPR và VIX đã test và bị loại (bảng trên). NHTW mua vàng (dữ liệu quý, trễ), chính sách NHNN (không có feed máy đọc), COT positioning (chưa test) — ứng viên cho vòng sau.
+5. **Yếu tố chưa/không đưa vào:** GPR, VIX và COT positioning đã test và bị loại (bảng trên + section COT 2026-07-05 bên dưới). NHTW mua vàng (dữ liệu quý, trễ), chính sách NHNN (không có feed máy đọc) — ứng viên cho vòng sau.
 
    **Premium gating (bằng chứng sơ bộ, 2026-06):** `premium-buy-study.ts` trên 488 ngày SJC cho thấy gradient rõ ở 21 ngày: tín hiệu mua + premium thấp (≤p20) → trung vị +7,6%; premium cao (≥p80) → +1,8%. Gradient yếu dần ở 42–63 ngày (bull trend lấn át). Tuy nhiên, chỉ n=7 tín hiệu premium cao, và dữ liệu 488 ngày chỉ phủ một chế độ thị trường — chưa đủ 2 giai đoạn độc lập để vào preset. Premium vẫn giữ trọng số 0% trong preset cho đến khi có thêm dữ liệu đa chế độ.
 6. Quá khứ không bảo đảm tương lai. Công cụ xác suất, không phải lời hứa.
@@ -143,6 +157,44 @@ Grid search 4D × 4 ngưỡng đòi MỘT cấu hình thắng baseline ở **c�
 
 Code: `src/lib/consensus.ts` (+ test), Dashboard/TimeMachine/SettingsSheet đọc qua đó. Tái lập: `npx tsx scripts/consensus-study.ts`.
 
+### Câu hỏi tiếp theo: "vì sao có năm câm tín hiệu?" → thử COT positioning — LOẠI (2026-07-05)
+
+Tín hiệu bắn theo cụm vì cả 3 preset đều macro-nặng — bản chất là máy phát hiện *chế độ nới lỏng tiền tệ*. Phần lớn khoảng lặng là ĐÚNG (2021 vàng −3,5%, 2022 −0,4%), nhưng 2 năm bị bỏ lỡ thật: **2017 (+13,6%, 0 tín hiệu)** và **2023 (+13,3%, chỉ 9 ngày)** — yếu tố ngoài tầm nhìn 3 preset (khả năng: NHTW mua vàng, positioning). Nới ngưỡng (thr=30) đã thử: KHÔNG lấp được năm câm (0 ngày thêm ở 2017/2021/2022/2023), chỉ làm dày rìa cụm sẵn có với chất lượng kém hơn baseline → cần yếu tố TRỰC GIAO mới, không phải nới ngưỡng.
+
+Ứng viên đầu tiên: **COT positioning** (CFTC legacy futures, `GOLD - COMMODITY EXCHANGE INC.`, tuần, free). `scripts/cot-study.ts`: 1.069 tuần (2006-01 → 2026-06), tín hiệu = percentile `net/OI` trên trailing 156 tuần **đã công bố** (chống look-ahead: mỗi tuần chỉ khả dụng từ asOf + 4 ngày, cần ≥52 tuần); 2 hướng contrarian (net thấp = mua) và trend (đối chứng); grid 5D KT/TK/VM/MOM/COT × ngưỡng {30,40,50,60}, cổng ≥25 tín hiệu + thắng baseline cả 2 giai đoạn, xếp min-excess — đúng khung ablation momentum.
+
+| Biến thể | 1 tháng | 3 tháng | 6 tháng | Kết luận |
+| --- | --- | --- | --- | --- |
+| Gốc 4D (KT/TK/VM/MOM) | +21,1pt | +31,0pt | +20,4pt | — |
+| + COT contrarian | +24,4pt | +31,0pt | +20,4pt | LOẠI — chỉ cải thiện 1/3 kỳ hạn, và cấu hình thắng H21 (KT 0,3 / MOM 0,3 / COT 0,4, **bỏ hẳn macro**) chỉ còn n=25 test (so 150 của gốc) — đánh đổi độ phủ lấy +3,3pt trên mẫu mỏng |
+| + COT trend | +21,1pt | +31,0pt | +20,4pt | LOẠI — không cải thiện kỳ hạn nào (như GPR/VIX) |
+
+**Câu hỏi gốc — năm câm — cũng KHÔNG được giải:** cấu hình tốt nhất có COT cho 2017: 0 tín hiệu, 2021: 0, 2023: ≤4 ngày ở mọi kỳ hạn. COT contrarian khá trực giao với macro (corr = −0,34) nhưng trực giao không đồng nghĩa hữu ích. Cửa ablation này giờ đã loại GPR, VIX, COT — nhất quán bài học GPR: thị trường price-in nhanh, "ứng viên trực giác" hiếm khi qua cổng 2 giai đoạn. 2017/2023 tạm chấp nhận là giới hạn đã biết của họ preset macro; ứng viên còn lại (NHTW mua vàng — dữ liệu quý, trễ) kỳ vọng thấp. Tái lập: tải `deacotYYYY.zip` từ `cftc.gov/files/dea/history/` (2006–nay), giải nén `.txt` vào một thư mục rồi `COT_DIR=<thư mục> npx tsx scripts/cot-study.ts`.
+
+### Tách sub-signal vĩ mô (DXY / Fed / lợi suất tự do trọng số) — CÓ TÍN HIỆU TỐT (2026-07-05, engine CHƯA đổi)
+
+Sau khi COT rớt, đổi hướng: thay vì thêm yếu tố mới, **bỏ ràng buộc trung bình cộng** giữa 3 sub-signal bên trong tiêu chí vĩ mô. Nghi vấn cụ thể: 2017 DXY sập ~10% (tín hiệu mua) nhưng Fed tăng lãi 3 lần (tín hiệu bán) — hai sub-signal triệt tiêu nhau trong điểm macro; 2023 tương tự (Fed tăng đến 7/2023 đè điểm macro trong khi lợi suất có 2 cửa sổ rơi mạnh — SVB 3/2023 và cuối 2023 — đều là sóng vàng). Không cần feed mới — chỉ tách dữ liệu sẵn có.
+
+`scripts/macro-decomp-study.ts`: tái tạo 3 sub-score past-only đúng mapping `macroCriterion` (golden check: khớp điểm macro đã lưu trong timeline ở **4.275/4.275 điểm**), rồi grid 6D KT/TK/MOM/DXY/FED/YLD bước 10% × ngưỡng {30,40,50,60}, cùng cổng 2 giai đoạn + min-excess như mọi study. **Lưu ý trần:** ở 3-6 tháng, cấu hình tốt đạt test 100% nên excess test bị chặn tại 100 − baseline (31,0/20,4pt) — min-excess không phân biệt được nữa; so thêm theo độ phủ (chọn theo n TRAIN trong các ứng viên cách best ≤1pt — không nhìn test).
+
+| Kỳ hạn | Best 4D (gốc) | Best 6D (tách) | Δ min-excess | Độ phủ tại trần (test n, base → decomp) | Cụm độc lập (gap>21 phiên) |
+| --- | --- | --- | --- | --- | --- |
+| 1 tháng | +21,1pt | **+29,9pt** | **+8,8pt** | 200 → 62 (đổi phủ lấy chất lượng) | 15 → 12 |
+| 3 tháng | +31,0pt (trần) | +31,0pt (trần) | 0 (trần) | 72 → **128** | 15 → **18** |
+| 6 tháng | +20,4pt (trần) | +20,4pt (trần) | 0 (trần) | 114 → **316** | 16 → **29** |
+
+**Cấu trúc thắng nhất quán: YLD-nặng (0,3–0,6), FED nhẹ hoặc 0, DXY 0,1–0,3.** Kiểm chứng thêm, tất cả đạt:
+
+- **Năm câm 2023 được mở khóa** bởi các cấu hình FED=0: n=16 tín hiệu @100% đúng, trung vị +6,4% (3 tháng) / +11,8% (6 tháng). Đúng cơ chế nghi vấn: bỏ án phạt Fed-đang-tăng thì 2 cửa sổ lợi suất rơi của 2023 hiện ra. **2017 vẫn KHÔNG giải được** (≤4 ngày mọi cấu hình — yếu tố ngoài tầm vẫn thiếu); 2021/2022 tiếp tục câm ĐÚNG.
+- **Tách đôi giai đoạn test** (2019–2022 / 2023–2026): cấu hình đề cử thắng baseline ở **cả 2 nửa, cả 3 kỳ hạn** (ví dụ 6 tháng phủ-max: 100% n=184 vs bl 70% | 100% n=127 vs bl 93%).
+- **Lân cận trọng số** (dịch 0,1 mọi cặp khóa): 19/25 → 25/25 lân cận vẫn qua cổng 2 giai đoạn — không phải đỉnh nhọn overfit.
+- **YLD-đơn không đủ** (trừ 6 tháng gần đủ: +18,5pt): cần tổ hợp, không phải "thay macro bằng yield".
+- **Phủ rộng không pha loãng độ chính xác:** chấm RIÊNG các ngày decomp bắn mà base không bắn (chẩn đoán g): test 3 tháng n=58 thêm đúng 100% (med +6,9%), test 6 tháng n=130–311 thêm đúng 100% (med +12,7..+15,4% — cao hơn cả cấu hình cũ). Đánh đổi thật nằm ở train: phần thêm 77–87% so ~90% của lõi (vẫn vượt xa baseline 52–57%). Riêng 1 tháng chiều ngược lại: ÍT tín hiệu hơn nhưng chính xác hơn (80,7% → 88,7–91,9%).
+
+**Đọc số cho đúng:** grid 6D bao gần trọn không gian 4D nên best 6D ≥ 4D là tất yếu trên train — giá trị nằm ở chỗ qua cổng test + cấu trúc nhất quán + độ phủ tại trần + tách đôi test đều thắng. n ngày vẫn là tín hiệu bắn chùm (xem Giới hạn #1); số cụm độc lập (12/18/29) mới là cỡ mẫu hiệu dụng.
+
+**Trạng thái: ĐÃ SHIP thành preset v4 (2026-07-05, được chủ app duyệt)** — bảng phát hành + chi tiết kỹ thuật ở section "Kết quả — 3 preset ĐANG PHÁT HÀNH (v4)" phía trên. Tái lập study: `npx tsx scripts/macro-decomp-study.ts` (tự fetch DXY Yahoo, cache tạm; cần mạng lần đầu).
+
 ## Tái lập kết quả
 
 ```bash
@@ -154,6 +206,9 @@ npx tsx scripts/premium-buy-study.ts               # gradient premium cho tín h
 npx tsx scripts/optimize-study.ts                  # study gốc v1 (1 kỳ hạn, HORIZON=21|63|126)
 npx tsx scripts/horizon-study.ts                   # hiệu quả cấu hình mặc định theo 4 kỳ hạn
 npx tsx scripts/consensus-study.ts                 # hiện trạng Toàn cảnh + grid đa kỳ hạn + đồng thuận k/3 (placebo đồng-n)
+COT_DIR=<thư mục .txt> npx tsx scripts/cot-study.ts # ablation COT positioning (cần tải deacotYYYY.zip từ cftc.gov trước)
+npx tsx scripts/macro-decomp-study.ts              # tách sub-signal vĩ mô DXY/FED/YLD, grid 6D (tự fetch DXY Yahoo lần đầu) — study tuyển v4
+npx tsx scripts/verify-preset-evidence.ts          # đối chiếu PRESETS[].evidence với tính lại trên timeline hiện tại
 ```
 
-Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng này; đổi preset thì cập nhật cả hai.
+Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng "3 preset ĐANG PHÁT HÀNH (v4)"; đổi preset thì cập nhật cả hai.

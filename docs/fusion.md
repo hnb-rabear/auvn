@@ -1,6 +1,6 @@
 # Fusion composite ∧ đáy — tầng "MUA độ tin cao": phương pháp & bằng chứng
 
-Cập nhật: 2026-06-19. Sinh bởi `scripts/fusion-study.ts` (offline trên `public/data/timeline.json`).
+Cập nhật: 2026-06-19 (tuyển chọn gốc trên preset v3) · 2026-07-05 (re-validated trên preset 3m **v4**, xem section cuối). Sinh bởi `scripts/fusion-study.ts` (offline trên `public/data/timeline.json`).
 
 ## Câu hỏi
 Ghép tín hiệu mua composite với lớp Bottom Hunter (vùng đáy) có cải thiện precision/recall/timing
@@ -45,13 +45,30 @@ vào cấp guidance "strong" sẵn có, chỉ khi 3m + vùng mua + cycleBin==3 +
 trong **Time Machine** cho NGÀY ĐANG XEM, dùng `cycleBin` past-only của ngày đó (KHÔNG dùng prob —
 prob là base-rate look-ahead) — lật tới ngày high-conf lịch sử (vd 18/06/2020, 29/12/2025) sẽ thấy tag
 "đã kiểm chứng". `scripts/monitor-fusion.ts`
-mỗi cron tính lại → `fusion-health.json`; degraded khi B không còn vượt composite cả 2 giai đoạn hoặc
-placebo train ≤ 0 ⇒ UI ẩn evidence. `public/data/fusion-health.json` là file seed đã commit, cần cho static build (Next.js import tĩnh trong `page.tsx`); mỗi cron `monitor-fusion.ts` tạo lại — tương tự `preset-health.json`.
+mỗi cron tính lại → `fusion-health.json`; degraded khi B THUA composite ở bất kỳ giai đoạn nào (hòa
+tại trần không tính, fix 2026-07-05 — xem section v4) hoặc placebo train ≤ 0 ⇒ UI ẩn evidence. `public/data/fusion-health.json` là file seed đã commit, cần cho static build (Next.js import tĩnh trong `page.tsx`); mỗi cron `monitor-fusion.ts` tạo lại — tương tự `preset-health.json`.
+
+## Re-validated trên preset 3m v4 (2026-07-05)
+
+Preset 3m đổi sang v4 (macroSub — trọng số sub-signal vĩ mô riêng, bỏ Fed; xem docs/presets.md
+"Preset v4") ⇒ tập composite-buy đổi ⇒ B phải kiểm chứng lại. Kết quả `fusion-study.ts` trên
+timeline mới (số evidence tính bởi `scripts/calc-fusion-evidence.ts`, khóa bằng test):
+
+| B train | comp train | B test | comp test | n B (tr/te) | placebo train | toàn giai đoạn |
+| --- | --- | --- | --- | --- | --- | --- |
+| **95,6%** | 89,5% | 100% | **100% (trần)** | 45/52 | **+11,1pt** | n=97 97,9% CI[93,8–100] |
+
+Vẫn GIỮ: train thắng composite rõ + placebo đồng-n train dương mạnh (đáy vẫn thêm thông tin trực
+giao). Điểm mới cần hiểu: **composite 3m v4 đã 100% ở test** nên B không thể "vượt" tại trần —
+`monitor-fusion.ts` vì vậy sửa luật degraded (2026-07-05): degraded khi B **THUA** composite ở bất
+kỳ giai đoạn nào hoặc placebo ≤ 0; **HÒA tại trần không tính** (cùng họ bug monitorBearDca đã vá
+2026-07-03 — luật "phải thắng chặt" bất khả thi khi đối chứng chạm trần sẽ báo degraded giả).
 
 ## Tái lập
 ```bash
-npx tsx scripts/fusion-study.ts     # A/B/C + 3 kiểm chứng robust cho B
-npx tsx scripts/monitor-fusion.ts   # sức khỏe B-3m hiện tại
+npx tsx scripts/fusion-study.ts        # A/B/C + 3 kiểm chứng robust cho B
+npx tsx scripts/calc-fusion-evidence.ts # 8 số HIGH_CONF_3M_EVIDENCE đúng cách test khóa
+npx tsx scripts/monitor-fusion.ts      # sức khỏe B-3m hiện tại
 ```
 
-`HIGH_CONF_3M_EVIDENCE` trong `src/lib/fusion.ts` phải khớp bảng này (khóa bằng `fusion.evidence.test.ts`).
+`HIGH_CONF_3M_EVIDENCE` trong `src/lib/fusion.ts` phải khớp section v4 này (khóa bằng `fusion.evidence.test.ts`).

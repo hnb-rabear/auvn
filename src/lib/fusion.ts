@@ -25,15 +25,18 @@ export interface HighConfEvidence {
   orthogonalTrainPt: number;
 }
 
+/** Số cho preset 3m v4 (macroSub, 2026-07-05) — tính lại bởi scripts/calc-fusion-evidence.ts
+ *  sau khi timeline tái sinh; re-validated bởi fusion-study: train B 95,6% vs comp 89,5%
+ *  (+placebo +11,1pt), test HÒA TẠI TRẦN 100% (comp v4 đã 100% test nên B không thể vượt). */
 export const HIGH_CONF_3M_EVIDENCE: HighConfEvidence = {
-  trainFav: 92.8,
-  trainN: 69,
+  trainFav: 95.6,
+  trainN: 45,
   testFav: 100.0,
-  testN: 89,
-  fullFav: 96.8,
-  fullN: 158,
-  fullCi: [91.1, 100],
-  orthogonalTrainPt: 10.1,
+  testN: 52,
+  fullFav: 97.9,
+  fullN: 97,
+  fullCi: [93.8, 100],
+  orthogonalTrainPt: 11.1,
 };
 
 /**
