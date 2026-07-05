@@ -115,7 +115,7 @@ describe("composite & zones", () => {
       // preset có macroSub thì macro trong weights phải = 0 (không đếm vĩ mô 2 lần)
       if (p.macroSub) expect(p.weights.macro).toBe(0);
       expect(p.weights.premium).toBe(0);
-      expect(p.buyThreshold).toBeGreaterThanOrEqual(40);
+      expect(p.buyThreshold).toBeGreaterThanOrEqual(30);
       expect(p.evidence.trainFav).toBeGreaterThan(p.evidence.trainBaseline);
       expect(p.evidence.testFav).toBeGreaterThan(p.evidence.testBaseline);
       expect(p.evidence.trainN).toBeGreaterThanOrEqual(25);

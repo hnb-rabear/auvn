@@ -297,9 +297,11 @@ export interface Preset {
   /** premium = 0: tiêu chí chênh lệch VN chưa có lịch sử dài để kiểm chứng nên không tham gia preset */
   weights: Record<CriterionKey, number>;
   /** v4: trọng số RIÊNG cho từng sub-signal vĩ mô (thay tiêu chí macro trung bình cộng —
-   *  weights.macro để 0). Cả 3 preset v4 đều bỏ Fed (fed vắng mặt = trọng số 0): bằng chứng
-   *  cho thấy án phạt "Fed đang tăng" đè tín hiệu DXY/lợi suất đúng các năm 2017/2023.
-   *  Sub thiếu trong dữ liệu → presetComposite dồn trọng số về điểm macro tổng. */
+   *  weights.macro để 0). 1m (v4, FED=0): bằng chứng cho thấy án phạt "Fed đang tăng" đè tín
+   *  hiệu DXY/lợi suất đúng các năm 2017/2023. 3m/6m (v4.1 phủ-max, 2026-07-05): Fed nhỏ >0
+   *  thay vì ép 0 — phủ tín hiệu rộng hơn (thêm nhiều ngày mua độc lập qua 15 năm, không pha
+   *  loãng accuracy) đổi lấy train-margin mỏng hơn đôi chút. Sub thiếu trong dữ liệu →
+   *  presetComposite dồn trọng số về điểm macro tổng. */
   macroSub?: Partial<Record<MacroSubKey, number>>;
   buyThreshold: number;
   evidence: {
@@ -315,11 +317,15 @@ export interface Preset {
 }
 
 /**
- * PRESETS v4 (2026-07-05, scripts/macro-decomp-study.ts — bảng "Tách sub-signal vĩ mô"
- * trong docs/presets.md). Luật chọn trong nhóm ≤1pt của best min-excess: ưu tiên cấu hình
- * bắn được 2023 (mục tiêu tuyển chọn — năm câm có sóng thật); 1 tháng không cấu hình nào
- * bắn 2023 → lấy phủ-max theo n train. Cả 3 đều rơi vào họ FED=0, YLD-nặng.
- * Số evidence = đầu ra study trên timeline 2026-07-05; monitor-presets tính lại mỗi cron.
+ * PRESETS v4/v4.1 (2026-07-05, scripts/macro-decomp-study.ts — bảng "Tách sub-signal vĩ mô"
+ * trong docs/presets.md). 1m = v4: luật chọn trong nhóm ≤1pt của best min-excess, ưu tiên cấu
+ * hình bắn được 2023 (mục tiêu tuyển chọn — năm câm có sóng thật); 1 tháng không cấu hình nào
+ * bắn 2023 → lấy phủ-max theo n train; rơi vào họ FED=0, YLD-nặng. 3m/6m = v4.1: reopen sau khi
+ * v4 (FED=0 ép cứng) làm rớt hẳn "Gom" trên toàn preset — chọn lại candidate phủ-max cùng
+ * min-excess (Fed nhỏ >0) đã có sẵn trong lưới grid-search nhưng bị bỏ qua lúc ship v4;
+ * so v4: test n 90→104 (3m), 130→311 (6m), thêm episode 2017/2023 độc lập, accuracy KHÔNG
+ * pha loãng (test 99%/100%). Số evidence = đầu ra study trên timeline 2026-07-05;
+ * monitor-presets tính lại mỗi cron.
  */
 export const PRESETS: Preset[] = [
   {
@@ -343,34 +349,34 @@ export const PRESETS: Preset[] = [
     id: "3m",
     label: "Sóng 3 tháng",
     horizonDays: 63,
-    weights: { technical: 0.1, premium: 0, macro: 0, stats: 0.1, momentum: 0.2 },
-    macroSub: { dxy: 0.2, yield10y: 0.4 },
-    buyThreshold: 60,
+    weights: { technical: 0.1, premium: 0, macro: 0, stats: 0.2, momentum: 0.2 },
+    macroSub: { dxy: 0.2, fed: 0.1, yield10y: 0.2 },
+    buyThreshold: 40,
     evidence: {
-      trainFav: 89.5,
-      trainN: 114,
+      trainFav: 88.5,
+      trainN: 131,
       trainBaseline: 55.6,
-      testFav: 100.0,
-      testN: 90,
-      testBaseline: 69.0,
-      medianTestReturnPct: 7.3,
+      testFav: 99,
+      testN: 104,
+      testBaseline: 69,
+      medianTestReturnPct: 7.1,
     },
   },
   {
     id: "6m",
     label: "Tích lũy 6 tháng",
     horizonDays: 126,
-    weights: { technical: 0, premium: 0, macro: 0, stats: 0.2, momentum: 0.2 },
-    macroSub: { dxy: 0.1, yield10y: 0.5 },
-    buyThreshold: 60,
+    weights: { technical: 0.1, premium: 0, macro: 0, stats: 0.1, momentum: 0 },
+    macroSub: { dxy: 0.2, fed: 0.2, yield10y: 0.4 },
+    buyThreshold: 30,
     evidence: {
-      trainFav: 80.9,
-      trainN: 136,
+      trainFav: 77.3,
+      trainN: 304,
       trainBaseline: 56.8,
-      testFav: 100.0,
-      testN: 130,
+      testFav: 100,
+      testN: 311,
       testBaseline: 79.6,
-      medianTestReturnPct: 15.4,
+      medianTestReturnPct: 12.7,
     },
   },
 ];

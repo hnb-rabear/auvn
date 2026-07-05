@@ -44,7 +44,7 @@ describe("presetSignals (v4: macroSub)", () => {
     }
   });
 
-  it("đọc sub-signal vĩ mô: fed KHÔNG tham gia preset v4 (fed -2 không đè dxy/yield dương)", () => {
+  it("đọc sub-signal vĩ mô: fed KHÔNG tham gia preset 1m (fed -2 không đè dxy/yield dương)", () => {
     // 2017/2023-scenario: DXY yếu (mua) + lợi suất rơi (mua) nhưng Fed đang TĂNG (bán).
     const criteria = crit(
       { technical: 1, macro: 0.33, stats: 1, momentum: 2 },
@@ -55,17 +55,33 @@ describe("presetSignals (v4: macroSub)", () => {
         { id: "yield10y", score: 1, available: true },
       ]
     );
-    // preset 3m: KT .1×1 + TK .1×1 + MOM .2×2 + DXY .2×2 + YLD .4×1 = 1.4 → 70 ≥ 60
+    // preset 1m: KT .2×1 + TK .1×1 + MOM .3×2 + DXY .1×2 + YLD .3×1 = 1.4 → 70 ≥ 50
+    const s1m = presetSignals(criteria).find((s) => s.preset.id === "1m")!;
+    expect(s1m.composite).toBe(70);
+    expect(s1m.isBuy).toBe(true);
+  });
+
+  it("preset 3m/6m v4.1: fed CÓ tham gia (trọng số nhỏ) nên fed -2 kéo composite xuống nhưng chưa đủ lật dấu mua", () => {
+    const criteria = crit(
+      { technical: 1, macro: 0.33, stats: 1, momentum: 2 },
+      [],
+      [
+        { id: "dxy", score: 2, available: true },
+        { id: "fed", score: -2, available: true },
+        { id: "yield10y", score: 1, available: true },
+      ]
+    );
+    // preset 3m: KT .1×1 + TK .2×1 + MOM .2×2 + DXY .2×2 + FED .1×(-2) + YLD .2×1 = 1.1 → 55 ≥ 40
     const s3m = presetSignals(criteria).find((s) => s.preset.id === "3m")!;
-    expect(s3m.composite).toBe(70);
+    expect(s3m.composite).toBe(55);
     expect(s3m.isBuy).toBe(true);
   });
 
   it("FALLBACK: thiếu sub-signal (analysis/timeline cũ) → trọng số sub dồn về điểm macro, KHÔNG rụng vĩ mô", () => {
     const criteria = crit({ technical: 0, macro: 2, stats: 0, momentum: 0 });
-    // preset 3m fallback: macro nhận .6 (dxy .2 + yield .4) → composite = (2×.6)/1 ×50 = 60 ≥ 60
+    // preset 3m fallback: macro nhận .5 (dxy .2 + fed .1 + yield .2) → composite = (2×.5)/1 ×50 = 50 ≥ 40
     const s3m = presetSignals(criteria).find((s) => s.preset.id === "3m")!;
-    expect(s3m.composite).toBe(60);
+    expect(s3m.composite).toBe(50);
     expect(s3m.isBuy).toBe(true);
   });
 
@@ -92,16 +108,16 @@ describe("presetSignals (v4: macroSub)", () => {
 
 describe("presetComposite fallback từng phần", () => {
   it("chỉ thiếu MỘT sub → chỉ trọng số sub đó dồn về macro", () => {
-    const preset = PRESETS.find((p) => p.id === "3m")!; // dxy .2, yield .4
-    // có dxy (=2), thiếu yield, macro tổng = 1
+    const preset = PRESETS.find((p) => p.id === "3m")!; // dxy .2, fed .1, yield .2
+    // có dxy (=2), thiếu fed+yield, macro tổng = 1
     const c = presetComposite({ technical: 0, stats: 0, momentum: 0, macro: 1, dxy: 2 }, preset);
-    // KT .1×0 + TK .1×0 + MOM .2×0 + DXY .2×2 + macro(.4 dồn)×1 = 0.8 → 40
-    expect(c).toBe(40);
+    // KT .1×0 + TK .2×0 + MOM .2×0 + DXY .2×2 + macro(.3 dồn)×1 = 0.7 → 35
+    expect(c).toBe(35);
   });
   it("thiếu cả sub lẫn macro → phần vĩ mô rơi khỏi mẫu số (chuẩn hóa như compositeScore)", () => {
     const preset = PRESETS.find((p) => p.id === "3m")!;
     const c = presetComposite({ technical: 2, stats: 2, momentum: 2 }, preset);
-    // chỉ còn KT .1 + TK .1 + MOM .2 = .4 → (2×.4)/.4 ×50 = 100
+    // chỉ còn KT .1 + TK .2 + MOM .2 = .5 → (2×.5)/.5 ×50 = 100
     expect(c).toBe(100);
   });
 });

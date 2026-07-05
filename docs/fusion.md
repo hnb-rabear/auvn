@@ -64,6 +64,19 @@ giao). Điểm mới cần hiểu: **composite 3m v4 đã 100% ở test** nên B
 kỳ giai đoạn nào hoặc placebo ≤ 0; **HÒA tại trần không tính** (cùng họ bug monitorBearDca đã vá
 2026-07-03 — luật "phải thắng chặt" bất khả thi khi đối chứng chạm trần sẽ báo degraded giả).
 
+## Re-validated trên preset 3m v4.1 phủ-max (2026-07-05, cùng ngày, reopen)
+
+Preset 3m đổi tiếp sang v4.1 (Fed nhỏ >0 thay ép 0, phủ tín hiệu rộng hơn — xem docs/presets.md
+"3 preset ĐANG PHÁT HÀNH (v4/v4.1)") ⇒ tập composite-buy đổi lần 2 ⇒ B kiểm chứng lại lần 2:
+
+| B train | comp train | B test | comp test | n B (tr/te) | placebo train | toàn giai đoạn |
+| --- | --- | --- | --- | --- | --- | --- |
+| **93,3%** | 88,5% | 100% | **99–100% (gần trần)** | 60/75 | **+1,7pt** | n=135 97,0% CI[91,1–100] |
+
+Vẫn GIỮ: train thắng composite (+4,8pt), placebo đồng-n train vẫn dương (mỏng hơn v4: +1,7pt vs
++11,1pt cũ — do tập composite-buy giờ rộng hơn nên "đỉnh" của nó gần lõi đáy hơn, ít khác biệt để
+đáy phân biệt). `monitor-fusion.ts` báo `status=ok` (không degraded) trên số mới.
+
 ## Tái lập
 ```bash
 npx tsx scripts/fusion-study.ts        # A/B/C + 3 kiểm chứng robust cho B

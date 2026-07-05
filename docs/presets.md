@@ -53,19 +53,23 @@ Ba ứng viên được test bằng cách bật/tắt từng tín hiệu rồi c
 
 Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằng chứng được kiểm trên nó; DFII10 (lợi suất thực, mạnh hơn về lý thuyết) chỉ làm dự phòng vì FRED hay lỗi 504 với series ngày. Mapping: thay đổi 63 phiên ≤ −0,4 điểm → +2 … ≥ +0,4 điểm → −2.
 
-## Kết quả — 3 preset ĐANG PHÁT HÀNH (v4, 2026-07-05)
+## Kết quả — 3 preset ĐANG PHÁT HÀNH (v4/v4.1, 2026-07-05)
 
-Tuyển bởi `scripts/macro-decomp-study.ts` (tách sub-signal vĩ mô — phương pháp + toàn bộ kiểm chứng ở section "Tách sub-signal vĩ mô" bên dưới). **Luật chọn** trong nhóm ≤1pt của best min-excess: ưu tiên cấu hình bắn được 2023 (mục tiêu tuyển chọn — năm câm có sóng thật); 1 tháng không cấu hình nào bắn 2023 → lấy phủ-max theo n train. Cả 3 rơi vào họ **FED=0, YLD-nặng**.
+1 tháng tuyển bởi `scripts/macro-decomp-study.ts` (tách sub-signal vĩ mô — phương pháp + toàn bộ kiểm chứng ở section "Tách sub-signal vĩ mô" bên dưới), **luật chọn** trong nhóm ≤1pt của best min-excess: ưu tiên cấu hình bắn được 2023 (mục tiêu tuyển chọn — năm câm có sóng thật); không cấu hình nào bắn 2023 → lấy phủ-max theo n train → rơi vào họ **FED=0, YLD-nặng**.
 
-| Preset | Trọng số (KT / TK / MOM / DXY / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
+3/6 tháng = **v4.1 phủ-max (reopen 2026-07-05)**: v4 (FED=0 ép cứng) làm rớt hẳn số ngày "Gom" so với v3 trên toàn bộ preset (Fed=0 bỏ mất ảnh hưởng làm dịu lịch sử của Fed, để DXY+YLD — vốn tương quan, cùng phản ánh chế độ "USD mạnh/lãi suất thực cao" — dễ chạm cực đoan hơn). Reopen chọn lại candidate phủ-max cùng min-excess (Fed nhỏ >0 thay vì ép 0) đã có sẵn trong lưới grid-search gốc nhưng bị bỏ qua lúc ship v4.
+
+| Preset | Trọng số (KT / TK / MOM / DXY / FED / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Sóng 1 tháng** | 20% / 10% / 30% / 10% / 30% | +50 | **82,1%** (n=106) | **89,1%** (n=64) | 51,7% / 59,6% | +4,1% |
-| **Sóng 3 tháng** | 10% / 10% / 20% / 20% / 40% | +60 | **89,5%** (n=114) | **100%** (n=90) | 55,6% / 69,0% | +7,3% |
-| **Tích lũy 6 tháng** | 0 / 20% / 20% / 10% / 50% | +60 | **80,9%** (n=136) | **100%** (n=130) | 56,8% / 79,6% | +15,4% |
+| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **82,1%** (n=106) | **89,1%** (n=64) | 51,7% / 59,6% | +4,1% |
+| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,5%** (n=131) | **99%** (n=104) | 55,6% / 69,0% | +7,1% |
+| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **77,3%** (n=304) | **100%** (n=311) | 56,8% / 79,6% | +12,7% |
 
-FED = hướng lãi suất Fed **không tham gia preset v4** (án phạt "Fed đang tăng" đè tín hiệu DXY/lợi suất đúng các năm 2017/2023 — bằng chứng ở section tách sub-signal); Fed vẫn nằm trong tiêu chí vĩ mô hiển thị (radar/chế độ tùy chỉnh). Premium = 0 như v3 (chưa đủ 2 giai đoạn). Số trong bảng = tính lại bằng `presetComposite` trên timeline lúc ship (khớp `PRESETS`, đối chiếu bằng `npx tsx scripts/verify-preset-evidence.ts` — có thể chênh ≤0,5pt so đầu ra study gốc do làm tròn 0,1 tại biên ngưỡng + timeline thêm phiên mới).
+So v4 (đã ship rồi rút lại cho 3m/6m): test n 90→104 (3m), 130→311 (6m) — gần gấp 2.4x số tín hiệu ở 6m, mở lại các năm 2017/2023 vốn câm hẳn dưới FED=0; accuracy KHÔNG pha loãng (test 99%/100%, train vẫn cách baseline xa: +32,9pt/+20,5pt). Đánh đổi: train-margin 6m mỏng hơn (77,3% vs baseline 56,8% = +20,5pt, so +24,1pt của v4 cũ) và composite hiện tại (2026-07-05) KHÔNG chuyển sang mua ở cả 3m/6m dưới v4.1 (dry spell không phải bug — xem phần "Gom" reopen ở dưới).
 
-Kỹ thuật: preset khai báo `macroSub` trong `PRESETS` (`src/lib/types.ts`); mọi nơi chấm preset dùng MỘT hàm `presetComposite` (UI live, Time Machine, monitor, fusion, evidence test — chart ≡ card). Timeline ghi thêm điểm sub-signal (`scores.dxy/fed/yield10y`, trọng số 0 với mọi composite cũ); dữ liệu cũ thiếu key phụ → trọng số sub tự dồn về điểm macro tổng, không bao giờ âm thầm mất tín hiệu vĩ mô (bài học FRED 504). Fusion "MUA độ tin cao" 3m re-validated trên preset v4 (docs/fusion.md section v4).
+FED = hướng lãi suất Fed **bằng 0 ở preset 1 tháng (v4)**, **>0 nhỏ ở 3/6 tháng (v4.1)**; vẫn nằm trong tiêu chí vĩ mô hiển thị (radar/chế độ tùy chỉnh) ở cả 3 preset dù có/không tham gia macroSub. Premium = 0 như v3 (chưa đủ 2 giai đoạn). Số trong bảng = tính lại bằng `presetComposite` trên timeline lúc ship (khớp `PRESETS`, đối chiếu bằng `npx tsx scripts/verify-preset-evidence.ts` — có thể chênh ≤0,5pt so đầu ra study gốc do làm tròn 0,1 tại biên ngưỡng + timeline thêm phiên mới).
+
+Kỹ thuật: preset khai báo `macroSub` trong `PRESETS` (`src/lib/types.ts`); mọi nơi chấm preset dùng MỘT hàm `presetComposite` (UI live, Time Machine, monitor, fusion, evidence test — chart ≡ card). Timeline ghi thêm điểm sub-signal (`scores.dxy/fed/yield10y`, trọng số 0 với mọi composite cũ); dữ liệu cũ thiếu key phụ → trọng số sub tự dồn về điểm macro tổng, không bao giờ âm thầm mất tín hiệu vĩ mô (bài học FRED 504). Fusion "MUA độ tin cao" 3m re-validated trên preset v4.1 (docs/fusion.md section v4.1).
 
 ## Kết quả — 3 preset v3 (lịch sử, thay bởi v4 ở trên)
 
@@ -193,7 +197,7 @@ Sau khi COT rớt, đổi hướng: thay vì thêm yếu tố mới, **bỏ ràn
 
 **Đọc số cho đúng:** grid 6D bao gần trọn không gian 4D nên best 6D ≥ 4D là tất yếu trên train — giá trị nằm ở chỗ qua cổng test + cấu trúc nhất quán + độ phủ tại trần + tách đôi test đều thắng. n ngày vẫn là tín hiệu bắn chùm (xem Giới hạn #1); số cụm độc lập (12/18/29) mới là cỡ mẫu hiệu dụng.
 
-**Trạng thái: ĐÃ SHIP thành preset v4 (2026-07-05, được chủ app duyệt)** — bảng phát hành + chi tiết kỹ thuật ở section "Kết quả — 3 preset ĐANG PHÁT HÀNH (v4)" phía trên. Tái lập study: `npx tsx scripts/macro-decomp-study.ts` (tự fetch DXY Yahoo, cache tạm; cần mạng lần đầu).
+**Trạng thái: ĐÃ SHIP thành preset v4 (1 tháng) / v4.1 phủ-max (3/6 tháng, reopen cùng ngày 2026-07-05, được chủ app duyệt)** — bảng phát hành + chi tiết kỹ thuật ở section "Kết quả — 3 preset ĐANG PHÁT HÀNH (v4/v4.1)" phía trên. Tái lập study: `npx tsx scripts/macro-decomp-study.ts` (tự fetch DXY Yahoo, cache tạm; cần mạng lần đầu).
 
 ## Tái lập kết quả
 
@@ -211,4 +215,4 @@ npx tsx scripts/macro-decomp-study.ts              # tách sub-signal vĩ mô DX
 npx tsx scripts/verify-preset-evidence.ts          # đối chiếu PRESETS[].evidence với tính lại trên timeline hiện tại
 ```
 
-Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng "3 preset ĐANG PHÁT HÀNH (v4)"; đổi preset thì cập nhật cả hai.
+Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng "3 preset ĐANG PHÁT HÀNH (v4/v4.1)"; đổi preset thì cập nhật cả hai.
