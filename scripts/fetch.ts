@@ -103,17 +103,20 @@ export async function fetchFedFunds(): Promise<{ date: string; value: number }[]
 }
 
 /**
- * Lợi suất trái phiếu Mỹ 10 năm. ^TNX (danh nghĩa) làm nguồn chính vì toàn bộ
- * bằng chứng test trong docs/presets.md được kiểm chứng trên ^TNX; DFII10
- * (lợi suất thực — mạnh hơn về lý thuyết nhưng FRED hay 504) chỉ là dự phòng.
+ * Lợi suất trái phiếu Mỹ 10 năm — CHỈ thử ^TNX (danh nghĩa), không tự tráo
+ * sang FRED DFII10 (lợi suất thực) bên trong hàm này nữa: real và nominal là
+ * hai chuỗi khác bản chất (mức và xu hướng khác nhau ở cùng một ngày), nên nếu
+ * hàm này tự âm thầm đổi nguồn mỗi khi Yahoo chập chờn, TOÀN BỘ lịch sử macro
+ * criterion (backtest + bottom) tính lại mỗi cron sẽ cho một ngày QUÁ KHỨ đã
+ * cố định điểm số khác nhau giữa các lần chạy — vỡ tính "kiểm chứng được" của
+ * backtest. run.ts giờ tự quyết định thứ tự dự phòng (cache nominal đã lưu
+ * trước, DFII10 chỉ dùng khi cold-start không có cache) — xem loadYieldCache.
  */
 export async function fetchYield10y(): Promise<{ bars: DailyBar[]; real: boolean; source: string; lastTs: number | null } | null> {
   try {
     const y = await fetchYahoo("^TNX");
     return { bars: y.bars, real: false, source: "yahoo:^TNX", lastTs: y.lastTs };
   } catch {
-    const fred = await fetchFredSeries("DFII10", 500);
-    if (fred) return { bars: fred, real: true, source: "fred:DFII10", lastTs: null };
     return null;
   }
 }

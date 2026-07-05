@@ -8,7 +8,9 @@ import {
   fetchVnGold,
   fetchUsdVnd,
   fetchYield10y,
+  fetchRealYield,
 } from "./fetch";
+import type { DailyBar } from "./fetch";
 import { runBacktest } from "./backtest";
 import {
   technicalCriterion,
@@ -43,6 +45,13 @@ const VN_HISTORY_FILE = join(HISTORY_DIR, "vn-gold.json");
 // FRED hay 504 lẻ tẻ; lưu lại chuỗi Fed mỗi lần fetch được để một lần hỏng
 // không xóa macro khỏi toàn bộ lịch sử backtest (xem backtest.ts).
 const FED_CACHE_FILE = join(HISTORY_DIR, "fed-funds.json");
+// Yahoo ^TNX chập chờn từng khiến hàm cũ tự tráo sang FRED DFII10 (lợi suất
+// THỰC, khác bản chất với danh nghĩa) chỉ trong MỘT lần cron — làm điểm macro
+// của một ngày QUÁ KHỨ đã cố định tự đổi giữa các lần chạy (bắt được thực tế:
+// composite preset "6 tháng" của 29/1/2026 nhảy 40→85 giữa 2 lần cron cùng
+// ngày). Cache chuỗi NOMINAL (^TNX) đã fetch tốt gần nhất; DFII10 chỉ dùng khi
+// cold-start (chưa có cache) — không bao giờ dùng để "thế chỗ" một cache nominal.
+const YIELD_CACHE_FILE = join(HISTORY_DIR, "yield10y.json");
 
 const TROY_OZ_GRAMS = 31.1034768;
 const LUONG_GRAMS = 37.5;
@@ -73,11 +82,23 @@ function loadFedCache(): FedSeries | null {
   }
 }
 
+type YieldCache = { bars: DailyBar[]; real: boolean; source: string };
+
+function loadYieldCache(): YieldCache | null {
+  if (!existsSync(YIELD_CACHE_FILE)) return null;
+  try {
+    const c = JSON.parse(readFileSync(YIELD_CACHE_FILE, "utf8"));
+    return c && Array.isArray(c.bars) && c.bars.length ? c : null;
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const warnings: string[] = [];
   const today = vnToday();
 
-  const [xauRes, dxyRes, fedRes, vnRes, usdVndRes, yieldRes] = await Promise.all([
+  const [xauRes, dxyRes, fedRes, vnRes, usdVndRes, yieldFreshRes] = await Promise.all([
     fetchXau().catch(() => null),
     fetchDxy().catch(() => null),
     fetchFedFunds().catch(() => null),
@@ -85,6 +106,26 @@ async function main() {
     fetchUsdVnd().catch(() => null),
     fetchYield10y().catch(() => null),
   ]);
+  // Nominal (^TNX) tươi thành công thì dùng luôn; hỏng thì lùi về cache nominal
+  // đã lưu (KHÔNG rơi thẳng xuống FRED DFII10 — tráo real/nominal giữa các lần
+  // chạy làm điểm macro của một ngày quá khứ tự đổi, xem comment YIELD_CACHE_FILE).
+  // DFII10 chỉ dùng khi cold-start thật sự (chưa từng có cache nominal nào).
+  let yieldRes: { bars: DailyBar[]; real: boolean; source: string; lastTs: number | null } | null = yieldFreshRes;
+  if (!yieldRes) {
+    const cached = loadYieldCache();
+    if (cached) {
+      yieldRes = { ...cached, lastTs: null };
+      console.log(`YIELD10Y: dùng cache nominal đã lưu (${cached.bars.length} phiên) — Yahoo không phản hồi.`);
+      warnings.push("Không lấy được lợi suất Mỹ 10 năm mới — dùng số liệu danh nghĩa đã lưu gần nhất.");
+    } else {
+      const fred = await fetchRealYield().catch(() => null);
+      if (fred) {
+        yieldRes = { bars: fred.bars, real: true, source: fred.source, lastTs: null };
+        console.log(`YIELD10Y: cold-start, dùng dự phòng nguội ${fred.source} (lợi suất thực).`);
+        warnings.push("Chưa có lợi suất danh nghĩa (Yahoo) lẫn cache — tạm dùng lợi suất thực (FRED) làm dự phòng nguội.");
+      }
+    }
+  }
 
   if (!xauRes) {
     // Không có giá thế giới thì không phân tích được gì mới — giữ nguyên dữ liệu cũ.
@@ -329,6 +370,12 @@ async function main() {
   // Và không để một phản hồi FRED cụt làm ngắn cache đã tích lũy (data/ là database).
   if (fedRes && fedRes.length >= (loadFedCache()?.length ?? 0)) {
     writeFileSync(FED_CACHE_FILE, JSON.stringify(fedRes, null, 1));
+  }
+  // Chỉ cache khi fetch NOMINAL tươi thành công (yieldFreshRes, không phải bản
+  // fallback cache/FRED vừa dùng ở trên) — và không ghi đè bằng bản ngắn hơn.
+  if (yieldFreshRes && yieldFreshRes.bars.length >= (loadYieldCache()?.bars.length ?? 0)) {
+    const cache: YieldCache = { bars: yieldFreshRes.bars, real: false, source: yieldFreshRes.source };
+    writeFileSync(YIELD_CACHE_FILE, JSON.stringify(cache, null, 1));
   }
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));

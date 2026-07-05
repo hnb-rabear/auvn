@@ -26,7 +26,7 @@ All analysis runs at data-collection time, not at page load. The Git repo is the
 | XAU/USD, DXY | Yahoo Finance chart API (`GC=F`, `DX-Y.NYB`) | 20 yrs; fallback Stooq (404'd as of 2026-06) |
 | USD/VND | Vietcombank pXML endpoint | self-accumulated; fallback open.er-api.com |
 | Fed rates | FRED public CSV `fredgraph.csv?id=FEDFUNDS` (no key needed) | full; fallback local cache `public/data/history/fed-funds.json` (refreshed each successful fetch, never overwritten by a shorter response) — a transient FRED outage used to blank macro across all history |
-| US 10y yield | Yahoo `^TNX` (nominal — all preset evidence validated on it) | 20 yrs; fallback FRED DFII10 (real yield, but FRED 504s on daily series often) |
+| US 10y yield | Yahoo `^TNX` (nominal — all preset evidence validated on it) | self-accumulated local cache `public/data/history/yield10y.json` (refreshed each successful nominal fetch, never overwritten by a shorter response — same pattern as Fed funds); FRED DFII10 (real yield) only as a cold-start fallback when there is no cache yet |
 
 Tested and REJECTED signals (do not re-add without re-running `scripts/factor-study.ts`): GPR geopolitical index (hurts accuracy at every horizon), VIX (no improvement over the yield signal). Evidence in docs/presets.md.
 
