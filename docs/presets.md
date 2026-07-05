@@ -111,6 +111,38 @@ Preset không được tin vô thời hạn:
 
 **Cạm bẫy đã gặp & vá (2026-06):** preset đặt macro = 90%, nên nếu timeline backtest *thiếu* điểm macro thì composite sụp về đúng đuôi 10% kỹ thuật/thống kê — vốn âm sâu ở vùng đỉnh giá. Hậu quả: 0 tín hiệu mua suốt uptrend 2025 và cảnh báo "degraded" giả. Nguyên nhân gốc: `backtest.ts` từng đòi *cả* DXY *và* Fed mới tính macro (`if (dxy && fed)`), nên một lần FRED 504 xóa macro khỏi **toàn bộ** lịch sử. Đã vá: backtest tính macro khi có DXY (Fed/lợi suất tùy chọn, giống đường live), và `run.ts` cache chuỗi Fed (`history/fed-funds.json`) làm dự phòng. Sau vá: macro có ở 1425/1425 điểm, cả 3 preset `ok` (min-excess 16,7–26,0pt), tín hiệu mua 2025 = 24/14/14.
 
+## Chế độ "Toàn cảnh" = đồng thuận preset (2026-07-05)
+
+Sinh bởi `scripts/consensus-study.ts` trên `timeline.json` đã commit (4.275 điểm, 2009-07 → 2026-07, lưới dày step=1, split 2019-01-01).
+
+### Vì sao bỏ composite mặc định làm trục hành động (số đo, không phải cảm nhận)
+
+Cấu hình mặc định cũ 35/25/20/20 ngưỡng ±40 là ước lượng ban đầu, **chưa từng qua tuyển chọn**. Đo thẳng trên timeline:
+
+| Phía | Train 2009–2018 | Test 2019–2026 |
+| --- | --- | --- |
+| MUA ≥ +40 | n=141, đúng 60–70% (ex +8,5..+14,7pt) | **n=0 — câm suốt 8 năm bull** (tín hiệu mua cuối: 2018) |
+| BÁN ≤ −40 @126p | n=122, giá vẫn TĂNG 71% (med +8,8%) | n=238, giá tăng 69% (med **+15,2%**) — ngược chiều |
+
+Kỹ thuật-nặng (35%) là mean-reversion nên chống trend có hệ thống; premium 25% không tồn tại trong backtest (timeline world-only) nên evidence hiển thị không đo cấu hình live. → **Composite mặc định bị hạ khỏi trục verdict**, chỉ còn 2 vai đã có bằng chứng: điểm radar ngữ cảnh + gió ngược ≤ −40 (headwind 1 tháng, xem CLAUDE.md sell-zone policy).
+
+### Hướng "tối ưu lại trọng số một-composite" — ĐÓNG HỒ SƠ
+
+Grid search 4D × 4 ngưỡng đòi MỘT cấu hình thắng baseline ở **cả 3 kỳ hạn × 2 giai đoạn** (6 ô, ≥25 tín hiệu/ô): 395 cấu hình qua cổng, top đều **macro-nặng (VM 0,5–0,7, KT=0)** — hội tụ về đúng họ preset 3m/6m đã có. Không tồn tại "toàn cảnh tối ưu" mang thông tin khác preset; làm preset thứ 4 chỉ là trùng lặp. KHÔNG re-mở nếu không có tiêu chí mới qua ablation.
+
+### Trục mới: "k/3 preset kỳ hạn đang báo MUA" — và điều KHÔNG được claim
+
+Đồng thuận ≥k/3 thắng baseline ở cả 6 ô (dải min-excess theo kỳ hạn/k: +14,1..+31,0pt), NHƯNG **placebo đồng-n** (top-n ngày theo composite của preset đúng kỳ hạn — tương đương chỉ nới/siết ngưỡng preset gốc cho cùng cỡ mẫu) cho thấy đồng thuận **không thêm thông tin trực giao**: chênh vs placebo dao động −7,2..+15,6pt không nhất quán, đa số ≈0 (3 preset đều macro-nặng nên tương quan cao — đúng nghi vấn đặt trước khi chạy).
+
+**Luật hiển thị (không được nói quá):**
+
+1. "k/3 preset báo MUA" chỉ là **phép đếm hiển thị** của 3 tín hiệu đã kiểm chứng riêng lẻ. Mọi con số evidence đi kèm phải là evidence CỦA TỪNG preset (bảng v3 ở trên + CI từ preset-health).
+2. KHÔNG claim "nhiều preset cùng báo → chính xác hơn" — chưa vượt placebo.
+3. Sức khỏe đồng thuận = sức khỏe preset thành viên (monitor-presets sẵn có); bất kỳ preset degraded → banner ở chế độ Toàn cảnh. Không có monitor riêng vì không có claim riêng.
+4. Gió ngược (radar ≤ −40) và Gợi ý hành động giữ nguyên chính sách 2026-07-04; Time Machine chấm chế độ Toàn cảnh theo cùng trục đồng thuận (luật "chart ≡ card").
+
+Code: `src/lib/consensus.ts` (+ test), Dashboard/TimeMachine/SettingsSheet đọc qua đó. Tái lập: `npx tsx scripts/consensus-study.ts`.
+
 ## Tái lập kết quả
 
 ```bash
@@ -121,6 +153,7 @@ npx tsx scripts/factor-study-momentum-offline.ts   # ablation momentum: 3D vs 4D
 npx tsx scripts/premium-buy-study.ts               # gradient premium cho tín hiệu mua (488 ngày SJC)
 npx tsx scripts/optimize-study.ts                  # study gốc v1 (1 kỳ hạn, HORIZON=21|63|126)
 npx tsx scripts/horizon-study.ts                   # hiệu quả cấu hình mặc định theo 4 kỳ hạn
+npx tsx scripts/consensus-study.ts                 # hiện trạng Toàn cảnh + grid đa kỳ hạn + đồng thuận k/3 (placebo đồng-n)
 ```
 
 Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng này; đổi preset thì cập nhật cả hai.

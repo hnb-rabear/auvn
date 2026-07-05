@@ -94,15 +94,17 @@ async function main() {
     } catch {}
   }
 
-  // cảnh báo vùng bán theo cấu hình mặc định (chỉ khi chuyển trạng thái)
+  // Ngữ cảnh gió ngược theo radar mặc định (chỉ khi chuyển trạng thái). Từ 2026-07-05
+  // trục verdict Toàn cảnh là đồng thuận preset (đã báo per-preset ở trên); radar ≤ −40
+  // chỉ còn là ngữ cảnh — framing khớp guidance "headwind" (không còn "BỚT MUA").
   const defaultZone = analysis.zone;
   newState["default"] = defaultZone;
   const prevDefault = state["default"] ?? "neutral";
   const isSell = (z: string) => z === "sell" || z === "strong-sell";
   if (isSell(defaultZone) && !isSell(prevDefault)) {
     lines.push(
-      `🟡 Chế độ toàn cảnh vào <b>${ZONE_LABELS[defaultZone as Zone]}</b> (điểm ${analysis.composite}). ` +
-        `Đây là cảnh báo BỚT MUA THÊM, không phải khuyến nghị bán — backtest 17 năm: tín hiệu bán chỉ đúng 49% sau 1 tháng.`
+      `🟡 Radar toàn cảnh âm sâu (điểm ${analysis.composite}) — gió ngược ngắn hạn: giá 1 tháng tới thường đi ngang/giảm nhẹ, không cần vội đuổi giá. ` +
+        `KHÔNG phải tín hiệu bán (kết cục 6 tháng phụ thuộc thị trường — sai gần 100% trong năm bull); với người mua tương đương trung tính.`
     );
   }
 

@@ -10,14 +10,16 @@ import {
   type Timeline,
   type CriterionKey,
 } from "../src/lib/types";
+import { buyCount, consensusLabel, presetSignals } from "../src/lib/consensus";
 
 const DATA = join(process.cwd(), "public", "data");
 const analysis: Analysis = JSON.parse(readFileSync(join(DATA, "analysis.json"), "utf8"));
 const tl: Timeline = JSON.parse(readFileSync(join(DATA, "timeline.json"), "utf8"));
 
 console.log("=== VERDICT HÔM NAY (analysis.json) ===");
+const sigs = presetSignals(analysis.criteria);
 console.log(
-  `Toàn cảnh : composite=${compositeScore(analysis.criteria, DEFAULT_WEIGHTS)} zone=${zoneOf(compositeScore(analysis.criteria, DEFAULT_WEIGHTS))}`
+  `Toàn cảnh : ${consensusLabel(buyCount(sigs))} · radar=${compositeScore(analysis.criteria, DEFAULT_WEIGHTS)} (zone radar=${zoneOf(compositeScore(analysis.criteria, DEFAULT_WEIGHTS))} — chỉ ngữ cảnh/gió ngược)`
 );
 for (const p of PRESETS) {
   const c = compositeScore(analysis.criteria, p.weights);

@@ -42,6 +42,13 @@ export interface GuidanceInput {
   premiumPct: number | null;
   /** ngưỡng p80 của chênh lệch lịch sử; null nếu chưa đủ lịch sử (<90 ngày) để xếp hạng */
   premiumP80: number | null;
+  /**
+   * Câu lý do "Điểm mua: …" do caller tự dựng — dùng khi trục mua KHÔNG phải là
+   * composite (chế độ đồng thuận preset: zone dựng từ k/3 preset, composite chỉ là
+   * radar ngữ cảnh nên câu mặc định "vùng MUA (+13)" sẽ nói dối). Không đổi logic
+   * level/tone — chỉ thay chuỗi hiển thị đầu tiên trong reasons.
+   */
+  scoreReason?: string;
 }
 
 export interface Guidance {
@@ -71,11 +78,12 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
   // --- lý do từ 3 tín hiệu (luôn hiển thị để giải thích được)
   const reasons: string[] = [];
   reasons.push(
-    isBuy
-      ? `Điểm mua: vùng MUA${strongBuy ? " mạnh" : ""} (${signed(inp.composite)}).`
-      : isSell
-        ? `Điểm mua: âm sâu (${signed(inp.composite)}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
-        : `Điểm mua: trung tính (${signed(inp.composite)}) — chưa có tín hiệu mua.`
+    inp.scoreReason ??
+      (isBuy
+        ? `Điểm mua: vùng MUA${strongBuy ? " mạnh" : ""} (${signed(inp.composite)}).`
+        : isSell
+          ? `Điểm mua: âm sâu (${signed(inp.composite)}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
+          : `Điểm mua: trung tính (${signed(inp.composite)}) — chưa có tín hiệu mua.`)
   );
   reasons.push(
     anyVerified ? inp.bottom.label : "Săn đáy: chưa đủ dữ liệu kiểm chứng."

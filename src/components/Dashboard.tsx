@@ -9,6 +9,7 @@ import BearDownsideCard from "./BearDownsideCard";
 import ActionGuidance from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
 import { fabLabel, zoneClass } from "@/lib/settings";
+import { buyCount, buyNames, consensusLabel, consensusZone, presetSignals } from "@/lib/consensus";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
@@ -109,6 +110,11 @@ export default function Dashboard({
   const presetHealth = preset
     ? health.items.find((i) => i.presetId === preset.id) ?? null
     : null;
+  // Sức khỏe của chế độ đồng thuận = sức khỏe từng preset thành viên (không có
+  // monitor riêng — phép đếm k/3 không có claim riêng để giám sát).
+  const degradedPresetLabels = health.items
+    .filter((i) => i.status === "degraded")
+    .map((i) => PRESETS.find((p) => p.id === i.presetId)?.label ?? i.presetId);
 
   useEffect(() => {
     setSettings(loadSettings());
@@ -134,16 +140,38 @@ export default function Dashboard({
     () => compositeScore(analysis.criteria, weights),
     [analysis, weights]
   );
+  // Chế độ đồng thuận (2026-07-05, docs/presets.md "Đồng thuận preset"): trục MUA
+  // của "Toàn cảnh" = k/3 preset kỳ hạn đang báo mua — cấu hình mặc định cũ đo được
+  // bắn 0 tín hiệu mua suốt 2019–2026 nên không còn là cò súng. Radar composite chỉ
+  // giữ 2 vai đã có bằng chứng: điểm ngữ cảnh + gió ngược khi ≤ −40.
+  const consensusMode = !preset && !customized;
+  const presetSigs = useMemo(() => presetSignals(analysis.criteria), [analysis]);
+  const consensusK = buyCount(presetSigs);
   const rawZone = zoneOf(composite, preset?.buyThreshold ?? 40);
   // Preset chỉ được kiểm chứng phía MUA — không bao giờ hiển thị vùng bán dưới preset.
-  const isBuyZone = rawZone === "buy" || rawZone === "strong-buy";
-  const zone: Zone = preset && !isBuyZone ? "neutral" : rawZone;
+  const rawIsBuy = rawZone === "buy" || rawZone === "strong-buy";
+  const rawIsSell = rawZone === "sell" || rawZone === "strong-sell";
+  const zone: Zone = consensusMode
+    ? consensusK >= 1
+      ? consensusZone(consensusK)
+      : rawIsSell
+        ? rawZone
+        : "neutral"
+    : preset && !rawIsBuy
+      ? "neutral"
+      : rawZone;
+  const isBuyZone = zone === "buy" || zone === "strong-buy";
   const isSellZone = zone === "sell" || zone === "strong-sell";
   // Trục verdict chính chỉ còn 3 trạng thái với người mua (gộp 2026-07-04, xem
   // guidance.ts): composite âm sâu KHÔNG hiện "VÙNG BÁN" nữa — nó chưa từng được
   // kiểm chứng làm cổng mua/bán, chỉ còn là ngữ cảnh gió ngược + tham khảo người bán.
-  const verdictLabel =
-    preset && !isBuyZone
+  const verdictLabel = consensusMode
+    ? consensusK >= 1
+      ? consensusLabel(consensusK)
+      : isSellZone
+        ? "TRUNG LẬP (GIÓ NGƯỢC)"
+        : "CHƯA CÓ TÍN HIỆU MUA"
+    : preset && !isBuyZone
       ? "CHƯA CÓ TÍN HIỆU MUA"
       : isSellZone
         ? "TRUNG LẬP (GIÓ NGƯỢC)"
@@ -161,8 +189,13 @@ export default function Dashboard({
   // điểm đáy hiện tại — KHÁC với prob≥60 của guidance "strong") + verified + monitor
   // không báo thoái hóa. Đồng hành với verdict, không phải tập con chặt của "strong".
   const fusionDegraded = fusionHealth.item.status === "degraded";
+  // Chế độ đồng thuận: cờ độ-tin-cao 3m vẫn áp dụng khi CHÍNH preset 3m đang báo mua
+  // (điều kiện fusion được kiểm chứng trên preset 3m, không phụ thuộc chế độ đang chọn).
+  const sig3mBuy = presetSigs.find((s) => s.preset.id === "3m")?.isBuy ?? false;
   const highConf =
-    highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified) &&
+    (consensusMode
+      ? highConfidenceBuy3m("3m", sig3mBuy, bottom.cycle.bin, cycleVerified)
+      : highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified)) &&
     !fusionDegraded;
   // Cổng hiển thị acute-crash (docs/bottom.md "Recency-504"): prob recency đo được là
   // lạc quan giả khi giá đang sụp cấp tính ⇒ mọi nơi đọc prob (gauge, guidance, hero)
@@ -180,6 +213,16 @@ export default function Dashboard({
     const best = Math.max(c, s);
     const lvl = best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
     const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
+    const signedC = `${composite > 0 ? "+" : ""}${fmt1(composite)}`;
+    // Chế độ đồng thuận: câu "Điểm mua" nói theo trục thật (k/3 preset), không nói
+    // theo radar composite — radar chỉ là ngữ cảnh, không phải cò súng.
+    const scoreReason = consensusMode
+      ? consensusK >= 1
+        ? `Điểm mua: ${consensusK}/3 preset kỳ hạn đang báo MUA (${buyNames(presetSigs).join(", ")}) — cò súng đã kiểm chứng 2 giai đoạn.`
+        : isSellZone
+          ? `Điểm mua: chưa preset nào báo mua; radar âm sâu (${signedC}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
+          : `Điểm mua: chưa preset nào trong vùng mua (radar ${signedC}).`
+      : undefined;
     return deriveGuidance({
       zone,
       composite,
@@ -190,8 +233,9 @@ export default function Dashboard({
       },
       premiumPct: analysis.prices.premiumPct,
       premiumP80: analysis.premiumPercentiles?.p80 ?? null,
+      scoreReason,
     });
-  }, [zone, composite, effProb, bottomCrashMode, cycleVerified, swingVerified, analysis]);
+  }, [zone, composite, effProb, bottomCrashMode, cycleVerified, swingVerified, analysis, consensusMode, consensusK, isSellZone, presetSigs]);
 
   // nhãn xác suất gần đáy cho dòng cô đọng ở hero (khớp ngưỡng gauge 60/35)
   const nearBottomLabel = useMemo(() => {
@@ -204,7 +248,7 @@ export default function Dashboard({
 
   const heroMeta = (
     <>
-      <b>{verdictLabel}</b>{highConf && <b> · đã kiểm chứng (3 tháng)</b>} · điểm{" "}
+      <b>{verdictLabel}</b>{highConf && <b> · đã kiểm chứng (3 tháng)</b>} · {consensusMode ? "radar" : "điểm"}{" "}
       <b>{composite > 0 ? `+${fmtNum(composite)}` : fmtNum(composite)}</b>
       {preset && ` · preset ${preset.label} (ngưỡng mua +${preset.buyThreshold})`}
       {customized && " · trọng số tùy chỉnh"} · xác suất gần đáy {nearBottomLabel}
@@ -279,6 +323,13 @@ export default function Dashboard({
           cron) — cân nhắc dùng cấu hình mặc định hoặc chờ tuyển lại preset.
         </div>
       )}
+      {consensusMode && degradedPresetLabels.length > 0 && (
+        <div className="banner warn">
+          ⚠ Preset {degradedPresetLabels.join(", ")} đang mất phong độ trên dữ liệu mới —
+          phép đếm k/3 preset vẫn tính nó, đọc kèm cảnh báo này (sức khỏe đồng thuận = sức
+          khỏe preset tệ nhất).
+        </div>
+      )}
 
       {/* ── HERO: câu chốt 3 giây (gộp verdict + gợi ý hành động) ── */}
       <ActionGuidance
@@ -294,11 +345,33 @@ export default function Dashboard({
                 Không ai biết trước đang ở loại thị trường nào — bán theo kế hoạch kỳ hạn của bạn.
               </div>
             )}
-            {preset && !isBuyZone && (
+            {(preset || consensusMode) && !isBuyZone && !isSellZone && (
               <div className="verdict-note muted">
-                Preset chỉ kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
+                {consensusMode ? "Cả 3 preset kỳ hạn đều chưa báo mua. Preset" : "Preset"} chỉ
+                kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
                 im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN
                 vượt vạch đỏ p80 ở biểu đồ bên dưới.
+              </div>
+            )}
+            {consensusMode && consensusK >= 1 && (
+              <div className="verdict-note">
+                {presetSigs
+                  .filter((s) => s.isBuy)
+                  .map((s) => (
+                    <div key={s.preset.id}>
+                      <b>{s.preset.label}</b>: điểm +{fmtNum(s.composite)} ≥ ngưỡng +
+                      {s.preset.buyThreshold} — lịch sử tín hiệu này đúng{" "}
+                      {fmtNum(s.preset.evidence.trainFav)}% (2009–2018, n={s.preset.evidence.trainN}) /{" "}
+                      {fmtNum(s.preset.evidence.testFav)}% (2019–2026, n={s.preset.evidence.testN}), trung vị lãi{" "}
+                      +{fmtNum(s.preset.evidence.medianTestReturnPct)}% sau{" "}
+                      {s.preset.horizonDays === 21 ? "1 tháng" : s.preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}.
+                    </div>
+                  ))}
+                <i>
+                  Mỗi con số là evidence của TỪNG preset (kiểm chứng 2 giai đoạn độc lập).
+                  Số preset cùng báo không cộng thêm độ chính xác — 3 preset dùng chung gốc
+                  vĩ mô nên thường sáng cùng nhau (docs/presets.md).
+                </i>
               </div>
             )}
             {highConf && (
@@ -408,6 +481,33 @@ export default function Dashboard({
                   .
                 </>
               )}
+            </div>
+          ) : consensusMode ? (
+            <div className="verdict-bt">
+              <div>
+                Cò súng MUA của chế độ Toàn cảnh = <b>3 preset kỳ hạn</b> (mỗi preset tự kiểm
+                chứng 2 giai đoạn độc lập). Radar 4 nhóm tiêu chí chỉ là ngữ cảnh — cấu hình
+                cũ 35/25/20/20 bắn 0 tín hiệu mua suốt 2019–2026 nên không còn là trục hành động.
+              </div>
+              {presetSigs.map((s) => {
+                const ci = health.items.find((i) => i.presetId === s.preset.id)?.testFavCi95;
+                return (
+                  <div key={s.preset.id} className={s.isBuy ? "" : "muted"}>
+                    {s.isBuy ? "●" : "○"} <b>{s.preset.label}</b>: điểm{" "}
+                    {s.composite > 0 ? "+" : ""}
+                    {fmtNum(s.composite)} / ngưỡng +{s.preset.buyThreshold} —{" "}
+                    {s.isBuy ? "ĐANG BÁO MUA" : "chưa báo mua"}; đúng{" "}
+                    {fmtNum(s.preset.evidence.trainFav)}% / {fmtNum(s.preset.evidence.testFav)}%
+                    (2 giai đoạn)
+                    {ci && (
+                      <>
+                        , CI 95% {fmtNum(ci[0])}–{fmtNum(ci[1])}%
+                      </>
+                    )}
+                    .
+                  </div>
+                );
+              })}
             </div>
           ) : bt63 && bt63.pctFavorable !== null ? (
             <div className="verdict-bt">
@@ -616,7 +716,13 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <TimeMachine timeline={timeline} weights={weights} preset={preset} fusionDegraded={fusionDegraded} />
+          <TimeMachine
+            timeline={timeline}
+            weights={weights}
+            preset={preset}
+            consensusMode={consensusMode}
+            fusionDegraded={fusionDegraded}
+          />
         </div>
       </details>
 

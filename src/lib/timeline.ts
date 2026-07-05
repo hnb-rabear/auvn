@@ -105,10 +105,29 @@ export function gomRaiIdxs(
   buyThreshold: number,
   phases: BearPhase[]
 ): number[] {
+  return gomRaiIdxsBy(
+    points,
+    comps.map((c) => c >= buyThreshold),
+    comps.map((c) => c <= -40),
+    phases
+  );
+}
+
+/**
+ * Bản tổng quát của gomRaiIdxs: trục "vùng mua" / "gió ngược" do caller quyết —
+ * chế độ đồng thuận preset dùng isBuy = (≥1 preset báo mua) trong khi gió ngược
+ * vẫn theo radar composite ≤ −40 (cùng cách dựng zone với histGuidance, giữ luật
+ * "dải trên chart ≡ card guidance từng ngày").
+ */
+export function gomRaiIdxsBy(
+  points: TimelinePoint[],
+  isBuy: boolean[],
+  isHeadwind: boolean[],
+  phases: BearPhase[]
+): number[] {
   const out: number[] = [];
   for (let i = 0; i < points.length; i++) {
-    const c = comps[i];
-    if (c >= buyThreshold || c <= -40) continue; // vùng mua hoặc gió ngược — không phải gom rải
+    if (isBuy[i] || isHeadwind[i]) continue; // vùng mua hoặc gió ngược — không phải gom rải
     const p = points[i];
     const rec = p.cycleProb ?? null;
     const prob = phases[i] === "acute" ? (p.cycleProbUw ?? rec) : rec;
