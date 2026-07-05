@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-05T14:14:49.194Z",
+ "generatedAt": "2026-07-05T14:46:24.844Z",
  "dataDate": "2026-07-03",
  "stale": false,
  "staleDays": 0,
@@ -186,7 +186,10 @@
  "composite": -4.7,
  "zone": "neutral",
  "vnHistoryDays": 493,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2170,8 +2173,8 @@
   "world": "2026-07-03T16:59:58.000Z",
   "dxy": "2026-07-02T04:00:00.000Z",
   "yield10y": "2026-07-02T12:20:00.000Z",
-  "vnGold": "2026-07-05T14:14:49.194Z",
-  "usdVnd": "2026-07-05T14:14:49.194Z",
-  "fed": "2026-07-05T14:14:49.194Z"
+  "vnGold": null,
+  "usdVnd": "2026-07-05T14:46:24.844Z",
+  "fed": null
  }
 }
