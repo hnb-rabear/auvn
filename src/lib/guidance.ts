@@ -14,7 +14,7 @@ import type { Zone } from "./types";
 export type GuidanceLevel =
   | "strong" // composite mua + XAU dò đáy: tín hiệu mạnh nhất (hiếm)
   | "buy" // composite mua, đáy chưa xác nhận
-  | "dca" // composite trung tính nhưng XAU dò đáy: gom rải
+  | "dca" // không còn bắn — NO-GO 2026-07, docs/bottom.md
   | "wait" // chưa có tín hiệu
   | "premium-wait" // tín hiệu thế giới có nhưng vàng VN đang đắt
   | "headwind"; // composite âm sâu (≤−40): với người MUA tương đương quan sát, chỉ thêm ngữ cảnh gió ngược
@@ -153,15 +153,6 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
       tone: "buy",
       when: "Định giá / kỹ thuật đang thuận",
       how: "Gom theo kế hoạch. XAU chưa xác nhận đáy nên đừng kỳ vọng bắt đúng đáy — chia nhiều đợt vẫn an toàn hơn.",
-      reasons,
-    };
-  }
-  if (!isBuy && bottomHigh) {
-    return {
-      level: "dca",
-      tone: "buy",
-      when: "XAU đang dò vùng đáy nhọn (điểm mua chưa xác nhận)",
-      how: "Gom RẢI (DCA) từng phần nhỏ, giữ lại phần lớn vốn để bồi khi điểm mua composite xác nhận xu hướng. Đây là vùng dao có thể còn rơi.",
       reasons,
     };
   }

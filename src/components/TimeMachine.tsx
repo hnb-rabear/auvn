@@ -15,7 +15,7 @@ import { consensusLabel, consensusZone } from "@/lib/consensus";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { bottomPctClass } from "@/lib/bottom";
-import { bearDcaAt, bearPhases } from "@/lib/bear-dca";
+import { bearDcaAt } from "@/lib/bear-dca";
 import type { BearPhase } from "@/lib/types";
 import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
@@ -27,9 +27,6 @@ import {
   indexOnOrAfter,
   indexOnOrBefore,
   bottomStartIdxs,
-  gomRaiIdxs,
-  gomRaiIdxsBy,
-  idxRuns,
 } from "@/lib/timeline";
 
 const fmtNum = (v: number | null, d = 1) =>
@@ -104,8 +101,6 @@ export default function TimeMachine({
   const [viewSpan, setViewSpan] = useState(points.length);
   /** hiện vùng bán (tham khảo) trên dòng thời gian */
   const [showSell, setShowSell] = useState(false);
-  /** dải "gom rải" (đáy chu kỳ ≥60% khi điểm mua trung tính) — bật mặc định, mờ */
-  const [showDca, setShowDca] = useState(true);
   /** lớp khám phá: highlight ngày có composite >= ngưỡng người dùng tự chọn.
    * null = chưa kéo, bám theo ngưỡng chuẩn của chế độ đang chọn. */
   const [showExp, setShowExp] = useState(false);
@@ -186,23 +181,6 @@ export default function TimeMachine({
   const dcaAt = useMemo(
     () => bearDcaAt(allPrices, idx, p?.pricePct2y ?? null),
     [allPrices, idx, p]
-  );
-  // Dải "gom rải": cùng điều kiện với chữ GOM RẢI của card guidance bên dưới
-  // (gomRaiIdxs golden-tested ≡ deriveGuidance level "dca") — cần pha acute từng ngày.
-  const phases = useMemo(() => bearPhases(allPrices), [allPrices]);
-  const dcaRuns = useMemo(
-    () =>
-      idxRuns(
-        buyKs
-          ? gomRaiIdxsBy(
-              points,
-              buyKs.map((k) => k >= 1),
-              comps.map((c) => c <= -40),
-              phases
-            )
-          : gomRaiIdxs(points, comps, buyThr, phases)
-      ),
-    [points, comps, buyThr, phases, buyKs]
   );
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
@@ -399,24 +377,6 @@ export default function TimeMachine({
     const sellMarkers = showSell ? toMarkers(sellIdxs) : [];
     const expMarkers = toMarkers(expIdxs); // đã rỗng sẵn khi tắt lớp thử
     const startMarkers = toMarkers(bottomStarts);
-    // dải gom rải: mỗi cụm [a,b] chiếm nửa phiên đệm mỗi bên; kẹp bề rộng tối
-    // thiểu để cụm 1 ngày vẫn là một vạch mảnh nhìn thấy được ở zoom rộng
-    // (viewBox W cố định ⇒ MIN_BAND ổn định trên màn hình ở mọi mức zoom).
-    const step = W / (win.length - 1);
-    const MIN_BAND = 3;
-    const dcaBands = showDca
-      ? dcaRuns
-          .filter(([a, b]) => b >= start && a < end)
-          .map(([a, b]) => {
-            const xa = x(Math.max(a, start)) - step / 2;
-            const xb = x(Math.min(b, end - 1)) + step / 2;
-            const half = Math.max(xb - xa, MIN_BAND) / 2;
-            const cx = (xa + xb) / 2;
-            const x0 = Math.max(0, cx - half);
-            const x1 = Math.min(W, cx + half);
-            return { x: x0, w: x1 - x0 };
-          })
-      : [];
     const inWindow = idx >= start && idx < end;
     return {
       W,
@@ -428,11 +388,10 @@ export default function TimeMachine({
       sellMarkers,
       expMarkers,
       startMarkers,
-      dcaBands,
       fromDate: win[0].date,
       toDate: win[win.length - 1].date,
     };
-  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, showDca, dcaRuns, start, end, bottomStarts]);
+  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end, bottomStarts]);
 
   // wheel zoom — listener gốc non-passive để preventDefault chặn cuộn trang
   // (React onWheel là passive ⇒ preventDefault vô hiệu). Ref cập nhật để không
@@ -517,16 +476,12 @@ export default function TimeMachine({
           className="iconbtn small-btn"
           onClick={() => setShowGear((v) => !v)}
           aria-label="Tùy chọn"
-          title="Tùy chọn: dải gom rải, vùng bán, ngưỡng thử, khoảng ngày"
+          title="Tùy chọn: vùng bán, ngưỡng thử, khoảng ngày"
         >⚙</button>
       </div>
 
       {showGear && (
         <div className="tm-gear">
-          <label className="tm-toggle muted small">
-            <input type="checkbox" checked={showDca} onChange={(e) => setShowDca(e.target.checked)} />
-            Dải gom rải (đáy chu kỳ ≥60%)
-          </label>
           <label className="tm-toggle muted small">
             <input type="checkbox" checked={showSell} onChange={(e) => setShowSell(e.target.checked)} />
             Hiện vùng bán (tham khảo NGƯỜI BÁN — sai gần 100% trong năm bull)
@@ -560,7 +515,6 @@ export default function TimeMachine({
           )}
           <span className="muted small">
             {signalIdxs.length} ngày tín hiệu mua
-            {showDca ? ` · ${dcaRuns.length} cụm gom rải` : ""}
             {showSell ? ` · ${sellIdxs.length} ngày vùng bán` : ""} / {points.length} ngày — chế độ này
           </span>
         </div>
@@ -605,11 +559,6 @@ export default function TimeMachine({
             onPointerCancel={onPointerCancel}
             aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
           >
-          {/* dải gom rải — rect nền sau đường giá; rect không méo theo
-              preserveAspectRatio:none (chỉ hình tròn mới phải làm HTML overlay) */}
-          {spark.dcaBands.map((b, i) => (
-            <rect key={`dca${i}`} className="tm-band-dca" x={b.x} y="0" width={b.w} height={spark.H} />
-          ))}
           <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
           {spark.cx !== null && (
             <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
@@ -654,15 +603,6 @@ export default function TimeMachine({
             onClick={() => nextSignal !== undefined && goTo(nextSignal)}
             aria-label="Tín hiệu mua sau"
           >▶</button>
-        </div>
-      )}
-
-      {showDca && (
-        <div className="muted small">
-          <span className="tm-band-legend" aria-hidden /> Dải gom rải: xác suất đáy chu kỳ ≥60%
-          (đã kiểm chứng, walk-forward) khi điểm mua trung tính — cùng điều kiện chữ GOM RẢI ở
-          card Gợi ý bên dưới. Tham khảo — bằng chứng mỏng hơn chấm tín hiệu mua; ngày sụp cấp
-          tính bị loại (ước lượng thận trọng).
         </div>
       )}
 

@@ -91,8 +91,8 @@ export function bearDcaAt(
 
 /**
  * Pha Bear DCA cho MỌI index một lần, O(n) — cùng công thức với bearDcaAt
- * (golden-tested từng index). Cho các lớp cần pha của cả chuỗi (vd dải gom rải
- * của Máy thời gian: cổng acute từng ngày) — gọi bearDcaAt lặp sẽ thành O(n²).
+ * (golden-tested từng index). Cho các lớp cần pha của cả chuỗi (vd cổng acute
+ * từng ngày trong scripts/gomrai-study.ts) — gọi bearDcaAt lặp sẽ thành O(n²).
  */
 export function bearPhases(prices: number[]): BearPhase[] {
   const ath = rollingAth(prices);

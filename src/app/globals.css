@@ -461,21 +461,6 @@ td.neutral {
   user-select: none;
   cursor: crosshair;
 }
-/* dải gom rải — rect nền trong SVG (rect không méo theo preserveAspectRatio:none),
-   mờ để không át đường giá + các chấm marker */
-.tm-band-dca {
-  fill: #4cc9b8;
-  opacity: 0.16;
-}
-.tm-band-legend {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  background: #4cc9b8;
-  opacity: 0.55;
-  vertical-align: -1px;
-}
 /* marker overlay — luôn tròn (SVG circle bị preserveAspectRatio:none kéo méo).
    inset:0 phủ đúng 200px của .tm-chart (wrapper cao bằng SVG) ⇒ chấm khớp đường giá. */
 .tm-markers {

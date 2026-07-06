@@ -38,10 +38,10 @@ describe("deriveGuidance — ma trận điểm mua × săn đáy", () => {
     expect(g.level).toBe("buy");
   });
 
-  it("trung tính + đáy cao → dca (gom rải)", () => {
+  it("trung tính + đáy cao → wait (NO-GO 2026-07: gom rải không còn bắn)", () => {
     const g = deriveGuidance({ ...base, zone: "neutral", composite: 5, bottom: bottomHigh });
-    expect(g.level).toBe("dca");
-    expect(g.how).toMatch(/RẢI/);
+    expect(g.level).toBe("wait");
+    expect(g.tone).toBe("neutral");
   });
 
   it("trung tính + đáy thấp → wait", () => {

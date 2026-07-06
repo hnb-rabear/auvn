@@ -1,6 +1,6 @@
 # Bottom Hunter — săn vùng gần đáy XAU/USD: phương pháp & bằng chứng test
 
-Cập nhật: 2026-07-04 (thêm Recency-504). Sinh bởi `scripts/bottom-study.ts` + `scripts/bottom-ml-study.ts` + `scripts/monitor-bottom.ts` + `scripts/bottom-calibration-study.ts` + `scripts/bottom-recency-deep-study.ts` + `scripts/bottom-recency-guard-study.ts` trên dữ liệu thật.
+Cập nhật: 2026-07-06 (thêm mục "Cờ 'Gom rải' — LOẠI", NO-GO). Sinh bởi `scripts/bottom-study.ts` + `scripts/bottom-ml-study.ts` + `scripts/monitor-bottom.ts` + `scripts/bottom-calibration-study.ts` + `scripts/bottom-recency-deep-study.ts` + `scripts/bottom-recency-guard-study.ts` + `scripts/gomrai-study.ts` trên dữ liệu thật.
 
 Đây là một **lớp độc lập**, KHÔNG đụng tới điểm tổng hợp mua/bán. Composite trả lời "vùng này nên gom hay không"; Bottom Hunter trả lời một câu khác hẹp hơn: **"hôm nay xác suất gần đáy là bao nhiêu?"** — một xác suất kèm khoảng tin cậy, không bao giờ là lời khẳng định "đây là đáy".
 
@@ -24,7 +24,7 @@ Gauge live hôm nay là base-rate near-bottom trên mọi ngày lịch sử có 
 
 - **Bất biến:** điểm cuối chuỗi == prob/n của gauge live hiện tại (cùng tập ngày). Không đổi gauge hôm nay. Khoá bằng test `bottom.test.ts`.
 - **Không look-ahead:** prob tại D chỉ phụ thuộc ngày đã đáo hạn trước D; thêm dữ liệu sau D không đổi prob_D.
-- **Hiển thị:** Time Machine forward-fill nút thưa gần nhất ≤ ngày được chọn (lệch ≤2 phiên; ngày cuối luôn được ghim nên hôm nay chính xác). Gợi ý "Gom rải" lịch sử bật khi cycle prob ≥ 60 (đúng ngưỡng live; live gộp max(cycle,swing)).
+- **Hiển thị:** Time Machine forward-fill nút thưa gần nhất ≤ ngày được chọn (lệch ≤2 phiên; ngày cuối luôn được ghim nên hôm nay chính xác). Gợi ý "Gom rải" (cờ level `dca`, ngưỡng cycle prob ≥ 60, live gộp max(cycle,swing)) đã bị **gỡ khỏi UI 2026-07** sau NO-GO — xem mục "Cờ 'Gom rải' — LOẠI" bên dưới.
 - **Tam giác "đáy đã xác nhận"** (cần ±9 phiên tương lai) KHÔNG còn hiển thị trên Time Machine — chỉ giữ trong `confirmedBottoms` cho `scripts/bottom-vs-buy-study.ts`.
 
 ## Đánh dấu "khởi đầu vùng đáy" trên Time Machine + các hướng ĐÃ LOẠI (thực nghiệm 2026-06)
@@ -147,11 +147,57 @@ npx tsx scripts/bottom-approach-compare2.ts  # đào sâu cycleBin==3: bền 2 g
 
 **⇒ Cổng hiển thị acute-crash (chính sách đã chốt):** khi phase Bear DCA == `"acute"` (drawdown≥15% từ ATH + đang sâu thêm — lớp đã validate riêng, không thêm tham số mới), MỌI nơi đọc prob (gauge, guidance, hero, Time Machine — Time Machine dùng `bearDcaAt` as-of nên "quá khứ = hiện tại") **rớt về `probUnweighted` + cờ cảnh báo**. Bình thường hiện prob recency.
 
-**Cờ "Gom rải" prob≥60 sống lại (grid ngưỡng, guard-study E2):** với recency-504 cờ ≥60 bắn 7 đợt độc lập/6 năm, win 6T 85% vs nền 63% (median +8,9% vs +3,5%), plateau vững 55–65; với unweighted nó bắn đúng **1 ngày trong 17 năm** (đúng lý do nó từng bị LOẠI ở bảng trên). Caveat: 7 đợt = mẫu hiệu dụng mỏng, và cờ thừa kế cổng acute-crash.
+**Cờ "Gom rải" prob≥60 sống lại (grid ngưỡng, guard-study E2):** với recency-504 cờ ≥60 bắn 7 đợt độc lập/6 năm, win 6T 85% vs nền 63% (median +8,9% vs +3,5%), plateau vững 55–65; với unweighted nó bắn đúng **1 ngày trong 17 năm** (đúng lý do nó từng bị LOẠI ở bảng trên). Caveat: 7 đợt = mẫu hiệu dụng mỏng, và cờ thừa kế cổng acute-crash. ⇒ **ĐÃ LOẠI 2026-07**, xem mục "Cờ 'Gom rải' — LOẠI" bên dưới: một grid trigger/TTL/cooldown đầy đủ (không chỉ ngưỡng đơn) không qua được cổng 2 giai đoạn + placebo.
 
 **A2 — calibration đo được (surface trong `bottom.json.calibration` + banner ⓘ):** reliability walk-forward theo bucket dự đoán (máy nói X% → thực Y%, chỉ đọc bucket n≥20). Đo thêm: **không CI nào** (weighted hay không) phủ nổi rate thực hiện 504 phiên tới (coverage 14–61% vs kỳ vọng 95) — drift áp đảo nhiễu lấy mẫu ⇒ UI ghi rõ "CI chỉ phản ánh nhiễu lấy mẫu, không bao được đổi chế độ".
 
 Tái lập: `npx tsx scripts/bottom-calibration-study.ts` (A1/A2 + phán quyết GO/NO-GO) · `npx tsx scripts/bottom-recency-deep-study.ts` (D1 plateau+significance · D2 bias theo năm · D3 CI/ESS · D4 cờ ≥60) · `npx tsx scripts/bottom-recency-guard-study.ts` (E1 chẩn đoán hôm nay · E2 grid ngưỡng · E3 guard NO-GO · E4 tự-tin-sai theo chế độ).
+
+## Cờ "Gom rải" — LOẠI (NO-GO 2026-07, `scripts/gomrai-study.ts`)
+
+Guard-study E2 (mục Recency-504 phía trên) cho thấy một ngưỡng đơn `cycleProb≥60` "sống lại" dưới recency-504 (7 đợt/6 năm, win6T 85% vs nền 63%) — nhưng đó là một cấu hình chưa được tuyển chọn nghiêm (không TTL, không cooldown, không so placebo). `scripts/gomrai-study.ts` mở rộng thành một **grid tuyển chọn đầy đủ** để trả lời dứt điểm: có cách nào biến "prob≥60" thành một cờ hành động (level `dca`) qua được cổng như mọi tín hiệu khác trong repo không?
+
+**Phương pháp:**
+
+- **Grid:** 23 ứng viên trigger (cạnh lên `cycleBin==3` / `swingBin==3` / hợp bin; cạnh prob cycle/swing/max ≥ {55,60,65,70,75}; lai bin∪prob) × TTL {0,2,3,5,8,10} (số phiên cờ còn hiệu lực sau khi bật) × cooldown {0,10,21,42} (số phiên khóa không cho bật lại) = **552 cấu hình**, 528 có ít nhất 1 lần trigger trong dữ liệu.
+- **4 cổng pre-registered** (phải qua CẢ 4 mới được coi là GO):
+  - **G1:** win6T per-đợt > baseline cả train (<2019) VÀ test (≥2019).
+  - **G2:** vượt p90 của placebo đồng-n (500 seed ngẫu nhiên cùng số ngày active).
+  - **G3:** coverage đáy ≥35% VÀ ≤25 ngày active/năm VÀ bắn ở ≥60% số năm.
+  - **n≥5 đợt** mỗi era (train và test).
+  - WARMUP=756 phiên, STEP=3 cho baseline (chống pseudo-replication, cùng quy ước backtest/bottom), đáy tham chiếu = `confirmedBottoms` ±7 phiên.
+
+**Kết quả (`npx tsx scripts/gomrai-study.ts`, dữ liệu 2026-07-05):**
+
+| Chỉ số | Giá trị |
+| --- | --- |
+| Cấu hình có trigger | 528 / 552 |
+| Baseline win6T (train n=538 / test n=504) | 45% / 82% |
+| Qua G1 (win>base cả 2 era) | 132 / 528 |
+| Qua G1+G3 (bin/coverage/active/năm/n) | 1 / 528 |
+| Qua cả 4 cổng (kể cả G2 placebo) | **0 / 528** |
+
+**⇒ PHÁN QUYẾT: NO-GO.** Không có biến thể trigger/TTL/cooldown nào của "Gom rải" qua được cổng 2 giai đoạn + placebo. Cờ đã bị **gỡ khỏi UI 2026-07** (level `dca` không còn bắn, giữ lại trong union type cho tương thích code; dải "gom rải" bỏ khỏi Time Machine). Gauge xác suất đáy + toggle "khởi đầu vùng đáy" (`bottomStartIdxs`) và mọi số liệu `bottom.json` GIỮ NGUYÊN — đây chỉ là cờ hành động phái sinh, không phải bản thân Bottom Hunter.
+
+**Near-miss gần cổng nhất (qua G1+G3, rớt G2):** `hybrid-60/ttl3/cd0` — 106 đợt, coverage 35%, 23.1 ngày/năm, win6T 46.8/84.8 — rớt vì placebo p90 test = 91.3% > 84.8% thực đo (đồng thuận ngẫu nhiên cùng-n dễ dàng vượt qua trong thị trường tăng nền).
+
+**Cấu hình đơn tốt nhất theo min-excess (BẤT KỂ cổng):** `bin-cycle/ttl0/cd0` — 85 đợt, 5.7 ngày/năm, win6T 52.6/89.7 (median test +16,4%) — vẫn dưới p90 placebo test 92.3%, coverage chỉ 29%.
+
+**Hiện trạng đo được (cờ cũ, tham chiếu — lý do mở study):** với `cycleProb≥60` tuyệt đối và WARMUP=756 dùng trong study này (universe cổng của study): 207 ngày bật, coverage gộp 15%, precision 39%. (Đo trên toàn lịch sử KHÔNG warmup và KHÔNG cổng acute, loại ngày headwind — đúng phép đo mở study ở đầu mục này: 430 ngày bật/48 đợt 2009–2026 — 54 ngày riêng trong 2026 — chỉ 35/194 đáy xác nhận có cờ trong ±7 phiên = 18%, precision 40%. Dòng "KHÔNG warmup/acute" này được `scripts/gomrai-study.ts` in ra riêng, ngay dưới dòng WARMUP=756/acute — tái lập bằng `npx tsx scripts/gomrai-study.ts`.)
+
+**3 phát hiện cấu trúc:**
+
+1. **bin-cycle ≡ bin-swing ≡ bin-union** cho kết quả giống hệt nhau (cùng 85 đợt, cùng win6T) — hai tầng Bottom Hunter dùng CHUNG trọng số `{rsi:.5, macro:.5}` và cùng `binEdges`, nên "hợp 2 tầng" là no-op (đã ghi ở `docs/bottom.md` mục bottom-detection-compare "confluence 2 tầng = no-op").
+2. **Trần coverage ≈41%**, và chỉ đạt được ở mức ~55 ngày active/năm (hybrid-55/ttl10/cd0) — tức ~60% số đáy xác nhận **không có** tín hiệu oversold+macro đi kèm, dù nới ngưỡng/TTL/cooldown thế nào.
+3. **Test-era 2019–2026 là trần bull**: placebo p90 rơi vào khoảng 91–92% win6T, gần sát hoặc vượt mọi win6T thực đo (84.8–92.3%) — không cấu hình nào chứng minh được giá trị cộng thêm bằng win-rate trong giai đoạn này (cùng họ "ties-at-ceiling" đã gặp ở `monitor-fusion`).
+
+**Caveat trung thực:**
+
+- n đợt (85–106) không nhỏ nhưng **coverage đáy được đo trên ground-truth nhìn-tương-lai** (`confirmedBottoms` cần ±7 phiên tương lai để xác nhận) — chỉ dùng để TUYỂN CHỌN offline, không phải một con số live có thể tái tạo real-time.
+- Placebo đồng-n dùng seed cố định (500 seed) nhưng p90 vẫn là ước lượng — biên với win6T thực đo ở near-miss chỉ ~6,5pt (91.3 vs 84.8).
+- Evidence khớp `GOMRAI_CONFIG`/grid trong `scripts/gomrai-study.ts`; đổi grid (thêm trigger, đổi TTL/cooldown) thì phải chạy lại và cập nhật mục này.
+
+**Tái lập:** `npx tsx scripts/gomrai-study.ts` (~2s, dùng data đã commit, không cần fetch).
 
 ## Thử feature 2026-06: lợi suất thực (DFII10) + Vàng/Bạc — kết quả
 
