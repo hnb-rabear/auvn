@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-06T19:10:25.883Z",
+ "generatedAt": "2026-07-06T21:04:42.717Z",
  "dataDate": "2026-07-06",
  "stale": true,
  "staleDays": 2,
@@ -8,11 +8,11 @@
   "sjcSell": 151400000,
   "ringBuy": 147500000,
   "ringSell": 151000000,
-  "xauUsd": 4175.10009765625,
+  "xauUsd": 4176.10009765625,
   "usdVnd": 26462,
-  "worldVndPerLuong": 133202350,
+  "worldVndPerLuong": 133234254,
   "premiumPct": 13.33,
-  "premiumVnd": 18197650
+  "premiumVnd": 18165746
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 45,8: trung tính.",
+     "explanation": "RSI ngày = 45,9: trung tính.",
      "available": true
     },
     {
@@ -37,7 +37,7 @@
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 6,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 6,3%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 100,9 (trên MA50, +1,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 100,9 (trên MA50, +1,4% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2174,7 +2174,7 @@
   "dxy": "2026-07-06T04:00:00.000Z",
   "yield10y": "2026-07-06T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-06T19:10:25.883Z",
+  "usdVnd": "2026-07-06T21:04:42.717Z",
   "fed": null
  }
 }
