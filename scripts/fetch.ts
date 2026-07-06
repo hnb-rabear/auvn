@@ -145,6 +145,28 @@ export async function fetchRealYield(): Promise<{ bars: DailyBar[]; source: stri
   return bars ? { bars, source: "fred:DFII10" } : null;
 }
 
+/** Kỳ vọng lạm phát hòa vốn 10 năm — FRED T10YIE. Free, từ 2003. */
+export async function fetchBreakeven(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  const bars = await fetchFredSeries("T10YIE", 500);
+  return bars ? { bars, source: "fred:T10YIE" } : null;
+}
+
+/** Cung tiền M2 (tuần, chưa điều chỉnh mùa vụ) — FRED WM2NS. Free, từ 1981. */
+export async function fetchM2(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  const bars = await fetchFredSeries("WM2NS", 100);
+  return bars ? { bars, source: "fred:WM2NS" } : null;
+}
+
+/** Dầu WTI — Yahoo CL=F. */
+export async function fetchWti(): Promise<{ bars: DailyBar[]; source: string } | null> {
+  try {
+    const y = await fetchYahoo("CL=F");
+    return { bars: y.bars, source: "yahoo:CL=F" };
+  } catch {
+    return null;
+  }
+}
+
 /** Geopolitical Risk Index (Caldara & Iacoviello) — file XLS hàng ngày. */
 export async function fetchGpr(): Promise<{ bars: DailyBar[]; source: string } | null> {
   try {
