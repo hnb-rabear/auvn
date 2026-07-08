@@ -39,6 +39,7 @@ function nearBottomFlags(pts: Pt[]): boolean[] {
 }
 const nearBottom = nearBottomFlags(points);
 const pointsF = points.map((p, i) => ({ ...p, nearBottom: nearBottom[i] }));
+type PtF = (typeof pointsF)[number];
 
 function composite(p: TimelinePoint): number {
   let s = 0;
@@ -78,7 +79,7 @@ function baseline(
   return { fav, med: sorted[Math.floor(sorted.length / 2)] };
 }
 
-function bottomRate(data: Pt[]): { n: number; rate: number } {
+function bottomRate(data: PtF[]): { n: number; rate: number } {
   const limit = pointsF.length - BOTTOM_WINDOW - 1; // loại điểm cuối chuỗi (cửa sổ tương lai cụt, thiên vị)
   const eligible = data.filter((p) => pointsF.indexOf(p) <= limit); // ok: n nhỏ, không phải hot path
   if (eligible.length === 0) return { n: 0, rate: 0 };
