@@ -48,6 +48,28 @@ body {
   color: var(--gold);
 }
 
+.freshness-top {
+  font-size: 0.82rem;
+  color: var(--muted, #9aa4b2);
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+}
+
+.freshness-top.warn {
+  color: #ffd27a;
+  background: #3a2c12;
+  border-color: #8a6a20;
+}
+
+.freshness-badge.warn {
+  color: #ffd27a;
+  background: #3a2c12;
+  border-color: #8a6a20;
+}
+
 .iconbtn {
   background: var(--card2);
   color: var(--text);

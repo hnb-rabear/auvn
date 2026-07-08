@@ -305,6 +305,12 @@ export default function Dashboard({
     timeZone: "Asia/Ho_Chi_Minh",
   });
 
+  // badge góc trên: cả trang được build lúc nào — cron chạy mỗi giờ nên >24h là
+  // dấu hiệu deploy đang kẹt (vd. build lỗi), không chỉ riêng giá vàng VN cũ.
+  const overallAge = mounted ? timeAgo(analysis.generatedAt, nowMs) : null;
+  const isSiteStale =
+    mounted && nowMs - Date.parse(analysis.generatedAt) > 24 * 3_600_000;
+
   return (
     <main className="wrap">
       <header className="top">
@@ -312,6 +318,13 @@ export default function Dashboard({
           Vùng<span className="gold">Vàng</span>
         </h1>
       </header>
+
+      {mounted && (
+        <div className={`freshness-top${isSiteStale ? " warn" : ""}`}>
+          {isSiteStale ? "⚠ " : "🕒 "}Cập nhật: {freshnessFallback}
+          {overallAge ? ` (${overallAge})` : ""}
+        </div>
+      )}
 
       {analysis.stale && (
         <div className="banner warn">
