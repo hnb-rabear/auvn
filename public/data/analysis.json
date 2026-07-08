@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-08T03:50:02.481Z",
+ "generatedAt": "2026-07-08T06:41:52.108Z",
  "dataDate": "2026-07-08",
  "stale": true,
  "staleDays": 3,
@@ -8,11 +8,11 @@
   "sjcSell": 151400000,
   "ringBuy": 147500000,
   "ringSell": 151000000,
-  "xauUsd": 4137.7998046875,
+  "xauUsd": 4139.5,
   "usdVnd": 26466,
-  "worldVndPerLuong": 132032277,
+  "worldVndPerLuong": 132086528,
   "premiumPct": 13.33,
-  "premiumVnd": 19367723
+  "premiumVnd": 19313472
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 43,3: trung tính.",
+     "explanation": "RSI ngày = 43,4: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 41,5: trung tính.",
+     "explanation": "RSI tuần = 41,6: trung tính.",
      "available": true
     },
     {
@@ -95,8 +95,8 @@
     {
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
-     "score": -2,
-     "explanation": "DXY = 101,1 (trên MA50, +1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "score": -1,
+     "explanation": "DXY = 101 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -121,7 +121,7 @@
      "available": true
     }
    ],
-   "score": -0.5,
+   "score": -0.25,
    "available": true
   },
   {
@@ -139,7 +139,7 @@
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": -1,
-     "explanation": "Giá hiện tại cao hơn 80% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
+     "explanation": "Giá hiện tại cao hơn 81% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
      "available": true
     },
     {
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": -1.2,
+ "composite": 1.3,
  "zone": "neutral",
  "vnHistoryDays": 493,
  "warnings": [
@@ -2170,11 +2170,11 @@
   "p80": 16.62
  },
  "sourceTimes": {
-  "world": "2026-07-08T03:38:58.000Z",
-  "dxy": "2026-07-08T03:38:59.000Z",
+  "world": "2026-07-08T04:00:00.000Z",
+  "dxy": "2026-07-08T04:00:00.000Z",
   "yield10y": "2026-07-07T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-08T03:50:02.481Z",
+  "usdVnd": "2026-07-08T06:41:52.108Z",
   "fed": null
  }
 }
