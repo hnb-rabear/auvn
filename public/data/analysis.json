@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-09T20:58:57.332Z",
+ "generatedAt": "2026-07-09T22:46:03.272Z",
  "dataDate": "2026-07-09",
  "stale": true,
  "staleDays": 5,
@@ -8,11 +8,11 @@
   "sjcSell": 151400000,
   "ringBuy": 147500000,
   "ringSell": 151000000,
-  "xauUsd": 4132.7001953125,
+  "xauUsd": 4132.2001953125,
   "usdVnd": 26471,
-  "worldVndPerLuong": 131894467,
+  "worldVndPerLuong": 131878510,
   "premiumPct": 13.33,
-  "premiumVnd": 19505533
+  "premiumVnd": 19521490
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 44,4: trung tính.",
+     "explanation": "RSI ngày = 44,3: trung tính.",
      "available": true
     },
     {
@@ -37,7 +37,7 @@
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 7,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -2174,7 +2174,7 @@
   "dxy": "2026-07-09T04:00:00.000Z",
   "yield10y": "2026-07-09T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-09T20:58:57.332Z",
+  "usdVnd": "2026-07-09T22:46:03.272Z",
   "fed": null
  }
 }
