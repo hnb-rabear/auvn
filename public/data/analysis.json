@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-09T19:02:28.726Z",
+ "generatedAt": "2026-07-09T20:58:57.332Z",
  "dataDate": "2026-07-09",
  "stale": true,
  "staleDays": 5,
@@ -8,11 +8,11 @@
   "sjcSell": 151400000,
   "ringBuy": 147500000,
   "ringSell": 151000000,
-  "xauUsd": 4133.89990234375,
+  "xauUsd": 4132.7001953125,
   "usdVnd": 26471,
-  "worldVndPerLuong": 131932756,
+  "worldVndPerLuong": 131894467,
   "premiumPct": 13.33,
-  "premiumVnd": 19467244
+  "premiumVnd": 19505533
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 44,5: trung tính.",
+     "explanation": "RSI ngày = 44,4: trung tính.",
      "available": true
     },
     {
@@ -44,7 +44,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 42% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 41% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -2174,7 +2174,7 @@
   "dxy": "2026-07-09T04:00:00.000Z",
   "yield10y": "2026-07-09T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-09T19:02:28.726Z",
+  "usdVnd": "2026-07-09T20:58:57.332Z",
   "fed": null
  }
 }
