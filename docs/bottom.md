@@ -1,6 +1,6 @@
 # Bottom Hunter — săn vùng gần đáy XAU/USD: phương pháp & bằng chứng test
 
-Cập nhật: 2026-07-06 (thêm mục "Cờ 'Gom rải' — LOẠI", NO-GO). Sinh bởi `scripts/bottom-study.ts` + `scripts/bottom-ml-study.ts` + `scripts/monitor-bottom.ts` + `scripts/bottom-calibration-study.ts` + `scripts/bottom-recency-deep-study.ts` + `scripts/bottom-recency-guard-study.ts` + `scripts/gomrai-study.ts` trên dữ liệu thật.
+Cập nhật: 2026-07-06 (thêm mục "Cờ 'Gom rải' — LOẠI" v2, và "Tín hiệu Gom rải v3 — premium SJC / USD-VND — LOẠI" gồm 6 tín hiệu: premium-window, usdVnd-window, premium-brake, vol-squeeze, ring-vs-bar [chặn bởi thiếu data], cross-asset divergence). Sinh bởi `scripts/bottom-study.ts` + `scripts/bottom-ml-study.ts` + `scripts/monitor-bottom.ts` + `scripts/bottom-calibration-study.ts` + `scripts/bottom-recency-deep-study.ts` + `scripts/bottom-recency-guard-study.ts` + `scripts/gomrai-study.ts` + `scripts/premium-accum-study.ts` + `scripts/premium-brake-study.ts` + `scripts/volsqueeze-study.ts` + `scripts/divergence-study.ts` trên dữ liệu thật.
 
 Đây là một **lớp độc lập**, KHÔNG đụng tới điểm tổng hợp mua/bán. Composite trả lời "vùng này nên gom hay không"; Bottom Hunter trả lời một câu khác hẹp hơn: **"hôm nay xác suất gần đáy là bao nhiêu?"** — một xác suất kèm khoảng tin cậy, không bao giờ là lời khẳng định "đây là đáy".
 
@@ -198,6 +198,116 @@ Guard-study E2 (mục Recency-504 phía trên) cho thấy một ngưỡng đơn 
 - Evidence khớp `GOMRAI_CONFIG`/grid trong `scripts/gomrai-study.ts`; đổi grid (thêm trigger, đổi TTL/cooldown) thì phải chạy lại và cập nhật mục này.
 
 **Tái lập:** `npx tsx scripts/gomrai-study.ts` (~2s, dùng data đã commit, không cần fetch).
+
+## Tín hiệu Gom rải v3 — premium SJC / USD-VND — LOẠI (NO-GO 2026-07-06)
+
+Cờ "Gom rải" v2 (trên) canh ĐÁY GIÁ XAU. Sau NO-GO, thử 3 tín hiệu MỚI hoàn toàn — chưa
+từng test trong repo — dựa trên dữ liệu VN premium (`public/data/history/vn-gold.json`,
+backfill CafeF, nay 493 phiên ≈ 2025-02-08 → 2026-07-05, ~23 tháng, qua ngưỡng ≥6 tháng
+CLAUDE.md đặt cho tiêu chí premium; trước đây `docs/bear-dca.md`/`docs/dca-zone-v2.md` ghi
+"Premium VN — không backtest được, data quá ngắn").
+
+**Giả thuyết:** premium SJC thấp (SJC rẻ hơn thế giới) hoặc USD/VND đang tương đối mạnh có
+thể báo trước giá SJC (VND) rẻ hơn — độc lập với TA giá XAU đã LOẠI ở `docs/dca-zone-v2.md`.
+
+**Test 1+2 — canh ngày trong cửa sổ ngắn (`scripts/premium-accum-study.ts`):** mirror đúng
+phương pháp `rangePos` đã validate ở `docs/dca-zone-v2.md` (neo mỗi H=10/21 phiên không
+chồng lấp, `rangePos=(giá mua − min cửa sổ)/(max−min)`, so mua-ngay + placebo, 4 cổng:
+Δmua-ngay<0 cả train/test, CI95 loại trừ 0, Δplacebo<0, meanPos≤0.40). Grid 48 cấu hình
+(premiumPct percentile/MA × usdVnd percentile/MA, W={30,60,90}). Split lịch cố định
+`2025-11-08` (không đủ nhiều năm để chia theo năm dương lịch).
+
+- **Kết quả: 0/48 qua cả 4 cổng** (mở rộng thêm cổng KẾT HỢP premium+usdVnd cùng lúc,
+  9 cấu hình joint × H → 0/66 tổng, joint không vào nổi top 10 theo min-excess — hẹp hơn
+  từng cổng riêng không giúp gì). Nguyên nhân đo được: `train mua-ngay meanPos=0.235`
+  (H=10) — mua-ngay ĐÃ nằm rất gần đáy cửa sổ vì SJC/XAU tăng mạnh liên tục suốt giai đoạn
+  (cùng cơ chế "xu hướng xóa khoảng trống canh giờ" mà `docs/dca-zone-v2.md` đã ghi cho
+  XAU/USD — nay xác nhận NHÂN RỘNG sang giá SJC quy đổi VND). Ứng viên gần cổng nhất
+  (`usdvnd-pctile-W30-p40/H21`) qua test riêng lẻ (Δ=−0.151 ✓) nhưng rớt train (Δ=+0.185 ✗).
+
+**Test 3 — cổng ghìm khối lượng dài hạn (`scripts/premium-brake-study.ts`):** mirror đúng
+cơ chế Accumulation brake đã SHIP (`docs/accumulation.md` — ghìm mult<1 khi percentile ĐẮT,
+không boost), nhưng dùng percentile của `premiumPct` (không phải giá) làm cổng, đo giá vốn
+realized (ΣVND/Σlượng) DCA-phanh vs phẳng trên chuỗi `sjcSell` thật. Grid 48 cấu hình
+(win={90,126,180,252} × ngưỡng phanh={0.6,0.67,0.75,0.8} × hệ số={0.25,0.5,0.75}), nhịp
+tháng STEP=21, split lịch `2025-11-08` (train n=13 tháng / test n=11 tháng).
+
+- 9/48 cấu hình có cải thiện>0 cả 2 giai đoạn (thắng nhất: `win=90 premium>p60→x0.25`,
+  train +2.28%, test +1.12%). **Nhưng CI95% (block-bootstrap) chứa 0 ở CẢ HAI** (train
+  [−0.34%, 4.69%], test [−0.63%, 2.25%]) và placebo (phanh ngẫu nhiên cùng số tháng) cho
+  biên độ ngang ngửa tín hiệu thực (5 seed test: −1.52%, −1.26%, **+2.36%**, **+1.54%**,
+  −1.26%) — không phân biệt được với ghìm-ngẫu-nhiên.
+- **⇒ NO-GO** — chỉ 4 tháng bị phanh mỗi giai đoạn (23 tháng dữ liệu ⇒ ít nhịp DCA), quá
+  mỏng để CI hẹp lại; không đủ chứng cứ tách tín hiệu khỏi nhiễu.
+
+**Test 4 — nén biên độ ("vol squeeze", `scripts/volsqueeze-study.ts`):** cơ chế HOÀN TOÀN
+khác 3 test trên — không dùng premium/usdVnd, không canh VỊ TRÍ giá (họ đó đã LOẠI ở
+`docs/dca-zone-v2.md`: relpos/zscore/bollinger/stoch/rsi/drawWin/pullback). Giả thuyết: biên
+độ (vol30) đang THẤP so với lịch sử gần (nén) thường đi trước một cú bung mạnh — mua ngay
+lúc nén có thể rẻ hơn chờ bung. Rule mới `volsqueeze` thêm vào `src/lib/dca-window.ts`
+(percentile của vol30 trong cửa sổ trailing, đơn vị test riêng: `dca-window.test.ts`). Đo
+trên ĐẦY ĐỦ 15 năm XAU/USD (không mỏng như VN) — 227 neo (train 138/test 89), cùng khung
+`rangePos`/mua-ngay/placebo/CI95 của `dca-zone-study-v2.ts`, split năm 2019 chuẩn (không
+phải split lịch tạm như 3 test trên). Grid: window {21,42,63,126} × pct {10,15,20,25,30}.
+
+- **0/20 cấu hình qua cổng.** Ứng viên gần nhất (`window=21,pct=20`): train Δmua-ngay
+  = +0.019 (CI [−0.036, 0.071], chứa 0), test Δmua-ngay = **+0.049** (CI [0.002, 0.100],
+  lệch khỏi 0 nhưng SAI HƯỚNG — mua lúc nén biên độ RA ĐẮT HƠN mua-ngay, không rẻ hơn).
+  Đây là NO-GO có sức mạnh thống kê (mẫu 227 neo đủ lớn, CI hẹp), không phải "mẫu mỏng nên
+  chưa rõ" như 3 test premium — nén biên độ thực sự không mang thông tin về giá rẻ/đắt
+  trong 30 ngày tới.
+
+**Test 5 — chênh nhẫn/miếng ("ring-vs-bar"), CHẶN bởi thiếu data (không chạy được):**
+`ringDiscountPct = (sjcSell − ringSell)/sjcSell × 100` đã có sẵn trong tiêu chí premium SỐNG
+(`src/lib/criteria.ts:256-267`, dùng ngưỡng cố định >8%/​<0% cho điểm ±1) — tức "ring-vs-bar
+anomaly" mà `CLAUDE.md` mô tả trong sub-signal premium ĐÃ được implement, chỉ chưa từng được
+backtest như một tín hiệu canh giờ Gom Rải (rangePos/brake). Khi thử build tín hiệu đó: check
+`public/data/history/vn-gold.json` (493 phiên) chỉ có **7 phiên** có `ringSell` khác null
+(2026-06-11, 06-12, 06-13, 06-14, 06-16, 07-03, 07-05 — quote nhẫn mới bắt đầu được ghi gần
+đây, có khoảng trống). 7 điểm dữ liệu không đủ để chia train/test hay tính CI ở BẤT KỲ khung
+đo nào trong repo (ngưỡng ≥6 tháng của CLAUDE.md cho premium cần hàng trăm phiên). **Không
+phải NO-GO cơ chế — là NO-GO dữ liệu**: đáng thử lại khi `ringSell`/`ringBuy` được ghi đều đặn
+đủ lâu (cùng nhịp tự tích lũy đã cho phép premium/usdVnd qua ngưỡng ≥6 tháng ở test 1-3).
+
+**Test 6 — lệch tương quan liên thị trường ("cross-asset divergence", `scripts/divergence-study.ts`):**
+cơ chế khác hẳn 5 test trên — không dùng VN premium, không dùng vị trí giá hay biến động, mà
+dùng TƯƠNG QUAN trượt giữa log-return XAU/USD và DXY (`corr30`, Pearson trên cửa sổ trailing
+{10,21,42,63} phiên, past-only). Phân phối thực đo: p10=−0.71 p50=−0.46 p90=−0.06 (thiên âm
+như kỳ vọng — vàng/đô la thường nghịch chiều). Giả thuyết: khi tương quan "decouple" (lệch dương
+bất thường, gate `corr30 ≥ thr` với thr∈{0, 0.1, 0.2, 0.3, 0.4}) là bất ổn tạm, thường đảo
+ngược — mua lúc đó rẻ hơn chờ tương quan âm "bình thường" trở lại. Đo trên ĐẦY ĐỦ 15 năm
+XAU/DXY (không mỏng như VN), cùng khung `rangePos`/mua-ngay/placebo/CI95/split-2019 của
+`dca-zone-study-v2.ts`/test 4 — 227 neo (train 138/test 89), grid 20 cấu hình.
+
+- **0/20 cấu hình qua cổng.** Ứng viên gần nhất (`window=10,thr=0`): train Δmua-ngay = +0.054
+  (CI [−0.033, 0.141], chứa 0), test Δmua-ngay = **+0.098** (CI [0.003, 0.196], lệch khỏi 0
+  nhưng SAI HƯỚNG — mua lúc decoupling RA ĐẮT HƠN mua-ngay). Cùng dạng NO-GO có sức mạnh thống
+  kê như test 4 (mẫu 227 neo, CI hẹp) — decoupling tương quan không mang thông tin về giá
+  rẻ/đắt trong 30 ngày tới.
+
+**⇒ PHÁN QUYẾT CHUNG: NO-GO cho 5 tín hiệu đã chạy được (premium-window, usdVnd-window, joint
+premium+usdVnd, premium-brake, vol-squeeze, cross-asset divergence); 1 tín hiệu (ring-vs-bar)
+CHẶN bởi thiếu data, chưa chạy được.** Không wiring vào UI. Nguyên nhân khác nhau theo nhóm:
+test 1+2+joint (xu hướng tăng mạnh xóa khoảng trống canh giờ/tháng, đo trên VN 17-23 tháng),
+test 3 (mẫu quá mỏng — 23 tháng, không phải thiếu tín hiệu, brake là họ ĐÃ thành công trong
+repo cho tín hiệu giá — đáng thử lại khi data VN dài hơn), test 4+6 (mẫu khỏe 15 năm XAU,
+tín hiệu thực sự không tồn tại — không đáng thử lại trừ khi đổi cơ chế đo), test 5 (chưa đủ
+data để test, không phải cơ chế sai). Không tái mở test 1-3 mà không chạy lại 2 script trên
+với data VN mới; test 4+6 coi như đã đóng (đủ mẫu để kết luận chắc); test 5 mở lại khi
+`ringSell`/`ringBuy` tích lũy đủ ≥6 tháng liên tục.
+
+**Caveat trung thực:** test 1-3 dùng 1 giai đoạn thị trường VN (tăng mạnh liên tục,
+2025-02→2026-07), split theo lịch không theo năm (không có nhiều chu kỳ để kiểm tra),
+mẫu neo/tháng mỏng (13–28 neo test 1+2; 11–13 tháng test 3). Test 4+6 dùng đủ 15 năm XAU nên
+không có caveat mẫu mỏng — kết luận NO-GO đáng tin hơn. Test 5 không có caveat mẫu mỏng —
+CHƯA CÓ mẫu (7 điểm), khác hẳn "mỏng nhưng đo được". Không đủ để khẳng định "premium/ring VN
+không có giá trị" — chỉ khẳng định "chưa đủ chứng cứ (hoặc chưa đủ data) với các cách đo này".
+
+**Tái lập:** `npx tsx scripts/premium-accum-study.ts`, `npx tsx scripts/premium-brake-study.ts`
+(dùng data đã commit, không cần fetch), `npx tsx scripts/volsqueeze-study.ts` (fetch XAU),
+`npx tsx scripts/divergence-study.ts` (fetch XAU + DXY). Test 5 (ring-vs-bar) không có script
+tái lập — chặn ở bước kiểm tra cỡ mẫu, xem số phiên `ringSell` khác null trong
+`public/data/history/vn-gold.json`.
 
 ## Thử feature 2026-06: lợi suất thực (DFII10) + Vàng/Bạc — kết quả
 

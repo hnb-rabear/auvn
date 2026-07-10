@@ -362,14 +362,18 @@ export default function Dashboard({
                 trong lịch sử chỉ báo đúng ở thị trường yếu (2011/2016/2018/2022 — giá thấp hơn
                 sau 6 tháng 70–100% số lần) và sai 98–100% trong các năm bull (2010/2024/2025).
                 Không ai biết trước đang ở loại thị trường nào — bán theo kế hoạch kỳ hạn của bạn.
+                Khi bán theo kỳ hạn ~1 tháng: đừng bán ngay hôm nay — đo 15 năm, giá ngày
+                bán-ngay nằm ~0.4 vị trí khoảng giá tháng kế tiếp; bán gần cuối kỳ hạn hoặc
+                khi có cú bứt mạnh (≥2σ/10 phiên) đạt ~0.55–0.6 (docs/sell-zone.md).
               </div>
             )}
             {(preset || consensusMode) && !isBuyZone && !isSellZone && (
               <div className="verdict-note muted">
                 {consensusMode ? "Cả 3 preset kỳ hạn đều chưa báo mua. Preset" : "Preset"} chỉ
                 kiểm chứng tín hiệu MUA. Tín hiệu chỉ xuất hiện vài đợt mỗi năm —
-                im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn hoặc khi chênh VN
-                vượt vạch đỏ p80 ở biểu đồ bên dưới.
+                im lặng là bình thường. Bán: theo kế hoạch kỳ hạn của bạn (trong kỳ hạn,
+                bán muộn hoặc lúc giá bứt mạnh tốt hơn bán ngay — đo 15 năm) hoặc khi
+                chênh VN vượt vạch đỏ p80 ở biểu đồ bên dưới.
               </div>
             )}
             {consensusMode && consensusK >= 1 && (

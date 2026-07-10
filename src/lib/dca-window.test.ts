@@ -25,6 +25,19 @@ describe("inZoneV2 pullback", () => {
   });
 });
 
+describe("inZoneV2 volsqueeze", () => {
+  // 105 phiên biến động cao (dao động ±3), rồi 35 phiên "lặng" (tăng đều rất nhỏ -> vol≈0).
+  const oscill = Array.from({ length: 105 }, (_, j) => 100 + (j % 2 === 0 ? 3 : -3));
+  const calm = Array.from({ length: 35 }, (_, j) => 100 + j * 0.001);
+  const c = [...oscill, ...calm];
+  it("bật ở cuối đợt lặng (vol hiện tại thấp so lịch sử gần)", () => {
+    expect(inZoneV2(c, c.length - 1, { kind: "volsqueeze", window: 40, pct: 20 }, 0)).toBe(true);
+  });
+  it("tắt giữa đợt biến động cao (vol hiện tại ngang lịch sử gần)", () => {
+    expect(inZoneV2(c, 90, { kind: "volsqueeze", window: 40, pct: 20 }, 0)).toBe(false);
+  });
+});
+
 describe("evalWindow", () => {
   it("mua phiên đầu chạm vùng; rangePos đúng", () => {
     // cửa sổ giá [t..t+5] = [100, 98, 95, 90, 96, 99]; relpos pct cao -> chạm sớm

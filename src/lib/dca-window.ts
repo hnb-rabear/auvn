@@ -9,7 +9,19 @@ export type ZoneRuleV2 =
   | { kind: "stoch"; window: number; k: number }
   | { kind: "rsi"; thr: number }
   | { kind: "drawWin"; x: number }
-  | { kind: "pullback"; n: number };
+  | { kind: "pullback"; n: number }
+  | { kind: "volsqueeze"; window: number; pct: number };
+
+// vol30 tại mọi phiên, tính 1 lần/chuỗi closes (past-only) — dùng cho "volsqueeze".
+const volSeriesCache = new WeakMap<number[], (number | null)[]>();
+function volSeries(closes: number[]): (number | null)[] {
+  let s = volSeriesCache.get(closes);
+  if (!s) {
+    s = closes.map((_, i) => (i >= 30 ? volatility30(closes.slice(0, i + 1)) : null));
+    volSeriesCache.set(closes, s);
+  }
+  return s;
+}
 
 export function rangePos(price: number, lo: number, hi: number): number {
   if (hi <= lo) return 0;
@@ -54,6 +66,22 @@ export function inZoneV2(closes: number[], i: number, rule: ZoneRuleV2, windowSt
       if (i < rule.n) return false;
       for (let j = i - rule.n + 1; j <= i; j++) if (closes[j] >= closes[j - 1]) return false;
       return true; // n phiên giảm liên tiếp
+    }
+    case "volsqueeze": {
+      const W = rule.window;
+      if (i < W + 30) return false;
+      const vs = volSeries(closes);
+      const cur = vs[i];
+      if (cur === null) return false;
+      let below = 0, count = 0;
+      for (let j = i - W; j < i; j++) {
+        const v = vs[j];
+        if (v === null) continue;
+        count++;
+        if (v <= cur) below++;
+      }
+      if (count < W * 0.5) return false;
+      return (below / count) * 100 <= rule.pct;
     }
   }
 }

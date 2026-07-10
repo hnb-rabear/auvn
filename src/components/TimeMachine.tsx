@@ -484,7 +484,8 @@ export default function TimeMachine({
         <div className="tm-gear">
           <label className="tm-toggle muted small">
             <input type="checkbox" checked={showSell} onChange={(e) => setShowSell(e.target.checked)} />
-            Hiện vùng bán (tham khảo NGƯỜI BÁN — sai gần 100% trong năm bull)
+            Hiện vùng bán (tham khảo NGƯỜI BÁN — sai gần 100% trong năm bull; trong kỳ hạn
+            bán, bán muộn tốt hơn bán ngay — docs/sell-zone.md)
           </label>
           <label className="tm-toggle muted small">
             <input type="checkbox" checked={showExp} onChange={(e) => setShowExp(e.target.checked)} />
