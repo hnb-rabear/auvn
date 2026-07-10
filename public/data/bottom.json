@@ -1,16 +1,16 @@
 {
- "generatedAt": "2026-07-10T12:12:43.644Z",
+ "generatedAt": "2026-07-10T15:08:18.831Z",
  "dataDate": "2026-07-10",
  "cycle": {
-  "prob": 60.3,
+  "prob": 53.3,
   "ci": [
-   37.9,
-   71
+   32.6,
+   67.2
   ],
-  "probUnweighted": 41.2,
-  "ess": 193,
-  "bin": 2,
-  "n": 611,
+  "probUnweighted": 38,
+  "ess": 143,
+  "bin": 1,
+  "n": 374,
   "drivers": [
    {
     "id": "dd",
@@ -37,14 +37,14 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +18,04: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +17,97: động lượng đang đảo lên.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
-    "score": 0,
-    "explanation": "USD trên MA50, lợi suất +0,2đ/3 tháng, Fed -0,01đ: trung tính.",
+    "score": -1,
+    "explanation": "USD trên MA50, lợi suất +0,27đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
     "available": true
    },
    {
@@ -71,15 +71,15 @@
   ]
  },
  "swing": {
-  "prob": 53.3,
+  "prob": 49.2,
   "ci": [
-   40.4,
-   64.9
+   35.5,
+   62
   ],
-  "probUnweighted": 43.3,
-  "ess": 200,
-  "bin": 2,
-  "n": 628,
+  "probUnweighted": 47,
+  "ess": 139,
+  "bin": 1,
+  "n": 383,
   "drivers": [
    {
     "id": "dd",
@@ -106,14 +106,14 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +18,04: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +17,97: động lượng đang đảo lên.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
-    "score": 0,
-    "explanation": "USD trên MA50, lợi suất +0,2đ/3 tháng, Fed -0,01đ: trung tính.",
+    "score": -1,
+    "explanation": "USD trên MA50, lợi suất +0,27đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
     "available": true
    },
    {
@@ -22479,8 +22479,8 @@
   },
   {
    "date": "2026-07-10",
-   "cycleBin": 2,
-   "swingBin": 2
+   "cycleBin": 1,
+   "swingBin": 1
   }
  ],
  "bottomHistory": [
@@ -54782,24 +54782,24 @@
   {
    "date": "2026-07-10",
    "cycle": {
-    "bin": 2,
-    "prob": 60.3,
-    "ci": [
-     37.9,
-     71
-    ],
-    "probUnweighted": 41.2,
-    "n": 611
-   },
-   "swing": {
-    "bin": 2,
+    "bin": 1,
     "prob": 53.3,
     "ci": [
-     40.4,
-     64.9
+     32.6,
+     67.2
     ],
-    "probUnweighted": 43.3,
-    "n": 628
+    "probUnweighted": 38,
+    "n": 374
+   },
+   "swing": {
+    "bin": 1,
+    "prob": 49.2,
+    "ci": [
+     35.5,
+     62
+    ],
+    "probUnweighted": 47,
+    "n": 383
    }
   }
  ],

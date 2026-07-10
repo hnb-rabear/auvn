@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-10T12:10:50.191Z",
+ "generatedAt": "2026-07-10T15:06:14.000Z",
  "dataDate": "2026-07-10",
  "stale": true,
  "staleDays": 5,
@@ -8,11 +8,11 @@
   "sjcSell": 151400000,
   "ringBuy": 147500000,
   "ringSell": 151000000,
-  "xauUsd": 4111.10009765625,
+  "xauUsd": 4110,
   "usdVnd": 26470,
-  "worldVndPerLuong": 131200147,
+  "worldVndPerLuong": 131165039,
   "premiumPct": 13.33,
-  "premiumVnd": 20199853
+  "premiumVnd": 20234961
  },
  "criteria": [
   {
@@ -95,8 +95,8 @@
     {
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
-     "score": -1,
-     "explanation": "DXY = 100,8 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "score": -2,
+     "explanation": "DXY = 100,9 (trên MA50, +1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,54%, thay đổi 3 tháng +0,2 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,56%, thay đổi 3 tháng +0,27 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -121,7 +121,7 @@
      "available": true
     }
    ],
-   "score": -0.25,
+   "score": -0.5,
    "available": true
   },
   {
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 1.3,
+ "composite": -1.2,
  "zone": "neutral",
  "vnHistoryDays": 493,
  "warnings": [
@@ -2172,9 +2172,9 @@
  "sourceTimes": {
   "world": "2026-07-10T04:00:00.000Z",
   "dxy": "2026-07-10T04:00:00.000Z",
-  "yield10y": "2026-07-09T12:20:00.000Z",
+  "yield10y": "2026-07-10T12:20:00.000Z",
   "vnGold": null,
-  "usdVnd": "2026-07-10T12:10:50.191Z",
+  "usdVnd": "2026-07-10T15:06:14.000Z",
   "fed": null
  }
 }
