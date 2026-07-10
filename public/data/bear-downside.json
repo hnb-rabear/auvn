@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-07-10T01:04:58.376Z",
+ "generatedAt": "2026-07-10T04:39:52.467Z",
  "dataDate": "2026-07-10",
- "currentPrice": 4133.1,
- "currentDdPct": 22.3,
+ "currentPrice": 4121.8,
+ "currentDdPct": 22.5,
  "currentBucketIdx": 2,
  "conditioningWorks": false,
  "shownSource": "unconditional",
@@ -12,33 +12,33 @@
    "median": -1.7,
    "p10": -6.4,
    "p90": 0.4,
-   "pBottomBehind": 16,
+   "pBottomBehind": 15.9,
    "pCi": [
-    11.9,
+    11.8,
     20.5
    ],
    "medianCi": [
     -2.2,
-    -1.2
+    -1.3
    ],
    "endMedian": 1.3,
-   "endP25": -1.5,
-   "endP75": 5.1,
-   "pUp": 62.5,
+   "endP25": -1.6,
+   "endP75": 5,
+   "pUp": 62.2,
    "pUpCi": [
-    53.6,
-    70.6
+    53.1,
+    70.5
    ],
-   "n": 1670
+   "n": 1671
   },
   {
    "horizonDays": 63,
    "median": -2.3,
-   "p10": -9.2,
-   "p90": 0.3,
+   "p10": -9.4,
+   "p90": 0.2,
    "pBottomBehind": 12.9,
    "pCi": [
-    8.3,
+    8.2,
     17.5
    ],
    "medianCi": [
@@ -46,38 +46,38 @@
     -1.6
    ],
    "endMedian": 5.2,
-   "endP25": -0.7,
-   "endP75": 12.1,
-   "pUp": 73.1,
+   "endP25": -0.8,
+   "endP75": 12,
+   "pUp": 72.8,
    "pUpCi": [
-    58.1,
-    84.6
+    57.9,
+    84.4
    ],
-   "n": 1656
+   "n": 1657
   },
   {
    "horizonDays": 126,
    "median": -2.4,
-   "p10": -9.4,
+   "p10": -9.5,
    "p90": 0.2,
-   "pBottomBehind": 12.6,
+   "pBottomBehind": 12.5,
    "pCi": [
     7.5,
     16.5
    ],
    "medianCi": [
     -4.6,
-    -1.6
+    -1.7
    ],
    "endMedian": 13.4,
-   "endP25": 3.3,
+   "endP25": 3.2,
    "endP75": 21.3,
-   "pUp": 83.2,
+   "pUp": 82.8,
    "pUpCi": [
-    68.8,
-    91.9
+    68.6,
+    91.8
    ],
-   "n": 1635
+   "n": 1636
   }
  ],
  "buckets": [
@@ -113,12 +113,12 @@
     {
      "horizonDays": 63,
      "median": -2.2,
-     "p10": -9.3,
+     "p10": -9.4,
      "p90": 0.4,
-     "pBottomBehind": 14,
+     "pBottomBehind": 13.9,
      "pCi": [
       7.3,
-      20.2
+      19.9
      ],
      "medianCi": [
       -3.9,
@@ -126,37 +126,37 @@
      ],
      "endMedian": 6.8,
      "endP25": 1,
-     "endP75": 14.5,
-     "pUp": 77.2,
+     "endP75": 14.4,
+     "pUp": 76.7,
      "pUpCi": [
-      59.1,
-      90.2
+      58.3,
+      90
      ],
-     "n": 754
+     "n": 755
     },
     {
      "horizonDays": 126,
      "median": -2.1,
-     "p10": -8.9,
+     "p10": -9,
      "p90": 0.4,
-     "pBottomBehind": 14.1,
+     "pBottomBehind": 14,
      "pCi": [
       7.5,
-      19.2
+      19
      ],
      "medianCi": [
-      -5.1,
+      -5.3,
       -1.3
      ],
-     "endMedian": 16.9,
-     "endP25": 7.3,
-     "endP75": 23.4,
-     "pUp": 85.9,
+     "endMedian": 16.8,
+     "endP25": 6.9,
+     "endP75": 23.3,
+     "pUp": 85.4,
      "pUpCi": [
-      64.7,
-      97.1
+      64,
+      96.7
      ],
-     "n": 737
+     "n": 738
     }
    ]
   },
@@ -167,27 +167,27 @@
    "horizons": [
     {
      "horizonDays": 21,
-     "median": -2.2,
+     "median": -2.3,
      "p10": -10.2,
      "p90": 0.3,
-     "pBottomBehind": 13.9,
+     "pBottomBehind": 13.7,
      "pCi": [
-      8.4,
-      20.6
+      7.8,
+      21
      ],
      "medianCi": [
-      -4.5,
+      -4.8,
       -1.1
      ],
-     "endMedian": -0.3,
+     "endMedian": -0.4,
      "endP25": -4.1,
-     "endP75": 4,
-     "pUp": 49.1,
+     "endP75": 3.7,
+     "pUp": 48.1,
      "pUpCi": [
-      31.5,
-      68.8
+      31,
+      68.7
      ],
-     "n": 336
+     "n": 337
     },
     {
      "horizonDays": 63,
@@ -404,33 +404,33 @@
    "median": -1.7,
    "p10": -6.4,
    "p90": 0.4,
-   "pBottomBehind": 16,
+   "pBottomBehind": 15.9,
    "pCi": [
-    11.9,
+    11.8,
     20.5
    ],
    "medianCi": [
     -2.2,
-    -1.2
+    -1.3
    ],
    "endMedian": 1.3,
-   "endP25": -1.5,
-   "endP75": 5.1,
-   "pUp": 62.5,
+   "endP25": -1.6,
+   "endP75": 5,
+   "pUp": 62.2,
    "pUpCi": [
-    53.6,
-    70.6
+    53.1,
+    70.5
    ],
-   "n": 1670
+   "n": 1671
   },
   {
    "horizonDays": 63,
    "median": -2.3,
-   "p10": -9.2,
-   "p90": 0.3,
+   "p10": -9.4,
+   "p90": 0.2,
    "pBottomBehind": 12.9,
    "pCi": [
-    8.3,
+    8.2,
     17.5
    ],
    "medianCi": [
@@ -438,38 +438,38 @@
     -1.6
    ],
    "endMedian": 5.2,
-   "endP25": -0.7,
-   "endP75": 12.1,
-   "pUp": 73.1,
+   "endP25": -0.8,
+   "endP75": 12,
+   "pUp": 72.8,
    "pUpCi": [
-    58.1,
-    84.6
+    57.9,
+    84.4
    ],
-   "n": 1656
+   "n": 1657
   },
   {
    "horizonDays": 126,
    "median": -2.4,
-   "p10": -9.4,
+   "p10": -9.5,
    "p90": 0.2,
-   "pBottomBehind": 12.6,
+   "pBottomBehind": 12.5,
    "pCi": [
     7.5,
     16.5
    ],
    "medianCi": [
     -4.6,
-    -1.6
+    -1.7
    ],
    "endMedian": 13.4,
-   "endP25": 3.3,
+   "endP25": 3.2,
    "endP75": 21.3,
-   "pUp": 83.2,
+   "pUp": 82.8,
    "pUpCi": [
-    68.8,
-    91.9
+    68.6,
+    91.8
    ],
-   "n": 1635
+   "n": 1636
   }
  ],
  "note": "Độ sâu drawdown không tiên lượng được mức rơi thêm — đây là phân phối lịch sử chung mọi thời điểm."

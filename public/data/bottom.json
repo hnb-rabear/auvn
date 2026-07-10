@@ -1,43 +1,43 @@
 {
- "generatedAt": "2026-07-10T01:04:53.434Z",
+ "generatedAt": "2026-07-10T04:39:47.203Z",
  "dataDate": "2026-07-10",
  "cycle": {
-  "prob": 60.9,
+  "prob": 60.3,
   "ci": [
-   38.2,
-   71.5
+   37.9,
+   71
   ],
-  "probUnweighted": 41.3,
+  "probUnweighted": 41.2,
   "ess": 193,
   "bin": 2,
-  "n": 610,
+  "n": 611,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 22,3%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 22,5%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -13% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -14% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 44,4: trung tính.",
+    "explanation": "RSI ngày = 43,7: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +17,38: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +18,73: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +24,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -71,42 +71,42 @@
   ]
  },
  "swing": {
-  "prob": 53.8,
+  "prob": 53.3,
   "ci": [
-   41.3,
-   65.6
+   40.4,
+   64.9
   ],
-  "probUnweighted": 43.4,
-  "ess": 199,
+  "probUnweighted": 43.3,
+  "ess": 200,
   "bin": 2,
-  "n": 627,
+  "n": 628,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 22,3%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 22,5%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -13% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -14% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 44,4: trung tính.",
+    "explanation": "RSI ngày = 43,7: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +17,38: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +18,73: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +24,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22469,6 +22469,11 @@
   },
   {
    "date": "2026-07-08",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-07-09",
    "cycleBin": 2,
    "swingBin": 2
   },
@@ -54778,23 +54783,23 @@
    "date": "2026-07-10",
    "cycle": {
     "bin": 2,
-    "prob": 60.9,
+    "prob": 60.3,
     "ci": [
-     38.2,
-     71.5
+     37.9,
+     71
     ],
-    "probUnweighted": 41.3,
-    "n": 610
+    "probUnweighted": 41.2,
+    "n": 611
    },
    "swing": {
     "bin": 2,
-    "prob": 53.8,
+    "prob": 53.3,
     "ci": [
-     41.3,
-     65.6
+     40.4,
+     64.9
     ],
-    "probUnweighted": 43.4,
-    "n": 627
+    "probUnweighted": 43.3,
+    "n": 628
    }
   }
  ],
@@ -54818,8 +54823,8 @@
     "lo": 40,
     "hi": 60,
     "pred": 46.7,
-    "real": 49.9,
-    "n": 343
+    "real": 49.7,
+    "n": 344
    },
    {
     "lo": 60,
@@ -54856,7 +54861,7 @@
     "hi": 60,
     "pred": 48.8,
     "real": 45.8,
-    "n": 744
+    "n": 745
    },
    {
     "lo": 60,
