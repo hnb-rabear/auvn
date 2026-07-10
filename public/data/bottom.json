@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-09T22:47:59.087Z",
- "dataDate": "2026-07-09",
+ "generatedAt": "2026-07-10T01:04:53.434Z",
+ "dataDate": "2026-07-10",
  "cycle": {
   "prob": 60.9,
   "ci": [
@@ -30,14 +30,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 44,3: trung tính.",
+    "explanation": "RSI ngày = 44,4: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +17,33: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +17,38: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -99,14 +99,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 44,3: trung tính.",
+    "explanation": "RSI ngày = 44,4: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +17,33: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +17,38: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -22473,7 +22473,7 @@
    "swingBin": 2
   },
   {
-   "date": "2026-07-09",
+   "date": "2026-07-10",
    "cycleBin": 2,
    "swingBin": 2
   }
@@ -54775,7 +54775,7 @@
    }
   },
   {
-   "date": "2026-07-09",
+   "date": "2026-07-10",
    "cycle": {
     "bin": 2,
     "prob": 60.9,
