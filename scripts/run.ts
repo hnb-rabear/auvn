@@ -9,6 +9,7 @@ import {
   fetchUsdVnd,
   fetchYield10y,
   fetchRealYield,
+  lastVnGoldError,
 } from "./fetch";
 import type { DailyBar } from "./fetch";
 import { runBacktest } from "./backtest";
@@ -151,7 +152,10 @@ async function main() {
     }
   }
   if (vnRes) console.log(`VN gold (${vnRes.source}):`, vnRes);
-  else warnings.push("Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất.");
+  else
+    warnings.push(
+      `Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất. (${lastVnGoldError ?? "không rõ lỗi"})`
+    );
   if (usdVndRes) console.log(`USD/VND: ${usdVndRes.value} (${usdVndRes.source})`);
   else warnings.push("Không lấy được tỷ giá USD/VND hôm nay.");
   if (yieldRes) console.log(`YIELD10Y: ${yieldRes.bars.length} bars (${yieldRes.source})`);

@@ -314,17 +314,35 @@ async function fetchBtmc(): Promise<VnGoldQuote> {
   return q;
 }
 
-/** BTMC trước (ổn định, không chặn bot); SJC sau (đang bị Cloudflare challenge). */
+/** Lỗi thật của lần fetchVnGold() gần nhất (null nếu thành công) — để run.ts
+ *  đưa vào warnings/analysis.json, vì Actions log không có sẵn để tra tay. */
+export let lastVnGoldError: string | null = null;
+
+const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e));
+
+/** BTMC trước (ổn định, không chặn bot); SJC sau (đang bị Cloudflare challenge).
+ *  Mỗi nguồn thử lại 1 lần (delay ngắn) trước khi coi là hỏng — phân biệt
+ *  lỗi mạng thoáng qua với chặn IP/thay đổi schema thật sự. */
 export async function fetchVnGold(): Promise<VnGoldQuote | null> {
-  try {
-    return await fetchBtmc();
-  } catch {
-    try {
-      return await fetchSjc();
-    } catch {
-      return null;
+  const errors: string[] = [];
+  for (const [name, fn] of [
+    ["btmc", fetchBtmc],
+    ["sjc", fetchSjc],
+  ] as const) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const q = await fn();
+        lastVnGoldError = null;
+        return q;
+      } catch (e) {
+        if (attempt === 0) await new Promise((r) => setTimeout(r, 3000));
+        else errors.push(`${name}: ${errMsg(e)}`);
+      }
     }
   }
+  lastVnGoldError = errors.join(" | ");
+  console.error("fetchVnGold: cả hai nguồn đều hỏng —", lastVnGoldError);
+  return null;
 }
 
 export async function fetchUsdVnd(): Promise<{ value: number; source: string } | null> {
