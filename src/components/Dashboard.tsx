@@ -2,11 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import TimeMachine from "./TimeMachine";
+import PriceChart from "./PriceChart";
 import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import BearDcaCard from "./BearDcaCard";
 import BearDownsideCard from "./BearDownsideCard";
-import ActionGuidance from "./ActionGuidance";
+import ActionGuidance, { LEVEL_TAG } from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
 import { fabLabel, zoneClass } from "@/lib/settings";
 import { buyCount, buyNames, consensusLabel, consensusZone, presetSignals } from "@/lib/consensus";
@@ -14,10 +15,14 @@ import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
 import { formatBuildInfo } from "@/lib/version";
+import { createAsOfEngine, verdictFor, DCA_PHASE_LABEL } from "@/lib/as-of";
+import { bottomPctClass } from "@/lib/bottom";
+import { qtyForPhase } from "@/lib/bear-dca";
 import {
   compositeScore,
   zoneOf,
   ZONE_LABELS,
+  CRITERION_LABELS,
   BOTTOM_CONFIG,
   DEFAULT_WEIGHTS,
   PRESETS,
@@ -34,6 +39,7 @@ import {
   type CriterionResult,
   type PresetHealthFile,
   type Timeline,
+  type VnGoldEntry,
   type Zone,
 } from "@/lib/types";
 
@@ -90,6 +96,7 @@ export default function Dashboard({
   bearDca,
   bearDcaHealth,
   bearDownside,
+  vnRows,
 }: {
   analysis: Analysis;
   backtest: Backtest;
@@ -102,6 +109,7 @@ export default function Dashboard({
   bearDca: BearDcaAnalysis;
   bearDcaHealth: BearDcaHealth;
   bearDownside: BearDownsideAnalysis;
+  vnRows: VnGoldEntry[];
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -195,6 +203,24 @@ export default function Dashboard({
   // điểm đáy hiện tại — KHÁC với prob≥60 của guidance "strong") + verified + monitor
   // không báo thoái hóa. Đồng hành với verdict, không phải tập con chặt của "strong".
   const fusionDegraded = fusionHealth.item.status === "degraded";
+  // Engine as-of của cả trang — cùng nguồn với TimeMachine (task 4 nối ra các khối)
+  const engine = useMemo(
+    () => createAsOfEngine(timeline.points, { preset, weights, consensusMode, fusionDegraded }),
+    [timeline.points, preset, weights, consensusMode, fusionDegraded]
+  );
+  const [selIdx, setSelIdx] = useState<number | null>(null);
+  // As-of của cả trang: chọn 1 ngày trên PriceChart ⇒ mọi khối lật sang ngày đó (task 4).
+  // null = live (hôm nay) — mọi nhánh `asOf ? ... : ...` bên dưới PHẢI giữ y hệt nhánh live cũ.
+  const asOf = useMemo(() => (selIdx === null ? null : engine.day(selIdx)), [engine, selIdx]);
+  const vnByDate = useMemo(() => new Map(vnRows.map((r) => [r.date, r])), [vnRows]);
+  const asOfVn = asOf ? (vnByDate.get(asOf.point.date) ?? null) : null;
+  const fmtAsOfDate = (iso: string) =>
+    new Date(iso + "T00:00:00Z").toLocaleDateString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      timeZone: "UTC",
+    });
   // Chế độ đồng thuận: cờ độ-tin-cao 3m vẫn áp dụng khi CHÍNH preset 3m đang báo mua
   // (điều kiện fusion được kiểm chứng trên preset 3m, không phụ thuộc chế độ đang chọn).
   const sig3mBuy = presetSigs.find((s) => s.preset.id === "3m")?.isBuy ?? false;
@@ -311,8 +337,20 @@ export default function Dashboard({
   const isSiteStale =
     mounted && nowMs - Date.parse(analysis.generatedAt) > 24 * 3_600_000;
 
+  // ── 2 chip trả lời tức thì (task 5) — Mua? dùng guidance hiện có, Gom? dùng Bear DCA ──
+  const liveMult = qtyForPhase(bearDca.phase, bearDca.ddFromAth, bearDca.pricePct2y);
+  const chipGuidance = asOf ? asOf.guidance : guidance;
+  const chipDca = asOf ? asOf.dca : { phase: bearDca.phase, mult: liveMult };
+  const openBlock = (id: string) => {
+    const el = document.getElementById(id) as HTMLDetailsElement | null;
+    if (el) {
+      el.open = true;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <main className="wrap">
+    <main className={`wrap${asOf ? " asof-mode" : ""}`}>
       <header className="top">
         <h1>
           Vùng<span className="gold">Vàng</span>
@@ -350,11 +388,167 @@ export default function Dashboard({
         </div>
       )}
 
+      {/* ── GIÁ: 4 ô chính, mở sẵn ── */}
+      {asOf ? (
+        <section className="prices asof">
+          <div className="price-item">
+            <span>SJC bán (ngày xem)</span>
+            <b>{asOfVn?.sjcSell != null ? fmtMoney(asOfVn.sjcSell) : "—"}</b>
+          </div>
+          <div className="price-item">
+            <span>Nhẫn bán</span>
+            <b>{asOfVn?.ringSell != null ? fmtMoney(asOfVn.ringSell) : "—"}</b>
+          </div>
+          <div className="price-item">
+            <span>XAU/USD</span>
+            <b>${fmtNum(asOf.point.price, 0)}</b>
+          </div>
+          <div className="price-item">
+            <span>Chênh VN−TG</span>
+            <b>{asOfVn?.premiumPct != null ? `${fmtNum(asOfVn.premiumPct)}%` : "chưa có dữ liệu VN"}</b>
+          </div>
+        </section>
+      ) : (
+      <section className="prices">
+        <div className="price-item">
+          <span>SJC mua / bán</span>
+          <b>
+            {fmtMoney(analysis.prices.sjcBuy)} / {fmtMoney(analysis.prices.sjcSell)}
+          </b>
+        </div>
+        <div className="price-item">
+          <span>Nhẫn mua / bán</span>
+          <b>
+            {fmtMoney(analysis.prices.ringBuy)} / {fmtMoney(analysis.prices.ringSell)}
+          </b>
+        </div>
+        <div className="price-item">
+          <span>Thế giới quy đổi</span>
+          <b>{fmtMoney(analysis.prices.worldVndPerLuong)}/lượng</b>
+        </div>
+        <div className="price-item">
+          <span>Chênh VN−TG</span>
+          <b>
+            {fmtNum(analysis.prices.premiumPct)}% ({fmtMoney(analysis.prices.premiumVnd)})
+          </b>
+        </div>
+      </section>
+      )}
+
+      {/* ── 2 CHIP TRẢ LỜI TỨC THÌ ── */}
+      <section className="answer-chips">
+        <button className={`answer-chip ${chipGuidance.tone}`} onClick={() => openBlock("khoi-mua")}>
+          <span className="q">Mua?</span>
+          <b>{LEVEL_TAG[chipGuidance.level]}</b>
+          <span className="small">{chipGuidance.when}</span>
+        </button>
+        <button
+          className={`answer-chip ${chipDca.mult >= 1 ? "buy" : chipDca.mult >= 0.75 ? "neutral" : "sell"}`}
+          onClick={() => openBlock("khoi-gom")}
+        >
+          <span className="q">Gom?</span>
+          <b>×{chipDca.mult}</b>
+          <span className="small">{DCA_PHASE_LABEL[chipDca.phase]}</span>
+        </button>
+      </section>
+
+      {/* ── FAB + bottom sheet: preset + trọng số gom 1 chỗ ── */}
+      <button
+        className="fab"
+        onClick={() => setSheetOpen(true)}
+        aria-label="Mở thiết lập preset và trọng số"
+        hidden={sheetOpen}
+      >
+        ⚙ {fabLabel(preset, customized)}
+      </button>
+      <SettingsSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        criteria={analysis.criteria}
+        weights={weights}
+        preset={preset}
+        customized={customized}
+        health={health}
+        composite={composite}
+        zone={zone}
+        verdictLabel={verdictLabel}
+        applyPreset={applyPreset}
+        setWeight={setWeight}
+      />
+
+      {/* ── CHART CHÍNH — chạm chọn ngày (task 3: mới chỉ crosshair, task 4 nối as-of) ── */}
+      <PriceChart
+        points={timeline.points}
+        vnRows={vnRows}
+        selectedIdx={selIdx}
+        onSelect={setSelIdx}
+        buyDots={engine.signalIdxs}
+        bottomDots={engine.bottomStarts}
+      />
+
+      {/* ── AS-OF BAR: hiện khi đang xem 1 ngày quá khứ trên chart (task 4) ── */}
+      {asOf && (
+        <div className="asof-bar">
+          <button className="iconbtn small-btn" onClick={() => setSelIdx(null)}>
+            ← Hôm nay
+          </button>
+          <b>{fmtAsOfDate(asOf.point.date)}</b>
+          <span className="muted small">XAU ${fmtNum(asOf.point.price, 0)}</span>
+          <span className="asof-rets">
+            {(["21", "63", "126"] as const).map((h) => {
+              const ret = asOf!.point.returns[h];
+              const v = verdictFor(asOf!.zone, ret, h);
+              return (
+                <span key={h} className="small">
+                  {h === "21" ? "1T" : h === "63" ? "3T" : "6T"}:{" "}
+                  <b className={ret === null ? "muted" : ret >= 0 ? "buy" : "sell"}>
+                    {ret === null ? "—" : `${ret >= 0 ? "+" : ""}${fmtNum(ret)}%`}
+                  </b>
+                  {v === "right" && <span className="buy"> ✓</span>}
+                  {v === "wrong" && <span className="sell"> ✗</span>}
+                </span>
+              );
+            })}
+          </span>
+        </div>
+      )}
+
       {/* ── HERO: câu chốt 3 giây (gộp verdict + gợi ý hành động) ── */}
       <ActionGuidance
-        guidance={guidance}
-        meta={heroMeta}
+        guidance={asOf ? asOf.guidance : guidance}
+        meta={
+          asOf ? (
+            <>
+              <b>{asOf.verdictLabel}</b>
+              {asOf.highConf && <b> · đã kiểm chứng (3 tháng)</b>} · radar{" "}
+              <b>{asOf.composite > 0 ? `+${fmtNum(asOf.composite)}` : fmtNum(asOf.composite)}</b>
+              {" · "}
+              <span className="muted">
+                đang xem {fmtAsOfDate(asOf.point.date)} — dữ liệu thế giới (chênh VN không áp dụng quá khứ)
+              </span>
+            </>
+          ) : (
+            heroMeta
+          )
+        }
         note={
+          asOf ? (
+            <>
+              {asOf.isSell && (
+                <div className="verdict-note">
+                  ⓘ Ngày này radar âm sâu — tham khảo NGƯỜI BÁN như live: kết cục 6 tháng phụ thuộc
+                  regime (sai gần 100% năm bull); trong kỳ hạn ~1 tháng bán muộn/lúc bứt ≥2σ tốt hơn
+                  bán ngay (docs/sell-zone.md).
+                </div>
+              )}
+              {asOf.crashDay && (
+                <div className="verdict-note">
+                  ⚠ Ngày này giá đang sụp cấp tính — xác suất săn đáy hiển thị bản thận trọng
+                  (không trọng số).
+                </div>
+              )}
+            </>
+          ) : (
           <>
             {isSellZone && (
               <div className="verdict-note">
@@ -412,65 +606,16 @@ export default function Dashboard({
               </div>
             )}
           </>
+          )
         }
       />
 
-      {/* ── GIÁ: 4 ô chính, mở sẵn ── */}
-      <section className="prices">
-        <div className="price-item">
-          <span>SJC mua / bán</span>
-          <b>
-            {fmtMoney(analysis.prices.sjcBuy)} / {fmtMoney(analysis.prices.sjcSell)}
-          </b>
-        </div>
-        <div className="price-item">
-          <span>Nhẫn mua / bán</span>
-          <b>
-            {fmtMoney(analysis.prices.ringBuy)} / {fmtMoney(analysis.prices.ringSell)}
-          </b>
-        </div>
-        <div className="price-item">
-          <span>Thế giới quy đổi</span>
-          <b>{fmtMoney(analysis.prices.worldVndPerLuong)}/lượng</b>
-        </div>
-        <div className="price-item">
-          <span>Chênh VN−TG</span>
-          <b>
-            {fmtNum(analysis.prices.premiumPct)}% ({fmtMoney(analysis.prices.premiumVnd)})
-          </b>
-        </div>
-      </section>
-
-      {/* ── FAB + bottom sheet: preset + trọng số gom 1 chỗ ── */}
-      <button
-        className="fab"
-        onClick={() => setSheetOpen(true)}
-        aria-label="Mở thiết lập preset và trọng số"
-        hidden={sheetOpen}
-      >
-        ⚙ {fabLabel(preset, customized)}
-      </button>
-      <SettingsSheet
-        open={sheetOpen}
-        onClose={() => setSheetOpen(false)}
-        criteria={analysis.criteria}
-        weights={weights}
-        preset={preset}
-        customized={customized}
-        health={health}
-        composite={composite}
-        zone={zone}
-        verdictLabel={verdictLabel}
-        applyPreset={applyPreset}
-        setWeight={setWeight}
-      />
-
-      {/* ── ACCORDION 1: Chi tiết điểm số (gauge + kiểm chứng + giá phụ + freshness) ── */}
-      <details className="acc">
+      {/* ── KHỐI 1: Mua bây giờ? (gauge + kiểm chứng đồng thuận/preset + chênh lệch VN−TG) ── */}
+      <details className="acc" id="khoi-mua">
         <summary className="acc-sum">
           <span className="acc-sum-text">
-            <span className="acc-sum-title">Chi tiết điểm số</span>
-            <span className="acc-sum-meta">thước đo · kiểm chứng · giá phụ</span>
+            <span className="acc-sum-title">Mua bây giờ?</span>
+            <span className="acc-sum-meta">đồng thuận k/3 · gauge · chênh lệch</span>
           </span>
           <span className="acc-chev">▸</span>
         </summary>
@@ -480,7 +625,7 @@ export default function Dashboard({
               <div className="gauge-zero" />
               <div
                 className="gauge-needle"
-                style={{ left: `${((composite + 100) / 200) * 100}%` }}
+                style={{ left: `${(((asOf ? asOf.composite : composite) + 100) / 200) * 100}%` }}
               />
             </div>
             <div className="gauge-scale">
@@ -489,7 +634,12 @@ export default function Dashboard({
               <span>mua +100</span>
             </div>
           </div>
-          {preset ? (
+          {asOf ? (
+            <div className="verdict-bt muted">
+              Đang xem ngày quá khứ — kiểm chứng preset là số liệu hôm nay, xem điểm ngày này ở
+              thước đo trên.
+            </div>
+          ) : preset ? (
             <div className="verdict-bt">
               Kiểm chứng preset ({preset.horizonDays === 21 ? "1 tháng" : preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}):
               tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
@@ -544,6 +694,191 @@ export default function Dashboard({
               Vùng trung lập — không có khuyến nghị hành động. Chờ tín hiệu rõ hơn.
             </div>
           )}
+          {asOf ? (
+            <p className="muted small">
+              Chênh lệch chỉ có bản live — dữ liệu VN quá khứ từ 2025-02, biểu đồ này không
+              tái hiện as-of.
+            </p>
+          ) : (
+            <PremiumChart analysis={analysis} />
+          )}
+        </div>
+      </details>
+
+      {/* ── KHỐI 2: Gom dài hạn? (Vùng tích lũy DCA trước, Săn đáy sau) ── */}
+      <details className="acc" id="khoi-gom">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Gom dài hạn?</span>
+            <span className="acc-sum-meta">mức mua tháng này · % gần đáy</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        {asOf ? (
+          <div className="acc-body">
+            <div className="muted small">
+              <b className={asOf.dca.mult >= 1 ? "buy" : "sell"}>Mức mua (as-of):</b> pha{" "}
+              {DCA_PHASE_LABEL[asOf.dca.phase]} → mỗi đợt ×{asOf.dca.mult}
+              {asOf.point.pricePct2y != null &&
+                ` · giá percentile ${Math.round(asOf.point.pricePct2y * 100)}% (2 năm)`}
+              . Cùng engine với card live (bearDcaAt ≡ runBearDca).
+            </div>
+          </div>
+        ) : (
+          <div className="acc-body flat">
+            <BearDcaCard bearDca={bearDca} health={bearDcaHealth} />
+          </div>
+        )}
+        {asOf ? (
+          <div className="acc-body">
+            <div className="tm-bottom">
+              {(
+                [
+                  ["Đáy chu kỳ", "≈6 tháng", asOf.cycleProb, asOf.cycleCi, asOf.cycleN],
+                  ["Đáy sóng", "≈1 tháng", asOf.swingProb, asOf.swingCi, asOf.swingN],
+                ] as [string, string, number | null, [number, number] | null, number][]
+              ).map(([t, sub, prob, ci, n]) => (
+                <div key={t} className="tm-bottom-item">
+                  <span className="muted small">
+                    {t} <span className="muted small">{sub}</span>
+                  </span>
+                  {prob !== null && n >= 10 ? (
+                    <span className={`bottom-gauge-pct ${bottomPctClass(prob)}`}>
+                      {Math.round(prob)}%
+                      {ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
+                    </span>
+                  ) : (
+                    <span className="muted small">Chưa đủ dữ liệu kiểm chứng</span>
+                  )}
+                </div>
+              ))}
+            </div>
+            {asOf.crashDay && (
+              <div className="muted small">
+                ⚠ Đang sụp cấp tính — ước lượng thận trọng (không trọng số).
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="acc-body flat">
+            <BottomGauges bottom={bottom} crashMode={bottomCrashMode} />
+          </div>
+        )}
+      </details>
+
+      {/* ── KHỐI 3: Triển vọng 1/3/6 tháng tới (rủi ro & kết cục) ── */}
+      <details className="acc" id="khoi-trienvong">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Triển vọng 1/3/6 tháng tới</span>
+            <span className="acc-sum-meta">rủi ro &amp; kết cục lịch sử</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body flat">
+          <BearDownsideCard bd={bearDownside} timeline={timeline} asOfIdx={selIdx} />
+        </div>
+      </details>
+
+      {/* ── KHỐI 4: Chi tiết & kiểm chứng (4 tiêu chí + backtest + giá phụ + nguồn dữ liệu) ── */}
+      <details className="acc" id="khoi-chitiet">
+        <summary className="acc-sum">
+          <span className="acc-sum-text">
+            <span className="acc-sum-title">Chi tiết &amp; kiểm chứng</span>
+            <span className="acc-sum-meta">4 tiêu chí · backtest · nguồn dữ liệu</span>
+          </span>
+          <span className="acc-chev">▸</span>
+        </summary>
+        <div className="acc-body">
+          {asOf ? (
+            <>
+              <div className="tm-scores">
+                {/* port TimeMachine.tsx tm-scores — chỉ 4 nhóm tiêu chí, sub-signal vĩ mô
+                    (dxy/fed/yield10y, v4) không có nhãn nhóm riêng */}
+                {(Object.keys(asOf.point.scores) as CriterionKey[])
+                  .filter((k) => CRITERION_LABELS[k] !== undefined)
+                  .map((k) => (
+                    <span key={k} className="tm-score">
+                      {CRITERION_LABELS[k].split(" (")[0]}:{" "}
+                      <b className={asOf.point.scores[k]! > 0 ? "buy" : asOf.point.scores[k]! < 0 ? "sell" : "neutral"}>
+                        {asOf.point.scores[k]! > 0 ? "+" : ""}
+                        {fmtNum(asOf.point.scores[k]!, 2)}
+                      </b>
+                    </span>
+                  ))}
+              </div>
+              <p className="muted small">
+                as-of chỉ có điểm số, không có chuỗi giải thích (giải thích chi tiết chỉ có ở
+                dữ liệu hôm nay — xem lại phần này khi bấm ← Hôm nay).
+              </p>
+            </>
+          ) : (
+            analysis.criteria.map((c: CriterionResult) => (
+              <section key={c.key} className="card">
+                <div className="card-head">
+                  <h2>{c.label}</h2>
+                  <div className="card-score">
+                    {scoreChip(Math.round(c.score * 10) / 10)}
+                    <span className="muted"> trọng số {Math.round(weights[c.key] * 100)}%</span>
+                  </div>
+                </div>
+                {c.provisional && (
+                  <div className="banner info small">
+                    Đang dùng ngưỡng tham chiếu — dữ liệu chênh lệch tự thu thập mới{" "}
+                    {analysis.vnHistoryDays} ngày, cần ≥ 90 ngày để so theo lịch sử thật.
+                  </div>
+                )}
+                <ul className="signals">
+                  {c.signals.map((s) => (
+                    <li key={s.id} className={s.available ? "" : "muted"}>
+                      {scoreChip(s.score)}
+                      <div>
+                        <div className="sig-label">{s.label}</div>
+                        <div className="sig-expl">{s.explanation}</div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          )}
+          <p className="muted small">
+            {backtest.note} Giai đoạn {backtest.fromDate} → {backtest.toDate},{" "}
+            {backtest.observations.toLocaleString("vi-VN")} quan sát.
+          </p>
+          <div className="bt-table-wrap">
+            <table className="bt-table">
+              <thead>
+                <tr>
+                  <th>Tín hiệu</th>
+                  <th>Kỳ hạn</th>
+                  <th>Số lần</th>
+                  <th>% thuận chiều</th>
+                  <th>Trung vị</th>
+                </tr>
+              </thead>
+              <tbody>
+                {backtest.buckets
+                  .filter((b) => b.count > 0)
+                  .map((b) => (
+                    <tr
+                      key={`${b.zone}-${b.horizonDays}`}
+                      className={b.zone === (asOf ? asOf.zone : zone) ? "hl" : ""}
+                    >
+                      <td className={zoneClass(b.zone)}>{ZONE_LABELS[b.zone]}</td>
+                      <td>{b.horizonDays === 21 ? "1 tháng" : b.horizonDays === 63 ? "3 tháng" : "6 tháng"}</td>
+                      <td>{b.count}</td>
+                      <td>{b.pctFavorable === null ? "—" : `${fmtNum(b.pctFavorable)}%`}</td>
+                      <td>
+                        {b.medianReturnPct === null
+                          ? "—"
+                          : `${b.medianReturnPct >= 0 ? "+" : ""}${fmtNum(b.medianReturnPct)}%`}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
           <div className="acc-prices">
             <div className="price-item">
               <span>XAU/USD</span>
@@ -582,154 +917,7 @@ export default function Dashboard({
         </div>
       </details>
 
-      {/* ── ACCORDION 2: 4 nhóm tiêu chí ── */}
-      <details className="acc">
-        <summary className="acc-sum">
-          <span className="acc-sum-text">
-            <span className="acc-sum-title">4 nhóm tiêu chí</span>
-            <span className="acc-sum-meta">kỹ thuật · chênh VN · vĩ mô · thống kê</span>
-          </span>
-          <span className="acc-chev">▸</span>
-        </summary>
-        <div className="acc-body">
-          {analysis.criteria.map((c: CriterionResult) => (
-            <section key={c.key} className="card">
-              <div className="card-head">
-                <h2>{c.label}</h2>
-                <div className="card-score">
-                  {scoreChip(Math.round(c.score * 10) / 10)}
-                  <span className="muted"> trọng số {Math.round(weights[c.key] * 100)}%</span>
-                </div>
-              </div>
-              {c.provisional && (
-                <div className="banner info small">
-                  Đang dùng ngưỡng tham chiếu — dữ liệu chênh lệch tự thu thập mới{" "}
-                  {analysis.vnHistoryDays} ngày, cần ≥ 90 ngày để so theo lịch sử thật.
-                </div>
-              )}
-              <ul className="signals">
-                {c.signals.map((s) => (
-                  <li key={s.id} className={s.available ? "" : "muted"}>
-                    {scoreChip(s.score)}
-                    <div>
-                      <div className="sig-label">{s.label}</div>
-                      <div className="sig-expl">{s.explanation}</div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-      </details>
-
-      {/* ── ACCORDION 3: Kiểm chứng lịch sử (backtest) ── */}
-      <details className="acc">
-        <summary className="acc-sum">
-          <span className="acc-sum-text">
-            <span className="acc-sum-title">Kiểm chứng lịch sử</span>
-            <span className="acc-sum-meta">backtest đa kỳ hạn</span>
-          </span>
-          <span className="acc-chev">▸</span>
-        </summary>
-        <div className="acc-body">
-          <p className="muted small">
-            {backtest.note} Giai đoạn {backtest.fromDate} → {backtest.toDate},{" "}
-            {backtest.observations.toLocaleString("vi-VN")} quan sát.
-          </p>
-          <div className="bt-table-wrap">
-            <table className="bt-table">
-              <thead>
-                <tr>
-                  <th>Tín hiệu</th>
-                  <th>Kỳ hạn</th>
-                  <th>Số lần</th>
-                  <th>% thuận chiều</th>
-                  <th>Trung vị</th>
-                </tr>
-              </thead>
-              <tbody>
-                {backtest.buckets
-                  .filter((b) => b.count > 0)
-                  .map((b) => (
-                    <tr
-                      key={`${b.zone}-${b.horizonDays}`}
-                      className={b.zone === zone ? "hl" : ""}
-                    >
-                      <td className={zoneClass(b.zone)}>{ZONE_LABELS[b.zone]}</td>
-                      <td>{b.horizonDays === 21 ? "1 tháng" : b.horizonDays === 63 ? "3 tháng" : "6 tháng"}</td>
-                      <td>{b.count}</td>
-                      <td>{b.pctFavorable === null ? "—" : `${fmtNum(b.pctFavorable)}%`}</td>
-                      <td>
-                        {b.medianReturnPct === null
-                          ? "—"
-                          : `${b.medianReturnPct >= 0 ? "+" : ""}${fmtNum(b.medianReturnPct)}%`}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
-
-      {/* ── ACCORDION 4: Chênh lệch VN−Thế giới ── */}
-      <details className="acc">
-        <summary className="acc-sum">
-          <span className="acc-sum-text">
-            <span className="acc-sum-title">Chênh lệch VN−Thế giới</span>
-            <span className="acc-sum-meta">biểu đồ + vạch p80</span>
-          </span>
-          <span className="acc-chev">▸</span>
-        </summary>
-        <div className="acc-body flat">
-          <PremiumChart analysis={analysis} />
-        </div>
-      </details>
-
-      {/* ── ACCORDION 5: Săn đáy ── */}
-      <details className="acc">
-        <summary className="acc-sum">
-          <span className="acc-sum-text">
-            <span className="acc-sum-title">Săn đáy</span>
-            <span className="acc-sum-meta">gần đáy chưa? · bắt nhịp rơi</span>
-          </span>
-          <span className="acc-chev">▸</span>
-        </summary>
-        <div className="acc-body flat">
-          <BottomGauges bottom={bottom} crashMode={bottomCrashMode} />
-        </div>
-      </details>
-
-      {/* ── ACCORDION: Vùng tích lũy (DCA) ── */}
-      <details className="acc">
-        <summary className="acc-sum">
-          <span className="acc-sum-text">
-            <span className="acc-sum-title">Vùng tích lũy (DCA)</span>
-            <span className="acc-sum-meta">tích sản dài hạn · 2–3 năm</span>
-          </span>
-          <span className="acc-chev">▸</span>
-        </summary>
-        <div className="acc-body flat">
-          <BearDcaCard bearDca={bearDca} health={bearDcaHealth} />
-        </div>
-      </details>
-
-      {/* ── ACCORDION: Triển vọng 1/3/6 tháng tới (rủi ro & kết cục) ── */}
-      <details className="acc">
-        <summary className="acc-sum">
-          <span className="acc-sum-text">
-            <span className="acc-sum-title">Triển vọng 1/3/6 tháng tới</span>
-            <span className="acc-sum-meta">rủi ro &amp; kết cục lịch sử</span>
-          </span>
-          <span className="acc-chev">▸</span>
-        </summary>
-        <div className="acc-body flat">
-          <BearDownsideCard bd={bearDownside} timeline={timeline} />
-        </div>
-      </details>
-
-      {/* ── ACCORDION 6: Máy thời gian ── */}
+      {/* ── ACCORDION: Máy thời gian ── */}
       <details className="acc">
         <summary className="acc-sum">
           <span className="acc-sum-text">

@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
 import { ddAsOfPct, actualWorstDipPct, monthAnchors, monthPosOf, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
 import { enoughSamples } from "@/lib/bear-downside";
@@ -91,11 +91,24 @@ function LegacyRow({ s, price }: { s: BearHorizonStat; price: number }) {
   );
 }
 
-export default function BearDownsideCard({ bd, timeline }: { bd: BearDownsideAnalysis; timeline: Timeline }) {
+export default function BearDownsideCard({
+  bd,
+  timeline,
+  asOfIdx,
+}: {
+  bd: BearDownsideAnalysis;
+  timeline: Timeline;
+  /** đồng bộ với ngày as-of chọn ở PriceChart (task 4) — null/undefined = giữ nguyên slider nội bộ (mới nhất) */
+  asOfIdx?: number | null;
+}) {
   const [showInfo, setShowInfo] = useState(false);
   const points = timeline.points;
   const hasAsOf = points.length > 0 && points[points.length - 1].bearAsOf !== undefined;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
+  useEffect(() => {
+    if (asOfIdx != null) setIdx(Math.min(asOfIdx, points.length - 1));
+    else setIdx(Math.max(0, points.length - 1));
+  }, [asOfIdx, points.length]);
 
   const prices = useMemo(() => points.map((q) => q.price), [points]);
   const anchors = useMemo(() => monthAnchors(points.map((q) => q.date)), [points]);

@@ -2,7 +2,7 @@
 import { useState, type ReactNode } from "react";
 import type { Guidance } from "@/lib/guidance";
 
-const LEVEL_TAG: Record<Guidance["level"], string> = {
+export const LEVEL_TAG: Record<Guidance["level"], string> = {
   strong: "GOM",
   buy: "GOM",
   dca: "GOM RẢI",

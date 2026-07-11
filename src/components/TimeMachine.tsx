@@ -3,41 +3,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CRITERION_LABELS,
-  PRESETS,
   ZONE_LABELS,
-  zoneOf,
   type CriterionKey,
   type Preset,
   type Timeline,
   type Zone,
 } from "@/lib/types";
-import { consensusLabel, consensusZone } from "@/lib/consensus";
-import { deriveGuidance } from "@/lib/guidance";
-import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
+import { consensusLabel } from "@/lib/consensus";
+import { HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { bottomPctClass } from "@/lib/bottom";
-import { bearDcaAt } from "@/lib/bear-dca";
-import type { BearPhase } from "@/lib/types";
 import ActionGuidance from "./ActionGuidance";
 import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
-import {
-  composites,
-  presetComposites,
-  idxsAtOrAbove,
-  idxsAtOrBelow,
-  indexOnOrAfter,
-  indexOnOrBefore,
-  bottomStartIdxs,
-} from "@/lib/timeline";
+import { idxsAtOrAbove, indexOnOrAfter, indexOnOrBefore } from "@/lib/timeline";
+import { createAsOfEngine, verdictFor, DCA_PHASE_LABEL } from "@/lib/as-of";
 
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
-
-const DCA_PHASE_LABEL: Record<BearPhase, string> = {
-  bull: "Tăng",
-  acute: "Sụp cấp tính",
-  grind: "Rỉ máu",
-  recovery: "Hồi phục",
-};
 
 const fmtDate = (iso: string) =>
   new Date(iso + "T00:00:00Z").toLocaleDateString("vi-VN", {
@@ -58,18 +39,6 @@ const HORIZON_LABELS: Record<"21" | "63" | "126", string> = {
   "63": "3 tháng",
   "126": "6 tháng",
 };
-
-/**
- * Đúng/sai của quyết định: mua đúng khi giá tăng, bán đúng khi giá giảm.
- * Tín hiệu bán chỉ chấm ở 1 tháng — kỳ hạn dài nó NGƯỢC là chính
- * (trung vị sau bán: 6 tháng +9,5%), chấm ✓/✗ chỉ gây hiểu lầm.
- */
-function verdictFor(zone: Zone, ret: number | null, h: "21" | "63" | "126"): "right" | "wrong" | "n/a" | null {
-  if (ret === null || zone === "neutral") return null;
-  const buyish = zone === "buy" || zone === "strong-buy";
-  if (!buyish && h !== "21") return "n/a";
-  return (buyish ? ret > 0 : ret < 0) ? "right" : "wrong";
-}
 
 // timeline lấy mẫu mỗi phiên giao dịch -> ~21 phiên/tháng
 const POINTS_PER_MONTH = 21;
@@ -142,46 +111,24 @@ export default function TimeMachine({
 
   const buyThr = preset?.buyThreshold ?? 40;
   const effThr = expThr ?? buyThr;
-  // composite từng ngày tính một lần; các lớp marker chỉ còn là phép lọc rẻ.
-  // v4: chế độ preset chấm bằng presetComposites (sub-signal vĩ mô trọng số riêng,
-  // fallback macro với timeline cũ) — weights snapshot (macro=0) sẽ rụng vĩ mô nếu
-  // đưa vào composites() thường.
-  const comps = useMemo(
-    () => (preset ? presetComposites(points, preset) : composites(points, weights)),
-    [points, weights, preset]
+  // Lõi as-of dùng chung cho chart + card + preset-explorer (tách src/lib/as-of.ts,
+  // 2026-07-10) — v4: chế độ preset chấm bằng presetComposites, chế độ đồng thuận
+  // chấm bằng k/3 preset (cùng trục với verdict live).
+  const eng = useMemo(
+    () => createAsOfEngine(points, { preset, weights, consensusMode, fusionDegraded }),
+    [points, preset, weights, consensusMode, fusionDegraded]
   );
-  // Chế độ đồng thuận: số preset báo mua từng ngày (cùng trục với verdict live).
-  // comps (radar mặc định) vẫn dùng cho gió ngược/vùng bán tham khảo + ngưỡng thử.
-  const buyKs = useMemo(() => {
-    if (!consensusMode) return null;
-    const perPreset = PRESETS.map((pr) => presetComposites(points, pr));
-    return points.map((_, i) =>
-      PRESETS.reduce((k, pr, j) => k + (perPreset[j][i] >= pr.buyThreshold ? 1 : 0), 0)
-    );
-  }, [consensusMode, points]);
-  const signalIdxs = useMemo(
-    () =>
-      buyKs
-        ? buyKs.reduce<number[]>((acc, k, i) => (k >= 1 ? (acc.push(i), acc) : acc), [])
-        : idxsAtOrAbove(comps, buyThr),
-    [buyKs, comps, buyThr]
-  );
-  const sellIdxs = useMemo(() => idxsAtOrBelow(comps, -40), [comps]);
+  const comps = eng.comps;
+  const buyKs = eng.buyKs;
+  const signalIdxs = eng.signalIdxs;
+  const sellIdxs = eng.sellIdxs;
+  const dayAt = useMemo(() => eng.day(idx), [eng, idx]);
   const expIdxs = useMemo(
     () => (showExp ? idxsAtOrAbove(comps, effThr) : []),
     [showExp, comps, effThr]
   );
-  const bottomStarts = useMemo(
-    () => (showBottomStart ? bottomStartIdxs(points) : []),
-    [showBottomStart, points]
-  );
+  const bottomStarts = showBottomStart ? eng.bottomStarts : [];
   const dates = useMemo(() => points.map((q) => q.date), [points]);
-  const allPrices = useMemo(() => points.map((q) => q.price), [points]);
-  // Mức mua Bear DCA as-of ngày đang xem — CÙNG engine với card "Mức mua tháng này"
-  const dcaAt = useMemo(
-    () => bearDcaAt(allPrices, idx, p?.pricePct2y ?? null),
-    [allPrices, idx, p]
-  );
   const prevSignal = [...signalIdxs].reverse().find((i) => i < idx);
   const nextSignal = signalIdxs.find((i) => i > idx);
 
@@ -285,76 +232,21 @@ export default function TimeMachine({
     if (pts.current.size < 2) pinch.current = null;
   };
 
-  const composite = p ? comps[idx] : 0;
-  const kDay = buyKs ? buyKs[idx] : 0;
-  const compZone = zoneOf(composite, buyThr);
-  // Đồng thuận: mua theo k/3 preset; radar composite chỉ giữ vai gió ngược/vùng bán
-  // tham khảo (cùng cách dựng zone với Dashboard live).
-  const rawZone: Zone = buyKs
-    ? kDay >= 1
-      ? consensusZone(kDay)
-      : compZone === "sell" || compZone === "strong-sell"
-        ? compZone
-        : "neutral"
-    : compZone;
-  const isBuy = rawZone === "buy" || rawZone === "strong-buy";
-  // Tầng "MUA độ tin cao" 3m của NGÀY ĐANG XEM: dùng cycleBin past-only (KHÔNG dùng
-  // prob — prob là base-rate look-ahead). Cùng điều kiện với verdict live; ẩn khi degraded.
-  // Đồng thuận: áp dụng khi CHÍNH preset 3m báo mua (điều kiện fusion kiểm chứng trên 3m).
-  const is3mBuyDay = consensusMode
-    ? presetComposites([p], PRESETS.find((q) => q.id === "3m")!)[0] >=
-      PRESETS.find((q) => q.id === "3m")!.buyThreshold
-    : false;
-  const highConfDay =
-    highConfidenceBuy3m(
-      consensusMode ? "3m" : preset?.id ?? null,
-      consensusMode ? is3mBuyDay : isBuy,
-      p.cycleBin ?? -1,
-      p.cycleBin !== undefined
-    ) && !fusionDegraded;
-  const isSell = rawZone === "sell" || rawZone === "strong-sell";
+  const composite = dayAt.composite;
+  const kDay = dayAt.kDay;
+  const rawZone = dayAt.rawZone;
+  const isBuy = dayAt.isBuy;
+  const highConfDay = dayAt.highConf;
+  const isSell = dayAt.isSell;
   // preset chỉ kiểm chứng phía mua — vùng bán chỉ hiện khi người dùng bật toggle tham khảo
-  const zone: Zone = isBuy ? rawZone : isSell && showSell ? rawZone : "neutral";
+  const zone: Zone = dayAt.isBuy ? dayAt.rawZone : dayAt.isSell && showSell ? dayAt.rawZone : "neutral";
   const presetH = preset ? (String(preset.horizonDays) as "21" | "63" | "126") : null;
-
+  const dcaAt = dayAt.dca;
   // Cổng acute-crash as-of-ngày — CÙNG chính sách với live (Dashboard): khi phase Bear
   // DCA của NGÀY ĐANG XEM là "acute", prob recency dễ lạc quan giả ⇒ dùng bản không
-  // trọng số. dcaAt đã walk-forward nên "quá khứ = hiện tại" giữ nguyên.
-  const bottomCrashDay = dcaAt.phase === "acute";
-  // Gợi ý hành động lịch sử: world-only (premium tắt) + xác suất đáy as-of-ngày
-  // (walk-forward) — cùng ngưỡng live (prob≥60 & verified) nhưng chỉ tầng cycle
-  // (live gộp max(cycle,swing)); past-only để "quá khứ = hiện tại".
-  const histGuidance = useMemo(() => {
-    const rec = p?.cycleProb ?? null;
-    const prob = bottomCrashDay ? (p?.cycleProbUw ?? rec) : rec;
-    const n = p?.cycleN ?? 0;
-    const verified = prob !== null && n >= 10;
-    const high = verified && prob >= 60;
-    const ciStr = !bottomCrashDay && p?.cycleCi ? ` (CI ${p.cycleCi[0]}–${p.cycleCi[1]}%)` : "";
-    const signedC = `${composite > 0 ? "+" : ""}${fmtNum(composite)}`;
-    // Đồng thuận: câu "Điểm mua" nói theo trục thật (k/3 preset) — cùng cách với live.
-    const scoreReason = buyKs
-      ? kDay >= 1
-        ? `Điểm mua: ${kDay}/3 preset kỳ hạn đang báo MUA — cò súng đã kiểm chứng 2 giai đoạn.`
-        : isSell
-          ? `Điểm mua: chưa preset nào báo mua; radar âm sâu (${signedC}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
-          : `Điểm mua: chưa preset nào trong vùng mua (radar ${signedC}).`
-      : undefined;
-    return deriveGuidance({
-      zone: rawZone,
-      composite,
-      bottom: {
-        high,
-        verified,
-        label: verified
-          ? `Săn đáy: xác suất gần đáy ${Math.round(prob)}%${ciStr}${bottomCrashDay ? " (đang sụp cấp tính — ước lượng thận trọng)" : ""}.`
-          : "Săn đáy: chưa đủ dữ liệu kiểm chứng.",
-      },
-      premiumPct: null, // world-only ở lịch sử
-      premiumP80: null, // ⇒ cổng premium tắt
-      scoreReason,
-    });
-  }, [rawZone, composite, p, bottomCrashDay, buyKs, kDay, isSell]);
+  // trọng số. dayAt đã walk-forward nên "quá khứ = hiện tại" giữ nguyên.
+  const bottomCrashDay = dayAt.crashDay;
+  const histGuidance = dayAt.guidance;
 
   const spark = useMemo(() => {
     const win = points.slice(start, end);
@@ -652,8 +544,8 @@ export default function TimeMachine({
       <div className="tm-bottom">
         {(
           [
-            ["Đáy chu kỳ", "≈6 tháng", bottomCrashDay ? (p.cycleProbUw ?? p.cycleProb ?? null) : (p.cycleProb ?? null), p.cycleCi ?? null, p.cycleN ?? 0],
-            ["Đáy sóng", "≈1 tháng", bottomCrashDay ? (p.swingProbUw ?? p.swingProb ?? null) : (p.swingProb ?? null), p.swingCi ?? null, p.swingN ?? 0],
+            ["Đáy chu kỳ", "≈6 tháng", dayAt.cycleProb, dayAt.cycleCi, dayAt.cycleN],
+            ["Đáy sóng", "≈1 tháng", dayAt.swingProb, dayAt.swingCi, dayAt.swingN],
           ] as [string, string, number | null, [number, number] | null, number][]
         ).map(([title, sub, prob, ci, n]) => {
           const ok = prob !== null && n >= 10;
@@ -663,7 +555,7 @@ export default function TimeMachine({
               {ok ? (
                 <span className={`bottom-gauge-pct ${bottomPctClass(prob)}`}>
                   {Math.round(prob)}%
-                  {!bottomCrashDay && ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
+                  {ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
                 </span>
               ) : (
                 <span className="muted small">Chưa đủ dữ liệu kiểm chứng</span>
