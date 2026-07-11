@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-11T15:26:46.908Z",
+ "generatedAt": "2026-07-11T17:19:44.523Z",
  "dataDate": "2026-07-10",
  "stale": false,
  "staleDays": 0,
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,5%, ở percentile 55 so với lịch sử tự thu thập (494 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,5%, ở percentile 55 so với lịch sử tự thu thập (495 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -185,7 +185,7 @@
  },
  "composite": 3,
  "zone": "neutral",
- "vnHistoryDays": 494,
+ "vnHistoryDays": 495,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất."
  ],
@@ -2165,19 +2165,23 @@
   {
    "date": "2026-07-11",
    "value": 14.45
+  },
+  {
+   "date": "2026-07-12",
+   "value": 14.45
   }
  ],
  "premiumPercentiles": {
   "p20": 11.02,
-  "p50": 13.97,
+  "p50": 13.98,
   "p80": 16.62
  },
  "sourceTimes": {
   "world": "2026-07-10T04:00:00.000Z",
   "dxy": "2026-07-10T04:00:00.000Z",
   "yield10y": "2026-07-10T12:20:00.000Z",
-  "vnGold": "2026-07-11T15:26:46.908Z",
-  "usdVnd": "2026-07-11T15:26:46.908Z",
+  "vnGold": "2026-07-11T17:19:44.523Z",
+  "usdVnd": "2026-07-11T17:19:44.523Z",
   "fed": null
  }
 }
