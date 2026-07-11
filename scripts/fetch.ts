@@ -314,20 +314,37 @@ async function fetchBtmc(): Promise<VnGoldQuote> {
   return q;
 }
 
+/** Nguồn 3: cafef.vn (chỉ SJC, không có nhẫn) — domain khác BTMC/SJC, dùng khi
+ *  cả hai bị chặn IP trên runner cron (xem lastVnGoldError, 2026-07). */
+async function fetchCafef(): Promise<VnGoldQuote> {
+  const txt = await get("https://cafef.vn/du-lieu/Ajax/ajaxgoldpricehistory.ashx?index=all");
+  const json = JSON.parse(txt);
+  const rows: { name?: string; buyPrice?: number; sellPrice?: number }[] =
+    json?.Data?.goldPriceWorldHistories ?? [];
+  const row = rows.find((r) => String(r.name ?? "").toUpperCase() === "SJC");
+  const buy = row?.buyPrice != null ? normalizeVnd(row.buyPrice * 1_000_000) : null;
+  const sell = row?.sellPrice != null ? normalizeVnd(row.sellPrice * 1_000_000) : null;
+  if (!sell) throw new Error("cafef: no usable row");
+  return { sjcBuy: buy, sjcSell: sell, ringBuy: null, ringSell: null, source: "cafef" };
+}
+
 /** Lỗi thật của lần fetchVnGold() gần nhất (null nếu thành công) — để run.ts
  *  đưa vào warnings/analysis.json, vì Actions log không có sẵn để tra tay. */
 export let lastVnGoldError: string | null = null;
 
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
-/** BTMC trước (ổn định, không chặn bot); SJC sau (đang bị Cloudflare challenge).
- *  Mỗi nguồn thử lại 1 lần (delay ngắn) trước khi coi là hỏng — phân biệt
- *  lỗi mạng thoáng qua với chặn IP/thay đổi schema thật sự. */
+/** BTMC trước (ổn định, không chặn bot xưa nay); SJC sau (Cloudflare challenge);
+ *  cafef.vn cuối cùng — domain tin tức, không phải API giá thẳng, ít khả năng
+ *  bị chặn IP datacenter giống BTMC/SJC (xác nhận cả hai bị chặn trên runner
+ *  cron 2026-07, xem lastVnGoldError). Mỗi nguồn thử lại 1 lần (delay ngắn)
+ *  trước khi coi là hỏng — phân biệt lỗi mạng thoáng qua với chặn IP thật. */
 export async function fetchVnGold(): Promise<VnGoldQuote | null> {
   const errors: string[] = [];
   for (const [name, fn] of [
     ["btmc", fetchBtmc],
     ["sjc", fetchSjc],
+    ["cafef", fetchCafef],
   ] as const) {
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
