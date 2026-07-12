@@ -5386,6 +5386,17 @@
   "premiumPct": 8.91
  },
  {
+  "date": "2026-06-15",
+  "sjcBuy": 148000000,
+  "sjcSell": 150500000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26230,
+  "xauUsd": 4328,
+  "premiumPct": 9.96,
+  "backfilled": true
+ },
+ {
   "date": "2026-06-16",
   "sjcBuy": 148000000,
   "sjcSell": 150500000,
@@ -5394,6 +5405,182 @@
   "usdVnd": 26423,
   "xauUsd": 4335.2998046875,
   "premiumPct": 8.97
+ },
+ {
+  "date": "2026-06-17",
+  "sjcBuy": 148800000,
+  "sjcSell": 151300000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26265,
+  "xauUsd": 4358.89990234375,
+  "premiumPct": 9.61,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-18",
+  "sjcBuy": 148800000,
+  "sjcSell": 151300000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26270,
+  "xauUsd": 4224.10009765625,
+  "premiumPct": 13.09,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-19",
+  "sjcBuy": 143700000,
+  "sjcSell": 146700000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26270,
+  "xauUsd": 4224.10009765625,
+  "premiumPct": 9.65,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-20",
+  "sjcBuy": 144200000,
+  "sjcSell": 147200000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26270,
+  "xauUsd": 4224.10009765625,
+  "premiumPct": 10.02,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-21",
+  "sjcBuy": 144200000,
+  "sjcSell": 147200000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26265,
+  "xauUsd": 4224.10009765625,
+  "premiumPct": 10.05,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-22",
+  "sjcBuy": 145500000,
+  "sjcSell": 148500000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26315,
+  "xauUsd": 4181.89990234375,
+  "premiumPct": 11.93,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-23",
+  "sjcBuy": 144000000,
+  "sjcSell": 147000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26265,
+  "xauUsd": 4129.89990234375,
+  "premiumPct": 12.4,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-24",
+  "sjcBuy": 142000000,
+  "sjcSell": 146000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26330,
+  "xauUsd": 3990.300048828125,
+  "premiumPct": 15.26,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-25",
+  "sjcBuy": 143200000,
+  "sjcSell": 146200000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26315,
+  "xauUsd": 4030.5,
+  "premiumPct": 14.33,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-26",
+  "sjcBuy": 144000000,
+  "sjcSell": 147000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26315,
+  "xauUsd": 4078.699951171875,
+  "premiumPct": 13.6,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-27",
+  "sjcBuy": 145000000,
+  "sjcSell": 148500000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26315,
+  "xauUsd": 4078.699951171875,
+  "premiumPct": 14.76,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-28",
+  "sjcBuy": 145000000,
+  "sjcSell": 148500000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26245,
+  "xauUsd": 4078.699951171875,
+  "premiumPct": 15.06,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-29",
+  "sjcBuy": 145000000,
+  "sjcSell": 148000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26230,
+  "xauUsd": 4022.300048828125,
+  "premiumPct": 16.35,
+  "backfilled": true
+ },
+ {
+  "date": "2026-06-30",
+  "sjcBuy": 144000000,
+  "sjcSell": 147000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26255,
+  "xauUsd": 4022.89990234375,
+  "premiumPct": 15.44,
+  "backfilled": true
+ },
+ {
+  "date": "2026-07-01",
+  "sjcBuy": 143400000,
+  "sjcSell": 146400000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26299,
+  "xauUsd": 4068.300048828125,
+  "premiumPct": 13.49,
+  "backfilled": true
+ },
+ {
+  "date": "2026-07-02",
+  "sjcBuy": 145400000,
+  "sjcSell": 148400000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26285,
+  "xauUsd": 4112.7001953125,
+  "premiumPct": 13.86,
+  "backfilled": true
  },
  {
   "date": "2026-07-03",
@@ -5406,6 +5593,17 @@
   "premiumPct": 12.05
  },
  {
+  "date": "2026-07-04",
+  "sjcBuy": 148400000,
+  "sjcSell": 151400000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26285,
+  "xauUsd": 4112.7001953125,
+  "premiumPct": 16.16,
+  "backfilled": true
+ },
+ {
   "date": "2026-07-05",
   "sjcBuy": 147500000,
   "sjcSell": 151400000,
@@ -5414,6 +5612,61 @@
   "usdVnd": 26463,
   "xauUsd": 4187.2998046875,
   "premiumPct": 13.33
+ },
+ {
+  "date": "2026-07-06",
+  "sjcBuy": 148000000,
+  "sjcSell": 151000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26299,
+  "xauUsd": 4155.10009765625,
+  "premiumPct": 14.61,
+  "backfilled": true
+ },
+ {
+  "date": "2026-07-07",
+  "sjcBuy": 147000000,
+  "sjcSell": 150000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26289,
+  "xauUsd": 4145.2998046875,
+  "premiumPct": 14.17,
+  "backfilled": true
+ },
+ {
+  "date": "2026-07-08",
+  "sjcBuy": 145500000,
+  "sjcSell": 148500000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26294,
+  "xauUsd": 4070.89990234375,
+  "premiumPct": 15.07,
+  "backfilled": true
+ },
+ {
+  "date": "2026-07-09",
+  "sjcBuy": 146000000,
+  "sjcSell": 149000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26290,
+  "xauUsd": 4130.60009765625,
+  "premiumPct": 13.8,
+  "backfilled": true
+ },
+ {
+  "date": "2026-07-10",
+  "sjcBuy": 146900000,
+  "sjcSell": 149900000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26260,
+  "xauUsd": 4113.7001953125,
+  "premiumPct": 15.09,
+  "backfilled": true
  },
  {
   "date": "2026-07-11",
