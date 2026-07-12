@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-12T21:09:34.590Z",
- "dataDate": "2026-07-10",
+ "generatedAt": "2026-07-12T22:11:26.680Z",
+ "dataDate": "2026-07-12",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 43,2: trung tính.",
+     "explanation": "RSI ngày = 43,4: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 42,6: trung tính.",
+     "explanation": "RSI tuần = 42,2: trung tính.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 27,6%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 27,3%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +24,2% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +24% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2273,11 +2273,11 @@
   "p80": 16.46
  },
  "sourceTimes": {
-  "world": "2026-07-10T04:00:00.000Z",
-  "dxy": "2026-07-10T04:00:00.000Z",
+  "world": "2026-07-12T22:00:23.000Z",
+  "dxy": "2026-07-12T04:00:00.000Z",
   "yield10y": "2026-07-10T12:20:00.000Z",
-  "vnGold": "2026-07-12T21:09:34.590Z",
-  "usdVnd": "2026-07-12T21:09:34.590Z",
+  "vnGold": "2026-07-12T22:11:26.680Z",
+  "usdVnd": "2026-07-12T22:11:26.680Z",
   "fed": null
  }
 }
