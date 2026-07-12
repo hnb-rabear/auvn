@@ -118,6 +118,8 @@ export default function BearDownsideCard({
   const pxPerSession = VIEWPORT_PX / WINDOW_SESSIONS[winKey];
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const dragRef = useRef<{ startX: number; startScrollLeft: number } | null>(null);
+  const draggedRef = useRef(false);
   const scrollToIdx = (target: number) => {
     const el = wrapRef.current;
     if (!el) return;
@@ -242,13 +244,37 @@ export default function BearDownsideCard({
             ))}
           </div>
           <div className="bdo-sparkbox">
-            <div className="bdo-sparkwrap" ref={wrapRef}>
+            <div
+              className="bdo-sparkwrap"
+              ref={wrapRef}
+              onPointerDown={(e) => {
+                if (e.pointerType !== "mouse" || !wrapRef.current) return;
+                e.currentTarget.setPointerCapture(e.pointerId);
+                dragRef.current = { startX: e.clientX, startScrollLeft: wrapRef.current.scrollLeft };
+                draggedRef.current = false;
+              }}
+              onPointerMove={(e) => {
+                if (e.pointerType !== "mouse" || !dragRef.current || !wrapRef.current) return;
+                const dx = e.clientX - dragRef.current.startX;
+                if (Math.abs(dx) > 5) draggedRef.current = true;
+                wrapRef.current.scrollLeft = dragRef.current.startScrollLeft - dx;
+              }}
+              onPointerUp={(e) => {
+                if (e.pointerType !== "mouse") return;
+                e.currentTarget.releasePointerCapture(e.pointerId);
+                dragRef.current = null;
+              }}
+              onPointerCancel={() => { dragRef.current = null; }}
+            >
               <svg
                 ref={svgRef}
                 className="bdo-spark"
                 width={totalW}
                 height={SH}
-                onClick={(e) => pickAt(e.clientX)}
+                onClick={(e) => {
+                  if (draggedRef.current) { draggedRef.current = false; return; }
+                  pickAt(e.clientX);
+                }}
                 aria-label="Biểu đồ giá — cuộn ngang xem lịch sử, chạm để chọn ngày"
               >
                 <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />

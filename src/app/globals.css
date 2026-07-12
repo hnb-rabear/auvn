@@ -614,8 +614,10 @@ td.neutral {
     padding: 4px 4px;
   }
 }
-/* khung thời gian — cuộn ngang GỐC TRÌNH DUYỆT (KHÔNG code kéo tay); pan-x để trình duyệt nhận
-   kéo ngang trên chính khung này, kéo dọc vẫn nổi lên cuộn trang bình thường. */
+/* khung thời gian — chạm: cuộn ngang gốc trình duyệt (pan-x, không code kéo tay riêng);
+   chuột: kéo-thả để cuộn (xem .bdo-sparkwrap pointer handlers trong component) vì
+   overflow-x:auto gốc không tự hỗ trợ kéo bằng chuột như chạm/trackpad. Kéo dọc vẫn
+   nổi lên cuộn trang bình thường. */
 .bdo-winbtns {
   display: flex;
   gap: 6px;
@@ -630,6 +632,10 @@ td.neutral {
   touch-action: pan-x;
   border-radius: 8px;
   background: var(--card2);
+  cursor: grab;
+}
+.bdo-sparkwrap:active {
+  cursor: grabbing;
 }
 /* nhãn ngày đầu/cuối khung đang cuộn tới — giống .tm-edge, class riêng vì .bdo-sparkbox
    là chính khung cuộn ngang mật độ cố định (không nén viewBox như Máy Thời Gian) */
@@ -650,7 +656,7 @@ td.neutral {
 .bdo-spark {
   display: block;
   user-select: none;
-  cursor: pointer;
+  cursor: inherit;
 }
 .bdo-dateband {
   display: flex;
