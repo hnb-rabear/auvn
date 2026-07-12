@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-12T02:47:07.417Z",
+ "generatedAt": "2026-07-12T04:03:07.729Z",
  "dataDate": "2026-07-10",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 149900000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4104.10009765625,
+  "xauUsd": 4113.7001953125,
   "usdVnd": 26470,
-  "worldVndPerLuong": 130976752,
-  "premiumPct": 14.45,
-  "premiumVnd": 18923248
+  "worldVndPerLuong": 131283126,
+  "premiumPct": 14.18,
+  "premiumVnd": 18616874
  },
  "criteria": [
   {
@@ -23,28 +23,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 42,6: trung tính.",
+     "explanation": "RSI ngày = 43,2: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 42,4: trung tính.",
+     "explanation": "RSI tuần = 42,6: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 8,1%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7,9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 40% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 41% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,5%, ở percentile 55 so với lịch sử tự thu thập (495 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,2%, ở percentile 53 so với lịch sử tự thu thập (495 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -132,21 +132,21 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 37% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 39% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": -1,
-     "explanation": "Giá hiện tại cao hơn 79% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
+     "explanation": "Giá hiện tại cao hơn 80% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
      "available": true
     },
     {
      "id": "season",
      "label": "Mùa vụ theo tháng",
      "score": 1,
-     "explanation": "Tháng 7: lợi suất 3 tháng tiếp theo trung bình +3,2% trong lịch sử: lịch sử 3 tháng sau thời điểm này giá thường tăng — thuận mua sớm.",
+     "explanation": "Tháng 7: lợi suất 3 tháng tiếp theo trung bình +3,3% trong lịch sử: lịch sử 3 tháng sau thời điểm này giá thường tăng — thuận mua sớm.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +23,9% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +24,2% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2168,7 +2168,7 @@
   },
   {
    "date": "2026-07-12",
-   "value": 14.45
+   "value": 14.18
   }
  ],
  "premiumPercentiles": {
@@ -2180,8 +2180,8 @@
   "world": "2026-07-10T04:00:00.000Z",
   "dxy": "2026-07-10T04:00:00.000Z",
   "yield10y": "2026-07-10T12:20:00.000Z",
-  "vnGold": "2026-07-12T02:47:07.417Z",
-  "usdVnd": "2026-07-12T02:47:07.417Z",
+  "vnGold": "2026-07-12T04:03:07.729Z",
+  "usdVnd": "2026-07-12T04:03:07.729Z",
   "fed": null
  }
 }
