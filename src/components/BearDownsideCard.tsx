@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
-import { ddAsOfPct, actualWorstDipPct, monthAnchors, monthPosOf, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
+import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
 import { enoughSamples } from "@/lib/bear-downside";
 
 const HLABEL: Record<string, string> = { "21": "1 tháng", "63": "3 tháng", "126": "6 tháng" };
@@ -128,7 +128,31 @@ export default function BearDownsideCard({
   }, [asOfIdx, points.length]);
 
   const prices = useMemo(() => points.map((q) => q.price), [points]);
-  const anchors = useMemo(() => monthAnchors(points.map((q) => q.date)), [points]);
+  // sparkline chọn ngày — chọn THÔ có chủ đích (~4.3k phiên trên ~350px ≈ 12 ngày/px);
+  // ◀▶ nhích từng phiên, date picker nhảy chính xác. KHÔNG zoom/pan (xem spec).
+  const SW = 640, SH = 64;
+  const spark = useMemo(() => {
+    if (prices.length < 2) return null;
+    let min = Infinity, max = -Infinity;
+    for (const v of prices) { if (v < min) min = v; if (v > max) max = v; }
+    const span = max - min || 1;
+    const xAt = (i: number) => (i / (prices.length - 1)) * SW;
+    const yAt = (v: number) => SH - 4 - ((v - min) / span) * (SH - 8);
+    const step = Math.max(1, Math.floor(prices.length / SW)); // ~1 điểm/px là đủ mượt
+    let d = "";
+    for (let i = 0; i < prices.length; i += step) d += `${d ? "L" : "M"}${xAt(i).toFixed(1)} ${yAt(prices[i]).toFixed(1)}`;
+    d += `L${SW} ${yAt(prices[prices.length - 1]).toFixed(1)}`;
+    return { d, xAt };
+  }, [prices]);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const dragging = useRef(false);
+  const pickAt = (clientX: number) => {
+    const el = svgRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const frac = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    setIdx(Math.round(frac * (points.length - 1)));
+  };
   const X = Math.min(idx, points.length - 1);
   const p = points[X];
 
@@ -178,44 +202,42 @@ export default function BearDownsideCard({
     <section className="card">
       <div className="card-head">
         <h2>Triển vọng 1/3/6 tháng tới</h2>
-        <span className="muted">
-          {fmtDate(p.date)}{isLatest ? " (mới nhất)" : ""} · {usd(p.price)} · −{fmt1(ddPct)}% dưới đỉnh
-        </span>
         <button className="iconbtn small-btn" aria-label="Giải thích ô này" aria-expanded={showInfo} onClick={() => setShowInfo((v) => !v)}>
           {showInfo ? "✕" : "ⓘ"}
         </button>
       </div>
 
-      {/* thanh thời gian THEO THÁNG (thưa ~200 nấc) — dễ kéo tới vùng; ◀▶ nhích từng ngày để đắt đúng phiên */}
-      <input
-        className="tm-range"
-        type="range"
-        min={0}
-        max={Math.max(0, anchors.length - 1)}
-        value={monthPosOf(anchors, X)}
-        onChange={(e) => setIdx(anchors[Number(e.target.value)] ?? 0)}
-        aria-label="Trượt theo tháng về quá khứ"
-        style={{ width: "100%", display: "block", margin: "0.4rem 0" }}
-      />
-      <div className="tm-daterange muted small">
-        <button
-          className="iconbtn small-btn"
-          disabled={X <= 0}
-          onClick={() => setIdx(Math.max(0, X - 1))}
-          aria-label="Lùi 1 ngày"
-        >◀</button>
-        <button
-          className="iconbtn small-btn"
-          disabled={X >= points.length - 1}
-          onClick={() => setIdx(Math.min(points.length - 1, X + 1))}
-          aria-label="Tới 1 ngày"
-        >▶</button>
-        <span>kéo = tháng · ◀▶ = ngày · hoặc chọn:</span>
+      {/* sparkline chọn ngày: chạm/kéo = thô · ◀▶ = từng phiên · 📅 = chính xác */}
+      {spark && (
+        <div className="bdo-sparkwrap">
+          <svg
+            ref={svgRef}
+            className="bdo-spark"
+            viewBox={`0 0 ${SW} ${SH}`}
+            preserveAspectRatio="none"
+            onPointerDown={(e) => { dragging.current = true; e.currentTarget.setPointerCapture(e.pointerId); pickAt(e.clientX); }}
+            onPointerMove={(e) => { if (dragging.current) pickAt(e.clientX); }}
+            onPointerUp={() => { dragging.current = false; }}
+            onPointerCancel={() => { dragging.current = false; }}
+            aria-label="Biểu đồ giá — chạm/kéo để chọn ngày xem lại"
+          >
+            <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
+            <line x1={spark.xAt(X)} y1="0" x2={spark.xAt(X)} y2={SH} stroke="#ece5d8" strokeWidth="1" opacity="0.6" />
+          </svg>
+          <button className="bdo-fab left" disabled={X <= 0} onClick={() => setIdx(Math.max(0, X - 1))} aria-label="Lùi 1 phiên">◀</button>
+          <button className="bdo-fab right" disabled={X >= points.length - 1} onClick={() => setIdx(Math.min(points.length - 1, X + 1))} aria-label="Tới 1 phiên">▶</button>
+        </div>
+      )}
+      <div className="bdo-dateband muted small">
+        <span>
+          {fmtDate(p.date)}{isLatest ? " (mới nhất)" : ""} · {usd(p.price)} · −{fmt1(ddPct)}% dưới đỉnh
+        </span>
         <input
           type="date"
           value={p.date}
           min={points[0].date}
           max={points[points.length - 1].date}
+          aria-label="Chọn ngày chính xác"
           onChange={(e) => {
             const v = e.target.value;
             if (!v) return;
