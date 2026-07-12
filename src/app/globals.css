@@ -493,23 +493,8 @@ td.neutral {
   cursor: crosshair;
 }
 
-.tm-chartwrap {
-  position: relative;
-  margin-bottom: 6px; /* khoảng cách tới dải ngày — đặt ở wrapper, KHÔNG ở .tm-chart,
-                         để wrapper cao đúng bằng SVG ⇒ overlay khớp tuyệt đối */
-}
-.tm-chart {
-  width: 100%;
-  height: 200px;
-  display: block;
-  background: var(--card2);
-  border-radius: 8px;
-  touch-action: none; /* pan/pinch không cuộn trang */
-  user-select: none;
-  cursor: crosshair;
-}
 /* marker overlay — luôn tròn (SVG circle bị preserveAspectRatio:none kéo méo).
-   inset:0 phủ đúng 200px của .tm-chart (wrapper cao bằng SVG) ⇒ chấm khớp đường giá. */
+   inset:0 phủ đúng chiều cao SVG (.pzc-wrap cao bằng SVG) ⇒ chấm khớp đường giá. */
 .tm-markers {
   position: absolute;
   inset: 0;
@@ -638,41 +623,6 @@ td.neutral {
   display: flex;
   gap: 6px;
   margin: 0.2rem 0;
-}
-.bdo-sparkbox {
-  position: relative;
-}
-.bdo-sparkwrap {
-  margin: 0.2rem 0 0.3rem;
-  overflow-x: auto;
-  touch-action: pan-x;
-  border-radius: 8px;
-  background: var(--card2);
-  cursor: grab;
-}
-.bdo-sparkwrap:active {
-  cursor: grabbing;
-}
-/* nhãn ngày đầu/cuối khung đang cuộn tới — giống .tm-edge, class riêng vì .bdo-sparkbox
-   là chính khung cuộn ngang mật độ cố định (không nén viewBox như Máy Thời Gian) */
-.bdo-edge {
-  position: absolute;
-  top: 6px;
-  font-size: 0.7rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  background: rgba(21, 19, 15, 0.7);
-  padding: 1px 6px;
-  border-radius: 5px;
-  pointer-events: none;
-  white-space: nowrap;
-}
-.bdo-edge.from { left: 6px; }
-.bdo-edge.to { right: 6px; }
-.bdo-spark {
-  display: block;
-  user-select: none;
-  cursor: inherit;
 }
 .bdo-dateband {
   display: flex;
@@ -1238,8 +1188,6 @@ main.wrap.asof-mode {
 }
 .pc-line { display: inline-block; width: 14px; height: 0; border-top: 2px solid #e6b84c; }
 .pc-line.sjc { border-top-color: #7fb1e0; }
-.pc-chartwrap { position: relative; }
-.pc-chart { width: 100%; height: 160px; display: block; touch-action: none; cursor: crosshair; }
 .pc-axis { position: absolute; pointer-events: none; }
 .pc-axis.right { right: 4px; }
 .pc-axis.left { left: 4px; }
