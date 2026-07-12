@@ -26,6 +26,13 @@ export function windowFor(total: number, months: number | null): { start: number
   return { start: Math.max(0, total - span), span };
 }
 
+/** Index tại vị trí ngang tương đối frac∈[0,1] của cửa sổ [start, start+span) — kẹp frac.
+ *  Dùng chung cho tap/pinch/wheel của PanZoomChart (px → frac → index). */
+export function idxAtFrac(start: number, span: number, frac: number): number {
+  const f = Math.max(0, Math.min(1, frac));
+  return start + Math.round(f * (span - 1));
+}
+
 /** date → giá SJC quy đổi USD/oz-tương-đương (= mức giá thế giới sẽ cần để bằng giá SJC thật,
  *  theo tỷ giá đúng ngày đó) — nghịch đảo công thức worldVndPerLuong ở scripts/run.ts, để vẽ
  *  cùng 1 trục $ với XAU/USD. Chỉ có ở ngày có cả sjcSell và usdVnd. */

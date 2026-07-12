@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { windowFor, sjcUsdMap, buildGeom, MIN_SPAN, POINTS_PER_MONTH } from "./price-chart";
+import { windowFor, sjcUsdMap, buildGeom, idxAtFrac, MIN_SPAN, POINTS_PER_MONTH } from "./price-chart";
 import type { TimelinePoint, VnGoldEntry } from "./types";
 
 const mkPt = (date: string, price: number) =>
@@ -20,6 +20,21 @@ describe("windowFor", () => {
   });
   it("3N (36 tháng) vượt total ⇒ kẹp về total", () => {
     expect(windowFor(200, 36)).toEqual({ start: 0, span: 200 }); // 36*21=756 > 200
+  });
+});
+
+describe("idxAtFrac", () => {
+  it("map frac 0/0.5/1 vào cửa sổ", () => {
+    expect(idxAtFrac(10, 21, 0)).toBe(10);
+    expect(idxAtFrac(10, 21, 0.5)).toBe(20);
+    expect(idxAtFrac(10, 21, 1)).toBe(30);
+  });
+  it("kẹp frac ngoài [0,1]", () => {
+    expect(idxAtFrac(5, 10, -0.5)).toBe(5);
+    expect(idxAtFrac(5, 10, 1.5)).toBe(14);
+  });
+  it("span 1 luôn trả start", () => {
+    expect(idxAtFrac(7, 1, 0.9)).toBe(7);
   });
 });
 
