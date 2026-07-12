@@ -585,6 +585,45 @@ td.neutral {
 .tm-edge.from { left: 6px; }
 .tm-edge.to { right: 6px; }
 
+/* BearDownsideCard v2 — khối kỳ hạn thay bảng (hết scroll ngang mobile) */
+.bdo-blocks {
+  display: grid;
+  gap: 8px;
+}
+@media (min-width: 720px) {
+  .bdo-blocks { grid-template-columns: repeat(3, 1fr); }
+}
+.bdo-block {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.bdo-block.empty {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.bdo-h {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.bdo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+  font-size: 0.92rem;
+}
+.bdo-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 1px;
+}
+
 /* dải ngày + zone dán ngay dưới chart */
 .tm-dateband {
   display: flex;
