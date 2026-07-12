@@ -264,17 +264,21 @@ export default function BearDownsideCard({
                 e.currentTarget.releasePointerCapture(e.pointerId);
                 dragRef.current = null;
               }}
-              onPointerCancel={() => { dragRef.current = null; }}
+              onPointerCancel={(e) => {
+                if (e.pointerType !== "mouse") return;
+                dragRef.current = null;
+                draggedRef.current = false;
+              }}
+              onClick={(e) => {
+                if (draggedRef.current) { draggedRef.current = false; return; }
+                pickAt(e.clientX);
+              }}
             >
               <svg
                 ref={svgRef}
                 className="bdo-spark"
                 width={totalW}
                 height={SH}
-                onClick={(e) => {
-                  if (draggedRef.current) { draggedRef.current = false; return; }
-                  pickAt(e.clientX);
-                }}
                 aria-label="Biểu đồ giá — cuộn ngang xem lịch sử, chạm để chọn ngày"
               >
                 <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
