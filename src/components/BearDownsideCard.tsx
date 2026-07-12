@@ -101,35 +101,46 @@ export default function BearDownsideCard({
   const hasAsOf = points.length > 0 && points[points.length - 1].bearAsOf !== undefined;
   const [idx, setIdx] = useState(Math.max(0, points.length - 1));
   useEffect(() => {
-    if (asOfIdx != null) setIdx(Math.min(asOfIdx, points.length - 1));
-    else setIdx(Math.max(0, points.length - 1));
-  }, [asOfIdx, points.length]);
+    const target = asOfIdx != null ? Math.min(asOfIdx, points.length - 1) : Math.max(0, points.length - 1);
+    setIdx(target);
+    scrollToIdx(target);
+  }, [asOfIdx, points.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const prices = useMemo(() => points.map((q) => q.price), [points]);
-  // sparkline chọn ngày — chọn THÔ có chủ đích (~4.3k phiên trên ~350px ≈ 12 ngày/px);
-  // ◀▶ nhích từng phiên, date picker nhảy chính xác. KHÔNG zoom/pan (xem spec).
-  const SW = 640, SH = 64;
+  // khung thời gian: cửa sổ mật độ px/phiên CỐ ĐỊNH (không nén toàn lịch sử) — cuộn ngang
+  // (overflow-x: auto, native) để xem vùng khác, tap để chọn ngày trong vùng đang thấy.
+  // KHÔNG zoom (xem spec v3).
+  const WINDOW_SESSIONS = { "6T": 126, "1N": 252, "3N": 756 } as const;
+  const VIEWPORT_PX = 360;
+  const SH = 64;
+  const [winKey, setWinKey] = useState<keyof typeof WINDOW_SESSIONS>("6T");
+  const pxPerSession = VIEWPORT_PX / WINDOW_SESSIONS[winKey];
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const scrollToIdx = (target: number) => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const max = Math.max(0, el.scrollWidth - el.clientWidth);
+    el.scrollTo({ left: Math.min(max, Math.max(0, target * pxPerSession - VIEWPORT_PX / 2)), behavior: "smooth" });
+  };
+  useEffect(() => { scrollToIdx(X); }, [winKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const totalW = prices.length > 1 ? prices.length * pxPerSession : 0;
   const spark = useMemo(() => {
     if (prices.length < 2) return null;
     let min = Infinity, max = -Infinity;
     for (const v of prices) { if (v < min) min = v; if (v > max) max = v; }
     const span = max - min || 1;
-    const xAt = (i: number) => (i / (prices.length - 1)) * SW;
     const yAt = (v: number) => SH - 4 - ((v - min) / span) * (SH - 8);
-    const step = Math.max(1, Math.floor(prices.length / SW)); // ~1 điểm/px là đủ mượt
     let d = "";
-    for (let i = 0; i < prices.length; i += step) d += `${d ? "L" : "M"}${xAt(i).toFixed(1)} ${yAt(prices[i]).toFixed(1)}`;
-    d += `L${SW} ${yAt(prices[prices.length - 1]).toFixed(1)}`;
-    return { d, xAt };
-  }, [prices]);
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const dragging = useRef(false);
+    for (let i = 0; i < prices.length; i++) d += `${d ? "L" : "M"}${(i * pxPerSession).toFixed(1)} ${yAt(prices[i]).toFixed(1)}`;
+    return { d };
+  }, [prices, pxPerSession]);
   const pickAt = (clientX: number) => {
     const el = svgRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const frac = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
-    setIdx(Math.round(frac * (points.length - 1)));
+    const i = Math.round((clientX - r.left) / pxPerSession);
+    setIdx(Math.min(points.length - 1, Math.max(0, i)));
   };
   const X = Math.min(idx, points.length - 1);
   const p = points[X];
@@ -192,26 +203,35 @@ export default function BearDownsideCard({
         </button>
       </div>
 
-      {/* sparkline chọn ngày: chạm/kéo = thô · ◀▶ = từng phiên · 📅 = chính xác */}
+      {/* khung thời gian: 3 nút cửa sổ · cuộn ngang gốc trình duyệt xem vùng khác · tap chọn ngày */}
       {spark && (
-        <div className="bdo-sparkwrap">
-          <svg
-            ref={svgRef}
-            className="bdo-spark"
-            viewBox={`0 0 ${SW} ${SH}`}
-            preserveAspectRatio="none"
-            onPointerDown={(e) => { dragging.current = true; e.currentTarget.setPointerCapture(e.pointerId); pickAt(e.clientX); }}
-            onPointerMove={(e) => { if (dragging.current) pickAt(e.clientX); }}
-            onPointerUp={() => { dragging.current = false; }}
-            onPointerCancel={() => { dragging.current = false; }}
-            aria-label="Biểu đồ giá — chạm/kéo để chọn ngày xem lại"
-          >
-            <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
-            <line x1={spark.xAt(X)} y1="0" x2={spark.xAt(X)} y2={SH} stroke="#ece5d8" strokeWidth="1" opacity="0.6" />
-          </svg>
-          <button className="bdo-fab left" disabled={X <= 0} onClick={() => setIdx(Math.max(0, X - 1))} aria-label="Lùi 1 phiên">◀</button>
-          <button className="bdo-fab right" disabled={X >= points.length - 1} onClick={() => setIdx(Math.min(points.length - 1, X + 1))} aria-label="Tới 1 phiên">▶</button>
-        </div>
+        <>
+          <div className="bdo-winbtns">
+            {(Object.keys(WINDOW_SESSIONS) as (keyof typeof WINDOW_SESSIONS)[]).map((k) => (
+              <button
+                key={k}
+                className={`iconbtn small-btn${winKey === k ? " active" : ""}`}
+                onClick={() => setWinKey(k)}
+                aria-pressed={winKey === k}
+              >
+                {k}
+              </button>
+            ))}
+          </div>
+          <div className="bdo-sparkwrap" ref={wrapRef}>
+            <svg
+              ref={svgRef}
+              className="bdo-spark"
+              width={totalW}
+              height={SH}
+              onClick={(e) => pickAt(e.clientX)}
+              aria-label="Biểu đồ giá — cuộn ngang xem lịch sử, chạm để chọn ngày"
+            >
+              <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
+              <line x1={X * pxPerSession} y1="0" x2={X * pxPerSession} y2={SH} stroke="#ece5d8" strokeWidth="1" opacity="0.6" />
+            </svg>
+          </div>
+        </>
       )}
       <div className="bdo-dateband muted small">
         <span>
@@ -229,6 +249,7 @@ export default function BearDownsideCard({
             let lo = 0, hi = points.length - 1;
             while (lo < hi) { const m = (lo + hi) >> 1; if (points[m].date < v) lo = m + 1; else hi = m; }
             setIdx(lo);
+            scrollToIdx(lo);
           }}
         />
       </div>
