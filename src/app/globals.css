@@ -477,6 +477,22 @@ td.neutral {
 }
 
 /* chart TimeMachine — class riêng, KHÔNG đụng .spark (dùng chung PremiumChart) */
+/* biểu đồ pan/zoom dùng chung (PanZoomChart — PriceChart · TimeMachine · BearDownsideCard).
+   margin ở wrapper, KHÔNG ở svg, để wrapper cao đúng bằng SVG ⇒ overlay marker khớp tuyệt đối. */
+.pzc-wrap {
+  position: relative;
+  margin-bottom: 6px;
+}
+.pzc-chart {
+  width: 100%;
+  display: block;
+  background: var(--card2);
+  border-radius: 8px;
+  touch-action: none; /* pan/pinch không cuộn trang */
+  user-select: none;
+  cursor: crosshair;
+}
+
 .tm-chartwrap {
   position: relative;
   margin-bottom: 6px; /* khoảng cách tới dải ngày — đặt ở wrapper, KHÔNG ở .tm-chart,
