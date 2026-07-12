@@ -112,7 +112,7 @@ export default function BearDownsideCard({
   // KHÔNG zoom (xem spec v3).
   const WINDOW_SESSIONS = { "6T": 126, "1N": 252, "3N": 756 } as const;
   const VIEWPORT_PX = 360;
-  const SH = 64;
+  const SH = 96;
   const [winKey, setWinKey] = useState<keyof typeof WINDOW_SESSIONS>("6T");
   const pxPerSession = VIEWPORT_PX / WINDOW_SESSIONS[winKey];
   const wrapRef = useRef<HTMLDivElement | null>(null);
