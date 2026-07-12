@@ -1,11 +1,18 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
 import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
-import { visibleRange, localMinMax } from "@/lib/bdo-window";
+import { centerWindow } from "@/lib/brush";
+import { buildGeom } from "@/lib/price-chart";
 import { enoughSamples } from "@/lib/bear-downside";
+import PanZoomChart from "./PanZoomChart";
 
 const HSHORT: Record<string, string> = { "21": "1T", "63": "3T", "126": "6T" };
+/** nút cửa sổ khung thời gian — số phiên giao dịch; "all" = toàn bộ lịch sử */
+const WINDOW_SESSIONS = { "6T": 126, "1N": 252, "3N": 756 } as const;
+type WinKey = keyof typeof WINDOW_SESSIONS | "all";
+/** card không vẽ SJC — map rỗng cố định cho buildGeom */
+const EMPTY_SJC = new Map<string, number>();
 const HS = ["21", "63", "126"] as const;
 const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
 const signed = (n: number) => `${n >= 0 ? "+" : ""}${fmt1(n)}%`;
@@ -99,76 +106,46 @@ export default function BearDownsideCard({
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const points = timeline.points;
-  const hasAsOf = points.length > 0 && points[points.length - 1].bearAsOf !== undefined;
-  const [idx, setIdx] = useState(Math.max(0, points.length - 1));
+  const total = points.length;
+  const hasAsOf = total > 0 && points[total - 1].bearAsOf !== undefined;
+  const [idx, setIdx] = useState(Math.max(0, total - 1));
+  const X = Math.min(idx, total - 1);
+  const p = points[X];
+
+  // khung thời gian: PanZoomChart dùng chung (kéo pan / chạm chọn ngày / pinch + wheel zoom)
+  // — thay cơ chế cuộn ngang mật độ px cố định của spec v3 (spec 2026-07-12 thống nhất chart).
+  // Trục Y co giãn theo cửa sổ đang xem = hành vi mặc định của buildGeom.
+  const [winKey, setWinKey] = useState<WinKey | null>("6T");
+  const [view, setView] = useState(() => {
+    const sp = Math.min(WINDOW_SESSIONS["6T"], Math.max(2, total));
+    return { start: Math.max(0, total - sp), span: sp };
+  });
+  const span = Math.min(total, Math.max(2, view.span));
+  const start = Math.max(0, Math.min(view.start, total - span));
+
+  /** đặt cửa sổ theo nút (căn giữa quanh ngày đang chọn) */
+  const applyWin = (k: WinKey) => {
+    const sp = Math.min(total, k === "all" ? total : WINDOW_SESSIONS[k]);
+    setWinKey(k);
+    setView({ start: centerWindow(X, sp, total), span: sp });
+  };
+  /** chọn ngày ngoài cửa sổ (date input / asOfIdx) ⇒ căn giữa lại, giữ span */
+  const revealIdx = (target: number) =>
+    setView((v) => {
+      const sp = Math.min(total, Math.max(2, v.span));
+      const st = Math.max(0, Math.min(v.start, total - sp));
+      return target < st || target >= st + sp ? { start: centerWindow(target, sp, total), span: sp } : v;
+    });
+
   useEffect(() => {
-    const target = asOfIdx != null ? Math.min(asOfIdx, points.length - 1) : Math.max(0, points.length - 1);
+    const target = asOfIdx != null ? Math.min(asOfIdx, total - 1) : Math.max(0, total - 1);
     setIdx(target);
-    scrollToIdx(target);
-  }, [asOfIdx, points.length]); // eslint-disable-line react-hooks/exhaustive-deps
+    revealIdx(target);
+  }, [asOfIdx, total]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const prices = useMemo(() => points.map((q) => q.price), [points]);
-  // khung thời gian: cửa sổ mật độ px/phiên CỐ ĐỊNH (không nén toàn lịch sử) — cuộn ngang
-  // (overflow-x: auto, native) để xem vùng khác, tap để chọn ngày trong vùng đang thấy.
-  // KHÔNG zoom (xem spec v3).
-  const WINDOW_SESSIONS = { "6T": 126, "1N": 252, "3N": 756 } as const;
-  const VIEWPORT_PX = 360;
-  const SH = 200;
-  const [winKey, setWinKey] = useState<keyof typeof WINDOW_SESSIONS>("6T");
-  const pxPerSession = VIEWPORT_PX / WINDOW_SESSIONS[winKey];
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const dragRef = useRef<{ startX: number; startScrollLeft: number } | null>(null);
-  const draggedRef = useRef(false);
-  const scrollToIdx = (target: number) => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const max = Math.max(0, el.scrollWidth - el.clientWidth);
-    el.scrollTo({ left: Math.min(max, Math.max(0, target * pxPerSession - VIEWPORT_PX / 2)), behavior: "smooth" });
-  };
-  useEffect(() => { scrollToIdx(X); }, [winKey]); // eslint-disable-line react-hooks/exhaustive-deps
-  const totalW = prices.length > 1 ? prices.length * pxPerSession : 0;
-
-  // dải chỉ số đang hiển thị trong khung cuộn — cập nhật debounce sau khi cuộn dừng, để trục Y
-  // co giãn theo đúng vùng đang xem (không theo toàn bộ lịch sử) mà không giật khi đang cuộn.
-  const [visRange, setVisRange] = useState(() => visibleRange(0, VIEWPORT_PX, pxPerSession, prices.length));
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const update = () => setVisRange(visibleRange(el.scrollLeft, el.clientWidth, pxPerSession, prices.length));
-    const onScroll = () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(update, 150);
-    };
-    update();
-    el.addEventListener("scroll", onScroll);
-    return () => {
-      if (timer) clearTimeout(timer);
-      el.removeEventListener("scroll", onScroll);
-    };
-  }, [pxPerSession, prices.length]);
-
-  const spark = useMemo(() => {
-    if (prices.length < 2) return null;
-    const { min, max } = localMinMax(prices, visRange.start, visRange.end);
-    const span = max - min || 1;
-    const yAt = (v: number) => SH - 4 - ((v - min) / span) * (SH - 8);
-    let d = "";
-    for (let i = 0; i < prices.length; i++) d += `${d ? "L" : "M"}${(i * pxPerSession).toFixed(1)} ${yAt(prices[i]).toFixed(1)}`;
-    return { d };
-  }, [prices, pxPerSession, visRange]);
-  const pickAt = (clientX: number) => {
-    const el = svgRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const i = Math.round((clientX - r.left) / pxPerSession);
-    setIdx(Math.min(points.length - 1, Math.max(0, i)));
-  };
-  const edgeFrom = points[Math.min(visRange.start, points.length - 1)]?.date;
-  const edgeTo = points[Math.max(0, Math.min(visRange.end, points.length) - 1)]?.date;
-  const X = Math.min(idx, points.length - 1);
-  const p = points[X];
+  const geom = useMemo(() => buildGeom(points, start, span, EMPTY_SJC, 700, 200), [points, start, span]);
+  const hasChart = total >= 2;
 
   // fallback: timeline.json cũ không có bearAsOf -> giữ nguyên UI cũ (dải hiện tại, không thanh thời gian)
   if (!hasAsOf || !p) {
@@ -228,66 +205,34 @@ export default function BearDownsideCard({
         </button>
       </div>
 
-      {/* khung thời gian: 3 nút cửa sổ · cuộn ngang gốc trình duyệt xem vùng khác · tap chọn ngày */}
-      {spark && (
+      {/* khung thời gian: nút cửa sổ + biểu đồ pan/zoom dùng chung — chạm chọn ngày */}
+      {hasChart && (
         <>
           <div className="bdo-winbtns">
-            {(Object.keys(WINDOW_SESSIONS) as (keyof typeof WINDOW_SESSIONS)[]).map((k) => (
+            {(["6T", "1N", "3N", "all"] as WinKey[]).map((k) => (
               <button
                 key={k}
                 className={`iconbtn small-btn${winKey === k ? " active" : ""}`}
-                onClick={() => setWinKey(k)}
+                onClick={() => applyWin(k)}
                 aria-pressed={winKey === k}
               >
-                {k}
+                {k === "all" ? "Tất cả" : k}
               </button>
             ))}
           </div>
-          <div className="bdo-sparkbox">
-            <div
-              className="bdo-sparkwrap"
-              ref={wrapRef}
-              onPointerDown={(e) => {
-                if (e.pointerType !== "mouse" || !wrapRef.current) return;
-                e.currentTarget.setPointerCapture(e.pointerId);
-                dragRef.current = { startX: e.clientX, startScrollLeft: wrapRef.current.scrollLeft };
-                draggedRef.current = false;
-              }}
-              onPointerMove={(e) => {
-                if (e.pointerType !== "mouse" || !dragRef.current || !wrapRef.current) return;
-                const dx = e.clientX - dragRef.current.startX;
-                if (Math.abs(dx) > 5) draggedRef.current = true;
-                wrapRef.current.scrollLeft = dragRef.current.startScrollLeft - dx;
-              }}
-              onPointerUp={(e) => {
-                if (e.pointerType !== "mouse") return;
-                e.currentTarget.releasePointerCapture(e.pointerId);
-                dragRef.current = null;
-              }}
-              onPointerCancel={(e) => {
-                if (e.pointerType !== "mouse") return;
-                dragRef.current = null;
-                draggedRef.current = false;
-              }}
-              onClick={(e) => {
-                if (draggedRef.current) { draggedRef.current = false; return; }
-                pickAt(e.clientX);
-              }}
-            >
-              <svg
-                ref={svgRef}
-                className="bdo-spark"
-                width={totalW}
-                height={SH}
-                aria-label="Biểu đồ giá — cuộn ngang xem lịch sử, chạm để chọn ngày"
-              >
-                <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
-                <line x1={X * pxPerSession} y1="0" x2={X * pxPerSession} y2={SH} stroke="#ece5d8" strokeWidth="1" opacity="0.6" />
-              </svg>
-            </div>
-            {edgeFrom && <span className="bdo-edge from">{fmtDate(edgeFrom)}</span>}
-            {edgeTo && <span className="bdo-edge to">{fmtDate(edgeTo)}</span>}
-          </div>
+          <PanZoomChart
+            points={points}
+            geom={geom}
+            window={{ start, span }}
+            onWindowChange={(next, gesture) => {
+              setView(next);
+              if (gesture === "zoom") setWinKey(null); // zoom rời preset; pan giữ nhãn nút
+            }}
+            onSelect={setIdx}
+            selectedIdx={X}
+            height={200}
+            ariaLabel="Biểu đồ giá — kéo để trượt, chạm để chọn ngày, chụm 2 ngón hoặc lăn chuột để zoom"
+          />
         </>
       )}
       <div className="bdo-dateband muted small">
@@ -306,7 +251,7 @@ export default function BearDownsideCard({
             let lo = 0, hi = points.length - 1;
             while (lo < hi) { const m = (lo + hi) >> 1; if (points[m].date < v) lo = m + 1; else hi = m; }
             setIdx(lo);
-            scrollToIdx(lo);
+            revealIdx(lo);
           }}
         />
       </div>
