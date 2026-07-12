@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
 import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
+import { visibleRange, localMinMax } from "@/lib/bdo-window";
 import { enoughSamples } from "@/lib/bear-downside";
 
 const HSHORT: Record<string, string> = { "21": "1T", "63": "3T", "126": "6T" };
@@ -125,16 +126,36 @@ export default function BearDownsideCard({
   };
   useEffect(() => { scrollToIdx(X); }, [winKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const totalW = prices.length > 1 ? prices.length * pxPerSession : 0;
+
+  // dải chỉ số đang hiển thị trong khung cuộn — cập nhật debounce sau khi cuộn dừng, để trục Y
+  // co giãn theo đúng vùng đang xem (không theo toàn bộ lịch sử) mà không giật khi đang cuộn.
+  const [visRange, setVisRange] = useState(() => visibleRange(0, VIEWPORT_PX, pxPerSession, prices.length));
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const update = () => setVisRange(visibleRange(el.scrollLeft, el.clientWidth, pxPerSession, prices.length));
+    const onScroll = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(update, 150);
+    };
+    update();
+    el.addEventListener("scroll", onScroll);
+    return () => {
+      if (timer) clearTimeout(timer);
+      el.removeEventListener("scroll", onScroll);
+    };
+  }, [pxPerSession, prices.length]);
+
   const spark = useMemo(() => {
     if (prices.length < 2) return null;
-    let min = Infinity, max = -Infinity;
-    for (const v of prices) { if (v < min) min = v; if (v > max) max = v; }
+    const { min, max } = localMinMax(prices, visRange.start, visRange.end);
     const span = max - min || 1;
     const yAt = (v: number) => SH - 4 - ((v - min) / span) * (SH - 8);
     let d = "";
     for (let i = 0; i < prices.length; i++) d += `${d ? "L" : "M"}${(i * pxPerSession).toFixed(1)} ${yAt(prices[i]).toFixed(1)}`;
     return { d };
-  }, [prices, pxPerSession]);
+  }, [prices, pxPerSession, visRange]);
   const pickAt = (clientX: number) => {
     const el = svgRef.current;
     if (!el) return;
@@ -142,6 +163,8 @@ export default function BearDownsideCard({
     const i = Math.round((clientX - r.left) / pxPerSession);
     setIdx(Math.min(points.length - 1, Math.max(0, i)));
   };
+  const edgeFrom = points[Math.min(visRange.start, points.length - 1)]?.date;
+  const edgeTo = points[Math.max(0, Math.min(visRange.end, points.length) - 1)]?.date;
   const X = Math.min(idx, points.length - 1);
   const p = points[X];
 
@@ -218,18 +241,22 @@ export default function BearDownsideCard({
               </button>
             ))}
           </div>
-          <div className="bdo-sparkwrap" ref={wrapRef}>
-            <svg
-              ref={svgRef}
-              className="bdo-spark"
-              width={totalW}
-              height={SH}
-              onClick={(e) => pickAt(e.clientX)}
-              aria-label="Biểu đồ giá — cuộn ngang xem lịch sử, chạm để chọn ngày"
-            >
-              <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
-              <line x1={X * pxPerSession} y1="0" x2={X * pxPerSession} y2={SH} stroke="#ece5d8" strokeWidth="1" opacity="0.6" />
-            </svg>
+          <div className="bdo-sparkbox">
+            <div className="bdo-sparkwrap" ref={wrapRef}>
+              <svg
+                ref={svgRef}
+                className="bdo-spark"
+                width={totalW}
+                height={SH}
+                onClick={(e) => pickAt(e.clientX)}
+                aria-label="Biểu đồ giá — cuộn ngang xem lịch sử, chạm để chọn ngày"
+              >
+                <path d={spark.d} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
+                <line x1={X * pxPerSession} y1="0" x2={X * pxPerSession} y2={SH} stroke="#ece5d8" strokeWidth="1" opacity="0.6" />
+              </svg>
+            </div>
+            {edgeFrom && <span className="bdo-edge from">{fmtDate(edgeFrom)}</span>}
+            {edgeTo && <span className="bdo-edge to">{fmtDate(edgeTo)}</span>}
           </div>
         </>
       )}

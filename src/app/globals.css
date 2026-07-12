@@ -621,6 +621,9 @@ td.neutral {
   gap: 6px;
   margin: 0.2rem 0;
 }
+.bdo-sparkbox {
+  position: relative;
+}
 .bdo-sparkwrap {
   margin: 0.2rem 0 0.3rem;
   overflow-x: auto;
@@ -628,6 +631,22 @@ td.neutral {
   border-radius: 8px;
   background: var(--card2);
 }
+/* nhãn ngày đầu/cuối khung đang cuộn tới — giống .tm-edge, class riêng vì .bdo-sparkbox
+   là chính khung cuộn ngang mật độ cố định (không nén viewBox như Máy Thời Gian) */
+.bdo-edge {
+  position: absolute;
+  top: 6px;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  background: rgba(21, 19, 15, 0.7);
+  padding: 1px 6px;
+  border-radius: 5px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.bdo-edge.from { left: 6px; }
+.bdo-edge.to { right: 6px; }
 .bdo-spark {
   display: block;
   user-select: none;
