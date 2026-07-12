@@ -585,43 +585,34 @@ td.neutral {
 .tm-edge.from { left: 6px; }
 .tm-edge.to { right: 6px; }
 
-/* BearDownsideCard v2 — khối kỳ hạn thay bảng (hết scroll ngang mobile) */
-.bdo-blocks {
-  display: grid;
-  gap: 8px;
+/* BearDownsideCard v3 — bảng 3 dòng thay khối kỳ hạn (hết scroll ngang mobile, CSS riêng không đụng .bt-table) */
+.bdo-table-wrap {
+  overflow-x: auto;
 }
-@media (min-width: 720px) {
-  .bdo-blocks { grid-template-columns: repeat(3, 1fr); }
-}
-.bdo-block {
-  background: var(--card2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 10px;
-}
-.bdo-block.empty {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  color: var(--muted);
+.bdo-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
   font-size: 0.86rem;
 }
-.bdo-h {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
-  margin-bottom: 4px;
+.bdo-table th,
+.bdo-table td {
+  text-align: left;
+  padding: 6px 6px;
+  border-bottom: 1px solid var(--border);
 }
-.bdo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 10px;
-  font-size: 0.92rem;
+.bdo-table th:first-child,
+.bdo-table td:first-child {
+  width: 12%;
 }
-.bdo-label {
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin-bottom: 1px;
+@media (max-width: 480px) {
+  .bdo-table {
+    font-size: 0.76rem;
+  }
+  .bdo-table th,
+  .bdo-table td {
+    padding: 4px 4px;
+  }
 }
 /* sparkline chọn ngày — pan-y để vuốt dọc vẫn cuộn trang (KHÔNG copy touch-action:none của .tm-chart) */
 .bdo-sparkwrap {

@@ -4,7 +4,6 @@ import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } fr
 import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats } from "@/lib/bear-downside-view";
 import { enoughSamples } from "@/lib/bear-downside";
 
-const HLABEL: Record<string, string> = { "21": "1 tháng", "63": "3 tháng", "126": "6 tháng" };
 const HSHORT: Record<string, string> = { "21": "1T", "63": "3T", "126": "6T" };
 const HS = ["21", "63", "126"] as const;
 const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
@@ -17,94 +16,73 @@ const fmtDate = (iso: string) =>
   new Date(iso + "T00:00:00Z").toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "UTC" });
 
 /**
- * Một khối kỳ hạn — lưới 2 cột: Đáy điển hình · Kết cục (dải p25→p75) ·
- * Khả năng (bậc 1/10) · Thực tế (CHỈ render khi đã đáo hạn — xem ngày quá khứ).
+ * Một hàng kỳ hạn — đáy điển hình (đỏ, rủi ro) · kết cục điển hình (xanh/đỏ) ·
+ * THỰC TẾ (đáy + kết cục thực tế khi xem ngày quá khứ đã đáo hạn) · khả năng (bậc 1/10).
  */
-function Block({ H, band, price, actualDip, actualTerm }: {
+function Row({ H, band, price, actualDip, actualTerm }: {
   H: (typeof HS)[number];
   band: BearAsOfBand | null;
   price: number;
   actualDip: number | null;
   actualTerm: number | null;
 }) {
-  const label = HLABEL[H];
+  const label = HSHORT[H];
   if (!band) {
     return (
-      <div className="bdo-block empty">
-        <span className="bdo-h">{label}</span>
-        <span>chưa đủ dữ liệu</span>
-      </div>
+      <tr>
+        <td>{label}</td>
+        <td className="muted" colSpan={4}>chưa đủ dữ liệu</td>
+      </tr>
     );
   }
   const px = (pct: number) => price * (1 + pct / 100);
   const t = pUpTenths(band.pUp); // bậc 1/10 — chi tiết hơn là giả-chính-xác (ít cửa sổ độc lập)
   const matured = actualDip != null && actualTerm != null;
   return (
-    <div className="bdo-block">
-      <div className="bdo-h">{label}</div>
-      <div className="bdo-grid">
-        <div className="bdo-cell">
-          <div className="bdo-label">Đáy điển hình</div>
-          <div>{usdK(px(band.median))} <span className="down small">({signedInt(band.median)})</span></div>
-        </div>
-        <div className="bdo-cell">
-          <div className="bdo-label">Kết cục điển hình</div>
-          <div>
-            {usdK(px(band.endP25))}<span className="muted"> → </span>{usdK(px(band.endP75))}
-            <div className="small muted">{signedInt(band.endP25)}…{signedInt(band.endP75)}</div>
-          </div>
-        </div>
-        <div className="bdo-cell">
-          <div className="bdo-label">Khả năng</div>
-          <div>
-            <span className="up">≈{t}/10↑</span> <span className="muted">·</span> <span className="down">{10 - t}/10↓</span>
-          </div>
-        </div>
-        {matured && (
-          <div className="bdo-cell">
-            <div className="bdo-label">Thực tế</div>
+    <tr>
+      <td>{label}</td>
+      <td>
+        {usdK(px(band.median))} <span className="down small">({signedInt(band.median)})</span>
+      </td>
+      <td>
+        {usdK(px(band.endP25))}<span className="muted"> → </span>{usdK(px(band.endP75))}
+        <div className="small muted">{signedInt(band.endP25)}…{signedInt(band.endP75)}</div>
+      </td>
+      <td>
+        {matured ? (
+          <>
             <div>đáy {usdK(px(actualDip!))} <span className="down small">({signedInt(actualDip!)})</span></div>
             <div>kết {usdK(px(actualTerm!))} <span className={`small ${actualTerm! >= 0 ? "up" : "down"}`}>({signedInt(actualTerm!)})</span></div>
-          </div>
+          </>
+        ) : (
+          <span className="muted">chưa đáo hạn</span>
         )}
-      </div>
-    </div>
+      </td>
+      <td>
+        <span className="up">≈{t}/10↑</span> <span className="muted">·</span> <span className="down">{10 - t}/10↓</span>
+      </td>
+    </tr>
   );
 }
 
-/** Khối kỳ hạn cho fallback (timeline.json cũ không có bearAsOf) — chỉ ngày mới nhất, không có Thực tế. */
-function LegacyBlock({ s, price }: { s: BearHorizonStat; price: number }) {
-  const label = HLABEL[String(s.horizonDays)] ?? String(s.horizonDays);
+/** Hàng UI cho fallback (timeline.json cũ không có bearAsOf) — chỉ ngày mới nhất nên không có thực tế. */
+function LegacyRow({ s, price }: { s: BearHorizonStat; price: number }) {
+  const label = HSHORT[String(s.horizonDays)] ?? String(s.horizonDays);
   if (!enoughSamples(s.n, s.horizonDays)) {
-    return (
-      <div className="bdo-block empty">
-        <span className="bdo-h">{label}</span>
-        <span>chưa đủ dữ liệu (n={s.n})</span>
-      </div>
-    );
+    return (<tr><td>{label}</td><td className="muted" colSpan={4}>chưa đủ dữ liệu (n={s.n})</td></tr>);
   }
   const at = (pv: number) => usd(price * (1 + pv / 100));
   const t = pUpTenths(s.pUp);
   return (
-    <div className="bdo-block">
-      <div className="bdo-h">{label}</div>
-      <div className="bdo-grid">
-        <div className="bdo-cell">
-          <div className="bdo-label">Đáy điển hình</div>
-          <div>{at(s.median)} <span className="down small">({signed(s.median)})</span></div>
-        </div>
-        <div className="bdo-cell">
-          <div className="bdo-label">Kết cục điển hình</div>
-          <div>{at(s.endMedian)} <span className={`small ${s.endMedian >= 0 ? "up" : "down"}`}>({signed(s.endMedian)})</span></div>
-        </div>
-        <div className="bdo-cell">
-          <div className="bdo-label">Khả năng</div>
-          <div>
-            <span className="up">≈{t}/10↑</span> <span className="muted">·</span> <span className="down">{10 - t}/10↓</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <tr>
+      <td>{label}</td>
+      <td>{at(s.median)} <span className="down">({signed(s.median)})</span></td>
+      <td>{at(s.endMedian)} <span className={s.endMedian >= 0 ? "up" : "down"}>({signed(s.endMedian)})</span></td>
+      <td className="muted">chưa đáo hạn</td>
+      <td>
+        <span className="up">≈{t}/10↑</span> <span className="muted">·</span> <span className="down">{10 - t}/10↓</span>
+      </td>
+    </tr>
   );
 }
 
@@ -181,8 +159,15 @@ export default function BearDownsideCard({
             <p className="muted">Phân phối theo trọng số hồi quy (ưu tiên ~2 năm gần) để bám chế độ hiện tại — tham khảo rủi ro, không phải dự đoán.</p>
           </div>
         )}
-        <div className="bdo-blocks">
-          {bd.shown.map((s) => <LegacyBlock key={s.horizonDays} s={s} price={bd.currentPrice} />)}
+        <div className="bdo-table-wrap">
+          <table className="bdo-table">
+            <thead>
+              <tr><th>Kỳ hạn</th><th>Đáy điển hình</th><th>Kết cục điển hình</th><th>Thực tế</th><th>Cơ hội tăng</th></tr>
+            </thead>
+            <tbody>
+              {bd.shown.map((s) => <LegacyRow key={s.horizonDays} s={s} price={bd.currentPrice} />)}
+            </tbody>
+          </table>
         </div>
       </section>
     );
@@ -269,17 +254,24 @@ export default function BearDownsideCard({
         </div>
       )}
 
-      <div className="bdo-blocks">
-        {HS.map((H) => (
-          <Block
-            key={H}
-            H={H}
-            band={p.bearAsOf?.[H] ?? null}
-            price={p.price}
-            actualDip={actualWorstDipPct(prices, X, Number(H))}
-            actualTerm={p.returns[H]}
-          />
-        ))}
+      <div className="bdo-table-wrap">
+        <table className="bdo-table">
+          <thead>
+            <tr><th>Kỳ hạn</th><th>Đáy điển hình</th><th>Kết cục điển hình</th><th>Thực tế</th><th>Khả năng</th></tr>
+          </thead>
+          <tbody>
+            {HS.map((H) => (
+              <Row
+                key={H}
+                H={H}
+                band={p.bearAsOf?.[H] ?? null}
+                price={p.price}
+                actualDip={actualWorstDipPct(prices, X, Number(H))}
+                actualTerm={p.returns[H]}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
       <p className="muted small" style={{ marginTop: "0.4rem" }}>
         ⚠ Khoảng &amp; tần suất theo lịch sử, nghiêng ~2 năm gần (đang bull) · khoảng rộng = bất định cao · <b>KHÔNG phải dự đoán</b>
