@@ -929,6 +929,7 @@ export default function Dashboard({
         <div className="acc-body flat">
           <TimeMachine
             timeline={timeline}
+            vnRows={vnRows}
             weights={weights}
             preset={preset}
             consensusMode={consensusMode}

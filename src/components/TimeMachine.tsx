@@ -1,21 +1,24 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   CRITERION_LABELS,
   ZONE_LABELS,
   type CriterionKey,
   type Preset,
   type Timeline,
+  type VnGoldEntry,
   type Zone,
 } from "@/lib/types";
 import { consensusLabel } from "@/lib/consensus";
 import { HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { bottomPctClass } from "@/lib/bottom";
 import ActionGuidance from "./ActionGuidance";
-import { applyBrushDrag, centerWindow, zoomTo } from "@/lib/brush";
+import { centerWindow } from "@/lib/brush";
+import { MIN_SPAN, POINTS_PER_MONTH, buildGeom, sjcUsdMap } from "@/lib/price-chart";
 import { idxsAtOrAbove, indexOnOrAfter, indexOnOrBefore } from "@/lib/timeline";
 import { createAsOfEngine, verdictFor, DCA_PHASE_LABEL } from "@/lib/as-of";
+import PanZoomChart from "./PanZoomChart";
 
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
@@ -40,20 +43,20 @@ const HORIZON_LABELS: Record<"21" | "63" | "126", string> = {
   "126": "6 tháng",
 };
 
-// timeline lấy mẫu mỗi phiên giao dịch -> ~21 phiên/tháng
-const POINTS_PER_MONTH = 21;
-/** cửa sổ nhỏ nhất của brush/zoom (~2 tuần) */
-const MIN_SPAN = 14;
-/** ngưỡng px phân biệt chạm (chọn ngày) vs kéo (pan) */
-const TAP_PX = 6;
+/** map SJC rỗng khi toggle tắt — hằng module để geom memo không đổi tham chiếu mỗi render */
+const EMPTY_SJC = new Map<string, number>();
+
 export default function TimeMachine({
   timeline,
+  vnRows,
   weights,
   preset,
   consensusMode,
   fusionDegraded,
 }: {
   timeline: Timeline;
+  /** giá VN — vẽ đường SJC quy đổi $ khi bật toggle trong ⚙ */
+  vnRows: VnGoldEntry[];
   weights: Record<CriterionKey, number>;
   preset: Preset | null;
   /** chế độ Toàn cảnh (không preset, không tùy chỉnh): chấm theo đồng thuận k/3
@@ -76,38 +79,13 @@ export default function TimeMachine({
   const [expThr, setExpThr] = useState<number | null>(null);
   const [showBottomStart, setShowBottomStart] = useState(false);
   const [showGear, setShowGear] = useState(false);
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  // trạng thái cử chỉ 1 ngón (pan/tap) — px màn hình
-  const drag = useRef<{
-    pointerId: number;
-    originX: number;
-    anchorStart: number;
-    moved: boolean;
-  } | null>(null);
-  // trạng thái pinch 2 ngón
-  const pinch = useRef<{
-    startDist: number;
-    anchorSpan: number;
-    centerIdx: number;
-  } | null>(null);
-  const pts = useRef<Map<number, number>>(new Map()); // pointerId -> clientX
+  /** hiện đường SJC quy đổi $ (toggle ⚙, mặc định tắt — chart vốn nhiều marker) */
+  const [showSjc, setShowSjc] = useState(false);
   const p = points[idx];
 
   const span = Math.min(points.length, Math.max(Math.min(MIN_SPAN, points.length), viewSpan));
   const start = Math.max(0, Math.min(viewStart, points.length - span));
   const end = start + span;
-  const startRef = useRef(start);
-  startRef.current = start;
-
-  const xToIdx = useCallback(
-    (clientX: number) => {
-      const rect = svgRef.current?.getBoundingClientRect();
-      if (!rect || rect.width === 0) return idx;
-      const frac = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-      return start + Math.round(frac * (span - 1));
-    },
-    [idx, start, span]
-  );
 
   const buyThr = preset?.buyThreshold ?? 40;
   const effThr = expThr ?? buyThr;
@@ -165,73 +143,6 @@ export default function TimeMachine({
     setZoomMonths("custom");
   };
 
-  const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
-    pts.current.set(e.pointerId, e.clientX);
-    svgRef.current?.setPointerCapture(e.pointerId);
-    if (pts.current.size >= 2) {
-      // chỉ khởi tạo pinch khi vừa chạm ngón thứ 2; ngón thứ 3+ bỏ qua, không đụng drag
-      if (pts.current.size === 2) {
-        const xs = [...pts.current.values()];
-        const dist = Math.abs(xs[0] - xs[1]) || 1;
-        const centerX = (xs[0] + xs[1]) / 2;
-        pinch.current = { startDist: dist, anchorSpan: span, centerIdx: xToIdx(centerX) };
-      }
-      drag.current = null;
-      return;
-    }
-    drag.current = { pointerId: e.pointerId, originX: e.clientX, anchorStart: start, moved: false };
-  };
-
-  const onPointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
-    if (!pts.current.has(e.pointerId)) return;
-    pts.current.set(e.pointerId, e.clientX);
-
-    if (pinch.current && pts.current.size >= 2) {
-      const xs = [...pts.current.values()];
-      const dist = Math.abs(xs[0] - xs[1]) || 1;
-      const factor = pinch.current.startDist / dist;
-      const next = zoomTo(pinch.current.anchorSpan, factor, pinch.current.centerIdx, points.length, MIN_SPAN);
-      setViewStart(next.start);
-      setViewSpan(next.span);
-      setZoomMonths("custom");
-      return;
-    }
-
-    const d = drag.current;
-    if (!d || e.pointerId !== d.pointerId) return;
-    const rect = svgRef.current?.getBoundingClientRect();
-    if (!rect || rect.width === 0) return;
-    const dxPx = e.clientX - d.originX;
-    if (!d.moved && Math.abs(dxPx) < TAP_PX) return;
-    d.moved = true;
-    const deltaIdx = -Math.round((dxPx / rect.width) * span);
-    const next = applyBrushDrag("pan", d.anchorStart, span, deltaIdx, points.length, MIN_SPAN);
-    setViewStart(next.start);
-  };
-
-  const onPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
-    const wasTap = drag.current?.pointerId === e.pointerId && drag.current?.moved === false;
-    if (wasTap) setIdx(xToIdx(e.clientX));
-    pts.current.delete(e.pointerId);
-    svgRef.current?.releasePointerCapture(e.pointerId);
-    if (drag.current?.pointerId === e.pointerId) drag.current = null;
-    if (pts.current.size < 2) {
-      pinch.current = null;
-      // còn đúng 1 ngón sau khi nhả khỏi pinch ⇒ tiếp tục cho phép pan bằng ngón đó
-      if (pts.current.size === 1) {
-        const [pid, clientX] = [...pts.current.entries()][0];
-        drag.current = { pointerId: pid, originX: clientX, anchorStart: startRef.current, moved: false };
-      }
-    }
-  };
-
-  const onPointerCancel = (e: React.PointerEvent<SVGSVGElement>) => {
-    pts.current.delete(e.pointerId);
-    svgRef.current?.releasePointerCapture(e.pointerId);
-    if (drag.current?.pointerId === e.pointerId) drag.current = null;
-    if (pts.current.size < 2) pinch.current = null;
-  };
-
   const composite = dayAt.composite;
   const kDay = dayAt.kDay;
   const rawZone = dayAt.rawZone;
@@ -248,73 +159,15 @@ export default function TimeMachine({
   const bottomCrashDay = dayAt.crashDay;
   const histGuidance = dayAt.guidance;
 
-  const spark = useMemo(() => {
-    const win = points.slice(start, end);
-    if (win.length < 2) return null;
-    const W = 700;
-    const H = 120;
-    const prices = win.map((q) => q.price);
-    const min = Math.min(...prices);
-    const max = Math.max(...prices);
-    const x = (i: number) => ((i - start) / (win.length - 1)) * W;
-    const y = (v: number) => H - ((v - min) / (max - min || 1)) * (H - 8) - 4;
-    const path = win
-      .map((q, j) => `${j === 0 ? "M" : "L"}${x(start + j).toFixed(1)},${y(q.price).toFixed(1)}`)
-      .join("");
-    const toMarkers = (idxs: number[]) =>
-      idxs
-        .filter((i) => i >= start && i < end)
-        .map((i) => ({ cx: x(i), cy: y(points[i].price) }));
-    const markers = toMarkers(signalIdxs);
-    const sellMarkers = showSell ? toMarkers(sellIdxs) : [];
-    const expMarkers = toMarkers(expIdxs); // đã rỗng sẵn khi tắt lớp thử
-    const startMarkers = toMarkers(bottomStarts);
-    const inWindow = idx >= start && idx < end;
-    return {
-      W,
-      H,
-      path,
-      cx: inWindow ? x(idx) : null,
-      cy: inWindow ? y(p.price) : null,
-      markers,
-      sellMarkers,
-      expMarkers,
-      startMarkers,
-      fromDate: win[0].date,
-      toDate: win[win.length - 1].date,
-    };
-  }, [points, idx, p, signalIdxs, sellIdxs, expIdxs, showSell, start, end, bottomStarts]);
-
-  // wheel zoom — listener gốc non-passive để preventDefault chặn cuộn trang
-  // (React onWheel là passive ⇒ preventDefault vô hiệu). Ref cập nhật để không
-  // gắn/gỡ listener mỗi lần span/start đổi.
-  const wheelState = useRef({ span, total: points.length });
-  wheelState.current = { span, total: points.length };
-  useEffect(() => {
-    const el = svgRef.current;
-    if (!el) return;
-    const handler = (e: WheelEvent) => {
-      e.preventDefault();
-      const rect = el.getBoundingClientRect();
-      if (rect.width === 0) return;
-      const { span: sp, total } = wheelState.current;
-      const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      const centerIdx = startRef.current + Math.round(frac * (sp - 1));
-      const factor = e.deltaY > 0 ? 1.2 : 1 / 1.2;
-      const next = zoomTo(sp, factor, centerIdx, total, MIN_SPAN);
-      setViewStart(next.start);
-      setViewSpan(next.span);
-      setZoomMonths("custom");
-    };
-    el.addEventListener("wheel", handler, { passive: false });
-    return () => el.removeEventListener("wheel", handler);
-  }, [points.length]);
+  // geom dùng chung với PriceChart (buildGeom) — thay toán spark inline cũ.
+  // sjcUsd chỉ tính khi toggle bật; map rỗng ⇒ buildGeom bỏ đường SJC.
+  const sjcUsd = useMemo(() => (showSjc ? sjcUsdMap(vnRows) : EMPTY_SJC), [showSjc, vnRows]);
+  const geom = useMemo(() => buildGeom(points, start, span, sjcUsd, 700, 200), [points, start, span, sjcUsd]);
+  const hasChart = points.length >= 2;
 
   if (!p) return null;
 
-  // marker vẽ bằng HTML overlay (luôn tròn) thay vì <circle> trong SVG —
-  // SVG dùng preserveAspectRatio="none" nên <circle> bị kéo méo thành elip.
-  // chấm nhỏ lại khi zoom rộng để đỡ rối.
+  // chấm nhỏ lại khi zoom rộng để đỡ rối
   const denseDots = span > 24 * POINTS_PER_MONTH;
 
   return (
@@ -387,7 +240,11 @@ export default function TimeMachine({
             <input type="checkbox" checked={showBottomStart} onChange={(e) => setShowBottomStart(e.target.checked)} />
             Đánh dấu khởi đầu vùng đáy
           </label>
-          {spark && (
+          <label className="tm-toggle muted small">
+            <input type="checkbox" checked={showSjc} onChange={(e) => setShowSjc(e.target.checked)} />
+            Hiện đường SJC (quy đổi $, đường xanh — chỉ vùng có dữ liệu VN)
+          </label>
+          {hasChart && (
             <span className="tm-daterange muted small">
               <input
                 type="date"
@@ -439,51 +296,28 @@ export default function TimeMachine({
         </div>
       )}
 
-      {spark && (
-        <div className="tm-chartwrap">
-          <svg
-            ref={svgRef}
-            className="tm-chart"
-            viewBox={`0 0 ${spark.W} ${spark.H}`}
-            preserveAspectRatio="none"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerCancel}
-            aria-label="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
-          >
-          <path d={spark.path} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.8" />
-          {spark.cx !== null && (
-            <line x1={spark.cx} y1="0" x2={spark.cx} y2={spark.H} stroke="#ece5d8" strokeWidth="1" opacity="0.5" />
-          )}
-          </svg>
-          {/* marker overlay HTML — tròn tuyệt đối, không méo theo SVG stretch.
-              left/top theo % của viewBox (preserveAspectRatio="none" ⇒ map tuyến tính). */}
-          <div className={`tm-markers ${denseDots ? "dense" : ""}`} aria-hidden>
-            {spark.expMarkers.map((m, i) => (
-              <span key={`x${i}`} className="tm-mk exp"
-                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
-            ))}
-            {spark.sellMarkers.map((m, i) => (
-              <span key={`s${i}`} className="tm-mk sell"
-                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
-            ))}
-            {spark.markers.map((m, i) => (
-              <span key={i} className="tm-mk buy"
-                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
-            ))}
-            {spark.startMarkers.map((m, i) => (
-              <span key={`st${i}`} className="tm-mk start"
-                style={{ left: `${(m.cx / spark.W) * 100}%`, top: `${(m.cy / spark.H) * 100}%` }} />
-            ))}
-            {spark.cx !== null && (
-              <span className="tm-mk cursor"
-                style={{ left: `${(spark.cx / spark.W) * 100}%`, top: `${(spark.cy! / spark.H) * 100}%` }} />
-            )}
-          </div>
-          {/* dải ngày 2 góc: biết đang xem khung thời gian nào khi vuốt */}
-          <span className="tm-edge from" aria-hidden>{fmtDate(points[start].date)}</span>
-          <span className="tm-edge to" aria-hidden>{fmtDate(points[end - 1].date)}</span>
+      {hasChart && (
+        <PanZoomChart
+          points={points}
+          geom={geom}
+          window={{ start, span }}
+          onWindowChange={(next, gesture) => {
+            setViewStart(next.start);
+            setViewSpan(next.span);
+            if (gesture === "zoom") setZoomMonths("custom"); // pan giữ nhãn nút đang chọn
+          }}
+          onSelect={setIdx}
+          selectedIdx={idx}
+          markers={[
+            { key: "x", className: "exp", idxs: expIdxs },
+            { key: "s", className: "sell", idxs: showSell ? sellIdxs : [] },
+            { key: "b", className: "buy", idxs: signalIdxs },
+            { key: "st", className: "start", idxs: bottomStarts },
+          ]}
+          height={200}
+          denseDots={denseDots}
+          ariaLabel="Biểu đồ giá XAU/USD — kéo để trượt, chạm để chọn ngày, chụm 2 ngón để zoom"
+        >
           <button
             className="tm-fab left"
             disabled={prevSignal === undefined}
@@ -496,7 +330,7 @@ export default function TimeMachine({
             onClick={() => nextSignal !== undefined && goTo(nextSignal)}
             aria-label="Tín hiệu mua sau"
           >▶</button>
-        </div>
+        </PanZoomChart>
       )}
 
       <div className="tm-dateband">
