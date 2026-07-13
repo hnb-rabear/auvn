@@ -361,6 +361,7 @@ export default function Dashboard({
         <div className={`freshness-top${isSiteStale ? " warn" : ""}`}>
           {isSiteStale ? "⚠ " : "🕒 "}Cập nhật: {freshnessFallback}
           {overallAge ? ` (${overallAge})` : ""}
+          {vnGoldAge ? ` · Giá vàng VN: ${vnGoldAge}` : ""}
         </div>
       )}
 
