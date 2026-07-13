@@ -183,17 +183,21 @@ async function main() {
       worldVndPerLuong !== null
         ? ((vnRes.sjcSell - worldVndPerLuong) / worldVndPerLuong) * 100
         : null;
+    const idx = history.findIndex((e) => e.date === today);
+    const existing = idx >= 0 ? history[idx] : null;
+    // vnRes có thể chỉ là fallback cafef (không có giá nhẫn) trong khi entry
+    // hôm nay đã có giá nhẫn từ một lần fetch tốt hơn (BTMC, máy IP nhà) —
+    // giữ nguyên giá nhẫn cũ thay vì để fetch kém hơn ghi đè về null.
     const entry: VnGoldEntry = {
       date: today,
       sjcBuy: vnRes.sjcBuy,
       sjcSell: vnRes.sjcSell,
-      ringBuy: vnRes.ringBuy,
-      ringSell: vnRes.ringSell,
+      ringBuy: vnRes.ringBuy ?? existing?.ringBuy ?? null,
+      ringSell: vnRes.ringSell ?? existing?.ringSell ?? null,
       usdVnd,
       xauUsd: xauLast,
       premiumPct: premiumPct === null ? null : Math.round(premiumPct * 100) / 100,
     };
-    const idx = history.findIndex((e) => e.date === today);
     if (idx >= 0) history[idx] = entry;
     else history.push(entry);
   }
