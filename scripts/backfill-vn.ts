@@ -6,7 +6,7 @@
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { fetchXau, type DailyBar } from "./fetch";
+import { fetchXau, fetchVnGold, type DailyBar } from "./fetch";
 import type { VnGoldEntry } from "../src/lib/types";
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36";
@@ -80,10 +80,11 @@ function atOrBefore(bars: DailyBar[], d: string): number | null {
 }
 
 async function main() {
-  const [cafef, xau, usdVnd] = await Promise.all([
+  const [cafef, xau, usdVnd, live] = await Promise.all([
     fetchCafefSjc(),
     fetchXau(),
     fetchUsdVndHistory(),
+    fetchVnGold(),
   ]);
   console.log(
     `cafef: ${cafef.length} ngày (${cafef[0]?.date}..${cafef[cafef.length - 1]?.date}), ` +
@@ -119,6 +120,39 @@ async function main() {
       backfilled: true,
     });
     added++;
+  }
+
+  // CafeF không có giá nhẫn, và dòng hôm nay trên CafeF có thể CHƯA xuất hiện
+  // (độ trễ đăng dữ liệu) khi script chạy — patch-nếu-đã-có-entry từng bỏ sót
+  // im lặng đúng ngày đó và mất vĩnh viễn (hôm sau "vnToday" đã đổi). Ghi đè
+  // hẳn entry hôm nay bằng live (BTMC ưu tiên, chạy được trên IP nhà) — cùng
+  // cách scripts/run.ts làm khi cron tự fetch được — để luôn có đủ sjc + nhẫn.
+  if (live?.sjcSell) {
+    const vnToday = new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
+    const xauClose = atOrBefore(xau.bars, vnToday);
+    const rate = atOrBefore(usdVnd, vnToday);
+    const world =
+      xauClose !== null && rate !== null
+        ? (xauClose / TROY_OZ_GRAMS) * LUONG_GRAMS * rate
+        : null;
+    const premiumPct =
+      world !== null ? Math.round(((live.sjcSell - world) / world) * 10000) / 100 : null;
+    const entry: VnGoldEntry = {
+      date: vnToday,
+      sjcBuy: live.sjcBuy,
+      sjcSell: live.sjcSell,
+      ringBuy: live.ringBuy,
+      ringSell: live.ringSell,
+      usdVnd: rate,
+      xauUsd: xauClose,
+      premiumPct,
+    };
+    const idx = history.findIndex((e) => e.date === vnToday);
+    if (idx >= 0) history[idx] = entry;
+    else history.push(entry);
+    console.log(
+      `entry hôm nay ${vnToday}: sjc=${live.sjcBuy}/${live.sjcSell} nhẫn=${live.ringBuy}/${live.ringSell} (nguồn: ${live.source})`
+    );
   }
 
   history.sort((a, b) => (a.date < b.date ? -1 : 1));
