@@ -8,8 +8,8 @@ xong; đây là bước cho máy 2.
 ## 1. Clone + cài đặt
 
 ```
-git clone https://github.com/hnb-rabear/au.git
-cd au
+git clone https://github.com/hnb-rabear/auvn.git
+cd auvn
 npm ci
 ```
 
