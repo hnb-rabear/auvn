@@ -5692,10 +5692,10 @@
   "date": "2026-07-13",
   "sjcBuy": 143000000,
   "sjcSell": 148400000,
-  "ringBuy": 143000000,
-  "ringSell": 147000000,
-  "usdVnd": 26260,
-  "xauUsd": 4069.699951171875,
-  "premiumPct": 15.17
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26460,
+  "xauUsd": 4067.5,
+  "premiumPct": 14.37
  }
 ]
