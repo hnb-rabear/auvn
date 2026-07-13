@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-13T17:25:35.572Z",
+ "generatedAt": "2026-07-13T19:53:41.858Z",
  "dataDate": "2026-07-13",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4005.10009765625,
+  "xauUsd": 4003.60009765625,
   "usdVnd": 26460,
-  "worldVndPerLuong": 127769014,
-  "premiumPct": 16.15,
-  "premiumVnd": 20630986
+  "worldVndPerLuong": 127721162,
+  "premiumPct": 16.19,
+  "premiumVnd": 20678838
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 37,2: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 37,1: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
-     "score": 0,
-     "explanation": "RSI tuần = 40: trung tính.",
+     "score": 1,
+     "explanation": "RSI tuần = 40: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -55,7 +55,7 @@
      "available": true
     }
    ],
-   "score": 0.8,
+   "score": 1,
    "available": true
   },
   {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,2 (trên MA50, +1,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,3 (trên MA50, +1,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 27,9%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 28%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 2.7,
+ "composite": 6.2,
  "zone": "neutral",
  "vnHistoryDays": 520,
  "warnings": [
@@ -2268,7 +2268,7 @@
   },
   {
    "date": "2026-07-14",
-   "value": 16.15
+   "value": 16.19
   }
  ],
  "premiumPercentiles": {
@@ -2280,8 +2280,8 @@
   "world": "2026-07-13T04:00:00.000Z",
   "dxy": "2026-07-13T04:00:00.000Z",
   "yield10y": "2026-07-13T12:20:00.000Z",
-  "vnGold": "2026-07-13T17:25:35.572Z",
-  "usdVnd": "2026-07-13T17:25:35.572Z",
+  "vnGold": "2026-07-13T19:53:41.858Z",
+  "usdVnd": "2026-07-13T19:53:41.858Z",
   "fed": null
  }
 }
