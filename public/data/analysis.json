@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-07-14T16:41:17.827Z",
+ "generatedAt": "2026-07-14T18:19:37.956Z",
  "dataDate": "2026-07-14",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 144500000,
   "sjcSell": 147500000,
-  "ringBuy": 142500000,
-  "ringSell": 146500000,
-  "xauUsd": 4066.89990234375,
+  "ringBuy": null,
+  "ringSell": null,
+  "xauUsd": 4068.199951171875,
   "usdVnd": 26450,
-  "worldVndPerLuong": 129691493,
-  "premiumPct": 13.73,
-  "premiumVnd": 17808507
+  "worldVndPerLuong": 129732951,
+  "premiumPct": 13.7,
+  "premiumVnd": 17767049
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 42,3: trung tính.",
+     "explanation": "RSI ngày = 42,4: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 37,8: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 37,9: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,7%, ở percentile 48 so với lịch sử tự thu thập (520 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,7%, ở percentile 48 so với lịch sử tự thu thập (521 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -80,8 +80,8 @@
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
      "score": 0,
-     "explanation": "Nhẫn và miếng ở tương quan bình thường.",
-     "available": true
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
    "score": 0,
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 100,9 (trên MA50, +1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 100,9 (trên MA50, +1,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -110,14 +110,14 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,59%, thay đổi 3 tháng +0,29 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,58%, thay đổi 3 tháng +0,29 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.450, nhịp +0,1%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.450, nhịp +0,8%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -185,7 +185,7 @@
  },
  "composite": 3,
  "zone": "neutral",
- "vnHistoryDays": 520,
+ "vnHistoryDays": 521,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất."
  ],
@@ -2269,10 +2269,14 @@
   {
    "date": "2026-07-14",
    "value": 13.73
+  },
+  {
+   "date": "2026-07-15",
+   "value": 13.7
   }
  ],
  "premiumPercentiles": {
-  "p20": 11.02,
+  "p20": 11.03,
   "p50": 13.97,
   "p80": 16.46
  },
@@ -2280,8 +2284,8 @@
   "world": "2026-07-14T04:00:00.000Z",
   "dxy": "2026-07-14T04:00:00.000Z",
   "yield10y": "2026-07-14T12:20:00.000Z",
-  "vnGold": "2026-07-14T16:41:17.827Z",
-  "usdVnd": "2026-07-14T16:41:17.827Z",
+  "vnGold": "2026-07-14T18:19:37.956Z",
+  "usdVnd": "2026-07-14T18:19:37.956Z",
   "fed": null
  }
 }
