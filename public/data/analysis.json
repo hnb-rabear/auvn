@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-14T09:20:23.554Z",
+ "generatedAt": "2026-07-14T10:59:11.099Z",
  "dataDate": "2026-07-14",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 147500000,
   "ringBuy": 142500000,
   "ringSell": 146500000,
-  "xauUsd": 4028,
+  "xauUsd": 4027.39990234375,
   "usdVnd": 26450,
-  "worldVndPerLuong": 128450994,
-  "premiumPct": 14.83,
-  "premiumVnd": 19049006
+  "worldVndPerLuong": 128431857,
+  "premiumPct": 14.85,
+  "premiumVnd": 19068143
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 39,4: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 39,3: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": -1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,8%, ở percentile 61 so với lịch sử tự thu thập (520 ngày): chênh cao bất thường — vùng bán tốt, tránh mua.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,9%, ở percentile 61 so với lịch sử tự thu thập (520 ngày): chênh cao bất thường — vùng bán tốt, tránh mua.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,1 (trên MA50, +1,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,1 (trên MA50, +1,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2268,7 +2268,7 @@
   },
   {
    "date": "2026-07-14",
-   "value": 14.83
+   "value": 14.85
   }
  ],
  "premiumPercentiles": {
@@ -2280,8 +2280,8 @@
   "world": "2026-07-14T04:00:00.000Z",
   "dxy": "2026-07-14T04:00:00.000Z",
   "yield10y": "2026-07-13T12:20:00.000Z",
-  "vnGold": "2026-07-14T09:20:23.554Z",
-  "usdVnd": "2026-07-14T09:20:23.554Z",
+  "vnGold": "2026-07-14T10:59:11.099Z",
+  "usdVnd": "2026-07-14T10:59:11.099Z",
   "fed": null
  }
 }
