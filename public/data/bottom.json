@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-15T19:42:22.263Z",
+ "generatedAt": "2026-07-15T21:20:43.605Z",
  "dataDate": "2026-07-15",
  "cycle": {
   "prob": 48.9,
@@ -16,28 +16,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 23,6%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 23,5%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -15,8% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -15,7% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 42,1: trung tính.",
+    "explanation": "RSI ngày = 42,4: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +11,71: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +11,9: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -85,28 +85,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 23,6%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 23,5%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -15,8% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -15,7% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 42,1: trung tính.",
+    "explanation": "RSI ngày = 42,4: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +11,71: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +11,9: động lượng đang đảo lên.",
     "available": true
    },
    {
