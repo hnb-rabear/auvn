@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-15T23:16:17.949Z",
- "dataDate": "2026-07-15",
+ "generatedAt": "2026-07-16T00:13:34.488Z",
+ "dataDate": "2026-07-16",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -8,11 +8,11 @@
   "sjcSell": 148500000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4065.699951171875,
+  "xauUsd": 4064.39990234375,
   "usdVnd": 26450,
-  "worldVndPerLuong": 129653227,
-  "premiumPct": 14.54,
-  "premiumVnd": 18846773
+  "worldVndPerLuong": 129611769,
+  "premiumPct": 14.57,
+  "premiumVnd": 18888231
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 42,3: trung tính.",
+     "explanation": "RSI ngày = 42,2: trung tính.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,5%, ở percentile 58 so với lịch sử tự thu thập (522 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,6%, ở percentile 58 so với lịch sử tự thu thập (522 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -2276,7 +2276,7 @@
   },
   {
    "date": "2026-07-16",
-   "value": 14.54
+   "value": 14.57
   }
  ],
  "premiumPercentiles": {
@@ -2285,11 +2285,11 @@
   "p80": 16.46
  },
  "sourceTimes": {
-  "world": "2026-07-15T04:00:00.000Z",
-  "dxy": "2026-07-15T04:00:00.000Z",
+  "world": "2026-07-16T00:02:33.000Z",
+  "dxy": "2026-07-16T00:02:32.000Z",
   "yield10y": "2026-07-15T12:20:00.000Z",
-  "vnGold": "2026-07-15T23:16:17.949Z",
-  "usdVnd": "2026-07-15T23:16:17.949Z",
+  "vnGold": "2026-07-16T00:13:34.488Z",
+  "usdVnd": "2026-07-16T00:13:34.488Z",
   "fed": null
  }
 }
