@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-16T21:28:10.415Z",
+ "generatedAt": "2026-07-16T23:14:20.753Z",
  "dataDate": "2026-07-16",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148200000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 3979.89990234375,
+  "xauUsd": 3981.89990234375,
   "usdVnd": 26450,
-  "worldVndPerLuong": 126917105,
-  "premiumPct": 16.77,
-  "premiumVnd": 21282895
+  "worldVndPerLuong": 126980884,
+  "premiumPct": 16.71,
+  "premiumVnd": 21219116
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 37,5: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 37,6: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": -2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 16,8%, ở percentile 82 so với lịch sử tự thu thập (523 ngày): chênh cao bất thường — vùng bán tốt, tránh mua.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 16,7%, ở percentile 81 so với lịch sử tự thu thập (523 ngày): chênh cao bất thường — vùng bán tốt, tránh mua.",
      "available": true
     },
     {
@@ -132,7 +132,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 1,
-     "explanation": "Giá hiện tại cao hơn 25% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
+     "explanation": "Giá hiện tại cao hơn 26% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +19,5% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +19,6% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -2280,7 +2280,7 @@
   },
   {
    "date": "2026-07-17",
-   "value": 16.77
+   "value": 16.71
   }
  ],
  "premiumPercentiles": {
@@ -2292,8 +2292,8 @@
   "world": "2026-07-16T04:00:00.000Z",
   "dxy": "2026-07-16T04:00:00.000Z",
   "yield10y": "2026-07-16T12:20:00.000Z",
-  "vnGold": "2026-07-16T21:28:10.415Z",
-  "usdVnd": "2026-07-16T21:28:10.415Z",
+  "vnGold": "2026-07-16T23:14:20.753Z",
+  "usdVnd": "2026-07-16T23:14:20.753Z",
   "fed": null
  }
 }
