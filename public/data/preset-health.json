@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-07-17T00:19:00.905Z",
+ "generatedAt": "2026-07-17T03:46:20.103Z",
  "items": [
   {
    "presetId": "1m",
    "minExcessNowPt": 29.7,
    "recentFavPct": 97.6,
-   "recentBaselinePct": 69.1,
+   "recentBaselinePct": 69,
    "recentN": 41,
    "testFavCi95": [
     75,
@@ -17,7 +17,7 @@
    "presetId": "3m",
    "minExcessNowPt": 30.3,
    "recentFavPct": 97.7,
-   "recentBaselinePct": 84.7,
+   "recentBaselinePct": 84.5,
    "recentN": 44,
    "testFavCi95": [
     97.1,
@@ -29,7 +29,7 @@
    "presetId": "6m",
    "minExcessNowPt": 20.7,
    "recentFavPct": 100,
-   "recentBaselinePct": 95.8,
+   "recentBaselinePct": 95.6,
    "recentN": 88,
    "testFavCi95": [
     100,

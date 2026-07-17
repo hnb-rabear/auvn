@@ -5730,12 +5730,12 @@
  },
  {
   "date": "2026-07-17",
-  "sjcBuy": 145200000,
-  "sjcSell": 148200000,
+  "sjcBuy": 143600000,
+  "sjcSell": 146600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26450,
-  "xauUsd": 3990.199951171875,
-  "premiumPct": 16.47
+  "usdVnd": 26440,
+  "xauUsd": 4003,
+  "premiumPct": 14.89
  }
 ]
