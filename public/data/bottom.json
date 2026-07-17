@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-17T03:44:58.401Z",
+ "generatedAt": "2026-07-17T06:33:43.003Z",
  "dataDate": "2026-07-17",
  "cycle": {
   "prob": 61.3,
@@ -30,14 +30,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 39,3: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 39,6: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +5,62: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +5,86: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +19,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +19,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -99,14 +99,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 39,3: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 39,6: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +5,62: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +5,86: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +19,4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +19,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
