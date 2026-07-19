@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-19T21:12:48.817Z",
- "dataDate": "2026-07-17",
+ "generatedAt": "2026-07-19T22:14:22.102Z",
+ "dataDate": "2026-07-19",
  "cycle": {
   "prob": 50,
   "ci": [
@@ -23,7 +23,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -16% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -17,3% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
@@ -37,7 +37,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +6,63: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +6,9: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -50,8 +50,8 @@
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
-    "score": 0,
-    "explanation": "XAU +19,9% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "score": -1,
+    "explanation": "XAU +20,3% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -92,7 +92,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -16% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -17,3% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
@@ -106,7 +106,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +6,63: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +6,9: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -119,8 +119,8 @@
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
-    "score": 0,
-    "explanation": "XAU +19,9% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "score": -1,
+    "explanation": "XAU +20,3% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22469,6 +22469,11 @@
   },
   {
    "date": "2026-07-17",
+   "cycleBin": 1,
+   "swingBin": 1
+  },
+  {
+   "date": "2026-07-19",
    "cycleBin": 1,
    "swingBin": 1
   }
@@ -54782,7 +54787,7 @@
    }
   },
   {
-   "date": "2026-07-17",
+   "date": "2026-07-19",
    "cycle": {
     "bin": 1,
     "prob": 50,

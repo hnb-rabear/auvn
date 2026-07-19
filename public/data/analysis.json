@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-19T21:10:56.940Z",
- "dataDate": "2026-07-17",
+ "generatedAt": "2026-07-19T22:12:28.877Z",
+ "dataDate": "2026-07-19",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -30,7 +30,7 @@
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 40,7: trung tính.",
+     "explanation": "RSI tuần = 40,5: trung tính.",
      "available": true
     },
     {
@@ -95,8 +95,8 @@
     {
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
-     "score": -2,
-     "explanation": "DXY = 100,8 (trên MA50, +1,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "score": -1,
+     "explanation": "DXY = 100,9 (trên MA50, +0,8% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -121,7 +121,7 @@
      "available": true
     }
    ],
-   "score": -0.5,
+   "score": -0.25,
    "available": true
   },
   {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 28,1%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 27,8%, percentile 94 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -167,12 +167,12 @@
     {
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
-     "score": 1,
-     "explanation": "XAU/USD thay đổi +19,9% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "score": 2,
+     "explanation": "XAU/USD thay đổi +20,3% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
-   "score": 1,
+   "score": 2,
    "available": true
   }
  ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": -0.8,
+ "composite": 1.7,
  "zone": "neutral",
  "vnHistoryDays": 526,
  "warnings": [
@@ -2301,11 +2301,11 @@
   "p80": 16.46
  },
  "sourceTimes": {
-  "world": "2026-07-17T04:00:00.000Z",
-  "dxy": "2026-07-17T04:00:00.000Z",
+  "world": "2026-07-19T22:01:27.000Z",
+  "dxy": "2026-07-19T04:00:00.000Z",
   "yield10y": "2026-07-17T12:20:00.000Z",
-  "vnGold": "2026-07-19T21:10:56.940Z",
-  "usdVnd": "2026-07-19T21:10:56.940Z",
+  "vnGold": "2026-07-19T22:12:28.877Z",
+  "usdVnd": "2026-07-19T22:12:28.877Z",
   "fed": null
  }
 }
