@@ -1,43 +1,43 @@
 {
- "generatedAt": "2026-07-19T22:14:22.102Z",
+ "generatedAt": "2026-07-19T23:17:30.675Z",
  "dataDate": "2026-07-19",
  "cycle": {
-  "prob": 50,
+  "prob": 59.1,
   "ci": [
-   27.5,
-   64.1
+   37.3,
+   69.4
   ],
-  "probUnweighted": 34.3,
-  "ess": 138,
-  "bin": 1,
-  "n": 361,
+  "probUnweighted": 40,
+  "ess": 199,
+  "bin": 2,
+  "n": 618,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,4%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,8%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -17,3% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -17,7% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 0,
-    "explanation": "RSI ngày = 40,6: trung tính.",
+    "score": 1,
+    "explanation": "RSI ngày = 39,3: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +6,9: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +5,57: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -50,8 +50,8 @@
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
-    "score": -1,
-    "explanation": "XAU +20,3% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "score": 0,
+    "explanation": "XAU +19,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -71,42 +71,42 @@
   ]
  },
  "swing": {
-  "prob": 46.1,
+  "prob": 53.1,
   "ci": [
-   30.3,
-   60.8
+   41.4,
+   64.5
   ],
-  "probUnweighted": 43.9,
-  "ess": 134,
-  "bin": 1,
-  "n": 369,
+  "probUnweighted": 43.7,
+  "ess": 205,
+  "bin": 2,
+  "n": 634,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,4%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,8%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -17,3% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -17,7% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 0,
-    "explanation": "RSI ngày = 40,6: trung tính.",
+    "score": 1,
+    "explanation": "RSI ngày = 39,3: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +6,9: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +5,57: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -119,8 +119,8 @@
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
-    "score": -1,
-    "explanation": "XAU +20,3% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "score": 0,
+    "explanation": "XAU +19,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22474,8 +22474,8 @@
   },
   {
    "date": "2026-07-19",
-   "cycleBin": 1,
-   "swingBin": 1
+   "cycleBin": 2,
+   "swingBin": 2
   }
  ],
  "bottomHistory": [
@@ -54789,24 +54789,24 @@
   {
    "date": "2026-07-19",
    "cycle": {
-    "bin": 1,
-    "prob": 50,
+    "bin": 2,
+    "prob": 59.1,
     "ci": [
-     27.5,
-     64.1
+     37.3,
+     69.4
     ],
-    "probUnweighted": 34.3,
-    "n": 361
+    "probUnweighted": 40,
+    "n": 618
    },
    "swing": {
-    "bin": 1,
-    "prob": 46.1,
+    "bin": 2,
+    "prob": 53.1,
     "ci": [
-     30.3,
-     60.8
+     41.4,
+     64.5
     ],
-    "probUnweighted": 43.9,
-    "n": 369
+    "probUnweighted": 43.7,
+    "n": 634
    }
   }
  ],
