@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-07-20T16:49:54.888Z",
+ "generatedAt": "2026-07-20T19:11:13.305Z",
  "dataDate": "2026-07-20",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 143000000,
   "sjcSell": 146000000,
-  "ringBuy": 142400000,
-  "ringSell": 146400000,
-  "xauUsd": 4015.699951171875,
+  "ringBuy": null,
+  "ringSell": null,
+  "xauUsd": 4011.5,
   "usdVnd": 26490,
-  "worldVndPerLuong": 128252413,
-  "premiumPct": 13.84,
-  "premiumVnd": 17747587
+  "worldVndPerLuong": 128118276,
+  "premiumPct": 13.96,
+  "premiumVnd": 17881724
  },
  "criteria": [
   {
@@ -23,14 +23,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 40,4: trung tính.",
+     "explanation": "RSI ngày = 40: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 40,4: trung tính.",
+     "explanation": "RSI tuần = 40,3: trung tính.",
      "available": true
     },
     {
@@ -44,7 +44,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 36% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 35% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,8%, ở percentile 48 so với lịch sử tự thu thập (526 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14%, ở percentile 49 so với lịch sử tự thu thập (527 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -79,12 +79,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": -1,
-     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
-     "available": true
+     "score": 0,
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
-   "score": -0.3333333333333333,
+   "score": 0,
    "available": true,
    "provisional": false
   },
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 100,9 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -117,7 +117,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.490, nhịp +0,8%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.490, nhịp +0,9%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +20,2% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +20,1% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -183,9 +183,9 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 3.8,
+ "composite": 8,
  "zone": "neutral",
- "vnHistoryDays": 526,
+ "vnHistoryDays": 527,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất."
  ],
@@ -2293,19 +2293,23 @@
   {
    "date": "2026-07-20",
    "value": 13.84
+  },
+  {
+   "date": "2026-07-21",
+   "value": 13.96
   }
  ],
  "premiumPercentiles": {
   "p20": 11.06,
   "p50": 14,
-  "p80": 16.46
+  "p80": 16.44
  },
  "sourceTimes": {
   "world": "2026-07-20T04:00:00.000Z",
   "dxy": "2026-07-20T04:00:00.000Z",
   "yield10y": "2026-07-20T12:20:00.000Z",
-  "vnGold": "2026-07-20T16:49:54.888Z",
-  "usdVnd": "2026-07-20T16:49:54.888Z",
+  "vnGold": "2026-07-20T19:11:13.305Z",
+  "usdVnd": "2026-07-20T19:11:13.305Z",
   "fed": null
  }
 }
