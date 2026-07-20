@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-20T19:11:13.305Z",
+ "generatedAt": "2026-07-20T20:44:35.262Z",
  "dataDate": "2026-07-20",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 146000000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4011.5,
+  "xauUsd": 4012.300048828125,
   "usdVnd": 26490,
-  "worldVndPerLuong": 128118276,
-  "premiumPct": 13.96,
-  "premiumVnd": 17881724
+  "worldVndPerLuong": 128143827,
+  "premiumPct": 13.93,
+  "premiumVnd": 17856173
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 40: trung tính.",
+     "explanation": "RSI ngày = 40,1: trung tính.",
      "available": true
     },
     {
@@ -44,7 +44,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 35% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 36% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14%, ở percentile 49 so với lịch sử tự thu thập (527 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,9%, ở percentile 49 so với lịch sử tự thu thập (527 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 100,9 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -2296,7 +2296,7 @@
   },
   {
    "date": "2026-07-21",
-   "value": 13.96
+   "value": 13.93
   }
  ],
  "premiumPercentiles": {
@@ -2308,8 +2308,8 @@
   "world": "2026-07-20T04:00:00.000Z",
   "dxy": "2026-07-20T04:00:00.000Z",
   "yield10y": "2026-07-20T12:20:00.000Z",
-  "vnGold": "2026-07-20T19:11:13.305Z",
-  "usdVnd": "2026-07-20T19:11:13.305Z",
+  "vnGold": "2026-07-20T20:44:35.262Z",
+  "usdVnd": "2026-07-20T20:44:35.262Z",
   "fed": null
  }
 }
