@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-20T23:18:58.299Z",
- "dataDate": "2026-07-20",
+ "generatedAt": "2026-07-21T00:14:34.565Z",
+ "dataDate": "2026-07-21",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -8,11 +8,11 @@
   "sjcSell": 146000000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4012.199951171875,
+  "xauUsd": 4009,
   "usdVnd": 26490,
-  "worldVndPerLuong": 128140630,
-  "premiumPct": 13.94,
-  "premiumVnd": 17859370
+  "worldVndPerLuong": 128038431,
+  "premiumPct": 14.03,
+  "premiumVnd": 17961569
  },
  "criteria": [
   {
@@ -22,29 +22,29 @@
     {
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
-     "score": 0,
-     "explanation": "RSI ngày = 40,1: trung tính.",
+     "score": 1,
+     "explanation": "RSI ngày = 39,9: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 40,3: trung tính.",
+     "explanation": "RSI tuần = 40,2: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 10,3%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 10,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 36% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 35% biên độ 52 tuần (đáy 3.293 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -55,7 +55,7 @@
      "available": true
     }
    ],
-   "score": 0.6,
+   "score": 0.8,
    "available": true
   },
   {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,9%, ở percentile 49 so với lịch sử tự thu thập (527 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14%, ở percentile 50 so với lịch sử tự thu thập (527 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101 (trên MA50, +0,9% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 100,9 (trên MA50, +0,8% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +20,1% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +20% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 8,
+ "composite": 11.5,
  "zone": "neutral",
  "vnHistoryDays": 527,
  "warnings": [
@@ -2296,7 +2296,7 @@
   },
   {
    "date": "2026-07-21",
-   "value": 13.94
+   "value": 14.03
   }
  ],
  "premiumPercentiles": {
@@ -2305,11 +2305,11 @@
   "p80": 16.44
  },
  "sourceTimes": {
-  "world": "2026-07-20T04:00:00.000Z",
-  "dxy": "2026-07-20T04:00:00.000Z",
+  "world": "2026-07-21T00:03:33.000Z",
+  "dxy": "2026-07-21T00:03:32.000Z",
   "yield10y": "2026-07-20T12:20:00.000Z",
-  "vnGold": "2026-07-20T23:18:58.299Z",
-  "usdVnd": "2026-07-20T23:18:58.299Z",
+  "vnGold": "2026-07-21T00:14:34.565Z",
+  "usdVnd": "2026-07-21T00:14:34.565Z",
   "fed": null
  }
 }
