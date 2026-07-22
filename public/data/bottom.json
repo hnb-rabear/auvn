@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-21T23:17:41.318Z",
- "dataDate": "2026-07-21",
+ "generatedAt": "2026-07-22T00:13:30.038Z",
+ "dataDate": "2026-07-22",
  "cycle": {
   "prob": 59.8,
   "ci": [
@@ -23,21 +23,21 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -15% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -15,1% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 46,3, có phân kỳ tăng: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 46,2, có phân kỳ tăng: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +11,61: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +11,51: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -92,21 +92,21 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -15% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -15,1% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 46,3, có phân kỳ tăng: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 46,2, có phân kỳ tăng: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +11,61: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +11,51: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -22468,7 +22468,7 @@
    "swingBin": 2
   },
   {
-   "date": "2026-07-21",
+   "date": "2026-07-22",
    "cycleBin": 2,
    "swingBin": 2
   }
@@ -54788,7 +54788,7 @@
    }
   },
   {
-   "date": "2026-07-21",
+   "date": "2026-07-22",
    "cycle": {
     "bin": 2,
     "prob": 59.8,
