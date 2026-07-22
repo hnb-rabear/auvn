@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-22T18:37:27.967Z",
+ "generatedAt": "2026-07-22T20:34:40.688Z",
  "dataDate": "2026-07-22",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 146000000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4141.60009765625,
+  "xauUsd": 4140.60009765625,
   "usdVnd": 26500,
-  "worldVndPerLuong": 132323313,
-  "premiumPct": 10.34,
-  "premiumVnd": 13676687
+  "worldVndPerLuong": 132291363,
+  "premiumPct": 10.36,
+  "premiumVnd": 13708637
  },
  "criteria": [
   {
@@ -30,7 +30,7 @@
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 42,3: trung tính.",
+     "explanation": "RSI tuần = 42,2: trung tính.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 10,3%, ở percentile 18 so với lịch sử tự thu thập (529 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 10,4%, ở percentile 18 so với lịch sử tự thu thập (529 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,65%, thay đổi 3 tháng +0,36 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,66%, thay đổi 3 tháng +0,37 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -2304,7 +2304,7 @@
   },
   {
    "date": "2026-07-23",
-   "value": 10.34
+   "value": 10.36
   }
  ],
  "premiumPercentiles": {
@@ -2316,8 +2316,8 @@
   "world": "2026-07-22T04:00:00.000Z",
   "dxy": "2026-07-22T04:00:00.000Z",
   "yield10y": "2026-07-22T12:20:00.000Z",
-  "vnGold": "2026-07-22T18:37:27.967Z",
-  "usdVnd": "2026-07-22T18:37:27.967Z",
+  "vnGold": "2026-07-22T20:34:40.688Z",
+  "usdVnd": "2026-07-22T20:34:40.688Z",
   "fed": null
  }
 }
