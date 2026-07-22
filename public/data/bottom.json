@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-22T14:31:14.048Z",
+ "generatedAt": "2026-07-22T16:54:16.803Z",
  "dataDate": "2026-07-22",
  "cycle": {
   "prob": 59.1,
@@ -37,7 +37,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +19,11: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +19,16: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -106,7 +106,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +19,11: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +19,16: động lượng đang đảo lên.",
     "available": true
    },
    {
