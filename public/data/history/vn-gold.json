@@ -5791,11 +5791,11 @@
  {
   "date": "2026-07-23",
   "sjcBuy": 135000000,
-  "sjcSell": 140000000,
+  "sjcSell": 139500000,
   "ringBuy": 138700000,
   "ringSell": 143200000,
-  "usdVnd": 26312,
-  "xauUsd": 4129.60009765625,
-  "premiumPct": 6.87
+  "usdVnd": 26500,
+  "xauUsd": 4129.7001953125,
+  "premiumPct": 5.73
  }
 ]
