@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-24T19:51:03.975Z",
+ "generatedAt": "2026-07-24T21:32:25.760Z",
  "dataDate": "2026-07-24",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 140500000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4057.699951171875,
+  "xauUsd": 4055.699951171875,
   "usdVnd": 26510,
-  "worldVndPerLuong": 129691642,
-  "premiumPct": 8.33,
-  "premiumVnd": 10808358
+  "worldVndPerLuong": 129627718,
+  "premiumPct": 8.39,
+  "premiumVnd": 10872282
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 45,2: trung tính.",
+     "explanation": "RSI ngày = 45: trung tính.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,3%, ở percentile 13 so với lịch sử tự thu thập (531 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,4%, ở percentile 13 so với lịch sử tự thu thập (531 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +19,6% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +19,5% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -2312,7 +2312,7 @@
   },
   {
    "date": "2026-07-25",
-   "value": 8.33
+   "value": 8.39
   }
  ],
  "premiumPercentiles": {
@@ -2324,8 +2324,8 @@
   "world": "2026-07-24T04:00:00.000Z",
   "dxy": "2026-07-24T04:00:00.000Z",
   "yield10y": "2026-07-24T12:20:00.000Z",
-  "vnGold": "2026-07-24T19:51:03.975Z",
-  "usdVnd": "2026-07-24T19:51:03.975Z",
+  "vnGold": "2026-07-24T21:32:25.760Z",
+  "usdVnd": "2026-07-24T21:32:25.760Z",
   "fed": null
  }
 }
