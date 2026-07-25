@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-07-25T01:01:31.885Z",
+ "generatedAt": "2026-07-25T03:43:33.592Z",
  "dataDate": "2026-07-24",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 135500000,
-  "sjcSell": 140500000,
+  "sjcBuy": 137500000,
+  "sjcSell": 141500000,
   "ringBuy": 138850000,
   "ringSell": 142650000,
   "xauUsd": 4055.699951171875,
   "usdVnd": 26510,
   "worldVndPerLuong": 129627718,
-  "premiumPct": 8.39,
-  "premiumVnd": 10872282
+  "premiumPct": 9.16,
+  "premiumVnd": 11872282
  },
  "criteria": [
   {
@@ -66,14 +66,14 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,4%, ở percentile 13 so với lịch sử tự thu thập (531 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,2%, ở percentile 15 so với lịch sử tự thu thập (531 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": -1,
-     "explanation": "Chênh mua–bán SJC = 3,6% giá bán: spread giãn rộng — thị trường biến động/khan hàng, giao dịch bất lợi.",
+     "explanation": "Chênh mua–bán SJC = 2,8% giá bán: spread giãn rộng — thị trường biến động/khan hàng, giao dịch bất lợi.",
      "available": true
     },
     {
@@ -2312,7 +2312,7 @@
   },
   {
    "date": "2026-07-25",
-   "value": 8.39
+   "value": 9.16
   }
  ],
  "premiumPercentiles": {
@@ -2324,8 +2324,8 @@
   "world": "2026-07-24T04:00:00.000Z",
   "dxy": "2026-07-24T04:00:00.000Z",
   "yield10y": "2026-07-24T12:20:00.000Z",
-  "vnGold": "2026-07-25T01:01:31.885Z",
-  "usdVnd": "2026-07-25T01:01:31.885Z",
+  "vnGold": "2026-07-25T03:43:33.592Z",
+  "usdVnd": "2026-07-25T03:43:33.592Z",
   "fed": null
  }
 }
