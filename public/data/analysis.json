@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-07-26T02:26:57.599Z",
+ "generatedAt": "2026-07-26T02:32:36.012Z",
  "dataDate": "2026-07-24",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 137500000,
   "sjcSell": 141500000,
-  "ringBuy": null,
-  "ringSell": null,
+  "ringBuy": 138900000,
+  "ringSell": 142700000,
   "xauUsd": 4067.60009765625,
   "usdVnd": 26510,
   "worldVndPerLuong": 130008069,
@@ -79,12 +79,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": 0,
-     "explanation": "Không có dữ liệu.",
-     "available": false
+     "score": -1,
+     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
+     "available": true
     }
    ],
-   "score": 0.5,
+   "score": 0,
    "available": true,
    "provisional": false
   },
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,5 (trên MA50, -0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,4 (trên MA50, +0% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -109,8 +109,8 @@
     {
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
-     "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,68%, thay đổi 3 tháng +0,36 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "score": -2,
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,7%, thay đổi 3 tháng +0,41 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
      "available": true
     },
     {
@@ -121,7 +121,7 @@
      "available": true
     }
    ],
-   "score": -0.25,
+   "score": -0.5,
    "available": true
   },
   {
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 8.3,
+ "composite": -0.5,
  "zone": "neutral",
  "vnHistoryDays": 532,
  "warnings": [
@@ -2326,10 +2326,10 @@
  },
  "sourceTimes": {
   "world": "2026-07-24T04:00:00.000Z",
-  "dxy": "2026-07-24T04:00:00.000Z",
-  "yield10y": "2026-07-24T12:20:00.000Z",
-  "vnGold": "2026-07-26T02:26:57.599Z",
-  "usdVnd": "2026-07-26T02:26:57.599Z",
+  "dxy": "2026-07-23T04:00:00.000Z",
+  "yield10y": "2026-07-23T12:20:00.000Z",
+  "vnGold": "2026-07-26T02:32:36.012Z",
+  "usdVnd": "2026-07-26T02:32:36.012Z",
   "fed": null
  }
 }
