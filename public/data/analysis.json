@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-26T21:15:03.441Z",
- "dataDate": "2026-07-24",
+ "generatedAt": "2026-07-26T22:16:31.360Z",
+ "dataDate": "2026-07-26",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -30,7 +30,7 @@
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 42,3: trung tính.",
+     "explanation": "RSI tuần = 42,1: trung tính.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,5 (trên MA50, -0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,2 (trên MA50, -0,2% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 26,2%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 26,1%, percentile 93 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -167,12 +167,12 @@
     {
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
-     "score": 1,
-     "explanation": "XAU/USD thay đổi +19,9% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "score": 2,
+     "explanation": "XAU/USD thay đổi +20,8% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
-   "score": 1,
+   "score": 2,
    "available": true
   }
  ],
@@ -2329,11 +2329,11 @@
   "p80": 16.41
  },
  "sourceTimes": {
-  "world": "2026-07-24T04:00:00.000Z",
-  "dxy": "2026-07-24T04:00:00.000Z",
+  "world": "2026-07-26T22:05:26.000Z",
+  "dxy": "2026-07-26T04:00:00.000Z",
   "yield10y": "2026-07-24T12:20:00.000Z",
-  "vnGold": "2026-07-26T21:15:03.441Z",
-  "usdVnd": "2026-07-26T21:15:03.441Z",
+  "vnGold": "2026-07-26T22:16:31.360Z",
+  "usdVnd": "2026-07-26T22:16:31.360Z",
   "fed": null
  }
 }
