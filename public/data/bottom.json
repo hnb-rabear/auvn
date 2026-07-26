@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-26T15:35:25.838Z",
+ "generatedAt": "2026-07-26T17:29:45.060Z",
  "dataDate": "2026-07-24",
  "cycle": {
   "prob": 59.8,
@@ -44,7 +44,7 @@
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -1,
-    "explanation": "USD trên MA50, lợi suất +0,36đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,41đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
     "available": true
    },
    {
@@ -113,7 +113,7 @@
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -1,
-    "explanation": "USD trên MA50, lợi suất +0,36đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,41đ/3 tháng, Fed -0,01đ: vĩ mô bất lợi.",
     "available": true
    },
    {
