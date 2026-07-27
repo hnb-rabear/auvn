@@ -5830,12 +5830,12 @@
  },
  {
   "date": "2026-07-27",
-  "sjcBuy": 137500000,
-  "sjcSell": 141500000,
+  "sjcBuy": 139000000,
+  "sjcSell": 143000000,
   "ringBuy": 138900000,
   "ringSell": 142700000,
-  "usdVnd": 26510,
-  "xauUsd": 4109.60009765625,
-  "premiumPct": 7.73
+  "usdVnd": 26520,
+  "xauUsd": 4067.60009765625,
+  "premiumPct": 9.95
  }
 ]
