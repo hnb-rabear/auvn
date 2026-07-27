@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-27T20:47:37.567Z",
+ "generatedAt": "2026-07-27T22:30:45.418Z",
  "dataDate": "2026-07-27",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 143000000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4079.800048828125,
+  "xauUsd": 4078.199951171875,
   "usdVnd": 26520,
-  "worldVndPerLuong": 130447190,
-  "premiumPct": 9.62,
-  "premiumVnd": 12552810
+  "worldVndPerLuong": 130396029,
+  "premiumPct": 9.67,
+  "premiumVnd": 12603971
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 46,9: trung tính.",
+     "explanation": "RSI ngày = 46,8: trung tính.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,6%, ở percentile 16 so với lịch sử tự thu thập (534 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,7%, ở percentile 16 so với lịch sử tự thu thập (534 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,5 (trên MA50, +0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,5 (trên MA50, -0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,64%, thay đổi 3 tháng +0,33 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,64%, thay đổi 3 tháng +0,32 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -132,7 +132,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 35% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 34% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -2324,7 +2324,7 @@
   },
   {
    "date": "2026-07-28",
-   "value": 9.62
+   "value": 9.67
   }
  ],
  "premiumPercentiles": {
@@ -2336,8 +2336,8 @@
   "world": "2026-07-27T04:00:00.000Z",
   "dxy": "2026-07-27T04:00:00.000Z",
   "yield10y": "2026-07-27T12:20:00.000Z",
-  "vnGold": "2026-07-27T20:47:37.567Z",
-  "usdVnd": "2026-07-27T20:47:37.567Z",
+  "vnGold": "2026-07-27T22:30:45.418Z",
+  "usdVnd": "2026-07-27T22:30:45.418Z",
   "fed": null
  }
 }
