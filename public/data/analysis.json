@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-28T03:42:03.111Z",
+ "generatedAt": "2026-07-28T06:44:39.842Z",
  "dataDate": "2026-07-28",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 141500000,
   "ringBuy": 140100000,
   "ringSell": 144000000,
-  "xauUsd": 4049.199951171875,
+  "xauUsd": 4049.10009765625,
   "usdVnd": 26525,
-  "worldVndPerLuong": 129493195,
+  "worldVndPerLuong": 129490001,
   "premiumPct": 9.27,
-  "premiumVnd": 12006805
+  "premiumVnd": 12009999
  },
  "criteria": [
   {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,4 (trên MA50, +0% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,5 (trên MA50, +0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +21,5% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +21,4% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2333,11 +2333,11 @@
   "p80": 16.41
  },
  "sourceTimes": {
-  "world": "2026-07-28T03:30:54.000Z",
-  "dxy": "2026-07-28T03:31:01.000Z",
+  "world": "2026-07-28T04:00:00.000Z",
+  "dxy": "2026-07-28T04:00:00.000Z",
   "yield10y": "2026-07-27T12:20:00.000Z",
-  "vnGold": "2026-07-28T03:42:03.111Z",
-  "usdVnd": "2026-07-28T03:42:03.111Z",
+  "vnGold": "2026-07-28T06:44:39.842Z",
+  "usdVnd": "2026-07-28T06:44:39.842Z",
   "fed": null
  }
 }
