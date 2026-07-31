@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-31T10:01:39.309Z",
+ "generatedAt": "2026-07-31T12:21:29.182Z",
  "dataDate": "2026-07-31",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 142200000,
   "ringBuy": null,
   "ringSell": null,
-  "xauUsd": 4113.10009765625,
+  "xauUsd": 4113.2998046875,
   "usdVnd": 26490,
-  "worldVndPerLuong": 131363154,
-  "premiumPct": 8.25,
-  "premiumVnd": 10836846
+  "worldVndPerLuong": 131369532,
+  "premiumPct": 8.24,
+  "premiumVnd": 10830468
  },
  "criteria": [
   {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,3%, ở percentile 13 so với lịch sử tự thu thập (537 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,2%, ở percentile 13 so với lịch sử tự thu thập (537 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 2,
-     "explanation": "DXY = 100,1 (dưới MA50, -1,2% trong 1 tháng): USD yếu và đang rơi — hỗ trợ mạnh cho giá vàng.",
+     "explanation": "DXY = 100,4 (dưới MA50, -1% trong 1 tháng): USD yếu và đang rơi — hỗ trợ mạnh cho giá vàng.",
      "available": true
     },
     {
@@ -2336,7 +2336,7 @@
   },
   {
    "date": "2026-07-31",
-   "value": 8.25
+   "value": 8.24
   }
  ],
  "premiumPercentiles": {
@@ -2348,8 +2348,8 @@
   "world": "2026-07-31T04:00:00.000Z",
   "dxy": "2026-07-31T04:00:00.000Z",
   "yield10y": "2026-07-30T12:20:00.000Z",
-  "vnGold": "2026-07-31T10:01:39.309Z",
-  "usdVnd": "2026-07-31T10:01:39.309Z",
+  "vnGold": "2026-07-31T12:21:29.182Z",
+  "usdVnd": "2026-07-31T12:21:29.182Z",
   "fed": null
  }
 }
