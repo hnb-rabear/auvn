@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-08-02T00:15:56.880Z",
+ "generatedAt": "2026-08-02T01:01:38.689Z",
  "dataDate": "2026-07-31",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 137000000,
   "sjcSell": 141000000,
-  "ringBuy": null,
-  "ringSell": null,
+  "ringBuy": 138300000,
+  "ringSell": 142300000,
   "xauUsd": 4049.10009765625,
   "usdVnd": 26490,
   "worldVndPerLuong": 129319138,
@@ -79,12 +79,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": 0,
-     "explanation": "Không có dữ liệu.",
-     "available": false
+     "score": -1,
+     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
+     "available": true
     }
    ],
-   "score": 0.5,
+   "score": 0,
    "available": true,
    "provisional": false
   },
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 21.7,
+ "composite": 15.5,
  "zone": "neutral",
  "vnHistoryDays": 539,
  "warnings": [
@@ -2356,8 +2356,8 @@
   "world": "2026-07-31T04:00:00.000Z",
   "dxy": "2026-07-31T04:00:00.000Z",
   "yield10y": "2026-07-31T12:20:00.000Z",
-  "vnGold": "2026-08-02T00:15:56.880Z",
-  "usdVnd": "2026-08-02T00:15:56.880Z",
+  "vnGold": "2026-08-02T01:01:38.689Z",
+  "usdVnd": "2026-08-02T01:01:38.689Z",
   "fed": null
  }
 }
