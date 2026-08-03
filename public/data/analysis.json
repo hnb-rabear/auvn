@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-08-03T15:21:31.984Z",
+ "generatedAt": "2026-08-03T17:22:46.976Z",
  "dataDate": "2026-08-03",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 137500000,
   "sjcSell": 141000000,
-  "ringBuy": 138300000,
-  "ringSell": 142300000,
-  "xauUsd": 4089.89990234375,
+  "ringBuy": null,
+  "ringSell": null,
+  "xauUsd": 4089.699951171875,
   "usdVnd": 26480,
-  "worldVndPerLuong": 130572882,
+  "worldVndPerLuong": 130566498,
   "premiumPct": 7.99,
-  "premiumVnd": 10427118
+  "premiumVnd": 10433502
  },
  "criteria": [
   {
@@ -30,7 +30,7 @@
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 42,8: trung tính.",
+     "explanation": "RSI tuần = 42,7: trung tính.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8%, ở percentile 14 so với lịch sử tự thu thập (540 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8%, ở percentile 13 so với lịch sử tự thu thập (541 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -79,12 +79,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": -1,
-     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
-     "available": true
+     "score": 0,
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
-   "score": 0.3333333333333333,
+   "score": 1,
    "available": true,
    "provisional": false
   },
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,9 (dưới MA50, -0,9% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 100 (dưới MA50, -0,9% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -117,7 +117,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.480, nhịp +0,7%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.480, nhịp +0,1%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -183,9 +183,9 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 7.7,
+ "composite": 16,
  "zone": "neutral",
- "vnHistoryDays": 540,
+ "vnHistoryDays": 541,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất."
  ],
@@ -2349,6 +2349,10 @@
   {
    "date": "2026-08-03",
    "value": 7.99
+  },
+  {
+   "date": "2026-08-04",
+   "value": 7.99
   }
  ],
  "premiumPercentiles": {
@@ -2360,8 +2364,8 @@
   "world": "2026-08-03T04:00:00.000Z",
   "dxy": "2026-08-03T04:00:00.000Z",
   "yield10y": "2026-08-03T12:20:00.000Z",
-  "vnGold": "2026-08-03T15:21:31.984Z",
-  "usdVnd": "2026-08-03T15:21:31.984Z",
+  "vnGold": "2026-08-03T17:22:46.976Z",
+  "usdVnd": "2026-08-03T17:22:46.976Z",
   "fed": null
  }
 }
