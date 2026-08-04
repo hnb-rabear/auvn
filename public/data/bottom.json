@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-04T20:48:42.839Z",
+ "generatedAt": "2026-08-04T22:34:11.221Z",
  "dataDate": "2026-08-04",
  "cycle": {
   "prob": 78.7,
@@ -23,7 +23,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -8,5% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -8,6% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
@@ -37,7 +37,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +15,75: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +15,68: động lượng đang đảo lên.",
     "available": true
    },
    {
@@ -92,7 +92,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 1,
-    "explanation": "XAU thay đổi -8,5% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -8,6% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
@@ -106,7 +106,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": 2,
-    "explanation": "MACD histogram +15,75: động lượng đang đảo lên.",
+    "explanation": "MACD histogram +15,68: động lượng đang đảo lên.",
     "available": true
    },
    {
