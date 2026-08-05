@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-08-05T16:57:53.680Z",
+ "generatedAt": "2026-08-05T18:59:34.527Z",
  "dataDate": "2026-08-05",
  "isBear": true,
- "ddFromAth": 0.19058363417569185,
- "ddChange": -0.02999022262334536,
- "phase": "grind",
- "pricePct2y": 0.7559523809523809,
- "mult": 0.5,
- "recoveryRisk": false,
- "note": "Bear rỉ máu. Giá ở percentile 76% của 2 năm gần — dùng vị trí giá để tính khối lượng."
+ "ddFromAth": 0.18765042117930206,
+ "ddChange": -0.03292343561973515,
+ "phase": "recovery",
+ "pricePct2y": 0.7599206349206349,
+ "mult": 1.5,
+ "recoveryRisk": true,
+ "note": "Giá đang hồi phục (đáy thu hẹp 3 điểm %/tháng). Gom mạnh ×1.5 — đây là cược giá tiếp tục lên."
 }
