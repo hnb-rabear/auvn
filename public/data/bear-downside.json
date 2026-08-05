@@ -1,9 +1,9 @@
 {
- "generatedAt": "2026-08-05T10:02:37.956Z",
+ "generatedAt": "2026-08-05T12:22:45.910Z",
  "dataDate": "2026-08-05",
- "currentPrice": 4216.9,
- "currentDdPct": 20.7,
- "currentBucketIdx": 2,
+ "currentPrice": 4258,
+ "currentDdPct": 19.9,
+ "currentBucketIdx": 1,
  "conditioningWorks": false,
  "shownSource": "unconditional",
  "shown": [
