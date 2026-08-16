@@ -6008,5 +6008,37 @@
   "usdVnd": 26130,
   "xauUsd": 4490.10009765625,
   "premiumPct": 1.66
+ },
+ {
+  "date": "2026-08-14",
+  "sjcBuy": 140300000,
+  "sjcSell": 143300000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26070,
+  "xauUsd": 4380.39990234375,
+  "premiumPct": 4.08,
+  "backfilled": true
+ },
+ {
+  "date": "2026-08-15",
+  "sjcBuy": 141000000,
+  "sjcSell": 144000000,
+  "ringBuy": null,
+  "ringSell": null,
+  "usdVnd": 26147,
+  "xauUsd": 4380.39990234375,
+  "premiumPct": 4.28,
+  "backfilled": true
+ },
+ {
+  "date": "2026-08-16",
+  "sjcBuy": 140700000,
+  "sjcSell": 144400000,
+  "ringBuy": 140700000,
+  "ringSell": 144700000,
+  "usdVnd": 26147,
+  "xauUsd": 4380.39990234375,
+  "premiumPct": 4.57
  }
 ]
