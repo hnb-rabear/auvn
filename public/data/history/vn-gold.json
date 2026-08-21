@@ -6082,5 +6082,15 @@
   "usdVnd": 26179,
   "xauUsd": 4564.89990234375,
   "premiumPct": -0.96
+ },
+ {
+  "date": "2026-08-21",
+  "sjcBuy": 143000000,
+  "sjcSell": 146000000,
+  "ringBuy": 143000000,
+  "ringSell": 147000000,
+  "usdVnd": 26179,
+  "xauUsd": 4569.10009765625,
+  "premiumPct": 1.24
  }
 ]
