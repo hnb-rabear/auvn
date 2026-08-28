@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-08-06T14:41:41.665Z",
- "fromDate": "2009-08-06",
- "toDate": "2026-08-06",
+ "generatedAt": "2026-08-28T22:39:09.193Z",
+ "fromDate": "2009-08-27",
+ "toDate": "2026-08-28",
  "observations": 1426,
  "horizons": [
   21,
@@ -54,23 +54,23 @@
   {
    "zone": "neutral",
    "horizonDays": 21,
-   "count": 1243,
+   "count": 1244,
    "pctFavorable": null,
    "medianReturnPct": 0.7
   },
   {
    "zone": "neutral",
    "horizonDays": 63,
-   "count": 1229,
+   "count": 1230,
    "pctFavorable": null,
-   "medianReturnPct": 2.6
+   "medianReturnPct": 2.5
   },
   {
    "zone": "neutral",
    "horizonDays": 126,
    "count": 1212,
    "pctFavorable": null,
-   "medianReturnPct": 4.5
+   "medianReturnPct": 4.3
   },
   {
    "zone": "sell",
@@ -89,9 +89,9 @@
   {
    "zone": "sell",
    "horizonDays": 126,
-   "count": 121,
-   "pctFavorable": 35.5,
-   "medianReturnPct": 10.4
+   "count": 122,
+   "pctFavorable": 35.2,
+   "medianReturnPct": 10.2
   },
   {
    "zone": "strong-sell",

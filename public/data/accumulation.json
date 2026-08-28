@@ -1,92 +1,17 @@
 {
- "generatedAt": "2026-08-06T14:43:28.601Z",
- "dataDate": "2026-08-06",
- "pricePct2y": 0.7599206349206349,
+ "generatedAt": "2026-08-28T22:40:36.630Z",
+ "dataDate": "2026-08-28",
+ "pricePct2y": 0.8095238095238095,
  "mult": 0.25,
  "brakes": [
   {
    "id": "price-top",
    "label": "Giá đỉnh vùng 2 năm",
-   "explanation": "Giá đang ở percentile 76% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
+   "explanation": "Giá đang ở percentile 81% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
   }
  ],
  "provisional": false,
  "history": [
-  {
-   "date": "2009-08-06",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-07",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-10",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-11",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-12",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-13",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-14",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-17",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-18",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-19",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-20",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-21",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-24",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-25",
-   "pricePct2y": null,
-   "mult": 1
-  },
-  {
-   "date": "2009-08-26",
-   "pricePct2y": null,
-   "mult": 1
-  },
   {
    "date": "2009-08-27",
    "pricePct2y": null,
@@ -2534,78 +2459,78 @@
   },
   {
    "date": "2011-08-05",
-   "pricePct2y": 0.996031746031746,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-08",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-09",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-10",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-11",
-   "pricePct2y": 0.998015873015873,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-12",
-   "pricePct2y": 0.996031746031746,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-15",
-   "pricePct2y": 0.998015873015873,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-16",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-17",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-18",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-19",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-22",
-   "pricePct2y": 1,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-23",
-   "pricePct2y": 0.998015873015873,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-24",
-   "pricePct2y": 0.9841269841269841,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-25",
-   "pricePct2y": 0.9861111111111112,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-08-26",
@@ -21384,7 +21309,87 @@
   },
   {
    "date": "2026-08-06",
-   "pricePct2y": 0.7599206349206349,
+   "pricePct2y": 0.7440476190476191,
+   "mult": 1
+  },
+  {
+   "date": "2026-08-07",
+   "pricePct2y": 0.7757936507936508,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-10",
+   "pricePct2y": 0.7817460317460317,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-11",
+   "pricePct2y": 0.7857142857142857,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-12",
+   "pricePct2y": 0.7896825396825397,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-13",
+   "pricePct2y": 0.7777777777777778,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-14",
+   "pricePct2y": 0.7817460317460317,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-17",
+   "pricePct2y": 0.7896825396825397,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-18",
+   "pricePct2y": 0.7738095238095238,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-19",
+   "pricePct2y": 0.8134920634920635,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-20",
+   "pricePct2y": 0.8234126984126984,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-21",
+   "pricePct2y": 0.8650793650793651,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-24",
+   "pricePct2y": 0.8690476190476191,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-25",
+   "pricePct2y": 0.8670634920634921,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-26",
+   "pricePct2y": 0.8492063492063492,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-27",
+   "pricePct2y": 0.8531746031746031,
+   "mult": 0.25
+  },
+  {
+   "date": "2026-08-28",
+   "pricePct2y": 0.8095238095238095,
    "mult": 0.25
   }
  ],
