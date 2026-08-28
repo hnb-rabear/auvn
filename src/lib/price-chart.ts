@@ -2,13 +2,19 @@
  *  + SJC quy đổi sang USD/oz-tương-đương bằng tỷ giá ngày đó, để so sánh trực tiếp trên cùng
  *  1 trục — thay vì mỗi đường tự co giãn riêng (gây ảo giác "SJC thấp hơn thế giới",
  *  spec 2026-07-11). XAU/USD KHÔNG bị rút ngắn theo phạm vi dữ liệu VN — chỉ đường SJC mới bị
- *  giới hạn bởi vùng có usdVnd theo ngày (giống giới hạn dữ liệu SJC vốn đã có từ trước). */
+ *  giới hạn bởi vùng có usdVnd theo ngày (giống giới hạn dữ liệu SJC vốn đã có từ trước).
+ *  Từ 2026-08: trục chung có thể đổi sang VND/chỉ (PriceUnit="chi") — khi đó tới lượt XAU bị
+ *  giới hạn bởi vùng có usdVnd, vì không được lấy tỷ giá hiện tại áp cho lịch sử thiếu tỷ giá. */
 import type { TimelinePoint, VnGoldEntry } from "./types";
 
 export const POINTS_PER_MONTH = 21;
 export const MIN_SPAN = 14;
 const TROY_OZ_GRAMS = 31.1034768;
 const LUONG_GRAMS = 37.5;
+const CHI_GRAMS = LUONG_GRAMS / 10;
+
+/** Đơn vị trục chung: "oz" = USD/ounce (mặc định, giữ hành vi cũ), "chi" = VND/chỉ. */
+export type PriceUnit = "oz" | "chi";
 
 export const RANGES: { label: string; months: number | null }[] = [
   { label: "1T", months: 1 },
@@ -44,6 +50,35 @@ export function sjcUsdMap(rows: VnGoldEntry[]): Map<string, number> {
     }
   }
   return m;
+}
+
+/** Hai chuỗi trên cùng đơn vị; thiếu tỷ giá ngày nào thì không bịa giá quy đổi ngày đó. */
+export function unitSeries(
+  points: TimelinePoint[],
+  rows: VnGoldEntry[],
+  unit: PriceUnit
+): { sjc: Map<string, number>; xau: Map<string, number> | null } {
+  if (unit === "oz") return { sjc: sjcUsdMap(rows), xau: null };
+
+  const prices = new Map(points.map((p) => [p.date, p.price]));
+  const sjc = new Map<string, number>();
+  const xau = new Map<string, number>();
+  for (const row of rows) {
+    if (row.usdVnd === null) continue;
+    const price = prices.get(row.date);
+    if (price !== undefined) xau.set(row.date, (price / TROY_OZ_GRAMS) * row.usdVnd * CHI_GRAMS);
+    if (row.sjcSell !== null) sjc.set(row.date, row.sjcSell / 10);
+  }
+  return { sjc, xau };
+}
+
+/** Nhãn giá theo đơn vị trục chung. */
+export function fmtPrice(v: number, unit: PriceUnit): string {
+  if (unit === "oz") return `$${Math.round(v).toLocaleString("vi-VN")}`;
+  return `${(v / 1_000_000).toLocaleString("vi-VN", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })} tr₫`;
 }
 
 interface SeriesPts {
@@ -114,11 +149,20 @@ function render(
 export interface ChartGeom {
   W: number;
   H: number;
+  /** đơn vị của trục y ("oz" mặc định) */
+  unit: PriceUnit;
+  /** false khi cửa sổ không có giá trị nào để vẽ (chi mà thiếu tỷ giá) ⇒ đừng vẽ trục giả */
+  hasData: boolean;
   x(i: number): number;
-  /** trục USD/oz dùng chung cho cả 2 đường */
+  /** trục giá dùng chung cho cả 2 đường */
   y(v: number): number;
-  /** luôn phủ toàn bộ cửa sổ — points[] không có ngày thiếu như vnRows */
-  xauPath: string;
+  /** y của điểm points[i] theo đơn vị hiện tại — null khi ngày đó thiếu giá quy đổi */
+  yOf(i: number): number | null;
+  /** ở "oz" luôn phủ toàn bộ cửa sổ; ở "chi" có thể thưa/null như đường SJC */
+  xauPath: string | null;
+  xauTailPath: string | null;
+  xauFrom: string | null;
+  xauAsOf: string | null;
   xauMin: number;
   xauMax: number;
   /** null khi cửa sổ không giao dữ liệu SJC (cả sjcSell và usdVnd cùng ngày) */
@@ -131,41 +175,82 @@ export interface ChartGeom {
   max: number;
 }
 
+/** ở "oz" (mặc định) XAU luôn phủ cả cửa sổ ⇒ xauPath chắc chắn có, caller cũ khỏi kiểm null */
+export interface OzChartGeom extends ChartGeom {
+  xauPath: string;
+}
+
 export function buildGeom(
   points: TimelinePoint[],
   start: number,
   span: number,
-  sjcUsd: Map<string, number>,
+  sjcValues: Map<string, number>,
+  W?: number,
+  H?: number
+): OzChartGeom;
+export function buildGeom(
+  points: TimelinePoint[],
+  start: number,
+  span: number,
+  sjcValues: Map<string, number>,
+  W: number,
+  H: number,
+  opts: { xau?: Map<string, number> | null; unit?: PriceUnit }
+): ChartGeom;
+export function buildGeom(
+  points: TimelinePoint[],
+  start: number,
+  span: number,
+  sjcValues: Map<string, number>,
   W = 700,
-  H = 160
+  H = 160,
+  opts: { xau?: Map<string, number> | null; unit?: PriceUnit } = {}
 ): ChartGeom {
   const end = Math.min(points.length, start + span);
   const win = points.slice(start, end);
   const x = (i: number) => ((i - start) / Math.max(1, win.length - 1)) * W;
   const pad = 6;
 
-  const xauVals = win.map((q) => q.price);
-  const xauMin = Math.min(...xauVals);
-  const xauMax = Math.max(...xauVals);
-
-  const sc = collect(win, sjcUsd);
+  const unit = opts.unit ?? "oz";
+  const xauMap = opts.xau ?? null;
+  const xauSeries = xauMap === null ? null : collect(win, xauMap);
+  const xauVals = xauSeries
+    ? xauSeries.pts.map((o) => o.v).concat(xauSeries.last ? [xauSeries.last.v] : [])
+    : win.map((q) => q.price);
+  const sc = collect(win, sjcValues);
   const sjcVals = sc.pts.map((o) => o.v).concat(sc.last ? [sc.last.v] : []);
-
-  const min = Math.min(xauMin, ...(sjcVals.length ? sjcVals : [xauMin]));
-  const max = Math.max(xauMax, ...(sjcVals.length ? sjcVals : [xauMax]));
+  const allVals = xauVals.concat(sjcVals);
+  const hasData = allVals.length > 0;
+  const min = hasData ? Math.min(...allVals) : 0;
+  const max = hasData ? Math.max(...allVals) : 1;
   const y = (v: number) => H - ((v - min) / (max - min || 1)) * (H - pad * 2) - pad;
 
-  const xauPath = win.map((q, j) => `${j === 0 ? "M" : "L"}${x(start + j).toFixed(1)},${y(q.price).toFixed(1)}`).join("");
+  const rawXauPath = xauSeries
+    ? null
+    : win.map((q, j) => `${j === 0 ? "M" : "L"}${x(start + j).toFixed(1)},${y(q.price).toFixed(1)}`).join("");
+  const xauR = xauSeries ? render(win, start, x, y, xauSeries) : null;
   const sjcR = render(win, start, x, y, sc);
+  const yOf = (i: number) => {
+    const point = points[i];
+    if (!point) return null;
+    const value = xauMap === null ? point.price : xauMap.get(point.date);
+    return value === undefined ? null : y(value);
+  };
 
   return {
     W,
     H,
+    unit,
+    hasData,
     x,
     y,
-    xauPath,
-    xauMin,
-    xauMax,
+    yOf,
+    xauPath: xauR?.path ?? rawXauPath,
+    xauTailPath: xauR?.tailPath ?? null,
+    xauFrom: xauR?.from ?? null,
+    xauAsOf: xauR?.asOf ?? null,
+    xauMin: xauVals.length ? Math.min(...xauVals) : min,
+    xauMax: xauVals.length ? Math.max(...xauVals) : max,
     sjcPath: sjcR.path,
     sjcTailPath: sjcR.tailPath,
     sjcFrom: sjcR.from,

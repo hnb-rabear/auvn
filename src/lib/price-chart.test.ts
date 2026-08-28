@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { windowFor, sjcUsdMap, buildGeom, idxAtFrac, MIN_SPAN, POINTS_PER_MONTH } from "./price-chart";
+import {
+  windowFor,
+  sjcUsdMap,
+  unitSeries,
+  fmtPrice,
+  buildGeom,
+  idxAtFrac,
+  MIN_SPAN,
+  POINTS_PER_MONTH,
+} from "./price-chart";
 import type { TimelinePoint, VnGoldEntry } from "./types";
 
 const mkPt = (date: string, price: number) =>
@@ -48,6 +57,44 @@ describe("sjcUsdMap", () => {
     expect(m.get("2025-02-08")).toBeCloseTo((151_400_000 / 25400 / 37.5) * 31.1034768, 3);
     expect(m.has("2025-02-09")).toBe(false);
     expect(m.has("2025-02-10")).toBe(false);
+  });
+});
+
+describe("unitSeries", () => {
+  const pts = [mkPt("2025-02-08", 2800), mkPt("2025-02-09", 2900)];
+  const rows = [
+    mkVn("2025-02-08", 100_000_000, 25_000),
+    mkVn("2025-02-09", 110_000_000, null),
+  ];
+
+  it("oz giữ XAU gốc và quy đổi SJC sang USD/oz", () => {
+    const s = unitSeries(pts, rows, "oz");
+    expect(s.xau).toBeNull();
+    expect(s.sjc.get("2025-02-08")).toBeCloseTo((100_000_000 / 25_000 / 37.5) * 31.1034768, 8);
+  });
+
+  it("chi quy đổi cả XAU và SJC sang VND/chỉ, bỏ ngày thiếu tỷ giá", () => {
+    const s = unitSeries(pts, rows, "chi");
+    expect(s.xau?.get("2025-02-08")).toBeCloseTo((2800 / 31.1034768) * 25_000 * 3.75, 8);
+    expect(s.sjc.get("2025-02-08")).toBe(10_000_000);
+    expect(s.xau?.has("2025-02-09")).toBe(false);
+    expect(s.sjc.has("2025-02-09")).toBe(false);
+  });
+
+  it("giữ nguyên tỷ lệ SJC/XAU giữa hai đơn vị", () => {
+    const oz = unitSeries(pts, rows, "oz");
+    const chi = unitSeries(pts, rows, "chi");
+    expect(chi.sjc.get("2025-02-08")! / chi.xau!.get("2025-02-08")!).toBeCloseTo(
+      oz.sjc.get("2025-02-08")! / pts[0].price,
+      12
+    );
+  });
+});
+
+describe("fmtPrice", () => {
+  it("format theo đúng đơn vị chart", () => {
+    expect(fmtPrice(4504.1, "oz")).toBe("$4.504");
+    expect(fmtPrice(14_340_000, "chi")).toBe("14,3 tr₫");
   });
 });
 
@@ -103,5 +150,41 @@ describe("buildGeom", () => {
     expect(g.sjcPath).toBeNull();
     expect(g.sjcTailPath).not.toBeNull();
     expect(g.sjcAsOf).toBe("2025-02-01");
+  });
+
+  it("chi dùng XAU thưa cùng trục và báo ngày bắt đầu", () => {
+    const xau = new Map([
+      ["2025-02-09", 9_000_000],
+      ["2025-02-10", 9_500_000],
+    ]);
+    const sjc = new Map([
+      ["2025-02-09", 10_000_000],
+      ["2025-02-10", 10_500_000],
+    ]);
+    const g = buildGeom(pts, 0, 3, sjc, 700, 160, { xau, unit: "chi" });
+    expect(g.unit).toBe("chi");
+    expect(g.hasData).toBe(true);
+    expect(g.xauFrom).toBe("2025-02-09");
+    expect(g.xauPath).not.toBeNull();
+    expect(g.min).toBe(9_000_000);
+    expect(g.max).toBe(10_500_000);
+    expect(g.y(10_500_000)).toBeLessThan(g.y(9_000_000));
+    expect(g.yOf(0)).toBeNull();
+    expect(g.yOf(1)).not.toBeNull();
+  });
+
+  it("chi không có tỷ giá trong cửa sổ thì không vẽ dữ liệu hay trục giả", () => {
+    const g = buildGeom(pts, 0, 3, new Map(), 700, 160, { xau: new Map(), unit: "chi" });
+    expect(g.hasData).toBe(false);
+    expect(g.xauPath).toBeNull();
+    expect(g.sjcPath).toBeNull();
+    expect(g.yOf(1)).toBeNull();
+  });
+
+  it("mặc định oz giữ yOf bằng giá XAU gốc", () => {
+    const g = buildGeom(pts, 0, 3, new Map());
+    expect(g.unit).toBe("oz");
+    expect(g.hasData).toBe(true);
+    expect(g.yOf(1)).toBe(g.y(pts[1].price));
   });
 });
