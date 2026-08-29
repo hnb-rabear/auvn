@@ -170,7 +170,9 @@ describe("buildGeom", () => {
     expect(g.max).toBe(10_500_000);
     expect(g.y(10_500_000)).toBeLessThan(g.y(9_000_000));
     expect(g.yOf(0)).toBeNull();
-    expect(g.yOf(1)).not.toBeNull();
+    expect(g.yOf(1)).toBe(g.y(9_000_000)); // đúng giá trị quy đổi ngày đó, không phải giá USD gốc
+    expect(g.yOf(1)!).toBeGreaterThanOrEqual(0);
+    expect(g.yOf(1)!).toBeLessThanOrEqual(g.H);
   });
 
   it("chi không có tỷ giá trong cửa sổ thì không vẽ dữ liệu hay trục giả", () => {
@@ -179,6 +181,41 @@ describe("buildGeom", () => {
     expect(g.xauPath).toBeNull();
     expect(g.sjcPath).toBeNull();
     expect(g.yOf(1)).toBeNull();
+  });
+
+  it("chi thiếu map XAU ⇒ không rơi về giá USD gốc (không trộn 2 đơn vị trên 1 trục)", () => {
+    const sjc = new Map([
+      ["2025-02-09", 10_000_000],
+      ["2025-02-10", 10_500_000],
+    ]);
+    const g = buildGeom(pts, 0, 3, sjc, 700, 160, { unit: "chi" });
+    expect(g.xauPath).toBeNull();
+    expect(g.yOf(1)).toBeNull();
+    expect(g.min).toBe(10_000_000); // trục chỉ theo SJC ₫/chỉ, không kéo xuống 2800 USD
+    expect(g.max).toBe(10_500_000);
+  });
+
+  it("chi chỉ có tỷ giá TRƯỚC cửa sổ ⇒ không kéo ngang XAU bằng giá cũ", () => {
+    const xau = new Map([["2025-02-01", 9_000_000]]);
+    const g = buildGeom(pts, 0, 3, new Map(), 700, 160, { xau, unit: "chi" });
+    expect(g.hasData).toBe(false);
+    expect(g.xauPath).toBeNull();
+    expect(g.xauTailPath).toBeNull();
+    expect(g.xauAsOf).toBeNull();
+    expect(g.yOf(1)).toBeNull();
+  });
+
+  it("chi có tỷ giá đầu cửa sổ rồi mất ⇒ chỉ vẽ đoạn thật, không nối tail sang ngày thiếu", () => {
+    const xau = new Map([
+      ["2025-02-08", 9_000_000],
+      ["2025-02-09", 9_200_000],
+    ]);
+    const g = buildGeom(pts, 0, 3, new Map(), 700, 160, { xau, unit: "chi" });
+    expect(g.xauPath).not.toBeNull();
+    expect(g.xauTailPath).toBeNull();
+    expect(g.xauAsOf).toBeNull();
+    expect(g.yOf(2)).toBeNull();
+    expect(g.max).toBe(9_200_000);
   });
 
   it("mặc định oz giữ yOf bằng giá XAU gốc", () => {

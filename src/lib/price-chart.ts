@@ -86,10 +86,14 @@ interface SeriesPts {
   last: { j: number; v: number; d: string } | null;
 }
 
-function collect(win: TimelinePoint[], map: Map<string, number>): SeriesPts {
+/** carry=false ⇒ chỉ nối các ngày CÓ giá thật, không neo/giữ ngang (đường XAU quy đổi: thiếu tỷ giá
+ *  thì không có điểm, không được kéo giá cũ sang ngày chưa biết tỷ giá). */
+function collect(win: TimelinePoint[], map: Map<string, number>, carry = true): SeriesPts {
   const pts = win
     .map((q, j) => ({ j, v: map.get(q.date) }))
     .filter((o): o is { j: number; v: number } => o.v !== undefined);
+
+  if (!carry) return { pts, last: null };
 
   // giá trị thật gần nhất TRƯỚC cửa sổ — dùng làm điểm neo "giữ ngang" khi cửa sổ thiếu giá thật.
   let seedV: number | undefined;
@@ -175,11 +179,7 @@ export interface ChartGeom {
   max: number;
 }
 
-/** ở "oz" (mặc định) XAU luôn phủ cả cửa sổ ⇒ xauPath chắc chắn có, caller cũ khỏi kiểm null */
-export interface OzChartGeom extends ChartGeom {
-  xauPath: string;
-}
-
+/** Overload hẹp giữ kiểu xauPath chắc chắn có cho caller oz cũ; runtime vẫn dùng một implementation. */
 export function buildGeom(
   points: TimelinePoint[],
   start: number,
@@ -187,15 +187,15 @@ export function buildGeom(
   sjcValues: Map<string, number>,
   W?: number,
   H?: number
-): OzChartGeom;
+): ChartGeom & { xauPath: string };
 export function buildGeom(
   points: TimelinePoint[],
   start: number,
   span: number,
   sjcValues: Map<string, number>,
-  W: number,
-  H: number,
-  opts: { xau?: Map<string, number> | null; unit?: PriceUnit }
+  W?: number,
+  H?: number,
+  opts?: { xau?: Map<string, number> | null; unit?: PriceUnit }
 ): ChartGeom;
 export function buildGeom(
   points: TimelinePoint[],
@@ -212,17 +212,32 @@ export function buildGeom(
   const pad = 6;
 
   const unit = opts.unit ?? "oz";
-  const xauMap = opts.xau ?? null;
-  const xauSeries = xauMap === null ? null : collect(win, xauMap);
-  const xauVals = xauSeries
-    ? xauSeries.pts.map((o) => o.v).concat(xauSeries.last ? [xauSeries.last.v] : [])
-    : win.map((q) => q.price);
+  // "chi" LUÔN đi qua map quy đổi (thiếu map ⇒ map rỗng ⇒ không vẽ gì): tuyệt đối không rơi về
+  // point.price USD, vì trộn 2 đơn vị trên cùng 1 trục là đúng thứ toggle này sinh ra để tránh.
+  const xauMap = opts.xau ?? (unit === "chi" ? new Map<string, number>() : null);
+  // carry=false: XAU quy đổi không neo/giữ ngang — chỉ vẽ ngày thật sự có tỷ giá.
+  const xauSeries = xauMap === null ? null : collect(win, xauMap, false);
+  const xauVals = xauSeries ? xauSeries.pts.map((o) => o.v) : win.map((q) => q.price);
   const sc = collect(win, sjcValues);
   const sjcVals = sc.pts.map((o) => o.v).concat(sc.last ? [sc.last.v] : []);
-  const allVals = xauVals.concat(sjcVals);
-  const hasData = allVals.length > 0;
-  const min = hasData ? Math.min(...allVals) : 0;
-  const max = hasData ? Math.max(...allVals) : 1;
+
+  let xauMin = Infinity;
+  let xauMax = -Infinity;
+  for (const v of xauVals) {
+    if (v < xauMin) xauMin = v;
+    if (v > xauMax) xauMax = v;
+  }
+  let min = xauMin;
+  let max = xauMax;
+  for (const v of sjcVals) {
+    if (v < min) min = v;
+    if (v > max) max = v;
+  }
+  const hasData = Number.isFinite(min);
+  if (!hasData) {
+    min = 0;
+    max = 1;
+  }
   const y = (v: number) => H - ((v - min) / (max - min || 1)) * (H - pad * 2) - pad;
 
   const rawXauPath = xauSeries
@@ -249,8 +264,8 @@ export function buildGeom(
     xauTailPath: xauR?.tailPath ?? null,
     xauFrom: xauR?.from ?? null,
     xauAsOf: xauR?.asOf ?? null,
-    xauMin: xauVals.length ? Math.min(...xauVals) : min,
-    xauMax: xauVals.length ? Math.max(...xauVals) : max,
+    xauMin: xauVals.length ? xauMin : min,
+    xauMax: xauVals.length ? xauMax : max,
     sjcPath: sjcR.path,
     sjcTailPath: sjcR.tailPath,
     sjcFrom: sjcR.from,
