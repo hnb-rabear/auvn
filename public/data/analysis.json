@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-08-29T14:33:35.626Z",
+ "generatedAt": "2026-08-29T18:37:25.256Z",
  "dataDate": "2026-08-27",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 145700000,
   "sjcSell": 148700000,
-  "ringBuy": 145500000,
-  "ringSell": 149500000,
+  "ringBuy": null,
+  "ringSell": null,
   "xauUsd": 4609.7001953125,
   "usdVnd": 26260,
   "worldVndPerLuong": 145945172,
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 1,9%, ở percentile 3 so với lịch sử tự thu thập (566 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 1,9%, ở percentile 3 so với lịch sử tự thu thập (567 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -79,12 +79,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": -1,
-     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
-     "available": true
+     "score": 0,
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
-   "score": 0.3333333333333333,
+   "score": 1,
    "available": true,
    "provisional": false
   },
@@ -183,9 +183,9 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": -5.3,
+ "composite": 3,
  "zone": "neutral",
- "vnHistoryDays": 566,
+ "vnHistoryDays": 567,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất."
  ],
@@ -2453,19 +2453,23 @@
   {
    "date": "2026-08-29",
    "value": 1.89
+  },
+  {
+   "date": "2026-08-30",
+   "value": 1.89
   }
  ],
  "premiumPercentiles": {
-  "p20": 9.34,
+  "p20": 9.32,
   "p50": 13.61,
-  "p80": 16.34
+  "p80": 16.28
  },
  "sourceTimes": {
   "world": "2026-08-27T04:00:00.000Z",
   "dxy": "2026-08-27T04:00:00.000Z",
   "yield10y": "2026-08-27T12:20:00.000Z",
-  "vnGold": "2026-08-29T14:33:35.626Z",
-  "usdVnd": "2026-08-29T14:33:35.626Z",
+  "vnGold": "2026-08-29T18:37:25.256Z",
+  "usdVnd": "2026-08-29T18:37:25.256Z",
   "fed": null
  }
 }
