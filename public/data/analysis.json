@@ -1,10 +1,10 @@
 {
- "generatedAt": "2026-08-29T04:04:09.690Z",
+ "generatedAt": "2026-08-29T09:08:50.655Z",
  "dataDate": "2026-08-27",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 145500000,
+  "sjcBuy": 145700000,
   "sjcSell": 148700000,
   "ringBuy": 145500000,
   "ringSell": 149500000,
@@ -73,7 +73,7 @@
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": 0,
-     "explanation": "Chênh mua–bán SJC = 2,2% giá bán: spread bình thường.",
+     "explanation": "Chênh mua–bán SJC = 2% giá bán: spread bình thường.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,72%, thay đổi 3 tháng +0,27 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,67%, thay đổi 3 tháng +0,22 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -2463,9 +2463,9 @@
  "sourceTimes": {
   "world": "2026-08-27T04:00:00.000Z",
   "dxy": "2026-08-27T04:00:00.000Z",
-  "yield10y": "2026-08-28T12:20:00.000Z",
-  "vnGold": "2026-08-29T04:04:09.690Z",
-  "usdVnd": "2026-08-29T04:04:09.690Z",
+  "yield10y": "2026-08-27T12:20:00.000Z",
+  "vnGold": "2026-08-29T09:08:50.655Z",
+  "usdVnd": "2026-08-29T09:08:50.655Z",
   "fed": null
  }
 }
