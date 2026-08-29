@@ -20,7 +20,7 @@ const fmtDate = (iso: string) =>
     year: "numeric",
     timeZone: "UTC",
   });
-const UNIT_TOGGLE_ARIA_LABEL = "Hiển thị biểu đồ theo ₫/chỉ";
+const UNIT_TOGGLE_ARIA_LABEL = "Đơn vị biểu đồ: $/oz hoặc ₫/chỉ";
 
 export default function PriceChart({
   points,
