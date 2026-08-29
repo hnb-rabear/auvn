@@ -2,7 +2,14 @@
 
 import { useMemo, useState } from "react";
 import type { TimelinePoint, VnGoldEntry } from "@/lib/types";
-import { RANGES, MIN_SPAN, windowFor, sjcUsdMap, buildGeom } from "@/lib/price-chart";
+import {
+  RANGES,
+  MIN_SPAN,
+  windowFor,
+  unitSeries,
+  buildGeom,
+  type PriceUnit,
+} from "@/lib/price-chart";
 import { indexOnOrAfter, indexOnOrBefore } from "@/lib/timeline";
 import PanZoomChart from "./PanZoomChart";
 
@@ -33,6 +40,7 @@ export default function PriceChart({
   /** null = suy ra cửa sổ từ months qua windowFor (mặc định); không null = Custom (mọi cử chỉ) */
   const [win, setWin] = useState<{ start: number; span: number } | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [unit, setUnit] = useState<PriceUnit>("oz");
 
   const def = windowFor(points.length, months);
   const span = win?.span ?? def.span;
@@ -49,8 +57,12 @@ export default function PriceChart({
     setWin({ start: Math.max(0, Math.min(lo, points.length - sp)), span: sp });
   };
 
-  const sjcUsd = useMemo(() => sjcUsdMap(vnRows), [vnRows]);
-  const geom = useMemo(() => buildGeom(points, start, span, sjcUsd), [points, start, span, sjcUsd]);
+  const series = useMemo(() => unitSeries(points, vnRows, unit), [points, vnRows, unit]);
+  const geom = useMemo(
+    () => buildGeom(points, start, span, series.sjc, 700, 160, { xau: series.xau, unit }),
+    [points, start, span, series, unit]
+  );
+  const firstFxDate = vnRows.find((row) => row.usdVnd !== null)?.date;
 
   return (
     <section className="card pc">
@@ -101,8 +113,17 @@ export default function PriceChart({
             </button>
           </>
         )}
+        <button
+          className="iconbtn small-btn pc-toggle"
+          onClick={() => setUnit((u) => (u === "oz" ? "chi" : "oz"))}
+          aria-pressed={unit === "chi"}
+          aria-label={unit === "oz" ? "Đổi biểu đồ sang đơn vị chỉ" : "Đổi biểu đồ sang đơn vị ounce"}
+        >
+          {unit === "oz" ? "$/oz" : "₫/chỉ"}
+        </button>
         <span className="pc-legend muted small">
-          <i className="pc-line xau" /> XAU/USD <i className="pc-line sjc" /> SJC (quy đổi $)
+          <i className="pc-line xau" /> {unit === "oz" ? "XAU/USD" : "XAU (quy đổi ₫/chỉ)"}
+          <i className="pc-line sjc" /> {unit === "oz" ? "SJC (quy đổi $)" : "SJC (₫/chỉ)"}
         </span>
       </div>
       {win !== null && (
@@ -143,7 +164,15 @@ export default function PriceChart({
 
       <p className="muted small pc-note">
         ● ngày đồng thuận MUA · ◆ khởi đầu vùng đáy (walk-forward) · chạm chart để xem cả trang
-        as-of ngày đó{geom.sjcPath === null && geom.sjcTailPath === null && vnRows.length > 0 ? ` · SJC: dữ liệu từ ${fmtDate(vnRows[0].date)}` : ""}
+        as-of ngày đó
+        {unit === "chi" && geom.xauPath === null && geom.xauTailPath === null && firstFxDate
+          ? ` · XAU quy đổi: dữ liệu từ ${fmtDate(firstFxDate)}`
+          : ""}
+        {unit === "chi" && geom.xauFrom ? ` · XAU quy đổi: từ ${fmtDate(geom.xauFrom)}` : ""}
+        {unit === "chi" && geom.xauAsOf
+          ? ` · XAU quy đổi: giữ giá ngày ${fmtDate(geom.xauAsOf)} (tỷ giá chưa cập nhật)`
+          : ""}
+        {geom.sjcPath === null && geom.sjcTailPath === null && vnRows.length > 0 ? ` · SJC: dữ liệu từ ${fmtDate(vnRows[0].date)}` : ""}
         {geom.sjcFrom ? ` · SJC: từ ${fmtDate(geom.sjcFrom)}` : ""}
         {geom.sjcAsOf ? ` · SJC: giữ giá ngày ${fmtDate(geom.sjcAsOf)} (nguồn chưa cập nhật)` : ""}
       </p>

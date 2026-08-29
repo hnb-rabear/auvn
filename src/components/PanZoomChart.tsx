@@ -11,7 +11,7 @@
  */
 import { useEffect, useRef, type ReactNode } from "react";
 import type { TimelinePoint } from "@/lib/types";
-import { MIN_SPAN, idxAtFrac, type ChartGeom } from "@/lib/price-chart";
+import { MIN_SPAN, idxAtFrac, fmtPrice, type ChartGeom } from "@/lib/price-chart";
 import { applyBrushDrag, zoomTo } from "@/lib/brush";
 
 /** ngưỡng px phân biệt chạm (chọn ngày) vs kéo (pan) */
@@ -24,7 +24,6 @@ const fmtDate = (iso: string) =>
     year: "numeric",
     timeZone: "UTC",
   });
-const fmtUsd = (v: number) => `$${Math.round(v).toLocaleString("vi-VN")}`;
 
 /** 1 lớp chấm marker — className là biến thể .tm-mk.* sẵn có (buy/sell/exp/start…) */
 export interface MarkerLayer {
@@ -186,10 +185,15 @@ export default function PanZoomChart({
   const inWin = (i: number) => i >= start && i < end;
   // marker vẽ bằng HTML overlay (luôn tròn) thay vì <circle> trong SVG —
   // SVG dùng preserveAspectRatio="none" nên <circle> bị kéo méo thành elip.
-  const dotStyle = (i: number) => ({
-    left: `${(geom.x(i) / geom.W) * 100}%`,
-    top: `${(geom.y(points[i].price) / geom.H) * 100}%`,
-  });
+  const dotStyle = (i: number) => {
+    const top = geom.yOf(i);
+    return top === null
+      ? null
+      : {
+          left: `${(geom.x(i) / geom.W) * 100}%`,
+          top: `${(top / geom.H) * 100}%`,
+        };
+  };
 
   return (
     <div className="pzc-wrap">
@@ -205,7 +209,17 @@ export default function PanZoomChart({
         onPointerCancel={onPointerCancel}
         aria-label={ariaLabel}
       >
-        <path d={geom.xauPath} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.85" />
+        {geom.xauPath && <path d={geom.xauPath} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.85" />}
+        {geom.xauTailPath && (
+          <path
+            d={geom.xauTailPath}
+            fill="none"
+            stroke="#e6b84c"
+            strokeWidth="1.5"
+            strokeDasharray="3 3"
+            opacity="0.5"
+          />
+        )}
         {geom.sjcPath && (
           <path d={geom.sjcPath} fill="none" stroke="#7fb1e0" strokeWidth="1.2" opacity="0.8" />
         )}
@@ -233,18 +247,20 @@ export default function PanZoomChart({
       </svg>
       <div className={`tm-markers${denseDots ? " dense" : ""}`} aria-hidden>
         {markers.map((layer) =>
-          layer.idxs.filter(inWin).map((i) => (
-            <span key={`${layer.key}${i}`} className={`tm-mk ${layer.className}`} style={dotStyle(i)} />
-          ))
+          layer.idxs.filter(inWin).map((i) => {
+            const style = dotStyle(i);
+            return style ? <span key={`${layer.key}${i}`} className={`tm-mk ${layer.className}`} style={style} /> : null;
+          })
         )}
-        {selectedIdx !== null && inWin(selectedIdx) && (
-          <span className="tm-mk cursor" style={dotStyle(selectedIdx)} />
-        )}
+        {selectedIdx !== null && inWin(selectedIdx) && (() => {
+          const style = dotStyle(selectedIdx);
+          return style ? <span className="tm-mk cursor" style={style} /> : null;
+        })()}
       </div>
-      {showAxis && (
+      {showAxis && geom.hasData && (
         <>
-          <span className="pc-axis right top muted small">{fmtUsd(geom.max)}</span>
-          <span className="pc-axis right bottom muted small">{fmtUsd(geom.min)}</span>
+          <span className="pc-axis right top muted small">{fmtPrice(geom.max, geom.unit)}</span>
+          <span className="pc-axis right bottom muted small">{fmtPrice(geom.min, geom.unit)}</span>
         </>
       )}
       {/* dải ngày 2 góc: biết đang xem khung thời gian nào khi vuốt */}
