@@ -84,6 +84,8 @@ export function fmtPrice(v: number, unit: PriceUnit): string {
 interface SeriesPts {
   pts: { j: number; v: number }[];
   last: { j: number; v: number; d: string } | null;
+  /** true ⇒ ngày thiếu giá làm ĐỨT đường (mở subpath "M" mới), không nối thẳng xuyên qua. */
+  breakGaps: boolean;
 }
 
 /** carry=false ⇒ chỉ nối các ngày CÓ giá thật, không neo/giữ ngang (đường XAU quy đổi: thiếu tỷ giá
@@ -93,7 +95,7 @@ function collect(win: TimelinePoint[], map: Map<string, number>, carry = true): 
     .map((q, j) => ({ j, v: map.get(q.date) }))
     .filter((o): o is { j: number; v: number } => o.v !== undefined);
 
-  if (!carry) return { pts, last: null };
+  if (!carry) return { pts, last: null, breakGaps: true };
 
   // giá trị thật gần nhất TRƯỚC cửa sổ — dùng làm điểm neo "giữ ngang" khi cửa sổ thiếu giá thật.
   let seedV: number | undefined;
@@ -114,7 +116,7 @@ function collect(win: TimelinePoint[], map: Map<string, number>, carry = true): 
       ? { j: 0, v: seedV, d: seedD! }
       : null;
 
-  return { pts, last };
+  return { pts, last, breakGaps: false };
 }
 
 interface SeriesGeom {
@@ -137,7 +139,13 @@ function render(
   let asOf: string | null = null;
 
   if (s.pts.length >= 2) {
-    path = s.pts.map((o, k) => `${k === 0 ? "M" : "L"}${x(start + o.j).toFixed(1)},${y(o.v).toFixed(1)}`).join("");
+    path = s.pts
+      .map((o, k) => {
+        // đứt quãng: index không liền kề ⇒ mở subpath mới, tránh vẽ đoạn thẳng qua ngày KHÔNG có giá.
+        const cut = k === 0 || (s.breakGaps && o.j !== s.pts[k - 1].j + 1);
+        return `${cut ? "M" : "L"}${x(start + o.j).toFixed(1)},${y(o.v).toFixed(1)}`;
+      })
+      .join("");
     if (s.pts[0].j > 0) from = win[s.pts[0].j].date;
   }
 
@@ -179,24 +187,6 @@ export interface ChartGeom {
   max: number;
 }
 
-/** Overload hẹp giữ kiểu xauPath chắc chắn có cho caller oz cũ; runtime vẫn dùng một implementation. */
-export function buildGeom(
-  points: TimelinePoint[],
-  start: number,
-  span: number,
-  sjcValues: Map<string, number>,
-  W?: number,
-  H?: number
-): ChartGeom & { xauPath: string };
-export function buildGeom(
-  points: TimelinePoint[],
-  start: number,
-  span: number,
-  sjcValues: Map<string, number>,
-  W?: number,
-  H?: number,
-  opts?: { xau?: Map<string, number> | null; unit?: PriceUnit }
-): ChartGeom;
 export function buildGeom(
   points: TimelinePoint[],
   start: number,

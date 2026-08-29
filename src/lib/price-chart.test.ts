@@ -103,7 +103,8 @@ describe("buildGeom", () => {
 
   it("xauPath luôn phủ toàn bộ cửa sổ (không cắt theo dữ liệu SJC), x tăng dần", () => {
     const g = buildGeom(pts, 0, 3, new Map());
-    expect(g.xauPath.startsWith("M")).toBe(true);
+    expect(g.xauPath).not.toBeNull();
+    expect(g.xauPath!.startsWith("M")).toBe(true);
     expect(g.x(0)).toBeLessThan(g.x(2));
     expect(g.sjcPath).toBeNull();
     expect(g.sjcFrom).toBeNull();
@@ -216,6 +217,18 @@ describe("buildGeom", () => {
     expect(g.xauAsOf).toBeNull();
     expect(g.yOf(2)).toBeNull();
     expect(g.max).toBe(9_200_000);
+  });
+
+  it("chi thiếu tỷ giá giữa hai ngày thật ⇒ ngắt SVG subpath, không nối xuyên qua ngày thiếu", () => {
+    const xau = new Map([
+      ["2025-02-08", 9_000_000],
+      ["2025-02-10", 9_500_000],
+    ]);
+    const g = buildGeom(pts, 0, 3, new Map(), 700, 160, { xau, unit: "chi" });
+    expect(g.xauPath).not.toBeNull();
+    expect(g.xauPath!.match(/M/g)).toHaveLength(2);
+    expect(g.xauPath).not.toContain("L");
+    expect(g.yOf(1)).toBeNull();
   });
 
   it("mặc định oz giữ yOf bằng giá XAU gốc", () => {
