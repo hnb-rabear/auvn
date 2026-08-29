@@ -201,8 +201,6 @@ describe("buildGeom", () => {
     const g = buildGeom(pts, 0, 3, new Map(), 700, 160, { xau, unit: "chi" });
     expect(g.hasData).toBe(false);
     expect(g.xauPath).toBeNull();
-    expect(g.xauTailPath).toBeNull();
-    expect(g.xauAsOf).toBeNull();
     expect(g.yOf(1)).toBeNull();
   });
 
@@ -213,8 +211,6 @@ describe("buildGeom", () => {
     ]);
     const g = buildGeom(pts, 0, 3, new Map(), 700, 160, { xau, unit: "chi" });
     expect(g.xauPath).not.toBeNull();
-    expect(g.xauTailPath).toBeNull();
-    expect(g.xauAsOf).toBeNull();
     expect(g.yOf(2)).toBeNull();
     expect(g.max).toBe(9_200_000);
   });

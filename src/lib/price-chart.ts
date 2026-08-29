@@ -172,9 +172,7 @@ export interface ChartGeom {
   yOf(i: number): number | null;
   /** ở "oz" luôn phủ toàn bộ cửa sổ; ở "chi" có thể thưa/null như đường SJC */
   xauPath: string | null;
-  xauTailPath: string | null;
   xauFrom: string | null;
-  xauAsOf: string | null;
   xauMin: number;
   xauMax: number;
   /** null khi cửa sổ không giao dữ liệu SJC (cả sjcSell và usdVnd cùng ngày) */
@@ -251,9 +249,7 @@ export function buildGeom(
     y,
     yOf,
     xauPath: xauR?.path ?? rawXauPath,
-    xauTailPath: xauR?.tailPath ?? null,
     xauFrom: xauR?.from ?? null,
-    xauAsOf: xauR?.asOf ?? null,
     xauMin: xauVals.length ? xauMin : min,
     xauMax: xauVals.length ? xauMax : max,
     sjcPath: sjcR.path,

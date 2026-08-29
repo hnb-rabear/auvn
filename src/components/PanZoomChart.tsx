@@ -210,16 +210,6 @@ export default function PanZoomChart({
         aria-label={ariaLabel}
       >
         {geom.xauPath && <path d={geom.xauPath} fill="none" stroke="#e6b84c" strokeWidth="1.5" opacity="0.85" />}
-        {geom.xauTailPath && (
-          <path
-            d={geom.xauTailPath}
-            fill="none"
-            stroke="#e6b84c"
-            strokeWidth="1.5"
-            strokeDasharray="3 3"
-            opacity="0.5"
-          />
-        )}
         {geom.sjcPath && (
           <path d={geom.sjcPath} fill="none" stroke="#7fb1e0" strokeWidth="1.2" opacity="0.8" />
         )}

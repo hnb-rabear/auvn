@@ -20,6 +20,7 @@ const fmtDate = (iso: string) =>
     year: "numeric",
     timeZone: "UTC",
   });
+const UNIT_TOGGLE_ARIA_LABEL = "Hiển thị biểu đồ theo ₫/chỉ";
 
 export default function PriceChart({
   points,
@@ -117,7 +118,7 @@ export default function PriceChart({
           className="iconbtn small-btn pc-toggle"
           onClick={() => setUnit((u) => (u === "oz" ? "chi" : "oz"))}
           aria-pressed={unit === "chi"}
-          aria-label={unit === "oz" ? "Đổi biểu đồ sang đơn vị chỉ" : "Đổi biểu đồ sang đơn vị ounce"}
+          aria-label={UNIT_TOGGLE_ARIA_LABEL}
         >
           {unit === "oz" ? "$/oz" : "₫/chỉ"}
         </button>
@@ -165,13 +166,10 @@ export default function PriceChart({
       <p className="muted small pc-note">
         ● ngày đồng thuận MUA · ◆ khởi đầu vùng đáy (walk-forward) · chạm chart để xem cả trang
         as-of ngày đó
-        {unit === "chi" && geom.xauPath === null && geom.xauTailPath === null && firstFxDate
+        {unit === "chi" && geom.xauPath === null && firstFxDate
           ? ` · XAU quy đổi: dữ liệu từ ${fmtDate(firstFxDate)}`
           : ""}
         {unit === "chi" && geom.xauFrom ? ` · XAU quy đổi: từ ${fmtDate(geom.xauFrom)}` : ""}
-        {unit === "chi" && geom.xauAsOf
-          ? ` · XAU quy đổi: giữ giá ngày ${fmtDate(geom.xauAsOf)} (tỷ giá chưa cập nhật)`
-          : ""}
         {geom.sjcPath === null && geom.sjcTailPath === null && vnRows.length > 0 ? ` · SJC: dữ liệu từ ${fmtDate(vnRows[0].date)}` : ""}
         {geom.sjcFrom ? ` · SJC: từ ${fmtDate(geom.sjcFrom)}` : ""}
         {geom.sjcAsOf ? ` · SJC: giữ giá ngày ${fmtDate(geom.sjcAsOf)} (nguồn chưa cập nhật)` : ""}
