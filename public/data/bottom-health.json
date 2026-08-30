@@ -1,17 +1,17 @@
 {
- "generatedAt": "2026-08-30T21:16:52.964Z",
+ "generatedAt": "2026-08-30T23:38:48.419Z",
  "items": [
   {
    "tier": "cycle",
    "recentTopFav": 62.5,
-   "recentBaseline": 65.1,
+   "recentBaseline": 64.8,
    "n": 16,
    "status": "degraded"
   },
   {
    "tier": "swing",
    "recentTopFav": 63.2,
-   "recentBaseline": 53.8,
+   "recentBaseline": 53.5,
    "n": 19,
    "status": "ok"
   }
