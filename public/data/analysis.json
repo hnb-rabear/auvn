@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-08-30T12:59:11.707Z",
+ "generatedAt": "2026-08-30T17:35:24.833Z",
  "dataDate": "2026-08-28",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 145100000,
+  "sjcBuy": 145700000,
   "sjcSell": 148700000,
-  "ringBuy": 145300000,
-  "ringSell": 149300000,
+  "ringBuy": null,
+  "ringSell": null,
   "xauUsd": 4529.89990234375,
   "usdVnd": 26260,
   "worldVndPerLuong": 143418659,
@@ -66,25 +66,25 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 3,7%, ở percentile 7 so với lịch sử tự thu thập (567 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 3,7%, ở percentile 7 so với lịch sử tự thu thập (568 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": 0,
-     "explanation": "Chênh mua–bán SJC = 2,4% giá bán: spread bình thường.",
+     "explanation": "Chênh mua–bán SJC = 2% giá bán: spread bình thường.",
      "available": true
     },
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": -1,
-     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
-     "available": true
+     "score": 0,
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
-   "score": 0.3333333333333333,
+   "score": 1,
    "available": true,
    "provisional": false
   },
@@ -183,9 +183,9 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 4.2,
+ "composite": 12.5,
  "zone": "neutral",
- "vnHistoryDays": 567,
+ "vnHistoryDays": 568,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất."
  ],
@@ -2457,19 +2457,23 @@
   {
    "date": "2026-08-30",
    "value": 3.68
+  },
+  {
+   "date": "2026-08-31",
+   "value": 3.68
   }
  ],
  "premiumPercentiles": {
-  "p20": 9.32,
-  "p50": 13.61,
+  "p20": 9.27,
+  "p50": 13.6,
   "p80": 16.28
  },
  "sourceTimes": {
   "world": "2026-08-28T04:00:00.000Z",
   "dxy": "2026-08-28T04:00:00.000Z",
   "yield10y": "2026-08-28T12:20:00.000Z",
-  "vnGold": "2026-08-30T12:59:11.707Z",
-  "usdVnd": "2026-08-30T12:59:11.707Z",
+  "vnGold": "2026-08-30T17:35:24.833Z",
+  "usdVnd": "2026-08-30T17:35:24.833Z",
   "fed": null
  }
 }
