@@ -1,10 +1,10 @@
 {
- "generatedAt": "2026-08-30T23:38:50.220Z",
+ "generatedAt": "2026-08-31T05:48:26.960Z",
  "item": {
   "presetId": "3m",
   "bTrainFav": 93.3,
   "bTestFav": 100,
-  "compTrainFav": 88.2,
+  "compTrainFav": 88,
   "compTestFav": 99,
   "bTestN": 75,
   "bTestCi95": [
