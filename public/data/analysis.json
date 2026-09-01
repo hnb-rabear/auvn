@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-01T10:12:42.969Z",
+ "generatedAt": "2026-09-01T14:58:17.434Z",
  "dataDate": "2026-09-01",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148700000,
   "ringBuy": 145200000,
   "ringSell": 149200000,
-  "xauUsd": 4418,
+  "xauUsd": 4417.39990234375,
   "usdVnd": 26260,
-  "worldVndPerLuong": 139875858,
-  "premiumPct": 6.31,
-  "premiumVnd": 8824142
+  "worldVndPerLuong": 139856859,
+  "premiumPct": 6.32,
+  "premiumVnd": 8843141
  },
  "criteria": [
   {
@@ -23,7 +23,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 52,1: trung tính.",
+     "explanation": "RSI ngày = 52: trung tính.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,6 (dưới MA50, -0,2% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 99,6 (dưới MA50, -0,4% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,76%, thay đổi 3 tháng +0,3 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,76%, thay đổi 3 tháng +0,31 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -2464,7 +2464,7 @@
   },
   {
    "date": "2026-09-01",
-   "value": 6.31
+   "value": 6.32
   }
  ],
  "premiumPercentiles": {
@@ -2475,9 +2475,9 @@
  "sourceTimes": {
   "world": "2026-09-01T04:00:00.000Z",
   "dxy": "2026-09-01T04:00:00.000Z",
-  "yield10y": "2026-08-31T12:20:00.000Z",
-  "vnGold": "2026-09-01T10:12:42.969Z",
-  "usdVnd": "2026-09-01T10:12:42.969Z",
+  "yield10y": "2026-09-01T12:20:00.000Z",
+  "vnGold": "2026-09-01T14:58:17.434Z",
+  "usdVnd": "2026-09-01T14:58:17.434Z",
   "fed": null
  }
 }
