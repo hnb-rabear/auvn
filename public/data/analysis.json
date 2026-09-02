@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-02T04:44:55.834Z",
+ "generatedAt": "2026-09-02T09:43:10.425Z",
  "dataDate": "2026-09-02",
  "stale": false,
  "staleDays": 0,
@@ -8,11 +8,11 @@
   "sjcSell": 148700000,
   "ringBuy": 145200000,
   "ringSell": 149200000,
-  "xauUsd": 4351.7001953125,
+  "xauUsd": 4356.5,
   "usdVnd": 26260,
-  "worldVndPerLuong": 137776776,
-  "premiumPct": 7.93,
-  "premiumVnd": 10923224
+  "worldVndPerLuong": 137928740,
+  "premiumPct": 7.81,
+  "premiumVnd": 10771260
  },
  "criteria": [
   {
@@ -23,21 +23,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 47,4: trung tính.",
+     "explanation": "RSI ngày = 47,8: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 49,3: trung tính.",
+     "explanation": "RSI tuần = 49,4: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 3,7%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 3,5%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 7,9%, ở percentile 18 so với lịch sử tự thu thập (570 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 7,8%, ở percentile 18 so với lịch sử tự thu thập (570 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,8 (dưới MA50, -0,2% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 99,8 (dưới MA50, -0,1% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,8%, thay đổi 3 tháng +0,32 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,8%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +22,6% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +22,7% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2468,7 +2468,7 @@
   },
   {
    "date": "2026-09-02",
-   "value": 7.93
+   "value": 7.81
   }
  ],
  "premiumPercentiles": {
@@ -2480,8 +2480,8 @@
   "world": "2026-09-02T04:00:00.000Z",
   "dxy": "2026-09-02T04:00:00.000Z",
   "yield10y": "2026-09-01T12:20:00.000Z",
-  "vnGold": "2026-09-02T04:44:55.834Z",
-  "usdVnd": "2026-09-02T04:44:55.834Z",
+  "vnGold": "2026-09-02T09:43:10.425Z",
+  "usdVnd": "2026-09-02T09:43:10.425Z",
   "fed": null
  }
 }
