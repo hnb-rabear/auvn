@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-02T00:19:54.394Z",
+ "generatedAt": "2026-09-02T04:44:55.834Z",
  "dataDate": "2026-09-02",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 145100000,
+  "sjcBuy": 145700000,
   "sjcSell": 148700000,
   "ringBuy": 145200000,
   "ringSell": 149200000,
-  "xauUsd": 4370.5,
+  "xauUsd": 4351.7001953125,
   "usdVnd": 26260,
-  "worldVndPerLuong": 138371987,
-  "premiumPct": 7.46,
-  "premiumVnd": 10328013
+  "worldVndPerLuong": 137776776,
+  "premiumPct": 7.93,
+  "premiumVnd": 10923224
  },
  "criteria": [
   {
@@ -23,39 +23,39 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 48,6: trung tính.",
+     "explanation": "RSI ngày = 47,4: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 49,9: trung tính.",
+     "explanation": "RSI tuần = 49,3: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 3,2%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 3,7%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 46% biên độ 52 tuần (đáy 3.549 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 45% biên độ 52 tuần (đáy 3.566 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
      "id": "sr",
      "label": "Hỗ trợ / kháng cự 6 tháng",
-     "score": 0,
-     "explanation": "Giá nằm giữa hỗ trợ và kháng cự, không có lợi thế rõ.",
+     "score": -1,
+     "explanation": "Giá áp sát kháng cự 4.359 — dễ bị chặn, thuận bán.",
      "available": true
     }
    ],
-   "score": 0.2,
+   "score": 0,
    "available": true
   },
   {
@@ -66,14 +66,14 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 7,5%, ở percentile 17 so với lịch sử tự thu thập (570 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 7,9%, ở percentile 18 so với lịch sử tự thu thập (570 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": 0,
-     "explanation": "Chênh mua–bán SJC = 2,4% giá bán: spread bình thường.",
+     "explanation": "Chênh mua–bán SJC = 2% giá bán: spread bình thường.",
      "available": true
     },
     {
@@ -96,7 +96,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,7 (dưới MA50, -0,3% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 99,8 (dưới MA50, -0,2% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -110,7 +110,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,8%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,8%, thay đổi 3 tháng +0,32 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -132,14 +132,14 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 51% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 49% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": -1,
-     "explanation": "Giá hiện tại cao hơn 84% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
+     "explanation": "Giá hiện tại cao hơn 83% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
      "available": true
     },
     {
@@ -153,7 +153,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 23,6%, percentile 91 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 23,4%, percentile 91 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,7 +168,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +25,8% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +22,6% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -183,7 +183,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 5.2,
+ "composite": 1.7,
  "zone": "neutral",
  "vnHistoryDays": 570,
  "warnings": [
@@ -2468,7 +2468,7 @@
   },
   {
    "date": "2026-09-02",
-   "value": 7.46
+   "value": 7.93
   }
  ],
  "premiumPercentiles": {
@@ -2477,11 +2477,11 @@
   "p80": 16.28
  },
  "sourceTimes": {
-  "world": "2026-09-02T00:08:52.000Z",
-  "dxy": "2026-09-02T00:08:53.000Z",
+  "world": "2026-09-02T04:00:00.000Z",
+  "dxy": "2026-09-02T04:00:00.000Z",
   "yield10y": "2026-09-01T12:20:00.000Z",
-  "vnGold": "2026-09-02T00:19:54.394Z",
-  "usdVnd": "2026-09-02T00:19:54.394Z",
+  "vnGold": "2026-09-02T04:44:55.834Z",
+  "usdVnd": "2026-09-02T04:44:55.834Z",
   "fed": null
  }
 }
