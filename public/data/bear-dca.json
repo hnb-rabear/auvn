@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-09-02T18:49:27.054Z",
+ "generatedAt": "2026-09-02T21:55:27.354Z",
  "dataDate": "2026-09-02",
  "isBear": true,
- "ddFromAth": 0.16820848375451256,
- "ddChange": -0.06174789410348977,
+ "ddFromAth": 0.1662342057761732,
+ "ddChange": -0.06372217208182912,
  "phase": "recovery",
- "pricePct2y": 0.7718253968253969,
+ "pricePct2y": 0.7738095238095238,
  "mult": 1.5,
  "recoveryRisk": true,
  "note": "Giá đang hồi phục (đáy thu hẹp 6 điểm %/tháng). Gom mạnh ×1.5 — đây là cược giá tiếp tục lên."
