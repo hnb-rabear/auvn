@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-02T21:53:17.802Z",
- "dataDate": "2026-09-02",
+ "generatedAt": "2026-09-03T00:21:10.431Z",
+ "dataDate": "2026-09-03",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -8,11 +8,11 @@
   "sjcSell": 148700000,
   "ringBuy": 144800000,
   "ringSell": 148800000,
-  "xauUsd": 4434.2998046875,
+  "xauUsd": 4432.7998046875,
   "usdVnd": 26260,
-  "worldVndPerLuong": 140391917,
-  "premiumPct": 5.92,
-  "premiumVnd": 8308083
+  "worldVndPerLuong": 140344426,
+  "premiumPct": 5.95,
+  "premiumVnd": 8355574
  },
  "criteria": [
   {
@@ -23,28 +23,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 53,1: trung tính.",
+     "explanation": "RSI ngày = 53: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 51,6: trung tính.",
+     "explanation": "RSI tuần = 51,5: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 1,8%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 1,9%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 50% biên độ 52 tuần (đáy 3.566 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 49% biên độ 52 tuần (đáy 3.566 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -66,7 +66,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 5,9%, ở percentile 15 so với lịch sử tự thu thập (571 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 6%, ở percentile 15 so với lịch sử tự thu thập (571 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -2472,7 +2472,7 @@
   },
   {
    "date": "2026-09-03",
-   "value": 5.92
+   "value": 5.95
   }
  ],
  "premiumPercentiles": {
@@ -2481,11 +2481,11 @@
   "p80": 16.28
  },
  "sourceTimes": {
-  "world": "2026-09-02T04:00:00.000Z",
-  "dxy": "2026-09-02T04:00:00.000Z",
+  "world": "2026-09-03T00:10:06.000Z",
+  "dxy": "2026-09-03T00:10:06.000Z",
   "yield10y": "2026-09-02T12:20:00.000Z",
-  "vnGold": "2026-09-02T21:53:17.802Z",
-  "usdVnd": "2026-09-02T21:53:17.802Z",
+  "vnGold": "2026-09-03T00:21:10.431Z",
+  "usdVnd": "2026-09-03T00:21:10.431Z",
   "fed": null
  }
 }
