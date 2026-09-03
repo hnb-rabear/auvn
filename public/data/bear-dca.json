@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-09-03T18:46:42.950Z",
+ "generatedAt": "2026-09-03T21:47:46.318Z",
  "dataDate": "2026-09-03",
- "isBear": false,
- "ddFromAth": 0.14921780986762928,
- "ddChange": -0.052459386281588444,
- "phase": "bull",
- "pricePct2y": 0.8174603174603174,
- "mult": 1,
- "recoveryRisk": false,
- "note": "Thị trường không ở vùng Bear — gom đều tay."
+ "isBear": true,
+ "ddFromAth": 0.15006392900120327,
+ "ddChange": -0.05161326714801445,
+ "phase": "recovery",
+ "pricePct2y": 0.8154761904761905,
+ "mult": 1.5,
+ "recoveryRisk": true,
+ "note": "Giá đang hồi phục (đáy thu hẹp 5 điểm %/tháng). Gom mạnh ×1.5 — đây là cược giá tiếp tục lên."
 }
