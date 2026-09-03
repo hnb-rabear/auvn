@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-09-03T00:23:13.736Z",
+ "generatedAt": "2026-09-03T04:43:55.978Z",
  "dataDate": "2026-09-03",
- "pricePct2y": 0.7738095238095238,
+ "pricePct2y": 0.7936507936507936,
  "mult": 0.25,
  "brakes": [
   {
    "id": "price-top",
    "label": "Giá đỉnh vùng 2 năm",
-   "explanation": "Giá đang ở percentile 77% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
+   "explanation": "Giá đang ở percentile 79% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
   }
  ],
  "provisional": false,
@@ -21378,8 +21378,13 @@
    "mult": 1
   },
   {
+   "date": "2026-09-02",
+   "pricePct2y": 0.7559523809523809,
+   "mult": 0.25
+  },
+  {
    "date": "2026-09-03",
-   "pricePct2y": 0.7738095238095238,
+   "pricePct2y": 0.7936507936507936,
    "mult": 0.25
   }
  ],
