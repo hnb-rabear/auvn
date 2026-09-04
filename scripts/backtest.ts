@@ -8,7 +8,6 @@ import {
   statsCriterion,
   macroCriterion,
   momentumCriterion,
-  seasonalityTable,
 } from "../src/lib/criteria";
 import { median } from "../src/lib/indicators";
 import {
@@ -45,7 +44,6 @@ export function runBacktest(
 ): { backtest: Backtest; timeline: Timeline } {
   const closes = xau.map((b) => b.close);
   const dates = xau.map((b) => b.date);
-  const season = seasonalityTable(closes, dates);
 
   const returns = new Map<string, number[]>();
   const points: TimelinePoint[] = [];
@@ -67,10 +65,12 @@ export function runBacktest(
     const closesUpTo = closes.slice(0, i + 1);
     const datesUpTo = dates.slice(0, i + 1);
 
-    const criteria = [
-      technicalCriterion(closesUpTo),
-      statsCriterion(closesUpTo, datesUpTo, season),
-    ];
+    // Mùa vụ KHÔNG được truyền bảng tính sẵn: statsCriterion tự dựng bảng từ
+    // tiền tố (criteria.ts:570), y hệt đường live. Truyền một bảng tính trên
+    // TOÀN chuỗi (bug #10, sửa 2026-09-04) cho mỗi điểm quá khứ biết lợi suất
+    // của các tháng chưa xảy ra, và làm mọi hằng evidence dẫn xuất trôi mỗi lần
+    // Yahoo rụng bar đầu cửa sổ 20 năm. Chi phí đo được: 4276 gọi ≈ 1,7s.
+    const criteria = [technicalCriterion(closesUpTo), statsCriterion(closesUpTo, datesUpTo)];
 
     // Macro chạy khi có DXY; Fed (và yield/vix/gpr) là tùy chọn — macroCriterion
     // tự bỏ qua từng tín hiệu con thiếu dữ liệu, giống hệt đường phân tích live.

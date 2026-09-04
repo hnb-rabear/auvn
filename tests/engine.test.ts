@@ -271,21 +271,26 @@ describe("backtest", () => {
       close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
     }));
     const { backtest: bt } = runBacktest(bars, null, null);
-    // Giá trị chốt từ engine STEP=3 hiện tại (đặc trưng hóa trước khi đổi).
+    // Giá trị chốt từ engine STEP=3 hiện tại. Cập nhật 2026-09-04 sau khi bỏ
+    // look-ahead mùa vụ (#10): mùa vụ walk-forward khác mùa vụ toàn chuỗi nên
+    // điểm `stats` đổi ở 461/644 điểm ⇒ phân bố zone dịch (thêm strong-buy).
     expect(bt.observations).toBe(216);
     const snap = bt.buckets
       .filter((b) => b.count > 0)
       .map((b) => `${b.zone}|${b.horizonDays}:${b.count}:${b.pctFavorable}:${b.medianReturnPct}`);
     expect(snap).toEqual([
-      "buy|21:99:12.1:-3.5",
-      "buy|63:85:20:-8.5",
-      "buy|126:64:42.2:-5.5",
-      "neutral|21:50:null:2.3",
-      "neutral|63:50:null:10.9",
-      "neutral|126:50:null:26.7",
-      "sell|21:51:17.6:3.6",
-      "sell|63:51:31.4:7.9",
-      "sell|126:51:37.3:6.1",
+      "strong-buy|21:11:0:-4.4",
+      "strong-buy|63:11:0:-10.4",
+      "strong-buy|126:3:0:-10.9",
+      "buy|21:88:13.6:-3.1",
+      "buy|63:74:23:-7.2",
+      "buy|126:61:44.3:-3.9",
+      "neutral|21:47:null:-1.5",
+      "neutral|63:47:null:-7",
+      "neutral|126:47:null:-18.7",
+      "sell|21:54:16.7:3.7",
+      "sell|63:54:29.6:8.6",
+      "sell|126:54:35.2:7.5",
       "strong-sell|21:8:0:1.9",
       "strong-sell|63:8:0:2.6",
       "strong-sell|126:8:100:-4",
@@ -369,6 +374,29 @@ describe("backtest", () => {
     expect(pts[pts.length - 1].date).not.toBe(pts[pts.length - 2].date);
     const WARMUP = 756;
     expect(pts.length).toBe(bars.length - WARMUP); // 1300-756=544, lưới dày STEP=1
+  });
+
+  it("walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ (chống look-ahead #10)", () => {
+    // Bug #10 (sửa 2026-09-04): backtest từng tính seasonalityTable một lần trên
+    // TOÀN chuỗi rồi truyền cho mọi điểm quá khứ ⇒ mỗi điểm biết lợi suất của các
+    // tháng chưa xảy ra, và mọi hằng evidence dẫn xuất trôi mỗi lần Yahoo rụng bar
+    // đầu cửa sổ 20 năm. Invariant: giá trị một ngày là hàm thuần của quá khứ ngày đó.
+    const bars = range(1400, (i) => ({
+      date: new Date(Date.UTC(2019, 0, 1) + i * 86400000).toISOString().slice(0, 10),
+      close: 1500 + 300 * Math.sin(i / 80) + i * 0.1,
+    }));
+    const full = runBacktest(bars, null, null).timeline.points;
+    const cut = runBacktest(bars.slice(0, 1100), null, null).timeline.points;
+    expect(cut.length).toBeGreaterThan(300);
+    const byDate = new Map(full.map((p) => [p.date, p]));
+    for (const p of cut) {
+      const f = byDate.get(p.date)!;
+      expect(f, `ngày ${p.date} thiếu trong chuỗi đầy đủ`).toBeDefined();
+      // scores là điểm tiêu chí (past-only); returns thì KHÔNG so — chuỗi cắt
+      // chưa có dữ liệu tương lai cho các ngày cuối, đó là đúng.
+      expect(p.scores, `scores lệch tại ${p.date}`).toEqual(f.scores);
+      expect(p.composite, `composite lệch tại ${p.date}`).toBe(f.composite);
+    }
   });
 
   it("includes the macro criterion when DXY is present but Fed is missing", () => {
