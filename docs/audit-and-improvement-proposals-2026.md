@@ -141,7 +141,7 @@ Phần lớn Mục II thuộc loại 3. Đó là tin tốt — sửa rẻ.
 | **P1-1b. Re-validate sau P1-1(a)** ✅ **ĐÓNG 2026-09-04** | Sửa (a) đổi **toàn bộ timeline lịch sử** ⇒ mọi số dẫn xuất đổi theo | ĐÃ CHẠY: `verify-preset-evidence` (3 preset lệch ≤1,2pt, vẫn vượt cổng, không hạ preset nào), `calc-fusion-evidence` (8/8 số khớp nguyên bản), `bear-downside-conditioning-study` (`conditioningWorks=false` giữ), `consensus-study` (kết luận không đổi), `monitor-presets`/`monitor-fusion` đều `ok`. Thêm `scripts/sellzone-regime-study.ts` để số cứng user-facing có script tái lập. Chi tiết ở #10 |
 | **P1-1b-detrend. Mùa vụ: de-trend ngưỡng** ✅ **ĐÓNG 2026-09-04 — NO-GO hai chiều, giữ nguyên** | #8 vẫn nguyên sau (a). Thay ngưỡng tuyệt đối ±2% bằng de-trend chéo-tháng / xếp hạng để mở lại phía âm | ĐÃ ĐO 2 vòng. Vòng 1 (`seasonality-detrend-study.ts`, 9 biến thể × 3 kỳ hạn, cổng n≥25 + excess>0 + CI không trùm baseline + vượt placebo cùng-số-tháng): **0/27 qua**. De-trend ĐÚNG mở lại phía âm như probe, nhưng CI trùm baseline mọi ô và không ô nào vượt placebo ⇒ tháng lịch không mang thông tin. `abs2` đang phát hành cũng không qua. Vòng 2 (`seasonality-ablation.ts`, trục `presetComposite`): bỏ season tệ hơn 1,2–1,9pt ở 3/6 ô, giảm n cả 6 ô — nhưng n=16–32 CI [46–100] ⇒ Δ cũng là nhiễu. **Cổng viết trước nói "fail thì bỏ về 0"; không bỏ, vì ablation cho thấy bỏ cũng không có bằng chứng** ⇒ giữ nguyên, ghi rõ là NO-GO hai chiều. Bảng: `docs/presets.md` |
 | **P1-2. Kiểm `pctScore` percentile giá** ✅ **ĐÓNG 2026-09-04** | Nghi vấn cùng họ #8: percentile 1y/3y có thoái hóa thành −2 thường trực trong bull dài? | ĐÃ ĐO (`scripts/pctscore-study.ts`): **không** thoái hóa — phía MUA vẫn bắn trong test (pct1y 202/1932 phiên, pct3y 60/1932). Engine giữ nguyên. Bảng đầy đủ ở "Bằng chứng P1-2" bên dưới |
-| **P1-3. DFII10 trong lưới `macroSub`** | Ô trống hợp lệ duy nhất của đề xuất #4: DFII10 chưa từng vào lưới 6D của `macro-decomp-study.ts` (2 lần loại trước ở bối cảnh khác) | Cùng cổng như `macro-decomp-study.ts`. Dự báo train âm như 2 lần trước — chạy để đóng dứt điểm câu hỏi, không phải để ship. Ship chỉ khi thắng cả train và test + qua placebo |
+| ~~**P1-3. DFII10 trong lưới `macroSub`**~~ | ✅ **ĐÓNG 2026-09-05 — NO-GO, engine không đổi.** `scripts/dfii10-decomp-study.ts` (lưới 7D = 6D + RDX, 8.008 bộ × 4 ngưỡng, cùng cổng + placebo xáo-khối-63 riêng cho DFII10). Δ min-excess = **+0,0pt cả 3 kỳ hạn**; 3/6 tháng bị TRẦN test 100% nên phải đọc bằng chẩn đoán như v4 — và chẩn đoán nói NGƯỢC v4: RDX **cắt** tín hiệu chứ không mở (6 tháng 295 vs 371 ngày, **cụm độc lập 14 = 14**, năm câm 2023 co 9→5), ngày MẤT vẫn đúng 96% (siết ngưỡng, không lọc sai), tương quan điểm RDX/YLD **0,775**. Kỳ hạn 1 tháng (duy nhất không trần ⇒ duy nhất đo được): top-1 của 7D vẫn là cấu hình KHÔNG dùng RDX, bản tốt nhất có RDX>0 **thất placebo cả 2 giai đoạn**. Bảng + cách đọc: `docs/presets.md` "Lợi suất THỰC (FRED DFII10) làm sub-signal vĩ mô thứ tư" | — |
 | **P1-4. Net-return có điều kiện tín hiệu** | P0-2 đo vô-điều-kiện. Câu hỏi thật: net return **trên đúng các ngày preset báo mua** còn dương không? | Cần ≥2 giai đoạn SJC. **Hiện chưa đủ** (19 tháng, 1 chế độ bull) ⇒ để mở, chạy lại khi đủ 36 tháng. Ghi thẳng "chưa đủ dữ liệu kiểm chứng" ở UI theo đúng luật backtest |
 
 ### Bằng chứng P1-2 — phân bố điểm percentile giá (2026-09-04)
@@ -224,14 +224,25 @@ Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESET
 | --- | --- |
 | ~~Thêm fallback DOJI / Webgia / Giavang.net~~ | Trái CLAUDE.md: block theo dải IP, không theo nguồn. Thay bằng P2-1 |
 | ~~Trừ cứng 2% SJC / 1,5% nhẫn vào bảng backtest~~ | Backtest chạy trên XAU/USD 15 năm; trừ spread VN vào đó là bóp méo con số đã kiểm chứng. Thay bằng P0-2 (nhãn + số VN đo riêng) |
-| ~~Thay `^TNX` bằng `DFII10` làm biến vĩ mô chính thức~~ | Đã loại 2 lần bằng bằng chứng. Hạ cấp thành P1-3 (study, không phải thay) |
+| ~~Thay `^TNX` bằng `DFII10` làm biến vĩ mô chính thức~~ | Đã loại **3 lần** bằng bằng chứng ở 3 thiết kế khác nhau: `docs/bottom.md:312+` (thắng test, thua train), `docs/accumulation.md:55` (test +10,7%, train âm), và P1-3 2026-09-05 (`dfii10-decomp-study.ts` — lưới 7D, Δ +0,0pt, RDX cắt tín hiệu, thất placebo ở kỳ hạn duy nhất không bị trần). **Đóng hồ sơ:** đừng mở lại mà không có cơ chế mới, không phải cách chấm điểm mới |
 | ~~Badge `[THỊ TRƯỜNG TG ĐÓNG CỬA]`~~ | Đã có (`Dashboard.tsx:912`) |
 | ~~Cảnh báo spread > 2,5 triệu/lượng~~ | Gần trùng tín hiệu đang chạy; hạ cấp thành P0-3 (đổi từ VND sang percentile) |
 | ~~**Trailing stop + bán từng phần theo `premium-exit-study.ts`**~~ | **CHẶN.** `docs/sell-zone.md`: `trail-exit-study.ts` **0/18 cấu hình** — bán-cuối-kỳ thắng mọi luật exit, ΔEnd tới −0,45 ở test; `premium-exit-v2-study.ts` **0/12** qua cổng CI, trạng thái SƠ BỘ. Ship việc này = ship tín hiệu chưa validate, đúng loại lỗi cả repo được xây để chống. Điều đã đo và ĐƯỢC phép nói (family C, `docs/sell-zone.md`) chỉ là: "đừng bán ngay — bán muộn trong kỳ hạn hoặc lúc bứt ≥2σ", đã ship dạng text ở `Dashboard.tsx:560` |
 
 ### Thứ tự thực thi đề xuất
 
-~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid mùa vụ) → ~~P1-1(a) + P1-1b~~ → ~~P1-1b-detrend~~ (cả ba đóng 2026-09-04) → ~~P2-1~~ (đóng 2026-09-05) → **P1-3** (việc kế tiếp: DFII10 vào lưới `macroSub`, chạy để đóng dứt điểm câu hỏi study — dự báo train âm như 2 lần trước). P1-4 và P2-2/P2-3 là chờ dữ liệu, không phải chờ code.
+~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid mùa vụ) → ~~P1-1(a) + P1-1b~~ → ~~P1-1b-detrend~~ (cả ba đóng 2026-09-04) → ~~P2-1~~ → ~~P1-3~~ (cả hai đóng 2026-09-05).
+
+**HẾT VIỆC CODE trong roadmap này.** Mọi mục còn lại **chờ dữ liệu tích lũy, không chờ code** — đến ngày thì chạy lại script đã có, không phải viết mới:
+
+| Mục còn mở | Chờ gì | Mốc dự kiến | Chạy lại cái gì |
+| --- | --- | --- | --- |
+| P1-4. Net-return có điều kiện tín hiệu | ≥36 tháng SJC (hiện ~19–23 tháng, 1 chế độ bull duy nhất) | ~2027 | `scripts/vn-net-return.ts` (P0-2 đo vô-điều-kiện) + thêm bộ lọc "chỉ ngày preset báo mua" |
+| P2-2. Ring-vs-bar | ≥6 tháng nhẫn liên tục (hiện 50 phiên từ 2026-06-11, 8 phiên trống trước bản sửa P2-1 không backfill được) | ~2026-12 | study mới theo khung `dca-zone-v2` rangePos (chưa viết — viết khi đủ dữ liệu, không viết trước) |
+| P2-3. Premium-exit v2 + premium-brake | ≥36 tháng VN (cả hai là NO-GO **cỡ mẫu**, không phải NO-GO tín hiệu) | ~2027 | `premium-exit-v2-study.ts`, `premium-brake-study.ts` |
+| Mùa vụ VN theo lịch Tết | ≥3 mùa Tết trên giá SJC | ~2028 | chưa có script |
+
+Còn 2 hướng chỉ chờ công sức tay, không chờ dữ liệu tự đến: **COT phía bán** (cần tải tay zip `deacotYYYY.zip` từ cftc.gov rồi trỏ `COT_DIR`) và **dòng vốn GLD holdings** (nguồn lằng nhằng). Cả hai đều không nằm trong roadmap này.
 
 **Bài học P2-1 — cùng họ với luật #10:** không có script nào theo dõi "hôm nay có ghi được giá nhẫn không". `ringSell` rơi về null 8 lần trong 3 tháng mà không ai biết, vì fallback cafef vẫn trả SJC nên fetch "thành công". Khi một nguồn là DUY NHẤT cho một trường, fallback im lặng cho trường đó = mất dữ liệu im lặng. Nếu nhẫn lại trống nhiều ngày, kiểm `fetchVnGold()` trả `source` gì trước khi nghi cỡ mẫu.
 

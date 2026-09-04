@@ -277,6 +277,43 @@ Sau khi COT rớt, đổi hướng: thay vì thêm yếu tố mới, **bỏ ràn
 
 **Trạng thái: ĐÃ SHIP thành preset v4 (1 tháng) / v4.1 phủ-max (3/6 tháng, reopen cùng ngày 2026-07-05, được chủ app duyệt)** — bảng phát hành + chi tiết kỹ thuật ở section "Kết quả — 3 preset ĐANG PHÁT HÀNH (v4/v4.1)" phía trên. Tái lập study: `npx tsx scripts/macro-decomp-study.ts` (tự fetch DXY Yahoo, cache tạm; cần mạng lần đầu).
 
+### Lợi suất THỰC (FRED DFII10) làm sub-signal vĩ mô thứ tư — NO-GO (2026-09-05, P1-3)
+
+Ô trống hợp lệ cuối của đề xuất "thay ^TNX bằng DFII10": hai lần loại trước đều là thay-thế
+1-đổi-1 trong tiêu chí vĩ mô trung bình cộng; sau v4 (`macroSub`) mới hỏi được câu khác —
+**cho grid tự chọn trọng số** cho lợi suất thực cạnh 3 sub-signal kia. `scripts/dfii10-decomp-study.ts`:
+lưới 7D (6D + RDX, bước 10%, 8.008 bộ × 4 ngưỡng), cùng mapping `yieldScore` cho cả hai chuỗi
+(so bản chất CHUỖI thực-vs-danh-nghĩa, không so hai cách chấm điểm), cùng cổng 2 giai đoạn
+`n≥25` + `excess>0` ở cả train `<2019` và test `≥2019`, thêm placebo xáo-khối-63-phiên riêng
+cho DFII10 (200 lượt, giữ tự tương quan).
+
+| Kỳ hạn | Best 6D (v4, đang phát hành) | Best 7D (+RDX) | Δ min-excess | Placebo (train / test) |
+| --- | --- | --- | --- | --- |
+| 1 tháng | +30,8pt | +30,8pt | +0,0pt | không vượt / không vượt |
+| 3 tháng | +32,2pt (trần) | +32,2pt (trần) | +0,0pt (trần) | không vượt / không vượt |
+| 6 tháng | +22,4pt (trần) | +22,4pt (trần) | +0,0pt (trần) | **vượt** (82,7 vs p95 74,8) / **vượt** (100 vs 98,4) |
+
+Δ=0,0pt ở 3/6 tháng KHÔNG tự nó là bằng chứng loại (test đã ở trần 100% ⇒ `exTe` đóng băng —
+đúng bệnh trần v4 gặp), nên chạy tiếp đúng 3 chẩn đoán v4 đã dùng. **Chúng nói ngược v4:**
+
+- **RDX CẮT tín hiệu, không mở.** 6 tháng: 295 ngày (7D) vs 371 (6D), **cụm độc lập 14 = 14**,
+  năm câm 2023 co lại 9→5 ngày. 3 tháng: 69 vs 87 ngày, cụm 10 vs **12** (giảm). v4 pass được
+  vì làm điều ngược lại (cụm 15→18, 16→29, mở khóa 2023).
+- **Ngày MẤT vẫn đúng 96,0% (6 tháng) / 95,2% (3 tháng)** — RDX loại bỏ những ngày đã đúng
+  sẵn ⇒ chỉ là siết ngưỡng, không phải lọc sai-số.
+- **Tương quan điểm RDX/YLD = 0,775, trùng điểm 50,7%** trên 4.276 ngày ⇒ hai chuỗi phần lớn
+  là một tín hiệu; grid dùng RDX như một bản ^TNX hơi khác pha để cắt bớt ngày, không phải để
+  thêm thông tin.
+- Riêng 1 tháng (kỳ hạn duy nhất KHÔNG bị trần, tức duy nhất đo được thật): top-1 của 7D vẫn
+  là **cấu hình 6D không dùng RDX**, và cấu hình tốt nhất có RDX>0 **thất placebo cả 2 giai đoạn**.
+
+**Kết luận: NO-GO — không đưa DFII10 vào `macroSub`, engine không đổi.** Đóng dứt điểm đề
+xuất #4 (lần thứ 3, lần này ở đúng bối cảnh của nó). Ba lần loại ở ba thiết kế khác nhau ⇒ đừng mở
+lại mà không có cơ chế mới, không phải cách chấm điểm mới. Đường live giữ nguyên ràng buộc:
+`fetchYield10y` CHỈ thử ^TNX, DFII10 chỉ làm dự phòng nguội khi cold-start (nếu tự tráo
+real↔nominal giữa các lần cron thì điểm macro của một ngày quá khứ tự đổi — vỡ tính kiểm chứng
+được của backtest, xem comment `scripts/fetch.ts`). Tái lập: `npx tsx scripts/dfii10-decomp-study.ts`.
+
 ## Evidence là GROSS trên XAU/USD — chi phí VN đo riêng (2026-09-04)
 
 Mọi % `trainFav/testFav` và `medianTestReturnPct` ở trên đo trên **XAU/USD**: giá thế giới,
