@@ -157,6 +157,11 @@ async function main() {
     warnings.push(
       `Không lấy được giá vàng VN hôm nay — dùng dữ liệu gần nhất. (${lastVnGoldError ?? "không rõ lỗi"})`
     );
+  // BTMC là nguồn DUY NHẤT còn báo giá nhẫn; fallback cafef vẫn trả SJC nên fetch
+  // "thành công" trong khi nhẫn rơi về null và mất vĩnh viễn (8 phiên mất như vậy
+  // trước bản sửa https 2026-09-05). Ghi cảnh báo để lần sau thấy ngay tại analysis.json.
+  if (vnRes && vnRes.ringSell === null)
+    warnings.push(`Không lấy được giá nhẫn hôm nay (nguồn ${vnRes.source} không báo nhẫn).`);
   if (usdVndRes) console.log(`USD/VND: ${usdVndRes.value} (${usdVndRes.source})`);
   else warnings.push("Không lấy được tỷ giá USD/VND hôm nay.");
   if (yieldRes) console.log(`YIELD10Y: ${yieldRes.bars.length} bars (${yieldRes.source})`);

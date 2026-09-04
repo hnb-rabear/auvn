@@ -269,6 +269,18 @@ backtest như một tín hiệu canh giờ Gom Rải (rangePos/brake). Khi thử
 phải NO-GO cơ chế — là NO-GO dữ liệu**: đáng thử lại khi `ringSell`/`ringBuy` được ghi đều đặn
 đủ lâu (cùng nhịp tự tích lũy đã cho phép premium/usdVnd qua ngưỡng ≥6 tháng ở test 1-3).
 
+**Cập nhật 2026-09-05 (P2-1) — nhẫn đã tích lũy 50 phiên, và một lỗ hổng thu số đã bị bịt:**
+tới 2026-09-05, `vn-gold.json` có **50 phiên** `ringSell` khác null (2026-06-11..09-05), vẫn
+dưới ngưỡng ≥6 tháng nên ring-vs-bar VẪN CHẶN — nhưng nguyên nhân mất ngày đã tìm ra và sửa:
+BTMC là nguồn DUY NHẤT còn báo giá nhẫn (SJC bị Cloudflare 403, cafef chỉ có SJC) và
+`scripts/fetch.ts` gọi nó bằng `http://api.btmc.vn/...`, trong khi host đã ngừng nghe port 80
+(đo từ IP nhà: `http://` timeout ~10,5s cả 3 lần, `https://` trả 200 trong ~150ms cả 3 lần).
+Mỗi lần BTMC hỏng, fetch rơi xuống cafef và ghi `ringSell = null` cho ngày đó — mất vĩnh viễn
+(hôm sau `vnToday` đã đổi). Đã đổi sang `https://`; kiểm lại `fetchVnGold()` trả
+`source: "btmc"` kèm `ringBuy/ringSell`. Vẫn còn 8 phiên trống trước bản sửa (2026-07-11, 07-12,
+07-24, 07-30, 07-31, 08-01, 08-04, 09-04) — CafeF không có giá nhẫn nên không backfill được.
+Mốc đủ dữ liệu để chạy ring-vs-bar: ~2026-12 (6 tháng liên tục kể từ 2026-06-11).
+
 **Test 6 — lệch tương quan liên thị trường ("cross-asset divergence", `scripts/divergence-study.ts`):**
 cơ chế khác hẳn 5 test trên — không dùng VN premium, không dùng vị trí giá hay biến động, mà
 dùng TƯƠNG QUAN trượt giữa log-return XAU/USD và DXY (`corr30`, Pearson trên cửa sổ trailing

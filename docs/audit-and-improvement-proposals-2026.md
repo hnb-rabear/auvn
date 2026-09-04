@@ -214,8 +214,8 @@ Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESET
 
 | Việc | Vì sao |
 | --- | --- |
-| **P2-1. `sync-vn-gold.ts` lấy luôn giá nhẫn từ IP nhà** | Đúng đường: block là theo **dải IP datacenter**, không theo nguồn (CLAUDE.md). Không thêm nguồn remote — thêm cũng vẫn bị chặn trên runner |
-| **P2-2. Tích lũy nhẫn tới ≥6 tháng liên tục** | Nhẫn hiện chỉ 49 phiên. Mở khóa ring-vs-bar (đang BLOCKED vì cỡ mẫu, `docs/bottom.md`) |
+| ~~**P2-1. `sync-vn-gold.ts` lấy luôn giá nhẫn từ IP nhà**~~ | ✅ **ĐÓNG 2026-09-05 — không phải việc thêm nguồn, là một bug URL.** `sync-vn-gold.ts` đã chạy `backfill-vn.ts`, đã ghi `ringBuy/ringSell` từ `fetchVnGold()`; hỏng ở chỗ khác: BTMC (nguồn DUY NHẤT còn báo giá nhẫn) được gọi bằng `http://api.btmc.vn/...` nhưng host đã ngừng nghe port 80 — đo từ IP nhà, `http://` **timeout ~10,5s cả 3 lần**, `https://` **200 trong ~150ms cả 3 lần** (payload có đúng row `NHẪN TRÒN TRƠN`). Mỗi lần BTMC hỏng, fetch rơi xuống cafef (chỉ SJC) và ghi `ringSell = null` cho ngày đó, mất vĩnh viễn. Sửa: 1 ký tự URL trong `scripts/fetch.ts` + comment cảnh báo. SJC vẫn 403 Cloudflare **cả từ IP nhà** ⇒ giả định "IP nhà lấy được mọi nguồn" chỉ đúng với BTMC/cafef, không đúng với SJC |
+| **P2-2. Tích lũy nhẫn tới ≥6 tháng liên tục** | Nhẫn hiện 50 phiên (2026-06-11..09-05), còn 8 phiên trống trước bản sửa P2-1 (không backfill được — cafef không có giá nhẫn). Mở khóa ring-vs-bar (đang BLOCKED vì cỡ mẫu, `docs/bottom.md`) khoảng **2026-12** |
 | **P2-3. Tích lũy premium SJC tới ≥36 tháng** | Mở khóa 3 thứ cùng lúc: `premium: 0` ở preset (#9), `premium-brake-study` (NO-GO-vì-mẫu-mỏng, cơ chế cùng họ với phanh đã thành công), `premium-exit-v2` (0/12 vì era B chỉ ~1-2 cửa sổ độc lập) |
 
 ### ĐÃ ĐÓNG — không đưa vào lộ trình
@@ -231,7 +231,9 @@ Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESET
 
 ### Thứ tự thực thi đề xuất
 
-~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid mùa vụ) → ~~P1-1(a) + P1-1b~~ → ~~P1-1b-detrend~~ (cả ba đóng 2026-09-04) → **P2-1** (việc kế tiếp: thu giá nhẫn từ IP nhà). P1-3 chạy khi có mạng rảnh. P1-4 và P2-2/P2-3 là chờ dữ liệu, không phải chờ code.
+~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid mùa vụ) → ~~P1-1(a) + P1-1b~~ → ~~P1-1b-detrend~~ (cả ba đóng 2026-09-04) → ~~P2-1~~ (đóng 2026-09-05) → **P1-3** (việc kế tiếp: DFII10 vào lưới `macroSub`, chạy để đóng dứt điểm câu hỏi study — dự báo train âm như 2 lần trước). P1-4 và P2-2/P2-3 là chờ dữ liệu, không phải chờ code.
+
+**Bài học P2-1 — cùng họ với luật #10:** không có script nào theo dõi "hôm nay có ghi được giá nhẫn không". `ringSell` rơi về null 8 lần trong 3 tháng mà không ai biết, vì fallback cafef vẫn trả SJC nên fetch "thành công". Khi một nguồn là DUY NHẤT cho một trường, fallback im lặng cho trường đó = mất dữ liệu im lặng. Nếu nhẫn lại trống nhiều ngày, kiểm `fetchVnGold()` trả `source` gì trước khi nghi cỡ mẫu.
 
 **Toàn bộ nhánh mùa vụ (#8 + #10) đã đóng.** #10 là bug thật, đã sửa. #8 là mô tả đúng nhưng không có bản sửa nào thắng cổng, và bỏ hẳn cũng không ⇒ giữ nguyên. Đừng mở lại họ này bằng thêm ngưỡng — placebo cùng-số-tháng đã trả lời chung cho cả họ. Hướng còn sống: mùa vụ **VN** theo lịch Tết trên giá SJC (chờ ≥3 mùa Tết).
 

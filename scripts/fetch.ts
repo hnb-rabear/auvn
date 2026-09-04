@@ -285,9 +285,16 @@ async function fetchSjc(): Promise<VnGoldQuote> {
   return q;
 }
 
+// BTMC là nguồn DUY NHẤT còn báo giá nhẫn (SJC bị Cloudflare 403, cafef chỉ có SJC),
+// nên mỗi lần nó hỏng là một ngày mất giá nhẫn vĩnh viễn.
+// Phải gọi bằng HTTPS: api.btmc.vn không còn nghe port 80 — đo 2026-09-04/05 từ IP nhà,
+// http:// timeout ~10,5s cả 3 lần thử, https:// trả 200 trong ~150ms cả 3 lần (payload
+// có đúng row "NHẪN TRÒN TRƠN"). URL http:// cũ vì thế rơi xuống cafef và ghi
+// ringBuy/ringSell = null, chặn tín hiệu ring-vs-bar (docs/bottom.md).
+// Đừng đổi lại http.
 async function fetchBtmc(): Promise<VnGoldQuote> {
   const txt = await get(
-    "http://api.btmc.vn/api/BTMCAPI/getpricebtmc?key=3kd8ub1llcg9t45hnoh8hmn7t5kc2v"
+    "https://api.btmc.vn/api/BTMCAPI/getpricebtmc?key=3kd8ub1llcg9t45hnoh8hmn7t5kc2v"
   );
   const json = JSON.parse(txt);
   const rows: Record<string, string>[] = json?.DataList?.Data ?? [];
