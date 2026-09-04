@@ -71,28 +71,31 @@ Preset 3m đổi tiếp sang v4.1 (Fed nhỏ >0 thay ép 0, phủ tín hiệu r�
 
 | B train | comp train | B test | comp test | n B (tr/te) | placebo train | toàn giai đoạn |
 | --- | --- | --- | --- | --- | --- | --- |
-| **93,3%** | 88,5% | 100% | **99–100% (gần trần)** | 60/75 | **+1,7pt** → nay **+3,3pt** (xem "Nợ đang mở") | n=135 97,0% CI[91,1–100] |
+| **93,3%** | 88,1% | 100% | **99–100% (gần trần)** | 60/75 | **+3,3pt** | n=135 97,0% CI[91,1–100] |
 
-Vẫn GIỮ: train thắng composite (+4,8pt), placebo đồng-n train vẫn dương (mỏng hơn v4: +1,7pt vs
+Vẫn GIỮ: train thắng composite (+5,2pt), placebo đồng-n train vẫn dương (mỏng hơn v4: +3,3pt vs
 +11,1pt cũ — do tập composite-buy giờ rộng hơn nên "đỉnh" của nó gần lõi đáy hơn, ít khác biệt để
 đáy phân biệt). `monitor-fusion.ts` báo `status=ok` (không degraded) trên số mới.
 
-## Nợ đang mở: placebo train trôi theo cửa sổ Yahoo (2026-09-04)
+## Nợ ĐÃ ĐÓNG: placebo train trôi theo cửa sổ Yahoo (mở 2026-09-04, đóng cùng ngày)
 
-`orthogonalTrainPt` **1,7 → 3,3**. KHÔNG phải tín hiệu mạnh lên, mà là hệ quả một bug **look-ahead**
-ở `scripts/backtest.ts:48`: `seasonalityTable` tính MỘT LẦN trên toàn chuỗi rồi dùng cho mọi điểm
+`orthogonalTrainPt` từng trôi **1,7 → 3,3** mà 7 hằng kia vẫn khớp. Nguyên nhân: bug **look-ahead**
+ở `scripts/backtest.ts` — `seasonalityTable` tính MỘT LẦN trên toàn chuỗi rồi dùng cho mọi điểm
 lịch sử. Yahoo phục vụ cửa sổ trượt ~20 năm, nên khi bar đầu chuỗi rụng (2009-07-06 → 2009-09-03)
 trung bình tháng đổi: **T5 2,30→1,96 và T8 2,07→1,12 tụt qua ngưỡng ±2** ⇒ 109 điểm train lệch
-`stats` ±0,25 ⇒ `2010-11-04` (một ngày SAI) chen vào top-60 placebo ⇒ `favTop` 91,7→90,0.
+`stats` ±0,25 ⇒ `2010-11-04` (một ngày SAI) chen vào top-60 placebo ⇒ `favTop` 91,7→90,0. Chỉ test
+placebo (xếp hạng trong cụm điểm sát nhau) đủ nhạy để bắt.
 
-`favB/trainN/testFav/testN/fullFav/fullN/fullCi` KHÔNG đổi ⇒ **7/8 hằng vẫn khớp**, chỉ test placebo
-(xếp hạng trong cụm điểm sát nhau) đủ nhạy để bắt. Kết luận định tính giữ nguyên: train vẫn thắng
-composite, placebo vẫn dương.
+**Đã sửa gốc** (bug #10, `docs/audit-and-improvement-proposals-2026.md` P1-1): backtest gọi
+`statsCriterion(closesUpTo, datesUpTo)` walk-forward — mỗi điểm tự dựng bảng mùa vụ từ tiền tố của
+nó, y hệt đường live. Khóa bằng test `walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ`
+(`tests/engine.test.ts`): chạy `runBacktest` trên `bars` vs `bars.slice(0,1100)`, `scores`/`composite`
+các ngày chung phải bằng nhau. Đã kiểm test có tác dụng — revert call site làm test đỏ với
+`stats 0,75 vs 0,5` tại `2021-01-26`.
 
-⇒ Số này còn trôi mỗi lần bar đầu chuỗi rụng. Test đỏ ở đúng "placebo đồng-n train" mà 7 hằng kia
-khớp = cùng nguyên nhân này: chạy `calc-fusion-evidence.ts` rồi cập nhật hằng bằng đầu ra, **không
-gõ tay**. Sửa gốc = **P1-1** trong `docs/audit-and-improvement-proposals-2026.md` (bỏ look-ahead +
-de-trend mùa vụ) — sẽ đổi toàn bộ timeline evidence nên phải re-validate cả 3 preset + fusion (P1-1b).
+Sau khi regenerate timeline walk-forward, `calc-fusion-evidence.ts` cho lại **đúng cả 8 số** ở trên
+(kể cả 3,3) ⇒ bug chỉ đổi thứ tự xếp hạng trong cụm điểm sát nhau, không đổi tín hiệu. Preset 3m
+`trainFav` 88,5→88,1 nên biên train của B nhích +4,8→+5,2pt. Số giờ tái lập ổn định.
 
 ## Tái lập
 ```bash

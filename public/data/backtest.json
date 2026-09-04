@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-04T09:50:55.901Z",
+ "generatedAt": "2026-09-04T16:10:23.544Z",
  "fromDate": "2009-09-03",
  "toDate": "2026-09-04",
  "observations": 1426,
@@ -33,42 +33,42 @@
   {
    "zone": "buy",
    "horizonDays": 21,
-   "count": 46,
-   "pctFavorable": 63,
-   "medianReturnPct": 1
+   "count": 48,
+   "pctFavorable": 58.3,
+   "medianReturnPct": 0.4
   },
   {
    "zone": "buy",
    "horizonDays": 63,
-   "count": 46,
-   "pctFavorable": 73.9,
-   "medianReturnPct": 3.3
+   "count": 48,
+   "pctFavorable": 66.7,
+   "medianReturnPct": 2.4
   },
   {
    "zone": "buy",
    "horizonDays": 126,
-   "count": 46,
-   "pctFavorable": 65.2,
-   "medianReturnPct": 1.9
+   "count": 48,
+   "pctFavorable": 58.3,
+   "medianReturnPct": 1.7
   },
   {
    "zone": "neutral",
    "horizonDays": 21,
-   "count": 1245,
+   "count": 1243,
    "pctFavorable": null,
-   "medianReturnPct": 0.6
+   "medianReturnPct": 0.7
   },
   {
    "zone": "neutral",
    "horizonDays": 63,
-   "count": 1231,
+   "count": 1229,
    "pctFavorable": null,
-   "medianReturnPct": 2.4
+   "medianReturnPct": 2.5
   },
   {
    "zone": "neutral",
    "horizonDays": 126,
-   "count": 1212,
+   "count": 1210,
    "pctFavorable": null,
    "medianReturnPct": 4.3
   },
@@ -90,7 +90,7 @@
    "zone": "sell",
    "horizonDays": 126,
    "count": 123,
-   "pctFavorable": 33.3,
+   "pctFavorable": 31.7,
    "medianReturnPct": 11.4
   },
   {

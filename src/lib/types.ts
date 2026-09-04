@@ -326,7 +326,9 @@ export interface Preset {
  * v4 (FED=0 ép cứng) làm rớt hẳn "Gom" trên toàn preset — chọn lại candidate phủ-max cùng
  * min-excess (Fed nhỏ >0) đã có sẵn trong lưới grid-search nhưng bị bỏ qua lúc ship v4;
  * so v4: test n 90→104 (3m), 130→311 (6m), thêm episode 2017/2023 độc lập, accuracy KHÔNG
- * pha loãng (test 99%/100%). Số evidence = đầu ra study trên timeline 2026-07-05;
+ * pha loãng (test 99%/100%). Số evidence = đầu ra scripts/verify-preset-evidence.ts trên
+ * timeline 2026-09-04 (tính lại sau khi bỏ look-ahead mùa vụ #10 — lệch ≤1pt mọi ô, cả 3
+ * preset vẫn vượt cổng: biên train +30/+33/+21pt, test +29/+31/+22pt);
  * monitor-presets tính lại mỗi cron.
  */
 export const PRESETS: Preset[] = [
@@ -338,12 +340,12 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.1, yield10y: 0.3 },
     buyThreshold: 50,
     evidence: {
-      trainFav: 82.1,
-      trainN: 106,
-      trainBaseline: 51.7,
+      trainFav: 81.3,
+      trainN: 107,
+      trainBaseline: 51.2,
       testFav: 89.1,
       testN: 64,
-      testBaseline: 59.6,
+      testBaseline: 59.7,
       medianTestReturnPct: 4.1,
     },
   },
@@ -355,12 +357,12 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.2, fed: 0.1, yield10y: 0.2 },
     buyThreshold: 40,
     evidence: {
-      trainFav: 88.5,
-      trainN: 131,
-      trainBaseline: 55.6,
+      trainFav: 88.1,
+      trainN: 135,
+      trainBaseline: 54.7,
       testFav: 99,
       testN: 104,
-      testBaseline: 69,
+      testBaseline: 67.8,
       medianTestReturnPct: 7.1,
     },
   },
@@ -372,13 +374,13 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.2, fed: 0.2, yield10y: 0.4 },
     buyThreshold: 30,
     evidence: {
-      trainFav: 77.3,
-      trainN: 304,
-      trainBaseline: 56.8,
+      trainFav: 76.8,
+      trainN: 298,
+      trainBaseline: 56,
       testFav: 100,
-      testN: 311,
-      testBaseline: 79.6,
-      medianTestReturnPct: 12.7,
+      testN: 309,
+      testBaseline: 77.6,
+      medianTestReturnPct: 12.6,
     },
   },
 ];

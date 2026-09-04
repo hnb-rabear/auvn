@@ -589,8 +589,9 @@ export default function Dashboard({
             {isSellZone && (
               <div className="verdict-note">
                 ⓘ Tham khảo cho người BÁN (không phải tín hiệu cho người mua): composite ≤ −40
-                trong lịch sử chỉ báo đúng ở thị trường yếu (2011/2016/2018/2022 — giá thấp hơn
-                sau 6 tháng 70–100% số lần) và sai 98–100% trong các năm bull (2010/2024/2025).
+                trong lịch sử chỉ báo đúng ở thị trường yếu (2011/2016/2018/2022/2023/2026 — giá
+                thấp hơn sau 6 tháng 67–100% số lần) và sai 98–100% trong các năm bull
+                (2009/2010/2019/2024/2025).
                 Không ai biết trước đang ở loại thị trường nào — bán theo kế hoạch kỳ hạn của bạn.
                 Khi bán theo kỳ hạn ~1 tháng: đừng bán ngay hôm nay — đo 15 năm, giá ngày
                 bán-ngay nằm ~0.4 vị trí khoảng giá tháng kế tiếp; bán gần cuối kỳ hạn hoặc

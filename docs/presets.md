@@ -61,11 +61,13 @@ Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằn
 
 | Preset | Trọng số (KT / TK / MOM / DXY / FED / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **82,1%** (n=106) | **89,1%** (n=64) | 51,7% / 59,6% | +4,1% |
-| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,5%** (n=131) | **99%** (n=104) | 55,6% / 69,0% | +7,1% |
-| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **77,3%** (n=304) | **100%** (n=311) | 56,8% / 79,6% | +12,7% |
+| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **81,3%** (n=107) | **89,1%** (n=64) | 51,2% / 59,7% | +4,1% |
+| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,1%** (n=135) | **99%** (n=104) | 54,7% / 67,8% | +7,1% |
+| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **76,8%** (n=298) | **100%** (n=309) | 56,0% / 77,6% | +12,6% |
 
-So v4 (đã ship rồi rút lại cho 3m/6m): test n 90→104 (3m), 130→311 (6m) — gần gấp 2.4x số tín hiệu ở 6m, mở lại các năm 2017/2023 vốn câm hẳn dưới FED=0; accuracy KHÔNG pha loãng (test 99%/100%, train vẫn cách baseline xa: +32,9pt/+20,5pt). Đánh đổi: train-margin 6m mỏng hơn (77,3% vs baseline 56,8% = +20,5pt, so +24,1pt của v4 cũ) và composite hiện tại (2026-07-05) KHÔNG chuyển sang mua ở cả 3m/6m dưới v4.1 (dry spell không phải bug — xem phần "Gom" reopen ở dưới).
+**Cập nhật 2026-09-04 — bỏ look-ahead mùa vụ (bug #10).** `scripts/backtest.ts` từng tính `seasonalityTable` MỘT LẦN trên toàn chuỗi rồi truyền cho mọi điểm lịch sử; điểm `stats` quá khứ vì thế đổi mỗi lần Yahoo cuốn cửa sổ 20 năm và không tái lập được (bằng chứng: `HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt` trôi 1,7 → 3,3; trung bình mùa vụ T5 1,96 → 1,49 và T8 1,12 → 2,51 chỉ trong vài ngày). Đã sửa thành walk-forward (khóa bằng test `walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ`), timeline regenerate, bảng trên tính lại bằng `verify-preset-evidence.ts`. Mọi ô lệch ≤1,2pt, **cả 3 preset vẫn vượt cổng** với biên train +30,1/+33,4/+20,8pt và test +29,4/+31,2/+22,4pt (khớp `monitor-presets`: cả 3 `status=ok`) ⇒ không preset nào bị hạ khỏi phát hành. Bug chỉ đổi thứ tự xếp hạng trong cụm điểm sát nhau, không đổi tín hiệu. Bài học: mọi số dẫn xuất từ timeline phải có script tái lập được, chạy lại sau MỌI lần sửa engine.
+
+So v4 (đã ship rồi rút lại cho 3m/6m): test n 90→104 (3m), 130→311 (6m) — gần gấp 2.4x số tín hiệu ở 6m, mở lại các năm 2017/2023 vốn câm hẳn dưới FED=0; accuracy KHÔNG pha loãng (test 99%/100%, train vẫn cách baseline xa: +33,4pt/+20,8pt). Đánh đổi: train-margin 6m mỏng hơn (76,8% vs baseline 56,0% = +20,8pt, so +24,1pt của v4 cũ) và composite hiện tại (2026-07-05) KHÔNG chuyển sang mua ở cả 3m/6m dưới v4.1 (dry spell không phải bug — xem phần "Gom" reopen ở dưới).
 
 FED = hướng lãi suất Fed **bằng 0 ở preset 1 tháng (v4)**, **>0 nhỏ ở 3/6 tháng (v4.1)**; vẫn nằm trong tiêu chí vĩ mô hiển thị (radar/chế độ tùy chỉnh) ở cả 3 preset dù có/không tham gia macroSub. Premium = 0 như v3 (chưa đủ 2 giai đoạn). Số trong bảng = tính lại bằng `presetComposite` trên timeline lúc ship (khớp `PRESETS`, đối chiếu bằng `npx tsx scripts/verify-preset-evidence.ts` — có thể chênh ≤0,5pt so đầu ra study gốc do làm tròn 0,1 tại biên ngưỡng + timeline thêm phiên mới).
 

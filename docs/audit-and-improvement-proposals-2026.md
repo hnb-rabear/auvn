@@ -83,7 +83,7 @@ T9 +0,64        T10 +2,63 [+1]  T11 +4,15 [+1]  T12 +5,00 [+1]
 
 **#9 — Tiêu chí chênh lệch VN không tham gia bất kỳ preset nào đang phát hành.** Cả 3 preset đặt `premium: 0` (`types.ts:335,352,369`). Mục II phàn nàn hệ thống xa rời thực tế VN nhưng không nêu việc VN đã bị loại khỏi phần tính điểm. Lý do trong code là hợp lệ (chưa đủ 2 giai đoạn kiểm chứng) — nhưng đó là hạn chế lớn nhất của hệ thống, đáng đứng đầu Mục II.
 
-**#10 — Look-ahead trong backtest ở đúng signal mùa vụ của #8** (phát hiện 2026-09-04 khi truy `fusion.evidence.test.ts` đỏ). `scripts/backtest.ts:48` tính `seasonalityTable(closes, dates)` **một lần trên TOÀN chuỗi** rồi truyền cho mọi điểm lịch sử:
+**#10 — Look-ahead trong backtest ở đúng signal mùa vụ của #8** — ✅ **ĐÃ SỬA 2026-09-04** (phát hiện cùng ngày khi truy `fusion.evidence.test.ts` đỏ). `scripts/backtest.ts:48` tính `seasonalityTable(closes, dates)` **một lần trên TOÀN chuỗi** rồi truyền cho mọi điểm lịch sử:
 
 ```ts
 const season = seasonalityTable(closes, dates);   // MỘT LẦN, toàn chuỗi
@@ -93,9 +93,21 @@ statsCriterion(closesUpTo, datesUpTo, season),     // dùng cho mọi điểm qu
 
 Điểm năm 2010 được chấm bằng trung bình tháng tính từ chính tương lai của nó. Đường live sạch (`criteria.ts:570` tự tính khi không được truyền) — chỉ lịch sử bị.
 
-Hệ quả đo được: Yahoo phục vụ **cửa sổ trượt ~20 năm**, nên mỗi lần cron bar đầu chuỗi rụng (2009-07-06 → 2009-09-03), trung bình tháng đổi: **T5 2,30→1,96 và T8 2,07→1,12 tụt qua ngưỡng ±2** ⇒ 109 điểm train lệch `stats` ±0,25 ⇒ `2010-11-04` (một ngày SAI) chen vào top-60 placebo ⇒ `favTop` 91,7→90,0 ⇒ `orthogonalTrainPt` 1,7→**3,3**. `favB/trainN/fullN/CI` không đổi, nên **7/8 hằng vẫn khớp** — chỉ test placebo (xếp hạng trong cụm điểm sát nhau) đủ nhạy để bắt. Hằng đã cập nhật bằng `scripts/calc-fusion-evidence.ts` + ghi nợ ở `src/lib/fusion.ts:33-42`; số này **còn trôi mỗi lần bar đầu chuỗi rụng** cho tới khi P1-1 xong.
+Hệ quả đo được: Yahoo phục vụ **cửa sổ trượt ~20 năm**, nên mỗi lần cron bar đầu chuỗi rụng (2009-07-06 → 2009-09-03), trung bình tháng đổi: **T5 2,30→1,96 và T8 2,07→1,12 tụt qua ngưỡng ±2** ⇒ 109 điểm train lệch `stats` ±0,25 ⇒ `2010-11-04` (một ngày SAI) chen vào top-60 placebo ⇒ `favTop` 91,7→90,0 ⇒ `orthogonalTrainPt` 1,7→**3,3**. `favB/trainN/fullN/CI` không đổi, nên **7/8 hằng vẫn khớp** — chỉ test placebo (xếp hạng trong cụm điểm sát nhau) đủ nhạy để bắt.
 
-Đây là bug nghiêm trọng hơn #8: #8 làm signal vô dụng, #10 làm **evidence không tái lập được**. Hai bug cùng một hàm ⇒ sửa cùng một study (P1-1).
+Đây là bug nghiêm trọng hơn #8: #8 làm signal vô dụng, #10 làm **evidence không tái lập được**.
+
+**Bản sửa (đóng 2026-09-04):** call site đổi thành `statsCriterion(closesUpTo, datesUpTo)` — mỗi điểm tự dựng bảng mùa vụ từ tiền tố của nó, cùng đường với live. Chi phí đo được 4276 gọi ≈ 1,7s ⇒ không cần cache. Khóa bằng test `walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ` (`tests/engine.test.ts`): `runBacktest(bars)` vs `runBacktest(bars.slice(0,1100))`, `scores`/`composite` các ngày chung phải bằng nhau. **Đã kiểm test có tác dụng**: revert call site làm test đỏ với `stats 0,75 vs 0,5` tại `2021-01-26`. Golden bucket snapshot cập nhật từ output thật (mùa vụ walk-forward khác toàn chuỗi ⇒ phân bố zone dịch, xuất hiện `strong-buy`; `observations` giữ 216).
+
+**Re-validate (P1-1b, xong cùng ngày):** timeline regenerate bằng `npm run collect`, rồi:
+
+- `verify-preset-evidence.ts`: cả 3 preset lệch ≤1,2pt mọi ô, **vẫn vượt cổng** (train +30,1/+33,4/+20,8pt, test +29,4/+31,2/+22,4pt); `monitor-presets` cả 3 `status=ok` ⇒ không hạ preset nào. Hằng `PRESETS[].evidence` ×3 cập nhật từ đầu ra script.
+- `calc-fusion-evidence.ts`: **cả 8 số khớp nguyên bản trước đó** (kể cả `orthogonalTrainPt` 3,3) ⇒ bug chỉ đổi thứ tự xếp hạng trong cụm điểm sát nhau, không đổi tín hiệu. `monitor-fusion` `status=ok`. Nợ ở `src/lib/fusion.ts` + `docs/fusion.md` đã đóng.
+- `bear-downside-conditioning-study.ts`: `conditioningWorks=false` giữ nguyên — không ứng viên nào đạt cổng ship (`composite-bins` beat placebo nhưng CIΔ chứa 0).
+- `consensus-study.ts`: kết luận không đổi — đồng thuận k/3 vẫn không vượt placebo đồng-n nhất quán ⇒ claim discipline hiện tại (display aggregation, không claim "nhiều preset đồng ý = chính xác hơn") vẫn đúng.
+- **Số cứng user-facing giờ có script tái lập.** `src/lib/guidance.ts` (level `headwind`) và `Dashboard.tsx` (verdict-note vùng bán) in các số theo năm dẫn xuất từ composite mà TRƯỚC ĐÓ không script nào tái lập được — chính họ bug này. Đã viết `scripts/sellzone-regime-study.ts` (thống kê MÔ TẢ: 396 ngày `composite ≤ −40` = 9,3% lịch sử; 1 tháng median gộp −0,3%, 44,9% cao hơn; 6 tháng ĐẢO DẤU theo regime — bull 2009/2010/2019/2024/2025 cao hơn 98,5–100%, yếu 2011/2016/2018/2022/2023/2026 thấp hơn 67–100%) và sync text theo output thật (danh sách năm cũ đã lệch: thiếu 2009/2019/2023/2026).
+
+**(b) de-trend chưa làm** — tách sang P1-1b-detrend (dưới). Đo thật: bỏ look-ahead **KHÔNG** sửa #8 (walk-forward vẫn `−1: 0,0% / +1: 62,1%`, toàn chuỗi `0,0% / 58,9%`) ⇒ #8 và #10 là hai việc độc lập, không phải "hai bug cùng một hàm sửa một lần" như mô tả ban đầu.
 
 ---
 
@@ -123,8 +135,9 @@ Phần lớn Mục II thuộc loại 3. Đó là tin tốt — sửa rẻ.
 
 | Việc | Giả thuyết | Cổng nghiệm thu |
 | --- | --- | --- |
-| **P1-1. Mùa vụ: bỏ look-ahead + de-trend** (`scripts/seasonality-detrend-study.ts`) — **nâng ưu tiên lên đầu P1** vì #10 làm evidence không tái lập | Hai sửa trong một study (cùng hàm, chạy grid một lần): (a) **bỏ look-ahead** — `backtest.ts:48` tính `season` walk-forward từ `closesUpTo/datesUpTo` tại mỗi điểm, không dùng bảng toàn chuỗi; (b) **de-trend** — thay ngưỡng tuyệt đối ±2% bằng so-với-trung-bình-12-tháng (hoặc percentile giữa 12 tháng), sửa 7/12-dương ở #8. (b) cũng làm ngưỡng bất biến với mức trend ⇒ giảm luôn độ trôi theo cửa sổ Yahoo | Cổng 2 giai đoạn train<2019/test≥2019 + placebo xáo nhãn tháng cùng-n + CI block-bootstrap. **Bắt buộc thêm test walk-forward "không look-ahead"** cho mùa vụ, kiểu test đã có ở `bottom.ts` (chấm điểm ngày X hai lần: một lần với chuỗi kết thúc tại X, một lần với chuỗi đầy đủ ⇒ phải bằng nhau). **Fail (b) thì bỏ signal mùa vụ về 0**, không giữ bản hỏng — nhưng (a) ship bất kể (a) là sửa bug, không phải tính năng |
-| **P1-1b. Re-validate sau P1-1** (không phải việc riêng — là phần bắt buộc của P1-1) | Sửa (a) đổi **toàn bộ timeline lịch sử** ⇒ mọi số dẫn xuất đổi theo | Chạy lại và cập nhật doc + hằng: `calc-fusion-evidence.ts` (8 hằng `HIGH_CONF_3M_EVIDENCE`), `monitor-presets.ts` + `macro-decomp-study.ts` (evidence 3 preset v4, `docs/presets.md`), `consensus-study.ts`, `bottom-*` (`docs/bottom.md`), `fusion-study.ts` (`docs/fusion.md`). Preset nào tụt qua cổng sau khi bỏ look-ahead thì **hạ khỏi phát hành**, không giữ vì "trước đây đã pass" |
+| **P1-1(a). Mùa vụ: bỏ look-ahead** ✅ **ĐÓNG 2026-09-04** | `backtest.ts` tính `season` một lần toàn chuỗi ⇒ evidence không tái lập | ĐÃ SỬA: call site walk-forward + test invariant (đã kiểm test đỏ khi revert). Chi tiết ở #10 |
+| **P1-1b. Re-validate sau P1-1(a)** ✅ **ĐÓNG 2026-09-04** | Sửa (a) đổi **toàn bộ timeline lịch sử** ⇒ mọi số dẫn xuất đổi theo | ĐÃ CHẠY: `verify-preset-evidence` (3 preset lệch ≤1,2pt, vẫn vượt cổng, không hạ preset nào), `calc-fusion-evidence` (8/8 số khớp nguyên bản), `bear-downside-conditioning-study` (`conditioningWorks=false` giữ), `consensus-study` (kết luận không đổi), `monitor-presets`/`monitor-fusion` đều `ok`. Thêm `scripts/sellzone-regime-study.ts` để số cứng user-facing có script tái lập. Chi tiết ở #10 |
+| **P1-1b-detrend. Mùa vụ: de-trend ngưỡng** (`scripts/seasonality-detrend-study.ts`) — **việc kế tiếp** | #8 vẫn nguyên sau (a): walk-forward vẫn `−1: 0,0% / +1: 62,1%`. Thay ngưỡng tuyệt đối ±2% bằng so-với-trung-bình-12-tháng (hoặc percentile giữa 12 tháng) để mở lại phía âm. Probe: `demean ±1pp` → `−1: 37,1% / 0: 29,6% / +1: 33,3%`; `rank 3/12` → `24,7 / 49,7 / 25,6` | Cổng 2 giai đoạn train<2019/test≥2019 + placebo xáo nhãn tháng cùng-n + CI block-bootstrap. **Fail thì bỏ signal mùa vụ về 0**, không giữ bản hỏng. Pass thì phải re-validate lại toàn chuỗi evidence lần nữa (như P1-1b) |
 | **P1-2. Kiểm `pctScore` percentile giá** ✅ **ĐÓNG 2026-09-04** | Nghi vấn cùng họ #8: percentile 1y/3y có thoái hóa thành −2 thường trực trong bull dài? | ĐÃ ĐO (`scripts/pctscore-study.ts`): **không** thoái hóa — phía MUA vẫn bắn trong test (pct1y 202/1932 phiên, pct3y 60/1932). Engine giữ nguyên. Bảng đầy đủ ở "Bằng chứng P1-2" bên dưới |
 | **P1-3. DFII10 trong lưới `macroSub`** | Ô trống hợp lệ duy nhất của đề xuất #4: DFII10 chưa từng vào lưới 6D của `macro-decomp-study.ts` (2 lần loại trước ở bối cảnh khác) | Cùng cổng như `macro-decomp-study.ts`. Dự báo train âm như 2 lần trước — chạy để đóng dứt điểm câu hỏi, không phải để ship. Ship chỉ khi thắng cả train và test + qua placebo |
 | **P1-4. Net-return có điều kiện tín hiệu** | P0-2 đo vô-điều-kiện. Câu hỏi thật: net return **trên đúng các ngày preset báo mua** còn dương không? | Cần ≥2 giai đoạn SJC. **Hiện chưa đủ** (19 tháng, 1 chế độ bull) ⇒ để mở, chạy lại khi đủ 36 tháng. Ghi thẳng "chưa đủ dữ liệu kiểm chứng" ở UI theo đúng luật backtest |
@@ -216,6 +229,8 @@ Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESET
 
 ### Thứ tự thực thi đề xuất
 
-~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid P1-1) → **P1-1 + P1-1b** (việc kế tiếp; grid chỉ gồm mùa vụ) → P2-1. P1-3 chạy khi có mạng rảnh. P1-4 và P2-2/P2-3 là chờ dữ liệu, không phải chờ code.
+~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid mùa vụ) → ~~P1-1(a) + P1-1b~~ (đã đóng 2026-09-04) → **P1-1b-detrend** (việc kế tiếp; grid chỉ gồm mùa vụ) → P2-1. P1-3 chạy khi có mạng rảnh. P1-4 và P2-2/P2-3 là chờ dữ liệu, không phải chờ code.
 
-**Nợ đang mở tới khi P1-1 xong:** `HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt` trôi mỗi lần bar đầu chuỗi Yahoo rụng (#10). Khi `fusion.evidence.test.ts` đỏ ở đúng test placebo mà 7 hằng kia khớp, đó là cùng nguyên nhân này — chạy `npx tsx scripts/calc-fusion-evidence.ts` rồi cập nhật hằng bằng đầu ra, **không gõ tay**.
+**Nợ đã đóng 2026-09-04:** `HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt` không còn trôi theo cửa sổ Yahoo — gốc là #10, đã sửa và khóa bằng test walk-forward. Sau khi regenerate, `calc-fusion-evidence.ts` cho lại đúng cả 8 số cũ.
+
+**Luật rút ra từ #10 — áp cho mọi việc sau:** mọi số dẫn xuất từ timeline phải có **một script tái lập được**, và script đó phải chạy lại sau MỌI lần sửa engine. Bug này sống được vì các số theo năm ở `guidance.ts`/`Dashboard.tsx` không có script nào sinh ra chúng — không ai biết chúng đã lệch (danh sách năm thiếu 2009/2019/2023/2026). `scripts/sellzone-regime-study.ts` là bản trả nợ đó.

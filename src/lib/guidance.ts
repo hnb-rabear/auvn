@@ -101,14 +101,17 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
   }
 
   // --- composite âm sâu: với người MUA đối xử như vùng quan sát (gộp 2026-07-04),
-  // chỉ khác ở ngữ cảnh. Bằng chứng (timeline 2009–2026, forward return sau ngày
-  // composite ≤ −40): 1 tháng median ≈ 0..−5% ở HẦU HẾT các năm (tín hiệu gió ngược
-  // ngắn hạn bền xuyên regime) — nhưng 6 tháng ĐẢO DẤU theo regime: năm bull
-  // 2010/2024/2025 giá cao hơn 98–100% số lần (median +11..+22%), năm yếu
-  // 2011/2016/2018/2022 giá thấp hơn 70–100% (median −5..−14%). Không biết trước
-  // regime ⇒ không được dịch thành lệnh "bớt mua/cấm mua" cho người tích lũy;
+  // chỉ khác ở ngữ cảnh. Bằng chứng — TÁI LẬP bằng scripts/sellzone-regime-study.ts
+  // (timeline 2009-09-03..2026-09-04, 396 ngày composite ≤ −40 = 9,3% lịch sử):
+  // 1 tháng median gộp −0,3% (44,9% số lần giá cao hơn), theo năm dao động −2,7%..+2,1%
+  // ⇒ gió ngược ngắn hạn NHẸ và không đều. 6 tháng thì ĐẢO DẤU theo regime: năm bull
+  // 2009/2010/2019/2024/2025 giá cao hơn 98,5–100% số lần (median +4,7..+22%), năm yếu
+  // 2011/2016/2018/2022/2023/2026 giá thấp hơn 67–100% (median −2..−13,7%). Không biết
+  // trước regime ⇒ không được dịch thành lệnh "bớt mua/cấm mua" cho người tích lũy;
   // phía BÁN chỉ là tham khảo (Time Machine toggle). Vẫn return TRƯỚC ma trận
   // gom-rải: giữ hành vi cũ là không gợi ý gom rải khi composite âm sâu.
+  // Số ở đây dẫn xuất từ composite (stats trọng số 0,2) ⇒ chạy lại study sau MỌI
+  // lần sửa engine rồi sync text, đừng để trôi (bài học bug #10).
   if (isSell) {
     return {
       level: "headwind",

@@ -94,6 +94,11 @@ npx tsx scripts/bear-downside-study.ts   # chạy study, in 3 điều kiện
 
 `BEAR_DOWNSIDE_CONFIG` khai báo tại `src/lib/types.ts`. Script study: `scripts/bear-downside-study.ts`. Engine: `src/lib/bear-downside.ts`.
 
+**Re-validate 2026-09-04** (sau khi bỏ look-ahead mùa vụ trong `scripts/backtest.ts`, bug #10):
+chạy lại `bear-downside-conditioning-study.ts` — không ứng viên nào (composite/zone/MA200/momentum)
+pass, `conditioningWorks` giữ `false`. Lớp này đọc giá XAU trực tiếp, không đọc criterion `stats`,
+nên bản sửa engine không đổi số ở đây.
+
 ## Giới hạn
 
 1. **Chỉ kiểm chứng trên XAU/USD** — không caveat VND (đây là phân phối lợi suất XAU, không phải giá vốn VND).

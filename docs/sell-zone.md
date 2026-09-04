@@ -140,6 +140,24 @@ biến mất khi kỳ hạn dài ra. Đóng — người bán kỳ hạn dài: b
 - Bị chặn dữ liệu: ring-vs-bar (chờ ≥6 tháng ring quotes), premium seasonality VN
   (chờ ≥3 mùa Tết), intraday (không có nguồn free).
 
+## Nguồn cho số theo năm in trong UI (thêm 2026-09-04)
+
+Các số "vùng bán theo regime" mà `src/lib/guidance.ts` và `src/components/Dashboard.tsx`
+in cho user (median 1 tháng, % giá cao hơn sau 6 tháng, danh sách năm bull vs yếu) trước
+đây KHÔNG có script nào tái lập — chúng lệch âm thầm khi engine đổi (thiếu 2009/2019/2023/2026).
+Nay tái lập bằng:
+
+```bash
+npx tsx scripts/sellzone-regime-study.ts   # thống kê MÔ TẢ, không CI/placebo/claim hiệu quả
+```
+
+Số hiện hành (timeline 2009-09-03..2026-09-04, 396 ngày composite ≤ −40 = 9,3% lịch sử):
+1 tháng median gộp −0,3% (44,9% số lần giá cao hơn), theo năm −2,7%..+2,1%; 6 tháng đảo dấu
+theo regime — bull 2009/2010/2019/2024/2025 cao hơn 98,5–100%, yếu 2011/2016/2018/2022/2023/2026
+thấp hơn 67–100%. **Chạy lại script này sau MỌI lần sửa engine** rồi sync text (bài học bug #10).
+Phần `~0,4` / `~0,55–0,6` ở cùng đoạn UI có nguồn riêng (họ C bên trên) và không phụ thuộc
+criterion `stats` ⇒ không đổi theo engine.
+
 ## Điều KHÔNG đổi
 
 - Policy sell-zone 2026-07-04 (composite ≤ −40 = gió ngược observe-only) giữ nguyên —
