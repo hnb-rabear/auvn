@@ -238,6 +238,12 @@ body {
 .price-item b {
   font-size: 0.98rem;
 }
+/* .price-item là flex-column nên chip con sẽ kéo hết bề rộng — bó lại vừa nội dung. */
+.price-item .chip {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  padding: 1px 7px;
+}
 
 .card {
   background: var(--card);

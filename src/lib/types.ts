@@ -29,6 +29,8 @@ export interface Prices {
   sjcSell: number | null;
   ringBuy: number | null;
   ringSell: number | null;
+  /** ngày giá nhẫn khi CŨ HƠN giá SJC (nguồn dự phòng thiếu nhẫn); null = cùng phiên */
+  ringDate?: string | null;
   xauUsd: number | null;
   usdVnd: number | null;
   /** giá thế giới quy đổi VND/lượng */

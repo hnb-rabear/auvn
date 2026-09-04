@@ -211,6 +211,36 @@ Sau khi COT rớt, đổi hướng: thay vì thêm yếu tố mới, **bỏ ràn
 
 **Trạng thái: ĐÃ SHIP thành preset v4 (1 tháng) / v4.1 phủ-max (3/6 tháng, reopen cùng ngày 2026-07-05, được chủ app duyệt)** — bảng phát hành + chi tiết kỹ thuật ở section "Kết quả — 3 preset ĐANG PHÁT HÀNH (v4/v4.1)" phía trên. Tái lập study: `npx tsx scripts/macro-decomp-study.ts` (tự fetch DXY Yahoo, cache tạm; cần mạng lần đầu).
 
+## Evidence là GROSS trên XAU/USD — chi phí VN đo riêng (2026-09-04)
+
+Mọi % `trainFav/testFav` và `medianTestReturnPct` ở trên đo trên **XAU/USD**: giá thế giới,
+**không spread, không phí**. Người mua vàng miếng VN vào ở `sjcSell` và ra ở `sjcBuy` nên nhận
+ít hơn. Vì backtest chạy 15 năm XAU/USD, **KHÔNG trừ spread VN vào bảng đó** (sẽ bóp méo con số
+đã kiểm chứng) — chi phí đo riêng bằng giá SJC niêm yết thật:
+
+```text
+Lịch sử SJC: 572 ngày, 2025-02-08 → 2026-09-04
+Spread mua-bán: trung vị 1,66%, min 0,66%, max 3,88%  (p80 2,09%, p90 2,50%, p95 2,83%)
+
+H(ngày) | n   | RÒNG trung vị | %dương | CI95 %dương  | GROSS trung vị | chênh
+     30 | 540 |         1,17% | 58,5%  |     39,6–77% |          2,73% | 1,55pt
+     60 | 510 |         4,53% | 62,4%  |   36,1–87,6% |          5,89% | 1,36pt
+     90 | 480 |        10,15% | 69,2%  |     37,9–95% |         11,76% | 1,60pt
+    180 | 390 |        24,74% | 76,2%  |    49,2–100% |         26,57% | 1,83pt
+```
+
+`net = sjcBuy[t+H]/sjcSell[t] − 1`, `gross = sjcSell[t+H]/sjcSell[t] − 1`; CI block-bootstrap
+block=H (cửa sổ kề nhau chồng lấn). Chênh net-vs-gross ổn định ~1,4–1,8pt = đúng một lần spread.
+
+**Giới hạn trung thực:** 19 tháng, MỘT chế độ bull, CI %dương rộng tới 39,6–77% ở H30 ⇒ đây là số
+**mô tả** giai đoạn đã có, KHÔNG phải evidence 2 giai đoạn. Không được trình bày như tỉ lệ đúng đã
+kiểm chứng. Câu hỏi thật — "net return **trên đúng các ngày preset báo mua** còn dương không" — cần
+≥2 giai đoạn SJC, hiện chưa đủ (P1-4 trong `docs/audit-and-improvement-proposals-2026.md`).
+
+Hằng hiển thị: `VN_ROUND_TRIP` trong `src/lib/vn-gold.ts` (cố tình KHÔNG khóa bằng test — số trôi
+mỗi lần cron thêm ngày; refresh khi mốc lịch sử đổi đáng kể). UI: `grossNote` trong
+`src/components/Dashboard.tsx`, gắn cạnh cả 4 chỗ hiện % evidence.
+
 ## Tái lập kết quả
 
 ```bash
@@ -225,6 +255,7 @@ npx tsx scripts/consensus-study.ts                 # hiện trạng Toàn cảnh
 COT_DIR=<thư mục .txt> npx tsx scripts/cot-study.ts # ablation COT positioning (cần tải deacotYYYY.zip từ cftc.gov trước)
 npx tsx scripts/macro-decomp-study.ts              # tách sub-signal vĩ mô DXY/FED/YLD, grid 6D (tự fetch DXY Yahoo lần đầu) — study tuyển v4
 npx tsx scripts/verify-preset-evidence.ts          # đối chiếu PRESETS[].evidence với tính lại trên timeline hiện tại
+npx tsx scripts/vn-net-return.ts                   # chi phí vòng mua-bán SJC thật (spread + net vs gross) — section GROSS ở trên
 ```
 
 Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng "3 preset ĐANG PHÁT HÀNH (v4/v4.1)"; đổi preset thì cập nhật cả hai.

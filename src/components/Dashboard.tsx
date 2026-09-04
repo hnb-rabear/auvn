@@ -18,6 +18,7 @@ import { formatBuildInfo } from "@/lib/version";
 import { createAsOfEngine, verdictFor, DCA_PHASE_LABEL } from "@/lib/as-of";
 import { bottomPctClass } from "@/lib/bottom";
 import { qtyForPhase } from "@/lib/bear-dca";
+import { VN_ROUND_TRIP, spreadBadge } from "@/lib/vn-gold";
 import {
   compositeScore,
   zoneOf,
@@ -56,6 +57,28 @@ const fmtMoney = (v: number | null) =>
   v === null ? "—" : (v / 1_000_000).toLocaleString("vi-VN", { maximumFractionDigits: 2 }) + " tr";
 const fmtNum = (v: number | null, d = 1) =>
   v === null ? "—" : v.toLocaleString("vi-VN", { maximumFractionDigits: d });
+/** "YYYY-MM-DD" → "DD/MM"; trả nguyên chuỗi nếu không đúng dạng */
+const fmtDayMonth = (iso: string | null | undefined) => {
+  const p = iso?.split("-");
+  return p && p.length === 3 ? `${p[2]}/${p[1]}` : (iso ?? "—");
+};
+
+/**
+ * Nhãn bắt buộc cạnh MỌI % evidence: các số đó đo trên XAU/USD (giá thế giới, không
+ * spread, không phí) — người mua SJC nhận ít hơn. Dùng số VN đo thật thay vì nói suông
+ * (VN_ROUND_TRIP, `npx tsx scripts/vn-net-return.ts`).
+ */
+const grossNote = (
+  <i className="muted">
+    Các % trên đo bằng giá XAU/USD thế giới — <b>chưa trừ spread</b> mua-bán của SJC.
+    Đo thật trên giá SJC niêm yết ({VN_ROUND_TRIP.days} ngày, {VN_ROUND_TRIP.measuredFrom}→
+    {VN_ROUND_TRIP.measuredThrough}): spread trung vị {fmtNum(VN_ROUND_TRIP.spreadMedianPct, 2)}%, một
+    vòng mua-bán 30 ngày lãi ròng trung vị <b>+{fmtNum(VN_ROUND_TRIP.net30MedianPct, 2)}%</b> so với
+    +{fmtNum(VN_ROUND_TRIP.gross30MedianPct, 2)}% nếu bỏ qua spread ({VN_ROUND_TRIP.net30PositivePct}%
+    số lần dương). Giai đoạn VN mới 19 tháng và toàn bull ⇒ số mô tả, chưa đủ dữ liệu kiểm chứng
+    2 giai đoạn.
+  </i>
+);
 
 function scoreChip(score: number) {
   const cls = score > 0 ? "chip buy" : score < 0 ? "chip sell" : "chip neutral";
@@ -174,6 +197,7 @@ export default function Dashboard({
     : preset && !rawIsBuy
       ? "neutral"
       : rawZone;
+  const spread = spreadBadge(analysis.prices.sjcBuy, analysis.prices.sjcSell);
   const isBuyZone = zone === "buy" || zone === "strong-buy";
   const isSellZone = zone === "sell" || zone === "strong-sell";
   // Trục verdict chính chỉ còn 3 trạng thái với người mua (gộp 2026-07-04, xem
@@ -315,11 +339,7 @@ export default function Dashboard({
   const st = analysis.sourceTimes;
   const worldAge = st ? timeAgo(st.world, nowMs) : null;
   const vnGoldAge = st ? timeAgo(st.vnGold, nowMs) : null;
-  // dataDate dạng "YYYY-MM-DD" → "DD/MM"
-  const vnDateLabel = (() => {
-    const p = analysis.dataDate?.split("-");
-    return p && p.length === 3 ? `${p[2]}/${p[1]}` : analysis.dataDate;
-  })();
+  const vnDateLabel = fmtDayMonth(analysis.dataDate);
 
   // dòng tóm tắt; fallback về generatedAt nếu thiếu sourceTimes (file data cũ)
   const freshnessFallback = new Date(analysis.generatedAt).toLocaleString("vi-VN", {
@@ -416,9 +436,24 @@ export default function Dashboard({
           <b>
             {fmtMoney(analysis.prices.sjcBuy)} / {fmtMoney(analysis.prices.sjcSell)}
           </b>
+          {spread && (
+            <span
+              className={spread.wide ? "chip sell" : "chip neutral"}
+              title={
+                spread.wide
+                  ? `Chênh mua–bán ${fmtNum(spread.pct, 2)}% ≥ vạch p90 lịch sử ${VN_ROUND_TRIP.spreadP90Pct}% (${VN_ROUND_TRIP.days} ngày). Mua lúc này mất thêm khi bán lại — cân nhắc chờ spread hẹp lại.`
+                  : `Chênh mua–bán ${fmtNum(spread.pct, 2)}% (trung vị lịch sử ${fmtNum(VN_ROUND_TRIP.spreadMedianPct, 2)}%).`
+              }
+            >
+              spread {fmtNum(spread.pct, 2)}%{spread.wide ? " · GIÃN RỘNG" : ""}
+            </span>
+          )}
         </div>
         <div className="price-item">
-          <span>Nhẫn mua / bán</span>
+          <span>
+            Nhẫn mua / bán
+            {analysis.prices.ringDate ? ` (ngày ${fmtDayMonth(analysis.prices.ringDate)})` : ""}
+          </span>
           <b>
             {fmtMoney(analysis.prices.ringBuy)} / {fmtMoney(analysis.prices.ringSell)}
           </b>
@@ -590,6 +625,7 @@ export default function Dashboard({
                   Số preset cùng báo không cộng thêm độ chính xác — 3 preset dùng chung gốc
                   vĩ mô nên thường sáng cùng nhau (docs/presets.md).
                 </i>
+                {grossNote}
               </div>
             )}
             {highConf && (
@@ -603,7 +639,8 @@ export default function Dashboard({
                 <i>
                   Con số 100% là ước lượng lạc quan do tín hiệu bắn chùm trong một chu kỳ nới lỏng —
                   bằng chứng vững là lợi thế giai đoạn 2009–2018.
-                </i>
+                </i>{" "}
+                {grossNote}
               </div>
             )}
           </>
@@ -655,6 +692,8 @@ export default function Dashboard({
                   .
                 </>
               )}
+              {" "}
+              {grossNote}
             </div>
           ) : consensusMode ? (
             <div className="verdict-bt">
@@ -682,13 +721,14 @@ export default function Dashboard({
                   </div>
                 );
               })}
+              {grossNote}
             </div>
           ) : bt63 && bt63.pctFavorable !== null ? (
             <div className="verdict-bt">
               Kiểm chứng lịch sử: tín hiệu &quot;{ZONE_LABELS[zone]}&quot; xuất hiện{" "}
               <b>{bt63.count}</b> lần, <b>{fmtNum(bt63.pctFavorable)}%</b> diễn biến thuận chiều
               sau 3 tháng (trung vị {bt63.medianReturnPct! >= 0 ? "+" : ""}
-              {fmtNum(bt63.medianReturnPct)}%).
+              {fmtNum(bt63.medianReturnPct)}%). {grossNote}
             </div>
           ) : (
             <div className="verdict-bt muted">

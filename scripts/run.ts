@@ -30,6 +30,7 @@ import {
   type BottomAnalysis,
 } from "../src/lib/types";
 import { runBottom } from "../src/lib/bottom";
+import { effectiveRing } from "../src/lib/vn-gold";
 import { forwardFillBottomHistory, forwardFillBearAsOf } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
 import { runAccumulation } from "../src/lib/accumulation";
@@ -209,11 +210,14 @@ async function main() {
     : 9999;
   const stale = staleDays > 1;
 
+  const ring = effectiveRing(history, effective?.date);
+
   const prices: Prices = {
     sjcBuy: effective?.sjcBuy ?? null,
     sjcSell: effective?.sjcSell ?? null,
-    ringBuy: effective?.ringBuy ?? null,
-    ringSell: effective?.ringSell ?? null,
+    ringBuy: ring.buy,
+    ringSell: ring.sell,
+    ringDate: ring.date,
     xauUsd: xauLast,
     usdVnd,
     worldVndPerLuong:
@@ -233,9 +237,10 @@ async function main() {
     prices.sjcBuy !== null && prices.sjcSell !== null
       ? ((prices.sjcSell - prices.sjcBuy) / prices.sjcSell) * 100
       : null;
+  // Cùng phiên với SJC — không lấy prices.ringSell (có thể là phiên cũ hơn).
   const ringDiscountPct =
-    prices.ringSell !== null && prices.sjcSell !== null
-      ? ((prices.sjcSell - prices.ringSell) / prices.sjcSell) * 100
+    effective?.ringSell != null && effective.sjcSell != null
+      ? ((effective.sjcSell - effective.ringSell) / effective.sjcSell) * 100
       : null;
 
   const criteria = [
