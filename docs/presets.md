@@ -37,6 +37,70 @@ So với preset 1m v2 (technical=0 / stats=0.1 / macro=0.9): accuracy 77,4%→82
 
 **Lưu ý:** Study offline dùng `timeline.json` đã tính sẵn; n=37 train tương đối nhỏ. Cần re-verify sau lần chạy `npm run collect && npx tsx scripts/presets-study.ts` tiếp theo.
 
+## Mùa vụ theo tháng — de-trend NO-GO, giữ nguyên (2026-09-04)
+
+Câu hỏi: tín hiệu `season` (lợi suất 63 phiên trung bình theo tháng dương lịch, `criteria.ts:570`)
+dùng ngưỡng **tuyệt đối** `avg ≥ 2 ? +1 : avg ≤ −2 ? −1 : 0`. Với tài sản xu-hướng-tăng, mọi
+tháng đã ~+2% ⇒ phía âm chết hẳn (bug **#8** trong `docs/audit-and-improvement-proposals-2026.md`).
+Bỏ look-ahead (#10, đã ship cùng ngày) **không** sửa việc này — hai bug độc lập. De-trend
+(trừ trung bình chéo-tháng) hoặc xếp hạng sẽ mở lại phía âm, nhưng đó là **đổi tín hiệu** ⇒
+phải qua cổng.
+
+**Vòng 1 — 9 biến thể × 3 kỳ hạn = 27 ô** (`scripts/seasonality-detrend-study.ts`; 4 cổng viết
+trước: n≥25 hai giai đoạn · excess>0 hai giai đoạn · CI95 block-bootstrap không trùm baseline ·
+vượt placebo p95 chọn ngẫu nhiên **cùng số tháng**, giữ nguyên cấu trúc khối lịch):
+
+| Biến thể | Phân bố −1/0/+1 | 21 phiên | 63 phiên | 126 phiên |
+| --- | --- | --- | --- | --- |
+| `abs2` **ĐANG PHÁT HÀNH** | 0,0 / 38,0 / 62,0 | −1,8pt / +4,9pt | +0,6pt / +3,2pt | +1,1pt / −0,0pt |
+| `abs3` | 0,0 / 58,9 / 41,1 | −0,5pt / +8,2pt | −0,0pt / +9,7pt | −0,9pt / +0,7pt |
+| `demean1` | 37,1 / 29,7 / 33,2 | −2,0pt / +7,8pt | −0,5pt / +7,5pt | −2,3pt / −1,5pt |
+| `demean2` | 23,4 / 54,2 / 22,4 | +4,3pt / +10,7pt | +4,9pt / +15,5pt | +1,0pt / +5,4pt |
+| `rank3` | 24,9 / 49,5 / 25,6 | +5,8pt / +11,4pt | +0,5pt / +8,2pt | −1,1pt / −1,5pt |
+
+(ô = excess train / excess test; đầy đủ 9 biến thể trong output script)
+
+**0/27 ô qua cổng.** De-trend/rank ĐÚNG là mở lại phía âm như probe dự đoán (`demean1` cân
+37/30/33), và excess của `demean2`/`rank3` nhìn hấp dẫn (+15,5pt test @63) — nhưng **CI95 trùm
+baseline ở mọi ô** (vd `demean2` @63: train [43–75] quanh baseline 54,6) và **không ô nào vượt
+placebo p95**. Nghĩa là: chọn 2–3 tháng bất kỳ trong 12 cũng cho excess tương đương. Đây là
+**tháng lịch không mang thông tin**, không phải "chưa tìm đúng ngưỡng".
+
+Phát hiện đi kèm quan trọng hơn câu hỏi gốc: **`abs2` đang phát hành cũng không qua cổng nào**
+(gate `ne-p` tốt nhất, @63 — thiếu CI). Phía mua của nó không hơn placebo.
+
+**Vòng 2 — ablation giữ vs bỏ** (`scripts/seasonality-ablation.ts`, đo trên trục UI thật là
+`presetComposite`, không phải composite mặc định; `stats` bản "bỏ season" = trung bình 3 tín hiệu
+con còn lại, khớp `finish()`; assert bản "giữ" tái tạo đúng điểm engine):
+
+| Preset | Giai đoạn | GIỮ season | BỎ season | Δfav | Δn |
+| --- | --- | --- | --- | --- | --- |
+| 1m | train | 78,1% (n=32) [53–97] | 76,9% (n=26) [46–100] | −1,2pt | −6 |
+| 1m | test | 95,7% (n=23) [87–100] | 93,8% (n=16) [81–100] | −1,9pt | −7 |
+| 3m | train | 88,9% (n=45) [80–98] | 90,0% (n=20) [90–90] | +1,1pt | −25 |
+| 3m | test | 100% (n=35) | 100% (n=23) | 0,0pt | −12 |
+| 6m | train | 78,1% (n=96) [54–100] | 76,9% (n=91) [53–100] | −1,2pt | −5 |
+| 6m | test | 100% (n=102) | 100% (n=94) | 0,0pt | −8 |
+
+**Phán quyết: GIỮ NGUYÊN `abs2`** — không phải vì nó tốt, mà vì cả hai hướng thay đổi đều
+không có bằng chứng. Cụ thể, trung thực:
+
+- **Không nâng cấp được:** 0/27 biến thể qua cổng, mọi excess nằm trong nhiễu placebo.
+- **Không bỏ được:** bỏ season làm fav tệ hơn 1,2–1,9pt ở 3/6 ô và **giảm n ở cả 6 ô** (mạnh
+  nhất 3m train −25 tín hiệu) — nhưng phải nói rõ Δ đó **cũng là nhiễu**: n=16–32 với CI
+  [46–100] thì 1,2pt không có nghĩa thống kê. Đây là kết quả **không kết luận được**, không
+  phải bằng chứng season hữu ích.
+- Cái đo được chắc chắn: season chỉ đóng 1/4 tiêu chí `stats`, mà `stats` chỉ nắm 0,1–0,2
+  trọng số preset ⇒ ảnh hưởng thực tế nhỏ ở mọi hướng. Ưu tiên **không đổi engine không có
+  bằng chứng** hơn là dọn cho đẹp.
+- **Bug #8 vì vậy KHÔNG đóng bằng cách sửa ngưỡng** — nó là mô tả đúng về signal, và signal đó
+  yếu ở mọi biến thể. Đóng bằng "đã đo, không có hướng nào thắng cổng".
+
+Tái lập: `npx tsx scripts/seasonality-detrend-study.ts` và `npx tsx scripts/seasonality-ablation.ts`.
+Đừng mở lại họ này bằng thêm ngưỡng — placebo cùng-số-tháng đã trả lời chung cho cả họ. Hướng
+còn sống (chưa đo): mùa vụ **VN** theo lịch Tết/Thần Tài trên giá SJC (chờ ≥3 mùa Tết dữ liệu,
+xem `docs/sell-zone.md` "Còn lại chưa đo").
+
 ## Nghiên cứu yếu tố mới (ablation, v2)
 
 Ba ứng viên được test bằng cách bật/tắt từng tín hiệu rồi chạy lại toàn bộ tuyển chọn, so min-excess của cấu hình tốt nhất:
@@ -258,6 +322,8 @@ COT_DIR=<thư mục .txt> npx tsx scripts/cot-study.ts # ablation COT positionin
 npx tsx scripts/macro-decomp-study.ts              # tách sub-signal vĩ mô DXY/FED/YLD, grid 6D (tự fetch DXY Yahoo lần đầu) — study tuyển v4
 npx tsx scripts/verify-preset-evidence.ts          # đối chiếu PRESETS[].evidence với tính lại trên timeline hiện tại
 npx tsx scripts/vn-net-return.ts                   # chi phí vòng mua-bán SJC thật (spread + net vs gross) — section GROSS ở trên
+npx tsx scripts/seasonality-detrend-study.ts       # mùa vụ: 9 biến thể ngưỡng × 3 kỳ hạn, 4 cổng (NO-GO 0/27)
+npx tsx scripts/seasonality-ablation.ts            # mùa vụ: giữ vs bỏ season trên trục presetComposite
 ```
 
 Preset khai báo tại `src/lib/types.ts` (`PRESETS`) — số liệu evidence trong code phải khớp bảng "3 preset ĐANG PHÁT HÀNH (v4/v4.1)"; đổi preset thì cập nhật cả hai.

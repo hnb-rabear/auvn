@@ -512,7 +512,13 @@ export function momentumCriterion(closes: number[]): CriterionResult {
   return finish("momentum", signals);
 }
 
-/** Lợi suất 63 phiên tới trung bình theo tháng dương lịch, tính trên toàn lịch sử. */
+/**
+ * Lợi suất 63 phiên tới trung bình theo tháng dương lịch, tính trên chuỗi được truyền.
+ *
+ * Gọi bằng TIỀN TỐ (closes.slice(0, i+1)) nếu đang chấm điểm một ngày lịch sử — truyền
+ * toàn chuỗi cho điểm quá khứ là look-ahead (bug #10, sửa 2026-09-04; khóa bằng test
+ * "walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ" trong tests/engine.test.ts).
+ */
 export function seasonalityTable(closes: number[], dates: string[]): Map<number, number> {
   const sums = new Map<number, { s: number; n: number }>();
   for (let i = 0; i + 63 < closes.length; i++) {
@@ -573,6 +579,15 @@ export function statsCriterion(
   if (avg === undefined) {
     signals.push(unavailable("season", "Mùa vụ theo tháng"));
   } else {
+    // Ngưỡng TUYỆT ĐỐI ±2 làm phía âm chết hẳn với tài sản xu-hướng-tăng (bug #8):
+    // 0/12 tháng cho −1, 62% quan sát cho +1. ĐÃ ĐO KỸ 2026-09-04 và giữ nguyên có chủ ý —
+    // 9 biến thể (abs 1/2/3 · de-trend chéo-tháng 0,5/1/2 · rank 2/3/4) × 3 kỳ hạn = 27 ô,
+    // 0 ô qua cổng (CI95 trùm baseline mọi ô, không ô nào vượt placebo chọn ngẫu nhiên
+    // CÙNG SỐ THÁNG) ⇒ tháng lịch không mang thông tin, không phải sai ngưỡng. Bỏ hẳn
+    // signal cũng không có bằng chứng (ablation: tệ hơn 1,2–1,9pt ở 3/6 ô nhưng n=16–32,
+    // CI [46–100] ⇒ nhiễu). Scripts: seasonality-detrend-study.ts, seasonality-ablation.ts;
+    // bảng: docs/presets.md "Mùa vụ theo tháng — de-trend NO-GO". Đừng đổi ngưỡng ở đây
+    // mà không chạy lại CẢ HAI script — placebo cùng-số-tháng đã đóng chung cả họ này.
     let score = 0;
     let text = "tháng này lịch sử không nghiêng rõ bên nào.";
     if (avg >= 2) {
