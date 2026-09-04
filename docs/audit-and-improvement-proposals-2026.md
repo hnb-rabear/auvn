@@ -55,24 +55,167 @@
 
 ---
 
-## III. Lộ Trình Nâng Cấp Đề Xuất (Actionable Roadmap)
+## II-bis. Đính Chính Sau Đối Chiếu Code & Dữ Liệu (2026-09-04)
 
-### Giai đoạn 1: Sửa Lỗi Dữ Liệu & Hạ Tầng (Cần Làm Ngay)
-1. **Khắc phục triệt để lấy giá Vàng Nhẫn:**
-   - Thêm nguồn fallback thứ 2 có đầy đủ vàng nhẫn (DOJI API, Webgia hoặc Giavang.net).
-   - Tách riêng fetcher SJC và fetcher Vàng Nhẫn, không để lỗi một bên làm rỗng bên còn lại.
-2. **Giải quyết vấn đề Stale FRED Data:**
-   - Bổ sung cache dự phòng dài hạn và kiểm tra endpoint FRED trực tiếp qua proxy/residential IP thay vì chỉ dựa vào runner GitHub Actions.
+Mục II viết trước khi đối chiếu source. Bảy cáo buộc kiểm lại: 4 đúng-một-phần, 3 sai. Lộ trình ở Mục III dựng trên bản đính chính này, không dựng trên Mục II.
 
-### Giai đoạn 2: Tinh Chỉnh Mô Hình & Trải Nghiệm Thực Tế
-1. **Bổ sung cột "Lợi Nhuận Thực Tế" (Net Return Engine):**
-   - Trừ sẵn spread bình quân (2% cho SJC, 1.5% cho Nhẫn) vào bảng backtest để người dùng thấy con số thực nhận, không ảo tưởng về preset 1 tháng.
-2. **Cập nhật Lợi Suất Thực (TIPS / DFII10):**
-   - Thử nghiệm lại việc thay thế `^TNX` bằng `DFII10` làm biến vĩ mô chính thức để bắt kịp chu kỳ lạm phát hiện đại.
-3. **Cờ Cảnh Báo Cuối Tuần & Rủi Ro Hành Chính:**
-   - Thêm badge `[THỊ TRƯỜNG TG ĐÓNG CỬA]` vào thứ 7/Chủ Nhật.
-   - Thêm cảnh báo khi chênh lệch Mua – Bán giãn nở bất thường (Spread > 2.5 triệu/lượng báo hiệu thị trường khan hiếm hoặc biến động sốc).
+| # | Cáo buộc Mục II | Đối chiếu code/data | Phán quyết |
+| --- | --- | --- | --- |
+| 1 | Spread ăn hết lãi preset 1m, net về 0 hoặc âm | Spread SJC thực đo trên 572 phiên `public/data/history/vn-gold.json`: p10 1,24% / trung vị 1,66% / p90 2,50% / max 3,88%. Vòng 30 ngày mua-giá-bán → bán-giá-mua: **trung vị +1,23%, 59% số lần dương** (gross sell→sell +2,77%, 66%) | ĐÚNG HƯỚNG, SAI ĐỘ LỚN. Spread ăn ~1,5pp, không ăn hết. Lỗ hổng thật là **trình bày**: `medianTestReturnPct` là số XAU/USD nhưng UI hiện thẳng "trung vị lãi +4,1%" không nhắc phí (`src/components/Dashboard.tsx:584`). Caveat: mẫu 2025-02→2026-09 (bull), chưa điều kiện theo tín hiệu preset |
+| 2 | cafef hardcode `ringBuy/ringSell: null` làm **mất** dữ liệu nhẫn | Data còn nguyên 49 phiên nhẫn (2026-06-11→2026-09-03). `run.ts:195` đã giữ nhẫn cũ trong cùng ngày. Gốc lỗi khác: `prices` lấy `effective` = entry **cuối cùng**, entry đó nhẫn null → hiện `—` (`scripts/run.ts:215`) | ĐÚNG TRIỆU CHỨNG, SAI GỐC. Là lỗi hiển thị, không mất dữ liệu |
+| 3 | v4.1 ép `FED = 0` ở 3m/6m để mở khóa 2023 | Đảo chiều: v4.1 chính là bản **reopen bỏ FED=0**, Fed nhỏ >0 (`types.ts:353`, `types.ts:370`; `docs/presets.md:60`). FED=0 chỉ còn ở 1m, và ở 1m **không cấu hình nào bắn được 2023** — chọn theo phủ-max n train | SAI CƠ CHẾ, ĐÚNG LO NGẠI. Luật chọn "ưu tiên cấu hình bắn 2023" vẫn là chọn-khi-biết-test, `docs/presets.md:58` tự ghi nhận |
+| 4 | Phải thay `^TNX` bằng `DFII10` | DFII10 đã đo và loại 2 lần: `docs/bottom.md:312+` (thắng test, **thua train** — overfit chế độ) và `docs/accumulation.md:55` (test +10,7%, train âm). `^TNX` chọn có lý do ghi rõ ở `docs/presets.md:54` | LÝ THUYẾT ĐÚNG, ĐỀ XUẤT BỎ QUA BẰNG CHỨNG. Ô trống hợp lệ duy nhất: DFII10 chưa vào lưới `macroSub` của `macro-decomp-study.ts` |
+| 5 | Không mô hình được thanh khoản/can thiệp NHNN | Đúng, không mô hình được. Nhưng khan hàng đã có tín hiệu: spread ≥2,5% → điểm −1 (`src/lib/criteria.ts:240-245`) | ĐÚNG, đã phòng hộ một phần |
+| 6 | Thiếu badge cuối tuần | Badge đã tồn tại: `Dashboard.tsx:912-915` qua `isGoldMarketClosed` (`src/lib/freshness.ts:18`). VN history đủ 7 ngày/tuần (82 dòng mỗi weekday) | SAI — đã có |
+| 7 | Chấm mùa vụ theo tháng 1–2 **âm lịch** (Thần Tài) | `seasonalityTable` dùng **dương lịch**, lợi suất XAU 63 phiên tới, không biết gì âm lịch (`src/lib/criteria.ts:516-528`). Ngày Thần Tài không hề được nhận diện | SAI CHI TIẾT, nhưng chạm đúng một bug khác — xem #8 |
 
-### Giai đoạn 3: Chiến Lược Bán & Chốt Lời (Exit Strategy)
-1. **Hiện thực hóa Trailing Stop & Bán Từng Phần:**
-   - Tận dụng nghiên cứu `premium-exit-study.ts` để đưa ra khuyến nghị bán thực tế khi chênh lệch VN vượt percentile 80–90 và giá thế giới suy yếu.
+### Hai bug Mục II bỏ sót (quan trọng hơn phần lớn Mục II)
+
+**#8 — Signal mùa vụ thoái hóa gần thành hằng số dương.** Ngưỡng tuyệt đối ±2% gặp tài sản xu-hướng-tăng:
+
+```text
+T1 +4,06 [+1]   T2 +2,01 [+1]   T3 +1,23        T4 -0,74
+T5 +1,96        T6 +3,09 [+1]   T7 +3,69 [+1]   T8 +1,12
+T9 +0,64        T10 +2,63 [+1]  T11 +4,15 [+1]  T12 +5,00 [+1]
+```
+
+**7/12 tháng cho +1, 0/12 tháng cho −1** — chỉ đội điểm mua, gần như không mang thông tin. Nghi vấn cùng họ ở `pctScore` (percentile giá 1y/3y) đã **ĐO VÀ LOẠI** 2026-09-04: ngưỡng tương đối nên cả hai phía vẫn bắn trong test (pct1y 202/1932 phiên MUA, pct3y 60/1932) ⇒ không thoái hóa, không vào grid P1-1. Xem "Bằng chứng P1-2".
+
+**#9 — Tiêu chí chênh lệch VN không tham gia bất kỳ preset nào đang phát hành.** Cả 3 preset đặt `premium: 0` (`types.ts:335,352,369`). Mục II phàn nàn hệ thống xa rời thực tế VN nhưng không nêu việc VN đã bị loại khỏi phần tính điểm. Lý do trong code là hợp lệ (chưa đủ 2 giai đoạn kiểm chứng) — nhưng đó là hạn chế lớn nhất của hệ thống, đáng đứng đầu Mục II.
+
+**#10 — Look-ahead trong backtest ở đúng signal mùa vụ của #8** (phát hiện 2026-09-04 khi truy `fusion.evidence.test.ts` đỏ). `scripts/backtest.ts:48` tính `seasonalityTable(closes, dates)` **một lần trên TOÀN chuỗi** rồi truyền cho mọi điểm lịch sử:
+
+```ts
+const season = seasonalityTable(closes, dates);   // MỘT LẦN, toàn chuỗi
+...
+statsCriterion(closesUpTo, datesUpTo, season),     // dùng cho mọi điểm quá khứ
+```
+
+Điểm năm 2010 được chấm bằng trung bình tháng tính từ chính tương lai của nó. Đường live sạch (`criteria.ts:570` tự tính khi không được truyền) — chỉ lịch sử bị.
+
+Hệ quả đo được: Yahoo phục vụ **cửa sổ trượt ~20 năm**, nên mỗi lần cron bar đầu chuỗi rụng (2009-07-06 → 2009-09-03), trung bình tháng đổi: **T5 2,30→1,96 và T8 2,07→1,12 tụt qua ngưỡng ±2** ⇒ 109 điểm train lệch `stats` ±0,25 ⇒ `2010-11-04` (một ngày SAI) chen vào top-60 placebo ⇒ `favTop` 91,7→90,0 ⇒ `orthogonalTrainPt` 1,7→**3,3**. `favB/trainN/fullN/CI` không đổi, nên **7/8 hằng vẫn khớp** — chỉ test placebo (xếp hạng trong cụm điểm sát nhau) đủ nhạy để bắt. Hằng đã cập nhật bằng `scripts/calc-fusion-evidence.ts` + ghi nợ ở `src/lib/fusion.ts:33-42`; số này **còn trôi mỗi lần bar đầu chuỗi rụng** cho tới khi P1-1 xong.
+
+Đây là bug nghiêm trọng hơn #8: #8 làm signal vô dụng, #10 làm **evidence không tái lập được**. Hai bug cùng một hàm ⇒ sửa cùng một study (P1-1).
+
+---
+
+## III. Lộ Trình Nâng Cấp (bản tối ưu 2026-09-04)
+
+### Nguyên tắc lọc
+
+Repo này có 13+ study và ~940 cấu hình đã đo với cổng train/test + placebo + CI. Mọi đề xuất phải qua 3 câu hỏi trước khi vào lộ trình:
+
+1. **Đã đo chưa?** Nếu study đã kết luận NO-GO → không ship, chỉ mở lại khi có cơ chế mới hoặc dữ liệu mới.
+2. **Đã có trong code chưa?** Kiểm `grep` trước khi đề xuất.
+3. **Là lỗi trình bày hay lỗi mô hình?** Lỗi trình bày sửa được bằng vài dòng và không cần study.
+
+Phần lớn Mục II thuộc loại 3. Đó là tin tốt — sửa rẻ.
+
+### P0 — Sửa ngay, không cần study (giờ, không phải ngày)
+
+| Việc | Chi tiết | Tiêu chí xong |
+| --- | --- | --- |
+| **P0-1. Hiển thị giá nhẫn theo entry non-null gần nhất** | `scripts/run.ts:215`: `ringBuy/ringSell` quét ngược lịch sử tìm entry non-null thay vì đọc mỗi `effective`; kèm nhãn tuổi ("giá nhẫn: ngày 03/09"). ~1 dòng + nhãn UI | UI hết `— / —` khi lịch sử còn dữ liệu nhẫn; test giữ mốc: entry mới nhất nhẫn null vẫn ra giá của phiên trước |
+| **P0-2. Nhãn "chưa trừ spread" cho evidence preset** ✅ **XONG 2026-09-04** | `grossNote` (`Dashboard.tsx`) gắn cạnh **cả 4** chỗ hiện % evidence (consensus buy note, highConf note, khối kiểm chứng preset, khối `bt63`). Số VN đo thật bằng `scripts/vn-net-return.ts` trên 572 ngày SJC 2025-02→2026-09: spread trung vị **1,66%**, vòng 30 ngày ròng **+1,17%** vs gross +2,73% (58,5% số lần dương). Hằng: `VN_ROUND_TRIP` (`src/lib/vn-gold.ts`, cố tình không khóa test — trôi theo cron). KHÔNG trừ spread vào backtest | Người dùng không còn đọc +4,1% như tiền vào tay. Bảng đầy đủ 4 kỳ hạn + CI + giới hạn trung thực ở `docs/presets.md` section "Evidence là GROSS…" |
+| **P0-3. Cảnh báo spread giãn ở tầng hiển thị** ✅ **XONG 2026-09-04** | `spreadBadge()` (`src/lib/vn-gold.ts`) + chip cạnh giá SJC (`Dashboard.tsx`): luôn hiện `spread X,XX%`, thêm `· GIÃN RỘNG` (chip đỏ) khi ≥ p90 = **2,50%**. Ngưỡng lấy từ `VN_ROUND_TRIP.spreadP90Pct` (percentile đo trên 572 ngày), **trùng đúng** ngưỡng −1 điểm của signal `spread` trong `criteria.ts` ⇒ badge và radar không thể nói khác nhau (khóa bằng test) | ✅ 4 test trong `vn-gold.test.ts`: bình thường ⇒ không cờ; đúng vạch p90 ⇒ có cờ (`>=`, không phải `>`); ngưỡng ≡ `criteria.ts`; thiếu giá / `sjcSell ≤ 0` ⇒ null (không chia 0, không bịa badge). Dùng percentile %, không hardcode VND — giá vàng đổi thì mức VND tuyệt đối vô nghĩa |
+
+### P1 — Study bắt buộc trước khi ship (mỗi việc = 1 script + 1 doc + commit)
+
+| Việc | Giả thuyết | Cổng nghiệm thu |
+| --- | --- | --- |
+| **P1-1. Mùa vụ: bỏ look-ahead + de-trend** (`scripts/seasonality-detrend-study.ts`) — **nâng ưu tiên lên đầu P1** vì #10 làm evidence không tái lập | Hai sửa trong một study (cùng hàm, chạy grid một lần): (a) **bỏ look-ahead** — `backtest.ts:48` tính `season` walk-forward từ `closesUpTo/datesUpTo` tại mỗi điểm, không dùng bảng toàn chuỗi; (b) **de-trend** — thay ngưỡng tuyệt đối ±2% bằng so-với-trung-bình-12-tháng (hoặc percentile giữa 12 tháng), sửa 7/12-dương ở #8. (b) cũng làm ngưỡng bất biến với mức trend ⇒ giảm luôn độ trôi theo cửa sổ Yahoo | Cổng 2 giai đoạn train<2019/test≥2019 + placebo xáo nhãn tháng cùng-n + CI block-bootstrap. **Bắt buộc thêm test walk-forward "không look-ahead"** cho mùa vụ, kiểu test đã có ở `bottom.ts` (chấm điểm ngày X hai lần: một lần với chuỗi kết thúc tại X, một lần với chuỗi đầy đủ ⇒ phải bằng nhau). **Fail (b) thì bỏ signal mùa vụ về 0**, không giữ bản hỏng — nhưng (a) ship bất kể (a) là sửa bug, không phải tính năng |
+| **P1-1b. Re-validate sau P1-1** (không phải việc riêng — là phần bắt buộc của P1-1) | Sửa (a) đổi **toàn bộ timeline lịch sử** ⇒ mọi số dẫn xuất đổi theo | Chạy lại và cập nhật doc + hằng: `calc-fusion-evidence.ts` (8 hằng `HIGH_CONF_3M_EVIDENCE`), `monitor-presets.ts` + `macro-decomp-study.ts` (evidence 3 preset v4, `docs/presets.md`), `consensus-study.ts`, `bottom-*` (`docs/bottom.md`), `fusion-study.ts` (`docs/fusion.md`). Preset nào tụt qua cổng sau khi bỏ look-ahead thì **hạ khỏi phát hành**, không giữ vì "trước đây đã pass" |
+| **P1-2. Kiểm `pctScore` percentile giá** ✅ **ĐÓNG 2026-09-04** | Nghi vấn cùng họ #8: percentile 1y/3y có thoái hóa thành −2 thường trực trong bull dài? | ĐÃ ĐO (`scripts/pctscore-study.ts`): **không** thoái hóa — phía MUA vẫn bắn trong test (pct1y 202/1932 phiên, pct3y 60/1932). Engine giữ nguyên. Bảng đầy đủ ở "Bằng chứng P1-2" bên dưới |
+| **P1-3. DFII10 trong lưới `macroSub`** | Ô trống hợp lệ duy nhất của đề xuất #4: DFII10 chưa từng vào lưới 6D của `macro-decomp-study.ts` (2 lần loại trước ở bối cảnh khác) | Cùng cổng như `macro-decomp-study.ts`. Dự báo train âm như 2 lần trước — chạy để đóng dứt điểm câu hỏi, không phải để ship. Ship chỉ khi thắng cả train và test + qua placebo |
+| **P1-4. Net-return có điều kiện tín hiệu** | P0-2 đo vô-điều-kiện. Câu hỏi thật: net return **trên đúng các ngày preset báo mua** còn dương không? | Cần ≥2 giai đoạn SJC. **Hiện chưa đủ** (19 tháng, 1 chế độ bull) ⇒ để mở, chạy lại khi đủ 36 tháng. Ghi thẳng "chưa đủ dữ liệu kiểm chứng" ở UI theo đúng luật backtest |
+
+### Bằng chứng P1-2 — phân bố điểm percentile giá (2026-09-04)
+
+Tái lập: `npx tsx scripts/pctscore-study.ts` (không ghi file, không đổi engine).
+
+**Phương pháp.** Nguồn `fetchXau()` = `yahoo:GC=F`, **5032 bars, 2006-09-04 → 2026-09-04** — bars THẬT, không đọc `timeline.json` (giá timeline làm tròn `$0.1` mà `percentileRank` đếm strict-lower ⇒ tạo giá bằng nhau giả; timeline lại bắt đầu sau `WARMUP=756` nên mất 3 năm đầu của `pct3y`; và nó **không lưu** hai sub-score này). Điểm lấy bằng cách gọi chính `statsCriterion` rồi bốc signal theo `id` — không copy 5 dòng ngưỡng sang script (tránh hai bản sự thật). Lưới **dày, mỗi phiên**, vì đây là thống kê **mô tả phân bố điểm**, không suy diễn forward-return ⇒ **không có n độc lập, không CI, không p-value**; đừng đọc bảng này như evidence hiệu quả.
+
+```text
+── pct1y (cửa sổ 252 phiên) ──
+năm    |    n | rank p10/p50/p90 |     −2 |     −1 |      0 |     +1 |     +2 | phía MUA
+TẤT CẢ | 4781 |         10/75/99 | 1644  34.4% |  942  19.7% | 1116  23.3% |  574    12% |  505  10.6% | 1079  22.6%
+2007   |   83 |        93/99/100 |   83   100% |    0     0% |    0     0% |    0     0% |    0     0% |    0     0%
+2008   |  253 |         8/69/100 |   72  28.5% |   50  19.8% |   76    30% |   27  10.7% |   28  11.1% |   55  21.7%
+2009   |  252 |        59/88/100 |  115  45.6% |   87  34.5% |   45  17.9% |    5     2% |    0     0% |    5     2%
+2010   |  252 |        78/95/100 |  168  66.7% |   81  32.1% |    3   1.2% |    0     0% |    0     0% |    0     0%
+2011   |  252 |        76/94/100 |  150  59.5% |   88  34.9% |   14   5.6% |    0     0% |    0     0% |    0     0%
+2012   |  250 |         14/59/87 |   20     8% |   60    24% |  110    44% |   47  18.8% |   13   5.2% |   60    24%
+2013   |  252 |           1/8/38 |    0     0% |    0     0% |   36  14.3% |   73    29% |  143  56.7% |  216  85.7%
+2014   |  252 |          4/30/61 |    0     0% |   10     4% |  117  46.4% |   62  24.6% |   63    25% |  125  49.6%
+2015   |  252 |          1/12/38 |    0     0% |    1   0.4% |   45  17.9% |   96  38.1% |  110  43.7% |  206  81.7%
+2016   |  250 |         18/88/99 |  120    48% |   49  19.6% |   34  13.6% |   45    18% |    2   0.8% |   47  18.8%
+2017   |  251 |         22/55/89 |   24   9.6% |   61  24.3% |  118    47% |   48  19.1% |    0     0% |   48  19.1%
+2018   |  250 |          1/42/96 |   51  20.4% |   30    12% |   54  21.6% |   45    18% |   70    28% |  115    46%
+2019   |  252 |        57/80/100 |   95  37.7% |   86  34.1% |   71  28.2% |    0     0% |    0     0% |    0     0%
+2020   |  253 |        69/95/100 |  170  67.2% |   55  21.7% |   28  11.1% |    0     0% |    0     0% |    0     0%
+2021   |  252 |         18/35/68 |    2   0.8% |   21   8.3% |  133  52.8% |   91  36.1% |    5     2% |   96  38.1%
+2022   |  251 |          2/51/96 |   46  18.3% |   33  13.1% |   79  31.5% |   22   8.8% |   71  28.3% |   93  37.1%
+2023   |  250 |        51/80/98  |   67  26.8% |   93  37.2% |   85    34% |    5     2% |    0     0% |    5     2%
+2024   |  252 |        83/96/100 |  181  71.8% |   69  27.4% |    2   0.8% |    0     0% |    0     0% |    0     0%
+2025   |  252 |        90/98/100 |  229  90.9% |   23   9.1% |    0     0% |    0     0% |    0     0% |    0     0%
+2026   |  170 |         34/76/99 |   51    30% |   45  26.5% |   66  38.8% |    8   4.7% |    0     0% |    8   4.7%
+
+── pct3y (cửa sổ 756 phiên) ──
+năm    |    n | rank p10/p50/p90 |     −2 |     −1 |      0 |     +1 |     +2 | phía MUA
+TẤT CẢ | 4277 |         9/85/100 | 1879  43.9% |  925  21.6% |  620  14.5% |  413   9.7% |  440  10.3% |  853  19.9%
+2009   |   84 |        97/99/100 |   84   100% |    0     0% |    0     0% |    0     0% |    0     0% |    0     0%
+2010   |  252 |        93/98/100 |  249  98.8% |    3   1.2% |    0     0% |    0     0% |    0     0% |    0     0%
+2011   |  252 |        92/98/100 |  238  94.4% |   14   5.6% |    0     0% |    0     0% |    0     0% |    0     0%
+2012   |  250 |         71/84/94 |   58  23.2% |  176  70.4% |   16   6.4% |    0     0% |    0     0% |    0     0%
+2013   |  252 |          1/18/68 |    0     0% |   23   9.1% |   62  24.6% |   63    25% |  104  41.3% |  167  66.3%
+2014   |  252 |          1/10/23 |    0     0% |    0     0% |    1   0.4% |  131    52% |  120  47.6% |  251  99.6%
+2015   |  252 |           0/4/14 |    0     0% |    0     0% |    5     2% |   46  18.3% |  201  79.8% |  247    98%
+2016   |  250 |         14/59/93 |   44  17.6% |   42  16.8% |  114  45.6% |   35    14% |   15     6% |   50    20%
+2017   |  251 |         44/71/88 |   14   5.6% |  116  46.2% |  116  46.2% |    5     2% |    0     0% |    5     2%
+2018   |  250 |         20/53/95 |   55    22% |   58  23.2% |   64  25.6% |   73  29.2% |    0     0% |   73  29.2%
+2019   |  252 |        59/91/100 |  138  54.8% |   54  21.4% |   60  23.8% |    0     0% |    0     0% |    0     0%
+2020   |  253 |        90/98/100 |  225  88.9% |   28  11.1% |    0     0% |    0     0% |    0     0% |    0     0%
+2021   |  252 |         64/75/86 |   14   5.6% |  184    73% |   54  21.4% |    0     0% |    0     0% |    0     0%
+2022   |  251 |         17/61/94 |   44  17.5% |   53  21.1% |   94  37.5% |   60  23.9% |    0     0% |   60  23.9%
+2023   |  250 |         66/89/99 |  118  47.2% |   98  39.2% |   34  13.6% |    0     0% |    0     0% |    0     0%
+2024   |  252 |        94/99/100 |  250  99.2% |    2   0.8% |    0     0% |    0     0% |    0     0% |    0     0%
+2025   |  252 |        97/99/100 |  252   100% |    0     0% |    0     0% |    0     0% |    0     0% |    0     0%
+2026   |  170 |        78/92/100 |   96  56.5% |   74  43.5% |    0     0% |    0     0% |    0     0% |    0     0%
+
+pct1y: phía MUA (+1/+2) bắn 202/1932 phiên test (≥2019-01-01) = 10.5%; phiên MUA gần nhất 2026-08-03
+pct3y: phía MUA (+1/+2) bắn  60/1932 phiên test (≥2019-01-01) =  3.1%; phiên MUA gần nhất 2022-11-09
+```
+
+**Phán quyết theo đúng cổng viết trước khi thấy số: ĐÓNG P1-2, engine giữ nguyên.** Cả hai signal đều bắn phía MUA trong giai đoạn test ⇒ **không** cùng họ #8. Khác biệt cơ chế: mùa vụ là signal **lịch** với ngưỡng tuyệt đối ⇒ 0/12 tháng cho −1 là một phía **chết hẳn, vĩnh viễn**; percentile là signal **trạng thái** với ngưỡng tương đối ⇒ cả 5 bucket đều dùng được (toàn kỳ pct1y −2 34,4% / MUA 22,6%; pct3y −2 43,9% / MUA 19,9%), và mọi phía đều lật khi trạng thái lật (2013–2015 gần như MUA hoàn toàn, 2024–2025 gần như −2 hoàn toàn).
+
+Hai điều ĐƯỢC phép nói thêm, không hơn:
+
+- `pct3y` không có phiên MUA nào sau 2022-11 (2023–2026 = 0/922). Đó là **phát biểu trạng thái đúng** — giá 2024–2026 thật sự ở đỉnh dải 3 năm (rank p50 = 99) — chứ không phải bằng chứng signal hỏng. Trong một bull nhiều năm, một signal đảo-chiều-theo-dải **phải** nằm ở phía bán; đòi nó bắn MUA là đòi look-ahead.
+- Bảng này **không** trả lời "signal có mang thông tin không". Câu đó cần ablation (bỏ signal, đo lại min-excess qua cổng 2 giai đoạn) ⇒ thuộc P1-1, nơi trọng số `stats` đã là một chiều của grid. P1-2 chỉ đóng nghi vấn hằng-số.
+
+Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESETS`, backtest, timeline, dữ liệu.
+
+### P2 — Mở rộng thu thập dữ liệu (mở khóa tương lai)
+
+| Việc | Vì sao |
+| --- | --- |
+| **P2-1. `sync-vn-gold.ts` lấy luôn giá nhẫn từ IP nhà** | Đúng đường: block là theo **dải IP datacenter**, không theo nguồn (CLAUDE.md). Không thêm nguồn remote — thêm cũng vẫn bị chặn trên runner |
+| **P2-2. Tích lũy nhẫn tới ≥6 tháng liên tục** | Nhẫn hiện chỉ 49 phiên. Mở khóa ring-vs-bar (đang BLOCKED vì cỡ mẫu, `docs/bottom.md`) |
+| **P2-3. Tích lũy premium SJC tới ≥36 tháng** | Mở khóa 3 thứ cùng lúc: `premium: 0` ở preset (#9), `premium-brake-study` (NO-GO-vì-mẫu-mỏng, cơ chế cùng họ với phanh đã thành công), `premium-exit-v2` (0/12 vì era B chỉ ~1-2 cửa sổ độc lập) |
+
+### ĐÃ ĐÓNG — không đưa vào lộ trình
+
+| Đề xuất bản cũ | Vì sao bỏ |
+| --- | --- |
+| ~~Thêm fallback DOJI / Webgia / Giavang.net~~ | Trái CLAUDE.md: block theo dải IP, không theo nguồn. Thay bằng P2-1 |
+| ~~Trừ cứng 2% SJC / 1,5% nhẫn vào bảng backtest~~ | Backtest chạy trên XAU/USD 15 năm; trừ spread VN vào đó là bóp méo con số đã kiểm chứng. Thay bằng P0-2 (nhãn + số VN đo riêng) |
+| ~~Thay `^TNX` bằng `DFII10` làm biến vĩ mô chính thức~~ | Đã loại 2 lần bằng bằng chứng. Hạ cấp thành P1-3 (study, không phải thay) |
+| ~~Badge `[THỊ TRƯỜNG TG ĐÓNG CỬA]`~~ | Đã có (`Dashboard.tsx:912`) |
+| ~~Cảnh báo spread > 2,5 triệu/lượng~~ | Gần trùng tín hiệu đang chạy; hạ cấp thành P0-3 (đổi từ VND sang percentile) |
+| ~~**Trailing stop + bán từng phần theo `premium-exit-study.ts`**~~ | **CHẶN.** `docs/sell-zone.md`: `trail-exit-study.ts` **0/18 cấu hình** — bán-cuối-kỳ thắng mọi luật exit, ΔEnd tới −0,45 ở test; `premium-exit-v2-study.ts` **0/12** qua cổng CI, trạng thái SƠ BỘ. Ship việc này = ship tín hiệu chưa validate, đúng loại lỗi cả repo được xây để chống. Điều đã đo và ĐƯỢC phép nói (family C, `docs/sell-zone.md`) chỉ là: "đừng bán ngay — bán muộn trong kỳ hạn hoặc lúc bứt ≥2σ", đã ship dạng text ở `Dashboard.tsx:560` |
+
+### Thứ tự thực thi đề xuất
+
+~~P0-1~~ → ~~P0-2~~ → ~~P0-3~~ → ~~P1-2~~ (đã đóng, `pctScore` KHÔNG cần vào grid P1-1) → **P1-1 + P1-1b** (việc kế tiếp; grid chỉ gồm mùa vụ) → P2-1. P1-3 chạy khi có mạng rảnh. P1-4 và P2-2/P2-3 là chờ dữ liệu, không phải chờ code.
+
+**Nợ đang mở tới khi P1-1 xong:** `HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt` trôi mỗi lần bar đầu chuỗi Yahoo rụng (#10). Khi `fusion.evidence.test.ts` đỏ ở đúng test placebo mà 7 hằng kia khớp, đó là cùng nguyên nhân này — chạy `npx tsx scripts/calc-fusion-evidence.ts` rồi cập nhật hằng bằng đầu ra, **không gõ tay**.
