@@ -1,43 +1,43 @@
 {
- "generatedAt": "2026-09-04T04:47:24.431Z",
+ "generatedAt": "2026-09-04T09:52:54.804Z",
  "dataDate": "2026-09-04",
  "cycle": {
-  "prob": 57.6,
+  "prob": 57,
   "ci": [
-   35.5,
-   68
+   34.7,
+   67.9
   ],
   "probUnweighted": 39.5,
-  "ess": 200,
+  "ess": 201,
   "bin": 2,
-  "n": 617,
+  "n": 618,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 1,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 15%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 15,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
-    "score": 0,
-    "explanation": "XAU thay đổi +1% trong 3 tháng: đi ngang.",
+    "score": -1,
+    "explanation": "XAU thay đổi +4,1% trong 3 tháng: đang tăng nóng.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 58,3: trung tính.",
+    "explanation": "RSI ngày = 58,2: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,67: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -18,21: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +26,6% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -71,42 +71,42 @@
   ]
  },
  "swing": {
-  "prob": 52.5,
+  "prob": 52.9,
   "ci": [
-   40.8,
-   64
+   41.6,
+   64.6
   ],
-  "probUnweighted": 43.7,
+  "probUnweighted": 43.8,
   "ess": 209,
   "bin": 2,
-  "n": 639,
+  "n": 640,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 1,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 15%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 15,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
-    "score": 0,
-    "explanation": "XAU thay đổi +1% trong 3 tháng: đi ngang.",
+    "score": -1,
+    "explanation": "XAU thay đổi +4,1% trong 3 tháng: đang tăng nóng.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 58,3: trung tính.",
+    "explanation": "RSI ngày = 58,2: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,67: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -18,21: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +26,6% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22459,6 +22459,11 @@
   },
   {
    "date": "2026-09-02",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-09-03",
    "cycleBin": 2,
    "swingBin": 2
   },
@@ -54780,23 +54785,23 @@
    "date": "2026-09-04",
    "cycle": {
     "bin": 2,
-    "prob": 57.6,
+    "prob": 57,
     "ci": [
-     35.5,
-     68
+     34.7,
+     67.9
     ],
     "probUnweighted": 39.5,
-    "n": 617
+    "n": 618
    },
    "swing": {
     "bin": 2,
-    "prob": 52.5,
+    "prob": 52.9,
     "ci": [
-     40.8,
-     64
+     41.6,
+     64.6
     ],
-    "probUnweighted": 43.7,
-    "n": 639
+    "probUnweighted": 43.8,
+    "n": 640
    }
   }
  ],
@@ -54820,8 +54825,8 @@
     "lo": 40,
     "hi": 60,
     "pred": 47.9,
-    "real": 50.2,
-    "n": 325
+    "real": 50,
+    "n": 326
    },
    {
     "lo": 60,
@@ -54858,7 +54863,7 @@
     "hi": 60,
     "pred": 48.5,
     "real": 46.4,
-    "n": 744
+    "n": 745
    },
    {
     "lo": 60,
