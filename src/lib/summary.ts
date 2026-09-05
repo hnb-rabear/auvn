@@ -4,6 +4,7 @@ import {
   consensusZone,
   consensusLabel,
 } from "./consensus";
+import { isPremiumHigh } from "./guidance";
 import { zoneOf } from "./types";
 import type {
   Analysis,
@@ -29,7 +30,7 @@ export interface SummaryPresetSignal {
 }
 
 export interface AuvnSummary {
-  schemaVersion: "1.0";
+  schemaVersion: "1.1";
   generatedAt: string;
   dataDate: string;
   stale: boolean;
@@ -61,6 +62,12 @@ export interface AuvnSummary {
       isHeadwind: boolean;
       note: string;
     };
+    premiumGate: {
+      blocksBuying: boolean;
+      premiumPct: number | null;
+      premiumP80: number | null;
+      note: string;
+    };
   };
   accumulation: {
     effectiveBuyMultiplier: number;
@@ -76,7 +83,11 @@ export interface AuvnSummary {
     };
   };
   modelHealth: {
+    /** chỉ tính các lớp sinh ra kết luận trong file này (preset, fusion 3m, Bear DCA) */
     overall: "ok" | "degraded" | "insufficient";
+    degradedLayers: string[];
+    insufficientLayers: string[];
+    note: string;
     presets: PresetHealthFile;
     bottomHunter: BottomHealth;
     accumulationBrake: AccumulationHealth;
@@ -144,6 +155,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
         : "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA.",
   };
 
+  const premiumP80 = analysis.premiumPercentiles?.p80 ?? null;
   const radarZone = zoneOf(analysis.composite);
   const radarContext = {
     composite: analysis.composite,
@@ -152,27 +164,33 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     note: "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua.",
   };
 
-  const hasMissingExpectedItems =
-    presetHealth.items.length < 3 || bottomHealth.items.length < 2;
-
-  const allStatuses: ("ok" | "degraded" | "insufficient")[] = [
-    ...presetHealth.items.map((i) => i.status),
-    ...bottomHealth.items.map((i) => i.status),
-    accumulationHealth.status,
-    bearDcaHealth.status,
-    fusionHealth.item.status,
+  // `overall` chỉ tổng hợp các lớp SINH RA kết luận trong file này. Phanh 2 năm và
+  // Bottom Hunter là ngữ cảnh (không có mặt ở trục mua / hệ số hành động) — phanh 2 năm
+  // ở trạng thái degraded suốt và sẽ ghim overall = degraded vĩnh viễn nếu gộp vào,
+  // khiến consumer chiết khấu mọi kết luận. Trạng thái từng lớp vẫn liệt kê đủ.
+  const layers: { name: string; status: "ok" | "degraded" | "insufficient"; actionable: boolean }[] = [
+    ...presetHealth.items.map((i) => ({ name: `preset-${i.presetId}`, status: i.status, actionable: true })),
+    { name: "fusion-3m", status: fusionHealth.item.status, actionable: true },
+    { name: "bear-dca", status: bearDcaHealth.status, actionable: true },
+    ...bottomHealth.items.map((i) => ({ name: `bottom-${i.tier}`, status: i.status, actionable: false })),
+    { name: "accumulation-brake", status: accumulationHealth.status, actionable: false },
   ];
 
-  const overallHealth: "ok" | "degraded" | "insufficient" = allStatuses.includes(
-    "degraded"
+  const degradedLayers = layers.filter((l) => l.status === "degraded").map((l) => l.name);
+  const insufficientLayers = layers.filter((l) => l.status === "insufficient").map((l) => l.name);
+  const actionable = layers.filter((l) => l.actionable);
+  const missingPresets = presetHealth.items.length < 3;
+
+  const overallHealth: "ok" | "degraded" | "insufficient" = actionable.some(
+    (l) => l.status === "degraded"
   )
     ? "degraded"
-    : hasMissingExpectedItems || allStatuses.includes("insufficient")
+    : missingPresets || actionable.some((l) => l.status === "insufficient")
     ? "insufficient"
     : "ok";
 
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     generatedAt: input.nowIso ?? new Date().toISOString(),
     dataDate: analysis.dataDate,
     stale: analysis.stale,
@@ -193,6 +211,12 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
       presets,
       consensus,
       radarContext,
+      premiumGate: {
+        blocksBuying: isPremiumHigh(analysis.prices.premiumPct, premiumP80),
+        premiumPct: analysis.prices.premiumPct,
+        premiumP80,
+        note: "Chênh VN ≥ p80 lịch sử: người mua vàng vật chất không nên đuổi giá kể cả khi preset báo mua (cùng cổng với gợi ý hành động trên web).",
+      },
     },
     accumulation: {
       effectiveBuyMultiplier: bearDca.mult,
@@ -209,6 +233,9 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     },
     modelHealth: {
       overall: overallHealth,
+      degradedLayers,
+      insufficientLayers,
+      note: "`overall` chỉ tính các lớp sinh kết luận: preset 1m/3m/6m, fusion 3m, Bear DCA. Bottom Hunter và phanh 2 năm là ngữ cảnh, đọc riêng ở danh sách lớp.",
       presets: presetHealth,
       bottomHunter: bottomHealth,
       accumulationBrake: accumulationHealth,

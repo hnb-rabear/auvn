@@ -8,7 +8,10 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 
 ## Phiên bản
 
-`schemaVersion` hiện là `"1.0"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
+`schemaVersion` hiện là `"1.1"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
+
+- `1.1`: thêm `signals.premiumGate`; `modelHealth.overall` thu hẹp về các lớp sinh kết luận và thêm `degradedLayers`/`insufficientLayers`.
+- `1.0`: bản đầu.
 
 ## Trường chính
 
@@ -24,11 +27,13 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 - `signals.presets`: ba preset `1m`, `3m`, `6m`. Mỗi mục có điểm hiện tại, ngưỡng mua, cờ `isBuy`, và `pointsToThreshold`. Khoảng cách bằng `0` khi đang báo mua, ngược lại là số điểm còn thiếu, làm tròn một chữ số thập phân.
 - `signals.consensus`: số preset đang báo mua, tổng số preset, vùng và kết luận tổng hợp.
 - `signals.radarContext`: composite mặc định chỉ làm ngữ cảnh; `isHeadwind` báo gió ngược khi vùng radar là `sell` hoặc `strong-sell`.
+- `signals.premiumGate.blocksBuying`: `true` khi chênh VN ≥ p80 lịch sử — cùng cổng `premium-wait` mà web dùng, đã tính sẵn. `premiumP80` là `null` khi chưa đủ lịch sử để xếp hạng, khi đó cổng không chặn.
 - `accumulation.effectiveBuyMultiplier`: hệ số mua hiệu lực từ Bear DCA.
 - `accumulation.bearDca`: toàn bộ pha và lý do Bear DCA hiện tại.
 - `accumulation.pricePercentile2y`: percentile giá trong dải hai năm, từ `0` đến `1`, hoặc `null`.
 - `accumulation.twoYearBrake`: phanh chống FOMO riêng, gồm hệ số, trạng thái, lý do và cờ provisional. Phanh này không được nhân vào `effectiveBuyMultiplier`.
-- `modelHealth.overall`: `ok`, `degraded`, hoặc `insufficient`. Các health object gốc nằm cùng nhóm để consumer đọc chi tiết.
+- `modelHealth.overall`: `ok`, `degraded`, hoặc `insufficient`, CHỈ tính các lớp sinh ra kết luận trong file này: preset `1m`/`3m`/`6m`, fusion 3m, Bear DCA. Bottom Hunter và phanh 2 năm là ngữ cảnh nên không ghim `overall`.
+- `modelHealth.degradedLayers`, `modelHealth.insufficientLayers`: tên mọi lớp đang có vấn đề, kể cả lớp ngữ cảnh. Các health object gốc nằm cùng nhóm để consumer đọc chi tiết.
 - `warnings`: cảnh báo nguồn và độ mới dữ liệu từ phân tích.
 - `sourceFreshness`: thời điểm từng nguồn, hoặc `null` khi analysis cũ chưa có thông tin này.
 
@@ -40,5 +45,6 @@ Giá chưa có dùng `null`, không dùng `0`.
 2. `signals.consensus` chỉ đếm tín hiệu từ preset đã kiểm chứng riêng. Mức đồng thuận không chứng minh độ chính xác cao hơn.
 3. Không dùng `signals.radarContext.composite` hoặc `zone` làm cò súng mua. Radar chỉ cho ngữ cảnh và gió ngược.
 4. Dùng `accumulation.effectiveBuyMultiplier` cho quy mô mua. Không tự nhân thêm `twoYearBrake.multiplier`.
-5. Kiểm tra `stale`, `warnings`, `modelHealth.overall`, và `sourceFreshness` trước khi đưa kết luận.
-6. Đây là hỗ trợ quyết định, không phải dự báo hay cam kết lợi nhuận.
+5. `signals.premiumGate.blocksBuying = true` thì đừng đuổi giá dù preset báo mua. Không tự so lại `vnPremiumPct` với ngưỡng nào khác.
+6. Kiểm tra `stale`, `warnings`, `modelHealth.overall`, và `sourceFreshness` trước khi đưa kết luận. `modelHealth.degradedLayers` chứa lớp ngữ cảnh thì chỉ chiết khấu phần ngữ cảnh, không chiết khấu tín hiệu preset.
+7. Đây là hỗ trợ quyết định, không phải dự báo hay cam kết lợi nhuận.

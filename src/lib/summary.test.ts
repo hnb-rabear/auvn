@@ -66,7 +66,7 @@ function createMockInput(overrides?: Partial<BuildSummaryInput>): BuildSummaryIn
     composite: 2.7,
     zone: "neutral",
     vnHistoryDays: 573,
-    warnings: ["Cảnh báo mẫu 1"],
+    warnings: ["Cảnh báo mẫu 1", "Cảnh báo mẫu 2"],
     sourceTimes: {
       world: "2026-09-04T22:00:00.000Z",
       dxy: "2026-09-04T22:00:00.000Z",
@@ -161,18 +161,39 @@ function createMockInput(overrides?: Partial<BuildSummaryInput>): BuildSummaryIn
   };
 }
 
+/** Mọi tiêu chí +2 ⇒ cả ba preset vượt ngưỡng mua, để chạm nhánh isBuy. */
+function allBullishInput(): BuildSummaryInput {
+  const input = createMockInput();
+  input.analysis.criteria = input.analysis.criteria.map((c) => ({
+    ...c,
+    score: 2,
+    signals: c.signals.map((s) => ({ ...s, score: 2 })),
+  }));
+  return input;
+}
+
 describe("buildAuvnSummary", () => {
-  it("exports valid schemaVersion 1.0 and passes through market freshness", () => {
+  it("exports valid schemaVersion 1.1 and passes through market freshness", () => {
     const input = createMockInput();
     const s = buildAuvnSummary(input);
 
-    expect(s.schemaVersion).toBe("1.0");
+    expect(s.schemaVersion).toBe("1.1");
     expect(s.dataDate).toBe("2026-09-04");
     expect(s.stale).toBe(false);
     expect(s.staleDays).toBe(0);
-    expect(s.market.xauUsd).toBe(4477.2);
-    expect(s.market.vnPremiumPct).toBe(4.85);
-    expect(s.warnings).toEqual(["Cảnh báo mẫu 1"]);
+    expect(s.market).toEqual({
+      xauUsd: 4477.2,
+      sjcBuy: 145600000,
+      sjcSell: 148600000,
+      ringBuy: 146500000,
+      ringSell: 150500000,
+      ringDate: null,
+      usdVnd: 26255,
+      worldVndPerLuong: 141723173,
+      vnPremiumPct: 4.85,
+      vnPremiumVnd: 6876827,
+    });
+    expect(s.warnings).toEqual(["Cảnh báo mẫu 1", "Cảnh báo mẫu 2"]);
   });
 
   it("evaluates presets with pointsToThreshold = 0 when buy, positive when neutral", () => {
@@ -180,14 +201,21 @@ describe("buildAuvnSummary", () => {
     const s = buildAuvnSummary(input);
 
     expect(s.signals.presets).toHaveLength(3);
+    expect(s.signals.presets.map((p) => p.isBuy)).toEqual([false, false, false]);
     for (const p of s.signals.presets) {
-      if (p.isBuy) {
-        expect(p.pointsToThreshold).toBe(0);
-        expect(p.score).toBeGreaterThanOrEqual(p.buyThreshold);
-      } else {
-        expect(p.pointsToThreshold).toBeCloseTo(p.buyThreshold - p.score, 1);
-        expect(p.pointsToThreshold).toBeGreaterThan(0);
-      }
+      expect(p.pointsToThreshold).toBeCloseTo(p.buyThreshold - p.score, 1);
+      expect(p.pointsToThreshold).toBeGreaterThan(0);
+    }
+  });
+
+  it("clamps pointsToThreshold to 0 once a preset is buying", () => {
+    const s = buildAuvnSummary(allBullishInput());
+
+    const buys = s.signals.presets.filter((p) => p.isBuy);
+    expect(buys.length).toBeGreaterThan(0);
+    for (const p of buys) {
+      expect(p.score).toBeGreaterThan(p.buyThreshold);
+      expect(p.pointsToThreshold).toBe(0);
     }
   });
 
@@ -196,21 +224,42 @@ describe("buildAuvnSummary", () => {
     const s = buildAuvnSummary(input);
 
     expect(s.signals.consensus.totalPresets).toBe(3);
-    expect(s.signals.consensus.buyCount).toBe(
-      s.signals.presets.filter((p) => p.isBuy).length
-    );
+    expect(s.signals.consensus.buyCount).toBe(0);
+    expect(s.signals.consensus.zone).toBe("neutral");
+    expect(s.signals.consensus.label).toBe("CHƯA CÓ TÍN HIỆU MUA");
     expect(s.signals.radarContext.composite).toBe(2.7);
     expect(s.signals.radarContext.isHeadwind).toBe(false);
   });
 
-  it("states consensus members do not gain accuracy from agreement", () => {
+  it("labels consensus by the number of presets actually buying", () => {
+    const s = buildAuvnSummary(allBullishInput());
+
+    const k = s.signals.presets.filter((p) => p.isBuy).length;
+    expect(s.signals.consensus.buyCount).toBe(k);
+    expect(s.signals.consensus.label).toBe(`${k}/3 PRESET BÁO MUA`);
+    expect(s.signals.consensus.zone).toBe(k >= 3 ? "strong-buy" : "buy");
+  });
+
+  it("publishes the same premium gate the site's guidance uses", () => {
     const input = createMockInput();
-    input.analysis.criteria = input.analysis.criteria.map((criterion) => ({
-      ...criterion,
-      score: 2,
-      signals: criterion.signals.map((signal) => ({ ...signal, score: 2 })),
-    }));
-    const summary = buildAuvnSummary(input).signals.consensus.summary;
+    input.analysis.premiumPercentiles = { p20: 2, p50: 3.5, p80: 4.8 };
+    const gate = buildAuvnSummary(input).signals.premiumGate;
+
+    expect(gate.blocksBuying).toBe(true);
+    expect(gate.premiumPct).toBe(4.85);
+    expect(gate.premiumP80).toBe(4.8);
+
+    input.analysis.premiumPercentiles = { p20: 2, p50: 3.5, p80: 5 };
+    expect(buildAuvnSummary(input).signals.premiumGate.blocksBuying).toBe(false);
+
+    delete input.analysis.premiumPercentiles;
+    const noRank = buildAuvnSummary(input).signals.premiumGate;
+    expect(noRank.premiumP80).toBeNull();
+    expect(noRank.blocksBuying).toBe(false);
+  });
+
+  it("states consensus members do not gain accuracy from agreement", () => {
+    const summary = buildAuvnSummary(allBullishInput()).signals.consensus.summary;
 
     expect(summary).not.toContain("độc lập");
     expect(summary).toContain("không tăng độ chính xác");
@@ -248,37 +297,40 @@ describe("buildAuvnSummary", () => {
     expect(s.accumulation.twoYearBrake.brakes).toHaveLength(1);
   });
 
-  it("rolls up overall model health prioritizing degraded over insufficient", () => {
+  it("keeps overall health scoped to the layers that produce conclusions", () => {
     const input = createMockInput();
-    const s = buildAuvnSummary(input);
-
-    expect(s.modelHealth.overall).toBe("degraded");
-  });
-
-  it("rolls up overall model health to insufficient if none degraded but at least one insufficient", () => {
-    const input = createMockInput();
-    input.bottomHealth.items[0].status = "ok";
-    input.accumulationHealth.status = "ok";
-    const s = buildAuvnSummary(input);
-
-    expect(s.modelHealth.overall).toBe("insufficient");
-  });
-
-  it("rolls up overall model health to ok when all ok", () => {
-    const input = createMockInput();
-    input.bottomHealth.items[0].status = "ok";
-    input.accumulationHealth.status = "ok";
+    // ngữ cảnh degraded/insufficient (phanh 2 năm, Bottom Hunter) không được ghim overall
     input.bearDcaHealth.status = "ok";
     const s = buildAuvnSummary(input);
 
     expect(s.modelHealth.overall).toBe("ok");
+    expect(s.modelHealth.degradedLayers).toEqual([
+      "bottom-cycle",
+      "accumulation-brake",
+    ]);
+    expect(s.modelHealth.insufficientLayers).toEqual([]);
   });
 
-  it("treats missing health evidence as insufficient", () => {
+  it("rolls up overall model health prioritizing degraded over insufficient", () => {
+    const input = createMockInput();
+    input.presetHealth.items[1].status = "degraded";
+    const s = buildAuvnSummary(input);
+
+    expect(s.modelHealth.overall).toBe("degraded");
+    expect(s.modelHealth.degradedLayers).toContain("preset-3m");
+    expect(s.modelHealth.insufficientLayers).toEqual(["bear-dca"]);
+  });
+
+  it("rolls up overall model health to insufficient if none degraded but at least one insufficient", () => {
+    const s = buildAuvnSummary(createMockInput());
+
+    expect(s.modelHealth.overall).toBe("insufficient");
+    expect(s.modelHealth.insufficientLayers).toEqual(["bear-dca"]);
+  });
+
+  it("treats missing preset evidence as insufficient", () => {
     const input = createMockInput();
     input.presetHealth.items = [];
-    input.bottomHealth.items = [];
-    input.accumulationHealth.status = "ok";
     input.bearDcaHealth.status = "ok";
 
     expect(buildAuvnSummary(input).modelHealth.overall).toBe("insufficient");

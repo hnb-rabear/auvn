@@ -65,6 +65,18 @@ export interface Guidance {
 const fmt = (n: number, d = 1) => n.toLocaleString("vi-VN", { maximumFractionDigits: d });
 const signed = (n: number) => (n >= 0 ? `+${fmt(n)}` : fmt(n));
 
+/**
+ * Cổng premium: vàng VN đắt (≥ p80 lịch sử) thì người mua vật chất không nên đuổi giá,
+ * kể cả khi tín hiệu thế giới thuận. Export để summary.json phát hành cùng một kết luận
+ * với UI — consumer không phải tự so sánh lại ngưỡng.
+ */
+export function isPremiumHigh(
+  premiumPct: number | null,
+  premiumP80: number | null
+): boolean {
+  return premiumPct !== null && premiumP80 !== null && premiumPct >= premiumP80;
+}
+
 export function deriveGuidance(inp: GuidanceInput): Guidance {
   const isSell = inp.zone === "sell" || inp.zone === "strong-sell";
   const isBuy = inp.zone === "buy" || inp.zone === "strong-buy";
@@ -73,7 +85,7 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
   const anyVerified = inp.bottom.verified;
 
   const premiumKnown = inp.premiumPct !== null && inp.premiumP80 !== null;
-  const premiumHigh = premiumKnown && (inp.premiumPct as number) >= (inp.premiumP80 as number);
+  const premiumHigh = isPremiumHigh(inp.premiumPct, inp.premiumP80);
 
   // --- lý do từ 3 tín hiệu (luôn hiển thị để giải thích được)
   const reasons: string[] = [];
