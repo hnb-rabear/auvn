@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-05T14:40:27.311Z",
+ "generatedAt": "2026-09-05T14:45:05.956Z",
  "dataDate": "2026-09-04",
  "stale": false,
  "staleDays": 0,
@@ -187,7 +187,10 @@
  "composite": 6.2,
  "zone": "neutral",
  "vnHistoryDays": 573,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2491,8 +2494,8 @@
   "world": "2026-09-04T04:00:00.000Z",
   "dxy": "2026-09-04T04:00:00.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-05T14:40:27.311Z",
-  "usdVnd": "2026-09-05T14:40:27.311Z",
-  "fed": "2026-09-05T14:40:27.311Z"
+  "vnGold": "2026-09-05T14:45:05.956Z",
+  "usdVnd": "2026-09-05T14:45:05.956Z",
+  "fed": null
  }
 }
