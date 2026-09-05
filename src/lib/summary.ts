@@ -84,7 +84,7 @@ export interface AuvnSummary {
     fusion3m: FusionHealthFile;
   };
   warnings: string[];
-  sourceFreshness: Analysis["sourceTimes"] | null;
+  sourceFreshness: NonNullable<Analysis["sourceTimes"]> | null;
 }
 
 export interface BuildSummaryInput {
@@ -147,7 +147,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
   const radarZone = zoneOf(analysis.composite);
   const radarContext = {
     composite: analysis.composite,
-    zone: analysis.zone,
+    zone: radarZone,
     isHeadwind: radarZone === "sell" || radarZone === "strong-sell",
     note: "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua.",
   };

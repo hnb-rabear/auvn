@@ -221,7 +221,9 @@ describe("buildAuvnSummary", () => {
       const input = createMockInput();
       input.analysis.composite = composite;
 
-      expect(buildAuvnSummary(input).signals.radarContext.isHeadwind).toBe(isHeadwind);
+      const radar = buildAuvnSummary(input).signals.radarContext;
+      expect(radar.isHeadwind).toBe(isHeadwind);
+      expect(radar.zone).toBe(composite === -40 ? "sell" : "neutral");
     }
   });
 
