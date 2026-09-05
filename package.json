@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "collect": "tsx scripts/run.ts",
+    "collect": "tsx scripts/run.ts && tsx scripts/monitor-presets.ts && tsx scripts/monitor-fusion.ts && tsx scripts/generate-summary.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

@@ -33,14 +33,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Collect data & run analysis
+      - name: Collect data, run analysis, monitors & summary
         run: npm run collect
-
-      - name: Monitor preset health
-        run: npx tsx scripts/monitor-presets.ts
-
-      - name: Monitor fusion health
-        run: npx tsx scripts/monitor-fusion.ts
 
       - name: Send notifications (optional)
         env:
