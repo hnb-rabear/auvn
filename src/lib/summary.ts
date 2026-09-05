@@ -4,6 +4,7 @@ import {
   consensusZone,
   consensusLabel,
 } from "./consensus";
+import { zoneOf } from "./types";
 import type {
   Analysis,
   Zone,
@@ -50,7 +51,7 @@ export interface AuvnSummary {
     consensus: {
       buyCount: number;
       totalPresets: 3;
-      zone: Zone;
+      zone: "strong-buy" | "buy" | "neutral";
       label: string;
       summary: string;
     };
@@ -83,7 +84,7 @@ export interface AuvnSummary {
     fusion3m: FusionHealthFile;
   };
   warnings: string[];
-  sourceFreshness: Analysis["sourceTimes"];
+  sourceFreshness: Analysis["sourceTimes"] | null;
 }
 
 export interface BuildSummaryInput {
@@ -135,20 +136,24 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
   const consensus = {
     buyCount: k,
     totalPresets: 3 as const,
-    zone: consensusZone(k),
+    zone: consensusZone(k) as "strong-buy" | "buy" | "neutral",
     label: consensusLabel(k),
     summary:
       k > 0
-        ? `${k}/3 preset kỳ hạn đang báo MUA. Tín hiệu kích hoạt từ preset độc lập, không dùng composite làm cò súng.`
+        ? `${k}/3 preset kỳ hạn đang báo MUA. Mỗi preset được kiểm chứng riêng; mức đồng thuận không tăng độ chính xác. Không dùng composite làm cò súng.`
         : "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA.",
   };
 
+  const radarZone = zoneOf(analysis.composite);
   const radarContext = {
     composite: analysis.composite,
     zone: analysis.zone,
-    isHeadwind: analysis.composite <= -40,
+    isHeadwind: radarZone === "sell" || radarZone === "strong-sell",
     note: "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua.",
   };
+
+  const hasMissingExpectedItems =
+    presetHealth.items.length < 3 || bottomHealth.items.length < 2;
 
   const allStatuses: ("ok" | "degraded" | "insufficient")[] = [
     ...presetHealth.items.map((i) => i.status),
@@ -162,7 +167,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     "degraded"
   )
     ? "degraded"
-    : allStatuses.includes("insufficient")
+    : hasMissingExpectedItems || allStatuses.includes("insufficient")
     ? "insufficient"
     : "ok";
 
@@ -211,6 +216,6 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
       fusion3m: fusionHealth,
     },
     warnings: analysis.warnings,
-    sourceFreshness: analysis.sourceTimes,
+    sourceFreshness: analysis.sourceTimes ?? null,
   };
 }

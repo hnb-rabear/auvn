@@ -203,14 +203,34 @@ describe("buildAuvnSummary", () => {
     expect(s.signals.radarContext.isHeadwind).toBe(false);
   });
 
-  it("marks isHeadwind true when radar composite <= -40", () => {
+  it("states consensus members do not gain accuracy from agreement", () => {
     const input = createMockInput();
-    input.analysis.composite = -42.5;
-    input.analysis.zone = "sell";
-    const s = buildAuvnSummary(input);
+    input.analysis.criteria = input.analysis.criteria.map((criterion) => ({
+      ...criterion,
+      score: 2,
+      signals: criterion.signals.map((signal) => ({ ...signal, score: 2 })),
+    }));
+    const summary = buildAuvnSummary(input).signals.consensus.summary;
 
-    expect(s.signals.radarContext.composite).toBe(-42.5);
-    expect(s.signals.radarContext.isHeadwind).toBe(true);
+    expect(summary).not.toContain("độc lập");
+    expect(summary).toContain("không tăng độ chính xác");
+  });
+
+  it("derives headwind boundaries from canonical zone logic", () => {
+    for (const [composite, isHeadwind] of [[-40, true], [-39.9, false]] as const) {
+      const input = createMockInput();
+      input.analysis.composite = composite;
+
+      expect(buildAuvnSummary(input).signals.radarContext.isHeadwind).toBe(isHeadwind);
+    }
+  });
+
+  it("serializes absent source freshness as null", () => {
+    const input = createMockInput();
+    delete input.analysis.sourceTimes;
+
+    const serialized = JSON.parse(JSON.stringify(buildAuvnSummary(input)));
+    expect(serialized).toHaveProperty("sourceFreshness", null);
   });
 
   it("keeps Bear DCA as effectiveBuyMultiplier and isolates 2y brake", () => {
@@ -250,5 +270,15 @@ describe("buildAuvnSummary", () => {
     const s = buildAuvnSummary(input);
 
     expect(s.modelHealth.overall).toBe("ok");
+  });
+
+  it("treats missing health evidence as insufficient", () => {
+    const input = createMockInput();
+    input.presetHealth.items = [];
+    input.bottomHealth.items = [];
+    input.accumulationHealth.status = "ok";
+    input.bearDcaHealth.status = "ok";
+
+    expect(buildAuvnSummary(input).modelHealth.overall).toBe("insufficient");
   });
 });
