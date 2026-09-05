@@ -1,6 +1,6 @@
 {
- "schemaVersion": "1.0",
- "generatedAt": "2026-09-05T12:56:24.640Z",
+ "schemaVersion": "1.1",
+ "generatedAt": "2026-09-05T14:05:22.442Z",
  "dataDate": "2026-09-04",
  "stale": false,
  "staleDays": 0,
@@ -58,6 +58,12 @@
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
+  },
+  "premiumGate": {
+   "blocksBuying": false,
+   "premiumPct": 5.26,
+   "premiumP80": 16.28,
+   "note": "Chênh VN ≥ p80 lịch sử: người mua vàng vật chất không nên đuổi giá kể cả khi preset báo mua (cùng cổng với gợi ý hành động trên web)."
   }
  },
  "accumulation": {
@@ -91,7 +97,15 @@
   }
  },
  "modelHealth": {
-  "overall": "degraded",
+  "overall": "insufficient",
+  "degradedLayers": [
+   "bottom-cycle",
+   "accumulation-brake"
+  ],
+  "insufficientLayers": [
+   "bear-dca"
+  ],
+  "note": "`overall` chỉ tính các lớp sinh kết luận: preset 1m/3m/6m, fusion 3m, Bear DCA. Bottom Hunter và phanh 2 năm là ngữ cảnh, đọc riêng ở danh sách lớp.",
   "presets": {
    "generatedAt": "2026-09-05T12:56:23.790Z",
    "items": [
