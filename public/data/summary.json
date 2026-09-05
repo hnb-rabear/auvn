@@ -1,6 +1,6 @@
 {
  "schemaVersion": "1.0",
- "generatedAt": "2026-09-05T12:51:11.157Z",
+ "generatedAt": "2026-09-05T12:56:24.640Z",
  "dataDate": "2026-09-04",
  "stale": false,
  "staleDays": 0,
@@ -65,7 +65,7 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.7698412698412699,
   "bearDca": {
-   "generatedAt": "2026-09-05T12:49:22.889Z",
+   "generatedAt": "2026-09-05T12:54:59.445Z",
    "dataDate": "2026-09-04",
    "isBear": true,
    "ddFromAth": 0.1670803249097472,
@@ -93,7 +93,7 @@
  "modelHealth": {
   "overall": "degraded",
   "presets": {
-   "generatedAt": "2026-09-05T12:50:32.488Z",
+   "generatedAt": "2026-09-05T12:56:23.790Z",
    "items": [
     {
      "presetId": "1m",
@@ -134,7 +134,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-09-05T12:50:31.623Z",
+   "generatedAt": "2026-09-05T12:56:23.136Z",
    "items": [
     {
      "tier": "cycle",
@@ -153,20 +153,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-09-05T12:49:22.887Z",
+   "generatedAt": "2026-09-05T12:54:59.442Z",
    "recentImprPct": -3.2,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-09-05T12:49:31.535Z",
+   "generatedAt": "2026-09-05T12:55:10.904Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 3,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-09-05T12:50:33.105Z",
+   "generatedAt": "2026-09-05T12:56:24.283Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -191,8 +191,8 @@
   "world": "2026-09-04T04:00:00.000Z",
   "dxy": "2026-09-04T04:00:00.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-05T12:47:32.735Z",
-  "usdVnd": "2026-09-05T12:47:32.735Z",
+  "vnGold": "2026-09-05T12:52:45.431Z",
+  "usdVnd": "2026-09-05T12:52:45.431Z",
   "fed": null
  }
 }
