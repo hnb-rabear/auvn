@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-05T16:08:02.456Z",
+ "generatedAt": "2026-09-05T18:23:29.494Z",
  "dataDate": "2026-09-04",
  "stale": false,
  "staleDays": 0,
@@ -8,7 +8,7 @@
   "sjcSell": 147600000,
   "ringBuy": 145800000,
   "ringSell": 149800000,
-  "ringDate": null,
+  "ringDate": "2026-09-05",
   "xauUsd": 4429.7998046875,
   "usdVnd": 26255,
   "worldVndPerLuong": 140222741,
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 5,3%, ở percentile 13 so với lịch sử tự thu thập (573 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 5,3%, ở percentile 13 so với lịch sử tự thu thập (574 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -80,12 +80,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": -1,
-     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
-     "available": true
+     "score": 0,
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
-   "score": 0.3333333333333333,
+   "score": 1,
    "available": true,
    "provisional": false
   },
@@ -118,7 +118,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.255, nhịp -0,6%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.255, nhịp +0,2%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -184,9 +184,9 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 6.2,
+ "composite": 14.5,
  "zone": "neutral",
- "vnHistoryDays": 573,
+ "vnHistoryDays": 574,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
@@ -2483,6 +2483,10 @@
   {
    "date": "2026-09-05",
    "value": 5.26
+  },
+  {
+   "date": "2026-09-06",
+   "value": 5.26
   }
  ],
  "premiumPercentiles": {
@@ -2494,8 +2498,8 @@
   "world": "2026-09-04T04:00:00.000Z",
   "dxy": "2026-09-04T04:00:00.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-05T16:08:02.456Z",
-  "usdVnd": "2026-09-05T16:08:02.456Z",
+  "vnGold": "2026-09-05T18:23:29.494Z",
+  "usdVnd": "2026-09-05T18:23:29.494Z",
   "fed": null
  }
 }
