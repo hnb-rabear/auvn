@@ -83,7 +83,11 @@ export interface AuvnSummary {
     };
   };
   modelHealth: {
-    /** chỉ tính các lớp sinh ra kết luận trong file này (preset, fusion 3m, Bear DCA) */
+    /**
+     * `degraded` khi một lớp sinh kết luận (preset, fusion 3m, Bear DCA) mất phong độ;
+     * `insufficient` khi thiếu bằng chứng preset. Lớp ngữ cảnh và lớp chưa đủ chu kỳ
+     * để chấm không ghim giá trị này.
+     */
     overall: "ok" | "degraded" | "insufficient";
     degradedLayers: string[];
     insufficientLayers: string[];
@@ -167,7 +171,8 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
   // `overall` chỉ tổng hợp các lớp SINH RA kết luận trong file này. Phanh 2 năm và
   // Bottom Hunter là ngữ cảnh (không có mặt ở trục mua / hệ số hành động) — phanh 2 năm
   // ở trạng thái degraded suốt và sẽ ghim overall = degraded vĩnh viễn nếu gộp vào,
-  // khiến consumer chiết khấu mọi kết luận. Trạng thái từng lớp vẫn liệt kê đủ.
+  // khiến consumer chiết khấu mọi kết luận. Trạng thái từng lớp vẫn liệt kê đủ ở
+  // degradedLayers/insufficientLayers.
   const layers: { name: string; status: "ok" | "degraded" | "insufficient"; actionable: boolean }[] = [
     ...presetHealth.items.map((i) => ({ name: `preset-${i.presetId}`, status: i.status, actionable: true })),
     { name: "fusion-3m", status: fusionHealth.item.status, actionable: true },
@@ -181,11 +186,17 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
   const actionable = layers.filter((l) => l.actionable);
   const missingPresets = presetHealth.items.length < 3;
 
+  // Chỉ `degraded` mới ghim `overall` — giống hệt web (BearDcaCard/Dashboard chỉ cảnh
+  // báo khi status === "degraded"). `insufficient` của một lớp nghĩa là "chưa đủ chu kỳ
+  // để chấm", KHÔNG phải "kết luận sai": Bear DCA nằm ở `insufficient` liên tục từ
+  // 2026-07 (recentBearCycles 3 < 6) nên nếu nó ghim overall thì consumer sẽ chiết khấu
+  // mọi tín hiệu preset khỏe mạnh vô thời hạn. `insufficient` chỉ dành cho trường hợp
+  // THIẾU bằng chứng preset. Trạng thái từng lớp vẫn liệt kê đủ ở hai mảng dưới.
   const overallHealth: "ok" | "degraded" | "insufficient" = actionable.some(
     (l) => l.status === "degraded"
   )
     ? "degraded"
-    : missingPresets || actionable.some((l) => l.status === "insufficient")
+    : missingPresets
     ? "insufficient"
     : "ok";
 
@@ -235,7 +246,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
       overall: overallHealth,
       degradedLayers,
       insufficientLayers,
-      note: "`overall` chỉ tính các lớp sinh kết luận: preset 1m/3m/6m, fusion 3m, Bear DCA. Bottom Hunter và phanh 2 năm là ngữ cảnh, đọc riêng ở danh sách lớp.",
+      note: "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
       presets: presetHealth,
       bottomHunter: bottomHealth,
       accumulationBrake: accumulationHealth,

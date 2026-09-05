@@ -295,11 +295,15 @@ describe("buildAuvnSummary", () => {
     expect(s.accumulation.twoYearBrake.multiplier).toBe(0.25);
     expect(s.accumulation.twoYearBrake.active).toBe(true);
     expect(s.accumulation.twoYearBrake.brakes).toHaveLength(1);
+
+    // biên: hệ số 1 = KHÔNG phanh (AccumConfig chỉ sinh mult ∈ {1, 0.25})
+    input.accumulation.mult = 1;
+    expect(buildAuvnSummary(input).accumulation.twoYearBrake.active).toBe(false);
   });
 
   it("keeps overall health scoped to the layers that produce conclusions", () => {
     const input = createMockInput();
-    // ngữ cảnh degraded/insufficient (phanh 2 năm, Bottom Hunter) không được ghim overall
+    // ngữ cảnh degraded (phanh 2 năm, Bottom Hunter) không được ghim overall
     input.bearDcaHealth.status = "ok";
     const s = buildAuvnSummary(input);
 
@@ -311,6 +315,15 @@ describe("buildAuvnSummary", () => {
     expect(s.modelHealth.insufficientLayers).toEqual([]);
   });
 
+  it("does not let an insufficient layer pin overall health", () => {
+    // Bear DCA ở `insufficient` liên tục từ 2026-07 (3/6 chu kỳ gấu) — web không cảnh
+    // báo trạng thái này, JSON cũng không được chiết khấu mọi kết luận vì nó.
+    const s = buildAuvnSummary(createMockInput());
+
+    expect(s.modelHealth.insufficientLayers).toEqual(["bear-dca"]);
+    expect(s.modelHealth.overall).toBe("ok");
+  });
+
   it("rolls up overall model health prioritizing degraded over insufficient", () => {
     const input = createMockInput();
     input.presetHealth.items[1].status = "degraded";
@@ -318,13 +331,6 @@ describe("buildAuvnSummary", () => {
 
     expect(s.modelHealth.overall).toBe("degraded");
     expect(s.modelHealth.degradedLayers).toContain("preset-3m");
-    expect(s.modelHealth.insufficientLayers).toEqual(["bear-dca"]);
-  });
-
-  it("rolls up overall model health to insufficient if none degraded but at least one insufficient", () => {
-    const s = buildAuvnSummary(createMockInput());
-
-    expect(s.modelHealth.overall).toBe("insufficient");
     expect(s.modelHealth.insufficientLayers).toEqual(["bear-dca"]);
   });
 
