@@ -1,0 +1,198 @@
+{
+ "schemaVersion": "1.0",
+ "generatedAt": "2026-09-05T12:41:33.938Z",
+ "dataDate": "2026-09-04",
+ "stale": false,
+ "staleDays": 0,
+ "market": {
+  "xauUsd": 4477.2001953125,
+  "sjcBuy": 145600000,
+  "sjcSell": 148600000,
+  "ringBuy": 146500000,
+  "ringSell": 150500000,
+  "ringDate": null,
+  "usdVnd": 26255,
+  "worldVndPerLuong": 141723173,
+  "vnPremiumPct": 4.85,
+  "vnPremiumVnd": 6876827
+ },
+ "signals": {
+  "presets": [
+   {
+    "id": "1m",
+    "label": "Sóng 1 tháng",
+    "horizonDays": 21,
+    "score": 19.5,
+    "buyThreshold": 50,
+    "isBuy": false,
+    "pointsToThreshold": 30.5
+   },
+   {
+    "id": "3m",
+    "label": "Sóng 3 tháng",
+    "horizonDays": 63,
+    "score": 16,
+    "buyThreshold": 40,
+    "isBuy": false,
+    "pointsToThreshold": 24
+   },
+   {
+    "id": "6m",
+    "label": "Tích lũy 6 tháng",
+    "horizonDays": 126,
+    "score": -11.5,
+    "buyThreshold": 30,
+    "isBuy": false,
+    "pointsToThreshold": 41.5
+   }
+  ],
+  "consensus": {
+   "buyCount": 0,
+   "totalPresets": 3,
+   "zone": "neutral",
+   "label": "CHƯA CÓ TÍN HIỆU MUA",
+   "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
+  },
+  "radarContext": {
+   "composite": 2.7,
+   "zone": "neutral",
+   "isHeadwind": false,
+   "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
+  }
+ },
+ "accumulation": {
+  "effectiveBuyMultiplier": 1.5,
+  "effectiveBuyMultiplierSource": "bear-dca",
+  "pricePercentile2y": 0.7876984126984127,
+  "bearDca": {
+   "generatedAt": "2026-09-05T01:03:31.244Z",
+   "dataDate": "2026-09-04",
+   "isBear": true,
+   "ddFromAth": 0.15816787003610105,
+   "ddChange": -0.044223826714801406,
+   "phase": "recovery",
+   "pricePct2y": 0.7876984126984127,
+   "mult": 1.5,
+   "recoveryRisk": true,
+   "note": "Giá đang hồi phục (đáy thu hẹp 4 điểm %/tháng). Gom mạnh ×1.5 — đây là cược giá tiếp tục lên."
+  },
+  "twoYearBrake": {
+   "multiplier": 0.25,
+   "active": true,
+   "brakes": [
+    {
+     "id": "price-top",
+     "label": "Giá đỉnh vùng 2 năm",
+     "explanation": "Giá đang ở percentile 79% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
+    }
+   ],
+   "provisional": false,
+   "note": "Phanh 2 năm là lan can chống FOMO riêng, không ghi đè trực tiếp lên hệ số hành động Bear DCA."
+  }
+ },
+ "modelHealth": {
+  "overall": "degraded",
+  "presets": {
+   "generatedAt": "2026-09-05T01:04:43.417Z",
+   "items": [
+    {
+     "presetId": "1m",
+     "minExcessNowPt": 29.4,
+     "recentFavPct": 100,
+     "recentBaselinePct": 67.9,
+     "recentN": 32,
+     "testFavCi95": [
+      75,
+      98.4
+     ],
+     "status": "ok"
+    },
+    {
+     "presetId": "3m",
+     "minExcessNowPt": 31.2,
+     "recentFavPct": 97.7,
+     "recentBaselinePct": 79.2,
+     "recentN": 44,
+     "testFavCi95": [
+      97.1,
+      100
+     ],
+     "status": "ok"
+    },
+    {
+     "presetId": "6m",
+     "minExcessNowPt": 20.9,
+     "recentFavPct": 100,
+     "recentBaselinePct": 88.7,
+     "recentN": 86,
+     "testFavCi95": [
+      100,
+      100
+     ],
+     "status": "ok"
+    }
+   ]
+  },
+  "bottomHunter": {
+   "generatedAt": "2026-09-05T01:04:42.522Z",
+   "items": [
+    {
+     "tier": "cycle",
+     "recentTopFav": 62.5,
+     "recentBaseline": 63.8,
+     "n": 16,
+     "status": "degraded"
+    },
+    {
+     "tier": "swing",
+     "recentTopFav": 63.2,
+     "recentBaseline": 54.1,
+     "n": 19,
+     "status": "ok"
+    }
+   ]
+  },
+  "accumulationBrake": {
+   "generatedAt": "2026-09-05T01:03:31.243Z",
+   "recentImprPct": -3.1,
+   "recentBrakedMonths": 22,
+   "status": "degraded"
+  },
+  "bearDca": {
+   "generatedAt": "2026-09-05T01:03:42.013Z",
+   "recentImprPct": null,
+   "recentAssetImprPct": null,
+   "recentBearCycles": 4,
+   "status": "insufficient"
+  },
+  "fusion3m": {
+   "generatedAt": "2026-09-05T01:04:44.199Z",
+   "item": {
+    "presetId": "3m",
+    "bTrainFav": 93.3,
+    "bTestFav": 100,
+    "compTrainFav": 88.1,
+    "compTestFav": 99,
+    "bTestN": 75,
+    "bTestCi95": [
+     100,
+     100
+    ],
+    "orthoTrainPt": 3.3,
+    "status": "ok"
+   }
+  }
+ },
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
+ ],
+ "sourceFreshness": {
+  "world": "2026-09-04T04:00:00.000Z",
+  "dxy": "2026-09-04T04:00:00.000Z",
+  "yield10y": "2026-09-04T12:20:00.000Z",
+  "vnGold": "2026-09-05T01:01:38.005Z",
+  "usdVnd": "2026-09-05T01:01:38.005Z",
+  "fed": null
+ }
+}
