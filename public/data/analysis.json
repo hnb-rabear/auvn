@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-09-05T14:06:56.194Z",
+ "generatedAt": "2026-09-05T14:40:27.311Z",
  "dataDate": "2026-09-04",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 144600000,
   "sjcSell": 147600000,
-  "ringBuy": 146500000,
-  "ringSell": 150500000,
+  "ringBuy": 145800000,
+  "ringSell": 149800000,
   "ringDate": null,
   "xauUsd": 4429.7998046875,
   "usdVnd": 26255,
@@ -187,10 +187,7 @@
  "composite": 6.2,
  "zone": "neutral",
  "vnHistoryDays": 573,
- "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
- ],
+ "warnings": [],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2494,8 +2491,8 @@
   "world": "2026-09-04T04:00:00.000Z",
   "dxy": "2026-09-04T04:00:00.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-05T14:06:56.194Z",
-  "usdVnd": "2026-09-05T14:06:56.194Z",
-  "fed": null
+  "vnGold": "2026-09-05T14:40:27.311Z",
+  "usdVnd": "2026-09-05T14:40:27.311Z",
+  "fed": "2026-09-05T14:40:27.311Z"
  }
 }

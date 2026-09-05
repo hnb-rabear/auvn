@@ -1,6 +1,6 @@
 {
  "schemaVersion": "1.1",
- "generatedAt": "2026-09-05T14:10:03.921Z",
+ "generatedAt": "2026-09-05T14:43:02.109Z",
  "dataDate": "2026-09-04",
  "stale": false,
  "staleDays": 0,
@@ -8,8 +8,8 @@
   "xauUsd": 4429.7998046875,
   "sjcBuy": 144600000,
   "sjcSell": 147600000,
-  "ringBuy": 146500000,
-  "ringSell": 150500000,
+  "ringBuy": 145800000,
+  "ringSell": 149800000,
   "ringDate": null,
   "usdVnd": 26255,
   "worldVndPerLuong": 140222741,
@@ -71,7 +71,7 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.7698412698412699,
   "bearDca": {
-   "generatedAt": "2026-09-05T14:08:50.270Z",
+   "generatedAt": "2026-09-05T14:42:04.424Z",
    "dataDate": "2026-09-04",
    "isBear": true,
    "ddFromAth": 0.1670803249097472,
@@ -97,7 +97,7 @@
   }
  },
  "modelHealth": {
-  "overall": "insufficient",
+  "overall": "ok",
   "degradedLayers": [
    "bottom-cycle",
    "accumulation-brake"
@@ -105,9 +105,9 @@
   "insufficientLayers": [
    "bear-dca"
   ],
-  "note": "`overall` chỉ tính các lớp sinh kết luận: preset 1m/3m/6m, fusion 3m, Bear DCA. Bottom Hunter và phanh 2 năm là ngữ cảnh, đọc riêng ở danh sách lớp.",
+  "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-09-05T14:10:03.091Z",
+   "generatedAt": "2026-09-05T14:43:01.032Z",
    "items": [
     {
      "presetId": "1m",
@@ -148,7 +148,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-09-05T14:10:02.502Z",
+   "generatedAt": "2026-09-05T14:43:00.302Z",
    "items": [
     {
      "tier": "cycle",
@@ -167,20 +167,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-09-05T14:08:50.268Z",
+   "generatedAt": "2026-09-05T14:42:04.423Z",
    "recentImprPct": -3.2,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-09-05T14:09:01.274Z",
+   "generatedAt": "2026-09-05T14:42:12.943Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 3,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-09-05T14:10:03.564Z",
+   "generatedAt": "2026-09-05T14:43:01.556Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -197,16 +197,13 @@
    }
   }
  },
- "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
-  "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
- ],
+ "warnings": [],
  "sourceFreshness": {
   "world": "2026-09-04T04:00:00.000Z",
   "dxy": "2026-09-04T04:00:00.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-05T14:06:56.194Z",
-  "usdVnd": "2026-09-05T14:06:56.194Z",
-  "fed": null
+  "vnGold": "2026-09-05T14:40:27.311Z",
+  "usdVnd": "2026-09-05T14:40:27.311Z",
+  "fed": "2026-09-05T14:40:27.311Z"
  }
 }
