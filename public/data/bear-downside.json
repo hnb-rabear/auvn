@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-09-06T01:06:20.632Z",
+ "generatedAt": "2026-09-06T06:04:21.160Z",
  "dataDate": "2026-09-04",
- "currentPrice": 4429.8,
- "currentDdPct": 16.7,
+ "currentPrice": 4476.6,
+ "currentDdPct": 15.8,
  "currentBucketIdx": 1,
  "conditioningWorks": false,
  "shownSource": "unconditional",
@@ -10,72 +10,72 @@
   {
    "horizonDays": 21,
    "median": -1.7,
-   "p10": -6.2,
-   "p90": 0.5,
-   "pBottomBehind": 17.7,
+   "p10": -6.4,
+   "p90": 0.4,
+   "pBottomBehind": 15.5,
    "pCi": [
-    13.9,
-    22
+    11.8,
+    19.6
    ],
    "medianCi": [
-    -2.1,
+    -2.2,
     -1.3
    ],
-   "endMedian": 1.4,
-   "endP25": -1.3,
-   "endP75": 5.1,
-   "pUp": 61.8,
+   "endMedian": 1.3,
+   "endP25": -1.6,
+   "endP75": 5.4,
+   "pUp": 62.2,
    "pUpCi": [
-    53.6,
-    69.6
+    53.7,
+    70.6
    ],
    "n": 1670
   },
   {
    "horizonDays": 63,
-   "median": -2.5,
-   "p10": -11.8,
-   "p90": 0.3,
-   "pBottomBehind": 13.5,
+   "median": -2.6,
+   "p10": -11.6,
+   "p90": 0.2,
+   "pBottomBehind": 12.2,
    "pCi": [
-    8.3,
-    18.8
+    7.6,
+    17.1
    ],
    "medianCi": [
-    -4.3,
+    -4.4,
     -1.6
    ],
-   "endMedian": 4.5,
-   "endP25": -1.6,
-   "endP75": 11.9,
-   "pUp": 69.4,
+   "endMedian": 4.6,
+   "endP25": -1.5,
+   "endP75": 11.8,
+   "pUp": 70.2,
    "pUpCi": [
-    53.6,
-    83.1
+    54.3,
+    83.5
    ],
    "n": 1656
   },
   {
    "horizonDays": 126,
    "median": -2.6,
-   "p10": -11.4,
-   "p90": 0.3,
-   "pBottomBehind": 13.5,
+   "p10": -11.6,
+   "p90": 0.1,
+   "pBottomBehind": 11.9,
    "pCi": [
-    8.1,
-    17.8
+    7.6,
+    15.5
    ],
    "medianCi": [
-    -4.9,
+    -5,
     -1.7
    ],
-   "endMedian": 12.8,
-   "endP25": 1.7,
-   "endP75": 20.4,
-   "pUp": 78.6,
+   "endMedian": 12.5,
+   "endP25": 1.4,
+   "endP75": 20.8,
+   "pUp": 78.5,
    "pUpCi": [
-    61.7,
-    90.7
+    61.8,
+    90.6
    ],
    "n": 1635
   }
@@ -89,74 +89,74 @@
     {
      "horizonDays": 21,
      "median": -1.6,
-     "p10": -5.8,
-     "p90": 0.6,
-     "pBottomBehind": 19.9,
+     "p10": -6,
+     "p90": 0.5,
+     "pBottomBehind": 16.5,
      "pCi": [
-      14.6,
-      25.4
+      11.1,
+      22
      ],
      "medianCi": [
       -2.1,
-      -1.2
+      -1.1
      ],
-     "endMedian": 1.9,
-     "endP25": -0.7,
-     "endP75": 6,
-     "pUp": 65.8,
+     "endMedian": 1.8,
+     "endP25": -0.8,
+     "endP75": 5.6,
+     "pUp": 67.5,
      "pUpCi": [
-      55.7,
-      74.9
+      56.8,
+      77.1
      ],
-     "n": 753
+     "n": 755
     },
     {
      "horizonDays": 63,
      "median": -2.3,
-     "p10": -8.9,
-     "p90": 0.5,
-     "pBottomBehind": 15.8,
+     "p10": -10.4,
+     "p90": 0.4,
+     "pBottomBehind": 13.7,
      "pCi": [
-      8.8,
-      22.3
+      7.1,
+      19.7
      ],
      "medianCi": [
-      -3.8,
+      -4.2,
       -1.3
      ],
-     "endMedian": 6.4,
-     "endP25": 0.3,
-     "endP75": 14.6,
-     "pUp": 76.7,
+     "endMedian": 6.5,
+     "endP25": 0.4,
+     "endP75": 14.3,
+     "pUp": 75.9,
      "pUpCi": [
-      58.9,
-      89.8
+      56.5,
+      89.6
      ],
-     "n": 753
+     "n": 755
     },
     {
      "horizonDays": 126,
      "median": -2.4,
-     "p10": -12.1,
-     "p90": 0.5,
-     "pBottomBehind": 15.1,
+     "p10": -12.7,
+     "p90": 0.3,
+     "pBottomBehind": 13,
      "pCi": [
-      7.9,
-      20.4
+      7.3,
+      17.5
      ],
      "medianCi": [
-      -5.9,
+      -5.7,
       -1.4
      ],
-     "endMedian": 15.7,
-     "endP25": 3,
-     "endP75": 23.1,
-     "pUp": 79.2,
+     "endMedian": 16.2,
+     "endP25": 2.7,
+     "endP75": 23,
+     "pUp": 79.3,
      "pUpCi": [
-      53.8,
-      95.4
+      54.1,
+      95.7
      ],
-     "n": 750
+     "n": 749
     }
    ]
   },
@@ -168,74 +168,74 @@
     {
      "horizonDays": 21,
      "median": -2.5,
-     "p10": -9.7,
+     "p10": -10.2,
      "p90": 0.3,
-     "pBottomBehind": 14.7,
+     "pBottomBehind": 13.4,
      "pCi": [
-      7.5,
-      23.3
+      7.7,
+      20.2
      ],
      "medianCi": [
-      -4.7,
-      -1.4
+      -4.8,
+      -1.1
      ],
-     "endMedian": -0.2,
-     "endP25": -4,
-     "endP75": 3.6,
-     "pUp": 49.8,
+     "endMedian": -0.6,
+     "endP25": -4.3,
+     "endP75": 3.7,
+     "pUp": 47.2,
      "pUpCi": [
-      33.5,
-      69
+      30.4,
+      67.5
      ],
-     "n": 332
+     "n": 326
     },
     {
      "horizonDays": 63,
-     "median": -5.4,
-     "p10": -15.2,
-     "p90": -0.1,
-     "pBottomBehind": 8.2,
+     "median": -5.1,
+     "p10": -14.3,
+     "p90": -0.2,
+     "pBottomBehind": 6.6,
      "pCi": [
-      2.4,
-      16.3
+      2.9,
+      11.2
      ],
      "medianCi": [
-      -11.8,
-      -2
+      -10.4,
+      -1.7
      ],
-     "endMedian": -0.3,
-     "endP25": -6.3,
-     "endP75": 6,
-     "pUp": 48.9,
+     "endMedian": 0.8,
+     "endP25": -6.2,
+     "endP75": 6.3,
+     "pUp": 53.9,
      "pUpCi": [
-      27,
-      78.6
+      36.2,
+      77.5
      ],
-     "n": 330
+     "n": 324
     },
     {
      "horizonDays": 126,
-     "median": -3.4,
-     "p10": -8.9,
-     "p90": 0,
-     "pBottomBehind": 9.7,
+     "median": -3.3,
+     "p10": -9.9,
+     "p90": -0.2,
+     "pBottomBehind": 7.5,
      "pCi": [
-      1.7,
-      21.2
+      3.3,
+      12.7
      ],
      "medianCi": [
-      -5.6,
-      -1.7
+      -6,
+      -1.5
      ],
-     "endMedian": 5.4,
-     "endP25": 1.3,
-     "endP75": 11.7,
-     "pUp": 81.4,
+     "endMedian": 5.6,
+     "endP25": 0.8,
+     "endP75": 11.6,
+     "pUp": 79.3,
      "pUpCi": [
-      68.7,
-      91.8
+      62.6,
+      94.3
      ],
-     "n": 312
+     "n": 309
     }
    ]
   },
@@ -246,73 +246,73 @@
    "horizons": [
     {
      "horizonDays": 21,
-     "median": -1.6,
-     "p10": -4.1,
+     "median": -1.4,
+     "p10": -3.9,
      "p90": 0.1,
-     "pBottomBehind": 10.7,
+     "pBottomBehind": 11.6,
      "pCi": [
-      2.5,
-      24.6
+      4.5,
+      19.8
      ],
      "medianCi": [
       -2.4,
-      -1
+      -0.3
      ],
-     "endMedian": 2,
-     "endP25": -0.7,
-     "endP75": 8.6,
-     "pUp": 66.2,
+     "endMedian": 2.5,
+     "endP25": -1,
+     "endP75": 7.9,
+     "pUp": 63.3,
      "pUpCi": [
-      37,
-      84.1
+      34.4,
+      86.1
      ],
      "n": 151
     },
     {
      "horizonDays": 63,
-     "median": -2.5,
-     "p10": -8.6,
+     "median": -2,
+     "p10": -8.5,
      "p90": 0.1,
-     "pBottomBehind": 12.7,
+     "pBottomBehind": 14.1,
      "pCi": [
-      3.1,
-      21.8
+      3,
+      23.5
      ],
      "medianCi": [
-      -5.9,
-      -0.6
+      -4.9,
+      -0.4
      ],
-     "endMedian": 3.3,
-     "endP25": -3.2,
-     "endP75": 7.2,
-     "pUp": 58.8,
+     "endMedian": 4.1,
+     "endP25": -2.6,
+     "endP75": 9.6,
+     "pUp": 61.6,
      "pUpCi": [
-      26.4,
-      82.4
+      27.4,
+      84.6
      ],
      "n": 139
     },
     {
      "horizonDays": 126,
-     "median": -2.8,
-     "p10": -13.9,
+     "median": -2.1,
+     "p10": -13.1,
      "p90": 0.1,
-     "pBottomBehind": 12.7,
+     "pBottomBehind": 12.9,
      "pCi": [
-      0.2,
-      18
+      0.3,
+      21.2
      ],
      "medianCi": [
-      -12.6,
-      -0.6
+      -12,
+      -0.8
      ],
-     "endMedian": 9.2,
-     "endP25": -6.9,
-     "endP75": 16.1,
-     "pUp": 67.5,
+     "endMedian": 9.7,
+     "endP25": -2.5,
+     "endP75": 17.2,
+     "pUp": 71.1,
      "pUpCi": [
-      5.1,
-      94
+      5.4,
+      95.8
      ],
      "n": 139
     }
@@ -326,74 +326,74 @@
     {
      "horizonDays": 21,
      "median": -1.5,
-     "p10": -4.6,
-     "p90": 0.2,
-     "pBottomBehind": 14.4,
+     "p10": -4.7,
+     "p90": 0.3,
+     "pBottomBehind": 17.2,
      "pCi": [
-      10.1,
-      19
+      12,
+      22.5
      ],
      "medianCi": [
-      -2,
+      -2.1,
       -1
      ],
-     "endMedian": 0.5,
-     "endP25": -1.6,
-     "endP75": 2.9,
-     "pUp": 56.3,
+     "endMedian": 0.3,
+     "endP25": -1.7,
+     "endP75": 2.8,
+     "pUp": 54.9,
      "pUpCi": [
-      46.3,
-      65.6
+      44.1,
+      65.1
      ],
-     "n": 434
+     "n": 438
     },
     {
      "horizonDays": 63,
-     "median": -2.5,
-     "p10": -8.5,
-     "p90": -0.1,
-     "pBottomBehind": 8.8,
+     "median": -2.6,
+     "p10": -8.4,
+     "p90": 0.1,
+     "pBottomBehind": 12.2,
      "pCi": [
-      4.8,
-      12.8
+      7,
+      17.7
      ],
      "medianCi": [
       -3.7,
       -1.7
      ],
-     "endMedian": 2.4,
+     "endMedian": 2.3,
      "endP25": -1.9,
      "endP75": 5.9,
-     "pUp": 66.4,
+     "pUp": 65.4,
      "pUpCi": [
-      51.5,
-      79.2
+      50.9,
+      78.1
      ],
-     "n": 434
+     "n": 438
     },
     {
      "horizonDays": 126,
      "median": -3.1,
-     "p10": -10.3,
-     "p90": -0.3,
-     "pBottomBehind": 6.2,
+     "p10": -10.6,
+     "p90": 0,
+     "pBottomBehind": 9.8,
      "pCi": [
-      3.9,
-      8.5
+      4.8,
+      14.4
      ],
      "medianCi": [
-      -5.7,
-      -2
+      -5.8,
+      -1.9
      ],
-     "endMedian": 4.3,
-     "endP25": -1.1,
-     "endP75": 9.6,
-     "pUp": 71.6,
+     "endMedian": 4.2,
+     "endP25": -1.4,
+     "endP75": 9.3,
+     "pUp": 72.4,
      "pUpCi": [
-      50.6,
-      86.9
+      50.8,
+      87.9
      ],
-     "n": 434
+     "n": 438
     }
    ]
   }
@@ -402,72 +402,72 @@
   {
    "horizonDays": 21,
    "median": -1.7,
-   "p10": -6.2,
-   "p90": 0.5,
-   "pBottomBehind": 17.7,
+   "p10": -6.4,
+   "p90": 0.4,
+   "pBottomBehind": 15.5,
    "pCi": [
-    13.9,
-    22
+    11.8,
+    19.6
    ],
    "medianCi": [
-    -2.1,
+    -2.2,
     -1.3
    ],
-   "endMedian": 1.4,
-   "endP25": -1.3,
-   "endP75": 5.1,
-   "pUp": 61.8,
+   "endMedian": 1.3,
+   "endP25": -1.6,
+   "endP75": 5.4,
+   "pUp": 62.2,
    "pUpCi": [
-    53.6,
-    69.6
+    53.7,
+    70.6
    ],
    "n": 1670
   },
   {
    "horizonDays": 63,
-   "median": -2.5,
-   "p10": -11.8,
-   "p90": 0.3,
-   "pBottomBehind": 13.5,
+   "median": -2.6,
+   "p10": -11.6,
+   "p90": 0.2,
+   "pBottomBehind": 12.2,
    "pCi": [
-    8.3,
-    18.8
+    7.6,
+    17.1
    ],
    "medianCi": [
-    -4.3,
+    -4.4,
     -1.6
    ],
-   "endMedian": 4.5,
-   "endP25": -1.6,
-   "endP75": 11.9,
-   "pUp": 69.4,
+   "endMedian": 4.6,
+   "endP25": -1.5,
+   "endP75": 11.8,
+   "pUp": 70.2,
    "pUpCi": [
-    53.6,
-    83.1
+    54.3,
+    83.5
    ],
    "n": 1656
   },
   {
    "horizonDays": 126,
    "median": -2.6,
-   "p10": -11.4,
-   "p90": 0.3,
-   "pBottomBehind": 13.5,
+   "p10": -11.6,
+   "p90": 0.1,
+   "pBottomBehind": 11.9,
    "pCi": [
-    8.1,
-    17.8
+    7.6,
+    15.5
    ],
    "medianCi": [
-    -4.9,
+    -5,
     -1.7
    ],
-   "endMedian": 12.8,
-   "endP25": 1.7,
-   "endP75": 20.4,
-   "pUp": 78.6,
+   "endMedian": 12.5,
+   "endP25": 1.4,
+   "endP75": 20.8,
+   "pUp": 78.5,
    "pUpCi": [
-    61.7,
-    90.7
+    61.8,
+    90.6
    ],
    "n": 1635
   }
