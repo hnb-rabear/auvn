@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-09-07T01:01:35.734Z",
+ "generatedAt": "2026-09-07T04:52:30.034Z",
  "dataDate": "2026-09-07",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 144600000,
-  "sjcSell": 147600000,
+  "sjcBuy": 144000000,
+  "sjcSell": 147000000,
   "ringBuy": 145800000,
   "ringSell": 149800000,
   "ringDate": null,
   "xauUsd": 4476.60009765625,
-  "usdVnd": 26255,
-  "worldVndPerLuong": 141704177,
-  "premiumPct": 4.16,
-  "premiumVnd": 5895823
+  "usdVnd": 26250,
+  "worldVndPerLuong": 141677191,
+  "premiumPct": 3.76,
+  "premiumVnd": 5322809
  },
  "criteria": [
   {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 4,2%, ở percentile 10 so với lịch sử tự thu thập (575 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 3,8%, ở percentile 9 so với lịch sử tự thu thập (575 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,1 (dưới MA50, -0,5% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 99,2 (dưới MA50, -0,4% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -118,7 +118,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.255, nhịp +0,2%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.250, nhịp +0,2%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 23,9%, percentile 91 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 23,9%, percentile 92 so với 3 năm: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -2490,7 +2490,7 @@
   },
   {
    "date": "2026-09-07",
-   "value": 4.16
+   "value": 3.76
   }
  ],
  "premiumPercentiles": {
@@ -2499,11 +2499,11 @@
   "p80": 16.28
  },
  "sourceTimes": {
-  "world": "2026-09-07T00:50:28.000Z",
-  "dxy": "2026-09-07T00:50:33.000Z",
+  "world": "2026-09-07T04:41:27.000Z",
+  "dxy": "2026-09-07T04:41:26.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-07T01:01:35.734Z",
-  "usdVnd": "2026-09-07T01:01:35.734Z",
+  "vnGold": "2026-09-07T04:52:30.034Z",
+  "usdVnd": "2026-09-07T04:52:30.034Z",
   "fed": null
  }
 }
