@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-06T21:28:52.510Z",
- "dataDate": "2026-09-04",
+ "generatedAt": "2026-09-07T00:02:15.912Z",
+ "dataDate": "2026-09-06",
  "cycle": {
   "prob": 58.1,
   "ci": [
@@ -30,14 +30,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 55,7: trung tính.",
+    "explanation": "RSI ngày = 55,2: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,62: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -20,89: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +23,9% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -99,14 +99,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 55,7: trung tính.",
+    "explanation": "RSI ngày = 55,2: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -20,62: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -20,89: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": -1,
-    "explanation": "XAU +25,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +23,9% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22459,6 +22459,11 @@
   },
   {
    "date": "2026-09-04",
+   "cycleBin": 2,
+   "swingBin": 2
+  },
+  {
+   "date": "2026-09-06",
    "cycleBin": 2,
    "swingBin": 2
   }
@@ -54778,7 +54783,7 @@
    }
   },
   {
-   "date": "2026-09-04",
+   "date": "2026-09-06",
    "cycle": {
     "bin": 2,
     "prob": 58.1,
