@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-07T00:00:46.860Z",
- "dataDate": "2026-09-06",
+ "generatedAt": "2026-09-07T01:01:35.734Z",
+ "dataDate": "2026-09-07",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -8,7 +8,7 @@
   "sjcSell": 147600000,
   "ringBuy": 145800000,
   "ringSell": 149800000,
-  "ringDate": "2026-09-06",
+  "ringDate": null,
   "xauUsd": 4476.60009765625,
   "usdVnd": 26255,
   "worldVndPerLuong": 141704177,
@@ -80,12 +80,12 @@
     {
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
-     "score": 0,
-     "explanation": "Không có dữ liệu.",
-     "available": false
+     "score": -1,
+     "explanation": "Nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.",
+     "available": true
     }
    ],
-   "score": 1,
+   "score": 0.3333333333333333,
    "available": true,
    "provisional": false
   },
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,2 (dưới MA50, -0,5% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 99,1 (dưới MA50, -0,5% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 11,
+ "composite": 2.7,
  "zone": "neutral",
  "vnHistoryDays": 575,
  "warnings": [
@@ -2499,11 +2499,11 @@
   "p80": 16.28
  },
  "sourceTimes": {
-  "world": "2026-09-06T23:49:45.000Z",
-  "dxy": "2026-09-06T04:00:00.000Z",
+  "world": "2026-09-07T00:50:28.000Z",
+  "dxy": "2026-09-07T00:50:33.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-07T00:00:46.860Z",
-  "usdVnd": "2026-09-07T00:00:46.860Z",
+  "vnGold": "2026-09-07T01:01:35.734Z",
+  "usdVnd": "2026-09-07T01:01:35.734Z",
   "fed": null
  }
 }

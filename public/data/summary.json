@@ -1,7 +1,7 @@
 {
  "schemaVersion": "1.1",
- "generatedAt": "2026-09-07T00:03:14.760Z",
- "dataDate": "2026-09-06",
+ "generatedAt": "2026-09-07T01:04:58.845Z",
+ "dataDate": "2026-09-07",
  "stale": false,
  "staleDays": 0,
  "market": {
@@ -10,7 +10,7 @@
   "sjcSell": 147600000,
   "ringBuy": 145800000,
   "ringSell": 149800000,
-  "ringDate": "2026-09-06",
+  "ringDate": null,
   "usdVnd": 26255,
   "worldVndPerLuong": 141704177,
   "vnPremiumPct": 4.16,
@@ -54,7 +54,7 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 11,
+   "composite": 2.7,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
@@ -71,8 +71,8 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.7876984126984127,
   "bearDca": {
-   "generatedAt": "2026-09-07T00:02:15.926Z",
-   "dataDate": "2026-09-06",
+   "generatedAt": "2026-09-07T01:03:39.814Z",
+   "dataDate": "2026-09-07",
    "isBear": true,
    "ddFromAth": 0.15828068592057748,
    "ddChange": -0.02555279783393513,
@@ -100,6 +100,7 @@
   "overall": "ok",
   "degradedLayers": [
    "bottom-cycle",
+   "bottom-swing",
    "accumulation-brake"
   ],
   "insufficientLayers": [
@@ -107,7 +108,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-09-07T00:03:14.130Z",
+   "generatedAt": "2026-09-07T01:04:58.046Z",
    "items": [
     {
      "presetId": "1m",
@@ -148,39 +149,39 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-09-07T00:03:13.571Z",
+   "generatedAt": "2026-09-07T01:04:57.474Z",
    "items": [
     {
      "tier": "cycle",
-     "recentTopFav": 47.1,
-     "recentBaseline": 63.5,
-     "n": 17,
+     "recentTopFav": 43.8,
+     "recentBaseline": 63.2,
+     "n": 16,
      "status": "degraded"
     },
     {
      "tier": "swing",
-     "recentTopFav": 52.6,
-     "recentBaseline": 52.5,
-     "n": 19,
-     "status": "ok"
+     "recentTopFav": 50,
+     "recentBaseline": 52.2,
+     "n": 18,
+     "status": "degraded"
     }
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-09-07T00:02:15.925Z",
+   "generatedAt": "2026-09-07T01:03:39.813Z",
    "recentImprPct": -2.8,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-09-07T00:02:23.712Z",
+   "generatedAt": "2026-09-07T01:03:50.965Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 3,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-09-07T00:03:14.503Z",
+   "generatedAt": "2026-09-07T01:04:58.506Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -202,11 +203,11 @@
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
-  "world": "2026-09-06T23:49:45.000Z",
-  "dxy": "2026-09-06T04:00:00.000Z",
+  "world": "2026-09-07T00:50:28.000Z",
+  "dxy": "2026-09-07T00:50:33.000Z",
   "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-07T00:00:46.860Z",
-  "usdVnd": "2026-09-07T00:00:46.860Z",
+  "vnGold": "2026-09-07T01:01:35.734Z",
+  "usdVnd": "2026-09-07T01:01:35.734Z",
   "fed": null
  }
 }
