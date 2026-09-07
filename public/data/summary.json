@@ -1,6 +1,6 @@
 {
- "schemaVersion": "1.1",
- "generatedAt": "2026-09-07T04:55:35.352Z",
+ "schemaVersion": "1.3",
+ "generatedAt": "2026-09-07T05:02:11.241Z",
  "dataDate": "2026-09-07",
  "stale": false,
  "staleDays": 0,
@@ -14,7 +14,48 @@
   "usdVnd": 26250,
   "worldVndPerLuong": 141677191,
   "vnPremiumPct": 3.76,
-  "vnPremiumVnd": 5322809
+  "vnPremiumVnd": 5322809,
+  "changes": {
+   "prevDate": "2026-09-06",
+   "xauUsd": 0,
+   "sjcSell": -600000,
+   "ringSell": 0,
+   "vnPremiumPct": -0.4
+  }
+ },
+ "changed": {
+  "sincePrevRun": false,
+  "newBuySignals": [],
+  "lostBuySignals": [],
+  "bottomStartToday": false,
+  "phaseChanged": false
+ },
+ "bottomHunter": {
+  "cycle": {
+   "bin": 2,
+   "prob": 57,
+   "ci": [
+    34.8,
+    67.9
+   ],
+   "probUnweighted": 39.4,
+   "n": 617
+  },
+  "swing": {
+   "bin": 2,
+   "prob": 52.9,
+   "ci": [
+    41.6,
+    64.5
+   ],
+   "probUnweighted": 43.7,
+   "n": 639
+  },
+  "isBottomStart": false,
+  "lastBottomStartDate": "2026-08-04",
+  "daysSinceBottomStart": 34,
+  "crashMode": false,
+  "note": "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true thì đọc probUnweighted thay cho prob. isBottomStart là điểm dò đáy sớm để BẮT ĐẦU gom rải, không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao."
  },
  "signals": {
   "presets": [
@@ -69,15 +110,15 @@
  "accumulation": {
   "effectiveBuyMultiplier": 0.5,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.7876984126984127,
+  "pricePercentile2y": 0.7877,
   "bearDca": {
    "generatedAt": "2026-09-07T04:54:23.450Z",
    "dataDate": "2026-09-07",
    "isBear": true,
-   "ddFromAth": 0.15828068592057748,
-   "ddChange": -0.02555279783393513,
+   "ddFromAth": 0.1583,
+   "ddChange": -0.0256,
    "phase": "grind",
-   "pricePct2y": 0.7876984126984127,
+   "pricePct2y": 0.7877,
    "mult": 0.5,
    "recoveryRisk": false,
    "note": "Bear rỉ máu. Giá ở percentile 79% của 2 năm gần — dùng vị trí giá để tính khối lượng."

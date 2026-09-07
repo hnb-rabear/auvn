@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { buildAuvnSummary, type BuildSummaryInput } from "./summary";
-import { DEFAULT_WEIGHTS, type Analysis, type AccumulationAnalysis, type BearDcaAnalysis, type PresetHealthFile, type FusionHealthFile, type AccumulationHealth, type BearDcaHealth } from "./types";
+import { DEFAULT_WEIGHTS, type Analysis, type AccumulationAnalysis, type BearDcaAnalysis, type PresetHealthFile, type FusionHealthFile, type AccumulationHealth, type BearDcaHealth, type BottomAnalysis, type BottomSignalRow, type VnGoldEntry } from "./types";
 import type { BottomHealth } from "../../scripts/monitor-bottom";
 
 function createMockInput(overrides?: Partial<BuildSummaryInput>): BuildSummaryInput {
@@ -148,8 +148,31 @@ function createMockInput(overrides?: Partial<BuildSummaryInput>): BuildSummaryIn
     },
   };
 
+  const mockBottom: BottomAnalysis = {
+    generatedAt: "2026-09-05T01:00:00.000Z",
+    dataDate: "2026-09-04",
+    cycle: { prob: 58.1, ci: [40, 72], probUnweighted: 44.2, bin: 2, n: 31, drivers: [] },
+    swing: { prob: 51.4, ci: [35, 66], probUnweighted: 47, bin: 2, n: 28, drivers: [] },
+    confirmedBottoms: [],
+    signalHistory: [
+      { date: "2026-09-01", cycleBin: 1, swingBin: 1 },
+      { date: "2026-09-02", cycleBin: 2, swingBin: 1 },
+      { date: "2026-09-03", cycleBin: 2, swingBin: 2 },
+      { date: "2026-09-04", cycleBin: 2, swingBin: 2 },
+    ],
+    bottomHistory: [],
+    note: "mẫu",
+  };
+
+  const mockVnHistory: VnGoldEntry[] = [
+    { date: "2026-09-03", sjcBuy: 145000000, sjcSell: 148000000, ringBuy: 146000000, ringSell: 150000000, usdVnd: 26200, xauUsd: 4460.2, premiumPct: 4.6 },
+    { date: "2026-09-04", sjcBuy: 145600000, sjcSell: 148600000, ringBuy: 146500000, ringSell: 150500000, usdVnd: 26255, xauUsd: 4477.2, premiumPct: 4.85 },
+  ];
+
   return {
     analysis: mockAnalysis,
+    bottom: mockBottom,
+    vnHistory: mockVnHistory,
     accumulation: mockAccumulation,
     bearDca: mockBearDca,
     presetHealth: mockPresetHealth,
@@ -173,15 +196,15 @@ function allBullishInput(): BuildSummaryInput {
 }
 
 describe("buildAuvnSummary", () => {
-  it("exports valid schemaVersion 1.1 and passes through market freshness", () => {
+  it("exports valid schemaVersion 1.2 and passes through market freshness", () => {
     const input = createMockInput();
     const s = buildAuvnSummary(input);
 
-    expect(s.schemaVersion).toBe("1.1");
+    expect(s.schemaVersion).toBe("1.3");
     expect(s.dataDate).toBe("2026-09-04");
     expect(s.stale).toBe(false);
     expect(s.staleDays).toBe(0);
-    expect(s.market).toEqual({
+    expect(s.market).toMatchObject({
       xauUsd: 4477.2,
       sjcBuy: 145600000,
       sjcSell: 148600000,
@@ -340,5 +363,205 @@ describe("buildAuvnSummary", () => {
     input.bearDcaHealth.status = "ok";
 
     expect(buildAuvnSummary(input).modelHealth.overall).toBe("insufficient");
+  });
+});
+
+/** Ghi đè signalHistory bằng danh sách bin chu kỳ, ngày liên tiếp kết thúc ở dataDate. */
+function withCycleBins(bins: number[], dates?: string[]): BuildSummaryInput {
+  const input = createMockInput();
+  const ds = dates ?? bins.map((_, i) => `2026-09-0${i + 1}`);
+  input.bottom.signalHistory = bins.map<BottomSignalRow>((cycleBin, i) => ({
+    date: ds[i],
+    cycleBin,
+    swingBin: 0,
+  }));
+  input.analysis.dataDate = ds[ds.length - 1] ?? input.analysis.dataDate;
+  return input;
+}
+
+describe("buildAuvnSummary — bottomHunter", () => {
+  it("passes Bottom Hunter tiers through without drivers", () => {
+    const bh = buildAuvnSummary(createMockInput()).bottomHunter;
+
+    expect(bh.cycle).toEqual({ bin: 2, prob: 58.1, ci: [40, 72], probUnweighted: 44.2, n: 31 });
+    expect(bh.swing.prob).toBe(51.4);
+    expect(bh.swing.bin).toBe(2);
+    expect(bh.cycle).not.toHaveProperty("drivers");
+  });
+
+  it("flags isBottomStart only on the rising edge into cycleBin 3", () => {
+    expect(buildAuvnSummary(withCycleBins([1, 2, 2, 3])).bottomHunter.isBottomStart).toBe(true);
+    // đã ở trong vùng đáy từ phiên trước ⇒ không phải cạnh lên
+    expect(buildAuvnSummary(withCycleBins([1, 2, 3, 3])).bottomHunter.isBottomStart).toBe(false);
+    expect(buildAuvnSummary(withCycleBins([1, 3, 3, 2])).bottomHunter.isBottomStart).toBe(false);
+  });
+
+  it("reports daysSinceBottomStart in calendar days from the last rising edge", () => {
+    // cạnh lên ở giữa lịch sử; ngày giao dịch nhảy cuối tuần
+    const mid = buildAuvnSummary(
+      withCycleBins([2, 3, 3, 2], ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-07"])
+    ).bottomHunter;
+    expect(mid.lastBottomStartDate).toBe("2026-09-02");
+    expect(mid.daysSinceBottomStart).toBe(5);
+
+    const today = buildAuvnSummary(withCycleBins([1, 2, 2, 3])).bottomHunter;
+    expect(today.isBottomStart).toBe(true);
+    expect(today.daysSinceBottomStart).toBe(0);
+  });
+
+  it("returns nulls when the history never reached cycleBin 3", () => {
+    const bh = buildAuvnSummary(withCycleBins([0, 1, 2, 2])).bottomHunter;
+    expect(bh.lastBottomStartDate).toBeNull();
+    expect(bh.daysSinceBottomStart).toBeNull();
+  });
+
+  it("refuses a stale signal history instead of dating its edge to today", () => {
+    // bottom.json cũ + analysis.json mới: hàng cuối là cạnh lên của một ngày TRƯỚC ĐÓ.
+    // Nếu tin nó, consumer nhận tín hiệu gom rải giả với daysSinceBottomStart = 0.
+    const input = withCycleBins([1, 2, 2, 3], ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04"]);
+    input.analysis.dataDate = "2026-09-07";
+
+    const bh = buildAuvnSummary(input).bottomHunter;
+    expect(bh.isBottomStart).toBe(false);
+    expect(bh.lastBottomStartDate).toBe("2026-09-04");
+    expect(bh.daysSinceBottomStart).toBe(3);
+  });
+
+  it("warns that n counts overlapping windows, not independent samples", () => {
+    const note = buildAuvnSummary(createMockInput()).bottomHunter.note;
+    expect(note).toContain("CHỒNG NHAU");
+    expect(note).toContain("không phải số mẫu độc lập");
+  });
+
+  it("mirrors the site's acute-crash display gate in crashMode", () => {
+    for (const [phase, crash] of [["acute", true], ["grind", false], ["bull", false], ["recovery", false]] as const) {
+      const input = createMockInput();
+      input.bearDca.phase = phase;
+      expect(buildAuvnSummary(input).bottomHunter.crashMode).toBe(crash);
+    }
+  });
+
+  it("survives an empty signal history", () => {
+    const input = createMockInput();
+    input.bottom.signalHistory = [];
+
+    const bh = buildAuvnSummary(input).bottomHunter;
+    expect(bh.isBottomStart).toBe(false);
+    expect(bh.lastBottomStartDate).toBeNull();
+    expect(bh.daysSinceBottomStart).toBeNull();
+  });
+});
+
+describe("buildAuvnSummary — market.changes", () => {
+  it("computes deltas against the previous trading session", () => {
+    const c = buildAuvnSummary(createMockInput()).market.changes;
+
+    expect(c).toEqual({
+      prevDate: "2026-09-03",
+      xauUsd: 17,
+      sjcSell: 600000,
+      ringSell: 500000,
+      vnPremiumPct: 0.25,
+    });
+  });
+
+  it("keeps a missing side null instead of treating it as zero", () => {
+    const input = createMockInput();
+    input.vnHistory[0].ringSell = null;
+
+    expect(buildAuvnSummary(input).market.changes?.ringSell).toBeNull();
+  });
+
+  it("returns null when there is not enough history", () => {
+    const input = createMockInput();
+    input.vnHistory = input.vnHistory.slice(-1);
+
+    expect(buildAuvnSummary(input).market.changes).toBeNull();
+  });
+});
+
+describe("buildAuvnSummary — changed", () => {
+  it("treats a missing previous snapshot as new rather than quiet", () => {
+    // Consumer poll nhiều lần/ngày: mất snapshot cũ mà báo "không đổi" sẽ nuốt tín hiệu.
+    const c = buildAuvnSummary(createMockInput()).changed;
+
+    expect(c.sincePrevRun).toBe(true);
+    expect(c.newBuySignals).toEqual([]);
+    expect(c.lostBuySignals).toEqual([]);
+    expect(c.phaseChanged).toBe(false);
+  });
+
+  it("reports a quiet re-run against an identical previous snapshot", () => {
+    const input = createMockInput();
+    const c = buildAuvnSummary({ ...input, prev: buildAuvnSummary(input) }).changed;
+
+    expect(c.sincePrevRun).toBe(false);
+    expect(c.newBuySignals).toEqual([]);
+    expect(c.lostBuySignals).toEqual([]);
+    expect(c.phaseChanged).toBe(false);
+    expect(c.bottomStartToday).toBe(false);
+  });
+
+  it("names the presets that gained and lost their buy signal", () => {
+    const quiet = buildAuvnSummary(createMockInput());
+    const gained = buildAuvnSummary({ ...allBullishInput(), prev: quiet });
+    expect(gained.changed.newBuySignals).toEqual(["1m", "3m", "6m"]);
+    expect(gained.changed.lostBuySignals).toEqual([]);
+
+    const lost = buildAuvnSummary({ ...createMockInput(), prev: gained });
+    expect(lost.changed.newBuySignals).toEqual([]);
+    expect(lost.changed.lostBuySignals).toEqual(["1m", "3m", "6m"]);
+  });
+
+  it("flags a Bear DCA phase transition and a new data date", () => {
+    const prev = buildAuvnSummary(createMockInput());
+    const input = createMockInput();
+    input.bearDca.phase = "acute";
+    input.analysis.dataDate = "2026-09-07";
+
+    const c = buildAuvnSummary({ ...input, prev }).changed;
+    expect(c.phaseChanged).toBe(true);
+    expect(c.sincePrevRun).toBe(true);
+  });
+
+  it("mirrors bottomStartToday from bottomHunter", () => {
+    const s = buildAuvnSummary(withCycleBins([1, 2, 2, 3]));
+    expect(s.changed.bottomStartToday).toBe(s.bottomHunter.isBottomStart);
+    expect(s.changed.bottomStartToday).toBe(true);
+  });
+
+  it("survives a truncated previous snapshot from an older schema", () => {
+    const prev = { dataDate: "2026-09-04" } as never;
+
+    const c = buildAuvnSummary({ ...createMockInput(), prev }).changed;
+    expect(c.sincePrevRun).toBe(false);
+    expect(c.lostBuySignals).toEqual([]);
+    expect(c.phaseChanged).toBe(false);
+  });
+});
+
+describe("buildAuvnSummary — numeric hygiene", () => {
+  it("rounds Bear DCA float tails without changing the displayed value", () => {
+    const input = createMockInput();
+    input.bearDca.ddFromAth = 0.15828068592057748;
+    input.bearDca.ddChange = -0.02555279783393513;
+    input.bearDca.pricePct2y = 0.7876984126984127;
+    input.accumulation.pricePct2y = 0.7876984126984127;
+
+    const a = buildAuvnSummary(input).accumulation;
+    expect(a.bearDca.ddFromAth).toBe(0.1583);
+    expect(a.bearDca.ddChange).toBe(-0.0256);
+    expect(a.bearDca.pricePct2y).toBe(0.7877);
+    expect(a.pricePercentile2y).toBe(0.7877);
+    // phần còn lại của object đi qua nguyên vẹn
+    expect(a.bearDca.phase).toBe("recovery");
+    expect(a.bearDca.mult).toBe(1.5);
+  });
+
+  it("keeps a null two-year percentile null", () => {
+    const input = createMockInput();
+    input.accumulation.pricePct2y = null;
+
+    expect(buildAuvnSummary(input).accumulation.pricePercentile2y).toBeNull();
   });
 });

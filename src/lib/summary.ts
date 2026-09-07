@@ -5,6 +5,7 @@ import {
   consensusLabel,
 } from "./consensus";
 import { isPremiumHigh } from "./guidance";
+import { bottomStartIdxsFromBins } from "./timeline";
 import { zoneOf } from "./types";
 import type {
   Analysis,
@@ -16,6 +17,9 @@ import type {
   AccumulationAnalysis,
   BearDcaAnalysis,
   AccumBrake,
+  BottomAnalysis,
+  BottomTierResult,
+  VnGoldEntry,
 } from "./types";
 import type { BottomHealth } from "../../scripts/monitor-bottom";
 
@@ -29,8 +33,39 @@ export interface SummaryPresetSignal {
   pointsToThreshold: number;
 }
 
+/** Tầng đáy rút gọn cho consumer máy — bỏ `drivers` (dài, chỉ để hiển thị web). */
+export interface SummaryBottomTier {
+  bin: number;
+  prob: number;
+  ci: [number, number] | null;
+  probUnweighted: number | null;
+  n: number;
+}
+
+export interface SummaryMarketChanges {
+  prevDate: string | null;
+  xauUsd: number | null;
+  sjcSell: number | null;
+  ringSell: number | null;
+  vnPremiumPct: number | null;
+}
+
+/** Khác biệt so với snapshot sinh lần trước — để consumer poll nhiều lần/ngày không
+ *  phải tự giữ state file (mất file = mất tín hiệu). */
+export interface SummaryChanged {
+  /** `dataDate` đã đổi so lần sinh trước. `true` khi chưa có snapshot cũ để so. */
+  sincePrevRun: boolean;
+  /** preset vừa chuyển sang báo mua / vừa mất tín hiệu mua. */
+  newBuySignals: ("1m" | "3m" | "6m")[];
+  lostBuySignals: ("1m" | "3m" | "6m")[];
+  /** = `bottomHunter.isBottomStart`, nhân bản ở đây để consumer chỉ đọc một chỗ. */
+  bottomStartToday: boolean;
+  /** pha Bear DCA đổi so lần trước. */
+  phaseChanged: boolean;
+}
+
 export interface AuvnSummary {
-  schemaVersion: "1.1";
+  schemaVersion: "1.3";
   generatedAt: string;
   dataDate: string;
   stale: boolean;
@@ -46,6 +81,18 @@ export interface AuvnSummary {
     worldVndPerLuong: number | null;
     vnPremiumPct: number | null;
     vnPremiumVnd: number | null;
+    /** Chênh lệch so phiên giao dịch liền trước; `null` khi lịch sử có < 2 phiên. */
+    changes: SummaryMarketChanges | null;
+  };
+  changed: SummaryChanged;
+  bottomHunter: {
+    cycle: SummaryBottomTier;
+    swing: SummaryBottomTier;
+    isBottomStart: boolean;
+    lastBottomStartDate: string | null;
+    daysSinceBottomStart: number | null;
+    crashMode: boolean;
+    note: string;
   };
   signals: {
     presets: SummaryPresetSignal[];
@@ -111,7 +158,69 @@ export interface BuildSummaryInput {
   accumulationHealth: AccumulationHealth;
   bearDcaHealth: BearDcaHealth;
   fusionHealth: FusionHealthFile;
+  bottom: BottomAnalysis;
+  /** Lịch sử VN theo ngày tăng dần, để tính `market.changes`. */
+  vnHistory: VnGoldEntry[];
+  /** Snapshot sinh lần trước, để tính `changed`. `null` = lần đầu / không đọc được. */
+  prev?: AuvnSummary | null;
   nowIso?: string;
+}
+
+/** Làm tròn n chữ số thập phân; giữ `null`. Cắt đuôi float rác (0.15828068592057748). */
+const round = (v: number | null | undefined, dp: number) =>
+  v === null || v === undefined ? v : Math.round(v * 10 ** dp) / 10 ** dp;
+
+function computeChanged(
+  prev: AuvnSummary | null | undefined,
+  dataDate: string,
+  presets: SummaryPresetSignal[],
+  phase: BearDcaAnalysis["phase"],
+  isBottomStart: boolean
+): SummaryChanged {
+  const buying = new Set(presets.filter((p) => p.isBuy).map((p) => p.id));
+  // Snapshot cũ có thể là schema trước hoặc file cắt cụt ⇒ truy cập phòng thủ.
+  const prevBuying = new Set(
+    (prev?.signals?.presets ?? []).filter((p) => p.isBuy).map((p) => p.id)
+  );
+  const prevPhase = prev?.accumulation?.bearDca?.phase;
+  return {
+    // Chưa có snapshot cũ ⇒ coi như mới, đừng ru consumer ngủ bằng `false`.
+    sincePrevRun: !prev || prev.dataDate !== dataDate,
+    newBuySignals: [...buying].filter((id) => !prevBuying.has(id)),
+    lostBuySignals: [...prevBuying].filter((id) => !buying.has(id)),
+    bottomStartToday: isBottomStart,
+    phaseChanged: prevPhase !== undefined && prevPhase !== phase,
+  };
+}
+
+const tier = (t: BottomTierResult): SummaryBottomTier => ({
+  bin: t.bin,
+  prob: t.prob,
+  ci: t.ci,
+  probUnweighted: t.probUnweighted ?? null,
+  n: t.n,
+});
+
+const delta = (a: number | null, b: number | null, dp?: number) =>
+  a === null || b === null ? null : dp === undefined ? a - b : Math.round((a - b) * 10 ** dp) / 10 ** dp;
+
+/** Số ngày dương lịch giữa hai ngày ISO `YYYY-MM-DD`. */
+const daysBetween = (from: string, to: string) =>
+  Math.round((Date.parse(to) - Date.parse(from)) / 86_400_000);
+
+function marketChanges(vnHistory: VnGoldEntry[], analysis: Analysis): SummaryMarketChanges | null {
+  if (vnHistory.length < 2) return null;
+  // Phiên trước = entry cuối cùng có date < dataDate (lịch sử đã sắp tăng dần).
+  const prev = [...vnHistory].reverse().find((e) => e.date < analysis.dataDate);
+  if (!prev) return null;
+  const p = analysis.prices;
+  return {
+    prevDate: prev.date,
+    xauUsd: delta(p.xauUsd, prev.xauUsd, 2),
+    sjcSell: delta(p.sjcSell, prev.sjcSell),
+    ringSell: delta(p.ringSell, prev.ringSell),
+    vnPremiumPct: delta(p.premiumPct, prev.premiumPct, 2),
+  };
 }
 
 export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
@@ -124,7 +233,29 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     accumulationHealth,
     bearDcaHealth,
     fusionHealth,
+    bottom,
+    vnHistory,
   } = input;
+
+  const hist = bottom.signalHistory;
+  const startIdxs = bottomStartIdxsFromBins(hist.map((r) => r.cycleBin));
+  const lastStart = startIdxs.length ? hist[startIdxs[startIdxs.length - 1]] : null;
+  // `bottom.json` và `analysis.json` do hai bước khác nhau của cron ghi ra: nếu Bottom
+  // Hunter lỗi mà analysis vẫn chạy, hàng cuối signalHistory là ngày CŨ — báo cạnh lên
+  // của nó như "hôm nay" sẽ sinh tín hiệu gom rải giả. Chỉ nhận khi hai ngày trùng khớp.
+  const histIsCurrent = hist[hist.length - 1]?.date === analysis.dataDate;
+  const isBottomStart = histIsCurrent && startIdxs[startIdxs.length - 1] === hist.length - 1;
+  const bottomHunter = {
+    cycle: tier(bottom.cycle),
+    swing: tier(bottom.swing),
+    isBottomStart,
+    lastBottomStartDate: lastStart?.date ?? null,
+    daysSinceBottomStart: lastStart ? daysBetween(lastStart.date, analysis.dataDate) : null,
+    // Cùng cổng acute-crash với web (Dashboard `bottomCrashMode`): prob recency lạc quan
+    // giả khi giá đang sụp cấp tính.
+    crashMode: bearDca.phase === "acute",
+    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true thì đọc probUnweighted thay cho prob. isBottomStart là điểm dò đáy sớm để BẮT ĐẦU gom rải, không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
+  };
 
   const rawSignals = presetSignals(analysis.criteria);
   const presets: SummaryPresetSignal[] = rawSignals.map((s) => {
@@ -201,7 +332,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     : "ok";
 
   return {
-    schemaVersion: "1.1",
+    schemaVersion: "1.3",
     generatedAt: input.nowIso ?? new Date().toISOString(),
     dataDate: analysis.dataDate,
     stale: analysis.stale,
@@ -217,7 +348,10 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
       worldVndPerLuong: analysis.prices.worldVndPerLuong,
       vnPremiumPct: analysis.prices.premiumPct,
       vnPremiumVnd: analysis.prices.premiumVnd,
+      changes: marketChanges(vnHistory, analysis),
     },
+    changed: computeChanged(input.prev, analysis.dataDate, presets, bearDca.phase, isBottomStart),
+    bottomHunter,
     signals: {
       presets,
       consensus,
@@ -232,8 +366,15 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     accumulation: {
       effectiveBuyMultiplier: bearDca.mult,
       effectiveBuyMultiplierSource: "bear-dca",
-      pricePercentile2y: accumulation.pricePct2y,
-      bearDca,
+      pricePercentile2y: round(accumulation.pricePct2y, 4) ?? null,
+      // Đuôi float thô (0.15828068592057748) chỉ là nhiễu cho consumer máy — hiển thị
+      // chỉ dùng 2 chữ số. Làm tròn 4 chữ số: không mất thông tin có nghĩa.
+      bearDca: {
+        ...bearDca,
+        ddFromAth: round(bearDca.ddFromAth, 4) as number,
+        ddChange: round(bearDca.ddChange, 4) as number,
+        pricePct2y: round(bearDca.pricePct2y, 4) as number,
+      },
       twoYearBrake: {
         multiplier: accumulation.mult,
         active: accumulation.mult < 1,

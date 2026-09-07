@@ -1,14 +1,16 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { buildAuvnSummary } from "../src/lib/summary";
+import { buildAuvnSummary, type AuvnSummary } from "../src/lib/summary";
 import type {
   AccumulationAnalysis,
   AccumulationHealth,
   Analysis,
   BearDcaAnalysis,
   BearDcaHealth,
+  BottomAnalysis,
   FusionHealthFile,
   PresetHealthFile,
+  VnGoldEntry,
 } from "../src/lib/types";
 import type { BottomHealth } from "./monitor-bottom";
 
@@ -22,6 +24,24 @@ function readJson<T>(file: string): T {
   return JSON.parse(readFileSync(path, "utf8")) as T;
 }
 
+/** Lịch sử tự tích luỹ — thiếu file thì dùng mặc định, đừng chặn cả summary. */
+function readJsonOr<T>(file: string, fallback: T): T {
+  return existsSync(join(DATA_DIR, file)) ? readJson<T>(file) : fallback;
+}
+
+/**
+ * summary.json của lần chạy trước; `null` khi thiếu hoặc hỏng. Chỉ ba field được so
+ * (`dataDate`, `signals.presets`, `accumulation.bearDca.phase`) và cả ba đã có từ
+ * schema 1.0, nên không cần chặn theo version — `computeChanged` tự phòng thiếu field.
+ */
+function prevSummary(): AuvnSummary | null {
+  try {
+    return readJsonOr<AuvnSummary | null>("summary.json", null);
+  } catch {
+    return null;
+  }
+}
+
 export function generateSummary(): void {
   const summary = buildAuvnSummary({
     analysis: readJson<Analysis>("analysis.json"),
@@ -32,6 +52,11 @@ export function generateSummary(): void {
     accumulationHealth: readJson<AccumulationHealth>("accumulation-health.json"),
     bearDcaHealth: readJson<BearDcaHealth>("bear-dca-health.json"),
     fusionHealth: readJson<FusionHealthFile>("fusion-health.json"),
+    bottom: readJson<BottomAnalysis>("bottom.json"),
+    vnHistory: readJsonOr<VnGoldEntry[]>("history/vn-gold.json", []),
+    // Snapshot lần trước (chính file sắp bị ghi đè) để tính `changed`. Schema khác ⇒ bỏ
+    // qua: field cũ không so được, thà báo "mới" còn hơn báo sai là "không đổi".
+    prev: prevSummary(),
   });
 
   writeFileSync(join(DATA_DIR, "summary.json"), JSON.stringify(summary, null, 1));

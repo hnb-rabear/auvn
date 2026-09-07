@@ -108,12 +108,18 @@ export function idxRuns(idxs: number[]): [number, number][] {
   return runs;
 }
 
+/** Cạnh lên bin đáy cao nhất trên một chuỗi bin: bin[i]===3 && bin[i-1]!==3.
+ *  Định nghĩa dùng chung cho Time Machine (timeline) và summary.json (signalHistory). */
+export function bottomStartIdxsFromBins(bins: (number | undefined)[]): number[] {
+  const out: number[] = [];
+  for (let i = 0; i < bins.length; i++) {
+    if (bins[i] === 3 && bins[i - 1] !== 3) out.push(i);
+  }
+  return out;
+}
+
 /** Các ngày "bắt đầu vùng đáy" = cạnh lên bin đáy cao nhất:
  *  cycleBin[i]===3 && cycleBin[i-1]!==3 (oversold+vĩ mô vừa bật). Walk-forward. */
 export function bottomStartIdxs(points: TimelinePoint[]): number[] {
-  const out: number[] = [];
-  for (let i = 0; i < points.length; i++) {
-    if (points[i].cycleBin === 3 && points[i - 1]?.cycleBin !== 3) out.push(i);
-  }
-  return out;
+  return bottomStartIdxsFromBins(points.map((p) => p.cycleBin));
 }
