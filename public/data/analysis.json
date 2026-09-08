@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-08T09:48:37.224Z",
+ "generatedAt": "2026-09-08T14:38:21.076Z",
  "dataDate": "2026-09-08",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 144600000,
   "ringSell": 148600000,
   "ringDate": null,
-  "xauUsd": 4441.10009765625,
-  "usdVnd": 26150,
-  "worldVndPerLuong": 140018230,
-  "premiumPct": 4.7,
-  "premiumVnd": 6581770
+  "xauUsd": 4447.2998046875,
+  "usdVnd": 26160,
+  "worldVndPerLuong": 140267313,
+  "premiumPct": 4.51,
+  "premiumVnd": 6332687
  },
  "criteria": [
   {
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 53,1: trung tính.",
+     "explanation": "RSI ngày = 53,5: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 52: trung tính.",
+     "explanation": "RSI tuần = 52,1: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 1,8%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 1,7%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
@@ -51,12 +51,12 @@
     {
      "id": "sr",
      "label": "Hỗ trợ / kháng cự 6 tháng",
-     "score": 1,
-     "explanation": "Giá bám sát hỗ trợ 4.376 — điểm vào có cơ sở kỹ thuật.",
+     "score": 0,
+     "explanation": "Giá nằm giữa hỗ trợ và kháng cự, không có lợi thế rõ.",
      "available": true
     }
    ],
-   "score": 0.4,
+   "score": 0.2,
    "available": true
   },
   {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 4,7%, ở percentile 12 so với lịch sử tự thu thập (576 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 4,5%, ở percentile 11 so với lịch sử tự thu thập (576 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99 (dưới MA50, -0,6% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 98,8 (dưới MA50, -0,8% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -111,14 +111,14 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,78%, thay đổi 3 tháng +0,25 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,8%, thay đổi 3 tháng +0,24 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.150, nhịp -0,2%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.160, nhịp -0,2%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +22,9% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +23,1% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 6.2,
+ "composite": 2.7,
  "zone": "neutral",
  "vnHistoryDays": 576,
  "warnings": [
@@ -2494,7 +2494,7 @@
   },
   {
    "date": "2026-09-08",
-   "value": 4.7
+   "value": 4.51
   }
  ],
  "premiumPercentiles": {
@@ -2503,11 +2503,11 @@
   "p80": 16.28
  },
  "sourceTimes": {
-  "world": "2026-09-08T09:37:26.000Z",
-  "dxy": "2026-09-08T09:37:34.000Z",
-  "yield10y": "2026-09-04T12:20:00.000Z",
-  "vnGold": "2026-09-08T09:48:37.224Z",
-  "usdVnd": "2026-09-08T09:48:37.224Z",
+  "world": "2026-09-08T14:27:18.000Z",
+  "dxy": "2026-09-08T14:27:19.000Z",
+  "yield10y": "2026-09-08T12:20:00.000Z",
+  "vnGold": "2026-09-08T14:38:21.076Z",
+  "usdVnd": "2026-09-08T14:38:21.076Z",
   "fed": null
  }
 }
