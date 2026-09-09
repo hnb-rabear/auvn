@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-09-09T18:43:57.701Z",
+ "generatedAt": "2026-09-09T21:47:31.956Z",
  "dataDate": "2026-09-09",
- "currentPrice": 4462,
- "currentDdPct": 16.1,
+ "currentPrice": 4447.2,
+ "currentDdPct": 16.4,
  "currentBucketIdx": 1,
  "conditioningWorks": false,
  "shownSource": "unconditional",
@@ -45,7 +45,7 @@
     -4.4,
     -1.6
    ],
-   "endMedian": 4.7,
+   "endMedian": 4.6,
    "endP25": -1.5,
    "endP75": 11.7,
    "pUp": 70.3,
@@ -437,7 +437,7 @@
     -4.4,
     -1.6
    ],
-   "endMedian": 4.7,
+   "endMedian": 4.6,
    "endP25": -1.5,
    "endP75": 11.7,
    "pUp": 70.3,
