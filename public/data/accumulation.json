@@ -1,9 +1,15 @@
 {
- "generatedAt": "2026-09-11T04:51:24.507Z",
+ "generatedAt": "2026-09-11T09:51:05.306Z",
  "dataDate": "2026-09-11",
- "pricePct2y": 0.748015873015873,
- "mult": 1,
- "brakes": [],
+ "pricePct2y": 0.7559523809523809,
+ "mult": 0.25,
+ "brakes": [
+  {
+   "id": "price-top",
+   "label": "Giá đỉnh vùng 2 năm",
+   "explanation": "Giá đang ở percentile 76% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
+  }
+ ],
  "provisional": false,
  "history": [
   {
@@ -21378,8 +21384,8 @@
   },
   {
    "date": "2026-09-11",
-   "pricePct2y": 0.748015873015873,
-   "mult": 1
+   "pricePct2y": 0.7559523809523809,
+   "mult": 0.25
   }
  ],
  "note": "Phanh DCA chống mua đỉnh: ghìm khi giá đắt so dải 2 năm. Lan can chống FOMO, không phải máy đẻ vàng."
