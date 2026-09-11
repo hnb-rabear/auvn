@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-09-11T01:03:43.808Z",
+ "generatedAt": "2026-09-11T04:51:24.507Z",
  "dataDate": "2026-09-11",
- "pricePct2y": 0.75,
+ "pricePct2y": 0.748015873015873,
  "mult": 1,
  "brakes": [],
  "provisional": false,
@@ -21372,8 +21372,13 @@
    "mult": 0.25
   },
   {
+   "date": "2026-09-10",
+   "pricePct2y": 0.7440476190476191,
+   "mult": 1
+  },
+  {
    "date": "2026-09-11",
-   "pricePct2y": 0.75,
+   "pricePct2y": 0.748015873015873,
    "mult": 1
   }
  ],
