@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-12T13:38:54.728Z",
+ "generatedAt": "2026-09-12T17:16:12.825Z",
  "dataDate": "2026-09-11",
  "stale": false,
  "staleDays": 0,
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 6,2%, ở percentile 16 so với lịch sử tự thu thập (580 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 6,2%, ở percentile 16 so với lịch sử tự thu thập (581 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -118,7 +118,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.110, nhịp -0,1%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.110, nhịp +0,2%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -186,7 +186,7 @@
  },
  "composite": 12,
  "zone": "neutral",
- "vnHistoryDays": 580,
+ "vnHistoryDays": 581,
  "warnings": [
   "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
@@ -2511,6 +2511,10 @@
   {
    "date": "2026-09-12",
    "value": 6.22
+  },
+  {
+   "date": "2026-09-13",
+   "value": 6.22
   }
  ],
  "premiumPercentiles": {
@@ -2522,8 +2526,8 @@
   "world": "2026-09-11T04:00:00.000Z",
   "dxy": "2026-09-11T04:00:00.000Z",
   "yield10y": "2026-09-11T12:20:00.000Z",
-  "vnGold": "2026-09-12T13:38:54.728Z",
-  "usdVnd": "2026-09-12T13:38:54.728Z",
+  "vnGold": "2026-09-12T17:16:12.825Z",
+  "usdVnd": "2026-09-12T17:16:12.825Z",
   "fed": null
  }
 }
