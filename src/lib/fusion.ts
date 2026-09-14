@@ -37,16 +37,25 @@ export interface HighConfEvidence {
  *  "walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ" (tests/engine.test.ts).
  *  Cả 8 số ở đây được calc-fusion-evidence.ts tính lại trên timeline walk-forward
  *  2026-09-04 và KHỚP nguyên bản trước đó (kể cả 3,3) — bug chỉ đổi thứ tự xếp hạng
- *  trong cụm điểm sát nhau, không đổi tín hiệu. */
+ *  trong cụm điểm sát nhau, không đổi tín hiệu.
+ *
+ *  CẬP NHẬT 2026-09-14 — tính lại sau khi sửa look-ahead FEDFUNDS (scripts/fetch.ts;
+ *  bảng tác động trong docs/presets.md). Fusion 3m phái sinh từ preset 3m nên nhãn Fed
+ *  dời 1 tháng đổi tập ngày trúng: trainN 60→45, testN 75→71, fullN 135→116,
+ *  fullFav 97,0→97,4, fullCi [91,1;100]→[92,2;100]. trainFav 93,3% và testFav 100%
+ *  KHÔNG đổi. orthogonalTrainPt 3,3→2,2pt: biên "thông tin trực giao" so placebo
+ *  đồng-n MỎNG ĐI — vẫn dương nhưng đây là phần yếu nhất của khối fusion, và n train
+ *  giảm 25% nên CI rộng hơn. Không tuyển lại tham số để bù (xem cùng lý do ở PRESETS).
+ *  monitor-fusion sau collect: status=ok, B 93,3%/100% vs comp 88,9%/99,1%. */
 export const HIGH_CONF_3M_EVIDENCE: HighConfEvidence = {
   trainFav: 93.3,
-  trainN: 60,
+  trainN: 45,
   testFav: 100.0,
-  testN: 75,
-  fullFav: 97.0,
-  fullN: 135,
-  fullCi: [91.1, 100],
-  orthogonalTrainPt: 3.3,
+  testN: 71,
+  fullFav: 97.4,
+  fullN: 116,
+  fullCi: [92.2, 100],
+  orthogonalTrainPt: 2.2,
 };
 
 /**

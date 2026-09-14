@@ -681,12 +681,20 @@ export default function Dashboard({
           ) : preset ? (
             <div className="verdict-bt">
               Kiểm chứng preset ({preset.horizonDays === 21 ? "1 tháng" : preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}):
-              tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
-              và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026 (n={preset.evidence.testN}),
+              tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018
+              và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026,
               so với mua ngày bất kỳ {fmtNum(preset.evidence.trainBaseline)}% / {fmtNum(preset.evidence.testBaseline)}%.
+              {presetHealth && presetHealth.testClusters > 0 && (
+                <>
+                  {" "}Tính trên <b>{presetHealth.trainClusters}</b> và{" "}
+                  <b>{presetHealth.testClusters}</b> đợt tín hiệu độc lập (các ngày báo mua
+                  liền nhau thuộc cùng một đợt, nên số đợt mới là cỡ mẫu thật — không phải
+                  số ngày {preset.evidence.trainN}/{preset.evidence.testN}).
+                </>
+              )}
               {presetHealth?.testFavCi95 && (
                 <>
-                  {" "}Khoảng tin cậy 95% (bootstrap, đã tính tín hiệu bắn chùm):{" "}
+                  {" "}Khoảng tin cậy 95% (bootstrap theo khối lịch, đã tính tín hiệu bắn chùm):{" "}
                   <b>
                     {fmtNum(presetHealth.testFavCi95[0])}–{fmtNum(presetHealth.testFavCi95[1])}%
                   </b>
@@ -704,7 +712,8 @@ export default function Dashboard({
                 cũ 35/25/20/20 bắn 0 tín hiệu mua suốt 2019–2026 nên không còn là trục hành động.
               </div>
               {presetSigs.map((s) => {
-                const ci = health.items.find((i) => i.presetId === s.preset.id)?.testFavCi95;
+                const item = health.items.find((i) => i.presetId === s.preset.id);
+                const ci = item?.testFavCi95;
                 return (
                   <div key={s.preset.id} className={s.isBuy ? "" : "muted"}>
                     {s.isBuy ? "●" : "○"} <b>{s.preset.label}</b>: điểm{" "}
@@ -712,7 +721,11 @@ export default function Dashboard({
                     {fmtNum(s.composite)} / ngưỡng +{s.preset.buyThreshold} —{" "}
                     {s.isBuy ? "ĐANG BÁO MUA" : "chưa báo mua"}; đúng{" "}
                     {fmtNum(s.preset.evidence.trainFav)}% / {fmtNum(s.preset.evidence.testFav)}%
-                    (2 giai đoạn)
+                    (2 giai đoạn
+                    {item && item.testClusters > 0
+                      ? `, ${item.trainClusters}/${item.testClusters} đợt độc lập`
+                      : ""}
+                    )
                     {ci && (
                       <>
                         , CI 95% {fmtNum(ci[0])}–{fmtNum(ci[1])}%

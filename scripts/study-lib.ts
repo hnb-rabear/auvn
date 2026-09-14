@@ -1,7 +1,9 @@
 /** Hàm dùng chung cho các study tuyển chọn cấu hình trên timeline. */
 import type { TimelinePoint } from "../src/lib/types";
 
-export { seededRandom, blockBootstrapCi } from "../src/lib/indicators";
+export { blockBootstrapCi } from "../src/lib/indicators";
+import { seededRandom } from "../src/lib/indicators";
+export { seededRandom };
 
 export type H = "21" | "63" | "126";
 export const SPLIT_DATE = "2019-01-01";
@@ -101,6 +103,75 @@ export function gridSearch(points: TimelinePoint[], h: H): {
 
   candidates.sort((a, b) => b.minExcess - a.minExcess);
   return { baseTrain, baseTest, trainN: train.length, testN: test.length, candidates };
+}
+
+/**
+ * Số CỤM ĐỘC LẬP trong một tập tín hiệu: hai tín hiệu cách nhau < H phiên thì cửa sổ
+ * lợi suất tương lai của chúng chồng lấn ⇒ cùng một quan sát. `idxs` là chỉ số trên
+ * lưới timeline (tăng dần), `h` là số phiên của kỳ hạn.
+ *
+ * Đây mới là n để đọc độ tin cậy — n NGÀY luôn lớn hơn nhiều lần và làm CI hẹp giả.
+ */
+export function countClusters(idxs: number[], h: number): number {
+  let c = 0;
+  let last = -Infinity;
+  for (const i of idxs) {
+    if (i - last >= h) c++;
+    last = i;
+  }
+  return c;
+}
+
+/**
+ * CI 95% cho % thuận chiều của một tập tín hiệu, resample theo KHỐI LỊCH.
+ *
+ * Vì sao không dùng blockBootstrapCi trực tiếp: hàm đó nhận MẢNG ĐÃ LỌC (chỉ các ngày
+ * trúng tín hiệu) nên khoảng cách lịch giữa chúng biến mất — hai ngày trúng cách nhau
+ * 3 năm nằm cạnh nhau trong mảng và được coi là liền kề, còn một chùm 40 ngày trúng
+ * liên tiếp bị đếm thành 40 quan sát. Kết quả: CI hẹp giả ở đúng cái nó phải phản ánh.
+ *
+ * Ở đây khối được lấy trên TRỤC THỜI GIAN: chọn ngẫu nhiên một đoạn `blockSessions`
+ * phiên liên tiếp của timeline, gom các ngày trúng rơi vào đoạn đó, lặp tới khi đủ
+ * cỡ mẫu gốc. Một chùm dày vì thế vào/ra cùng nhau — đúng bản chất pseudo-replication.
+ *
+ * Trả null khi quá ít tín hiệu (<10) — như blockBootstrapCi.
+ */
+export function calendarBlockBootstrapCi(
+  /** returns theo chỉ số timeline; null = ngày không trúng tín hiệu (hoặc chưa đáo hạn) */
+  hitReturns: (number | null)[],
+  blockSessions: number,
+  iterations = 2000,
+  seed = 20260611
+): [number, number] | null {
+  const n = hitReturns.length;
+  const target = hitReturns.filter((r) => r !== null).length;
+  if (target < 10 || n === 0) return null;
+  const b = Math.max(1, Math.min(blockSessions, n));
+  const rand = seededRandom(seed);
+  const favs: number[] = [];
+  for (let it = 0; it < iterations; it++) {
+    let fav = 0;
+    let total = 0;
+    // Bốc khối lịch tới khi gom đủ ~target tín hiệu (khối rỗng vẫn tốn lượt —
+    // đúng ý: giai đoạn câm tín hiệu là thông tin, không phải mẫu bị bỏ qua).
+    let guard = 0;
+    while (total < target && guard++ < 10000) {
+      const start = Math.floor(rand() * n);
+      for (let j = 0; j < b; j++) {
+        const r = hitReturns[(start + j) % n];
+        if (r === null) continue;
+        if (r > 0) fav++;
+        total++;
+        if (total >= target) break;
+      }
+    }
+    if (total > 0) favs.push(fav / total);
+  }
+  if (favs.length < 100) return null;
+  favs.sort((a, c) => a - c);
+  const lo = favs[Math.floor(0.025 * (favs.length - 1))];
+  const hi = favs[Math.floor(0.975 * (favs.length - 1))];
+  return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
 }
 
 export function fmtCand(c: Candidate): string {

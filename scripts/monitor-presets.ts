@@ -10,10 +10,9 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { PRESETS, presetComposite, type PresetHealth, type PresetHealthFile, type Timeline } from "../src/lib/types";
-import { stats, blockBootstrapCi, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
+import { stats, calendarBlockBootstrapCi, countClusters, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
-const STEP = 3;
 
 function main() {
   const tl: Timeline = JSON.parse(readFileSync(join(DATA_DIR, "timeline.json"), "utf8"));
@@ -47,7 +46,26 @@ function main() {
     const minExcess = enough
       ? Math.min(trSig.fav - trBase.fav, teSig.fav - teBase.fav)
       : null;
-    const ci = blockBootstrapCi(hit(test), Math.ceil(p.horizonDays / STEP));
+
+    // CI theo KHỐI LỊCH trên trục thời gian của giai đoạn test: giữ nguyên vị trí
+    // các ngày trúng (null = không trúng) nên một chùm dày vào/ra bootstrap cùng
+    // nhau. Bản cũ truyền hit(test) — mảng đã lọc, mất hết khoảng cách lịch ⇒ CI
+    // hẹp giả, trong khi UI lại ghi "đã tính tín hiệu bắn chùm".
+    const testHitReturns = test.map((q) =>
+      presetComposite(q.scores, p) >= p.buyThreshold ? (q.returns[h] as number) : null
+    );
+    const ci = calendarBlockBootstrapCi(testHitReturns, p.horizonDays);
+
+    // n độc lập: cụm cách nhau ≥ H phiên trên lưới timeline (dày, 1 phiên/điểm).
+    const hitIdxs = (data: typeof pts, seg: typeof pts) => {
+      const pos = new Map(data.map((q, i) => [q.date, i]));
+      return seg
+        .filter((q) => presetComposite(q.scores, p) >= p.buyThreshold)
+        .map((q) => pos.get(q.date))
+        .filter((i): i is number => i !== undefined);
+    };
+    const trainClusters = countClusters(hitIdxs(pts, train), p.horizonDays);
+    const testClusters = countClusters(hitIdxs(pts, test), p.horizonDays);
 
     // degraded = lợi thế tuyển chọn sụp (<5pt) HOẶC 2 năm gần nhất THUA baseline
     // quá 5pt (hòa baseline trong bull market không tính — vô hại).
@@ -67,12 +85,14 @@ function main() {
       recentBaselinePct: recBase.n ? Math.round(recBase.fav * 1000) / 10 : null,
       recentN: recSig.n,
       testFavCi95: ci,
+      trainClusters,
+      testClusters,
       status,
     });
     console.log(
       `${p.id}: status=${status} minExcess=${minExcess === null ? "—" : (minExcess * 100).toFixed(1) + "pt"} ` +
         `recent=${recSig.n ? (recSig.fav * 100).toFixed(1) + "% (n=" + recSig.n + ", base " + (recBase.fav * 100).toFixed(1) + "%)" : "—"} ` +
-        `CI95=${ci ? ci[0] + ".." + ci[1] + "%" : "—"}`
+        `CI95=${ci ? ci[0] + ".." + ci[1] + "%" : "—"} cụm=${trainClusters}/${testClusters}`
     );
   }
 

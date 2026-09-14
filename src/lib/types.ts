@@ -78,8 +78,19 @@ export interface PresetHealth {
   recentFavPct: number | null;
   recentBaselinePct: number | null;
   recentN: number;
-  /** khoảng tin cậy 95% (block bootstrap) cho % đúng giai đoạn test */
+  /**
+   * Khoảng tin cậy 95% cho % đúng giai đoạn test, bootstrap theo KHỐI LỊCH
+   * (`calendarBlockBootstrapCi`). Bản cũ bootstrap trên mảng ĐÃ LỌC nên mất khoảng
+   * cách lịch giữa các ngày trúng ⇒ CI hẹp giả; sửa 2026-09-14.
+   */
   testFavCi95: [number, number] | null;
+  /**
+   * Số CỤM ĐỘC LẬP (hai tín hiệu cách nhau < H phiên = một cụm) — n thật để đọc độ
+   * tin cậy, nhỏ hơn `evidence.trainN`/`testN` (đếm NGÀY) vài lần. Xem CLAUDE.md
+   * "Independent-cluster counts, not day counts".
+   */
+  trainClusters: number;
+  testClusters: number;
   status: "ok" | "degraded" | "insufficient";
 }
 
@@ -326,10 +337,20 @@ export interface Preset {
  * v4 (FED=0 ép cứng) làm rớt hẳn "Gom" trên toàn preset — chọn lại candidate phủ-max cùng
  * min-excess (Fed nhỏ >0) đã có sẵn trong lưới grid-search nhưng bị bỏ qua lúc ship v4;
  * so v4: test n 90→104 (3m), 130→311 (6m), thêm episode 2017/2023 độc lập, accuracy KHÔNG
- * pha loãng (test 99%/100%). Số evidence = đầu ra scripts/verify-preset-evidence.ts trên
- * timeline 2026-09-04 (tính lại sau khi bỏ look-ahead mùa vụ #10 — lệch ≤1pt mọi ô, cả 3
- * preset vẫn vượt cổng: biên train +30/+33/+21pt, test +29/+31/+22pt);
+ * pha loãng (test 99%/100%). Số evidence = đầu ra scripts/verify-preset-evidence.ts;
  * monitor-presets tính lại mỗi cron.
+ *
+ * CẬP NHẬT 2026-09-14 — sửa look-ahead FEDFUNDS (scripts/fetch.ts, xem chú thích
+ * fetchFedFunds): nhãn FRED là ngày quan sát nhưng giá trị là trung bình cả tháng, chỉ
+ * công bố tháng sau; mọi consumer lọc `date <=` nên đọc trước ~1 tháng trên TOÀN BỘ lịch
+ * sử. Sửa xong, 34,2% điểm timeline đổi điểm Fed (scripts/fed-lookahead-impact.ts). Biên
+ * MỚI: train +29,7/+34,3/+10,7pt, test +29,4/+31,2/+20,9pt — 1m không đổi (fed weight 0),
+ * 3m nhích lên, 6m MẤT HƠN NỬA biên train (+21→+10,7pt vì fed weight 0,2 là nặng nhất).
+ * Cả ba vẫn vượt cổng nhưng 6m giờ sát nút — KHÔNG tuyển lại trọng số ở đây (làm vậy là
+ * tuyển trên test đã khai thác); xem docs/presets.md "Sửa look-ahead FEDFUNDS".
+ *
+ * Số cụm ĐỘC LẬP (gap ≥ H phiên, train/test): 1m 5/6, 3m 6/7, 6m 5/4 — KHÔNG phải trainN/
+ * testN bên dưới. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
  */
 export const PRESETS: Preset[] = [
   {
@@ -340,12 +361,12 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.1, yield10y: 0.3 },
     buyThreshold: 50,
     evidence: {
-      trainFav: 81.3,
-      trainN: 107,
-      trainBaseline: 51.2,
+      trainFav: 80.8,
+      trainN: 104,
+      trainBaseline: 51.1,
       testFav: 89.1,
       testN: 64,
-      testBaseline: 59.7,
+      testBaseline: 59.6,
       medianTestReturnPct: 4.1,
     },
   },
@@ -357,13 +378,13 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.2, fed: 0.1, yield10y: 0.2 },
     buyThreshold: 40,
     evidence: {
-      trainFav: 88.1,
+      trainFav: 88.9,
       trainN: 135,
-      trainBaseline: 54.7,
-      testFav: 99,
-      testN: 104,
-      testBaseline: 67.8,
-      medianTestReturnPct: 7.1,
+      trainBaseline: 54.6,
+      testFav: 99.1,
+      testN: 108,
+      testBaseline: 67.9,
+      medianTestReturnPct: 7.6,
     },
   },
   {
@@ -374,13 +395,13 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.2, fed: 0.2, yield10y: 0.4 },
     buyThreshold: 30,
     evidence: {
-      trainFav: 76.8,
-      trainN: 298,
-      trainBaseline: 56,
-      testFav: 100,
-      testN: 309,
-      testBaseline: 77.6,
-      medianTestReturnPct: 12.6,
+      trainFav: 66.6,
+      trainN: 332,
+      trainBaseline: 55.8,
+      testFav: 98.3,
+      testN: 292,
+      testBaseline: 77.4,
+      medianTestReturnPct: 13.5,
     },
   },
 ];

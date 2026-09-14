@@ -123,17 +123,39 @@ Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằn
 
 3/6 tháng = **v4.1 phủ-max (reopen 2026-07-05)**: v4 (FED=0 ép cứng) làm rớt hẳn số ngày "Gom" so với v3 trên toàn bộ preset (Fed=0 bỏ mất ảnh hưởng làm dịu lịch sử của Fed, để DXY+YLD — vốn tương quan, cùng phản ánh chế độ "USD mạnh/lãi suất thực cao" — dễ chạm cực đoan hơn). Reopen chọn lại candidate phủ-max cùng min-excess (Fed nhỏ >0 thay vì ép 0) đã có sẵn trong lưới grid-search gốc nhưng bị bỏ qua lúc ship v4.
 
-| Preset | Trọng số (KT / TK / MOM / DXY / FED / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) |
-| --- | --- | --- | --- | --- | --- | --- |
-| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **81,3%** (n=107) | **89,1%** (n=64) | 51,2% / 59,7% | +4,1% |
-| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,1%** (n=135) | **99%** (n=104) | 54,7% / 67,8% | +7,1% |
-| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **76,8%** (n=298) | **100%** (n=309) | 56,0% / 77,6% | +12,6% |
+| Preset | Trọng số (KT / TK / MOM / DXY / FED / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) | Cụm độc lập (train/test) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **80,8%** (n=104) | **89,1%** (n=64) | 51,1% / 59,7% | +4,1% | **5 / 6** |
+| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,9%** (n=135) | **99,1%** (n=108) | 54,6% / 67,9% | +7,6% | **6 / 7** |
+| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **66,6%** (n=332) | **98,3%** (n=292) | 55,8% / 77,4% | +13,5% | **5 / 4** |
+
+> Bảng trên là số **sau khi sửa look-ahead FEDFUNDS (2026-09-14)** — xem section riêng bên dưới. Cột cuối là số **cụm độc lập** (hai tín hiệu cách nhau < H phiên = cùng một cụm): đây mới là n dùng để đọc độ tin cậy, KHÔNG phải n ngày. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
 
 **Cập nhật 2026-09-04 — bỏ look-ahead mùa vụ (bug #10).** `scripts/backtest.ts` từng tính `seasonalityTable` MỘT LẦN trên toàn chuỗi rồi truyền cho mọi điểm lịch sử; điểm `stats` quá khứ vì thế đổi mỗi lần Yahoo cuốn cửa sổ 20 năm và không tái lập được (bằng chứng: `HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt` trôi 1,7 → 3,3; trung bình mùa vụ T5 1,96 → 1,49 và T8 1,12 → 2,51 chỉ trong vài ngày). Đã sửa thành walk-forward (khóa bằng test `walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ`), timeline regenerate, bảng trên tính lại bằng `verify-preset-evidence.ts`. Mọi ô lệch ≤1,2pt, **cả 3 preset vẫn vượt cổng** với biên train +30,1/+33,4/+20,8pt và test +29,4/+31,2/+22,4pt (khớp `monitor-presets`: cả 3 `status=ok`) ⇒ không preset nào bị hạ khỏi phát hành. Bug chỉ đổi thứ tự xếp hạng trong cụm điểm sát nhau, không đổi tín hiệu. Bài học: mọi số dẫn xuất từ timeline phải có script tái lập được, chạy lại sau MỌI lần sửa engine.
 
 So v4 (đã ship rồi rút lại cho 3m/6m): test n 90→104 (3m), 130→311 (6m) — gần gấp 2.4x số tín hiệu ở 6m, mở lại các năm 2017/2023 vốn câm hẳn dưới FED=0; accuracy KHÔNG pha loãng (test 99%/100%, train vẫn cách baseline xa: +33,4pt/+20,8pt). Đánh đổi: train-margin 6m mỏng hơn (76,8% vs baseline 56,0% = +20,8pt, so +24,1pt của v4 cũ) và composite hiện tại (2026-07-05) KHÔNG chuyển sang mua ở cả 3m/6m dưới v4.1 (dry spell không phải bug — xem phần "Gom" reopen ở dưới).
 
 FED = hướng lãi suất Fed **bằng 0 ở preset 1 tháng (v4)**, **>0 nhỏ ở 3/6 tháng (v4.1)**; vẫn nằm trong tiêu chí vĩ mô hiển thị (radar/chế độ tùy chỉnh) ở cả 3 preset dù có/không tham gia macroSub. Premium = 0 như v3 (chưa đủ 2 giai đoạn). Số trong bảng = tính lại bằng `presetComposite` trên timeline lúc ship (khớp `PRESETS`, đối chiếu bằng `npx tsx scripts/verify-preset-evidence.ts` — có thể chênh ≤0,5pt so đầu ra study gốc do làm tròn 0,1 tại biên ngưỡng + timeline thêm phiên mới).
+
+### Sửa look-ahead FEDFUNDS (2026-09-14) — số trong bảng ĐÃ trừ phần nhìn trước
+
+**Bug.** FRED gắn nhãn chuỗi `FEDFUNDS` bằng ngày **quan sát** (đầu tháng: `2026-08-01`) nhưng giá trị là **trung bình các ngày trong tháng đó** — chỉ tồn tại sau khi tháng kết thúc, công bố khoảng ngày 1 tháng sau. Mọi nơi tiêu thụ đều lọc `f.date <= ngày đang xét` (`scripts/backtest.ts:83`, `src/lib/bottom.ts:345`, và 13 script study khác), nên ngày 2026-08-02 đã đọc được trung bình cả tháng 8. **Rò tối đa ~1 tháng, trên TOÀN BỘ lịch sử** — không phải chỉ vài ngày đầu tháng.
+
+**Sửa.** Dời nhãn sang **ngày khả dụng** tại đúng một chỗ — `fetchFedFunds` (`scripts/fetch.ts`) — nên 15 consumer đang lọc `date <=` tự đúng, không phải sửa từng file. Cache `public/data/history/fed-funds.json` migrate một lần bằng `scripts/migrate-fed-availability.ts`. Khóa bằng `tests/fed-availability.test.ts` (gồm cọc chống chạy migrate hai lần).
+
+**Tác động đo được** (`scripts/fed-lookahead-impact.ts` — tính lại điểm `fed` theo cả hai quy ước nhãn trên cùng timeline, không cần chạy lại backtest):
+
+| Preset | FED weight | Biên train cũ → mới | Biên test cũ → mới |
+| --- | --- | --- | --- |
+| 1 tháng | 0 | +29,7 → **+29,7pt** (không đổi) | +29,4 → **+29,4pt** |
+| 3 tháng | 0,1 | +32,4 → **+34,3pt** | +31,2 → **+31,2pt** |
+| 6 tháng | 0,2 | +20,8 → **+10,7pt** | +22,4 → **+20,9pt** |
+
+34,2% điểm timeline (1463/4273) đổi điểm Fed. Preset 1 tháng miễn nhiễm vì `fed: 0`. **Preset 6 tháng mất hơn nửa biên train** (+20,8 → +10,7pt) vì nó mang trọng số Fed nặng nhất — vẫn vượt cổng nhưng giờ **sát nút**, và đây là con số trung thực đầu tiên của nó.
+
+**Không tuyển lại trọng số để bù.** Làm vậy là chạy grid lần nữa trên test đã khai thác nhiều lần — chính xác cái mà "Giới hạn #2" bên dưới cảnh báo. Sửa look-ahead là sửa tính tái lập, không phụ thuộc việc số có đẹp hơn hay không.
+
+**Lưu ý nhân quả.** Look-ahead làm Fed trông TỐT hơn thực tế, mà grid tuyển chọn vẫn dìm Fed về 0–0,2. Nên nó **không** giải thích được vì sao winner luôn yield-nặng/Fed-nhẹ; nếu có tác dụng gì thì là củng cố kết luận đó.
 
 Kỹ thuật: preset khai báo `macroSub` trong `PRESETS` (`src/lib/types.ts`); mọi nơi chấm preset dùng MỘT hàm `presetComposite` (UI live, Time Machine, monitor, fusion, evidence test — chart ≡ card). Timeline ghi thêm điểm sub-signal (`scores.dxy/fed/yield10y`, trọng số 0 với mọi composite cũ); dữ liệu cũ thiếu key phụ → trọng số sub tự dồn về điểm macro tổng, không bao giờ âm thầm mất tín hiệu vĩ mô (bài học FRED 504). Fusion "MUA độ tin cao" 3m re-validated trên preset v4.1 (docs/fusion.md section v4.1).
 
@@ -166,7 +188,11 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 
 ## Giới hạn — đọc kỹ trước khi tin con số
 
-1. **Tín hiệu bắn chùm.** Điểm vĩ mô cao kéo dài cả giai đoạn Fed nới lỏng, các tín hiệu cách 3 phiên chồng lấn kỳ hạn lên nhau → mẫu hiệu dụng nhỏ hơn n trên bảng đáng kể. Con số **100%** của preset 6 tháng (n=66) về bản chất là "vài đợt nới lỏng tiền tệ 2019–2026 đều trúng" — không phải 66 lần cá cược độc lập. Đừng đọc nó là "chắc chắn thắng".
+1. **Tín hiệu bắn chùm — đã ĐO, không còn là cảnh báo định tính (2026-09-14).** Số **đợt độc lập** (hai tín hiệu cách nhau < H phiên = cùng một đợt, `countClusters` trong `scripts/study-lib.ts`): **1m 5/6, 3m 6/7, 6m 5/4** (train/test). So với n NGÀY trên bảng (104/64, 135/108, 332/292) thì cỡ mẫu thật nhỏ hơn **20–70 lần**. Con số 98,3% của preset 6 tháng về bản chất là "**4 đợt** nới lỏng tiền tệ 2019–2026 hầu hết trúng" — không phải 292 lần cá cược độc lập.
+
+   Con số 12/18/29 lưu hành trước đây sai ở hai chỗ: gộp cả hai giai đoạn thành một số, và dùng một ngưỡng gap>21 phiên cho MỌI kỳ hạn (ở H=126, hai tín hiệu cách 22 phiên vẫn chia nhau 82% cửa sổ tương lai — không hề độc lập).
+
+   `monitor-presets.ts` nay ghi `trainClusters`/`testClusters` vào `preset-health.json` và UI hiển thị "n đợt độc lập" cạnh %; **CI cũng đã sửa**: bootstrap theo KHỐI LỊCH (`calendarBlockBootstrapCi`) thay vì theo mảng đã lọc. Bản cũ truyền `hit(test)` — chỉ gồm các ngày trúng, nên khoảng cách lịch giữa chúng biến mất: hai ngày trúng cách nhau 3 năm bị coi là liền kề, còn một chùm 40 ngày liên tiếp được đếm thành 40 quan sát độc lập. CI vì thế hẹp giả đúng ở chỗ nó phải phản ánh, trong khi UI lại ghi "đã tính tín hiệu bắn chùm". Khóa bằng `tests/calendar-bootstrap.test.ts` (chuỗi tổng hợp 2 chùm trái dấu: bản cũ cho CI hẹp quanh 50%, bản mới nới ra tới cả hai cực).
 2. **Chỉ 2 giai đoạn kiểm chứng.** Bộ lọc min-excess giảm rủi ro overfit nhưng không diệt được — việc chọn cấu hình có nhìn kết quả test (selection bias nhẹ). Con số % nên đọc là **ước lượng lạc quan**; kỳ vọng thực tế thấp hơn vài điểm.
 3. **Backtest trên XAU/USD, bạn mua vàng VN.** Tương quan cao nhưng chênh lệch SJC co giãn. Lịch sử SJC đã backfill 487 ngày từ CafeF (02/2025→nay, `scripts/backfill-vn.ts`) — đủ để tiêu chí chênh lệch chạy **percentile thật** trong phân tích live (phân phối: p20=11%, trung vị 14%, p80=16,6%), nhưng vẫn chỉ phủ giai đoạn test nên **chưa đủ điều kiện 2 giai đoạn để vào preset**. Premium giữ 0% trong preset cho tới khi dữ liệu phủ nhiều chế độ thị trường hơn (≥ vài năm).
 4. **Tín hiệu BÁN composite gần như vô giá trị — và NGƯỢC ở kỳ hạn dài.** Tỉ lệ bán đúng: 49% (1 tháng), 43% (3 tháng), 32% (6 tháng), 25% (12 tháng). Tệ hơn: trung vị lợi suất *sau* tín hiệu bán ở 6 tháng là **+9,5%** — cao hơn cả ngày trung lập (+4,6%), vì vùng bán nổ lúc quá mua giữa sóng tăng có quán tính. UI vì vậy chỉ chấm đúng/sai tín hiệu bán ở 1 tháng; 3–6 tháng ghi "không chấm".

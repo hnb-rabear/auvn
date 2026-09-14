@@ -96,10 +96,25 @@ async function fetchFredSeries(id: string, minRows: number): Promise<DailyBar[] 
   }
 }
 
-/** Fed funds rate theo tháng. */
+/**
+ * Fed funds rate theo tháng — mốc dời sang NGÀY KHẢ DỤNG, không phải ngày quan sát.
+ *
+ * FRED gắn nhãn FEDFUNDS bằng ngày ĐẦU tháng ("2026-08-01": 3.63) nhưng giá trị
+ * là TRUNG BÌNH các ngày trong tháng 8 — chỉ tồn tại sau khi tháng 8 kết thúc
+ * (công bố ~ngày 1 tháng 9). Mọi consumer lọc `f.date <= ngày xét`, nên giữ
+ * nhãn gốc khiến ngày 2026-08-02 đọc được trung bình cả tháng 8: look-ahead
+ * ~1 tháng trên TOÀN BỘ lịch sử (đo được: 1463/4273 điểm đổi điểm Fed).
+ * Dời nhãn +1 tháng ở ĐÚNG một chỗ này để 15 consumer `date <=` tự past-only.
+ */
 export async function fetchFedFunds(): Promise<{ date: string; value: number }[] | null> {
   const bars = await fetchFredSeries("FEDFUNDS", 12);
-  return bars ? bars.map((b) => ({ date: b.date, value: b.close })) : null;
+  return bars ? bars.map((b) => ({ date: nextMonthStart(b.date), value: b.close })) : null;
+}
+
+/** "2026-08-01" -> "2026-09-01" (ngày FRED công bố trung bình tháng đó). */
+export function nextMonthStart(date: string): string {
+  const [y, m] = date.split("-").map(Number);
+  return m === 12 ? `${y + 1}-01-01` : `${y}-${String(m + 1).padStart(2, "0")}-01`;
 }
 
 /**
