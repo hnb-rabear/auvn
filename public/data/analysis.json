@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-14T01:04:48.959Z",
+ "generatedAt": "2026-09-14T01:13:00.746Z",
  "dataDate": "2026-09-14",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 143000000,
   "ringSell": 147000000,
   "ringDate": null,
-  "xauUsd": 4381,
+  "xauUsd": 4385,
   "usdVnd": 26110,
-  "worldVndPerLuong": 137912126,
-  "premiumPct": 5.86,
-  "premiumVnd": 8087874
+  "worldVndPerLuong": 138038045,
+  "premiumPct": 5.77,
+  "premiumVnd": 7961955
  },
  "criteria": [
   {
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 49,1: trung tính.",
+     "explanation": "RSI ngày = 49,4: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 50,4: trung tính.",
+     "explanation": "RSI tuần = 50,5: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 3,3%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 3,2%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 5,9%, ở percentile 15 so với lịch sử tự thu thập (582 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 5,8%, ở percentile 15 so với lịch sử tự thu thập (582 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 2,
-     "explanation": "XAU/USD thay đổi +20,5% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
+     "explanation": "XAU/USD thay đổi +20,6% so với 12 tháng trước: đà tăng mạnh — xu hướng bull rõ, thuận mua theo trend.",
      "available": true
     }
    ],
@@ -2518,7 +2518,7 @@
   },
   {
    "date": "2026-09-14",
-   "value": 5.86
+   "value": 5.77
   }
  ],
  "premiumPercentiles": {
@@ -2527,11 +2527,11 @@
   "p80": 16.23
  },
  "sourceTimes": {
-  "world": "2026-09-14T00:53:37.000Z",
-  "dxy": "2026-09-14T00:53:47.000Z",
+  "world": "2026-09-14T01:01:56.000Z",
+  "dxy": "2026-09-14T01:01:58.000Z",
   "yield10y": "2026-09-11T12:20:00.000Z",
-  "vnGold": "2026-09-14T01:04:48.959Z",
-  "usdVnd": "2026-09-14T01:04:48.959Z",
+  "vnGold": "2026-09-14T01:13:00.746Z",
+  "usdVnd": "2026-09-14T01:13:00.746Z",
   "fed": null
  }
 }
