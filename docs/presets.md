@@ -125,9 +125,9 @@ Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằn
 
 | Preset | Trọng số (KT / TK / MOM / DXY / FED / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) | Cụm độc lập (train/test) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **80,8%** (n=104) | **89,1%** (n=64) | 51,1% / 59,7% | +4,1% | **5 / 6** |
-| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,9%** (n=135) | **99,1%** (n=108) | 54,6% / 67,9% | +7,6% | **6 / 7** |
-| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **66,6%** (n=332) | **98,3%** (n=292) | 55,8% / 77,4% | +13,5% | **5 / 4** |
+| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **80,8%** (n=104) | **89,1%** (n=64) | 51,1% / 59,6% | +4,1% | **15 / 10** |
+| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,9%** (n=135) | **99,1%** (n=108) | 54,6% / 67,9% | +7,6% | **11 / 12** |
+| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **66,6%** (n=332) | **98,3%** (n=292) | 55,8% / 77,4% | +13,5% | **15 / 12** |
 
 > Bảng trên là số **sau khi sửa look-ahead FEDFUNDS (2026-09-14)** — xem section riêng bên dưới. Cột cuối là số **cụm độc lập** (hai tín hiệu cách nhau < H phiên = cùng một cụm): đây mới là n dùng để đọc độ tin cậy, KHÔNG phải n ngày. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
 
@@ -188,11 +188,17 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 
 ## Giới hạn — đọc kỹ trước khi tin con số
 
-1. **Tín hiệu bắn chùm — đã ĐO, không còn là cảnh báo định tính (2026-09-14).** Số **đợt độc lập** (hai tín hiệu cách nhau < H phiên = cùng một đợt, `countClusters` trong `scripts/study-lib.ts`): **1m 5/6, 3m 6/7, 6m 5/4** (train/test). So với n NGÀY trên bảng (104/64, 135/108, 332/292) thì cỡ mẫu thật nhỏ hơn **20–70 lần**. Con số 98,3% của preset 6 tháng về bản chất là "**4 đợt** nới lỏng tiền tệ 2019–2026 hầu hết trúng" — không phải 292 lần cá cược độc lập.
+1. **Tín hiệu bắn chùm — đã ĐO, không còn là cảnh báo định tính (2026-09-14).** Số **đợt độc lập** = số khối H phiên KHÔNG chồng lấn có ít nhất một tín hiệu (`countClusters`/`clusterRanges`): **1m 15/10, 3m 11/12, 6m 15/12** (train/test). So với n NGÀY trên bảng (104/64, 135/108, 332/292) thì cỡ mẫu thật nhỏ hơn **6–25 lần**. Con số 98,3% của preset 6 tháng về bản chất là "**12 đợt** vĩ mô thuận 2019–2026 hầu hết trúng" — không phải 292 lần cá cược độc lập.
 
    Con số 12/18/29 lưu hành trước đây sai ở hai chỗ: gộp cả hai giai đoạn thành một số, và dùng một ngưỡng gap>21 phiên cho MỌI kỳ hạn (ở H=126, hai tín hiệu cách 22 phiên vẫn chia nhau 82% cửa sổ tương lai — không hề độc lập).
 
-   `monitor-presets.ts` nay ghi `trainClusters`/`testClusters` vào `preset-health.json` và UI hiển thị "n đợt độc lập" cạnh %; **CI cũng đã sửa**: bootstrap theo KHỐI LỊCH (`calendarBlockBootstrapCi`) thay vì theo mảng đã lọc. Bản cũ truyền `hit(test)` — chỉ gồm các ngày trúng, nên khoảng cách lịch giữa chúng biến mất: hai ngày trúng cách nhau 3 năm bị coi là liền kề, còn một chùm 40 ngày liên tiếp được đếm thành 40 quan sát độc lập. CI vì thế hẹp giả đúng ở chỗ nó phải phản ánh, trong khi UI lại ghi "đã tính tín hiệu bắn chùm". Khóa bằng `tests/calendar-bootstrap.test.ts` (chuỗi tổng hợp 2 chùm trái dấu: bản cũ cho CI hẹp quanh 50%, bản mới nới ra tới cả hai cực).
+   **Cảnh báo phương pháp (đo được, đừng lặp lại).** Bản đầu của `countClusters` dùng luật "gộp các tín hiệu cách nhau < H" — luật đó có **hiệu ứng dây chuyền**: một chuỗi rải đều, mỗi tín hiệu cách nhau H−1 phiên, nối thành MỘT cụm duy nhất dù trải nhiều năm (bin 2 của tầng cycle: 1982 ngày trải 17 năm → 1 cụm, trong khi lưới khối cho 34). Vì vậy dùng **lưới khối cố định** (mốc 0 = tín hiệu đầu tiên), không gộp-theo-gap.
+
+   `monitor-presets.ts` nay ghi `trainClusters`/`testClusters` vào `preset-health.json`, UI hiển thị "n đợt độc lập" cạnh %, và **CI đã sửa**: bootstrap theo CỤM (`clusterBootstrapCiWeighted`) thay vì theo mảng đã lọc. Bản cũ truyền `hit(test)` — chỉ gồm các ngày trúng, nên khoảng cách lịch giữa chúng biến mất: hai ngày trúng cách nhau 3 năm bị coi là liền kề, còn một chùm 40 ngày liên tiếp được đếm thành 40 quan sát độc lập. CI vì thế hẹp giả đúng ở chỗ nó phải phản ánh, trong khi UI lại ghi "đã tính tín hiệu bắn chùm".
+
+   Tác động lên CI95 test (cũ → mới): **1m 75–98,4% → 63,9–98,2%**, 3m 97,2–100% → 95,8–100%, 6m 95,2–100% → 93,7–100%. Bottom Hunter dùng cùng hàm (bản có trọng số recency): cycle 33,2–66,6% → 38,8–65,8%, swing 39,2–62,8% → 39,4–63,1%.
+
+   Khóa bằng `tests/calendar-bootstrap.test.ts`: chuỗi tổng hợp bắn chùm trái dấu (bản mới cho CI rộng hơn bản cũ), chuỗi rải đều (CI hẹp, gần như không đổi), chuỗi chỉ 2 cụm (bản cũ vẫn in ra một khoảng tự tin, bản mới trả `null` = "không đo được"), và test chống hiệu ứng dây chuyền.
 2. **Chỉ 2 giai đoạn kiểm chứng.** Bộ lọc min-excess giảm rủi ro overfit nhưng không diệt được — việc chọn cấu hình có nhìn kết quả test (selection bias nhẹ). Con số % nên đọc là **ước lượng lạc quan**; kỳ vọng thực tế thấp hơn vài điểm.
 3. **Backtest trên XAU/USD, bạn mua vàng VN.** Tương quan cao nhưng chênh lệch SJC co giãn. Lịch sử SJC đã backfill 487 ngày từ CafeF (02/2025→nay, `scripts/backfill-vn.ts`) — đủ để tiêu chí chênh lệch chạy **percentile thật** trong phân tích live (phân phối: p20=11%, trung vị 14%, p80=16,6%), nhưng vẫn chỉ phủ giai đoạn test nên **chưa đủ điều kiện 2 giai đoạn để vào preset**. Premium giữ 0% trong preset cho tới khi dữ liệu phủ nhiều chế độ thị trường hơn (≥ vài năm).
 4. **Tín hiệu BÁN composite gần như vô giá trị — và NGƯỢC ở kỳ hạn dài.** Tỉ lệ bán đúng: 49% (1 tháng), 43% (3 tháng), 32% (6 tháng), 25% (12 tháng). Tệ hơn: trung vị lợi suất *sau* tín hiệu bán ở 6 tháng là **+9,5%** — cao hơn cả ngày trung lập (+4,6%), vì vùng bán nổ lúc quá mua giữa sóng tăng có quán tính. UI vì vậy chỉ chấm đúng/sai tín hiệu bán ở 1 tháng; 3–6 tháng ghi "không chấm".

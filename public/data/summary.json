@@ -1,26 +1,26 @@
 {
  "schemaVersion": "1.3",
- "generatedAt": "2026-09-14T15:01:21.898Z",
+ "generatedAt": "2026-09-14T15:25:06.301Z",
  "dataDate": "2026-09-14",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4326.7001953125,
+  "xauUsd": 4320.7001953125,
   "sjcBuy": 142600000,
   "sjcSell": 145600000,
   "ringBuy": 142800000,
   "ringSell": 146800000,
   "ringDate": null,
   "usdVnd": 26180,
-  "worldVndPerLuong": 136567945,
-  "vnPremiumPct": 6.61,
-  "vnPremiumVnd": 9032055,
+  "worldVndPerLuong": 136378561,
+  "vnPremiumPct": 6.76,
+  "vnPremiumVnd": 9221439,
   "changes": {
    "prevDate": "2026-09-13",
-   "xauUsd": -82.2,
+   "xauUsd": -88.2,
    "sjcSell": -400000,
    "ringSell": -100000,
-   "vnPremiumPct": 1.42
+   "vnPremiumPct": 1.57
   }
  },
  "changed": {
@@ -35,8 +35,8 @@
    "bin": 2,
    "prob": 54.8,
    "ci": [
-    33.2,
-    66.6
+    38.8,
+    65.8
    ],
    "probUnweighted": 40.1,
    "n": 626
@@ -45,8 +45,8 @@
    "bin": 2,
    "prob": 51.7,
    "ci": [
-    39.2,
-    62.8
+    39.4,
+    63.1
    ],
    "probUnweighted": 44.8,
    "n": 643
@@ -102,7 +102,7 @@
   },
   "premiumGate": {
    "blocksBuying": false,
-   "premiumPct": 6.61,
+   "premiumPct": 6.76,
    "premiumP80": 16.23,
    "note": "Chênh VN ≥ p80 lịch sử: người mua vàng vật chất không nên đuổi giá kể cả khi preset báo mua (cùng cổng với gợi ý hành động trên web)."
   }
@@ -110,15 +110,15 @@
  "accumulation": {
   "effectiveBuyMultiplier": 0.75,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.7143,
+  "pricePercentile2y": 0.7103,
   "bearDca": {
-   "generatedAt": "2026-09-14T12:05:29.697Z",
+   "generatedAt": "2026-09-14T15:21:36.097Z",
    "dataDate": "2026-09-14",
    "isBear": true,
-   "ddFromAth": 0.1865,
-   "ddChange": 0.0069,
+   "ddFromAth": 0.1876,
+   "ddChange": 0.0081,
    "phase": "grind",
-   "pricePct2y": 0.7143,
+   "pricePct2y": 0.7103,
    "mult": 0.75,
    "recoveryRisk": false,
    "note": "Bear rỉ máu. Giá ở percentile 71% của 2 năm gần — dùng vị trí giá để tính khối lượng."
@@ -143,7 +143,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-09-14T15:01:20.857Z",
+   "generatedAt": "2026-09-14T15:22:37.522Z",
    "items": [
     {
      "presetId": "1m",
@@ -152,11 +152,11 @@
      "recentBaselinePct": 67.3,
      "recentN": 28,
      "testFavCi95": [
-      75,
-      98.4
+      63.9,
+      98.2
      ],
-     "trainClusters": 5,
-     "testClusters": 6,
+     "trainClusters": 15,
+     "testClusters": 10,
      "status": "ok"
     },
     {
@@ -166,11 +166,11 @@
      "recentBaselinePct": 79.2,
      "recentN": 55,
      "testFavCi95": [
-      97.2,
+      95.8,
       100
      ],
-     "trainClusters": 6,
-     "testClusters": 7,
+     "trainClusters": 11,
+     "testClusters": 12,
      "status": "ok"
     },
     {
@@ -180,17 +180,17 @@
      "recentBaselinePct": 87.7,
      "recentN": 100,
      "testFavCi95": [
-      95.2,
+      93.7,
       100
      ],
-     "trainClusters": 5,
-     "testClusters": 4,
+     "trainClusters": 15,
+     "testClusters": 12,
      "status": "ok"
     }
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-09-14T12:06:27.179Z",
+   "generatedAt": "2026-09-14T15:22:35.959Z",
    "items": [
     {
      "tier": "cycle",
@@ -209,20 +209,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-09-14T12:05:29.697Z",
+   "generatedAt": "2026-09-14T15:21:36.096Z",
    "recentImprPct": -2.6,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-09-14T12:05:36.440Z",
+   "generatedAt": "2026-09-14T15:21:43.188Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 4,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-09-14T12:09:04.818Z",
+   "generatedAt": "2026-09-14T15:25:05.257Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -243,9 +243,9 @@
  "sourceFreshness": {
   "world": "2026-09-14T04:00:00.000Z",
   "dxy": "2026-09-14T04:00:00.000Z",
-  "yield10y": "2026-09-11T12:20:00.000Z",
-  "vnGold": "2026-09-14T12:03:51.658Z",
-  "usdVnd": "2026-09-14T12:03:51.658Z",
-  "fed": "2026-09-14T12:03:51.658Z"
+  "yield10y": "2026-09-14T12:20:00.000Z",
+  "vnGold": "2026-09-14T15:19:57.186Z",
+  "usdVnd": "2026-09-14T15:19:57.186Z",
+  "fed": "2026-09-14T15:19:57.186Z"
  }
 }
