@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-13T23:16:00.104Z",
- "dataDate": "2026-09-13",
+ "generatedAt": "2026-09-14T01:07:01.770Z",
+ "dataDate": "2026-09-14",
  "cycle": {
   "prob": 59.1,
   "ci": [
@@ -23,7 +23,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": -1,
-    "explanation": "XAU thay đổi +4% trong 3 tháng: đang tăng nóng.",
+    "explanation": "XAU thay đổi +3,9% trong 3 tháng: đang tăng nóng.",
     "available": true
    },
    {
@@ -37,7 +37,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -26,49: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -26,53: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -92,7 +92,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": -1,
-    "explanation": "XAU thay đổi +4% trong 3 tháng: đang tăng nóng.",
+    "explanation": "XAU thay đổi +3,9% trong 3 tháng: đang tăng nóng.",
     "available": true
    },
    {
@@ -106,7 +106,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -26,49: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -26,53: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -22458,7 +22458,7 @@
    "swingBin": 2
   },
   {
-   "date": "2026-09-13",
+   "date": "2026-09-14",
    "cycleBin": 2,
    "swingBin": 2
   }
@@ -54775,7 +54775,7 @@
    }
   },
   {
-   "date": "2026-09-13",
+   "date": "2026-09-14",
    "cycle": {
     "bin": 2,
     "prob": 59.1,
