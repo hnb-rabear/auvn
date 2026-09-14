@@ -1,22 +1,11 @@
 {
- "generatedAt": "2026-09-14T01:14:54.746Z",
+ "generatedAt": "2026-09-14T06:27:41.741Z",
  "dataDate": "2026-09-14",
- "pricePct2y": 0.7559523809523809,
- "mult": 0.25,
- "brakes": [
-  {
-   "id": "price-top",
-   "label": "Giá đỉnh vùng 2 năm",
-   "explanation": "Giá đang ở percentile 76% của dải 2 năm (> 75%): vùng đắt — ghìm mua ×0.25."
-  }
- ],
+ "pricePct2y": 0.748015873015873,
+ "mult": 1,
+ "brakes": [],
  "provisional": false,
  "history": [
-  {
-   "date": "2009-09-15",
-   "pricePct2y": null,
-   "mult": 1
-  },
   {
    "date": "2009-09-16",
    "pricePct2y": null,
@@ -2534,8 +2523,8 @@
   },
   {
    "date": "2011-09-14",
-   "pricePct2y": 0.9781746031746031,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-09-15",
@@ -21379,8 +21368,8 @@
   },
   {
    "date": "2026-09-14",
-   "pricePct2y": 0.7559523809523809,
-   "mult": 0.25
+   "pricePct2y": 0.748015873015873,
+   "mult": 1
   }
  ],
  "note": "Phanh DCA chống mua đỉnh: ghìm khi giá đắt so dải 2 năm. Lan can chống FOMO, không phải máy đẻ vàng."
