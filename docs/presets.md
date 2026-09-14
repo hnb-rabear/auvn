@@ -186,6 +186,8 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
 
 **Động lượng 12 tháng cải thiện tín hiệu 1m đáng kể (+5,5pt min-excess).** Khi macro thuận lợi nhưng XAU chưa trending lên (mom12m ≤ 0), tín hiệu mua thường đến sớm — trend confirmation giúp lọc false positive. Không cải thiện 3m/6m: macro đủ mạnh ở kỳ hạn dài, momentum trở nên redundant.
 
+**Nhưng bản thân QUY TRÌNH tuyển chọn không tổng quát hóa qua chế độ thị trường (2026-09-14).** `scripts/preset-walkforward-study.ts` cho thấy cấu hình thắng ổn định suốt nhiều năm rồi **nhảy hẳn sang họ khác** đúng lúc chế độ đổi — 1m: `FED:0.6` suốt 2013–2019 → `KT:0.4 MOM:0.4 YLD:0.2` từ 2020; 6m: YLD-nặng 2014–15 → thêm MOM 2016–2020 → `FED:0.4 YLD:0.4` từ 2021. Nghĩa là hai phát hiện ở trên mô tả đúng chế độ ĐÃ QUA, không bảo đảm cho chế độ tới. Chi tiết + bảng số ở Giới hạn #2.
+
 ## Giới hạn — đọc kỹ trước khi tin con số
 
 1. **Tín hiệu bắn chùm — đã ĐO, không còn là cảnh báo định tính (2026-09-14).** Số **đợt độc lập** = số khối H phiên KHÔNG chồng lấn có ít nhất một tín hiệu (`countClusters`/`clusterRanges`): **1m 15/10, 3m 11/12, 6m 15/12** (train/test). So với n NGÀY trên bảng (104/64, 135/108, 332/292) thì cỡ mẫu thật nhỏ hơn **6–25 lần**. Con số 98,3% của preset 6 tháng về bản chất là "**12 đợt** vĩ mô thuận 2019–2026 hầu hết trúng" — không phải 292 lần cá cược độc lập.
@@ -199,7 +201,21 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
    Tác động lên CI95 test (cũ → mới): **1m 75–98,4% → 63,9–98,2%**, 3m 97,2–100% → 95,8–100%, 6m 95,2–100% → 93,7–100%. Bottom Hunter dùng cùng hàm (bản có trọng số recency): cycle 33,2–66,6% → 38,8–65,8%, swing 39,2–62,8% → 39,4–63,1%.
 
    Khóa bằng `tests/calendar-bootstrap.test.ts`: chuỗi tổng hợp bắn chùm trái dấu (bản mới cho CI rộng hơn bản cũ), chuỗi rải đều (CI hẹp, gần như không đổi), chuỗi chỉ 2 cụm (bản cũ vẫn in ra một khoảng tự tin, bản mới trả `null` = "không đo được"), và test chống hiệu ứng dây chuyền.
-2. **Chỉ 2 giai đoạn kiểm chứng.** Bộ lọc min-excess giảm rủi ro overfit nhưng không diệt được — việc chọn cấu hình có nhìn kết quả test (selection bias nhẹ). Con số % nên đọc là **ước lượng lạc quan**; kỳ vọng thực tế thấp hơn vài điểm.
+2. **Selection bias — ĐÃ ĐO 2026-09-14, và nó LỚN, không "nhẹ" như ghi trước đây.** Bộ lọc min-excess giảm rủi ro overfit nhưng không diệt được: cấu hình v4/v4.1 được chọn bằng grid chạy trên TOÀN BỘ lịch sử, với luật chọn ghi thẳng trong `types.ts` là "ưu tiên cấu hình bắn được 2023" — tức có nhìn kết quả test lúc chọn. `scripts/preset-walkforward-study.ts` mô phỏng việc tuyển chọn TRUNG THỰC (mỗi năm Y: chọn cấu hình tốt nhất trên dữ liệu ≤ Y, nhãn đã purge chống rò, rồi chấm trên năm Y+1 chưa từng thấy) — kết quả gộp qua mọi fold:
+
+   | Preset | Walk-forward (tuyển past-only) | PRESETS đang ship | Placebo (cấu hình ngẫu nhiên) |
+   | --- | --- | --- | --- |
+   | 1m | **+11,3pt** (17 đợt độc lập) | +26,2pt | +5,5pt |
+   | 3m | **−7,0pt** (7 đợt) | +33,8pt | −0,6pt |
+   | 6m | **−8,0pt** (8 đợt) | +18,1pt | +8,8pt |
+
+   Đọc cho đúng: **con số đang công bố (+26/+34/+18pt) là ước lượng LẠC QUAN của một quy trình tuyển chọn có nhìn test.** Khi tuyển chọn trung thực, chỉ 1 tháng còn giữ được lợi thế (+11,3pt, gấp đôi placebo); 3 và 6 tháng ra ÂM và **thua cả placebo** — nghĩa là ở hai kỳ hạn đó, "chạy grid trên quá khứ rồi dùng cho năm sau" không tạo được giá trị nào.
+
+   Nguyên nhân nhìn thấy ngay trong cột cấu hình-thắng-mỗi-fold: winner ổn định suốt một giai đoạn dài rồi **nhảy hẳn sang họ khác** khi chế độ thị trường đổi (1m: `KT:0.2 MOM:0.2 FED:0.6` suốt 2013–2019 → `KT:0.4 MOM:0.4 YLD:0.2` từ 2020; 3m: YLD-nặng → FED-nặng sau 2022). Grid-search bám chế độ vừa qua và không tổng quát sang chế độ kế — cùng bài học "chế độ không biết trước" đã gặp ở sell-zone và ở day-1 DCA trong bear.
+
+   **KHÔNG đổi engine vì kết quả này**, vì chính việc "tuyển lại cho đẹp" là thứ tạo ra bias: mọi vòng grid mới đều chạy trên cùng dữ liệu đã khai thác nhiều lần. Việc phải làm là **hạ mức tin vào con số**, không phải thay số. Số fold cũng không phải số mẫu độc lập (7–17 đợt/preset) nên bảng trên đọc theo HƯỚNG và ĐỘ LỚN, không phải một ước lượng điểm.
+
+   Đã ship kèm: Dashboard in thêm một dòng cảnh báo ngay cạnh mọi % preset ("cấu hình này được chọn sau khi đã nhìn toàn bộ lịch sử… lợi thế thật đo được là +11pt ở 1 tháng và âm ở 3/6 tháng"). Tái lập: `npx tsx scripts/preset-walkforward-study.ts` (offline, chỉ đọc `timeline.json`; lưới bước 0,2 thay 0,1 để chạy được 16 fold — bước thô hơn lưới tuyển chọn gốc, nên bảng này là cận TRÊN lạc quan của walk-forward, không phải cận dưới).
 3. **Backtest trên XAU/USD, bạn mua vàng VN.** Tương quan cao nhưng chênh lệch SJC co giãn. Lịch sử SJC đã backfill 487 ngày từ CafeF (02/2025→nay, `scripts/backfill-vn.ts`) — đủ để tiêu chí chênh lệch chạy **percentile thật** trong phân tích live (phân phối: p20=11%, trung vị 14%, p80=16,6%), nhưng vẫn chỉ phủ giai đoạn test nên **chưa đủ điều kiện 2 giai đoạn để vào preset**. Premium giữ 0% trong preset cho tới khi dữ liệu phủ nhiều chế độ thị trường hơn (≥ vài năm).
 4. **Tín hiệu BÁN composite gần như vô giá trị — và NGƯỢC ở kỳ hạn dài.** Tỉ lệ bán đúng: 49% (1 tháng), 43% (3 tháng), 32% (6 tháng), 25% (12 tháng). Tệ hơn: trung vị lợi suất *sau* tín hiệu bán ở 6 tháng là **+9,5%** — cao hơn cả ngày trung lập (+4,6%), vì vùng bán nổ lúc quá mua giữa sóng tăng có quán tính. UI vì vậy chỉ chấm đúng/sai tín hiệu bán ở 1 tháng; 3–6 tháng ghi "không chấm".
 

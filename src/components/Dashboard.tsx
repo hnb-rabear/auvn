@@ -68,6 +68,20 @@ const fmtDayMonth = (iso: string | null | undefined) => {
  * spread, không phí) — người mua SJC nhận ít hơn. Dùng số VN đo thật thay vì nói suông
  * (VN_ROUND_TRIP, `npx tsx scripts/vn-net-return.ts`).
  */
+/**
+ * Cảnh báo selection bias — đo được, không phải phòng thủ chung chung.
+ * scripts/preset-walkforward-study.ts: tuyển chọn trung thực (chỉ dùng dữ liệu trước năm
+ * đang chấm) cho +11,3 / −7,0 / −8,0pt ở 1m/3m/6m, so với +26,2 / +33,8 / +18,1pt của
+ * cấu hình đang ship. Người đọc thấy con số to phải biết nó lạc quan tới mức nào.
+ */
+const selectionNote = (
+  <i className="muted">
+    {" "}Lưu ý: cấu hình này được chọn sau khi đã nhìn toàn bộ lịch sử, nên % trên là{" "}
+    <b>ước lượng lạc quan</b>. Khi thử chọn cấu hình chỉ bằng dữ liệu quá khứ rồi áp cho năm
+    kế tiếp, lợi thế thật đo được là +11pt (1 tháng) và <b>âm</b> ở 3 / 6 tháng.
+  </i>
+);
+
 const grossNote = (
   <i className="muted">
     Các % trên đo bằng giá XAU/USD thế giới — <b>chưa trừ spread</b> mua-bán của SJC.
@@ -701,6 +715,7 @@ export default function Dashboard({
                   .
                 </>
               )}
+              {selectionNote}
               {" "}
               {grossNote}
             </div>
@@ -735,6 +750,7 @@ export default function Dashboard({
                   </div>
                 );
               })}
+              <div>{selectionNote}</div>
               {grossNote}
             </div>
           ) : bt63 && bt63.pctFavorable !== null ? (
