@@ -68,6 +68,20 @@ const fmtDayMonth = (iso: string | null | undefined) => {
  * spread, không phí) — người mua SJC nhận ít hơn. Dùng số VN đo thật thay vì nói suông
  * (VN_ROUND_TRIP, `npx tsx scripts/vn-net-return.ts`).
  */
+/**
+ * Cảnh báo selection bias — đo được, không phải phòng thủ chung chung.
+ * scripts/preset-walkforward-study.ts: tuyển chọn trung thực (chỉ dùng dữ liệu trước năm
+ * đang chấm) cho +11,3 / −7,0 / −8,0pt ở 1m/3m/6m, so với +26,2 / +33,8 / +18,1pt của
+ * cấu hình đang ship. Người đọc thấy con số to phải biết nó lạc quan tới mức nào.
+ */
+const selectionNote = (
+  <i className="muted">
+    {" "}Lưu ý: cấu hình này được chọn sau khi đã nhìn toàn bộ lịch sử, nên % trên là{" "}
+    <b>ước lượng lạc quan</b>. Khi thử chọn cấu hình chỉ bằng dữ liệu quá khứ rồi áp cho năm
+    kế tiếp, lợi thế thật đo được là +11pt (1 tháng) và <b>âm</b> ở 3 / 6 tháng.
+  </i>
+);
+
 const grossNote = (
   <i className="muted">
     Các % trên đo bằng giá XAU/USD thế giới — <b>chưa trừ spread</b> mua-bán của SJC.
@@ -681,18 +695,27 @@ export default function Dashboard({
           ) : preset ? (
             <div className="verdict-bt">
               Kiểm chứng preset ({preset.horizonDays === 21 ? "1 tháng" : preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}):
-              tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018 (n={preset.evidence.trainN})
-              và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026 (n={preset.evidence.testN}),
+              tín hiệu mua đúng <b>{fmtNum(preset.evidence.trainFav)}%</b> giai đoạn 2009–2018
+              và <b>{fmtNum(preset.evidence.testFav)}%</b> giai đoạn 2019–2026,
               so với mua ngày bất kỳ {fmtNum(preset.evidence.trainBaseline)}% / {fmtNum(preset.evidence.testBaseline)}%.
+              {presetHealth && presetHealth.testClusters > 0 && (
+                <>
+                  {" "}Tính trên <b>{presetHealth.trainClusters}</b> và{" "}
+                  <b>{presetHealth.testClusters}</b> đợt tín hiệu độc lập (các ngày báo mua
+                  liền nhau thuộc cùng một đợt, nên số đợt mới là cỡ mẫu thật — không phải
+                  số ngày {preset.evidence.trainN}/{preset.evidence.testN}).
+                </>
+              )}
               {presetHealth?.testFavCi95 && (
                 <>
-                  {" "}Khoảng tin cậy 95% (bootstrap, đã tính tín hiệu bắn chùm):{" "}
+                  {" "}Khoảng tin cậy 95% (bootstrap theo khối lịch, đã tính tín hiệu bắn chùm):{" "}
                   <b>
                     {fmtNum(presetHealth.testFavCi95[0])}–{fmtNum(presetHealth.testFavCi95[1])}%
                   </b>
                   .
                 </>
               )}
+              {selectionNote}
               {" "}
               {grossNote}
             </div>
@@ -704,7 +727,8 @@ export default function Dashboard({
                 cũ 35/25/20/20 bắn 0 tín hiệu mua suốt 2019–2026 nên không còn là trục hành động.
               </div>
               {presetSigs.map((s) => {
-                const ci = health.items.find((i) => i.presetId === s.preset.id)?.testFavCi95;
+                const item = health.items.find((i) => i.presetId === s.preset.id);
+                const ci = item?.testFavCi95;
                 return (
                   <div key={s.preset.id} className={s.isBuy ? "" : "muted"}>
                     {s.isBuy ? "●" : "○"} <b>{s.preset.label}</b>: điểm{" "}
@@ -712,7 +736,11 @@ export default function Dashboard({
                     {fmtNum(s.composite)} / ngưỡng +{s.preset.buyThreshold} —{" "}
                     {s.isBuy ? "ĐANG BÁO MUA" : "chưa báo mua"}; đúng{" "}
                     {fmtNum(s.preset.evidence.trainFav)}% / {fmtNum(s.preset.evidence.testFav)}%
-                    (2 giai đoạn)
+                    (2 giai đoạn
+                    {item && item.testClusters > 0
+                      ? `, ${item.trainClusters}/${item.testClusters} đợt độc lập`
+                      : ""}
+                    )
                     {ci && (
                       <>
                         , CI 95% {fmtNum(ci[0])}–{fmtNum(ci[1])}%
@@ -722,6 +750,7 @@ export default function Dashboard({
                   </div>
                 );
               })}
+              <div>{selectionNote}</div>
               {grossNote}
             </div>
           ) : bt63 && bt63.pctFavorable !== null ? (

@@ -104,9 +104,9 @@ function createMockInput(overrides?: Partial<BuildSummaryInput>): BuildSummaryIn
   const mockPresetHealth: PresetHealthFile = {
     generatedAt: "2026-09-05T01:00:00.000Z",
     items: [
-      { presetId: "1m", minExcessNowPt: 29.4, recentFavPct: 100, recentBaselinePct: 68, recentN: 32, testFavCi95: [75, 98], status: "ok" },
-      { presetId: "3m", minExcessNowPt: 31.2, recentFavPct: 98, recentBaselinePct: 79, recentN: 44, testFavCi95: [97, 100], status: "ok" },
-      { presetId: "6m", minExcessNowPt: 20.9, recentFavPct: 100, recentBaselinePct: 89, recentN: 86, testFavCi95: [100, 100], status: "ok" },
+      { presetId: "1m", minExcessNowPt: 29.4, recentFavPct: 100, recentBaselinePct: 68, recentN: 32, testFavCi95: [75, 98], trainClusters: 5, testClusters: 6, status: "ok" },
+      { presetId: "3m", minExcessNowPt: 31.2, recentFavPct: 98, recentBaselinePct: 79, recentN: 44, testFavCi95: [97, 100], trainClusters: 6, testClusters: 7, status: "ok" },
+      { presetId: "6m", minExcessNowPt: 10.7, recentFavPct: 100, recentBaselinePct: 89, recentN: 86, testFavCi95: [95, 100], trainClusters: 5, testClusters: 4, status: "ok" },
     ],
   };
 

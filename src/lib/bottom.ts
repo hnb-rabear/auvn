@@ -1,6 +1,6 @@
 /** Engine xác suất đáy (Bottom Hunter). Dùng chung với scripts/bottom-study.ts. */
 
-import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, weightedBlockBootstrapCi } from "./indicators";
+import { sma, rsi, macd, drawdownFromPeak, declineSpeedPct, bullishRsiDivergence, clusterBootstrapCiWeighted } from "./indicators";
 import type { BottomCalibrationBucket } from "./types";
 import type { BottomDriver } from "./types";
 import { BOTTOM_CONFIG, type BottomAnalysis, type BottomTierResult, type ConfirmedBottom, type BottomTierConfig, type BottomSignalRow, type BottomHistoryRow } from "./types";
@@ -264,7 +264,17 @@ function buildTier(
   const ages = labeled.map((r) => lastI - r.i);
   const n = labeled.length;
   const { prob, probUw: probUnweighted, ess, weights } = weightedStats(favArr, ages, hl);
-  const ci = weightedBlockBootstrapCi(favArr, weights, Math.max(1, Math.round(cfg.horizonDays / 3)));
+  // CI theo KHỐI LỊCH: truyền vị trí thật r.i của từng quan sát. Bản cũ nhận favArr —
+  // mảng đã lọc theo bin — nên hai ngày cùng bin cách nhau nhiều năm bị coi là liền kề,
+  // còn một chùm oversold vài tuần bị đếm thành ngần ấy quan sát độc lập ⇒ CI hẹp giả.
+  // Khối = H phiên: đúng độ dài cửa sổ near-bottom mà hai quan sát phải cách nhau mới
+  // thật sự độc lập.
+  const ci = clusterBootstrapCiWeighted(
+    favArr,
+    weights,
+    labeled.map((r) => r.i),
+    cfg.horizonDays
+  );
 
   // --- Walk-forward: tại mỗi nút lưới g, base-rate chỉ trên ngày đã ĐÁO HẠN nhãn
   // trước g (e.i + H <= g.i) và cùng bin với g, trọng số recency theo tuổi TÍNH TỪ g.
@@ -293,7 +303,7 @@ function buildTier(
       const st = weightedStats(arr.map((x) => x.pm), arr.map((x) => g.i - x.i), hl);
       history.push({
         date: g.date, bin: g.bin, prob: st.prob,
-        ci: weightedBlockBootstrapCi(arr.map((x) => x.pm), st.weights, Math.max(1, Math.round(H / 3))),
+        ci: clusterBootstrapCiWeighted(arr.map((x) => x.pm), st.weights, arr.map((x) => x.i), H),
         probUnweighted: st.probUw, n: nn,
       });
       if (g.label !== null) {

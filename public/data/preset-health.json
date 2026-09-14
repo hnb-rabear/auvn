@@ -1,40 +1,46 @@
 {
- "generatedAt": "2026-09-14T06:29:04.490Z",
+ "generatedAt": "2026-09-14T15:37:48.845Z",
  "items": [
   {
    "presetId": "1m",
-   "minExcessNowPt": 29.4,
+   "minExcessNowPt": 29.5,
    "recentFavPct": 100,
-   "recentBaselinePct": 67.5,
+   "recentBaselinePct": 67.3,
    "recentN": 28,
    "testFavCi95": [
-    75,
-    98.4
+    63.9,
+    98.2
    ],
+   "trainClusters": 15,
+   "testClusters": 10,
    "status": "ok"
   },
   {
    "presetId": "3m",
    "minExcessNowPt": 31.2,
-   "recentFavPct": 97.7,
+   "recentFavPct": 100,
    "recentBaselinePct": 79.2,
-   "recentN": 44,
+   "recentN": 55,
    "testFavCi95": [
-    97.1,
+    95.8,
     100
    ],
+   "trainClusters": 11,
+   "testClusters": 12,
    "status": "ok"
   },
   {
    "presetId": "6m",
-   "minExcessNowPt": 20.4,
-   "recentFavPct": 100,
+   "minExcessNowPt": 10.7,
+   "recentFavPct": 99,
    "recentBaselinePct": 87.7,
-   "recentN": 86,
+   "recentN": 100,
    "testFavCi95": [
-    100,
+    93.7,
     100
    ],
+   "trainClusters": 15,
+   "testClusters": 12,
    "status": "ok"
   }
  ]

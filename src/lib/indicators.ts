@@ -251,6 +251,98 @@ export function weightedBlockBootstrapCi(
   return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
 }
 
+/**
+ * Chia quan sát thành CỤM ĐỘC LẬP: cắt trục phiên thành các khối `blockSessions` phiên
+ * KHÔNG chồng lấn (mốc 0 = quan sát đầu tiên), mỗi khối có quan sát là một cụm. Trả
+ * mảng [đầu, cuối) chỉ số vào `idxs`; `idxs` phải tăng dần.
+ *
+ * Vì sao cắt lưới cố định chứ không "gộp các quan sát cách nhau < H": luật gộp-theo-gap
+ * có hiệu ứng DÂY CHUYỀN — một chuỗi quan sát rải đều, mỗi cái cách nhau H−1 phiên, sẽ
+ * nối thành MỘT cụm duy nhất dù trải qua nhiều năm (đo được: bin 2 của tầng cycle có
+ * 1982 ngày trải 17 năm gộp thành 1 cụm, trong khi lưới khối cho 34). Lưới cố định
+ * chặn đứng dây chuyền: hai quan sát cách ≥ H luôn rơi vào hai khối khác nhau.
+ */
+export function clusterRanges(idxs: number[], blockSessions: number): [number, number][] {
+  if (!idxs.length) return [];
+  const b = Math.max(1, blockSessions);
+  const base = idxs[0];
+  const out: [number, number][] = [];
+  let start = 0;
+  let curBlock = 0;
+  for (let k = 0; k < idxs.length; k++) {
+    const blk = Math.floor((idxs[k] - base) / b);
+    if (k === 0) curBlock = blk;
+    else if (blk !== curBlock) {
+      out.push([start, k]);
+      start = k;
+      curBlock = blk;
+    }
+  }
+  out.push([start, idxs.length]);
+  return out;
+}
+
+/**
+ * CI 95% cho tỉ lệ thuận chiều khi dữ liệu BẮN CHÙM — bootstrap theo CỤM (có trọng số).
+ *
+ * Vì sao không dùng `blockBootstrapCi`/`weightedBlockBootstrapCi`: hai hàm đó nhận mảng
+ * ĐÃ LỌC (chỉ các ngày trúng tín hiệu), nên khoảng cách lịch giữa chúng biến mất — hai
+ * quan sát cách nhau 3 năm nằm kề nhau trong mảng và bị coi là liền kề, còn một chùm 40
+ * ngày liên tiếp được đếm thành 40 quan sát độc lập. CI vì thế hẹp giả đúng ở chỗ nó
+ * phải phản ánh (pseudo-replication).
+ *
+ * Ở đây đơn vị lấy mẫu là CỤM, không phải ngày: gom quan sát thành cụm bằng
+ * `clusterRanges(idxs, minGap)` rồi bốc lại ĐÚNG số cụm đó có hoàn lại, gộp toàn bộ
+ * quan sát của các cụm trúng. Số lần bốc độc lập vì thế bằng số cụm thật — khớp với
+ * `countClusters` mà tài liệu và UI công bố.
+ *
+ * (Một phương án khác — bốc cửa sổ lịch ngẫu nhiên cho tới khi đủ n quan sát — bị loại
+ * vì có bias: cửa sổ rơi vào giai đoạn câm gom được ít, vòng lặp phải bốc thêm, số lần
+ * bốc độc lập tăng lên và CI HẸP lại — đúng lỗi hàm này sinh ra để sửa.)
+ *
+ * `weights` tham gia cả tử lẫn mẫu, nên CI tính CÙNG scheme trọng số với point estimate
+ * (bài học Bear Downside: pUp từng nằm NGOÀI CI unweighted của chính nó).
+ *
+ * Trả null khi < 10 quan sát HOẶC < 3 cụm — dưới mức đó CI không mang thông tin, và
+ * báo "không đo được" trung thực hơn là in ra một khoảng bịa.
+ */
+export function clusterBootstrapCiWeighted(
+  /** nhãn ±1 (>0 = thuận chiều) */
+  values: number[],
+  /** trọng số mỗi quan sát; truyền toàn 1 nếu không có recency */
+  weights: number[],
+  /** vị trí quan sát trên trục phiên (tăng dần) */
+  idxs: number[],
+  /** khoảng cách tối thiểu để tách cụm — thường bằng số phiên của kỳ hạn */
+  minGap: number,
+  iterations = 2000,
+  seed = 20260611
+): [number, number] | null {
+  const n = values.length;
+  if (n < 10 || weights.length !== n || idxs.length !== n) return null;
+  const clusters = clusterRanges(idxs, minGap);
+  if (clusters.length < 3) return null;
+  const rand = seededRandom(seed);
+  const favs: number[] = [];
+  for (let it = 0; it < iterations; it++) {
+    let fav = 0;
+    let tw = 0;
+    for (let c = 0; c < clusters.length; c++) {
+      const [lo, hi] = clusters[Math.floor(rand() * clusters.length)];
+      for (let k = lo; k < hi; k++) {
+        if (values[k] > 0) fav += weights[k];
+        tw += weights[k];
+      }
+    }
+    if (tw > 0) favs.push(fav / tw);
+  }
+  if (favs.length < iterations * 0.5) return null;
+  favs.sort((a, c) => a - c);
+  const lo = favs[Math.floor(0.025 * (favs.length - 1))];
+  const hi = favs[Math.floor(0.975 * (favs.length - 1))];
+  return [Math.round(lo * 1000) / 10, Math.round(hi * 1000) / 10];
+}
+
 /** Bollinger %B(n,k): (P − dải dưới)/(dải trên − dải dưới). null nếu < n. Có thể ra ngoài [0,1]. */
 export function bollingerPercentB(values: number[], n = 20, k = 2): number | null {
   if (values.length < n) return null;

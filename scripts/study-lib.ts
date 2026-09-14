@@ -1,7 +1,8 @@
 /** Hàm dùng chung cho các study tuyển chọn cấu hình trên timeline. */
 import type { TimelinePoint } from "../src/lib/types";
 
-export { seededRandom, blockBootstrapCi } from "../src/lib/indicators";
+export { blockBootstrapCi, seededRandom, clusterRanges } from "../src/lib/indicators";
+import { clusterBootstrapCiWeighted, clusterRanges } from "../src/lib/indicators";
 
 export type H = "21" | "63" | "126";
 export const SPLIT_DATE = "2019-01-01";
@@ -101,6 +102,55 @@ export function gridSearch(points: TimelinePoint[], h: H): {
 
   candidates.sort((a, b) => b.minExcess - a.minExcess);
   return { baseTrain, baseTest, trainN: train.length, testN: test.length, candidates };
+}
+
+/**
+ * Số CỤM ĐỘC LẬP trong một tập tín hiệu — các tín hiệu nằm trong cùng một khối H phiên
+ * không chồng lấn chỉ tính là MỘT quan sát (cửa sổ lợi suất tương lai của chúng trùng
+ * nhau phần lớn). `idxs` là chỉ số trên lưới timeline (tăng dần), `h` = số phiên kỳ hạn.
+ *
+ * Đây mới là n để đọc độ tin cậy — n NGÀY luôn lớn hơn nhiều lần và làm CI hẹp giả.
+ * Xem `clusterRanges` về lý do dùng lưới khối cố định thay vì gộp-theo-gap.
+ */
+export function countClusters(idxs: number[], h: number): number {
+  return clusterRanges(idxs, h).length;
+}
+
+/**
+ * CI 95% cho % thuận chiều của một tập tín hiệu, bootstrap theo CỤM ĐỘC LẬP.
+ *
+ * Vì sao không dùng blockBootstrapCi trực tiếp: hàm đó nhận MẢNG ĐÃ LỌC (chỉ các ngày
+ * trúng tín hiệu) nên khoảng cách lịch giữa chúng biến mất — hai ngày trúng cách nhau
+ * 3 năm nằm cạnh nhau trong mảng và được coi là liền kề, còn một chùm 40 ngày trúng
+ * liên tiếp bị đếm thành 40 quan sát. Kết quả: CI hẹp giả ở đúng cái nó phải phản ánh.
+ *
+ * Đơn vị lấy mẫu ở đây là CỤM (hai tín hiệu cách < H phiên = cùng cụm), khớp đúng với
+ * `countClusters` mà tài liệu/UI công bố. Uỷ quyền cho `clusterBootstrapCiWeighted`
+ * với trọng số đều.
+ */
+export function calendarBlockBootstrapCi(
+  /** returns theo chỉ số timeline; null = ngày không trúng tín hiệu (hoặc chưa đáo hạn) */
+  hitReturns: (number | null)[],
+  blockSessions: number,
+  iterations = 2000,
+  seed = 20260611
+): [number, number] | null {
+  const values: number[] = [];
+  const idxs: number[] = [];
+  hitReturns.forEach((r, i) => {
+    if (r !== null) {
+      values.push(r);
+      idxs.push(i);
+    }
+  });
+  return clusterBootstrapCiWeighted(
+    values,
+    values.map(() => 1),
+    idxs,
+    blockSessions,
+    iterations,
+    seed
+  );
 }
 
 export function fmtCand(c: Candidate): string {

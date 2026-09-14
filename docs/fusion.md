@@ -71,11 +71,22 @@ Preset 3m đổi tiếp sang v4.1 (Fed nhỏ >0 thay ép 0, phủ tín hiệu r�
 
 | B train | comp train | B test | comp test | n B (tr/te) | placebo train | toàn giai đoạn |
 | --- | --- | --- | --- | --- | --- | --- |
-| **93,3%** | 88,1% | 100% | **99–100% (gần trần)** | 60/75 | **+3,3pt** | n=135 97,0% CI[91,1–100] |
+| **93,3%** | 88,9% | 100% | **99,1% (gần trần)** | 45/71 | **+2,2pt** | n=116 97,4% CI[92,2–100] |
 
-Vẫn GIỮ: train thắng composite (+5,2pt), placebo đồng-n train vẫn dương (mỏng hơn v4: +3,3pt vs
+Vẫn GIỮ: train thắng composite (+4,4pt), placebo đồng-n train vẫn dương (mỏng hơn v4: +2,2pt vs
 +11,1pt cũ — do tập composite-buy giờ rộng hơn nên "đỉnh" của nó gần lõi đáy hơn, ít khác biệt để
 đáy phân biệt). `monitor-fusion.ts` báo `status=ok` (không degraded) trên số mới.
+
+**Cập nhật 2026-09-14 — sau khi sửa look-ahead FEDFUNDS** (docs/presets.md "Sửa look-ahead
+FEDFUNDS"). Fusion 3m phái sinh từ preset 3m nên nhãn Fed dời 1 tháng đổi tập ngày trúng; 8 hằng
+tính lại bằng `scripts/calc-fusion-evidence.ts`: **trainN 60→45, testN 75→71, fullN 135→116**,
+fullFav 97,0→97,4, CI [91,1;100]→[92,2;100]. `trainFav` 93,3% và `testFav` 100% KHÔNG đổi.
+
+Điểm cần đọc kỹ: **`orthogonalTrainPt` 3,3 → 2,2pt**. Biên "thông tin trực giao" so placebo đồng-n
+vốn đã là phần yếu nhất của khối fusion, giờ mỏng thêm, trong khi n train giảm 25% (60→45) nên CI
+quanh nó rộng hơn. Chưa phải NO-GO, nhưng nếu lần đo sau xuống dưới 0 thì khối evidence
+"MUA độ tin cao" phải gỡ chứ không phải chỉnh tham số. Không tuyển lại gì ở đây để bù — cùng lý do
+đã ghi ở `PRESETS` (tuyển lại trên test đã khai thác nhiều lần là đúng thứ "Giới hạn #2" cảnh báo).
 
 ## Nợ ĐÃ ĐÓNG: placebo train trôi theo cửa sổ Yahoo (mở 2026-09-04, đóng cùng ngày)
 
