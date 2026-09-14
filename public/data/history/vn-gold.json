@@ -6328,10 +6328,10 @@
   "date": "2026-09-14",
   "sjcBuy": 142600000,
   "sjcSell": 145600000,
-  "ringBuy": 143000000,
-  "ringSell": 147000000,
+  "ringBuy": 142800000,
+  "ringSell": 146800000,
   "usdVnd": 26180,
-  "xauUsd": 4311,
-  "premiumPct": 7
+  "xauUsd": 4320.2001953125,
+  "premiumPct": 6.77
  }
 ]
