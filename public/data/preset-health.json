@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-14T15:22:37.522Z",
+ "generatedAt": "2026-09-14T14:15:23.296Z",
  "items": [
   {
    "presetId": "1m",
@@ -8,39 +8,33 @@
    "recentBaselinePct": 67.3,
    "recentN": 28,
    "testFavCi95": [
-    63.9,
-    98.2
+    75,
+    98.4
    ],
-   "trainClusters": 15,
-   "testClusters": 10,
    "status": "ok"
   },
   {
    "presetId": "3m",
    "minExcessNowPt": 31.2,
-   "recentFavPct": 100,
+   "recentFavPct": 97.7,
    "recentBaselinePct": 79.2,
-   "recentN": 55,
+   "recentN": 44,
    "testFavCi95": [
-    95.8,
+    97.1,
     100
    ],
-   "trainClusters": 11,
-   "testClusters": 12,
    "status": "ok"
   },
   {
    "presetId": "6m",
-   "minExcessNowPt": 10.7,
-   "recentFavPct": 99,
+   "minExcessNowPt": 20.4,
+   "recentFavPct": 100,
    "recentBaselinePct": 87.7,
-   "recentN": 100,
+   "recentN": 86,
    "testFavCi95": [
-    93.7,
+    100,
     100
    ],
-   "trainClusters": 15,
-   "testClusters": 12,
    "status": "ok"
   }
  ]
