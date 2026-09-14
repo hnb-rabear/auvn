@@ -230,7 +230,56 @@ Mặc định không tệ nhưng quá kén trong thị trường bull (2019–20
    Gradient đơn điệu ở cả 3 kỳ hạn 21/42/63 ngày — chênh cao thì kết quả kém, đúng cơ chế hồi quy của premium. Hạn chế: 16 tháng dữ liệu, một chế độ thị trường, cửa sổ chồng lấn — đọc là bằng chứng sơ bộ mạnh, không phải kết luận cuối. App hiển thị banner "VÙNG BÁN VN theo chênh lệch" trên biểu đồ premium khi percentile ≥ 80. **v2 (2026-07-10, `scripts/premium-exit-v2-study.ts`):** gradient lặp lại ở cả 2 nửa era + thắng placebo cùng-n, nhưng CI trung thực cho thấy nửa sau chỉ có ≈1-2 cửa sổ độc lập H63 ⇒ vẫn SƠ BỘ, re-run khi ≥36 tháng dữ liệu. Toàn bộ nghiên cứu Vùng bán 2026-07-10 (grid sell-preset NO-GO, Top Hunter NO-GO, sell-timing "đừng bán ngay" GO): `docs/sell-zone.md`.
 5. **Yếu tố chưa/không đưa vào:** GPR, VIX và COT positioning đã test và bị loại (bảng trên + section COT 2026-07-05 bên dưới). NHTW mua vàng (dữ liệu quý, trễ), chính sách NHNN (không có feed máy đọc) — ứng viên cho vòng sau.
 
-   **Premium gating (bằng chứng sơ bộ, 2026-06):** `premium-buy-study.ts` trên 488 ngày SJC cho thấy gradient rõ ở 21 ngày: tín hiệu mua + premium thấp (≤p20) → trung vị +7,6%; premium cao (≥p80) → +1,8%. Gradient yếu dần ở 42–63 ngày (bull trend lấn át). Tuy nhiên, chỉ n=7 tín hiệu premium cao, và dữ liệu 488 ngày chỉ phủ một chế độ thị trường — chưa đủ 2 giai đoạn độc lập để vào preset. Premium vẫn giữ trọng số 0% trong preset cho đến khi có thêm dữ liệu đa chế độ.
+   **Premium gating (bằng chứng sơ bộ, 2026-06 — ĐÃ BỊ BÁC 2026-09-15, xem mục dưới):** `premium-buy-study.ts` trên 488 ngày SJC cho thấy gradient rõ ở 21 ngày: tín hiệu mua + premium thấp (≤p20) → trung vị +7,6%; premium cao (≥p80) → +1,8%. Gradient yếu dần ở 42–63 ngày (bull trend lấn át). Tuy nhiên, chỉ n=7 tín hiệu premium cao, và dữ liệu 488 ngày chỉ phủ một chế độ thị trường — chưa đủ 2 giai đoạn độc lập để vào preset. Premium vẫn giữ trọng số 0% trong preset cho đến khi có thêm dữ liệu đa chế độ.
+
+### Cổng premium ≥p80 — HẠ CẤP xuống ghi chú chi phí (2026-09-15)
+
+Tái lập: `npx tsx scripts/premium-gate-study.ts`
+
+Gradient n=7 ở trên từng được ship thành một **cổng chặn**: `guidance.ts` trả level `premium-wait` ("đợi chênh lệch hạ về vùng thấp hơn"), `return` SỚM trước cả ma trận điểm-mua × săn-đáy, UI hiện chip "CHỜ CHÊNH HẠ". Nó đè cả tín hiệu preset lẫn tín hiệu đáy.
+
+Đo lại ở **đúng kỳ hạn quyết định của cổng** — người mua hoãn vài phiên, không phải 126 phiên — trên 583 phiên VN (p80 = 16,23%), đếm cụm độc lập bằng lưới khối cố định:
+
+| H (phiên) | cụm độc lập | P(giá SJC rẻ hơn sau H) | baseline | chênh |
+| --- | --- | --- | --- | --- |
+| **5** | **40** | 34,7% | 40,0% | **−5,2pt (SAI DẤU)** |
+| 10 | 26 | 36,4% | 35,8% | +0,7pt |
+| 21 | 16 | 42,4% | 33,5% | +8,9pt |
+| 63 | 7 | 35,0% | 32,1% | +2,9pt |
+
+H=5 là ô có công suất cao nhất (40 cụm — nhiều hơn mọi preset) và nó nói **ngược** lời khuyên: đợi khi chênh cao thì giá rẻ hơn ÍT hơn bình thường. Các ô còn lại đúng dấu nhưng +8,9pt / +2,9pt đều chìm dưới MDE (±25..37pt ở 7–16 cụm).
+
+Phạm vi cổng đã chặn: **118/583 ngày = 20,2%**, trong đó **8/45 = 18% số ngày preset báo mua** (tất cả 6m, gom thành **2 cụm**: 22–30/04/2025 và 08–10/09/2025).
+
+**Trung thực về giới hạn:** kết cục 8 ngày bị đè là H21 4/8 tăng trung vị +0,4%, H63 3/8 trung vị 0,0% — 2 cụm thì **không chứng minh được cổng gây hại**. Lý do hạ cấp là **thiếu bằng chứng chống lưng** (n=7, một chế độ, và ô công suất cao nhất sai dấu), KHÔNG phải đã đo được thiệt hại. Hai điều khác nhau.
+
+Đã đổi: bỏ `return` sớm — chênh cao nối vào `how` của ô thật thành ghi chú chi phí, giữ nguyên level/tone đã kiểm chứng; `criteria.ts` đổi "vùng bán tốt, tránh mua" → "chi phí mua vàng VN đang đắt so với thế giới"; `summary.json` lên 1.4 (`blocksBuying` → `expensiveVsWorld`); chip UI "CHỜ CHÊNH HẠ" → "QUAN SÁT". `premium-wait` giữ trong union type nhưng không còn bắn. Engine, `zoneOf`, trọng số preset: KHÔNG đụng.
+
+**Nguyên tắc rút ra — cổng đã ship phải chịu đúng cổng đang áp cho cái mới.** Yêu cầu bằng chứng để THÊM mà miễn trừ cái đã có = thiên lệch tích tụ: mọi thứ lọt vào trước khi siết kỷ luật được miễn vĩnh viễn. Hạ về mức mô tả là trạng thái mặc định an toàn, không cần bằng chứng mới.
+
+### Thêm premium/tỉ giá vào vùng mua và Bottom Hunter — NO-GO (2026-09-15)
+
+Phản biện chéo 3 model, kết luận đồng thuận. Lý do là **công suất**, không phải cơ chế.
+
+Cụm độc lập của đuôi thấp (≤p20 = 7,99%) trên 583 phiên, lưới khối cố định:
+
+| H | ngày ≤p20 | cụm (train/test) |
+| --- | --- | --- |
+| 21 | 96 | **7** (4/3) |
+| 63 | 69 | **3** (2/1) |
+| 126 | 65 | **1** (1/0) |
+
+`clusterBootstrapCiWeighted` trả `null` dưới 3 cụm ⇒ H=126 không đo được, H=63 test chỉ 1 cụm. 583 dòng là ảo giác; đơn vị mẫu thật là 1–7.
+
+Thêm ba lý do độc lập:
+
+1. **Đếm trùng.** Giá SJC ≈ XAU × USD/VND × hệ số × (1+premium) — USD/VND nằm ngay trong mẫu số của premium, không phải tín hiệu thứ hai.
+2. **Không phải 2 chế độ.** Premium theo quý: 3,7 (Q1-25) → 14,4 → 15,4 → 15,1 → 14,2 → 12,8 → 5,9 (Q3-26); Spearman(premium, thời gian) = −0,089; ACF1 0,943 vs 0,931 và sd 4,59 vs 5,20 giữa hai nửa. Đây là **một plateau 14–15% kéo 5 quý kẹp giữa hai đuôi thấp ngắn** — n_độc_lập ≈ 2, đúng họ lỗi `sell-preset-deep-study`.
+3. **Đa kiểm định đã tiêu.** ~180 cấu hình qua 4 study premium trên cùng 583 dòng ⇒ bất kỳ "pass" tương lai nào trên tập này không phải bằng chứng.
+
+**Bottom Hunter có lý do cứng hơn:** `backfill-vn` **vá lùi** các dòng VN ⇒ đầu vào ngày cũ đổi hồi tố ⇒ `prob` tại nút cũ đổi ⇒ **vỡ bất biến walk-forward** (`tests/bottom.test.ts`). Kèm theo: lịch sử dán nhãn co từ 15 năm xuống 457 dòng, lưới thưa STEP=3 còn ~152 hàng, chia 4 bin ≈ 38 hàng/bin ⇒ CI thành `null` ⇒ UI in % không có CI. Recency-504 cũng vô hiệu (mọi tuổi < 504).
+
+**Mốc mở lại:** H=21 cần ≥5 cụm/nhánh ≈ 37 tháng dữ liệu → ~2028-03. H=63 ≈ 48 tháng → ~2029-02. H=126 và Bottom Hunter 6–9 năm → thực tế đóng. `premium-brake-study` là ứng viên duy nhất đáng chạy lại (NO-GO cỡ mẫu, không phải NO-GO tín hiệu) — **đúng một lần**, cấu hình đăng ký trước, không lưới.
 6. Quá khứ không bảo đảm tương lai. Công cụ xác suất, không phải lời hứa.
 
 ## Giám sát thoái hóa & khoảng tin cậy (v3)
@@ -400,6 +449,7 @@ npx tsx scripts/presets-study.ts                   # bảng tuyển chọn 3 k�
 npx tsx scripts/factor-study.ts                    # ablation: bật/tắt lợi suất / VIX / GPR
 npx tsx scripts/factor-study-momentum-offline.ts   # ablation momentum: 3D vs 4D, dùng timeline.json có sẵn
 npx tsx scripts/premium-buy-study.ts               # gradient premium cho tín hiệu mua (488 ngày SJC)
+npx tsx scripts/premium-gate-study.ts              # cổng premium ≥p80: đúng kỳ hạn quyết định + cụm độc lập (BÁC "đợi chênh hạ")
 npx tsx scripts/optimize-study.ts                  # study gốc v1 (1 kỳ hạn, HORIZON=21|63|126)
 npx tsx scripts/horizon-study.ts                   # hiệu quả cấu hình mặc định theo 4 kỳ hạn
 npx tsx scripts/consensus-study.ts                 # hiện trạng Toàn cảnh + grid đa kỳ hạn + đồng thuận k/3 (placebo đồng-n)

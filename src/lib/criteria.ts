@@ -214,11 +214,14 @@ export function premiumCriterion(inp: PremiumInputs): CriterionResult {
       else score = 0;
       basis = "so với ngưỡng tham chiếu cố định (lịch sử tự thu thập chưa đủ 90 ngày)";
     }
+    // Chữ MÔ TẢ CHI PHÍ, không phải lệnh thời điểm (hạ cấp 2026-09-15 cùng cổng
+    // premium-wait — scripts/premium-gate-study.ts: "đợi chênh hạ" đo ra sai dấu
+    // −5,2pt ở H=5 với 40 cụm). Premium là chi phí đang trả, không phải dự báo.
     const direction =
       score > 0
         ? "chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'"
         : score < 0
-          ? "chênh cao bất thường — vùng bán tốt, tránh mua"
+          ? "chênh cao — chi phí mua vàng VN đang đắt so với thế giới"
           : "chênh ở mức bình thường";
     signals.push({
       id: "premium",

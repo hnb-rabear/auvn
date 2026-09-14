@@ -65,7 +65,7 @@ export interface SummaryChanged {
 }
 
 export interface AuvnSummary {
-  schemaVersion: "1.3";
+  schemaVersion: "1.4";
   generatedAt: string;
   dataDate: string;
   stale: boolean;
@@ -109,8 +109,11 @@ export interface AuvnSummary {
       isHeadwind: boolean;
       note: string;
     };
+    /** Chênh VN cao = GHI CHÚ CHI PHÍ. `blocksBuying` cũ đã bỏ (1.4) — nó từng chặn
+     *  gợi ý mua nhưng đo ra sai dấu; xem isPremiumHigh trong guidance.ts. */
     premiumGate: {
-      blocksBuying: boolean;
+      /** đang mua đắt hơn giá thế giới quy đổi (≥ p80 lịch sử). KHÔNG phải tín hiệu đợi. */
+      expensiveVsWorld: boolean;
       premiumPct: number | null;
       premiumP80: number | null;
       note: string;
@@ -332,7 +335,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     : "ok";
 
   return {
-    schemaVersion: "1.3",
+    schemaVersion: "1.4",
     generatedAt: input.nowIso ?? new Date().toISOString(),
     dataDate: analysis.dataDate,
     stale: analysis.stale,
@@ -357,10 +360,10 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
       consensus,
       radarContext,
       premiumGate: {
-        blocksBuying: isPremiumHigh(analysis.prices.premiumPct, premiumP80),
+        expensiveVsWorld: isPremiumHigh(analysis.prices.premiumPct, premiumP80),
         premiumPct: analysis.prices.premiumPct,
         premiumP80,
-        note: "Chênh VN ≥ p80 lịch sử: người mua vàng vật chất không nên đuổi giá kể cả khi preset báo mua (cùng cổng với gợi ý hành động trên web).",
+        note: "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'.",
       },
     },
     accumulation: {

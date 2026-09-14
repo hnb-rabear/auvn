@@ -7,7 +7,8 @@ export const LEVEL_TAG: Record<Guidance["level"], string> = {
   buy: "GOM",
   dca: "GOM RẢI",
   wait: "QUAN SÁT",
-  "premium-wait": "CHỜ CHÊNH HẠ",
+  // không còn bắn (hạ cấp 2026-09-15) — giữ nhãn để union type đủ nhánh
+  "premium-wait": "QUAN SÁT",
   headwind: "QUAN SÁT",
 };
 

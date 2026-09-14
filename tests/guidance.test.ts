@@ -51,14 +51,41 @@ describe("deriveGuidance — ma trận điểm mua × săn đáy", () => {
   });
 });
 
-describe("deriveGuidance — cổng premium VN", () => {
-  it("chênh ≥ p80 chặn ngay cả khi tín hiệu thế giới thuận", () => {
+describe("deriveGuidance — chênh VN cao = ghi chú chi phí, KHÔNG chặn", () => {
+  /**
+   * Hạ cấp 2026-09-15 (scripts/premium-gate-study.ts). Cổng cũ return sớm level
+   * "premium-wait" và đè 8/45 = 18% số ngày preset báo mua. Đo ở kỳ hạn quyết định
+   * thật của nó — H=5 phiên, 40 cụm độc lập — lời khuyên "đợi chênh hạ" SAI DẤU
+   * (−5,2pt: đợi khi chênh cao thì giá RẺ HƠN ÍT hơn bình thường).
+   */
+  it("chênh ≥ p80 KHÔNG chặn tín hiệu thế giới thuận — giữ nguyên level, thêm ghi chú chi phí", () => {
     const g = deriveGuidance({ ...base, zone: "buy", composite: 50, bottom: bottomHigh, premiumPct: 18, premiumP80: 16 });
-    expect(g.level).toBe("premium-wait");
-    expect(g.how).toMatch(/đợi chênh lệch hạ/);
+    expect(g.level).toBe("strong");
+    expect(g.tone).toBe("buy");
+    expect(g.how).toMatch(/Lưu ý chi phí/);
+    expect(g.how).toMatch(/đang mua đắt hơn giá thế giới/);
+    // không được tái xuất hiện lời khuyên timing đã bị bằng chứng bác
+    expect(g.how).not.toMatch(/đợi chênh lệch hạ/);
   });
 
-  it("composite âm sâu vẫn ưu tiên hơn cổng premium", () => {
+  it("chênh ≥ p80 + vùng mua nhưng đáy chưa xác nhận → vẫn level buy, kèm ghi chú", () => {
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 45, bottom: bottomLow, premiumPct: 18, premiumP80: 16 });
+    expect(g.level).toBe("buy");
+    expect(g.how).toMatch(/Lưu ý chi phí/);
+  });
+
+  it("chênh dưới p80 → không có ghi chú chi phí", () => {
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 50, bottom: bottomHigh, premiumPct: 10, premiumP80: 16 });
+    expect(g.level).toBe("strong");
+    expect(g.how).not.toMatch(/Lưu ý chi phí/);
+  });
+
+  it("chênh cao ghi rõ trong reasons là chi phí, không phải tín hiệu đợi", () => {
+    const g = deriveGuidance({ ...base, zone: "buy", composite: 50, bottom: bottomHigh, premiumPct: 18, premiumP80: 16 });
+    expect(g.reasons.some((r) => /đang mua đắt hơn giá thế giới quy đổi/.test(r))).toBe(true);
+  });
+
+  it("composite âm sâu vẫn ưu tiên hơn ghi chú premium", () => {
     const g = deriveGuidance({ ...base, zone: "sell", composite: -50, premiumPct: 18, premiumP80: 16 });
     expect(g.level).toBe("headwind");
   });

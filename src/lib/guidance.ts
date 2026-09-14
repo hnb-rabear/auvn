@@ -16,7 +16,7 @@ export type GuidanceLevel =
   | "buy" // composite mua, đáy chưa xác nhận
   | "dca" // không còn bắn — NO-GO 2026-07, docs/bottom.md
   | "wait" // chưa có tín hiệu
-  | "premium-wait" // tín hiệu thế giới có nhưng vàng VN đang đắt
+  | "premium-wait" // KHÔNG còn bắn — hạ cấp 2026-09-15, xem isPremiumHigh. Giữ trong union để consumer cũ không vỡ.
   | "headwind"; // composite âm sâu (≤−40): với người MUA tương đương quan sát, chỉ thêm ngữ cảnh gió ngược
 
 /**
@@ -66,9 +66,24 @@ const fmt = (n: number, d = 1) => n.toLocaleString("vi-VN", { maximumFractionDig
 const signed = (n: number) => (n >= 0 ? `+${fmt(n)}` : fmt(n));
 
 /**
- * Cổng premium: vàng VN đắt (≥ p80 lịch sử) thì người mua vật chất không nên đuổi giá,
- * kể cả khi tín hiệu thế giới thuận. Export để summary.json phát hành cùng một kết luận
- * với UI — consumer không phải tự so sánh lại ngưỡng.
+ * Chênh VN ≥ p80 lịch sử tự thu thập = đang MUA ĐẮT hơn giá thế giới quy đổi.
+ *
+ * HẠ CẤP 2026-09-15 (`scripts/premium-gate-study.ts`) — đây là GHI CHÚ CHI PHÍ, không
+ * còn là cổng chặn. Trước đó nó return sớm level "premium-wait" ("đợi chênh lệch hạ"),
+ * đè lên cả tín hiệu preset lẫn tín hiệu đáy. Đo lại ở ĐÚNG kỳ hạn quyết định của nó
+ * (người mua hoãn vài phiên, không phải 126 phiên):
+ *
+ *   H=5  40 cụm: P(giá rẻ hơn sau H) 34,7% vs base 40,0% = **−5,2pt — SAI DẤU**
+ *   H=10 26 cụm: +0,7pt   H=21 16 cụm: +8,9pt   H=63 7 cụm: +2,9pt (đều ≪ MDE ±25..37pt)
+ *
+ * H=5 là ô có công suất cao nhất (40 cụm độc lập) và nó nói NGƯỢC lại lời khuyên "đợi".
+ * Bằng chứng từng chống lưng cổng chỉ là `premium-buy-study` n=7, một chế độ thị trường.
+ * Cổng đè 8/45 = 18% số ngày preset báo mua (chỉ 2 cụm độc lập nên kết cục 4/8 tăng,
+ * trung vị +0,4% H21 KHÔNG chứng minh được cổng gây hại — lý do hạ cấp là THIẾU bằng
+ * chứng chống lưng, không phải đã đo được thiệt hại).
+ *
+ * Giữ export: summary.json phát hành cùng một kết luận với UI — consumer không phải tự
+ * so sánh lại ngưỡng. Chỉ đổi Ý NGHĨA: "đang mua đắt" (mô tả), không phải "hãy đợi" (dự báo).
  */
 export function isPremiumHigh(
   premiumPct: number | null,
@@ -108,7 +123,11 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
     );
   } else {
     reasons.push(
-      `Chênh VN: ${fmt(inp.premiumPct as number)}% — ${premiumHigh ? "CAO (≥ p80, vàng VN đang đắt)" : "chưa cao"}.`
+      `Chênh VN: ${fmt(inp.premiumPct as number)}% — ${
+        premiumHigh
+          ? "CAO (≥ p80 lịch sử): đang mua đắt hơn giá thế giới quy đổi. Đây là chi phí, không phải tín hiệu đợi — chưa có bằng chứng đợi chênh hạ thì mua được rẻ hơn"
+          : "chưa cao"
+      }.`
     );
   }
 
@@ -136,29 +155,25 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
     };
   }
 
-  // --- cổng premium: vàng VN đắt thì người mua vàng vật chất không nên đuổi giá,
-  // kể cả khi tín hiệu thế giới (composite/đáy) đang thuận.
-  if (premiumHigh) {
-    return {
-      level: "premium-wait",
-      tone: "neutral",
-      when: "Vàng VN đang đắt so với thế giới",
-      how:
-        (isBuy || bottomHigh
-          ? "Tín hiệu thế giới đang thuận NHƯNG chênh VN cao — "
-          : "") +
-        "đợi chênh lệch hạ về vùng thấp hơn; nếu vẫn muốn vào, ưu tiên nhẫn (nếu nhẫn chiết khấu so với SJC) và mua rải từng phần nhỏ.",
-      reasons,
-    };
-  }
+  // --- chênh VN cao: GHI CHÚ CHI PHÍ, không chặn (hạ cấp 2026-09-15, xem isPremiumHigh).
+  // Nối vào `how` của ô thật thay vì return sớm — người mua vẫn thấy tín hiệu đã kiểm
+  // chứng 2 giai đoạn, kèm cảnh báo mình đang trả đắt. Lời khuyên "đợi chênh hạ" cũ đo
+  // ra SAI DẤU ở kỳ hạn của chính nó (H=5, 40 cụm, −5,2pt).
+  const premiumNote = premiumHigh
+    ? " Lưu ý chi phí: chênh VN ≥ p80 lịch sử — đang mua đắt hơn giá thế giới quy đổi;" +
+      " cân nhắc nhẫn nếu đang chiết khấu so với SJC, và mua rải từng phần nhỏ." +
+      " (Chưa có bằng chứng đợi chênh hạ thì mua được rẻ hơn.)"
+    : "";
 
-  // --- ma trận điểm mua × săn đáy (premium đã ở mức chấp nhận được)
+  // --- ma trận điểm mua × săn đáy
   if (isBuy && bottomHigh) {
     return {
       level: "strong",
       tone: "buy",
       when: "Tín hiệu mạnh nhất — định giá thuận VÀ XAU đang dò đáy",
-      how: "Vùng đáng gom dứt khoát hơn. Vẫn nên chia 2–3 đợt để phòng nhận định sai — không dồn hết một lần.",
+      how:
+        "Vùng đáng gom dứt khoát hơn. Vẫn nên chia 2–3 đợt để phòng nhận định sai — không dồn hết một lần." +
+        premiumNote,
       reasons,
     };
   }
@@ -167,7 +182,9 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
       level: "buy",
       tone: "buy",
       when: "Định giá / kỹ thuật đang thuận",
-      how: "Gom theo kế hoạch. XAU chưa xác nhận đáy nên đừng kỳ vọng bắt đúng đáy — chia nhiều đợt vẫn an toàn hơn.",
+      how:
+        "Gom theo kế hoạch. XAU chưa xác nhận đáy nên đừng kỳ vọng bắt đúng đáy — chia nhiều đợt vẫn an toàn hơn." +
+        premiumNote,
       reasons,
     };
   }
@@ -175,7 +192,9 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
     level: "wait",
     tone: "neutral",
     when: "Chưa có tín hiệu rõ",
-    how: "Quan sát, chưa cần hành động. Tín hiệu mua chỉ xuất hiện vài đợt mỗi năm — im lặng là bình thường.",
+    how:
+      "Quan sát, chưa cần hành động. Tín hiệu mua chỉ xuất hiện vài đợt mỗi năm — im lặng là bình thường." +
+      premiumNote,
     reasons,
   };
 }

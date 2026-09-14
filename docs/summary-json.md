@@ -8,8 +8,9 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 
 ## Phiên bản
 
-`schemaVersion` hiện là `"1.3"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
+`schemaVersion` hiện là `"1.4"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
 
+- `1.4`: **BREAKING** — `signals.premiumGate.blocksBuying` đổi tên thành `expensiveVsWorld` và đổi NGHĨA: chênh VN cao giờ là ghi chú chi phí, không còn chặn gợi ý mua. Consumer đang dùng `blocksBuying` để hoãn mua phải bỏ logic đó (bằng chứng: `scripts/premium-gate-study.ts`).
 - `1.3`: thêm `changed` (khác biệt so lần sinh trước, để consumer poll nhiều lần/ngày không phải tự giữ state). `bottomHunter.isBottomStart` giờ yêu cầu `signalHistory` cùng ngày với `dataDate`. Số thập phân của `accumulation.bearDca` và `accumulation.pricePercentile2y` làm tròn 4 chữ số.
 - `1.2`: thêm `bottomHunter` (kết quả Bottom Hunter hiện tại + cờ khởi đầu vùng đáy) và `market.changes` (biến động so phiên trước). Consumer không cần tải `bottom.json` (769 KB) hay `history/vn-gold.json` nữa.
 - `1.1`: thêm `signals.premiumGate`; `modelHealth.overall` thu hẹp về các lớp sinh kết luận và thêm `degradedLayers`/`insufficientLayers`.
@@ -44,7 +45,7 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 - `signals.presets`: ba preset `1m`, `3m`, `6m`. Mỗi mục có điểm hiện tại, ngưỡng mua, cờ `isBuy`, và `pointsToThreshold`. Khoảng cách bằng `0` khi đang báo mua, ngược lại là số điểm còn thiếu, làm tròn một chữ số thập phân.
 - `signals.consensus`: số preset đang báo mua, tổng số preset, vùng và kết luận tổng hợp.
 - `signals.radarContext`: composite mặc định chỉ làm ngữ cảnh; `isHeadwind` báo gió ngược khi vùng radar là `sell` hoặc `strong-sell`.
-- `signals.premiumGate.blocksBuying`: `true` khi chênh VN ≥ p80 lịch sử — cùng cổng `premium-wait` mà web dùng, đã tính sẵn. `premiumP80` là `null` khi chưa đủ lịch sử để xếp hạng, khi đó cổng không chặn.
+- `signals.premiumGate.expensiveVsWorld`: `true` khi chênh VN ≥ p80 lịch sử tự thu thập — nghĩa là **đang mua đắt hơn giá thế giới quy đổi**. Đây là CHI PHÍ, không phải tín hiệu đợi: đừng dịch thành "hoãn mua". `premiumP80` là `null` khi chưa đủ lịch sử (< 90 ngày) để xếp hạng, khi đó cờ luôn `false`. **Đổi tên từ `blocksBuying` ở 1.4** — tên cũ mô tả một cổng chặn không còn tồn tại.
 - `accumulation.effectiveBuyMultiplier`: hệ số mua hiệu lực từ Bear DCA.
 - `accumulation.bearDca`: toàn bộ pha và lý do Bear DCA hiện tại.
 - `accumulation.pricePercentile2y`: percentile giá trong dải hai năm, từ `0` đến `1`, hoặc `null`.
@@ -65,7 +66,7 @@ Giá chưa có dùng `null`, không dùng `0`.
 2. `signals.consensus` chỉ đếm tín hiệu từ preset đã kiểm chứng riêng. Mức đồng thuận không chứng minh độ chính xác cao hơn.
 3. Không dùng `signals.radarContext.composite` hoặc `zone` làm cò súng mua. Radar chỉ cho ngữ cảnh và gió ngược.
 4. Dùng `accumulation.effectiveBuyMultiplier` cho quy mô mua. Không tự nhân thêm `twoYearBrake.multiplier`.
-5. `signals.premiumGate.blocksBuying = true` thì đừng đuổi giá dù preset báo mua. Không tự so lại `vnPremiumPct` với ngưỡng nào khác.
+5. `signals.premiumGate.expensiveVsWorld = true` là ghi chú CHI PHÍ (đang trả cao hơn giá thế giới quy đổi), KHÔNG phải lệnh hoãn mua và không phủ quyết `isBuy`. Lời khuyên "đợi chênh hạ" đã bị gỡ ở 1.4 vì đo ra sai dấu ở kỳ hạn của chính nó (H=5 phiên, 40 cụm độc lập, −5,2pt). Không tự so lại `vnPremiumPct` với ngưỡng nào khác.
 6. `bottomHunter` là ngữ cảnh, không phải tín hiệu mua — quy tắc 1 vẫn giữ nguyên. `prob` cao không thay cho `isBuy`.
 7. `bottomHunter.crashMode = true` thì đọc `probUnweighted` thay cho `prob` ở cả hai tầng. Không tự trộn hai số.
 8. `bottomHunter.isBottomStart` chỉ báo điểm khởi đầu gom rải, không bảo đảm đã tới đáy. Chất lượng tín hiệu phụ thuộc chế độ thị trường: win 6 tháng 92–93% giai đoạn từ 2019, nhưng chỉ 61–69% trong giai đoạn gấu trước 2019 (`docs/bottom.md`). Đừng phát biểu như một xác suất chạm đáy.

@@ -196,11 +196,11 @@ function allBullishInput(): BuildSummaryInput {
 }
 
 describe("buildAuvnSummary", () => {
-  it("exports valid schemaVersion 1.2 and passes through market freshness", () => {
+  it("exports valid schemaVersion and passes through market freshness", () => {
     const input = createMockInput();
     const s = buildAuvnSummary(input);
 
-    expect(s.schemaVersion).toBe("1.3");
+    expect(s.schemaVersion).toBe("1.4");
     expect(s.dataDate).toBe("2026-09-04");
     expect(s.stale).toBe(false);
     expect(s.staleDays).toBe(0);
@@ -263,22 +263,27 @@ describe("buildAuvnSummary", () => {
     expect(s.signals.consensus.zone).toBe(k >= 3 ? "strong-buy" : "buy");
   });
 
-  it("publishes the same premium gate the site's guidance uses", () => {
+  it("publishes premium as a COST note, not a buy gate", () => {
     const input = createMockInput();
     input.analysis.premiumPercentiles = { p20: 2, p50: 3.5, p80: 4.8 };
     const gate = buildAuvnSummary(input).signals.premiumGate;
 
-    expect(gate.blocksBuying).toBe(true);
+    expect(gate.expensiveVsWorld).toBe(true);
     expect(gate.premiumPct).toBe(4.85);
     expect(gate.premiumP80).toBe(4.8);
+    // Field cũ `blocksBuying` bỏ ở 1.4 — nó nói cổng chặn mua, điều không còn đúng.
+    expect("blocksBuying" in gate).toBe(false);
+    // note phải nói rõ đây là chi phí, để consumer máy không tự dịch thành "hoãn mua"
+    expect(gate.note).toMatch(/CHI PHÍ/);
+    expect(gate.note).toMatch(/không phải tín hiệu đợi/);
 
     input.analysis.premiumPercentiles = { p20: 2, p50: 3.5, p80: 5 };
-    expect(buildAuvnSummary(input).signals.premiumGate.blocksBuying).toBe(false);
+    expect(buildAuvnSummary(input).signals.premiumGate.expensiveVsWorld).toBe(false);
 
     delete input.analysis.premiumPercentiles;
     const noRank = buildAuvnSummary(input).signals.premiumGate;
     expect(noRank.premiumP80).toBeNull();
-    expect(noRank.blocksBuying).toBe(false);
+    expect(noRank.expensiveVsWorld).toBe(false);
   });
 
   it("states consensus members do not gain accuracy from agreement", () => {
