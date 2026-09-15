@@ -115,9 +115,12 @@ mới để commit" hoặc commit+push thành công.
 ## Lưu ý
 
 - Không cần mở app Termux mọi lúc — cron/Boot tự chạy nền, chỉ cần máy
-  bật + có mạng (wifi hoặc data) lúc 9h/13h30.
-- Máy tắt nguồn/hết pin đúng giờ đó thì hôm sau tự lấp bù (backfill
-  idempotent, không mất dữ liệu).
+  bật + có mạng (wifi hoặc data) lúc 9h/13h30. Giữ nguyên lịch 09:00 / 13:30 hiện có.
+- **Lấp bù dữ liệu khi máy tắt**: Máy tắt nguồn/hết pin đúng giờ đó thì hôm sau có thể tự lấp bù giá SJC từ CafeF qua lịch sử, nhưng **không thể hứa lấp bù nhẫn** (BTMC/BTMH không cung cấp API lịch sử nhẫn công khai; giá nhẫn bị lỡ khi máy tắt có thể không hồi tố được).
+- **Hai file đích độc lập**:
+  1. `public/data/history/vn-gold.json`: Giá SJC, tỷ giá USD/VND và chênh lệch VN–thế giới.
+  2. `public/data/history/ring-gold.json`: Giá nhẫn trơn 9999 theo thương hiệu (BTMC / BTMH).
+- **Thu thập nhẫn độc lập từng hãng**: BTMC lỗi không chặn BTMH và ngược lại; lỗi một nguồn được ghi log cảnh báo riêng. Script không gọi cả lượt thành công nếu cả hai hãng nhẫn đều thiếu giá hợp lệ khi không có dữ liệu SJC mới.
 - Nếu sau vài ngày thấy cron không chạy (không có log mới) — nghi ngờ
   đầu tiên là Android đã tối ưu pin lại (một số hãng tự bật lại sau
   update) hoặc Termux bị đóng hoàn toàn (swipe kill từ recent apps) —
