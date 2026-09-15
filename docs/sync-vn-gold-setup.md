@@ -59,7 +59,11 @@ Kỳ vọng: fetch/rebase OK, backfill chạy, "không có gì mới để commi
 
 ## Lưu ý
 
-- Không cần mở project/VSCode — Task Scheduler tự chạy nền, chỉ cần máy bật + có mạng lúc 9h/13h30.
-- Máy tắt đúng giờ đó thì hôm sau tự lấp bù (backfill idempotent, không mất dữ liệu).
+- Không cần mở project/VSCode — Task Scheduler tự chạy nền, chỉ cần máy bật + có mạng lúc 9h/13h30. Giữ nguyên lịch 09:00 / 13:30 hiện có.
+- **Lấp bù dữ liệu khi máy tắt**: Máy tắt đúng giờ đó thì hôm sau có thể tự lấp bù giá SJC từ CafeF qua lịch sử, nhưng **không thể hứa lấp bù nhẫn** (BTMC/BTMH không cung cấp API lịch sử nhẫn công khai; giá nhẫn bị lỡ khi máy tắt có thể không hồi tố được).
+- **Hai file đích độc lập**:
+  1. `public/data/history/vn-gold.json`: Giá SJC, tỷ giá USD/VND và chênh lệch VN–thế giới.
+  2. `public/data/history/ring-gold.json`: Giá nhẫn trơn 9999 theo thương hiệu (BTMC / BTMH).
+- **Thu thập nhẫn độc lập từng hãng**: BTMC lỗi không chặn BTMH và ngược lại; lỗi một nguồn được ghi log cảnh báo riêng. Script không gọi cả lượt thành công nếu cả hai hãng nhẫn đều thiếu giá hợp lệ khi không có dữ liệu SJC mới.
 - Nếu script báo lỗi "fetch/rebase thất bại" — không tự ý xử lý theirs/ours, mở
   log (`sync-vn-gold.log` cạnh script) xem chi tiết, xử lý tay.

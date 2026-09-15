@@ -6,12 +6,12 @@
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { fetchXau, fetchVnGold, type DailyBar } from "./fetch";
+import { collectRingGold } from "./ring-gold";
 import type { VnGoldEntry } from "../src/lib/types";
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36";
-const HISTORY_DIR = join(process.cwd(), "public", "data", "history");
-const VN_HISTORY_FILE = join(HISTORY_DIR, "vn-gold.json");
 
 const TROY_OZ_GRAMS = 31.1034768;
 const LUONG_GRAMS = 37.5;
@@ -79,29 +79,94 @@ function atOrBefore(bars: DailyBar[], d: string): number | null {
   return ans >= 0 ? bars[ans].close : null;
 }
 
-async function main() {
-  const [cafef, xau, usdVnd, live] = await Promise.all([
+export async function runBackfill(rootDir = process.cwd()): Promise<void> {
+  const historyDir = join(rootDir, "public", "data", "history");
+  const vnHistoryFile = join(historyDir, "vn-gold.json");
+  const ringHistoryFile = join(historyDir, "ring-gold.json");
+
+  let history: VnGoldEntry[] = [];
+  if (existsSync(vnHistoryFile)) {
+    const raw = readFileSync(vnHistoryFile, "utf8");
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e) {
+      throw new Error(`Corrupt JSON in vn-gold history at ${vnHistoryFile}: ${e}`);
+    }
+    if (!Array.isArray(parsed)) {
+      throw new Error(`Invalid vn-gold history at ${vnHistoryFile}: expected array`);
+    }
+    history = parsed as VnGoldEntry[];
+  }
+
+  const [ringResult, cafefResult, xauResult, fxResult, liveResult] = await Promise.allSettled([
+    collectRingGold(ringHistoryFile),
     fetchCafefSjc(),
     fetchXau(),
     fetchUsdVndHistory(),
     fetchVnGold(),
   ]);
+
+  let cafef: { date: string; buy: number; sell: number }[] = [];
+  if (cafefResult.status === "fulfilled") {
+    cafef = cafefResult.value;
+  } else {
+    console.warn("cafef fetch failed:", cafefResult.reason);
+  }
+
+  let xau: { bars: DailyBar[] } | null = null;
+  if (xauResult.status === "fulfilled") {
+    xau = xauResult.value;
+  } else {
+    console.warn("xau fetch failed:", xauResult.reason);
+  }
+
+  let usdVnd: DailyBar[] | null = null;
+  if (fxResult.status === "fulfilled") {
+    usdVnd = fxResult.value;
+  } else {
+    console.warn("fx fetch failed:", fxResult.reason);
+  }
+
+  let live: Awaited<ReturnType<typeof fetchVnGold>> = null;
+  if (liveResult.status === "fulfilled") {
+    live = liveResult.value;
+  } else {
+    console.warn("live fetch failed:", liveResult.reason);
+  }
+
+  if (ringResult.status === "fulfilled") {
+    if (ringResult.value.errors.btmc) {
+      console.warn("ring btmc error:", ringResult.value.errors.btmc);
+    }
+    if (ringResult.value.errors.btmh) {
+      console.warn("ring btmh error:", ringResult.value.errors.btmh);
+    }
+  }
+
+  const ringCollected = ringResult.status === "fulfilled" ? ringResult.value.collected : 0;
+  const hasUsefulPrice =
+    ringCollected > 0 || cafef.length > 0 || live?.sjcSell != null;
+
+  if (!hasUsefulPrice) {
+    if (ringResult.status === "rejected") {
+      throw ringResult.reason;
+    }
+    throw new Error("All gold price sources failed — no useful data collected");
+  }
+
   console.log(
-    `cafef: ${cafef.length} ngày (${cafef[0]?.date}..${cafef[cafef.length - 1]?.date}), ` +
-      `xau: ${xau.bars.length}, vnd: ${usdVnd.length}`
+    `cafef: ${cafef.length} ngày (${cafef[0]?.date ?? "n/a"}..${cafef[cafef.length - 1]?.date ?? "n/a"}), ` +
+      `xau: ${xau?.bars?.length ?? 0}, vnd: ${usdVnd?.length ?? 0}, ring: ${ringCollected}`
   );
 
-  let history: VnGoldEntry[] = [];
-  if (existsSync(VN_HISTORY_FILE)) {
-    history = JSON.parse(readFileSync(VN_HISTORY_FILE, "utf8"));
-  }
   const have = new Set(history.map((e) => e.date));
 
   let added = 0;
   for (const c of cafef) {
     if (have.has(c.date)) continue;
-    const xauClose = atOrBefore(xau.bars, c.date);
-    const rate = atOrBefore(usdVnd, c.date);
+    const xauClose = xau ? atOrBefore(xau.bars, c.date) : null;
+    const rate = usdVnd ? atOrBefore(usdVnd, c.date) : null;
     const world =
       xauClose !== null && rate !== null
         ? (xauClose / TROY_OZ_GRAMS) * LUONG_GRAMS * rate
@@ -129,35 +194,57 @@ async function main() {
   // cách scripts/run.ts làm khi cron tự fetch được — để luôn có đủ sjc + nhẫn.
   if (live?.sjcSell) {
     const vnToday = new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
-    const xauClose = atOrBefore(xau.bars, vnToday);
-    const rate = atOrBefore(usdVnd, vnToday);
+    const idx = history.findIndex((e) => e.date === vnToday);
+    const existing = idx >= 0 ? history[idx] : undefined;
+
+    const freshXau = xau ? atOrBefore(xau.bars, vnToday) : null;
+    const xauClose = freshXau ?? (existing?.xauUsd ?? null);
+
+    const freshRate = usdVnd ? atOrBefore(usdVnd, vnToday) : null;
+    const rate = freshRate ?? (existing?.usdVnd ?? null);
+
     const world =
       xauClose !== null && rate !== null
         ? (xauClose / TROY_OZ_GRAMS) * LUONG_GRAMS * rate
         : null;
+
     const premiumPct =
-      world !== null ? Math.round(((live.sjcSell - world) / world) * 10000) / 100 : null;
+      world !== null && live.sjcSell !== null
+        ? Math.round(((live.sjcSell - world) / world) * 10000) / 100
+        : null;
+
+    const hasNewRingPair =
+      live.ringBuy != null &&
+      live.ringSell != null &&
+      live.ringBuy > 0 &&
+      live.ringSell > 0 &&
+      live.ringBuy <= live.ringSell;
+
+    const ringBuy = hasNewRingPair ? live.ringBuy : (existing?.ringBuy ?? null);
+    const ringSell = hasNewRingPair ? live.ringSell : (existing?.ringSell ?? null);
+
     const entry: VnGoldEntry = {
       date: vnToday,
       sjcBuy: live.sjcBuy,
       sjcSell: live.sjcSell,
-      ringBuy: live.ringBuy,
-      ringSell: live.ringSell,
+      ringBuy,
+      ringSell,
       usdVnd: rate,
       xauUsd: xauClose,
       premiumPct,
     };
-    const idx = history.findIndex((e) => e.date === vnToday);
     if (idx >= 0) history[idx] = entry;
     else history.push(entry);
     console.log(
-      `entry hôm nay ${vnToday}: sjc=${live.sjcBuy}/${live.sjcSell} nhẫn=${live.ringBuy}/${live.ringSell} (nguồn: ${live.source})`
+      `entry hôm nay ${vnToday}: sjc=${live.sjcBuy}/${live.sjcSell} nhẫn=${ringBuy}/${ringSell} (nguồn: ${live.source})`
     );
   }
 
-  history.sort((a, b) => (a.date < b.date ? -1 : 1));
-  mkdirSync(HISTORY_DIR, { recursive: true });
-  writeFileSync(VN_HISTORY_FILE, JSON.stringify(history, null, 1));
+  if (added > 0 || live?.sjcSell) {
+    history.sort((a, b) => (a.date < b.date ? -1 : 1));
+    mkdirSync(historyDir, { recursive: true });
+    writeFileSync(vnHistoryFile, JSON.stringify(history, null, 1));
+  }
 
   const withPremium = history.filter((e) => e.premiumPct !== null).length;
   console.log(
@@ -173,9 +260,19 @@ async function main() {
       `premium: min=${q(0)}% p20=${q(0.2)}% p50=${q(0.5)}% p80=${q(0.8)}% max=${q(1)}%`
     );
   }
+
+  if (ringResult.status === "rejected") {
+    throw ringResult.reason;
+  }
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exitCode = 1;
-});
+const isEntrypoint =
+  Boolean(process.argv[1]) &&
+  pathToFileURL(process.argv[1]).href === import.meta.url;
+
+if (isEntrypoint) {
+  runBackfill().catch((e) => {
+    console.error(e);
+    process.exitCode = 1;
+  });
+}

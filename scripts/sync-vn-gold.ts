@@ -7,45 +7,67 @@
  *
  * Chạy tay: npx tsx scripts/sync-vn-gold.ts
  */
-import { execSync } from "node:child_process";
+import * as childProcess from "node:child_process";
+import { existsSync } from "node:fs";
 import { hostname } from "node:os";
+import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
-// Chạy từ thư mục gốc repo (Task Scheduler set "Start in"; Termux cd trước khi chạy).
-const REPO_ROOT = process.cwd();
-const VN_HISTORY_PATH = "public/data/history/vn-gold.json";
+export const HISTORY_PATHS = [
+  "public/data/history/vn-gold.json",
+  "public/data/history/ring-gold.json",
+];
 
-function run(cmd: string): string {
-  return execSync(cmd, { cwd: REPO_ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
-}
+export type CommandRunner = (cmd: string, cwd: string) => string;
 
-function tryRun(cmd: string): { ok: boolean; out: string } {
-  try {
-    return { ok: true, out: run(cmd) };
-  } catch (e) {
-    const out = e instanceof Error && "stderr" in e ? String((e as { stderr?: unknown }).stderr) : String(e);
-    return { ok: false, out };
-  }
-}
+const defaultRun: CommandRunner = (cmd, cwd) =>
+  childProcess.execSync(cmd, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 
-/** fetch + rebase tường minh thay vì `git pull --rebase` — trên máy có nhiều local
- *  branch khác, `pull --rebase` từng lỗi "Cannot rebase onto multiple branches". */
-function pullRebase(): { ok: boolean; out: string } {
-  const fetch = tryRun("git fetch origin main");
-  if (!fetch.ok) return fetch;
-  return tryRun("git rebase origin/main");
-}
+export async function runSync(
+  repoRoot = process.cwd(),
+  runCmd: CommandRunner = defaultRun
+): Promise<void> {
+  const tryRun = (cmd: string): { ok: boolean; out: string } => {
+    try {
+      return { ok: true, out: runCmd(cmd, repoRoot) };
+    } catch (e) {
+      const out =
+        e instanceof Error && "stderr" in e
+          ? String((e as { stderr?: unknown }).stderr)
+          : String(e);
+      return { ok: false, out };
+    }
+  };
 
-function hasStagedChanges(): boolean {
-  try {
-    run(`git diff --cached --quiet -- ${VN_HISTORY_PATH}`);
-    return false; // exit 0 = no diff
-  } catch {
-    return true; // exit 1 = has diff
-  }
-}
+  const pullRebase = (): { ok: boolean; out: string } => {
+    const fetch = tryRun("git fetch origin main");
+    if (!fetch.ok) return fetch;
+    return tryRun("git rebase origin/main");
+  };
 
-async function main() {
+  const hasStagedChanges = (): boolean => {
+    try {
+      const targets = HISTORY_PATHS.map((p) => `"${p}"`).join(" ");
+      runCmd(`git diff --cached --quiet -- ${targets}`, repoRoot);
+      return false; // exit 0 = no diff
+    } catch {
+      return true; // exit 1 = has diff
+    }
+  };
+
   console.log(`[sync-vn-gold] ${new Date().toISOString()} bắt đầu trên ${hostname()}`);
+
+  // Preflight check B: Any owned history paths dirty or untracked?
+  const targets = HISTORY_PATHS.map((p) => `"${p}"`).join(" ");
+  const status = tryRun(`git status --porcelain -- ${targets}`);
+  if (!status.ok || status.out.trim().length > 0) {
+    console.error(
+      `[sync-vn-gold] file đích (${HISTORY_PATHS.join(", ")}) đang có thay đổi chưa commit/untracked, dừng để tránh ghi đè:\n` +
+        status.out
+    );
+    process.exitCode = 1;
+    return;
+  }
 
   const pull1 = pullRebase();
   if (!pull1.ok) {
@@ -62,14 +84,30 @@ async function main() {
     return;
   }
 
-  run(`git add ${VN_HISTORY_PATH}`);
+  // Preflight check A: Any staged files in index?
+  const staged = tryRun("git diff --cached --name-only");
+  if (!staged.ok || staged.out.trim().length > 0) {
+    console.error(
+      "[sync-vn-gold] index chứa file staged sẵn trước khi sync, dừng để bảo vệ công việc người dùng:\n" +
+        staged.out
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  for (const p of HISTORY_PATHS) {
+    if (existsSync(join(repoRoot, p))) {
+      runCmd(`git add "${p}"`, repoRoot);
+    }
+  }
+
   if (!hasStagedChanges()) {
     console.log("[sync-vn-gold] không có gì mới để commit — đã đủ dữ liệu.");
     return;
   }
 
   const stamp = new Date().toISOString().slice(0, 16).replace("T", " ");
-  run(`git commit -m "data: dong bo gia SJC (${hostname()}) ${stamp} UTC"`);
+  runCmd(`git commit -m "data: dong bo gia SJC va nhan (${hostname()}) ${stamp} UTC"`, repoRoot);
 
   const MAX_ATTEMPTS = 3;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
@@ -91,4 +129,13 @@ async function main() {
   process.exitCode = 1;
 }
 
-main();
+const isEntrypoint =
+  Boolean(process.argv[1]) &&
+  pathToFileURL(process.argv[1]).href === import.meta.url;
+
+if (isEntrypoint) {
+  runSync().catch((e) => {
+    console.error(e);
+    process.exitCode = 1;
+  });
+}

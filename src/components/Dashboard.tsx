@@ -9,7 +9,8 @@ import BearDcaCard from "./BearDcaCard";
 import BearDownsideCard from "./BearDownsideCard";
 import ActionGuidance, { LEVEL_TAG } from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
-import { fabLabel, zoneClass } from "@/lib/settings";
+import { fabLabel, zoneClass, SETTINGS_KEY, type Settings, DEFAULT_SETTINGS, parseSettings } from "@/lib/settings";
+import { ringBrand, ringQuoteAt, type RingGoldDay } from "@/lib/ring-gold";
 import { buyCount, buyNames, consensusLabel, consensusZone, presetSignals } from "@/lib/consensus";
 import { deriveGuidance } from "@/lib/guidance";
 import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
@@ -43,15 +44,6 @@ import {
   type VnGoldEntry,
   type Zone,
 } from "@/lib/types";
-
-const SETTINGS_KEY = "au-settings-v2";
-
-interface Settings {
-  weights: Record<CriterionKey, number>;
-  presetId: string | null;
-}
-
-const DEFAULT_SETTINGS: Settings = { weights: DEFAULT_WEIGHTS, presetId: null };
 
 const fmtMoney = (v: number | null) =>
   v === null ? "—" : (v / 1_000_000).toLocaleString("vi-VN", { maximumFractionDigits: 2 }) + " tr";
@@ -103,13 +95,7 @@ function scoreChip(score: number) {
 function loadSettings(): Settings {
   if (typeof window === "undefined") return DEFAULT_SETTINGS;
   try {
-    const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) return DEFAULT_SETTINGS;
-    const s = JSON.parse(raw);
-    for (const k of Object.keys(DEFAULT_WEIGHTS)) {
-      if (typeof s?.weights?.[k] !== "number" || s.weights[k] < 0) return DEFAULT_SETTINGS;
-    }
-    return { weights: s.weights, presetId: typeof s.presetId === "string" ? s.presetId : null };
+    return parseSettings(localStorage.getItem(SETTINGS_KEY));
   } catch {
     return DEFAULT_SETTINGS;
   }
@@ -134,6 +120,7 @@ export default function Dashboard({
   bearDcaHealth,
   bearDownside,
   vnRows,
+  ringRows,
 }: {
   analysis: Analysis;
   backtest: Backtest;
@@ -147,6 +134,7 @@ export default function Dashboard({
   bearDcaHealth: BearDcaHealth;
   bearDownside: BearDownsideAnalysis;
   vnRows: VnGoldEntry[];
+  ringRows: RingGoldDay[];
 }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -252,6 +240,26 @@ export default function Dashboard({
   const asOf = useMemo(() => (selIdx === null ? null : engine.day(selIdx)), [engine, selIdx]);
   const vnByDate = useMemo(() => new Map(vnRows.map((r) => [r.date, r])), [vnRows]);
   const asOfVn = asOf ? (vnByDate.get(asOf.point.date) ?? null) : null;
+  const todayVn = new Date(nowMs + 7 * 3600_000).toISOString().slice(0, 10);
+  const selectedDate = asOf ? asOf.point.date : todayVn;
+  const isTimeMachine = asOf !== null;
+  const selectedQuote = ringQuoteAt(
+    ringRows,
+    settings.ringBrand,
+    selectedDate,
+    isTimeMachine
+  );
+  const brandLabel = settings.ringBrand === "btmh" ? "BTMH" : "BTMC";
+  const quoteDate = selectedQuote
+    ? new Date(Date.parse(selectedQuote.fetchedAt) + 7 * 3600_000)
+        .toISOString()
+        .slice(0, 10)
+    : null;
+  const isStale = !isTimeMachine && quoteDate !== null && quoteDate < todayVn;
+  const fmtDateVn = (d: string) => {
+    const p = d.split("-");
+    return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : d;
+  };
   const fmtAsOfDate = (iso: string) =>
     new Date(iso + "T00:00:00Z").toLocaleDateString("vi-VN", {
       day: "2-digit",
@@ -326,7 +334,7 @@ export default function Dashboard({
   );
 
   const setWeight = (k: CriterionKey, v: number) => {
-    const s: Settings = { weights: { ...weights, [k]: v }, presetId: null };
+    const s: Settings = { ...settings, weights: { ...weights, [k]: v }, presetId: null };
     setSettings(s);
     saveSettings(s);
   };
@@ -334,8 +342,8 @@ export default function Dashboard({
   const applyPreset = (id: string | null) => {
     const p = PRESETS.find((q) => q.id === id);
     const s: Settings = p
-      ? { weights: p.weights, presetId: p.id }
-      : { weights: DEFAULT_WEIGHTS, presetId: null };
+      ? { ...settings, weights: p.weights, presetId: p.id }
+      : { ...settings, weights: DEFAULT_WEIGHTS, presetId: null };
     setSettings(s);
     saveSettings(s);
   };
@@ -424,66 +432,133 @@ export default function Dashboard({
       )}
 
       {/* ── GIÁ: 4 ô chính, mở sẵn ── */}
-      {asOf ? (
-        <section className="prices asof">
+      <section className={`prices ${asOf ? "asof" : ""}`}>
+        {asOf ? (
           <div className="price-item">
             <span>SJC bán (ngày xem)</span>
             <b>{asOfVn?.sjcSell != null ? fmtMoney(asOfVn.sjcSell) : "—"}</b>
           </div>
+        ) : (
           <div className="price-item">
-            <span>Nhẫn bán</span>
-            <b>{asOfVn?.ringSell != null ? fmtMoney(asOfVn.ringSell) : "—"}</b>
+            <span>SJC mua / bán</span>
+            <b>
+              {fmtMoney(analysis.prices.sjcBuy)} / {fmtMoney(analysis.prices.sjcSell)}
+            </b>
+            {spread && (
+              <span
+                className={spread.wide ? "chip sell" : "chip neutral"}
+                title={
+                  spread.wide
+                    ? `Chênh mua–bán ${fmtNum(spread.pct, 2)}% ≥ vạch p90 lịch sử ${VN_ROUND_TRIP.spreadP90Pct}% (${VN_ROUND_TRIP.days} ngày). Mua lúc này mất thêm khi bán lại — cân nhắc chờ spread hẹp lại.`
+                    : `Chênh mua–bán ${fmtNum(spread.pct, 2)}% (trung vị lịch sử ${fmtNum(VN_ROUND_TRIP.spreadMedianPct, 2)}%).`
+                }
+              >
+                spread {fmtNum(spread.pct, 2)}%{spread.wide ? " · GIÃN RỘNG" : ""}
+              </span>
+            )}
           </div>
+        )}
+
+        <div className="price-item ring-item span2">
+          <div className="ring-header">
+            <label htmlFor="ring-brand">Nhẫn trơn 9999</label>
+            <select
+              id="ring-brand"
+              value={settings.ringBrand}
+              onChange={(e) => {
+                const next = { ...settings, ringBrand: ringBrand(e.target.value) };
+                setSettings(next);
+                saveSettings(next);
+              }}
+            >
+              <option value="btmc">BTMC</option>
+              <option value="btmh">BTMH</option>
+            </select>
+          </div>
+          <span>{asOf ? "Bán (ngày xem)" : "Mua / bán"}</span>
+          {selectedQuote ? (
+            <>
+              <b>
+                {asOf
+                  ? `${fmtMoney(selectedQuote.sell)} VND/lượng`
+                  : `${fmtMoney(selectedQuote.buy)} / ${fmtMoney(selectedQuote.sell)} VND/lượng`}
+              </b>
+              <div className="ring-meta">
+                <span className="ring-product">{selectedQuote.product}</span>
+                {" · "}
+                <a
+                  href={selectedQuote.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ring-source"
+                >
+                  Nguồn {brandLabel}
+                </a>
+              </div>
+              <div className="ring-time">
+                {selectedQuote.publishedAt ? (
+                  <span>
+                    Cập nhật:{" "}
+                    {new Date(selectedQuote.publishedAt).toLocaleString("vi-VN", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      timeZone: "Asia/Ho_Chi_Minh",
+                    })}
+                  </span>
+                ) : (
+                  <span>
+                    Không rõ thời điểm nguồn cập nhật; lấy lúc{" "}
+                    {new Date(selectedQuote.fetchedAt).toLocaleString("vi-VN", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      timeZone: "Asia/Ho_Chi_Minh",
+                    })}
+                  </span>
+                )}
+              </div>
+              {isStale && (
+                <div className="ring-stale">
+                  Giá ngày {fmtDateVn(quoteDate)} — chưa có giá mới
+                </div>
+              )}
+            </>
+          ) : (
+            <b>Chưa có dữ liệu {brandLabel}</b>
+          )}
+        </div>
+
+        {asOf ? (
           <div className="price-item">
             <span>XAU/USD</span>
             <b>${fmtNum(asOf.point.price, 0)}</b>
           </div>
+        ) : (
+          <div className="price-item">
+            <span>Thế giới quy đổi</span>
+            <b>{fmtMoney(analysis.prices.worldVndPerLuong)}/lượng</b>
+          </div>
+        )}
+
+        {asOf ? (
           <div className="price-item">
             <span>Chênh VN−TG</span>
             <b>{asOfVn?.premiumPct != null ? `${fmtNum(asOfVn.premiumPct)}%` : "chưa có dữ liệu VN"}</b>
           </div>
-        </section>
-      ) : (
-      <section className="prices">
-        <div className="price-item">
-          <span>SJC mua / bán</span>
-          <b>
-            {fmtMoney(analysis.prices.sjcBuy)} / {fmtMoney(analysis.prices.sjcSell)}
-          </b>
-          {spread && (
-            <span
-              className={spread.wide ? "chip sell" : "chip neutral"}
-              title={
-                spread.wide
-                  ? `Chênh mua–bán ${fmtNum(spread.pct, 2)}% ≥ vạch p90 lịch sử ${VN_ROUND_TRIP.spreadP90Pct}% (${VN_ROUND_TRIP.days} ngày). Mua lúc này mất thêm khi bán lại — cân nhắc chờ spread hẹp lại.`
-                  : `Chênh mua–bán ${fmtNum(spread.pct, 2)}% (trung vị lịch sử ${fmtNum(VN_ROUND_TRIP.spreadMedianPct, 2)}%).`
-              }
-            >
-              spread {fmtNum(spread.pct, 2)}%{spread.wide ? " · GIÃN RỘNG" : ""}
-            </span>
-          )}
-        </div>
-        <div className="price-item">
-          <span>
-            Nhẫn mua / bán
-            {analysis.prices.ringDate ? ` (ngày ${fmtDayMonth(analysis.prices.ringDate)})` : ""}
-          </span>
-          <b>
-            {fmtMoney(analysis.prices.ringBuy)} / {fmtMoney(analysis.prices.ringSell)}
-          </b>
-        </div>
-        <div className="price-item">
-          <span>Thế giới quy đổi</span>
-          <b>{fmtMoney(analysis.prices.worldVndPerLuong)}/lượng</b>
-        </div>
-        <div className="price-item">
-          <span>Chênh VN−TG</span>
-          <b>
-            {fmtNum(analysis.prices.premiumPct)}% ({fmtMoney(analysis.prices.premiumVnd)})
-          </b>
-        </div>
+        ) : (
+          <div className="price-item">
+            <span>Chênh VN−TG</span>
+            <b>
+              {fmtNum(analysis.prices.premiumPct)}% ({fmtMoney(analysis.prices.premiumVnd)})
+            </b>
+          </div>
+        )}
       </section>
-      )}
 
       {/* ── 2 CHIP TRẢ LỜI TỨC THÌ ── */}
       <section className="answer-chips">

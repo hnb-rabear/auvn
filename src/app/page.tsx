@@ -11,7 +11,9 @@ import bearDcaJson from "../../public/data/bear-dca.json";
 import bearDcaHealthJson from "../../public/data/bear-dca-health.json";
 import bearDownsideJson from "../../public/data/bear-downside.json";
 import vnGoldJson from "../../public/data/history/vn-gold.json";
+import ringGoldJson from "../../public/data/history/ring-gold.json";
 import type { Analysis, Backtest, BottomAnalysis, FusionHealthFile, PresetHealthFile, Timeline, AccumulationAnalysis, AccumulationHealth, BearDcaAnalysis, BearDcaHealth, BearDownsideAnalysis, VnGoldEntry } from "@/lib/types";
+import type { RingGoldDay } from "@/lib/ring-gold";
 
 export default function Home() {
   const analysis = analysisJson as unknown as Analysis;
@@ -26,7 +28,8 @@ export default function Home() {
   const bearDcaHealth = bearDcaHealthJson as unknown as BearDcaHealth;
   const bearDownside = bearDownsideJson as unknown as BearDownsideAnalysis;
   const vnRows = vnGoldJson as unknown as VnGoldEntry[];
+  const ringRows = ringGoldJson as unknown as RingGoldDay[];
   return (
-    <Dashboard analysis={analysis} backtest={backtest} timeline={timeline} health={health} bottom={bottom} fusionHealth={fusionHealth} accumulation={accumulation} accumulationHealth={accumulationHealth} bearDca={bearDca} bearDcaHealth={bearDcaHealth} bearDownside={bearDownside} vnRows={vnRows} />
+    <Dashboard analysis={analysis} backtest={backtest} timeline={timeline} health={health} bottom={bottom} fusionHealth={fusionHealth} accumulation={accumulation} accumulationHealth={accumulationHealth} bearDca={bearDca} bearDcaHealth={bearDcaHealth} bearDownside={bearDownside} vnRows={vnRows} ringRows={ringRows} />
   );
 }
