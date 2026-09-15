@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-15T18:19:12.108Z",
+ "generatedAt": "2026-09-15T21:30:27.748Z",
  "dataDate": "2026-09-15",
  "cycle": {
   "prob": 55.8,
@@ -23,28 +23,28 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 0,
-    "explanation": "XAU thay đổi -0,3% trong 3 tháng: đi ngang.",
+    "explanation": "XAU thay đổi -0,4% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 42,7: trung tính.",
+    "explanation": "RSI ngày = 42,5: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -34,84: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -35,04: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD dưới MA50, lợi suất +0,54đ/3 tháng, Fed +0đ: trung tính.",
+    "explanation": "USD dưới MA50, lợi suất +0,53đ/3 tháng, Fed +0đ: trung tính.",
     "available": true
    },
    {
@@ -92,28 +92,28 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 0,
-    "explanation": "XAU thay đổi -0,3% trong 3 tháng: đi ngang.",
+    "explanation": "XAU thay đổi -0,4% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 0,
-    "explanation": "RSI ngày = 42,7: trung tính.",
+    "explanation": "RSI ngày = 42,5: trung tính.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -34,84: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -35,04: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": 0,
-    "explanation": "USD dưới MA50, lợi suất +0,54đ/3 tháng, Fed +0đ: trung tính.",
+    "explanation": "USD dưới MA50, lợi suất +0,53đ/3 tháng, Fed +0đ: trung tính.",
     "available": true
    },
    {

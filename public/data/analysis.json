@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-15T18:17:04.152Z",
+ "generatedAt": "2026-09-15T21:28:18.760Z",
  "dataDate": "2026-09-15",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 142800000,
   "ringSell": 146800000,
   "ringDate": "2026-09-15",
-  "xauUsd": 4336.5,
+  "xauUsd": 4333.39990234375,
   "usdVnd": 26130,
-  "worldVndPerLuong": 136615851,
-  "premiumPct": 6.36,
-  "premiumVnd": 8684149
+  "worldVndPerLuong": 136518186,
+  "premiumPct": 6.43,
+  "premiumVnd": 8781814
  },
  "criteria": [
   {
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 42,7: trung tính.",
+     "explanation": "RSI ngày = 42,5: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 48,5: trung tính.",
+     "explanation": "RSI tuần = 48,4: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 4,7%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 4,8%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": 1,
-     "explanation": "DXY = 99,7 (dưới MA50, -0% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
+     "explanation": "DXY = 99,6 (dưới MA50, -0% trong 1 tháng): USD dưới xu hướng trung hạn — thuận lợi cho vàng.",
      "available": true
     },
     {
@@ -111,7 +111,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -2,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 5,01%, thay đổi 3 tháng +0,54 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 5%, thay đổi 3 tháng +0,53 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
      "available": true
     },
     {
@@ -140,7 +140,7 @@
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": -1,
-     "explanation": "Giá hiện tại cao hơn 81% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
+     "explanation": "Giá hiện tại cao hơn 80% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
      "available": true
     },
     {
@@ -2526,7 +2526,7 @@
   },
   {
    "date": "2026-09-16",
-   "value": 6.36
+   "value": 6.43
   }
  ],
  "premiumPercentiles": {
@@ -2538,8 +2538,8 @@
   "world": "2026-09-15T04:00:00.000Z",
   "dxy": "2026-09-15T04:00:00.000Z",
   "yield10y": "2026-09-15T12:20:00.000Z",
-  "vnGold": "2026-09-15T18:17:04.152Z",
-  "usdVnd": "2026-09-15T18:17:04.152Z",
+  "vnGold": "2026-09-15T21:28:18.760Z",
+  "usdVnd": "2026-09-15T21:28:18.760Z",
   "fed": null
  }
 }
