@@ -6338,10 +6338,10 @@
   "date": "2026-09-15",
   "sjcBuy": 142600000,
   "sjcSell": 145600000,
-  "ringBuy": null,
-  "ringSell": null,
+  "ringBuy": 142800000,
+  "ringSell": 146800000,
   "usdVnd": 26180,
-  "xauUsd": 4337.2001953125,
-  "premiumPct": 6.36
+  "xauUsd": 4327.5,
+  "premiumPct": 6.59
  }
 ]
