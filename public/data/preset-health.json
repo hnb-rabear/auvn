@@ -1,15 +1,15 @@
 {
- "generatedAt": "2026-09-15T07:55:17.052Z",
+ "generatedAt": "2026-09-15T13:43:09.080Z",
  "items": [
   {
    "presetId": "1m",
-   "minExcessNowPt": 29.5,
+   "minExcessNowPt": 29.7,
    "recentFavPct": 100,
-   "recentBaselinePct": 67.1,
-   "recentN": 27,
+   "recentBaselinePct": 66.9,
+   "recentN": 24,
    "testFavCi95": [
-    63.9,
-    98.2
+    71.8,
+    100
    ],
    "trainClusters": 15,
    "testClusters": 10,
@@ -17,9 +17,9 @@
   },
   {
    "presetId": "3m",
-   "minExcessNowPt": 31.2,
+   "minExcessNowPt": 31.5,
    "recentFavPct": 100,
-   "recentBaselinePct": 78.9,
+   "recentBaselinePct": 78.3,
    "recentN": 55,
    "testFavCi95": [
     95.8,
@@ -34,7 +34,7 @@
    "minExcessNowPt": 10.7,
    "recentFavPct": 99,
    "recentBaselinePct": 87.5,
-   "recentN": 100,
+   "recentN": 101,
    "testFavCi95": [
     93.7,
     100

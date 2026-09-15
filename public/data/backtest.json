@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-09-15T07:52:22.170Z",
+ "generatedAt": "2026-09-15T13:40:11.806Z",
  "fromDate": "2009-09-17",
  "toDate": "2026-09-15",
- "observations": 1425,
+ "observations": 1426,
  "horizons": [
   21,
   63,
@@ -54,65 +54,65 @@
   {
    "zone": "neutral",
    "horizonDays": 21,
-   "count": 1237,
+   "count": 1246,
    "pctFavorable": null,
-   "medianReturnPct": 0.6
+   "medianReturnPct": 0.7
   },
   {
    "zone": "neutral",
    "horizonDays": 63,
-   "count": 1223,
+   "count": 1232,
    "pctFavorable": null,
-   "medianReturnPct": 2.4
+   "medianReturnPct": 2.3
   },
   {
    "zone": "neutral",
    "horizonDays": 126,
-   "count": 1202,
+   "count": 1211,
    "pctFavorable": null,
    "medianReturnPct": 4.1
   },
   {
    "zone": "sell",
    "horizonDays": 21,
-   "count": 128,
-   "pctFavorable": 56.3,
-   "medianReturnPct": -0.4
+   "count": 118,
+   "pctFavorable": 60.2,
+   "medianReturnPct": -0.6
   },
   {
    "zone": "sell",
    "horizonDays": 63,
-   "count": 128,
-   "pctFavorable": 43,
-   "medianReturnPct": 1.5
+   "count": 118,
+   "pctFavorable": 44.1,
+   "medianReturnPct": 0.7
   },
   {
    "zone": "sell",
    "horizonDays": 126,
-   "count": 128,
-   "pctFavorable": 28.1,
-   "medianReturnPct": 11.6
+   "count": 118,
+   "pctFavorable": 29.7,
+   "medianReturnPct": 10.4
   },
   {
    "zone": "strong-sell",
    "horizonDays": 21,
-   "count": 2,
-   "pctFavorable": 50,
-   "medianReturnPct": -0.3
+   "count": 3,
+   "pctFavorable": 33.3,
+   "medianReturnPct": 0.1
   },
   {
    "zone": "strong-sell",
    "horizonDays": 63,
-   "count": 2,
-   "pctFavorable": 0,
-   "medianReturnPct": 3.1
+   "count": 3,
+   "pctFavorable": 33.3,
+   "medianReturnPct": 2
   },
   {
    "zone": "strong-sell",
    "horizonDays": 126,
-   "count": 2,
+   "count": 3,
    "pctFavorable": 0,
-   "medianReturnPct": 12.8
+   "medianReturnPct": 11.3
   }
  ],
  "note": "Backtest chạy trên giá XAU/USD với các tiêu chí thế giới (kỹ thuật, thống kê, DXY + lãi suất Fed). Tiêu chí chênh lệch VN chưa đủ lịch sử kiểm chứng nên không tham gia backtest."
