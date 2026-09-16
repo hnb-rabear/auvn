@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-16T17:10:11.244Z",
+ "generatedAt": "2026-09-16T20:16:56.137Z",
  "items": [
   {
    "presetId": "1m",
@@ -19,7 +19,7 @@
    "presetId": "3m",
    "minExcessNowPt": 31.5,
    "recentFavPct": 100,
-   "recentBaselinePct": 78.3,
+   "recentBaselinePct": 78.1,
    "recentN": 55,
    "testFavCi95": [
     95.8,
