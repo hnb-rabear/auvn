@@ -1,30 +1,30 @@
 {
  "schemaVersion": "1.4",
- "generatedAt": "2026-09-16T00:31:26.122Z",
+ "generatedAt": "2026-09-16T06:11:22.084Z",
  "dataDate": "2026-09-16",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4324,
-  "sjcBuy": 142300000,
-  "sjcSell": 145300000,
+  "xauUsd": 4371,
+  "sjcBuy": 142900000,
+  "sjcSell": 145900000,
   "ringBuy": 142800000,
   "ringSell": 146800000,
   "ringDate": "2026-09-15",
-  "usdVnd": 26130,
-  "worldVndPerLuong": 136222054,
-  "vnPremiumPct": 6.66,
-  "vnPremiumVnd": 9077946,
+  "usdVnd": 26180,
+  "worldVndPerLuong": 137966224,
+  "vnPremiumPct": 5.75,
+  "vnPremiumVnd": 7933776,
   "changes": {
    "prevDate": "2026-09-15",
-   "xauUsd": -3.8,
-   "sjcSell": 0,
+   "xauUsd": 43.2,
+   "sjcSell": 600000,
    "ringSell": 0,
-   "vnPremiumPct": 0.09
+   "vnPremiumPct": -0.82
   }
  },
  "changed": {
-  "sincePrevRun": true,
+  "sincePrevRun": false,
   "newBuySignals": [],
   "lostBuySignals": [],
   "bottomStartToday": false,
@@ -33,23 +33,23 @@
  "bottomHunter": {
   "cycle": {
    "bin": 2,
-   "prob": 55.8,
+   "prob": 54.7,
    "ci": [
-    41.2,
-    65.6
+    42,
+    64.4
    ],
-   "probUnweighted": 41,
-   "n": 641
+   "probUnweighted": 40.8,
+   "n": 645
   },
   "swing": {
    "bin": 2,
-   "prob": 54.4,
+   "prob": 53.5,
    "ci": [
     42.6,
-    65
+    64.1
    ],
-   "probUnweighted": 46.3,
-   "n": 659
+   "probUnweighted": 45.3,
+   "n": 666
   },
   "isBottomStart": false,
   "lastBottomStartDate": "2026-08-17",
@@ -102,7 +102,7 @@
   },
   "premiumGate": {
    "expensiveVsWorld": false,
-   "premiumPct": 6.66,
+   "premiumPct": 5.75,
    "premiumP80": 16.23,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
@@ -110,18 +110,18 @@
  "accumulation": {
   "effectiveBuyMultiplier": 0.75,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.7004,
+  "pricePercentile2y": 0.7262,
   "bearDca": {
-   "generatedAt": "2026-09-16T00:30:14.107Z",
+   "generatedAt": "2026-09-16T06:10:10.325Z",
    "dataDate": "2026-09-16",
    "isBear": true,
-   "ddFromAth": 0.187,
-   "ddChange": 0.0213,
+   "ddFromAth": 0.1781,
+   "ddChange": 0.0193,
    "phase": "grind",
-   "pricePct2y": 0.7004,
+   "pricePct2y": 0.7262,
    "mult": 0.75,
    "recoveryRisk": false,
-   "note": "Bear rỉ máu. Giá ở percentile 70% của 2 năm gần — dùng vị trí giá để tính khối lượng."
+   "note": "Bear rỉ máu. Giá ở percentile 73% của 2 năm gần — dùng vị trí giá để tính khối lượng."
   },
   "twoYearBrake": {
    "multiplier": 1,
@@ -135,7 +135,6 @@
   "overall": "ok",
   "degradedLayers": [
    "bottom-cycle",
-   "bottom-swing",
    "accumulation-brake"
   ],
   "insufficientLayers": [
@@ -143,14 +142,14 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-09-16T00:31:25.291Z",
+   "generatedAt": "2026-09-16T06:11:21.274Z",
    "items": [
     {
      "presetId": "1m",
      "minExcessNowPt": 29.7,
      "recentFavPct": 100,
-     "recentBaselinePct": 66.9,
-     "recentN": 24,
+     "recentBaselinePct": 66.5,
+     "recentN": 22,
      "testFavCi95": [
       71.8,
       100
@@ -169,15 +168,15 @@
       95.8,
       100
      ],
-     "trainClusters": 11,
+     "trainClusters": 12,
      "testClusters": 12,
      "status": "ok"
     },
     {
      "presetId": "6m",
-     "minExcessNowPt": 10.7,
+     "minExcessNowPt": 10.6,
      "recentFavPct": 99,
-     "recentBaselinePct": 87.5,
+     "recentBaselinePct": 87.3,
      "recentN": 101,
      "testFavCi95": [
       93.7,
@@ -190,44 +189,44 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-09-16T00:31:24.656Z",
+   "generatedAt": "2026-09-16T06:11:20.357Z",
    "items": [
     {
      "tier": "cycle",
-     "recentTopFav": 37.5,
+     "recentTopFav": 53.3,
      "recentBaseline": 59.5,
-     "n": 16,
+     "n": 15,
      "status": "degraded"
     },
     {
      "tier": "swing",
-     "recentTopFav": 43.5,
+     "recentTopFav": 57.1,
      "recentBaseline": 53.2,
-     "n": 23,
-     "status": "degraded"
+     "n": 21,
+     "status": "ok"
     }
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-09-16T00:30:14.106Z",
+   "generatedAt": "2026-09-16T06:10:10.324Z",
    "recentImprPct": -2.7,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-09-16T00:30:24.797Z",
+   "generatedAt": "2026-09-16T06:10:20.909Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 4,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-09-16T00:31:25.756Z",
+   "generatedAt": "2026-09-16T06:11:21.725Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
     "bTestFav": 100,
-    "compTrainFav": 89.6,
+    "compTrainFav": 89,
     "compTestFav": 99.1,
     "bTestN": 66,
     "bTestCi95": [
@@ -244,11 +243,11 @@
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
-  "world": "2026-09-16T00:17:02.000Z",
-  "dxy": "2026-09-16T00:17:18.000Z",
+  "world": "2026-09-16T04:00:00.000Z",
+  "dxy": "2026-09-16T04:00:00.000Z",
   "yield10y": "2026-09-15T12:20:00.000Z",
-  "vnGold": "2026-09-16T00:28:20.722Z",
-  "usdVnd": "2026-09-16T00:28:20.722Z",
+  "vnGold": "2026-09-16T06:08:17.468Z",
+  "usdVnd": "2026-09-16T06:08:17.468Z",
   "fed": null
  }
 }
