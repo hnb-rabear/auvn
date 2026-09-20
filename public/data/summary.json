@@ -1,6 +1,6 @@
 {
  "schemaVersion": "1.4",
- "generatedAt": "2026-09-20T01:20:07.990Z",
+ "generatedAt": "2026-09-20T06:27:24.625Z",
  "dataDate": "2026-09-18",
  "stale": false,
  "staleDays": 0,
@@ -33,23 +33,23 @@
  "bottomHunter": {
   "cycle": {
    "bin": 0,
-   "prob": 48.5,
+   "prob": 51.6,
    "ci": [
-    23.5,
-    69
+    24.8,
+    73.1
    ],
-   "probUnweighted": 34.9,
-   "n": 252
+   "probUnweighted": 36,
+   "n": 253
   },
   "swing": {
    "bin": 0,
-   "prob": 43.8,
+   "prob": 37.3,
    "ci": [
-    28.5,
-    58.1
+    25.2,
+    48.9
    ],
-   "probUnweighted": 37.8,
-   "n": 254
+   "probUnweighted": 34.5,
+   "n": 255
   },
   "isBottomStart": false,
   "lastBottomStartDate": "2026-08-17",
@@ -112,7 +112,7 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.756,
   "bearDca": {
-   "generatedAt": "2026-09-20T01:18:53.633Z",
+   "generatedAt": "2026-09-20T06:26:11.371Z",
    "dataDate": "2026-09-18",
    "isBear": true,
    "ddFromAth": 0.168,
@@ -149,7 +149,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-09-20T01:20:07.141Z",
+   "generatedAt": "2026-09-20T06:27:23.805Z",
    "items": [
     {
      "presetId": "1m",
@@ -181,7 +181,7 @@
     },
     {
      "presetId": "6m",
-     "minExcessNowPt": 10.5,
+     "minExcessNowPt": 10.3,
      "recentFavPct": 99,
      "recentBaselinePct": 86.9,
      "recentN": 101,
@@ -196,39 +196,39 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-09-20T01:20:06.412Z",
+   "generatedAt": "2026-09-20T06:27:23.062Z",
    "items": [
     {
      "tier": "cycle",
-     "recentTopFav": 50,
-     "recentBaseline": 62.7,
-     "n": 14,
+     "recentTopFav": 37.5,
+     "recentBaseline": 58.7,
+     "n": 16,
      "status": "degraded"
     },
     {
      "tier": "swing",
-     "recentTopFav": 47.8,
-     "recentBaseline": 51.3,
+     "recentTopFav": 43.5,
+     "recentBaseline": 53.2,
      "n": 23,
      "status": "degraded"
     }
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-09-20T01:18:53.632Z",
-   "recentImprPct": -2.9,
+   "generatedAt": "2026-09-20T06:26:11.370Z",
+   "recentImprPct": -3.1,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-09-20T01:19:04.319Z",
+   "generatedAt": "2026-09-20T06:26:21.993Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
-   "recentBearCycles": 4,
+   "recentBearCycles": 3,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-09-20T01:20:07.621Z",
+   "generatedAt": "2026-09-20T06:27:24.254Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -253,8 +253,8 @@
   "world": "2026-09-18T04:00:00.000Z",
   "dxy": "2026-09-18T04:00:00.000Z",
   "yield10y": "2026-09-18T12:20:00.000Z",
-  "vnGold": "2026-09-20T01:16:56.718Z",
-  "usdVnd": "2026-09-20T01:16:56.718Z",
+  "vnGold": "2026-09-20T06:24:15.824Z",
+  "usdVnd": "2026-09-20T06:24:15.824Z",
   "fed": null
  }
 }

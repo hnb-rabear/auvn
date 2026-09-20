@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-20T01:18:53.630Z",
+ "generatedAt": "2026-09-20T06:26:11.368Z",
  "dataDate": "2026-09-18",
  "pricePct2y": 0.7559523809523809,
  "mult": 0.25,
@@ -12,11 +12,6 @@
  ],
  "provisional": false,
  "history": [
-  {
-   "date": "2009-09-21",
-   "pricePct2y": null,
-   "mult": 1
-  },
   {
    "date": "2009-09-22",
    "pricePct2y": null,
@@ -2534,8 +2529,8 @@
   },
   {
    "date": "2011-09-20",
-   "pricePct2y": 0.9682539682539683,
-   "mult": 0.25
+   "pricePct2y": null,
+   "mult": 1
   },
   {
    "date": "2011-09-21",
