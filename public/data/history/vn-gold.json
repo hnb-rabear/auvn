@@ -6406,12 +6406,12 @@
  },
  {
   "date": "2026-09-22",
-  "sjcBuy": 143600000,
+  "sjcBuy": 142600000,
   "sjcSell": 146600000,
-  "ringBuy": null,
-  "ringSell": null,
-  "usdVnd": 26200,
-  "xauUsd": 4406.39990234375,
-  "premiumPct": 5.32
+  "ringBuy": 142600000,
+  "ringSell": 146600000,
+  "usdVnd": 26020,
+  "xauUsd": 4392.89990234375,
+  "premiumPct": 6.38
  }
 ]
