@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-09-23T01:01:42.879Z",
+ "generatedAt": "2026-09-23T06:05:03.691Z",
  "dataDate": "2026-09-23",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 141900000,
-  "sjcSell": 144900000,
+  "sjcBuy": 142500000,
+  "sjcSell": 145500000,
   "ringBuy": 142000000,
   "ringSell": 146000000,
   "ringDate": null,
-  "xauUsd": 4394.60009765625,
-  "usdVnd": 26210,
-  "worldVndPerLuong": 138870088,
-  "premiumPct": 4.34,
-  "premiumVnd": 6029912
+  "xauUsd": 4369.89990234375,
+  "usdVnd": 26180,
+  "worldVndPerLuong": 137931501,
+  "premiumPct": 5.49,
+  "premiumVnd": 7568499
  },
  "criteria": [
   {
@@ -24,28 +24,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 47,9: trung tính.",
+     "explanation": "RSI ngày = 45,8: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 50,1: trung tính.",
+     "explanation": "RSI tuần = 49: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 1,
-     "explanation": "Giá thấp hơn MA200 3,5%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
+     "explanation": "Giá thấp hơn MA200 4,1%: dưới MA200 — giá rẻ tương đối so với xu hướng dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 0,
-     "explanation": "Giá ở mức 40% biên độ 52 tuần (đáy 3.768 — đỉnh 5.318): giữa biên độ năm.",
+     "explanation": "Giá ở mức 39% biên độ 52 tuần (đáy 3.768 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 4,3%, ở percentile 11 so với lịch sử tự thu thập (591 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 5,5%, ở percentile 15 so với lịch sử tự thu thập (591 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 100,6 (trên MA50, +1,8% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 100,7 (trên MA50, +2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -111,14 +111,14 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -2,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,97%, thay đổi 3 tháng +0,47 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,96%, thay đổi 3 tháng +0,45 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
      "available": true
     },
     {
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.210, nhịp +0,4%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.180, nhịp +0,3%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -133,14 +133,14 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 46% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 43% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": -1,
-     "explanation": "Giá hiện tại cao hơn 82% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
+     "explanation": "Giá hiện tại cao hơn 81% số phiên trong 3 năm qua: vùng giá cao lịch sử — thuận bán.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +18,6% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +15,8% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -2554,7 +2554,7 @@
   },
   {
    "date": "2026-09-23",
-   "value": 4.34
+   "value": 5.49
   }
  ],
  "premiumPercentiles": {
@@ -2563,11 +2563,11 @@
   "p80": 16.21
  },
  "sourceTimes": {
-  "world": "2026-09-23T00:50:32.000Z",
-  "dxy": "2026-09-23T00:50:41.000Z",
-  "yield10y": "2026-09-22T12:20:00.000Z",
-  "vnGold": "2026-09-23T01:01:42.879Z",
-  "usdVnd": "2026-09-23T01:01:42.879Z",
+  "world": "2026-09-23T04:00:00.000Z",
+  "dxy": "2026-09-23T04:00:00.000Z",
+  "yield10y": "2026-09-21T12:20:00.000Z",
+  "vnGold": "2026-09-23T06:05:03.691Z",
+  "usdVnd": "2026-09-23T06:05:03.691Z",
   "fed": null
  }
 }
