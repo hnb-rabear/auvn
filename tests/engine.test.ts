@@ -178,6 +178,12 @@ describe("criteria", () => {
     expect(r.signals.find((s) => s.id === "gpr")).toBeUndefined();
   });
 
+  it("macro: a 0.25 Fed hike from float-noisy monthly averages scores −2, not −1", () => {
+    // 1.15 − 0.9 = 0.24999999999999994 in float (FEDFUNDS 2017-05→08)
+    const r = macroCriterion({ dxyCloses: range(120, () => 100), fedRates: [0.9, 1.0, 1.1, 1.15], usdVndHistory: [] });
+    expect(r.signals.find((s) => s.id === "fed")!.score).toBe(-2);
+  });
+
   it("macro: falling 10y yield favors gold, rising hurts", () => {
     const base = {
       dxyCloses: range(120, () => 100),

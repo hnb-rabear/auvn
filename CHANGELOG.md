@@ -10,6 +10,11 @@ All notable changes to this project will be documented in this file.
 - Lưu trữ lịch sử giá nhẫn theo thương hiệu độc lập tại `public/data/history/ring-gold.json`.
 
 ### Fixed
+- Cron dừng thay vì ghi đè `vn-gold.json` còn 1 dòng khi file lịch sử hỏng (`scripts/run.ts`).
+- Cache lợi suất 10 năm gộp theo ngày thay vì so độ dài — cửa sổ Yahoo 20 năm trượt từng làm cache đóng băng (`scripts/run.ts`, `scripts/fetch.ts`).
+- Thêm cache DXY (`public/data/history/dxy.json`): một lần Yahoo lỗi không còn xóa tín hiệu vĩ mô khỏi toàn bộ timeline (`scripts/run.ts`).
+- Điểm Fed: làm tròn hiệu số lãi suất, mức tăng 0,25 không còn bị chấm −1 do sai số dấu phẩy động (08–09/2017) (`src/lib/criteria.ts`).
+- Local sync dừng nếu không ở nhánh `main` và tự `git rebase --abort` khi conflict (`scripts/sync-vn-gold.ts`).
 - Thu thập giá nhẫn độc lập từng nguồn: lỗi SJC/CafeF/tỷ giá không làm mất hoặc ghi đè giá nhẫn đã thu thập (`scripts/backfill-vn.ts`).
 - Đọc và kiểm tra `vn-gold.json` trước khi ghi bất cứ file nào: lịch sử hỏng không còn để lại `ring-gold.json` dở dang làm kẹt các lần đồng bộ sau (`scripts/backfill-vn.ts`).
 - Lỗi lịch sử nhẫn không còn chặn việc thu thập giá SJC — vẫn báo lỗi, nhưng sau khi dữ liệu SJC đã lưu (`scripts/backfill-vn.ts`).

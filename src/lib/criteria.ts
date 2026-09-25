@@ -336,7 +336,9 @@ export function macroCriterion(inp: MacroInputs): CriterionResult {
   } else {
     const last = inp.fedRates[inp.fedRates.length - 1];
     const ago3m = inp.fedRates[inp.fedRates.length - 4];
-    const d = last - ago3m;
+    // Làm tròn 2 số lẻ (FEDFUNDS có 2 số lẻ): hiệu số thực 0,25 từng ra 0.2499999…
+    // và bị chấm −1 thay vì −2 (08–09/2017).
+    const d = Math.round((last - ago3m) * 100) / 100;
     let score: number;
     let text: string;
     if (d <= -0.25) {

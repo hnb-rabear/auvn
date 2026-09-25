@@ -17,6 +17,17 @@ export interface DailyBar {
   close: number;
 }
 
+/**
+ * Gộp chuỗi bar theo ngày, bản fresh thắng khi trùng ngày. Dùng cho cache lịch
+ * sử: Yahoo range=20y là cửa sổ TRƯỢT nên số bar fresh có thể ít hơn cache — so
+ * độ dài để quyết định ghi từng làm cache đóng băng; gộp thì cache chỉ lớn dần.
+ */
+export function mergeBars(cached: DailyBar[] | null | undefined, fresh: DailyBar[]): DailyBar[] {
+  const byDate = new Map((cached ?? []).map((b) => [b.date, b]));
+  for (const b of fresh) byDate.set(b.date, b);
+  return [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+}
+
 function parseStooqCsv(csv: string): DailyBar[] {
   const lines = csv.trim().split("\n");
   const out: DailyBar[] = [];

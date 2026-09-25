@@ -9,6 +9,7 @@ import {
   fetchUsdVnd,
   fetchYield10y,
   fetchRealYield,
+  mergeBars,
   lastVnGoldError,
 } from "./fetch";
 import type { DailyBar } from "./fetch";
@@ -54,6 +55,10 @@ const FED_CACHE_FILE = join(HISTORY_DIR, "fed-funds.json");
 // ngày). Cache chuỗi NOMINAL (^TNX) đã fetch tốt gần nhất; DFII10 chỉ dùng khi
 // cold-start (chưa có cache) — không bao giờ dùng để "thế chỗ" một cache nominal.
 const YIELD_CACHE_FILE = join(HISTORY_DIR, "yield10y.json");
+// DXY không có nguồn dự phòng sống (Stooq 404 từ 2026-06). Thiếu DXY một lần thì
+// backtest.ts bỏ macro khỏi TOÀN BỘ timeline (preset 6m mất 0,8 trọng số) trong khi
+// card live vẫn có yield — cùng họ lỗi FRED-504. Cache như yield.
+const DXY_CACHE_FILE = join(HISTORY_DIR, "dxy.json");
 
 const TROY_OZ_GRAMS = 31.1034768;
 const LUONG_GRAMS = 37.5;
@@ -64,12 +69,11 @@ function vnToday(): string {
 
 function loadVnHistory(): VnGoldEntry[] {
   if (!existsSync(VN_HISTORY_FILE)) return [];
-  try {
-    const arr = JSON.parse(readFileSync(VN_HISTORY_FILE, "utf8"));
-    return Array.isArray(arr) ? arr : [];
-  } catch {
-    return [];
-  }
+  // File hỏng/không phải mảng: DỪNG, không trả [] — trả [] thì main() ghi đè
+  // [hôm nay] lên ~600 dòng lịch sử rồi commit (data/ là database). Giống backfill-vn.
+  const arr = JSON.parse(readFileSync(VN_HISTORY_FILE, "utf8"));
+  if (!Array.isArray(arr)) throw new Error(`${VN_HISTORY_FILE} không phải mảng — dừng để không ghi đè lịch sử.`);
+  return arr;
 }
 
 type FedSeries = { date: string; value: number }[];
@@ -86,6 +90,16 @@ function loadFedCache(): FedSeries | null {
 
 type YieldCache = { bars: DailyBar[]; real: boolean; source: string };
 
+function loadDxyCache(): DailyBar[] | null {
+  if (!existsSync(DXY_CACHE_FILE)) return null;
+  try {
+    const arr = JSON.parse(readFileSync(DXY_CACHE_FILE, "utf8"));
+    return Array.isArray(arr) && arr.length ? arr : null;
+  } catch {
+    return null;
+  }
+}
+
 function loadYieldCache(): YieldCache | null {
   if (!existsSync(YIELD_CACHE_FILE)) return null;
   try {
@@ -100,7 +114,7 @@ async function main() {
   const warnings: string[] = [];
   const today = vnToday();
 
-  const [xauRes, dxyRes, fedRes, vnRes, usdVndRes, yieldFreshRes] = await Promise.all([
+  const [xauRes, dxyFreshRes, fedRes, vnRes, usdVndRes, yieldFreshRes] = await Promise.all([
     fetchXau().catch(() => null),
     fetchDxy().catch(() => null),
     fetchFedFunds().catch(() => null),
@@ -136,6 +150,14 @@ async function main() {
     return;
   }
   console.log(`XAU: ${xauRes.bars.length} bars (${xauRes.source})`);
+  let dxyRes = dxyFreshRes;
+  if (!dxyRes) {
+    const cached = loadDxyCache();
+    if (cached) {
+      dxyRes = { bars: cached, source: "cache", lastTs: null };
+      warnings.push("Không lấy được DXY mới — dùng số liệu DXY đã lưu gần nhất.");
+    }
+  }
   if (dxyRes) console.log(`DXY: ${dxyRes.bars.length} bars (${dxyRes.source})`);
   else warnings.push("Không lấy được DXY — tín hiệu USD tạm bỏ qua.");
   // Fed: fetch được thì dùng + cache lại; hỏng thì lùi về chuỗi đã lưu để
@@ -390,10 +412,19 @@ async function main() {
     writeFileSync(FED_CACHE_FILE, JSON.stringify(fedRes, null, 1));
   }
   // Chỉ cache khi fetch NOMINAL tươi thành công (yieldFreshRes, không phải bản
-  // fallback cache/FRED vừa dùng ở trên) — và không ghi đè bằng bản ngắn hơn.
-  if (yieldFreshRes && yieldFreshRes.bars.length >= (loadYieldCache()?.bars.length ?? 0)) {
-    const cache: YieldCache = { bars: yieldFreshRes.bars, real: false, source: yieldFreshRes.source };
+  // fallback cache/FRED vừa dùng ở trên). GỘP theo ngày, không so độ dài: Yahoo
+  // range=20y trượt nên bản fresh có thể ngắn hơn cache (từng đóng băng cache 7 ngày).
+  if (yieldFreshRes) {
+    const prev = loadYieldCache();
+    const cache: YieldCache = {
+      bars: mergeBars(prev?.real ? null : prev?.bars, yieldFreshRes.bars),
+      real: false,
+      source: yieldFreshRes.source,
+    };
     writeFileSync(YIELD_CACHE_FILE, JSON.stringify(cache, null, 1));
+  }
+  if (dxyFreshRes) {
+    writeFileSync(DXY_CACHE_FILE, JSON.stringify(mergeBars(loadDxyCache(), dxyFreshRes.bars), null, 1));
   }
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));

@@ -42,7 +42,11 @@ export async function runSync(
   const pullRebase = (): { ok: boolean; out: string } => {
     const fetch = tryRun("git fetch origin main");
     if (!fetch.ok) return fetch;
-    return tryRun("git rebase origin/main");
+    const rebase = tryRun("git rebase origin/main");
+    // Conflict: trả repo về trạng thái trước rebase — kẹt giữa rebase thì mọi lần
+    // chạy sau đều fail preflight cho tới khi có người xử lý tay.
+    if (!rebase.ok) tryRun("git rebase --abort");
+    return rebase;
   };
 
   const hasStagedChanges = (): boolean => {
@@ -56,6 +60,16 @@ export async function runSync(
   };
 
   console.log(`[sync-vn-gold] ${new Date().toISOString()} bắt đầu trên ${hostname()}`);
+
+  // Preflight check C: phải đang ở main — rebase/commit chạy trên nhánh hiện tại
+  // còn push đẩy ref main, nên ở nhánh khác thì nhánh đó bị rebase ngầm, data
+  // commit nằm lại trên nhánh đó, còn push báo "up-to-date" như thành công.
+  const branch = tryRun("git rev-parse --abbrev-ref HEAD");
+  if (!branch.ok || branch.out.trim() !== "main") {
+    console.error(`[sync-vn-gold] đang ở nhánh "${branch.out.trim()}", không phải main — dừng.`);
+    process.exitCode = 1;
+    return;
+  }
 
   // Preflight check B: Any owned history paths dirty or untracked?
   const targets = HISTORY_PATHS.map((p) => `"${p}"`).join(" ");

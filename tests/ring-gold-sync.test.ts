@@ -464,6 +464,7 @@ describe("runSync", () => {
     const executed: string[] = [];
     const mockRunner: CommandRunner = (cmd) => {
       executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "main";
       if (cmd.includes("diff --cached --name-only")) {
         return "src/components/Dashboard.tsx\n";
       }
@@ -485,6 +486,7 @@ describe("runSync", () => {
     const executed: string[] = [];
     const mockRunner: CommandRunner = (cmd) => {
       executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "main";
       if (cmd.includes("diff --cached --name-only")) {
         return "";
       }
@@ -504,6 +506,7 @@ describe("runSync", () => {
     const executed: string[] = [];
     const mockRunner: CommandRunner = (cmd) => {
       executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "main";
       if (cmd.includes("diff --cached --name-only")) {
         return "";
       }
@@ -523,6 +526,7 @@ describe("runSync", () => {
     const executed: string[] = [];
     const mockRunner: CommandRunner = (cmd) => {
       executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "main";
       if (cmd.includes("diff --cached --name-only")) return "";
       if (cmd.includes("status --porcelain")) return "";
       if (cmd.includes("fetch")) return "";
@@ -551,6 +555,7 @@ describe("runSync", () => {
     const executed: string[] = [];
     const mockRunner: CommandRunner = (cmd) => {
       executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "main";
       if (cmd.includes("diff --cached --name-only")) return "";
       if (cmd.includes("status --porcelain")) return "";
       if (cmd.includes("fetch")) return "";
@@ -587,5 +592,35 @@ describe("runSync", () => {
     expect(diffQuiet).toBe(
       'git diff --cached --quiet -- "public/data/history/vn-gold.json" "public/data/history/ring-gold.json"'
     );
+  });
+
+  it("sync refuses to run when not on main (no rebase, no commit)", async () => {
+    const executed: string[] = [];
+    const mockRunner: CommandRunner = (cmd) => {
+      executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "feat/x";
+      return "";
+    };
+
+    await runSync(tmpDir, mockRunner);
+
+    expect(process.exitCode).toBe(1);
+    expect(executed.some((c) => c.includes("rebase") || c.includes("commit") || c.includes("push"))).toBe(false);
+  });
+
+  it("sync aborts a conflicted rebase so the repo is not left mid-rebase", async () => {
+    const executed: string[] = [];
+    const mockRunner: CommandRunner = (cmd) => {
+      executed.push(cmd);
+      if (cmd.includes("rev-parse --abbrev-ref")) return "main";
+      if (cmd === "git rebase origin/main") throw new Error("conflict");
+      return "";
+    };
+
+    await runSync(tmpDir, mockRunner);
+
+    expect(process.exitCode).toBe(1);
+    expect(executed).toContain("git rebase --abort");
+    expect(executed.some((c) => c.includes("backfill-vn.ts"))).toBe(false);
   });
 });
