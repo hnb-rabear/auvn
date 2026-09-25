@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-25T07:57:28.489Z",
+ "generatedAt": "2026-09-25T08:06:38.212Z",
  "dataDate": "2026-09-25",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141500000,
   "ringSell": 145500000,
   "ringDate": null,
-  "xauUsd": 4313.60009765625,
+  "xauUsd": 4313.7001953125,
   "usdVnd": 26180,
-  "worldVndPerLuong": 136154454,
-  "premiumPct": 6.06,
-  "premiumVnd": 8245546
+  "worldVndPerLuong": 136157613,
+  "premiumPct": 6.05,
+  "premiumVnd": 8242387
  },
  "criteria": [
   {
@@ -2562,7 +2562,7 @@
   },
   {
    "date": "2026-09-25",
-   "value": 6.06
+   "value": 6.05
   }
  ],
  "premiumPercentiles": {
@@ -2574,8 +2574,8 @@
   "world": "2026-09-25T04:00:00.000Z",
   "dxy": "2026-09-25T04:00:00.000Z",
   "yield10y": "2026-09-24T12:20:00.000Z",
-  "vnGold": "2026-09-25T07:57:28.489Z",
-  "usdVnd": "2026-09-25T07:57:28.489Z",
+  "vnGold": "2026-09-25T08:06:38.212Z",
+  "usdVnd": "2026-09-25T08:06:38.212Z",
   "fed": null
  }
 }
