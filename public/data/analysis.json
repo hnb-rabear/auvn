@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-25T07:24:28.462Z",
+ "generatedAt": "2026-09-25T07:57:28.489Z",
  "dataDate": "2026-09-25",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141500000,
   "ringSell": 145500000,
   "ringDate": null,
-  "xauUsd": 4311.7001953125,
+  "xauUsd": 4313.60009765625,
   "usdVnd": 26180,
-  "worldVndPerLuong": 136094485,
-  "premiumPct": 6.1,
-  "premiumVnd": 8305515
+  "worldVndPerLuong": 136154454,
+  "premiumPct": 6.06,
+  "premiumVnd": 8245546
  },
  "criteria": [
   {
@@ -24,28 +24,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 41,8: trung tính.",
+     "explanation": "RSI ngày = 42: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 47,2: trung tính.",
+     "explanation": "RSI tuần = 47,3: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 5,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 5,3%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
-     "score": 1,
-     "explanation": "Giá ở mức 35% biên độ 52 tuần (đáy 3.771 — đỉnh 5.318): vùng thấp của biên độ năm.",
+     "score": 0,
+     "explanation": "Giá ở mức 35% biên độ 52 tuần (đáy 3.771 — đỉnh 5.318): giữa biên độ năm.",
      "available": true
     },
     {
@@ -56,7 +56,7 @@
      "available": true
     }
    ],
-   "score": 0.6,
+   "score": 0.4,
    "available": true
   },
   {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 101,2 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 101,1 (trên MA50, +2,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +14,4% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +14,5% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": -0.3,
+ "composite": -3.8,
  "zone": "neutral",
  "vnHistoryDays": 593,
  "warnings": [
@@ -2562,7 +2562,7 @@
   },
   {
    "date": "2026-09-25",
-   "value": 6.1
+   "value": 6.06
   }
  ],
  "premiumPercentiles": {
@@ -2574,8 +2574,8 @@
   "world": "2026-09-25T04:00:00.000Z",
   "dxy": "2026-09-25T04:00:00.000Z",
   "yield10y": "2026-09-24T12:20:00.000Z",
-  "vnGold": "2026-09-25T07:24:28.462Z",
-  "usdVnd": "2026-09-25T07:24:28.462Z",
+  "vnGold": "2026-09-25T07:57:28.489Z",
+  "usdVnd": "2026-09-25T07:57:28.489Z",
   "fed": null
  }
 }
