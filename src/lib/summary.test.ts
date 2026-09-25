@@ -200,7 +200,7 @@ describe("buildAuvnSummary", () => {
     const input = createMockInput();
     const s = buildAuvnSummary(input);
 
-    expect(s.schemaVersion).toBe("1.4");
+    expect(s.schemaVersion).toBe("1.5");
     expect(s.dataDate).toBe("2026-09-04");
     expect(s.stale).toBe(false);
     expect(s.staleDays).toBe(0);

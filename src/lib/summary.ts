@@ -66,7 +66,7 @@ export interface SummaryChanged {
 }
 
 export interface AuvnSummary {
-  schemaVersion: "1.4";
+  schemaVersion: "1.5";
   generatedAt: string;
   dataDate: string;
   stale: boolean;
@@ -258,7 +258,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     // Cùng cổng acute-crash với web (Dashboard `bottomCrashMode`): prob recency lạc quan
     // giả khi giá đang sụp cấp tính.
     crashMode: isCrashDisplayMode(bearDca.phase, bearDca.dd42Pct),
-    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true thì đọc probUnweighted thay cho prob. isBottomStart là điểm dò đáy sớm (ngữ cảnh), không phải tín hiệu gom/mua — cờ Gom rải đã bị LOẠI 2026-07 (gomrai-study 0/528) — và không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
+    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true (pha acute HOẶC sụt ≥8% so với đỉnh 42 phiên) thì đọc probUnweighted thay cho prob — và coi là độ tin cậy thấp: trong chế độ này bản không trọng số cũng thường ≥55%. isBottomStart là điểm dò đáy sớm (ngữ cảnh), không phải tín hiệu gom/mua — cờ Gom rải đã bị LOẠI 2026-07 (gomrai-study 0/528) — và không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
   };
 
   const rawSignals = presetSignals(analysis.criteria);
@@ -336,7 +336,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     : "ok";
 
   return {
-    schemaVersion: "1.4",
+    schemaVersion: "1.5",
     generatedAt: input.nowIso ?? new Date().toISOString(),
     dataDate: analysis.dataDate,
     stale: analysis.stale,

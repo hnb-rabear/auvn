@@ -8,8 +8,9 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 
 ## Phiên bản
 
-`schemaVersion` hiện là `"1.4"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
+`schemaVersion` hiện là `"1.5"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
 
+- `1.5`: `bottomHunter.crashMode` **đổi nghĩa (mở rộng)** — bật khi pha `acute` HOẶC giá sụt ≥8% so với đỉnh 42 phiên (trước chỉ `acute`). Không đổi tên/kiểu field; consumer làm đúng hướng dẫn cũ (đọc `probUnweighted` khi `true`) không cần sửa code, chỉ sẽ thấy cờ bật thường hơn. Cùng đợt: lịch sử premium hợp nhất tỷ giá về Vietcombank nên `premiumP80` (và `vnPremiumPct` quá khứ) có một bước nhảy một lần (p80 16,2 → 15,67) — không phải thị trường đổi.
 - `1.4`: **BREAKING** — `signals.premiumGate.blocksBuying` đổi tên thành `expensiveVsWorld` và đổi NGHĨA: chênh VN cao giờ là ghi chú chi phí, không còn chặn gợi ý mua. Consumer đang dùng `blocksBuying` để hoãn mua phải bỏ logic đó (bằng chứng: `scripts/premium-gate-study.ts`).
 - `1.3`: thêm `changed` (khác biệt so lần sinh trước, để consumer poll nhiều lần/ngày không phải tự giữ state). `bottomHunter.isBottomStart` giờ yêu cầu `signalHistory` cùng ngày với `dataDate`. Số thập phân của `accumulation.bearDca` và `accumulation.pricePercentile2y` làm tròn 4 chữ số.
 - `1.2`: thêm `bottomHunter` (kết quả Bottom Hunter hiện tại + cờ khởi đầu vùng đáy) và `market.changes` (biến động so phiên trước). Consumer không cần tải `bottom.json` (769 KB) hay `history/vn-gold.json` nữa.
