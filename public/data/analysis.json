@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-25T07:14:53.535Z",
+ "generatedAt": "2026-09-25T07:24:28.462Z",
  "dataDate": "2026-09-25",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141500000,
   "ringSell": 145500000,
   "ringDate": null,
-  "xauUsd": 4310,
+  "xauUsd": 4311.7001953125,
   "usdVnd": 26180,
-  "worldVndPerLuong": 136040820,
-  "premiumPct": 6.14,
-  "premiumVnd": 8359180
+  "worldVndPerLuong": 136094485,
+  "premiumPct": 6.1,
+  "premiumVnd": 8305515
  },
  "criteria": [
   {
@@ -24,7 +24,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 41,6: trung tính.",
+     "explanation": "RSI ngày = 41,8: trung tính.",
      "available": true
     },
     {
@@ -187,7 +187,10 @@
  "composite": -0.3,
  "zone": "neutral",
  "vnHistoryDays": 593,
- "warnings": [],
+ "warnings": [
+  "Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.",
+  "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
+ ],
  "premiumSeries": [
   {
    "date": "2025-02-08",
@@ -2559,7 +2562,7 @@
   },
   {
    "date": "2026-09-25",
-   "value": 6.14
+   "value": 6.1
   }
  ],
  "premiumPercentiles": {
@@ -2571,8 +2574,8 @@
   "world": "2026-09-25T04:00:00.000Z",
   "dxy": "2026-09-25T04:00:00.000Z",
   "yield10y": "2026-09-24T12:20:00.000Z",
-  "vnGold": "2026-09-25T07:14:53.535Z",
-  "usdVnd": "2026-09-25T07:14:53.535Z",
-  "fed": "2026-09-25T07:14:53.535Z"
+  "vnGold": "2026-09-25T07:24:28.462Z",
+  "usdVnd": "2026-09-25T07:24:28.462Z",
+  "fed": null
  }
 }
