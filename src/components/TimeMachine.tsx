@@ -403,7 +403,7 @@ export default function TimeMachine({
         })}
       </div>
       {bottomCrashDay && (p.cycleProb ?? p.swingProb) != null && (
-        <div className="muted small">⚠ Ngày này giá đang sụp cấp tính — hiện ước lượng săn đáy thận trọng (toàn lịch sử).</div>
+        <div className="muted small">⚠ Ngày này giá đang sụp nhanh — hiện ước lượng săn đáy thận trọng (toàn lịch sử), độ tin cậy thấp.</div>
       )}
 
       <ActionGuidance guidance={histGuidance} />

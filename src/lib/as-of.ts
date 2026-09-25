@@ -16,7 +16,7 @@ import {
 import { consensusLabel, consensusZone } from "./consensus";
 import { deriveGuidance, type Guidance } from "./guidance";
 import { highConfidenceBuy3m } from "./fusion";
-import { bearDcaAt } from "./bear-dca";
+import { bearDcaAt, isCrashDisplayMode, trailingDrawdownPct } from "./bear-dca";
 import {
   composites,
   presetComposites,
@@ -147,8 +147,8 @@ export function createAsOfEngine(points: TimelinePoint[], mode: AsOfMode): AsOfE
       ) && !fusionDegraded;
     // Mức mua Bear DCA as-of — CÙNG engine với card live (golden: bearDcaAt ≡ runBearDca)
     const dcaAt = bearDcaAt(allPrices, idx, p.pricePct2y ?? null);
-    // Cổng acute-crash as-of-ngày — CÙNG chính sách với live
-    const crashDay = dcaAt.phase === "acute";
+    // Cổng "đang sụp nhanh" as-of-ngày — CÙNG chính sách với live (acute HOẶC dd42 ≥ 8%)
+    const crashDay = isCrashDisplayMode(dcaAt.phase, trailingDrawdownPct(allPrices, idx));
     const cycleProb = crashDay ? (p.cycleProbUw ?? p.cycleProb ?? null) : (p.cycleProb ?? null);
     const swingProb = crashDay ? (p.swingProbUw ?? p.swingProb ?? null) : (p.swingProb ?? null);
     const cycleN = p.cycleN ?? 0;
@@ -158,7 +158,7 @@ export function createAsOfEngine(points: TimelinePoint[], mode: AsOfMode): AsOfE
     const signedC = `${composite > 0 ? "+" : ""}${fmtNum(composite)}`;
     const scoreReason = buyKs
       ? kDay >= 1
-        ? `Điểm mua: ${kDay}/3 preset kỳ hạn đang báo MUA — cò súng đã kiểm chứng 2 giai đoạn.`
+        ? `Điểm mua: ${kDay}/3 preset kỳ hạn đang báo MUA.`
         : isSell
           ? `Điểm mua: chưa preset nào báo mua; radar âm sâu (${signedC}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
           : `Điểm mua: chưa preset nào trong vùng mua (radar ${signedC}).`
@@ -170,7 +170,7 @@ export function createAsOfEngine(points: TimelinePoint[], mode: AsOfMode): AsOfE
         high,
         verified,
         label: verified
-          ? `Săn đáy: xác suất gần đáy ${Math.round(cycleProb!)}%${ciStr}${crashDay ? " (đang sụp cấp tính — ước lượng thận trọng)" : ""}.`
+          ? `Săn đáy: xác suất gần đáy ${Math.round(cycleProb!)}%${ciStr}${crashDay ? " (đang sụp nhanh — ước lượng kém tin cậy)" : ""}.`
           : "Săn đáy: chưa đủ dữ liệu kiểm chứng.",
       },
       premiumPct: null, // world-only ở as-of — cổng premium tắt (trung thực)

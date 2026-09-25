@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { depthQty, boostQty, classifyPhase, qtyForPhase, runBearDca, monitorBearDca, bearDcaAt, bearPhases } from "./bear-dca";
+import { depthQty, boostQty, classifyPhase, qtyForPhase, runBearDca, monitorBearDca, bearDcaAt, bearPhases, trailingDrawdownPct, isCrashDisplayMode, CRASH_DD42_PCT } from "./bear-dca";
 import type { BearDcaPoint } from "./types";
 
 describe("depthQty", () => {
@@ -153,5 +153,42 @@ describe("monitorBearDca", () => {
     const h = monitorBearDca(pts);
     expect(h.status).toBe("ok");
     expect(h.recentImprPct).toBeCloseTo(0, 1);
+  });
+});
+
+/**
+ * Cổng hiển thị "đang sụp nhanh" phải bắt được chế độ ĐÃ ĐO là hỏng: sụt nhanh trong
+ * ~2 tháng, KHÔNG cần sâu 15% so với đỉnh mọi thời đại. Trên timeline hiện tại, các ngày
+ * prob≥55% mà cổng cũ bỏ sót (dd42 ≥ 8%, phase ≠ acute) đúng 0/37.
+ */
+describe("cổng hiển thị sụp nhanh", () => {
+  it("trailingDrawdownPct đo theo đỉnh trong cửa sổ, không phải đỉnh mọi thời đại", () => {
+    // đỉnh cũ 200 nằm ngoài cửa sổ 42 phiên; trong cửa sổ đỉnh là 100, giá cuối 91
+    const prices = [200, ...Array(50).fill(100), 91];
+    const i = prices.length - 1;
+    expect(trailingDrawdownPct(prices, i, 42)).toBeCloseTo(9, 5);
+    expect(trailingDrawdownPct(prices, i, 100)).toBeCloseTo(54.5, 1);
+  });
+
+  it("bật khi dd42 ≥ ngưỡng dù pha chưa acute (chế độ cổng cũ bỏ sót)", () => {
+    expect(isCrashDisplayMode("grind", CRASH_DD42_PCT)).toBe(true);
+    expect(isCrashDisplayMode("bull", CRASH_DD42_PCT + 1)).toBe(true);
+    expect(isCrashDisplayMode("bull", CRASH_DD42_PCT - 0.1)).toBe(false);
+  });
+
+  it("vẫn bật với pha acute, và không vỡ khi thiếu dd42Pct (JSON cũ)", () => {
+    expect(isCrashDisplayMode("acute", undefined)).toBe(true);
+    expect(isCrashDisplayMode("grind", undefined)).toBe(false);
+    expect(isCrashDisplayMode("grind", null)).toBe(false);
+  });
+
+  it("runBearDca phát hành dd42Pct để mọi consumer dùng cùng một số", () => {
+    const pts = [...Array(60)].map((_, i) => ({
+      date: `2020-01-${String((i % 28) + 1).padStart(2, "0")}`,
+      price: i < 40 ? 100 : 100 - (i - 39) * 0.5,
+      pricePct2y: 0.5,
+    }));
+    const r = runBearDca(pts);
+    expect(r.dd42Pct).toBeCloseTo(trailingDrawdownPct(pts.map((p) => p.price), pts.length - 1), 5);
   });
 });

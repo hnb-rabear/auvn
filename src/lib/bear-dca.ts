@@ -3,6 +3,8 @@ import type { BearDcaPoint, BearDcaAnalysis, BearDcaHealth, BearPhase } from "./
 const BEAR_DD_THRESHOLD = 0.15;
 const ACUTE_DD_CHANGE   = 0.03;
 const CYCLE_STEP        = 21;
+/** Cửa sổ "sụp nhanh" cho cổng hiển thị Bottom Hunter (~2 tháng giao dịch). */
+const CRASH_WINDOW      = 42;
 
 /** Qty theo drawdown từ ATH (pha cấp tính). */
 export function depthQty(dd: number): number {
@@ -70,6 +72,37 @@ function rollingAth(prices: number[]): number[] {
  * với card "Mức mua tháng này" — trước đây Time Machine hiện lớp phanh cũ (×0.25)
  * mâu thuẫn với card (×1.0) cùng ngày.
  */
+/** Sụt giá so với ĐỈNH CỦA CHÍNH CỬA SỔ `window` phiên gần nhất (%), past-only. */
+export function trailingDrawdownPct(prices: number[], i: number, window = CRASH_WINDOW): number {
+  if (i < 0 || i >= prices.length) return 0;
+  let peak = 0;
+  for (let j = Math.max(0, i - window); j <= i; j++) if (prices[j] > peak) peak = prices[j];
+  return peak > 0 ? (1 - prices[i] / peak) * 100 : 0;
+}
+
+/**
+ * Cổng HIỂN THỊ "đang sụp nhanh" cho Bottom Hunter (KHÔNG đụng engine đáy).
+ *
+ * Trước 2026-09-25 cổng chỉ bật khi `phase === "acute"` — tức sụt ≥15% so với ĐỈNH MỌI
+ * THỜI ĐẠI. Nhưng chế độ hỏng đã đo được (docs/bottom.md "Recency-504") là sụt nhanh
+ * trong ~2 tháng, không cần sâu so với ATH. Đo lại trên timeline hiện tại, các ngày
+ * prob≥55%:
+ *   cổng cũ bật:                 45 ngày / 4 đợt — đúng 8,9%
+ *   cổng cũ TẮT nhưng dd42 ≥ 8%: 37 ngày / 4 đợt — đúng **0,0%** (2011-09..2012-01,
+ *                                2013-10, 2020-11, 2026-02..03)
+ *   cổng cũ tắt, dd42 < 8%:     300 ngày / 14 đợt — đúng 36,3%
+ * Nới cổng thành `acute HOẶC dd42 ≥ 8%`: nhóm bật 82 ngày đúng 4,9% vs nhóm tắt 36,3%.
+ *
+ * LƯU Ý TRUNG THỰC: đổi sang `probUnweighted` KHÔNG cứu được nhóm này (32/37 ngày bản
+ * không trọng số vẫn ≥55%) — nên cổng chỉ là CẢNH BÁO "ước lượng kém tin cậy trong chế
+ * độ này", không phải bản sửa số. Đây là nới cảnh báo sẵn có theo cùng họ bằng chứng,
+ * không phải tuyên bố dự báo mới.
+ */
+export const CRASH_DD42_PCT = 8;
+export function isCrashDisplayMode(phase: BearPhase, dd42Pct: number | null | undefined): boolean {
+  return phase === "acute" || (dd42Pct != null && dd42Pct >= CRASH_DD42_PCT);
+}
+
 export function bearDcaAt(
   prices: number[],
   i: number,
@@ -126,6 +159,7 @@ export function runBearDca(points: BearDcaPoint[]): BearDcaAnalysis {
     ddChange,
     phase,
     pricePct2y: pct2y,
+    dd42Pct: trailingDrawdownPct(prices, last),
     mult,
     recoveryRisk: phase === "recovery",
     note: noteFor(phase, ddNow, ddChange, pct2y),

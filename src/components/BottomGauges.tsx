@@ -24,8 +24,8 @@ function Gauge({ title, sub, tier, provisional, crashMode }: { title: string; su
           <div className="bottom-gauge-bar"><div className={`bottom-gauge-fill ${cls}`} style={{ width: `${pct}%` }} /></div>
           {crashMode && (
             <div className="muted small">
-              ⚠ Giá đang sụp cấp tính — {tier.probUnweighted != null
-                ? <>hiện ước lượng thận trọng (toàn lịch sử). Ước lượng nghiêng 2 năm gần: {Math.round(tier.prob)}% — kém tin cậy khi đang sập (xem ⓘ).</>
+              ⚠ Giá đang sụp nhanh — {tier.probUnweighted != null
+                ? <>hiện ước lượng thận trọng (toàn lịch sử). Ước lượng nghiêng 2 năm gần: {Math.round(tier.prob)}%. Đo được: trong chế độ này CẢ HAI bản đều kém tin cậy (xem ⓘ).</>
                 : <>giai đoạn này ước lượng đáy kém tin cậy hơn bình thường (xem ⓘ).</>}
             </div>
           )}
@@ -75,8 +75,11 @@ export default function BottomGauges({ bottom, crashMode = false }: { bottom: Bo
         <div className="banner info">
           Ước lượng giá có đang <b>gần đáy</b> không. Là xác suất tham khảo — lớp <b>ngữ cảnh</b>,
           không phải cò súng mua và <b>không phải lời khẳng định đáy</b>. Con số ưu tiên ~2 năm gần (sửa lệch theo
-          chế độ thị trường); khi giá <b>đang sụp cấp tính</b> nó dễ lạc quan giả nên ô này tự chuyển
-          về bản thận trọng (toàn lịch sử) kèm cảnh báo. Khoảng tin cậy chỉ phản ánh nhiễu lấy mẫu,
+          chế độ thị trường); khi giá <b>đang sụp nhanh</b> (sụt ≥8% so với đỉnh 42 phiên, hoặc sụt
+          ≥15% so với đỉnh mọi thời đại) nó dễ lạc quan giả nên ô này tự chuyển về bản thận
+          trọng (toàn lịch sử) kèm cảnh báo. Trung thực: đo trên lịch sử, những ngày như vậy
+          mà máy báo ≥55% thì gần như KHÔNG ngày nào đúng, và bản không trọng số cũng vẫn báo
+          cao — nên hãy coi đây là "đừng tin số này lúc đang sập", không phải số đã sửa đúng. Khoảng tin cậy chỉ phản ánh nhiễu lấy mẫu,
           KHÔNG bao được thay đổi chế độ thị trường.
           {(calibCycle || calibSwing) && (
             <>

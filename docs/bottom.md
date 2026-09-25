@@ -149,6 +149,17 @@ npx tsx scripts/bottom-approach-compare2.ts  # đào sâu cycleBin==3: bền 2 g
 
 **⇒ Cổng hiển thị acute-crash (chính sách đã chốt):** khi phase Bear DCA == `"acute"` (drawdown≥15% từ ATH + đang sâu thêm — lớp đã validate riêng, không thêm tham số mới), MỌI nơi đọc prob (gauge, guidance, hero, Time Machine — Time Machine dùng `bearDcaAt` as-of nên "quá khứ = hiện tại") **rớt về `probUnweighted` + cờ cảnh báo**. Bình thường hiện prob recency.
 
+**Nới cổng 2026-09-25 — `acute` HOẶC dd42 ≥ 8% (`isCrashDisplayMode`, `src/lib/bear-dca.ts`).** Cổng cũ đo độ sâu so với ĐỈNH MỌI THỜI ĐẠI, trong khi chế độ hỏng ghi ở trên là sụt NHANH trong 42 phiên. Đo lại trên timeline hiện tại (nhãn near-bottom cycle H=126 ε=3%, cụm = khối 126 phiên):
+
+| Nhóm ngày prob ≥ 55% | Ngày | Đợt | Đúng |
+| --- | --- | --- | --- |
+| cổng cũ bật (`acute`) | 45 | 4 | 8,9% |
+| cổng cũ TẮT nhưng dd42 ≥ 8% | 37 | 4 | **0,0%** |
+| cổng cũ tắt, dd42 < 8% | 300 | 14 | 36,3% |
+| **cổng mới bật** (acute ∨ dd42≥8) | 82 | 5 | 4,9% |
+
+Nhóm cổng cũ bỏ sót rơi vào 2011-09..2012-01, 2013-10, 2020-11, 2026-02..03. **Giới hạn trung thực:** chuyển sang `probUnweighted` KHÔNG cứu được nhóm này (32/37 ngày bản không trọng số vẫn ≥55%, trung vị 63,2%) — nên cổng là CẢNH BÁO "số này kém tin cậy lúc đang sập", không phải bản sửa số; UI nói thẳng điều đó. Đây là nới một cổng hiển thị sẵn có theo đúng họ bằng chứng đã ghi, không phải tín hiệu dự báo mới (không thêm vào engine, không đổi `prob`). Ngưỡng 8% lấy từ chính định nghĩa "ELEVATED" của `bottom-recency-guard-study.ts`, không tuyển lại.
+
 **Cờ "Gom rải" prob≥60 sống lại (grid ngưỡng, guard-study E2):** với recency-504 cờ ≥60 bắn 7 đợt độc lập/6 năm, win 6T 85% vs nền 63% (median +8,9% vs +3,5%), plateau vững 55–65; với unweighted nó bắn đúng **1 ngày trong 17 năm** (đúng lý do nó từng bị LOẠI ở bảng trên). Caveat: 7 đợt = mẫu hiệu dụng mỏng, và cờ thừa kế cổng acute-crash. ⇒ **ĐÃ LOẠI 2026-07**, xem mục "Cờ 'Gom rải' — LOẠI" bên dưới: một grid trigger/TTL/cooldown đầy đủ (không chỉ ngưỡng đơn) không qua được cổng 2 giai đoạn + placebo.
 
 **A2 — calibration đo được (surface trong `bottom.json.calibration` + banner ⓘ):** reliability walk-forward theo bucket dự đoán (máy nói X% → thực Y%, chỉ đọc bucket n≥20). Đo thêm: **không CI nào** (weighted hay không) phủ nổi rate thực hiện 504 phiên tới (coverage 14–61% vs kỳ vọng 95) — drift áp đảo nhiễu lấy mẫu ⇒ UI ghi rõ "CI chỉ phản ánh nhiễu lấy mẫu, không bao được đổi chế độ".

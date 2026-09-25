@@ -18,7 +18,7 @@ import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
 import { formatBuildInfo } from "@/lib/version";
 import { createAsOfEngine, verdictFor, DCA_PHASE_LABEL } from "@/lib/as-of";
 import { bottomPctClass } from "@/lib/bottom";
-import { qtyForPhase } from "@/lib/bear-dca";
+import { qtyForPhase, isCrashDisplayMode } from "@/lib/bear-dca";
 import { VN_ROUND_TRIP, spreadBadge } from "@/lib/vn-gold";
 import {
   compositeScore,
@@ -70,7 +70,9 @@ const selectionNote = (
   <i className="muted">
     {" "}Lưu ý: cấu hình này được chọn sau khi đã nhìn toàn bộ lịch sử, nên % trên là{" "}
     <b>ước lượng lạc quan</b>. Khi thử chọn cấu hình chỉ bằng dữ liệu quá khứ rồi áp cho năm
-    kế tiếp, lợi thế thật đo được là +11pt (1 tháng) và <b>âm</b> ở 3 / 6 tháng.
+    kế tiếp, chỉ preset <b>1 tháng</b> còn lợi thế thật (+11pt); preset <b>3 và 6 tháng ra ÂM</b>{" "}
+    (−7 / −8pt) và thua cả cấu hình chọn ngẫu nhiên ⇒ đọc % của hai preset đó như{" "}
+    <b>mô tả quá khứ</b>, không phải tỉ lệ đúng kỳ vọng.
   </i>
 );
 
@@ -276,9 +278,9 @@ export default function Dashboard({
       : highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified)) &&
     !fusionDegraded;
   // Cổng hiển thị acute-crash (docs/bottom.md "Recency-504"): prob recency đo được là
-  // lạc quan giả khi giá đang sụp cấp tính ⇒ mọi nơi đọc prob (gauge, guidance, hero)
+  // lạc quan giả khi giá đang sụp nhanh ⇒ mọi nơi đọc prob (gauge, guidance, hero)
   // rớt về bản không trọng số. Tái dùng phase của Bear DCA — không thêm tham số mới.
-  const bottomCrashMode = bearDca.phase === "acute";
+  const bottomCrashMode = isCrashDisplayMode(bearDca.phase, bearDca.dd42Pct);
   const effProb = useMemo(() => {
     const eff = (t: { prob: number; probUnweighted?: number }) =>
       bottomCrashMode ? (t.probUnweighted ?? t.prob) : t.prob;
@@ -296,7 +298,7 @@ export default function Dashboard({
     // theo radar composite — radar chỉ là ngữ cảnh, không phải cò súng.
     const scoreReason = consensusMode
       ? consensusK >= 1
-        ? `Điểm mua: ${consensusK}/3 preset kỳ hạn đang báo MUA (${buyNames(presetSigs).join(", ")}) — cò súng đã kiểm chứng 2 giai đoạn.`
+        ? `Điểm mua: ${consensusK}/3 preset kỳ hạn đang báo MUA (${buyNames(presetSigs).join(", ")}).`
         : isSellZone
           ? `Điểm mua: chưa preset nào báo mua; radar âm sâu (${signedC}) — gió ngược ngắn hạn, với người mua tương đương trung tính.`
           : `Điểm mua: chưa preset nào trong vùng mua (radar ${signedC}).`
@@ -307,7 +309,7 @@ export default function Dashboard({
       bottom: {
         high: c >= 60,
         verified: cycleVerified,
-        label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(effProb.cycle)}%, sóng ${fmt1(effProb.swing)}%${bottomCrashMode ? " — đang sụp cấp tính, dùng ước lượng thận trọng" : ""}).`,
+        label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(effProb.cycle)}%, sóng ${fmt1(effProb.swing)}%${bottomCrashMode ? " — đang sụp nhanh, ước lượng kém tin cậy" : ""}).`,
       },
       premiumPct: analysis.prices.premiumPct,
       premiumP80: analysis.premiumPercentiles?.p80 ?? null,
@@ -668,7 +670,7 @@ export default function Dashboard({
               )}
               {asOf.crashDay && (
                 <div className="verdict-note">
-                  ⚠ Ngày này giá đang sụp cấp tính — xác suất săn đáy hiển thị bản thận trọng
+                  ⚠ Ngày này giá đang sụp nhanh — xác suất săn đáy hiển thị bản thận trọng
                   (không trọng số).
                 </div>
               )}
@@ -719,7 +721,7 @@ export default function Dashboard({
                     );
                   })}
                 <i>
-                  Mỗi con số là evidence của TỪNG preset (kiểm chứng 2 giai đoạn độc lập).
+                  Mỗi con số là evidence của TỪNG preset, đo trên 2 giai đoạn train/test.
                   Số preset cùng báo không cộng thêm độ chính xác — 3 preset dùng chung gốc
                   vĩ mô nên thường sáng cùng nhau (docs/presets.md).
                 </i>
@@ -920,7 +922,7 @@ export default function Dashboard({
             </div>
             {asOf.crashDay && (
               <div className="muted small">
-                ⚠ Đang sụp cấp tính — ước lượng thận trọng (không trọng số).
+                ⚠ Đang sụp nhanh — ước lượng thận trọng (không trọng số), độ tin cậy thấp.
               </div>
             )}
           </div>

@@ -24,7 +24,11 @@ All notable changes to this project will be documented in this file.
 - Service worker chỉ cache phản hồi thành công; bảng thiết lập khi đóng không còn nhận focus bàn phím (`public/sw.js`, `src/components/SettingsSheet.tsx`).
 - Workflow chạy `npm test` sau deploy (báo Telegram khi fail) và không còn hủy lượt chạy dở (`.github/workflows/update-and-deploy.yml`).
 
+- Cổng cảnh báo "đang sụp nhanh" của Săn đáy bật cả khi giá sụt ≥8% trong 42 phiên, không chỉ khi sụt ≥15% so với đỉnh mọi thời đại — những ngày cổng cũ bỏ sót mà máy báo ≥55% thì đúng 0/37 (`src/lib/bear-dca.ts`, `src/components/*`, `src/lib/as-of.ts`, `src/lib/summary.ts`).
+- Tỷ giá của một ngày chỉ ghi một lần: cron (Vietcombank) và backfill (Yahoo) không còn ghi đè nhau làm premium cùng ngày nhảy qua lại (`scripts/run.ts`, `scripts/backfill-vn.ts`).
+
 ### Changed
+- Preset 3 và 6 tháng: bỏ câu "cò súng đã kiểm chứng 2 giai đoạn", nói rõ mô phỏng tuyển chọn trung thực chỉ giữ lợi thế ở preset 1 tháng (`src/components/Dashboard.tsx`, `src/components/SettingsSheet.tsx`, `src/lib/as-of.ts`).
 - Hero hiện số đợt độc lập thay cho số ngày và kèm cảnh báo selection bias; nhãn n của Săn đáy nói rõ cửa sổ chồng nhau thay cho "hiệu dụng ≈202" (`src/components/Dashboard.tsx`, `src/components/BottomGauges.tsx`).
 - Bỏ các câu "gom rải", "tránh mua", "hạn chế mua", "so với 3 năm", "19 tháng" đã lỗi thời (`src/lib/criteria.ts`, `src/lib/summary.ts`, `src/components/*`).
 - Thu thập giá nhẫn độc lập từng nguồn: lỗi SJC/CafeF/tỷ giá không làm mất hoặc ghi đè giá nhẫn đã thu thập (`scripts/backfill-vn.ts`).

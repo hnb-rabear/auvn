@@ -389,6 +389,59 @@ describe("runBackfill", () => {
     );
   });
 
+  // Tỷ giá của MỘT ngày chỉ ghi MỘT LẦN: cron lấy giá bán Vietcombank, backfill lấy Yahoo
+  // VND=X (lệch ~1%). Trước 2026-09-25 bên chạy sau ghi đè bên trước nên premium CÙNG một
+  // ngày nhảy qua lại (đo được 15/09: 6,66 → 7,47 → 6,4).
+  it("KHÔNG ghi đè tỷ giá đã có của chính ngày đó, dù fetch mới thành công", async () => {
+    const vnFile = path.join(tmpDir, "public", "data", "history", "vn-gold.json");
+    fs.writeFileSync(
+      vnFile,
+      JSON.stringify(
+        [
+          {
+            date: "2026-09-15",
+            sjcBuy: 80_000_000,
+            sjcSell: 82_000_000,
+            ringBuy: null,
+            ringSell: null,
+            usdVnd: 26180, // cron đã ghi (Vietcombank)
+            xauUsd: 2500,
+            premiumPct: 5.2,
+          },
+        ],
+        null,
+        1
+      )
+    );
+
+    const sjcXml = `<root><city name="Hồ Chí Minh"><item buy="84000" sell="86000" type="VÀNG SJC 1L - 10L" /></city></root>`;
+    const yahooFx = {
+      chart: {
+        result: [
+          { timestamp: [Math.floor(Date.parse("2026-09-15T00:00:00Z") / 1000)], indicators: { quote: [{ close: [25920] }] } },
+        ],
+      },
+    };
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((url: string | URL | Request) => {
+        const u = String(url);
+        if (u.includes("sjc.com.vn") || u.includes("tygiavang.xml"))
+          return Promise.resolve(new Response(sjcXml, { status: 200 }));
+        if (u.includes("VND=X"))
+          return Promise.resolve(new Response(JSON.stringify(yahooFx), { status: 200 }));
+        return Promise.reject(new Error(`no mock for ${u}`));
+      })
+    );
+
+    await runBackfillFast(tmpDir);
+
+    const row = (JSON.parse(fs.readFileSync(vnFile, "utf8")) as VnGoldEntry[]).find(
+      (r) => r.date === "2026-09-15"
+    );
+    expect(row?.usdVnd).toBe(26180); // KHÔNG phải 25920 của Yahoo
+  });
+
   it("preserves same-day valid FX/XAU when fetch fails, recomputes premium from matching inputs", async () => {
     const vnFile = path.join(tmpDir, "public", "data", "history", "vn-gold.json");
     const initialHistory: VnGoldEntry[] = [

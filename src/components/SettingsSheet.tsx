@@ -141,11 +141,13 @@ export default function SettingsSheet({
           <div className="acc-body">
             <p className="muted small">
               <b>Toàn cảnh</b> = bảng đồng thuận: verdict chính là &quot;k/3 preset kỳ hạn
-              đang báo MUA&quot; (tái dùng 3 cò súng đã kiểm chứng — không phải composite
-              riêng; cấu hình mặc định cũ bắn 0 tín hiệu mua suốt 2019–2026 nên chỉ còn làm
-              radar ngữ cảnh + cảnh báo gió ngược). <b>Preset</b> = cò súng MUA theo kỳ hạn,
-              tuyển bằng grid search 17 năm, thắng baseline ở cả 2 giai đoạn độc lập — chọn
-              khi bạn muốn nhìn theo đúng một kỳ hạn. Chi tiết: docs/presets.md.
+              đang báo MUA&quot; (tái dùng 3 cò súng preset — không phải composite riêng; cấu
+              hình mặc định cũ bắn 0 tín hiệu mua suốt 2019–2026 nên chỉ còn làm radar ngữ cảnh
+              + cảnh báo gió ngược). <b>Preset</b> = cò súng MUA theo kỳ hạn, tuyển bằng grid
+              search 17 năm, thắng baseline ở cả 2 giai đoạn train/test. Giới hạn đã đo: mô
+              phỏng tuyển chọn trung thực (chỉ dùng dữ liệu trước năm đang chấm) chỉ giữ được
+              lợi thế ở preset 1 tháng; 3 và 6 tháng ra âm ⇒ đọc như mô tả quá khứ. Chi tiết:
+              docs/presets.md.
             </p>
             <p className="muted">
               Điểm tổng hợp tính lại ngay theo trọng số bạn chọn. Lưu trên máy bạn. Kéo

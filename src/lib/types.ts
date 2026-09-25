@@ -663,6 +663,9 @@ export interface BearDcaAnalysis {
   ddChange: number;         // dd hôm nay - dd 21 phiên trước (pp/tháng)
   phase: BearPhase;         // pha gợi ý tự động
   pricePct2y: number | null;
+  /** sụt giá so với đỉnh 42 phiên gần nhất (%) — nuôi cổng hiển thị isCrashDisplayMode.
+   *  optional: bear-dca.json cũ chưa có key này (cổng tự lùi về chỉ xét phase). */
+  dd42Pct?: number;
   mult: number;             // hệ số cho pha tự động ∈ {0.5, 0.75, 1.0, 1.5}
   recoveryRisk: boolean;    // true khi phase === "recovery"
   note: string;             // giải thích tiếng Việt

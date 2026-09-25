@@ -200,8 +200,11 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
     const freshXau = xau ? atOrBefore(xau.bars, vnToday) : null;
     const xauClose = freshXau ?? (existing?.xauUsd ?? null);
 
+    // Giữ tỷ giá đã ghi cho CHÍNH ngày này (xem comment cùng chủ đề trong scripts/run.ts):
+    // cron dùng Vietcombank, đây dùng Yahoo VND=X, lệch ~1% — ghi đè lẫn nhau làm premium
+    // của cùng một ngày nhảy qua lại giữa 2 lần chạy.
     const freshRate = usdVnd ? atOrBefore(usdVnd, vnToday) : null;
-    const rate = freshRate ?? (existing?.usdVnd ?? null);
+    const rate = existing?.usdVnd ?? freshRate;
 
     const world =
       xauClose !== null && rate !== null
