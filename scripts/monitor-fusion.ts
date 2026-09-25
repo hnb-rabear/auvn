@@ -14,11 +14,10 @@ import {
   type Timeline,
   type TimelinePoint,
 } from "../src/lib/types";
-import { stats, blockBootstrapCi, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
+import { stats, calendarBlockBootstrapCi, countClusters, SPLIT_DATE, MIN_SIGNALS, type H } from "./study-lib";
 import { HIGH_CONFIDENCE_BIN } from "../src/lib/fusion";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
-const STEP = 3;
 
 function favOf(pts: TimelinePoint[], h: H): { n: number; fav: number } {
   const s = stats(pts.map((p) => p.returns[h] as number));
@@ -51,10 +50,19 @@ function main() {
   const orthoTrainPt =
     bTrain.n >= MIN_SIGNALS ? Math.round((bTrain.fav - favOf(topN, h).fav) * 1000) / 10 : null;
 
-  const ci = blockBootstrapCi(
-    test.filter((p) => comp(p) && bot(p)).map((p) => p.returns[h] as number),
-    Math.ceil(preset.horizonDays / STEP)
-  );
+  // CI theo CỤM ĐỘC LẬP trên trục lịch của giai đoạn test (null = không trúng ngày đó).
+  // Bản cũ truyền mảng ĐÃ LỌC cho blockBootstrapCi ⇒ mất khoảng cách lịch, CI hẹp giả
+  // (cùng lỗi đã sửa ở monitor-presets 2026-09-14, fusion bị bỏ sót).
+  const testHitReturns = test.map((p) => (comp(p) && bot(p) ? (p.returns[h] as number) : null));
+  const ci = calendarBlockBootstrapCi(testHitReturns, preset.horizonDays);
+  const posOf = new Map(pts.map((p, i) => [p.date, i]));
+  const clustersOf = (seg: TimelinePoint[]) =>
+    countClusters(
+      seg.filter((p) => comp(p) && bot(p)).map((p) => posOf.get(p.date)!),
+      preset.horizonDays
+    );
+  const bTrainClusters = clustersOf(train);
+  const bTestClusters = clustersOf(test);
 
   const enough = bTrain.n >= MIN_SIGNALS && bTest.n >= MIN_SIGNALS;
   let status: FusionHealth["status"];
@@ -76,6 +84,8 @@ function main() {
     compTestFav: r1(cTest.fav),
     bTestN: bTest.n,
     bTestCi95: ci,
+    bTrainClusters,
+    bTestClusters,
     orthoTrainPt,
     status,
   };
@@ -83,7 +93,8 @@ function main() {
   writeFileSync(join(DATA_DIR, "fusion-health.json"), JSON.stringify(out, null, 1));
   console.log(
     `fusion 3m: status=${status} | B ${item.bTrainFav}%/${item.bTestFav}% vs comp ${item.compTrainFav}%/${item.compTestFav}% | ` +
-      `ortho train ${orthoTrainPt ?? "—"}pt | CI ${ci ? ci[0] + ".." + ci[1] + "%" : "—"}`
+      `ortho train ${orthoTrainPt ?? "—"}pt | CI ${ci ? ci[0] + ".." + ci[1] + "%" : "—"} | ` +
+      `cụm=${bTrainClusters}/${bTestClusters}`
   );
 }
 

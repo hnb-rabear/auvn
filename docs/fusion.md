@@ -71,7 +71,7 @@ Preset 3m đổi tiếp sang v4.1 (Fed nhỏ >0 thay ép 0, phủ tín hiệu r�
 
 | B train | comp train | B test | comp test | n B (tr/te) | placebo train | toàn giai đoạn |
 | --- | --- | --- | --- | --- | --- | --- |
-| **93,3%** | 88,9% | 100% | **99,1% (gần trần)** | 45/71 | **+2,2pt** | n=116 97,4% CI[92,2–100] |
+| **93,3%** | 89,0% | 100% | **99,1% (gần trần)** | 45/66 ngày = **9/6 đợt** | **+2,2pt** | n=111 97,3% CI[91,3–100] |
 
 Vẫn GIỮ: train thắng composite (+4,4pt), placebo đồng-n train vẫn dương (mỏng hơn v4: +2,2pt vs
 +11,1pt cũ — do tập composite-buy giờ rộng hơn nên "đỉnh" của nó gần lõi đáy hơn, ít khác biệt để
@@ -81,6 +81,15 @@ Vẫn GIỮ: train thắng composite (+4,4pt), placebo đồng-n train vẫn dư
 FEDFUNDS"). Fusion 3m phái sinh từ preset 3m nên nhãn Fed dời 1 tháng đổi tập ngày trúng; 8 hằng
 tính lại bằng `scripts/calc-fusion-evidence.ts`: **trainN 60→45, testN 75→71, fullN 135→116**,
 fullFav 97,0→97,4, CI [91,1;100]→[92,2;100]. `trainFav` 93,3% và `testFav` 100% KHÔNG đổi.
+
+**Cập nhật 2026-09-25 — Yahoo sửa lịch sử GC=F + CI theo cụm độc lập.** (a) Yahoo đổi quy ước roll
+hợp đồng ngày 2026-09-15 (1510 bar từ 2020-05 dịch ≤0,85%) ⇒ tập ngày trúng đổi: **testN 71→66,
+fullN 116→111**, fullFav 97,4→97,3. `fusion.evidence.test.ts` khóa các số này đã FAIL âm thầm 10
+ngày vì workflow chưa chạy `npm test` — nay đã thêm bước test sau deploy. (b) CI chuyển sang
+`clusterBootstrapCiWeighted` (bootstrap theo CỤM ĐỘC LẬP — cùng hàm `monitor-presets` dùng từ
+2026-09-14; bản cũ `blockBootstrapCi` nhận mảng ĐÃ LỌC nên mất khoảng cách lịch ⇒ CI hẹp giả):
+[92,2;100] → **[91,3;100]**. Thêm `trainClusters`/`testClusters` = **9/6** — đây mới là cỡ mẫu thật,
+không phải 45/66 ngày; UI hiện số đợt thay cho số ngày.
 
 Điểm cần đọc kỹ: **`orthogonalTrainPt` 3,3 → 2,2pt**. Biên "thông tin trực giao" so placebo đồng-n
 vốn đã là phần yếu nhất của khối fusion, giờ mỏng thêm, trong khi n train giảm 25% (60→45) nên CI

@@ -125,11 +125,13 @@ Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằn
 
 | Preset | Trọng số (KT / TK / MOM / DXY / FED / YLD) | Ngưỡng mua | Đúng 2009–2018 | Đúng 2019–2026 | Baseline (train/test) | Trung vị lãi (test) | Cụm độc lập (train/test) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **80,8%** (n=104) | **89,1%** (n=64) | 51,1% / 59,6% | +4,1% | **15 / 10** |
-| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **88,9%** (n=135) | **99,1%** (n=108) | 54,6% / 67,9% | +7,6% | **11 / 12** |
-| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **66,6%** (n=332) | **98,3%** (n=292) | 55,8% / 77,4% | +13,5% | **15 / 12** |
+| **Sóng 1 tháng** (v4) | 20% / 10% / 30% / 10% / 0 / 30% | +50 | **80,8%** (n=104) | **91,9%** (n=62) | 50,9% / 59,3% | +3,9% | **15 / 10** |
+| **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **89,0%** (n=136) | **99,1%** (n=107) | 54,4% / 67,7% | +7,3% | **12 / 12** |
+| **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **65,5%** (n=322) | **98,3%** (n=293) | 55,7% / 77,3% | +13,4% | **15 / 12** |
 
-> Bảng trên là số **sau khi sửa look-ahead FEDFUNDS (2026-09-14)** — xem section riêng bên dưới. Cột cuối là số **cụm độc lập** (hai tín hiệu cách nhau < H phiên = cùng một cụm): đây mới là n dùng để đọc độ tin cậy, KHÔNG phải n ngày. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
+> **Cập nhật 2026-09-25 — Yahoo sửa lịch sử GC=F + khóa mốc đầu chuỗi.** Ngày 2026-09-15 Yahoo đổi quy ước roll hợp đồng: 1510 bar từ 2020-05 dịch ≤0,85% (ví dụ 29/05/2020: 1736,9 → 1751,7). Bảng trên tính lại trên chuỗi mới bằng `verify-preset-evidence.ts`; mọi ô lệch ≤1,1pt và cả 3 preset vẫn vượt cổng (`monitor-presets`: min-excess 29,8 / 31,3 / 9,8pt, cả ba `status=ok`). Cùng lúc `fetchYahoo` chuyển từ `range=20y` (cửa sổ TRƯỢT, bar 0 tiến mỗi ngày ⇒ lưới thưa 3 phiên đổi pha, mùa vụ + percentile biến động của ngày quá khứ đổi theo — đo được: bỏ 2 bar đầu làm prob săn đáy live nhảy 57,3 → 61,0) sang `period1` CỐ ĐỊNH 2006-09-25. Từ nay chuỗi chỉ dài thêm về cuối. KHÔNG tuyển lại trọng số theo số mới.
+>
+> Bảng trên cũng là số **sau khi sửa look-ahead FEDFUNDS (2026-09-14)** — xem section riêng bên dưới. Cột cuối là số **cụm độc lập** (hai tín hiệu cách nhau < H phiên = cùng một cụm): đây mới là n dùng để đọc độ tin cậy, KHÔNG phải n ngày. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
 
 **Cập nhật 2026-09-04 — bỏ look-ahead mùa vụ (bug #10).** `scripts/backtest.ts` từng tính `seasonalityTable` MỘT LẦN trên toàn chuỗi rồi truyền cho mọi điểm lịch sử; điểm `stats` quá khứ vì thế đổi mỗi lần Yahoo cuốn cửa sổ 20 năm và không tái lập được (bằng chứng: `HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt` trôi 1,7 → 3,3; trung bình mùa vụ T5 1,96 → 1,49 và T8 1,12 → 2,51 chỉ trong vài ngày). Đã sửa thành walk-forward (khóa bằng test `walk-forward: cắt bớt bar tương lai KHÔNG đổi điểm quá khứ`), timeline regenerate, bảng trên tính lại bằng `verify-preset-evidence.ts`. Mọi ô lệch ≤1,2pt, **cả 3 preset vẫn vượt cổng** với biên train +30,1/+33,4/+20,8pt và test +29,4/+31,2/+22,4pt (khớp `monitor-presets`: cả 3 `status=ok`) ⇒ không preset nào bị hạ khỏi phát hành. Bug chỉ đổi thứ tự xếp hạng trong cụm điểm sát nhau, không đổi tín hiệu. Bài học: mọi số dẫn xuất từ timeline phải có script tái lập được, chạy lại sau MỌI lần sửa engine.
 

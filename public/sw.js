@@ -17,8 +17,12 @@ self.addEventListener("fetch", (e) => {
   e.respondWith(
     fetch(e.request)
       .then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+        // Chỉ cache phản hồi THÀNH CÔNG: bản cũ cache cả 404/500, nên một lần lỗi mạng
+        // giữa chừng làm trang offline phục vụ lại đúng trang lỗi đó.
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+        }
         return res;
       })
       .catch(() => caches.match(e.request).then((m) => m || Response.error()))

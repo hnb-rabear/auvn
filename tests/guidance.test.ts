@@ -27,10 +27,13 @@ describe("deriveGuidance — ma trận điểm mua × săn đáy", () => {
     expect(g.level).toBe("headwind");
   });
 
-  it("mua + đáy cao → strong (tín hiệu mạnh nhất)", () => {
+  it("mua + đáy cao → strong (ghi nhận 2 tín hiệu, KHÔNG hứa gom mạnh tay hơn)", () => {
     const g = deriveGuidance({ ...base, zone: "buy", composite: 45, bottom: bottomHigh });
     expect(g.level).toBe("strong");
     expect(g.tone).toBe("buy");
+    // Kiểm toán walk-forward: nhóm prob 60–80% chỉ đúng 31% ⇒ không được khuyên gom dứt khoát hơn
+    expect(g.how).not.toMatch(/dứt khoát/);
+    expect(g.how).toMatch(/KHÔNG gom mạnh tay hơn/);
   });
 
   it("mua + đáy thấp → buy theo kế hoạch", () => {
@@ -136,5 +139,22 @@ describe("deriveGuidance — scoreReason (chế độ đồng thuận preset)", 
     const g2 = deriveGuidance({ ...base, zone: "buy", composite: 10 });
     expect(g2.reasons[0]).not.toBe(custom);
     expect(g2.level).toBe("buy");
+  });
+});
+
+/**
+ * Trục "đáy cao" phải GIỐNG NHAU giữa card live và Time Machine (quy tắc chart ≡ card).
+ * Live từng lấy max(chu kỳ, sóng) ≥60 còn as-of chỉ lấy tầng chu kỳ, nên cùng một ngày
+ * (sóng 65%, chu kỳ 50%) card hiện "strong" còn Time Machine hiện "buy".
+ */
+describe("trục đáy: chỉ tầng chu kỳ quyết định bottom.high", () => {
+  it("sóng cao nhưng chu kỳ thấp ⇒ không phải strong", () => {
+    const g = deriveGuidance({
+      ...base,
+      zone: "buy",
+      composite: 45,
+      bottom: { high: false, verified: true, label: "Săn đáy: chu kỳ 50%, sóng 65%." },
+    });
+    expect(g.level).toBe("buy");
   });
 });

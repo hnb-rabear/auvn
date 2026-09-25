@@ -44,7 +44,7 @@ export default function ActionGuidance({
         <div className="banner info">
           Đây là <b>Săn điểm mua + Săn đáy</b> gộp lại: BÂY GIỜ có phải lúc vào và vào thế nào. Tầm
           nhìn <b>1–3 tháng</b> — dùng khi bạn canh thời điểm gom theo đợt. (Mua đều dài hạn thì xem{" "}
-          <b>Vùng tích lũy</b> bên dưới.)
+          <b>Mức mua tháng này</b> bên dưới.)
         </div>
       )}
       <div className="guidance-when">{guidance.when}</div>

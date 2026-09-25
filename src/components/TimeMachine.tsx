@@ -353,18 +353,22 @@ export default function TimeMachine({
       </div>
 
       <div className="muted small">
-        <b className={dcaAt.mult >= 1 ? "buy" : "sell"}>Mức mua (Vùng tích lũy):</b>{" "}
+        <b className={dcaAt.mult >= 1 ? "buy" : "sell"}>Mức mua tháng này:</b>{" "}
         pha {DCA_PHASE_LABEL[dcaAt.phase]} → mỗi đợt ×{dcaAt.mult}
         {p.pricePct2y != null && ` · giá percentile ${Math.round(p.pricePct2y * 100)}% (2 năm)`}
-        . Cùng con số với thẻ Vùng tích lũy — góc tích sản, có thể ngược điểm-mua ngắn hạn.
+        . Cùng con số với thẻ Mức mua tháng này — góc tích sản, có thể ngược điểm-mua ngắn hạn.
       </div>
 
       {highConfDay && (
         <div className="muted small">
           ✓ MUA độ tin cao (3 tháng): composite báo MUA VÀ giá ở vùng đáy (RSI quá bán + vĩ mô đảo
           chiều). Lịch sử đúng {HIGH_CONF_3M_EVIDENCE.trainFav}% (2009–2018) /{" "}
-          {HIGH_CONF_3M_EVIDENCE.testFav}% (2019–2026); toàn giai đoạn {HIGH_CONF_3M_EVIDENCE.fullFav}%
-          (CI {HIGH_CONF_3M_EVIDENCE.fullCi[0]}–{HIGH_CONF_3M_EVIDENCE.fullCi[1]}). Con số 100%
+          {HIGH_CONF_3M_EVIDENCE.testFav}% (2019–2026), {HIGH_CONF_3M_EVIDENCE.trainClusters}/
+          {HIGH_CONF_3M_EVIDENCE.testClusters} đợt độc lập; toàn giai đoạn {HIGH_CONF_3M_EVIDENCE.fullFav}%
+          {HIGH_CONF_3M_EVIDENCE.fullCi
+            ? ` (CI ${HIGH_CONF_3M_EVIDENCE.fullCi[0]}–${HIGH_CONF_3M_EVIDENCE.fullCi[1]}%)`
+            : ""}
+          . Con số 100%
           là lạc quan do tín hiệu bắn chùm — bằng chứng vững là giai đoạn 2009–2018.
         </div>
       )}

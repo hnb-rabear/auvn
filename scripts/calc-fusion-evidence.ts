@@ -5,7 +5,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PRESETS, presetComposite, type Timeline, type TimelinePoint } from "../src/lib/types";
 import { HIGH_CONFIDENCE_BIN } from "../src/lib/fusion";
-import { blockBootstrapCi } from "../src/lib/indicators";
+import { clusterBootstrapCiWeighted } from "../src/lib/indicators";
+import { countClusters } from "./study-lib";
 
 const tl: Timeline = JSON.parse(
   readFileSync(join(process.cwd(), "public", "data", "timeline.json"), "utf8")
@@ -23,7 +24,11 @@ const tr = B(pts.filter((p) => p.date < "2019-01-01"));
 const te = B(pts.filter((p) => p.date >= "2019-01-01"));
 const all = B(pts);
 const fav = all.map((p) => ((p.returns["63"] as number) > 0 ? 1 : -1));
-const ci = blockBootstrapCi(fav, Math.round(63 / 3));
+// CI theo CỤM ĐỘC LẬP (khối 63 phiên cố định) — giữ vị trí lịch thật của từng ngày trúng.
+const pos = new Map(tl.points.map((p, i) => [p.date, i]));
+const idxOf = (seg: TimelinePoint[]) => seg.map((p) => pos.get(p.date)!).filter((i) => i !== undefined);
+const allIdxs = idxOf(all);
+const ci = clusterBootstrapCiWeighted(fav, fav.map(() => 1), allIdxs, preset.horizonDays);
 const train = pts.filter((p) => p.date < "2019-01-01");
 const topN = train
   .filter(buy)
@@ -40,6 +45,8 @@ console.log(
       fullFav: +favPct(all).toFixed(1),
       fullN: all.length,
       fullCi: ci,
+      trainClusters: countClusters(idxOf(tr), preset.horizonDays),
+      testClusters: countClusters(idxOf(te), preset.horizonDays),
       orthogonalTrainPt: +(favPct(tr) - favPct(topN)).toFixed(1),
     },
     null,

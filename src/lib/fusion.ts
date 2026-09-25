@@ -15,12 +15,17 @@ export interface HighConfEvidence {
   trainN: number;
   testFav: number;
   testN: number;
-  /** toàn giai đoạn (train+test gộp, chọn theo NGÀY): tỉ lệ thuận chiều, cỡ mẫu, CI 95%
-   *  block-bootstrap (block=H/3, xử lý tín hiệu bắn chùm). Thay lưới-thưa i%STEP cũ vốn
-   *  trôi theo canh-pha khi cron đổi độ dài đầu chuỗi timeline. */
+  /** toàn giai đoạn (train+test gộp, chọn theo NGÀY): tỉ lệ thuận chiều, cỡ mẫu NGÀY,
+   *  và CI 95% bootstrap theo CỤM ĐỘC LẬP (khối H phiên cố định — `clusterBootstrapCiWeighted`,
+   *  cùng hàm monitor-presets dùng từ 2026-09-14). Bản cũ gọi `blockBootstrapCi` trên MẢNG ĐÃ
+   *  LỌC nên mất khoảng cách lịch: hai ngày trúng cách nhau 3 năm bị coi là liền kề, một chùm
+   *  40 ngày đếm thành 40 quan sát ⇒ CI hẹp giả. null = dưới 3 cụm, không đo được. */
   fullFav: number;
   fullN: number;
-  fullCi: [number, number];
+  fullCi: [number, number] | null;
+  /** số CỤM ĐỘC LẬP (train/test) — n thật để đọc độ tin cậy, nhỏ hơn trainN/testN nhiều lần */
+  trainClusters: number;
+  testClusters: number;
   /** placebo đồng-n train: B vượt composite-top-n cùng cỡ mẫu (pt) — đo "thông tin trực giao" */
   orthogonalTrainPt: number;
 }
@@ -46,15 +51,26 @@ export interface HighConfEvidence {
  *  KHÔNG đổi. orthogonalTrainPt 3,3→2,2pt: biên "thông tin trực giao" so placebo
  *  đồng-n MỎNG ĐI — vẫn dương nhưng đây là phần yếu nhất của khối fusion, và n train
  *  giảm 25% nên CI rộng hơn. Không tuyển lại tham số để bù (xem cùng lý do ở PRESETS).
- *  monitor-fusion sau collect: status=ok, B 93,3%/100% vs comp 88,9%/99,1%. */
+ *  monitor-fusion sau collect: status=ok, B 93,3%/100% vs comp 88,9%/99,1%.
+ *
+ *  CẬP NHẬT 2026-09-25 — hai thay đổi cùng lúc:
+ *  (a) Yahoo sửa lịch sử GC=F ngày 2026-09-15 (quy ước roll hợp đồng; 1510 bar từ 2020-05
+ *      dịch ≤0,85%) ⇒ tập ngày trúng đổi: testN 71→66, fullN 116→111, fullFav 97,4→97,3.
+ *      Test khóa số này ĐÃ FAIL âm thầm 10 ngày vì workflow chưa chạy `npm test` — nay có.
+ *  (b) CI đổi sang bootstrap theo CỤM ĐỘC LẬP (clusterBootstrapCiWeighted — cùng hàm
+ *      monitor-presets dùng từ 2026-09-14): [92,2;100] → [91,3;100]. Thêm trainClusters/
+ *      testClusters = 9/6 — ĐÂY mới là cỡ mẫu thật, không phải 45/66 ngày.
+ *  KHÔNG tuyển lại tham số theo số mới (xem cùng lý do ở PRESETS). */
 export const HIGH_CONF_3M_EVIDENCE: HighConfEvidence = {
   trainFav: 93.3,
   trainN: 45,
   testFav: 100.0,
-  testN: 71,
-  fullFav: 97.4,
-  fullN: 116,
-  fullCi: [92.2, 100],
+  testN: 66,
+  fullFav: 97.3,
+  fullN: 111,
+  fullCi: [91.3, 100],
+  trainClusters: 9,
+  testClusters: 6,
   orthogonalTrainPt: 2.2,
 };
 

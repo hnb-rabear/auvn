@@ -19,8 +19,9 @@ export interface DailyBar {
 
 /**
  * Gộp chuỗi bar theo ngày, bản fresh thắng khi trùng ngày. Dùng cho cache lịch
- * sử: Yahoo range=20y là cửa sổ TRƯỢT nên số bar fresh có thể ít hơn cache — so
- * độ dài để quyết định ghi từng làm cache đóng băng; gộp thì cache chỉ lớn dần.
+ * sử: bản fresh có thể ngắn hơn cache (Yahoo range=20y trượt từng làm vậy; phản hồi
+ * cụt cũng thế) — so độ dài để quyết định ghi từng làm cache đóng băng 7 ngày;
+ * gộp thì cache chỉ lớn dần.
  */
 export function mergeBars(cached: DailyBar[] | null | undefined, fresh: DailyBar[]): DailyBar[] {
   const byDate = new Map((cached ?? []).map((b) => [b.date, b]));
@@ -46,8 +47,16 @@ async function fetchStooq(symbol: string): Promise<DailyBar[]> {
   return bars;
 }
 
+/** Mốc đầu chuỗi CỐ ĐỊNH (2006-09-25). `range=20y` là cửa sổ TRƯỢT: bar 0 tiến mỗi
+ *  ngày, nên mọi lưới thưa đếm từ bar 0 (backtest/bottom, bước 3 phiên) đổi pha,
+ *  trung bình mùa vụ và percentile biến động của ngày QUÁ KHỨ cũng đổi theo. Đo được:
+ *  bỏ 2 bar đầu làm prob săn đáy live nhảy 57,3 → 61,0. period1 cố định ⇒ chuỗi chỉ
+ *  dài thêm về cuối, lịch sử không tự viết lại. */
+const YAHOO_PERIOD1 = 1159142400;
+
 async function fetchYahoo(symbol: string): Promise<{ bars: DailyBar[]; lastTs: number | null }> {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=20y&interval=1d`;
+  const period2 = Math.floor(Date.now() / 1000);
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?period1=${YAHOO_PERIOD1}&period2=${period2}&interval=1d`;
   const json = JSON.parse(await get(url));
   const r = json?.chart?.result?.[0];
   const ts: number[] = r?.timestamp ?? [];

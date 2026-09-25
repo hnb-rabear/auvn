@@ -6,8 +6,9 @@
  * dẫn xuất từ ba tín hiệu độc lập (xem CLAUDE.md: Bottom Hunter không đụng composite).
  *
  * Triết lý phản ánh phát hiện thực nghiệm (docs/bottom.md "Săn đáy vs Điểm mua"):
- * hai tín hiệu hiếm khi cùng sáng, nên ô hay gặp nhất là "gom rải / quan sát",
- * không phải "tất tay". Tất cả là hỗ trợ quyết định, không phải khuyến nghị.
+ * hai tín hiệu hiếm khi cùng sáng, nên ô hay gặp nhất là "quan sát", không phải
+ * "tất tay". Săn đáy chỉ là NGỮ CẢNH (cờ Gom rải LOẠI 2026-07). Tất cả là hỗ trợ
+ * quyết định, không phải khuyến nghị.
  */
 import type { Zone } from "./types";
 
@@ -166,13 +167,18 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
     : "";
 
   // --- ma trận điểm mua × săn đáy
+  // Kiểm toán walk-forward (bottom.json.calibration) cho thấy prob đáy CAO không đáng tin
+  // hơn prob trung bình: nhóm "máy nói 60–80%" thực tế chỉ đúng 31% (n=100 ngày chồng lấn),
+  // nhóm 80–100% đúng 64%, trong khi nhóm 40–60% đúng 46,6%. Vì vậy ô này KHÔNG được hứa
+  // "gom dứt khoát hơn" — chỉ ghi nhận hai tín hiệu độc lập cùng sáng, hành động giữ nguyên.
   if (isBuy && bottomHigh) {
     return {
       level: "strong",
       tone: "buy",
-      when: "Tín hiệu mạnh nhất — định giá thuận VÀ XAU đang dò đáy",
+      when: "Định giá thuận, XAU cũng đang ở vùng dò đáy",
       how:
-        "Vùng đáng gom dứt khoát hơn. Vẫn nên chia 2–3 đợt để phòng nhận định sai — không dồn hết một lần." +
+        "Gom theo kế hoạch, chia nhiều đợt như bình thường — KHÔNG gom mạnh tay hơn: " +
+        "kiểm toán lịch sử cho thấy xác suất đáy cao không đúng nhiều hơn xác suất trung bình." +
         premiumNote,
       reasons,
     };

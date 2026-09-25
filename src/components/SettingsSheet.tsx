@@ -70,6 +70,9 @@ export default function SettingsSheet({
         aria-modal="true"
         aria-label="Thiết lập preset và trọng số"
         aria-hidden={!open}
+        // Đóng = ẩn hẳn khỏi luồng Tab: aria-hidden + dịch ra ngoài màn hình vẫn để
+        // slider/nút nhận focus, người dùng bàn phím lạc vào panel vô hình.
+        inert={!open}
       >
         <div className="sheet-handle" />
         <div className="sheet-head">

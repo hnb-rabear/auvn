@@ -85,7 +85,7 @@ export interface PresetHealth {
    */
   testFavCi95: [number, number] | null;
   /**
-   * Số CỤM ĐỘC LẬP (hai tín hiệu cách nhau < H phiên = một cụm) — n thật để đọc độ
+   * Số CỤM ĐỘC LẬP (tín hiệu cùng một khối H phiên cố định = một cụm) — n thật để đọc độ
    * tin cậy, nhỏ hơn `evidence.trainN`/`testN` (đếm NGÀY) vài lần. Xem CLAUDE.md
    * "Independent-cluster counts, not day counts".
    */
@@ -110,7 +110,11 @@ export interface FusionHealth {
   compTrainFav: number | null;
   compTestFav: number | null;
   bTestN: number;
+  /** CI 95% test theo CỤM ĐỘC LẬP (calendarBlockBootstrapCi); null = dưới 3 cụm */
   bTestCi95: [number, number] | null;
+  /** số cụm độc lập của tập B (train/test) — n thật, nhỏ hơn bTestN nhiều lần */
+  bTrainClusters?: number;
+  bTestClusters?: number;
   /** placebo đồng-n train: B − composite-top-n (pt) */
   orthoTrainPt: number | null;
   status: "ok" | "degraded" | "insufficient";
@@ -349,8 +353,9 @@ export interface Preset {
  * Cả ba vẫn vượt cổng nhưng 6m giờ sát nút — KHÔNG tuyển lại trọng số ở đây (làm vậy là
  * tuyển trên test đã khai thác); xem docs/presets.md "Sửa look-ahead FEDFUNDS".
  *
- * Số cụm ĐỘC LẬP (gap ≥ H phiên, train/test): 1m 5/6, 3m 6/7, 6m 5/4 — KHÔNG phải trainN/
- * testN bên dưới. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
+ * Số cụm ĐỘC LẬP (khối H phiên cố định, train/test) nằm ở preset-health.json
+ * (trainClusters/testClusters, tính lại mỗi cron) — nhỏ hơn trainN/testN bên dưới 6–25
+ * lần. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
  */
 export const PRESETS: Preset[] = [
   {
@@ -363,11 +368,11 @@ export const PRESETS: Preset[] = [
     evidence: {
       trainFav: 80.8,
       trainN: 104,
-      trainBaseline: 51.1,
-      testFav: 89.1,
-      testN: 64,
-      testBaseline: 59.6,
-      medianTestReturnPct: 4.1,
+      trainBaseline: 50.9,
+      testFav: 91.9,
+      testN: 62,
+      testBaseline: 59.3,
+      medianTestReturnPct: 3.9,
     },
   },
   {
@@ -378,13 +383,13 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.2, fed: 0.1, yield10y: 0.2 },
     buyThreshold: 40,
     evidence: {
-      trainFav: 88.9,
-      trainN: 135,
-      trainBaseline: 54.6,
+      trainFav: 89.0,
+      trainN: 136,
+      trainBaseline: 54.4,
       testFav: 99.1,
-      testN: 108,
-      testBaseline: 67.9,
-      medianTestReturnPct: 7.6,
+      testN: 107,
+      testBaseline: 67.7,
+      medianTestReturnPct: 7.3,
     },
   },
   {
@@ -395,13 +400,13 @@ export const PRESETS: Preset[] = [
     macroSub: { dxy: 0.2, fed: 0.2, yield10y: 0.4 },
     buyThreshold: 30,
     evidence: {
-      trainFav: 66.6,
-      trainN: 332,
-      trainBaseline: 55.8,
+      trainFav: 65.5,
+      trainN: 322,
+      trainBaseline: 55.7,
       testFav: 98.3,
-      testN: 292,
-      testBaseline: 77.4,
-      medianTestReturnPct: 13.5,
+      testN: 293,
+      testBaseline: 77.3,
+      medianTestReturnPct: 13.4,
     },
   },
 ];

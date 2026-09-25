@@ -78,28 +78,30 @@ export default function PremiumChart({ analysis }: { analysis: Analysis }) {
         <path d={chart.path} fill="none" stroke="#e6b84c" strokeWidth="1.6" />
         <circle cx={chart.lastX} cy={chart.lastY} r="4" fill="#ece5d8" />
       </svg>
+      {/* Hạ cấp 2026-09-15 (scripts/premium-gate-study.ts): chênh cao/thấp là GHI CHÚ
+          CHI PHÍ, không phải thời điểm mua. Ở đúng kỳ hạn quyết định của người mua
+          (H=5, 40 cụm độc lập — ô nhiều mẫu nhất) lời khuyên "đợi chênh hạ" đo ra SAI
+          DẤU (−5,2pt). Đuôi ≤p20 chỉ có 7 cụm ở H21 / 3 cụm ở H63 ⇒ không đủ công suất
+          để nói "mua lúc này ít thiệt nhất". Phía BÁN giữ nguyên (tham khảo người bán). */}
       {pctNow >= 80 && (
         <div className="banner warn">
-          🔴 <b>VÙNG BÁN VN theo chênh lệch</b> — chênh đang ở percentile {fmtNum(pctNow, 0)},
-          cao bất thường. Đây là tín hiệu bán đáng tin nhất cho vàng VN: người mua đang trả
-          đắt cho miếng vàng của bạn so với giá thế giới. Kiểm chứng {series.length} ngày:
-          mua khi chênh ≥ p80, SJC sau 2 tháng chỉ tăng trung vị +1,5% (57% số lần) — so
-          với +10,4% (90%) khi chênh ≤ p20.
+          🔴 Chênh đang ở percentile {fmtNum(pctNow, 0)} — <b>đang mua đắt</b> so với giá thế
+          giới quy đổi. Đây là <b>chi phí</b>, không phải tín hiệu đợi: chưa có bằng chứng đợi
+          chênh hạ thì mua được rẻ hơn. Với NGƯỜI BÁN, đây là vùng chênh cao đáng tham khảo.
         </div>
       )}
       {pctNow <= 20 && (
         <div className="banner info">
-          🟢 Chênh đang ở percentile {fmtNum(pctNow, 0)} — vùng rẻ lịch sử. Kiểm chứng{" "}
-          {series.length} ngày: mua SJC lúc chênh ≤ p20, sau 2 tháng giá tăng 90% số lần,
-          trung vị +10,4% (so với +1,5% khi chênh ≥ p80). Thời điểm mua vàng VN ít thiệt
-          nhất.
+          🟢 Chênh đang ở percentile {fmtNum(pctNow, 0)} — chi phí mua vàng VN đang rẻ so với
+          lịch sử tự thu thập. Mô tả chi phí, <b>không phải tín hiệu mua</b>: đuôi này quá ít
+          đợt độc lập để kiểm chứng thời điểm.
         </div>
       )}
       <p className="muted small">
-        Đường vàng = SJC đắt hơn giá thế giới quy đổi bao nhiêu %. Dưới vạch xanh (p20) =
-        vùng chênh rẻ lịch sử — mua vàng VN ít thiệt; trên vạch đỏ (p80) = chênh đắt bất
-        thường — đây mới là tín hiệu bán đáng tham khảo cho vàng VN (tự kiểm chứng:{" "}
-        <code>npx tsx scripts/premium-exit-study.ts</code>). Giai đoạn {series[0].date} →{" "}
+        Đường vàng = SJC đắt hơn giá thế giới quy đổi bao nhiêu %. Vạch xanh (p20) / đỏ (p80) =
+        chênh rẻ / đắt so với lịch sử tự thu thập — đây là <b>chi phí mua</b>, không phải điểm
+        mua-bán đã kiểm chứng (tự kiểm chứng:{" "}
+        <code>npx tsx scripts/premium-gate-study.ts</code>). Giai đoạn {series[0].date} →{" "}
         {last.date}.
       </p>
     </section>

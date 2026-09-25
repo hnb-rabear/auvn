@@ -35,7 +35,8 @@ function Gauge({ title, sub, tier, provisional, crashMode }: { title: string; su
             ))}
           </ul>
           <div className="muted small">
-            n={tier.n} quan sát lịch sử cùng nhóm điểm đáy{!crashMode && tier.ess ? ` (hiệu dụng ≈${tier.ess} do ưu tiên 2 năm gần)` : ""}
+            n={tier.n} quan sát lịch sử cùng nhóm điểm đáy — <b>cửa sổ tương lai CHỒNG NHAU</b>,
+            không phải {tier.n} lần độc lập (số đợt độc lập nhỏ hơn hàng chục lần).
           </div>
         </>
       )}
@@ -48,7 +49,9 @@ function calibLine(buckets: BottomCalibrationBucket[] | undefined): string | nul
   if (!buckets) return null;
   const rows = buckets.filter((b) => b.n >= 20);
   if (!rows.length) return null;
-  return rows.map((b) => `máy nói ${b.lo}–${b.hi}% → thực ${Math.round(b.real)}% (n=${b.n})`).join(" · ");
+  return rows
+    .map((b) => `máy nói ${b.lo}–${b.hi}% → thực ${Math.round(b.real)}% (${b.n} ngày)`)
+    .join(" · ");
 }
 
 export default function BottomGauges({ bottom, crashMode = false }: { bottom: BottomAnalysis; crashMode?: boolean }) {
@@ -70,15 +73,17 @@ export default function BottomGauges({ bottom, crashMode = false }: { bottom: Bo
       </div>
       {showInfo && (
         <div className="banner info">
-          Ước lượng giá có đang <b>gần đáy</b> không, để <b>gom rải</b> lúc giá lao dốc. Là xác suất
-          tham khảo — <b>không phải lời khẳng định đáy</b>. Con số ưu tiên ~2 năm gần (sửa lệch theo
+          Ước lượng giá có đang <b>gần đáy</b> không. Là xác suất tham khảo — lớp <b>ngữ cảnh</b>,
+          không phải cò súng mua và <b>không phải lời khẳng định đáy</b>. Con số ưu tiên ~2 năm gần (sửa lệch theo
           chế độ thị trường); khi giá <b>đang sụp cấp tính</b> nó dễ lạc quan giả nên ô này tự chuyển
           về bản thận trọng (toàn lịch sử) kèm cảnh báo. Khoảng tin cậy chỉ phản ánh nhiễu lấy mẫu,
           KHÔNG bao được thay đổi chế độ thị trường.
           {(calibCycle || calibSwing) && (
             <>
               <br />
-              <b>Kiểm toán walk-forward</b> (máy từng nói X% thì thực tế bao nhiêu?):
+              <b>Kiểm toán walk-forward</b> (máy từng nói X% thì thực tế bao nhiêu?) — đọc kỹ:
+              ô xác suất CAO không đáng tin hơn ô trung bình, và số ngày dưới đây chồng lấn
+              cửa sổ tương lai nên không phải số lần độc lập:
               {calibCycle && <> Chu kỳ: {calibCycle}.</>}
               {calibSwing && <> Sóng: {calibSwing}.</>}
             </>

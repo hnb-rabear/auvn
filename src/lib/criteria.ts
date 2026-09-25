@@ -101,7 +101,7 @@ export function technicalCriterion(closes: number[]): CriterionResult {
       text = "trên MA200 ở mức bình thường";
     } else if (d <= 15) {
       score = -1;
-      text = "căng hơn MA200 khá xa — hạn chế mua đuổi";
+      text = "căng hơn MA200 khá xa";
     } else {
       score = -2;
       text = "vượt MA200 rất xa — vùng quá nóng, nghiêng bán";
@@ -500,10 +500,10 @@ export function momentumCriterion(closes: number[]): CriterionResult {
       text = "không có xu hướng rõ 12 tháng";
     } else if (mom > -25) {
       score = -1;
-      text = "đà giảm — xu hướng bear, hạn chế mua";
+      text = "đà giảm — xu hướng bear 12 tháng";
     } else {
       score = -2;
-      text = "đà giảm mạnh — thị trường bear sâu, tránh mua";
+      text = "đà giảm mạnh — thị trường bear sâu";
     }
     signals.push({
       id: "mom12m",
@@ -640,7 +640,7 @@ export function statsCriterion(
       id: "vol",
       label: "Chế độ biến động 30 ngày",
       score,
-      explanation: `Biến động 30 ngày (annualized) = ${fmt(vol)}%, percentile ${fmt(pr, 0)} so với 3 năm: ${text}`,
+      explanation: `Biến động 30 ngày (annualized) = ${fmt(vol)}%, percentile ${fmt(pr, 0)} so với lịch sử: ${text}`,
       available: true,
     });
   }

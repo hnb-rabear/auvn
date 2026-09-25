@@ -15,7 +15,9 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  # false: mỗi lần máy nhà push dữ liệu VN từng hủy lượt cron đang chạy, có thể cắt
+  # ngang giữa commit/push dữ liệu hoặc giữa deploy (GitHub cũng khuyến nghị false cho Pages).
+  cancel-in-progress: false
 
 jobs:
   update-and-deploy:
@@ -74,6 +76,12 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      # Test chạy SAU commit + deploy: không bao giờ chặn việc lưu dữ liệu (lịch sử VN là
+      # database), nhưng fail sẽ bắn Telegram qua bước dưới. Thiếu bước này, test khóa số
+      # evidence đã fail âm thầm từ 2026-09-15 (Yahoo sửa lịch sử GC=F) tới 2026-09-25.
+      - name: Test (evidence locks vs fresh data)
+        run: npm test
 
       - name: Notify on failure
         if: failure()

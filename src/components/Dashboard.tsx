@@ -81,7 +81,7 @@ const grossNote = (
     {VN_ROUND_TRIP.measuredThrough}): spread trung vị {fmtNum(VN_ROUND_TRIP.spreadMedianPct, 2)}%, một
     vòng mua-bán 30 ngày lãi ròng trung vị <b>+{fmtNum(VN_ROUND_TRIP.net30MedianPct, 2)}%</b> so với
     +{fmtNum(VN_ROUND_TRIP.gross30MedianPct, 2)}% nếu bỏ qua spread ({VN_ROUND_TRIP.net30PositivePct}%
-    số lần dương). Giai đoạn VN mới 19 tháng và toàn bull ⇒ số mô tả, chưa đủ dữ liệu kiểm chứng
+    số lần dương). Giai đoạn VN còn ngắn và toàn bull ⇒ số mô tả, chưa đủ dữ liệu kiểm chứng
     2 giai đoạn.
   </i>
 );
@@ -285,11 +285,11 @@ export default function Dashboard({
     return { cycle: eff(bottom.cycle), swing: eff(bottom.swing) };
   }, [bottom, bottomCrashMode]);
   const guidance = useMemo(() => {
-    // best = max prob của tầng đã kiểm chứng (khớp ngưỡng gauge ≥60/≥35), giữ nguyên hành vi live cũ
+    // Trục "đáy cao" = tầng CHU KỲ, cùng tiêu chí với Time Machine (as-of.ts) — trước đây
+    // live lấy max(chu kỳ, sóng) nên cùng một ngày card live hiện "strong" còn Time Machine
+    // hiện "buy" (vi phạm quy tắc chart ≡ card).
     const c = cycleVerified ? effProb.cycle : -1;
-    const s = swingVerified ? effProb.swing : -1;
-    const best = Math.max(c, s);
-    const lvl = best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
+    const lvl = c >= 60 ? "cao" : c >= 35 ? "trung bình" : "thấp";
     const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
     const signedC = `${composite > 0 ? "+" : ""}${fmt1(composite)}`;
     // Chế độ đồng thuận: câu "Điểm mua" nói theo trục thật (k/3 preset), không nói
@@ -305,8 +305,8 @@ export default function Dashboard({
       zone,
       composite,
       bottom: {
-        high: best >= 60,
-        verified: cycleVerified || swingVerified,
+        high: c >= 60,
+        verified: cycleVerified,
         label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(effProb.cycle)}%, sóng ${fmt1(effProb.swing)}%${bottomCrashMode ? " — đang sụp cấp tính, dùng ước lượng thận trọng" : ""}).`,
       },
       premiumPct: analysis.prices.premiumPct,
@@ -700,31 +700,45 @@ export default function Dashboard({
               <div className="verdict-note">
                 {presetSigs
                   .filter((s) => s.isBuy)
-                  .map((s) => (
-                    <div key={s.preset.id}>
-                      <b>{s.preset.label}</b>: điểm +{fmtNum(s.composite)} ≥ ngưỡng +
-                      {s.preset.buyThreshold} — lịch sử tín hiệu này đúng{" "}
-                      {fmtNum(s.preset.evidence.trainFav)}% (2009–2018, n={s.preset.evidence.trainN}) /{" "}
-                      {fmtNum(s.preset.evidence.testFav)}% (2019–2026, n={s.preset.evidence.testN}), trung vị lãi{" "}
-                      +{fmtNum(s.preset.evidence.medianTestReturnPct)}% sau{" "}
-                      {s.preset.horizonDays === 21 ? "1 tháng" : s.preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}.
-                    </div>
-                  ))}
+                  .map((s) => {
+                    // n ĐỢT ĐỘC LẬP (preset-health.json) thay cho n NGÀY: ngày liền nhau dùng
+                    // chung cửa sổ lợi suất nên n ngày làm cỡ mẫu trông lớn gấp 6–25 lần thật.
+                    const item = health.items.find((i) => i.presetId === s.preset.id);
+                    return (
+                      <div key={s.preset.id}>
+                        <b>{s.preset.label}</b>: điểm +{fmtNum(s.composite)} ≥ ngưỡng +
+                        {s.preset.buyThreshold} — lịch sử tín hiệu này đúng{" "}
+                        {fmtNum(s.preset.evidence.trainFav)}% (2009–2018) /{" "}
+                        {fmtNum(s.preset.evidence.testFav)}% (2019–2026)
+                        {item && item.testClusters > 0
+                          ? `, ${item.trainClusters}/${item.testClusters} đợt độc lập`
+                          : ""}
+                        , trung vị lãi +{fmtNum(s.preset.evidence.medianTestReturnPct)}% sau{" "}
+                        {s.preset.horizonDays === 21 ? "1 tháng" : s.preset.horizonDays === 63 ? "3 tháng" : "6 tháng"}.
+                      </div>
+                    );
+                  })}
                 <i>
                   Mỗi con số là evidence của TỪNG preset (kiểm chứng 2 giai đoạn độc lập).
                   Số preset cùng báo không cộng thêm độ chính xác — 3 preset dùng chung gốc
                   vĩ mô nên thường sáng cùng nhau (docs/presets.md).
                 </i>
+                {selectionNote}
                 {grossNote}
               </div>
             )}
             {highConf && (
               <div className="verdict-note">
                 Lịch sử ở kỳ 3 tháng, khi composite báo MUA <b>VÀ</b> giá ở vùng đáy: đúng{" "}
-                <b>{HIGH_CONF_3M_EVIDENCE.trainFav}%</b> (2009–2018, n={HIGH_CONF_3M_EVIDENCE.trainN}) /{" "}
-                <b>{HIGH_CONF_3M_EVIDENCE.testFav}%</b> (2019–2026, n={HIGH_CONF_3M_EVIDENCE.testN}); toàn giai đoạn{" "}
-                {HIGH_CONF_3M_EVIDENCE.fullFav}% (n={HIGH_CONF_3M_EVIDENCE.fullN}, CI block-bootstrap{" "}
-                {HIGH_CONF_3M_EVIDENCE.fullCi[0]}–{HIGH_CONF_3M_EVIDENCE.fullCi[1]}). Lớp đáy thêm +
+                <b>{HIGH_CONF_3M_EVIDENCE.trainFav}%</b> (2009–2018) /{" "}
+                <b>{HIGH_CONF_3M_EVIDENCE.testFav}%</b> (2019–2026) —{" "}
+                <b>{HIGH_CONF_3M_EVIDENCE.trainClusters}/{HIGH_CONF_3M_EVIDENCE.testClusters} đợt độc lập</b>{" "}
+                (ngày liền nhau thuộc cùng đợt, không phải {HIGH_CONF_3M_EVIDENCE.trainN}/{HIGH_CONF_3M_EVIDENCE.testN} lần);
+                toàn giai đoạn {HIGH_CONF_3M_EVIDENCE.fullFav}%
+                {HIGH_CONF_3M_EVIDENCE.fullCi
+                  ? ` (CI 95% theo đợt ${HIGH_CONF_3M_EVIDENCE.fullCi[0]}–${HIGH_CONF_3M_EVIDENCE.fullCi[1]}%)`
+                  : " (chưa đủ đợt độc lập để tính CI)"}
+                . Lớp đáy thêm +
                 {HIGH_CONF_3M_EVIDENCE.orthogonalTrainPt}pt so với chỉ siết composite cùng cỡ mẫu.{" "}
                 <i>
                   Con số 100% là ước lượng lạc quan do tín hiệu bắn chùm trong một chu kỳ nới lỏng —
@@ -828,7 +842,12 @@ export default function Dashboard({
               <div>{selectionNote}</div>
               {grossNote}
             </div>
-          ) : bt63 && bt63.pctFavorable !== null ? (
+          ) : customized ? (
+            <div className="verdict-bt muted">
+              Trọng số tùy chỉnh — <b>chưa kiểm chứng</b>. Bảng lịch sử bên dưới tính bằng trọng số
+              mặc định nên không áp dụng cho cấu hình này; chỉ dùng để khám phá, không phải tín hiệu.
+            </div>
+          ) : bt63 && bt63.pctFavorable !== null && isBuyZone ? (
             <div className="verdict-bt">
               Kiểm chứng lịch sử: tín hiệu &quot;{ZONE_LABELS[zone]}&quot; xuất hiện{" "}
               <b>{bt63.count}</b> lần, <b>{fmtNum(bt63.pctFavorable)}%</b> diễn biến thuận chiều
@@ -989,7 +1008,9 @@ export default function Dashboard({
             ))
           )}
           <p className="muted small">
-            {backtest.note} Giai đoạn {backtest.fromDate} → {backtest.toDate},{" "}
+            Bảng dưới đo trục <b>composite trọng số mặc định</b> — KHÔNG phải cò súng của chế độ
+            Toàn cảnh (k/3 preset) hay của preset/trọng số tùy chỉnh đang chọn. {backtest.note} Giai
+            đoạn {backtest.fromDate} → {backtest.toDate},{" "}
             {backtest.observations.toLocaleString("vi-VN")} quan sát.
           </p>
           <div className="bt-table-wrap">
@@ -1009,7 +1030,13 @@ export default function Dashboard({
                   .map((b) => (
                     <tr
                       key={`${b.zone}-${b.horizonDays}`}
-                      className={b.zone === (asOf ? asOf.zone : zone) ? "hl" : ""}
+                      // Chỉ tô sáng khi bảng mô tả đúng trục đang xem: đồng thuận/preset/tùy chỉnh
+                      // dùng tín hiệu KHÁC composite mặc định ⇒ tô hàng này là gán nhầm bằng chứng.
+                      className={
+                        !preset && !customized && !consensusMode && b.zone === (asOf ? asOf.zone : zone)
+                          ? "hl"
+                          : ""
+                      }
                     >
                       <td className={zoneClass(b.zone)}>{ZONE_LABELS[b.zone]}</td>
                       <td>{b.horizonDays === 21 ? "1 tháng" : b.horizonDays === 63 ? "3 tháng" : "6 tháng"}</td>

@@ -257,7 +257,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     // Cùng cổng acute-crash với web (Dashboard `bottomCrashMode`): prob recency lạc quan
     // giả khi giá đang sụp cấp tính.
     crashMode: bearDca.phase === "acute",
-    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true thì đọc probUnweighted thay cho prob. isBottomStart là điểm dò đáy sớm để BẮT ĐẦU gom rải, không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
+    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true thì đọc probUnweighted thay cho prob. isBottomStart là điểm dò đáy sớm (ngữ cảnh), không phải tín hiệu gom/mua — cờ Gom rải đã bị LOẠI 2026-07 (gomrai-study 0/528) — và không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
   };
 
   const rawSignals = presetSignals(analysis.criteria);

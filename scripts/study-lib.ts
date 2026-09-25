@@ -124,7 +124,7 @@ export function countClusters(idxs: number[], h: number): number {
  * 3 năm nằm cạnh nhau trong mảng và được coi là liền kề, còn một chùm 40 ngày trúng
  * liên tiếp bị đếm thành 40 quan sát. Kết quả: CI hẹp giả ở đúng cái nó phải phản ánh.
  *
- * Đơn vị lấy mẫu ở đây là CỤM (hai tín hiệu cách < H phiên = cùng cụm), khớp đúng với
+ * Đơn vị lấy mẫu ở đây là CỤM (cùng một khối H phiên cố định = cùng cụm), khớp đúng với
  * `countClusters` mà tài liệu/UI công bố. Uỷ quyền cho `clusterBootstrapCiWeighted`
  * với trọng số đều.
  */

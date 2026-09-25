@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import tlJson from "../../public/data/timeline.json";
 import { HIGH_CONF_3M_EVIDENCE, HIGH_CONFIDENCE_BIN } from "./fusion";
-import { blockBootstrapCi } from "./indicators";
+import { clusterBootstrapCiWeighted } from "./indicators";
 import { PRESETS, presetComposite, type Timeline, type TimelinePoint } from "./types";
 
 const tl = tlJson as unknown as Timeline;
@@ -30,16 +30,19 @@ describe("HIGH_CONF_3M_EVIDENCE khớp timeline.json", () => {
     expect(te.length).toBe(HIGH_CONF_3M_EVIDENCE.testN);
     expect(favPct(te)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.testFav, 0);
   });
-  // Toàn giai đoạn + CI block-bootstrap (block=H/3). Tập B chọn theo NGÀY (không
-  // decimate theo chỉ-số), nên ổn định khi cron tái sinh timeline đổi độ dài đầu chuỗi
-  // — khác lưới-thưa i%STEP cũ (số trôi 54/58/46 theo canh-pha). Block-bootstrap đã
-  // xử lý autocorrelation của tín hiệu bắn chùm, thay cho việc decimate để decorrelate.
-  it("toàn giai đoạn + CI block-bootstrap", () => {
+  // Toàn giai đoạn + CI theo CỤM ĐỘC LẬP (khối 63 phiên cố định trên trục lịch). Tập B
+  // chọn theo NGÀY (không decimate theo chỉ-số) nên ổn định khi cron tái sinh timeline.
+  // Bản cũ dùng blockBootstrapCi trên mảng đã lọc ⇒ CI hẹp giả (sửa cùng họ lỗi 2026-09-14).
+  it("toàn giai đoạn + CI theo cụm độc lập", () => {
     const all = B(pts);
     expect(all.length).toBe(HIGH_CONF_3M_EVIDENCE.fullN);
     expect(favPct(all)).toBeCloseTo(HIGH_CONF_3M_EVIDENCE.fullFav, 0);
     const fav = all.map((p) => ((p.returns["63"] as number) > 0 ? 1 : -1));
-    expect(blockBootstrapCi(fav, Math.round(63 / 3))).toEqual(HIGH_CONF_3M_EVIDENCE.fullCi);
+    const pos = new Map(tl.points.map((p, i) => [p.date, i]));
+    const idxs = all.map((p) => pos.get(p.date)!);
+    expect(clusterBootstrapCiWeighted(fav, fav.map(() => 1), idxs, preset.horizonDays)).toEqual(
+      HIGH_CONF_3M_EVIDENCE.fullCi
+    );
   });
   it("placebo đồng-n train (thông tin trực giao)", () => {
     const train = pts.filter((p) => p.date < "2019-01-01");

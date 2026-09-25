@@ -412,8 +412,8 @@ async function main() {
     writeFileSync(FED_CACHE_FILE, JSON.stringify(fedRes, null, 1));
   }
   // Chỉ cache khi fetch NOMINAL tươi thành công (yieldFreshRes, không phải bản
-  // fallback cache/FRED vừa dùng ở trên). GỘP theo ngày, không so độ dài: Yahoo
-  // range=20y trượt nên bản fresh có thể ngắn hơn cache (từng đóng băng cache 7 ngày).
+  // fallback cache/FRED vừa dùng ở trên). GỘP theo ngày, không so độ dài: bản fresh
+  // có thể ngắn hơn cache (range=20y trượt từng đóng băng cache 7 ngày).
   if (yieldFreshRes) {
     const prev = loadYieldCache();
     const cache: YieldCache = {

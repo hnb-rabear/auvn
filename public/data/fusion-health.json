@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-25T05:52:19.184Z",
+ "generatedAt": "2026-09-25T07:19:15.493Z",
  "item": {
   "presetId": "3m",
   "bTrainFav": 93.3,
@@ -11,6 +11,8 @@
    100,
    100
   ],
+  "bTrainClusters": 9,
+  "bTestClusters": 6,
   "orthoTrainPt": 2.2,
   "status": "ok"
  }
