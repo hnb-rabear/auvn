@@ -404,6 +404,30 @@ export async function fetchVnGold(): Promise<VnGoldQuote | null> {
   return null;
 }
 
+/**
+ * Tỷ giá bán USD của Vietcombank tại MỘT ngày (API lịch sử, có cả thứ 7/CN — trả bản
+ * công bố gần nhất). Dùng để lấp lịch sử: `fetchUsdVnd()` chỉ có hôm nay.
+ *
+ * Vì sao phải cùng nguồn: chuỗi usdVnd nằm dưới mẫu số của premium. Trộn giá bán
+ * Vietcombank (cron) với Yahoo VND=X (backfill) làm premium lệch ~0,73% giữa các dòng
+ * — đo trên 419 dòng so khớp được: 367 dòng ≈ Yahoo, 52 dòng lệch 0,66–0,80%.
+ * Chủ dự án chọn Vietcombank làm chuẩn (2026-09-25).
+ */
+export async function fetchVcbUsdVndAt(date: string): Promise<number | null> {
+  try {
+    const json = JSON.parse(
+      await get(`https://www.vietcombank.com.vn/api/exchangerates?date=${date}`)
+    );
+    const row = (json?.Data ?? []).find(
+      (r: { currencyCode?: string }) => r?.currencyCode === "USD"
+    );
+    const v = parseFloat(String(row?.sell ?? "").replace(/,/g, ""));
+    return Number.isFinite(v) && v > 10000 && v < 60000 ? v : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchUsdVnd(): Promise<{ value: number; source: string } | null> {
   try {
     const xml = await get(

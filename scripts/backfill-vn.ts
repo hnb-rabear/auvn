@@ -1,13 +1,14 @@
 /**
  * Backfill lịch sử giá SJC từ CafeF (~16 tháng) vào vn-gold.json, kèm premium
- * tính từ XAU (GC=F) × tỷ giá (VND=X) cùng ngày (hoặc phiên gần nhất trước đó).
+ * tính từ XAU (GC=F) × tỷ giá bán Vietcombank cùng ngày (Yahoo VND=X chỉ là dự phòng
+ * khi Vietcombank không trả — xem fetchVcbUsdVndAt: trộn 2 nguồn làm premium lệch ~0,73%).
  * Entry đã có (do cron thu thập) luôn được giữ nguyên — backfill chỉ lấp chỗ trống.
  * Chạy một lần: npx tsx scripts/backfill-vn.ts
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { fetchXau, fetchVnGold, type DailyBar } from "./fetch";
+import { fetchXau, fetchVnGold, fetchVcbUsdVndAt, type DailyBar } from "./fetch";
 import { collectRingGold } from "./ring-gold";
 import type { VnGoldEntry } from "../src/lib/types";
 
@@ -163,10 +164,14 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
   const have = new Set(history.map((e) => e.date));
 
   let added = 0;
+  let vcbMiss = 0;
   for (const c of cafef) {
     if (have.has(c.date)) continue;
     const xauClose = xau ? atOrBefore(xau.bars, c.date) : null;
-    const rate = usdVnd ? atOrBefore(usdVnd, c.date) : null;
+    // Vietcombank là nguồn CHUẨN cho usdVnd (giống cron); Yahoo chỉ dự phòng.
+    const vcb = await fetchVcbUsdVndAt(c.date);
+    if (vcb === null) vcbMiss++;
+    const rate = vcb ?? (usdVnd ? atOrBefore(usdVnd, c.date) : null);
     const world =
       xauClose !== null && rate !== null
         ? (xauClose / TROY_OZ_GRAMS) * LUONG_GRAMS * rate
@@ -203,8 +208,10 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
     // Giữ tỷ giá đã ghi cho CHÍNH ngày này (xem comment cùng chủ đề trong scripts/run.ts):
     // cron dùng Vietcombank, đây dùng Yahoo VND=X, lệch ~1% — ghi đè lẫn nhau làm premium
     // của cùng một ngày nhảy qua lại giữa 2 lần chạy.
-    const freshRate = usdVnd ? atOrBefore(usdVnd, vnToday) : null;
-    const rate = existing?.usdVnd ?? freshRate;
+    const rate =
+      existing?.usdVnd ??
+      (await fetchVcbUsdVndAt(vnToday)) ??
+      (usdVnd ? atOrBefore(usdVnd, vnToday) : null);
 
     const world =
       xauClose !== null && rate !== null
@@ -251,7 +258,8 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
 
   const withPremium = history.filter((e) => e.premiumPct !== null).length;
   console.log(
-    `backfill xong: thêm ${added} ngày, tổng ${history.length} ngày, ${withPremium} ngày có premium.`
+    `backfill xong: thêm ${added} ngày, tổng ${history.length} ngày, ${withPremium} ngày có premium.` +
+      (vcbMiss ? ` ⚠ ${vcbMiss} ngày phải dùng tỷ giá dự phòng Yahoo (Vietcombank không trả).` : "")
   );
   const prems = history
     .filter((e) => e.premiumPct !== null)

@@ -442,6 +442,42 @@ describe("runBackfill", () => {
     expect(row?.usdVnd).toBe(26180); // KHÔNG phải 25920 của Yahoo
   });
 
+  // Vietcombank là nguồn CHUẨN cho usdVnd (chủ dự án chọn 2026-09-25, cùng nguồn với cron);
+  // Yahoo VND=X chỉ là dự phòng. Trộn 2 nguồn làm premium lệch ~0,73% giữa các dòng.
+  it("ngày mới: lấy tỷ giá Vietcombank, KHÔNG phải Yahoo, khi cả hai đều trả", async () => {
+    const vnFile = path.join(tmpDir, "public", "data", "history", "vn-gold.json");
+    fs.writeFileSync(vnFile, "[]");
+    const sjcXml = `<root><city name="Hồ Chí Minh"><item buy="84000" sell="86000" type="VÀNG SJC 1L - 10L" /></city></root>`;
+    const vcb = { Data: [{ currencyCode: "USD", sell: "26180.00" }] };
+    const yahooFx = {
+      chart: {
+        result: [
+          { timestamp: [Math.floor(Date.parse("2026-09-15T00:00:00Z") / 1000)], indicators: { quote: [{ close: [25920] }] } },
+        ],
+      },
+    };
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((url: string | URL | Request) => {
+        const u = String(url);
+        if (u.includes("sjc.com.vn") || u.includes("tygiavang.xml"))
+          return Promise.resolve(new Response(sjcXml, { status: 200 }));
+        if (u.includes("vietcombank.com.vn/api/exchangerates"))
+          return Promise.resolve(new Response(JSON.stringify(vcb), { status: 200 }));
+        if (u.includes("VND=X"))
+          return Promise.resolve(new Response(JSON.stringify(yahooFx), { status: 200 }));
+        return Promise.reject(new Error(`no mock for ${u}`));
+      })
+    );
+
+    await runBackfillFast(tmpDir);
+
+    const row = (JSON.parse(fs.readFileSync(vnFile, "utf8")) as VnGoldEntry[]).find(
+      (r) => r.date === "2026-09-15"
+    );
+    expect(row?.usdVnd).toBe(26180);
+  });
+
   it("preserves same-day valid FX/XAU when fetch fails, recomputes premium from matching inputs", async () => {
     const vnFile = path.join(tmpDir, "public", "data", "history", "vn-gold.json");
     const initialHistory: VnGoldEntry[] = [

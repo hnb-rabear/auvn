@@ -193,13 +193,13 @@ async function main() {
   const xauLast = xauRes.bars[xauRes.bars.length - 1].close;
 
   // --- cập nhật lịch sử VN nếu fetch hôm nay thành công
-  // Tỷ giá của MỘT ngày chỉ được ghi MỘT LẦN: cron dùng giá bán Vietcombank, còn
-  // backfill-vn (chạy trên máy nhà) dùng Yahoo VND=X — hai nguồn lệch ~1%. Trước
-  // 2026-09-25 bên nào ghi sau thì thắng, nên premium của CÙNG một ngày nhảy qua lại
-  // (đo được 15/09: 6,66 → 7,47 → 6,4 giữa 2 commit) và percentile p20/p50/p80 lệch
-  // theo. Nay: ngày nào đã có tỷ giá thì giữ nguyên, ai ghi trước thì thắng.
-  // CHƯA sửa: 515 dòng lịch sử cũ dùng Yahoo, 68 dòng cron dùng Vietcombank — hợp
-  // nhất chuỗi cần tính lại premium của lịch sử đã lưu (đợi chủ dự án quyết).
+  // Tỷ giá của MỘT ngày chỉ được ghi MỘT LẦN. Trước 2026-09-25 cron dùng giá bán
+  // Vietcombank còn backfill-vn dùng Yahoo VND=X (lệch ~0,73%), bên nào ghi sau thì
+  // thắng ⇒ premium của CÙNG một ngày nhảy qua lại (đo được 15/09: 6,66 → 7,47 → 6,4)
+  // và percentile p20/p50/p80 lệch theo. Nay backfill cũng lấy Vietcombank
+  // (fetchVcbUsdVndAt) nên hai đường cùng nguồn, và ngày đã có tỷ giá thì giữ nguyên.
+  // Lịch sử đã hợp nhất một lần bằng scripts/migrate-usdvnd-vcb.ts (532/593 dòng đổi;
+  // p50 13,35 → 12,88, p80 16,2 → 15,67).
   const existingToday = history.find((e) => e.date === today);
   let usdVnd = existingToday?.usdVnd ?? usdVndRes?.value ?? null;
   if (usdVnd === null) {

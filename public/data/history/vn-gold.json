@@ -5,9 +5,9 @@
   "sjcSell": 90300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25260,
+  "usdVnd": 25470,
   "xauUsd": 2867.300048828125,
-  "premiumPct": 3.41,
+  "premiumPct": 2.56,
   "backfilled": true
  },
  {
@@ -16,9 +16,9 @@
   "sjcSell": 90300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25260,
+  "usdVnd": 25470,
   "xauUsd": 2867.300048828125,
-  "premiumPct": 3.41,
+  "premiumPct": 2.56,
   "backfilled": true
  },
  {
@@ -27,9 +27,9 @@
   "sjcSell": 91300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25290,
+  "usdVnd": 25560,
   "xauUsd": 2914.300048828125,
-  "premiumPct": 2.75,
+  "premiumPct": 1.66,
   "backfilled": true
  },
  {
@@ -38,9 +38,9 @@
   "sjcSell": 90500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25380,
+  "usdVnd": 25700,
   "xauUsd": 2912.5,
-  "premiumPct": 1.55,
+  "premiumPct": 0.28,
   "backfilled": true
  },
  {
@@ -49,9 +49,9 @@
   "sjcSell": 90200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25530,
+  "usdVnd": 25740,
   "xauUsd": 2909,
-  "premiumPct": 0.74,
+  "premiumPct": -0.08,
   "backfilled": true
  },
  {
@@ -60,9 +60,9 @@
   "sjcSell": 90700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25550,
+  "usdVnd": 25660,
   "xauUsd": 2925.89990234375,
-  "premiumPct": 0.63,
+  "premiumPct": 0.2,
   "backfilled": true
  },
  {
@@ -71,9 +71,9 @@
   "sjcSell": 91300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25440,
+  "usdVnd": 25580,
   "xauUsd": 2883.60009765625,
-  "premiumPct": 3.23,
+  "premiumPct": 2.66,
   "backfilled": true
  },
  {
@@ -82,9 +82,9 @@
   "sjcSell": 90300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25440,
+  "usdVnd": 25580,
   "xauUsd": 2883.60009765625,
-  "premiumPct": 2.1,
+  "premiumPct": 1.54,
   "backfilled": true
  },
  {
@@ -93,9 +93,9 @@
   "sjcSell": 90300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25440,
+  "usdVnd": 25580,
   "xauUsd": 2883.60009765625,
-  "premiumPct": 2.1,
+  "premiumPct": 1.54,
   "backfilled": true
  },
  {
@@ -104,9 +104,9 @@
   "sjcSell": 90600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25370,
+  "usdVnd": 25640,
   "xauUsd": 2883.60009765625,
-  "premiumPct": 2.72,
+  "premiumPct": 1.64,
   "backfilled": true
  },
  {
@@ -115,9 +115,9 @@
   "sjcSell": 91100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25470,
+  "usdVnd": 25700,
   "xauUsd": 2931.60009765625,
-  "premiumPct": 1.2,
+  "premiumPct": 0.29,
   "backfilled": true
  },
  {
@@ -126,9 +126,9 @@
   "sjcSell": 91900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25500,
+  "usdVnd": 25700,
   "xauUsd": 2919.39990234375,
-  "premiumPct": 2.39,
+  "premiumPct": 1.59,
   "backfilled": true
  },
  {
@@ -137,9 +137,9 @@
   "sjcSell": 92300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25515,
+  "usdVnd": 25710,
   "xauUsd": 2940,
-  "premiumPct": 2.06,
+  "premiumPct": 1.28,
   "backfilled": true
  },
  {
@@ -148,9 +148,9 @@
   "sjcSell": 91700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25500,
+  "usdVnd": 25680,
   "xauUsd": 2937.60009765625,
-  "premiumPct": 1.53,
+  "premiumPct": 0.82,
   "backfilled": true
  },
  {
@@ -159,9 +159,9 @@
   "sjcSell": 91700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25500,
+  "usdVnd": 25680,
   "xauUsd": 2937.60009765625,
-  "premiumPct": 1.53,
+  "premiumPct": 0.82,
   "backfilled": true
  },
  {
@@ -170,9 +170,9 @@
   "sjcSell": 91700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25500,
+  "usdVnd": 25680,
   "xauUsd": 2937.60009765625,
-  "premiumPct": 1.53,
+  "premiumPct": 0.82,
   "backfilled": true
  },
  {
@@ -181,9 +181,9 @@
   "sjcSell": 92000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25510,
+  "usdVnd": 25670,
   "xauUsd": 2947.89990234375,
-  "premiumPct": 1.47,
+  "premiumPct": 0.84,
   "backfilled": true
  },
  {
@@ -192,9 +192,9 @@
   "sjcSell": 92000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25468,
+  "usdVnd": 25690,
   "xauUsd": 2904.5,
-  "premiumPct": 3.16,
+  "premiumPct": 2.27,
   "backfilled": true
  },
  {
@@ -203,9 +203,9 @@
   "sjcSell": 91300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25520,
+  "usdVnd": 25720,
   "xauUsd": 2916.800048828125,
-  "premiumPct": 1.73,
+  "premiumPct": 0.94,
   "backfilled": true
  },
  {
@@ -214,9 +214,9 @@
   "sjcSell": 91200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25535,
+  "usdVnd": 25740,
   "xauUsd": 2883.199951171875,
-  "premiumPct": 2.75,
+  "premiumPct": 1.93,
   "backfilled": true
  },
  {
@@ -225,9 +225,9 @@
   "sjcSell": 90500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25520,
+  "usdVnd": 25730,
   "xauUsd": 2836.800048828125,
-  "premiumPct": 3.69,
+  "premiumPct": 2.84,
   "backfilled": true
  },
  {
@@ -236,9 +236,9 @@
   "sjcSell": 90500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25520,
+  "usdVnd": 25730,
   "xauUsd": 2836.800048828125,
-  "premiumPct": 3.69,
+  "premiumPct": 2.84,
   "backfilled": true
  },
  {
@@ -247,9 +247,9 @@
   "sjcSell": 90500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25520,
+  "usdVnd": 25730,
   "xauUsd": 2836.800048828125,
-  "premiumPct": 3.69,
+  "premiumPct": 2.84,
   "backfilled": true
  },
  {
@@ -258,9 +258,9 @@
   "sjcSell": 91000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25530,
+  "usdVnd": 25780,
   "xauUsd": 2890.199951171875,
-  "premiumPct": 2.29,
+  "premiumPct": 1.3,
   "backfilled": true
  },
  {
@@ -269,9 +269,9 @@
   "sjcSell": 92700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25575,
+  "usdVnd": 25750,
   "xauUsd": 2909.60009765625,
-  "premiumPct": 3.33,
+  "premiumPct": 2.62,
   "backfilled": true
  },
  {
@@ -280,9 +280,9 @@
   "sjcSell": 92700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25540,
+  "usdVnd": 25680,
   "xauUsd": 2915.300048828125,
-  "premiumPct": 3.27,
+  "premiumPct": 2.7,
   "backfilled": true
  },
  {
@@ -291,9 +291,9 @@
   "sjcSell": 92700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25490,
+  "usdVnd": 25660,
   "xauUsd": 2916.60009765625,
-  "premiumPct": 3.42,
+  "premiumPct": 2.74,
   "backfilled": true
  },
  {
@@ -302,9 +302,9 @@
   "sjcSell": 93100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25485,
+  "usdVnd": 25690,
   "xauUsd": 2904.699951171875,
-  "premiumPct": 4.31,
+  "premiumPct": 3.48,
   "backfilled": true
  },
  {
@@ -313,9 +313,9 @@
   "sjcSell": 92900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25485,
+  "usdVnd": 25690,
   "xauUsd": 2904.699951171875,
-  "premiumPct": 4.09,
+  "premiumPct": 3.26,
   "backfilled": true
  },
  {
@@ -324,9 +324,9 @@
   "sjcSell": 92900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25485,
+  "usdVnd": 25690,
   "xauUsd": 2904.699951171875,
-  "premiumPct": 4.09,
+  "premiumPct": 3.26,
   "backfilled": true
  },
  {
@@ -335,9 +335,9 @@
   "sjcSell": 92900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25480,
+  "usdVnd": 25700,
   "xauUsd": 2891,
-  "premiumPct": 4.6,
+  "premiumPct": 3.71,
   "backfilled": true
  },
  {
@@ -346,9 +346,9 @@
   "sjcSell": 93000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25525,
+  "usdVnd": 25650,
   "xauUsd": 2912.89990234375,
-  "premiumPct": 3.75,
+  "premiumPct": 3.24,
   "backfilled": true
  },
  {
@@ -357,9 +357,9 @@
   "sjcSell": 93500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25450,
+  "usdVnd": 25640,
   "xauUsd": 2939.10009765625,
-  "premiumPct": 3.68,
+  "premiumPct": 2.91,
   "backfilled": true
  },
  {
@@ -368,9 +368,9 @@
   "sjcSell": 94400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25445,
+  "usdVnd": 25680,
   "xauUsd": 2984.300048828125,
-  "premiumPct": 3.11,
+  "premiumPct": 2.17,
   "backfilled": true
  },
  {
@@ -379,9 +379,9 @@
   "sjcSell": 95800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25490,
+  "usdVnd": 25710,
   "xauUsd": 2994.5,
-  "premiumPct": 4.1,
+  "premiumPct": 3.21,
   "backfilled": true
  },
  {
@@ -390,9 +390,9 @@
   "sjcSell": 95800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25490,
+  "usdVnd": 25710,
   "xauUsd": 2994.5,
-  "premiumPct": 4.1,
+  "premiumPct": 3.21,
   "backfilled": true
  },
  {
@@ -401,9 +401,9 @@
   "sjcSell": 95800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25490,
+  "usdVnd": 25710,
   "xauUsd": 2994.5,
-  "premiumPct": 4.1,
+  "premiumPct": 3.21,
   "backfilled": true
  },
  {
@@ -412,9 +412,9 @@
   "sjcSell": 96100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25500,
+  "usdVnd": 25720,
   "xauUsd": 3000,
-  "premiumPct": 4.19,
+  "premiumPct": 3.3,
   "backfilled": true
  },
  {
@@ -423,9 +423,9 @@
   "sjcSell": 98200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25510,
+  "usdVnd": 25710,
   "xauUsd": 3035.10009765625,
-  "premiumPct": 5.2,
+  "premiumPct": 4.38,
   "backfilled": true
  },
  {
@@ -434,9 +434,9 @@
   "sjcSell": 99500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25510,
+  "usdVnd": 25730,
   "xauUsd": 3035.89990234375,
-  "premiumPct": 6.56,
+  "premiumPct": 5.65,
   "backfilled": true
  },
  {
@@ -445,9 +445,9 @@
   "sjcSell": 99800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25535,
+  "usdVnd": 25740,
   "xauUsd": 3040,
-  "premiumPct": 6.63,
+  "premiumPct": 5.79,
   "backfilled": true
  },
  {
@@ -456,9 +456,9 @@
   "sjcSell": 97700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25545,
+  "usdVnd": 25760,
   "xauUsd": 3018.199951171875,
-  "premiumPct": 5.1,
+  "premiumPct": 4.23,
   "backfilled": true
  },
  {
@@ -467,9 +467,9 @@
   "sjcSell": 97400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25545,
+  "usdVnd": 25760,
   "xauUsd": 3018.199951171875,
-  "premiumPct": 4.78,
+  "premiumPct": 3.91,
   "backfilled": true
  },
  {
@@ -478,9 +478,9 @@
   "sjcSell": 97400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25545,
+  "usdVnd": 25760,
   "xauUsd": 3018.199951171875,
-  "premiumPct": 4.78,
+  "premiumPct": 3.91,
   "backfilled": true
  },
  {
@@ -489,9 +489,9 @@
   "sjcSell": 97600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25585,
+  "usdVnd": 25810,
   "xauUsd": 3013.10009765625,
-  "premiumPct": 5.01,
+  "premiumPct": 4.09,
   "backfilled": true
  },
  {
@@ -500,9 +500,9 @@
   "sjcSell": 97900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25620,
+  "usdVnd": 25810,
   "xauUsd": 3023.699951171875,
-  "premiumPct": 4.82,
+  "premiumPct": 4.05,
   "backfilled": true
  },
  {
@@ -511,9 +511,9 @@
   "sjcSell": 98400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25600,
+  "usdVnd": 25750,
   "xauUsd": 3020.89990234375,
-  "premiumPct": 5.53,
+  "premiumPct": 4.92,
   "backfilled": true
  },
  {
@@ -522,9 +522,9 @@
   "sjcSell": 98900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25555,
+  "usdVnd": 25750,
   "xauUsd": 3060.199951171875,
-  "premiumPct": 4.89,
+  "premiumPct": 4.1,
   "backfilled": true
  },
  {
@@ -533,9 +533,9 @@
   "sjcSell": 100200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25560,
+  "usdVnd": 25760,
   "xauUsd": 3086.5,
-  "premiumPct": 5.35,
+  "premiumPct": 4.53,
   "backfilled": true
  },
  {
@@ -544,9 +544,9 @@
   "sjcSell": 100700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25560,
+  "usdVnd": 25760,
   "xauUsd": 3086.5,
-  "premiumPct": 5.87,
+  "premiumPct": 5.05,
   "backfilled": true
  },
  {
@@ -555,9 +555,9 @@
   "sjcSell": 100700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25550,
+  "usdVnd": 25760,
   "xauUsd": 3086.5,
-  "premiumPct": 5.91,
+  "premiumPct": 5.05,
   "backfilled": true
  },
  {
@@ -566,9 +566,9 @@
   "sjcSell": 101800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25565,
+  "usdVnd": 25740,
   "xauUsd": 3122.800048828125,
-  "premiumPct": 5.76,
+  "premiumPct": 5.04,
   "backfilled": true
  },
  {
@@ -577,9 +577,9 @@
   "sjcSell": 102100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25620,
+  "usdVnd": 25820,
   "xauUsd": 3118.89990234375,
-  "premiumPct": 5.98,
+  "premiumPct": 5.16,
   "backfilled": true
  },
  {
@@ -588,9 +588,9 @@
   "sjcSell": 101800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25600,
+  "usdVnd": 25820,
   "xauUsd": 3139.89990234375,
-  "premiumPct": 5.04,
+  "premiumPct": 4.15,
   "backfilled": true
  },
  {
@@ -599,9 +599,9 @@
   "sjcSell": 102200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25600,
+  "usdVnd": 25980,
   "xauUsd": 3097,
-  "premiumPct": 6.92,
+  "premiumPct": 5.35,
   "backfilled": true
  },
  {
@@ -610,9 +610,9 @@
   "sjcSell": 101300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25600,
+  "usdVnd": 25960,
   "xauUsd": 3012,
-  "premiumPct": 8.97,
+  "premiumPct": 7.46,
   "backfilled": true
  },
  {
@@ -621,9 +621,9 @@
   "sjcSell": 100100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25600,
+  "usdVnd": 25960,
   "xauUsd": 3012,
-  "premiumPct": 7.68,
+  "premiumPct": 6.18,
   "backfilled": true
  },
  {
@@ -632,9 +632,9 @@
   "sjcSell": 100100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25770,
+  "usdVnd": 25960,
   "xauUsd": 3012,
-  "premiumPct": 6.97,
+  "premiumPct": 6.18,
   "backfilled": true
  },
  {
@@ -643,9 +643,9 @@
   "sjcSell": 100100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25780,
+  "usdVnd": 25960,
   "xauUsd": 2951.300048828125,
-  "premiumPct": 9.12,
+  "premiumPct": 8.37,
   "backfilled": true
  },
  {
@@ -654,9 +654,9 @@
   "sjcSell": 100200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25995,
+  "usdVnd": 26140,
   "xauUsd": 2968.39990234375,
-  "premiumPct": 7.7,
+  "premiumPct": 7.11,
   "backfilled": true
  },
  {
@@ -665,9 +665,9 @@
   "sjcSell": 101900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25960,
+  "usdVnd": 26182,
   "xauUsd": 3056.5,
-  "premiumPct": 6.52,
+  "premiumPct": 5.61,
   "backfilled": true
  },
  {
@@ -676,9 +676,9 @@
   "sjcSell": 103600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25720,
+  "usdVnd": 25970,
   "xauUsd": 3155.199951171875,
-  "premiumPct": 5.89,
+  "premiumPct": 4.87,
   "backfilled": true
  },
  {
@@ -687,9 +687,9 @@
   "sjcSell": 105200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25720,
+  "usdVnd": 25920,
   "xauUsd": 3222.199951171875,
-  "premiumPct": 5.29,
+  "premiumPct": 4.47,
   "backfilled": true
  },
  {
@@ -698,9 +698,9 @@
   "sjcSell": 106500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25720,
+  "usdVnd": 25920,
   "xauUsd": 3222.199951171875,
-  "premiumPct": 6.59,
+  "premiumPct": 5.76,
   "backfilled": true
  },
  {
@@ -709,9 +709,9 @@
   "sjcSell": 106500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25715,
+  "usdVnd": 25920,
   "xauUsd": 3222.199951171875,
-  "premiumPct": 6.61,
+  "premiumPct": 5.76,
   "backfilled": true
  },
  {
@@ -720,9 +720,9 @@
   "sjcSell": 107500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25824,
+  "usdVnd": 26000,
   "xauUsd": 3204.800048828125,
-  "premiumPct": 7.74,
+  "premiumPct": 7.01,
   "backfilled": true
  },
  {
@@ -731,9 +731,9 @@
   "sjcSell": 108000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25790,
+  "usdVnd": 26010,
   "xauUsd": 3218.699951171875,
-  "premiumPct": 7.91,
+  "premiumPct": 7,
   "backfilled": true
  },
  {
@@ -742,9 +742,9 @@
   "sjcSell": 115500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25830,
+  "usdVnd": 26010,
   "xauUsd": 3326.60009765625,
-  "premiumPct": 11.49,
+  "premiumPct": 10.72,
   "backfilled": true
  },
  {
@@ -753,9 +753,9 @@
   "sjcSell": 118000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25830,
+  "usdVnd": 26060,
   "xauUsd": 3308.699951171875,
-  "premiumPct": 14.52,
+  "premiumPct": 13.51,
   "backfilled": true
  },
  {
@@ -764,9 +764,9 @@
   "sjcSell": 120000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25830,
+  "usdVnd": 26120,
   "xauUsd": 3308.699951171875,
-  "premiumPct": 16.46,
+  "premiumPct": 15.17,
   "backfilled": true
  },
  {
@@ -775,9 +775,9 @@
   "sjcSell": 114000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25830,
+  "usdVnd": 26120,
   "xauUsd": 3308.699951171875,
-  "premiumPct": 10.64,
+  "premiumPct": 9.41,
   "backfilled": true
  },
  {
@@ -786,9 +786,9 @@
   "sjcSell": 114000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25830,
+  "usdVnd": 26120,
   "xauUsd": 3308.699951171875,
-  "premiumPct": 10.64,
+  "premiumPct": 9.41,
   "backfilled": true
  },
  {
@@ -797,9 +797,9 @@
   "sjcSell": 118000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25871,
+  "usdVnd": 26060,
   "xauUsd": 3406.199951171875,
-  "premiumPct": 11.06,
+  "premiumPct": 10.26,
   "backfilled": true
  },
  {
@@ -808,9 +808,9 @@
   "sjcSell": 124000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25932,
+  "usdVnd": 26115,
   "xauUsd": 3400.800048828125,
-  "premiumPct": 16.62,
+  "premiumPct": 15.81,
   "backfilled": true
  },
  {
@@ -819,9 +819,9 @@
   "sjcSell": 119500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25965,
+  "usdVnd": 26141,
   "xauUsd": 3276.300048828125,
-  "premiumPct": 16.51,
+  "premiumPct": 15.73,
   "backfilled": true
  },
  {
@@ -830,9 +830,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26026,
+  "usdVnd": 26174,
   "xauUsd": 3332,
-  "premiumPct": 15.73,
+  "premiumPct": 15.08,
   "backfilled": true
  },
  {
@@ -841,9 +841,9 @@
   "sjcSell": 120500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26026,
+  "usdVnd": 26195,
   "xauUsd": 3282.39990234375,
-  "premiumPct": 16.99,
+  "premiumPct": 16.24,
   "backfilled": true
  },
  {
@@ -852,9 +852,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26026,
+  "usdVnd": 26200,
   "xauUsd": 3282.39990234375,
-  "premiumPct": 17.48,
+  "premiumPct": 16.7,
   "backfilled": true
  },
  {
@@ -863,9 +863,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26019,
+  "usdVnd": 26200,
   "xauUsd": 3282.39990234375,
-  "premiumPct": 17.51,
+  "premiumPct": 16.7,
   "backfilled": true
  },
  {
@@ -874,9 +874,9 @@
   "sjcSell": 119500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25970,
+  "usdVnd": 26170,
   "xauUsd": 3332.5,
-  "premiumPct": 14.53,
+  "premiumPct": 13.65,
   "backfilled": true
  },
  {
@@ -885,9 +885,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25980,
+  "usdVnd": 26180,
   "xauUsd": 3318.800048828125,
-  "premiumPct": 16.69,
+  "premiumPct": 15.79,
   "backfilled": true
  },
  {
@@ -896,9 +896,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25980,
+  "usdVnd": 26180,
   "xauUsd": 3305,
-  "premiumPct": 17.17,
+  "premiumPct": 16.28,
   "backfilled": true
  },
  {
@@ -907,9 +907,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25980,
+  "usdVnd": 26180,
   "xauUsd": 3210,
-  "premiumPct": 20.64,
+  "premiumPct": 19.72,
   "backfilled": true
  },
  {
@@ -918,9 +918,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25980,
+  "usdVnd": 26180,
   "xauUsd": 3231.89990234375,
-  "premiumPct": 19.82,
+  "premiumPct": 18.91,
   "backfilled": true
  },
  {
@@ -929,9 +929,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25980,
+  "usdVnd": 26180,
   "xauUsd": 3231.89990234375,
-  "premiumPct": 19.82,
+  "premiumPct": 18.91,
   "backfilled": true
  },
  {
@@ -940,9 +940,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25980,
+  "usdVnd": 26180,
   "xauUsd": 3231.89990234375,
-  "premiumPct": 19.82,
+  "premiumPct": 18.91,
   "backfilled": true
  },
  {
@@ -951,9 +951,9 @@
   "sjcSell": 119800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25942,
+  "usdVnd": 26140,
   "xauUsd": 3311.300048828125,
-  "premiumPct": 15.67,
+  "premiumPct": 14.8,
   "backfilled": true
  },
  {
@@ -962,9 +962,9 @@
   "sjcSell": 122200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25948,
+  "usdVnd": 26150,
   "xauUsd": 3411.39990234375,
-  "premiumPct": 14.5,
+  "premiumPct": 13.62,
   "backfilled": true
  },
  {
@@ -973,9 +973,9 @@
   "sjcSell": 122200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25953,
+  "usdVnd": 26130,
   "xauUsd": 3381.39990234375,
-  "premiumPct": 15.5,
+  "premiumPct": 14.71,
   "backfilled": true
  },
  {
@@ -984,9 +984,9 @@
   "sjcSell": 120500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25959,
+  "usdVnd": 26150,
   "xauUsd": 3296.60009765625,
-  "premiumPct": 16.79,
+  "premiumPct": 15.94,
   "backfilled": true
  },
  {
@@ -995,9 +995,9 @@
   "sjcSell": 121500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25959,
+  "usdVnd": 26140,
   "xauUsd": 3335.39990234375,
-  "premiumPct": 16.39,
+  "premiumPct": 15.58,
   "backfilled": true
  },
  {
@@ -1006,9 +1006,9 @@
   "sjcSell": 122000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25959,
+  "usdVnd": 26140,
   "xauUsd": 3335.39990234375,
-  "premiumPct": 16.87,
+  "premiumPct": 16.06,
   "backfilled": true
  },
  {
@@ -1017,9 +1017,9 @@
   "sjcSell": 122000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25952,
+  "usdVnd": 26140,
   "xauUsd": 3335.39990234375,
-  "premiumPct": 16.9,
+  "premiumPct": 16.06,
   "backfilled": true
  },
  {
@@ -1028,9 +1028,9 @@
   "sjcSell": 119200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25960,
+  "usdVnd": 26140,
   "xauUsd": 3220,
-  "premiumPct": 18.28,
+  "premiumPct": 17.46,
   "backfilled": true
  },
  {
@@ -1039,9 +1039,9 @@
   "sjcSell": 120500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25951,
+  "usdVnd": 26140,
   "xauUsd": 3240.300048828125,
-  "premiumPct": 18.86,
+  "premiumPct": 18,
   "backfilled": true
  },
  {
@@ -1050,9 +1050,9 @@
   "sjcSell": 120000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25924,
+  "usdVnd": 26120,
   "xauUsd": 3181.39990234375,
-  "premiumPct": 20.68,
+  "premiumPct": 19.78,
   "backfilled": true
  },
  {
@@ -1061,9 +1061,9 @@
   "sjcSell": 118200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26110,
   "xauUsd": 3220.699951171875,
-  "premiumPct": 17.44,
+  "premiumPct": 16.58,
   "backfilled": true
  },
  {
@@ -1072,9 +1072,9 @@
   "sjcSell": 118700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26110,
   "xauUsd": 3182,
-  "premiumPct": 19.37,
+  "premiumPct": 18.5,
   "backfilled": true
  },
  {
@@ -1083,9 +1083,9 @@
   "sjcSell": 118500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26110,
   "xauUsd": 3182,
-  "premiumPct": 19.17,
+  "premiumPct": 18.3,
   "backfilled": true
  },
  {
@@ -1094,9 +1094,9 @@
   "sjcSell": 118500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25917,
+  "usdVnd": 26110,
   "xauUsd": 3182,
-  "premiumPct": 19.18,
+  "premiumPct": 18.3,
   "backfilled": true
  },
  {
@@ -1105,9 +1105,9 @@
   "sjcSell": 119300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25932,
+  "usdVnd": 26120,
   "xauUsd": 3228.89990234375,
-  "premiumPct": 18.18,
+  "premiumPct": 17.32,
   "backfilled": true
  },
  {
@@ -1116,9 +1116,9 @@
   "sjcSell": 119300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26140,
   "xauUsd": 3280.300048828125,
-  "premiumPct": 16.24,
+  "premiumPct": 15.4,
   "backfilled": true
  },
  {
@@ -1127,9 +1127,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26140,
   "xauUsd": 3309.300048828125,
-  "premiumPct": 16.87,
+  "premiumPct": 16.02,
   "backfilled": true
  },
  {
@@ -1138,9 +1138,9 @@
   "sjcSell": 120500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25973,
+  "usdVnd": 26150,
   "xauUsd": 3292.300048828125,
-  "premiumPct": 16.88,
+  "premiumPct": 16.09,
   "backfilled": true
  },
  {
@@ -1149,9 +1149,9 @@
   "sjcSell": 120500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25973,
+  "usdVnd": 26130,
   "xauUsd": 3363.60009765625,
-  "premiumPct": 14.4,
+  "premiumPct": 13.72,
   "backfilled": true
  },
  {
@@ -1160,9 +1160,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25973,
+  "usdVnd": 26130,
   "xauUsd": 3363.60009765625,
-  "premiumPct": 14.88,
+  "premiumPct": 14.19,
   "backfilled": true
  },
  {
@@ -1171,9 +1171,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25946,
+  "usdVnd": 26130,
   "xauUsd": 3363.60009765625,
-  "premiumPct": 15,
+  "premiumPct": 14.19,
   "backfilled": true
  },
  {
@@ -1182,9 +1182,9 @@
   "sjcSell": 119000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25897,
+  "usdVnd": 26090,
   "xauUsd": 3363.60009765625,
-  "premiumPct": 13.31,
+  "premiumPct": 12.47,
   "backfilled": true
  },
  {
@@ -1193,9 +1193,9 @@
   "sjcSell": 118000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25903,
+  "usdVnd": 26100,
   "xauUsd": 3299.10009765625,
-  "premiumPct": 14.53,
+  "premiumPct": 13.66,
   "backfilled": true
  },
  {
@@ -1204,9 +1204,9 @@
   "sjcSell": 118700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26140,
   "xauUsd": 3293.60009765625,
-  "premiumPct": 15.19,
+  "premiumPct": 14.35,
   "backfilled": true
  },
  {
@@ -1215,9 +1215,9 @@
   "sjcSell": 118000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25996,
+  "usdVnd": 26200,
   "xauUsd": 3317.10009765625,
-  "premiumPct": 13.5,
+  "premiumPct": 12.62,
   "backfilled": true
  },
  {
@@ -1226,9 +1226,9 @@
   "sjcSell": 118500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25996,
+  "usdVnd": 26200,
   "xauUsd": 3288.89990234375,
-  "premiumPct": 14.96,
+  "premiumPct": 14.06,
   "backfilled": true
  },
  {
@@ -1237,9 +1237,9 @@
   "sjcSell": 118200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25996,
+  "usdVnd": 26200,
   "xauUsd": 3288.89990234375,
-  "premiumPct": 14.67,
+  "premiumPct": 13.77,
   "backfilled": true
  },
  {
@@ -1248,9 +1248,9 @@
   "sjcSell": 118200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26019,
+  "usdVnd": 26200,
   "xauUsd": 3288.89990234375,
-  "premiumPct": 14.57,
+  "premiumPct": 13.77,
   "backfilled": true
  },
  {
@@ -1259,9 +1259,9 @@
   "sjcSell": 117800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26022,
+  "usdVnd": 26200,
   "xauUsd": 3370.60009765625,
-  "premiumPct": 11.4,
+  "premiumPct": 10.64,
   "backfilled": true
  },
  {
@@ -1270,9 +1270,9 @@
   "sjcSell": 117200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26038,
+  "usdVnd": 26230,
   "xauUsd": 3350.199951171875,
-  "premiumPct": 11.44,
+  "premiumPct": 10.62,
   "backfilled": true
  },
  {
@@ -1281,9 +1281,9 @@
   "sjcSell": 117200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26071,
+  "usdVnd": 26254,
   "xauUsd": 3373.5,
-  "premiumPct": 10.53,
+  "premiumPct": 9.76,
   "backfilled": true
  },
  {
@@ -1292,9 +1292,9 @@
   "sjcSell": 117700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26056,
+  "usdVnd": 26244,
   "xauUsd": 3350.699951171875,
-  "premiumPct": 11.82,
+  "premiumPct": 11.02,
   "backfilled": true
  },
  {
@@ -1303,9 +1303,9 @@
   "sjcSell": 118000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26056,
+  "usdVnd": 26220,
   "xauUsd": 3322.699951171875,
-  "premiumPct": 13.05,
+  "premiumPct": 12.34,
   "backfilled": true
  },
  {
@@ -1314,9 +1314,9 @@
   "sjcSell": 117200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26056,
+  "usdVnd": 26220,
   "xauUsd": 3322.699951171875,
-  "premiumPct": 12.28,
+  "premiumPct": 11.58,
   "backfilled": true
  },
  {
@@ -1325,9 +1325,9 @@
   "sjcSell": 117200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26047,
+  "usdVnd": 26220,
   "xauUsd": 3322.699951171875,
-  "premiumPct": 12.32,
+  "premiumPct": 11.58,
   "backfilled": true
  },
  {
@@ -1336,9 +1336,9 @@
   "sjcSell": 117700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26025,
+  "usdVnd": 26220,
   "xauUsd": 3332.10009765625,
-  "premiumPct": 12.58,
+  "premiumPct": 11.74,
   "backfilled": true
  },
  {
@@ -1347,9 +1347,9 @@
   "sjcSell": 118500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25990,
+  "usdVnd": 26200,
   "xauUsd": 3320.89990234375,
-  "premiumPct": 13.88,
+  "premiumPct": 12.96,
   "backfilled": true
  },
  {
@@ -1358,9 +1358,9 @@
   "sjcSell": 118800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26010,
+  "usdVnd": 26200,
   "xauUsd": 3321.300048828125,
-  "premiumPct": 14.06,
+  "premiumPct": 13.24,
   "backfilled": true
  },
  {
@@ -1369,9 +1369,9 @@
   "sjcSell": 119000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26020,
+  "usdVnd": 26210,
   "xauUsd": 3380.89990234375,
-  "premiumPct": 12.2,
+  "premiumPct": 11.38,
   "backfilled": true
  },
  {
@@ -1380,9 +1380,9 @@
   "sjcSell": 120000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26020,
+  "usdVnd": 26223,
   "xauUsd": 3431.199951171875,
-  "premiumPct": 11.48,
+  "premiumPct": 10.62,
   "backfilled": true
  },
  {
@@ -1391,9 +1391,9 @@
   "sjcSell": 120300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26020,
+  "usdVnd": 26223,
   "xauUsd": 3431.199951171875,
-  "premiumPct": 11.76,
+  "premiumPct": 10.9,
   "backfilled": true
  },
  {
@@ -1402,9 +1402,9 @@
   "sjcSell": 120300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26050,
+  "usdVnd": 26223,
   "xauUsd": 3431.199951171875,
-  "premiumPct": 11.63,
+  "premiumPct": 10.9,
   "backfilled": true
  },
  {
@@ -1413,9 +1413,9 @@
   "sjcSell": 119600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26030,
+  "usdVnd": 26242,
   "xauUsd": 3396.39990234375,
-  "premiumPct": 12.21,
+  "premiumPct": 11.3,
   "backfilled": true
  },
  {
@@ -1424,9 +1424,9 @@
   "sjcSell": 119600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26072,
+  "usdVnd": 26247,
   "xauUsd": 3386.60009765625,
-  "premiumPct": 12.35,
+  "premiumPct": 11.6,
   "backfilled": true
  },
  {
@@ -1435,9 +1435,9 @@
   "sjcSell": 119600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26092,
+  "usdVnd": 26243,
   "xauUsd": 3389.800048828125,
-  "premiumPct": 12.16,
+  "premiumPct": 11.51,
   "backfilled": true
  },
  {
@@ -1446,9 +1446,9 @@
   "sjcSell": 119400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26123,
+  "usdVnd": 26276,
   "xauUsd": 3389.800048828125,
-  "premiumPct": 11.84,
+  "premiumPct": 11.19,
   "backfilled": true
  },
  {
@@ -1457,9 +1457,9 @@
   "sjcSell": 119400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26123,
+  "usdVnd": 26282,
   "xauUsd": 3368.10009765625,
-  "premiumPct": 12.56,
+  "premiumPct": 11.88,
   "backfilled": true
  },
  {
@@ -1468,9 +1468,9 @@
   "sjcSell": 119700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26123,
+  "usdVnd": 26282,
   "xauUsd": 3368.10009765625,
-  "premiumPct": 12.84,
+  "premiumPct": 12.16,
   "backfilled": true
  },
  {
@@ -1479,9 +1479,9 @@
   "sjcSell": 119700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26119,
+  "usdVnd": 26282,
   "xauUsd": 3368.10009765625,
-  "premiumPct": 12.86,
+  "premiumPct": 12.16,
   "backfilled": true
  },
  {
@@ -1490,9 +1490,9 @@
   "sjcSell": 119700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26190,
+  "usdVnd": 26279,
   "xauUsd": 3377.699951171875,
-  "premiumPct": 12.23,
+  "premiumPct": 11.85,
   "backfilled": true
  },
  {
@@ -1501,9 +1501,9 @@
   "sjcSell": 119500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26150,
+  "usdVnd": 26310,
   "xauUsd": 3317.39990234375,
-  "premiumPct": 14.26,
+  "premiumPct": 13.56,
   "backfilled": true
  },
  {
@@ -1512,9 +1512,9 @@
   "sjcSell": 119500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26150,
+  "usdVnd": 26307,
   "xauUsd": 3327.10009765625,
-  "premiumPct": 13.92,
+  "premiumPct": 13.24,
   "backfilled": true
  },
  {
@@ -1523,9 +1523,9 @@
   "sjcSell": 120000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26290,
   "xauUsd": 3333.5,
-  "premiumPct": 14.4,
+  "premiumPct": 13.57,
   "backfilled": true
  },
  {
@@ -1534,9 +1534,9 @@
   "sjcSell": 119700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26270,
   "xauUsd": 3273.699951171875,
-  "premiumPct": 16.2,
+  "premiumPct": 15.44,
   "backfilled": true
  },
  {
@@ -1545,9 +1545,9 @@
   "sjcSell": 119200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26270,
   "xauUsd": 3273.699951171875,
-  "premiumPct": 15.71,
+  "premiumPct": 14.96,
   "backfilled": true
  },
  {
@@ -1556,9 +1556,9 @@
   "sjcSell": 119200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26090,
+  "usdVnd": 26270,
   "xauUsd": 3273.699951171875,
-  "premiumPct": 15.76,
+  "premiumPct": 14.96,
   "backfilled": true
  },
  {
@@ -1567,9 +1567,9 @@
   "sjcSell": 119500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26118,
+  "usdVnd": 26300,
   "xauUsd": 3294.39990234375,
-  "premiumPct": 15.19,
+  "premiumPct": 14.4,
   "backfilled": true
  },
  {
@@ -1578,9 +1578,9 @@
   "sjcSell": 120700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26110,
+  "usdVnd": 26310,
   "xauUsd": 3336.699951171875,
-  "premiumPct": 14.91,
+  "premiumPct": 14.04,
   "backfilled": true
  },
  {
@@ -1589,9 +1589,9 @@
   "sjcSell": 120700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26150,
+  "usdVnd": 26323,
   "xauUsd": 3348,
-  "premiumPct": 14.35,
+  "premiumPct": 13.6,
   "backfilled": true
  },
  {
@@ -1600,9 +1600,9 @@
   "sjcSell": 121300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26175,
+  "usdVnd": 26345,
   "xauUsd": 3331.60009765625,
-  "premiumPct": 15.37,
+  "premiumPct": 14.63,
   "backfilled": true
  },
  {
@@ -1611,9 +1611,9 @@
   "sjcSell": 120900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26175,
+  "usdVnd": 26350,
   "xauUsd": 3332.5,
-  "premiumPct": 14.96,
+  "premiumPct": 14.2,
   "backfilled": true
  },
  {
@@ -1622,9 +1622,9 @@
   "sjcSell": 120900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26175,
+  "usdVnd": 26350,
   "xauUsd": 3332.5,
-  "premiumPct": 14.96,
+  "premiumPct": 14.2,
   "backfilled": true
  },
  {
@@ -1633,9 +1633,9 @@
   "sjcSell": 120900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26158,
+  "usdVnd": 26350,
   "xauUsd": 3332.5,
-  "premiumPct": 15.03,
+  "premiumPct": 14.2,
   "backfilled": true
  },
  {
@@ -1644,9 +1644,9 @@
   "sjcSell": 120500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26120,
+  "usdVnd": 26330,
   "xauUsd": 3332.199951171875,
-  "premiumPct": 14.83,
+  "premiumPct": 13.92,
   "backfilled": true
  },
  {
@@ -1655,9 +1655,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26110,
+  "usdVnd": 26305,
   "xauUsd": 3307,
-  "premiumPct": 16.23,
+  "premiumPct": 15.37,
   "backfilled": true
  },
  {
@@ -1666,9 +1666,9 @@
   "sjcSell": 120600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26138,
+  "usdVnd": 26320,
   "xauUsd": 3311.60009765625,
-  "premiumPct": 15.56,
+  "premiumPct": 14.76,
   "backfilled": true
  },
  {
@@ -1677,9 +1677,9 @@
   "sjcSell": 120800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26290,
   "xauUsd": 3317.39990234375,
-  "premiumPct": 15.72,
+  "premiumPct": 14.88,
   "backfilled": true
  },
  {
@@ -1688,9 +1688,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26290,
   "xauUsd": 3356,
-  "premiumPct": 14.58,
+  "premiumPct": 13.75,
   "backfilled": true
  },
  {
@@ -1699,9 +1699,9 @@
   "sjcSell": 121500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26290,
   "xauUsd": 3356,
-  "premiumPct": 15.05,
+  "premiumPct": 14.22,
   "backfilled": true
  },
  {
@@ -1710,9 +1710,9 @@
   "sjcSell": 121500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26108,
+  "usdVnd": 26290,
   "xauUsd": 3356,
-  "premiumPct": 15.02,
+  "premiumPct": 14.22,
   "backfilled": true
  },
  {
@@ -1721,9 +1721,9 @@
   "sjcSell": 121500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26100,
+  "usdVnd": 26290,
   "xauUsd": 3351.5,
-  "premiumPct": 15.21,
+  "premiumPct": 14.37,
   "backfilled": true
  },
  {
@@ -1732,9 +1732,9 @@
   "sjcSell": 121100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26120,
+  "usdVnd": 26310,
   "xauUsd": 3329.800048828125,
-  "premiumPct": 15.49,
+  "premiumPct": 14.65,
   "backfilled": true
  },
  {
@@ -1743,9 +1743,9 @@
   "sjcSell": 120600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26140,
+  "usdVnd": 26330,
   "xauUsd": 3352.5,
-  "premiumPct": 14.14,
+  "premiumPct": 13.32,
   "backfilled": true
  },
  {
@@ -1754,9 +1754,9 @@
   "sjcSell": 120600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26135,
+  "usdVnd": 26330,
   "xauUsd": 3340.10009765625,
-  "premiumPct": 14.59,
+  "premiumPct": 13.74,
   "backfilled": true
  },
  {
@@ -1765,9 +1765,9 @@
   "sjcSell": 121000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26135,
+  "usdVnd": 26340,
   "xauUsd": 3353,
-  "premiumPct": 14.53,
+  "premiumPct": 13.64,
   "backfilled": true
  },
  {
@@ -1776,9 +1776,9 @@
   "sjcSell": 121200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26135,
+  "usdVnd": 26340,
   "xauUsd": 3353,
-  "premiumPct": 14.72,
+  "premiumPct": 13.82,
   "backfilled": true
  },
  {
@@ -1787,9 +1787,9 @@
   "sjcSell": 121200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26140,
+  "usdVnd": 26340,
   "xauUsd": 3353,
-  "premiumPct": 14.69,
+  "premiumPct": 13.82,
   "backfilled": true
  },
  {
@@ -1798,9 +1798,9 @@
   "sjcSell": 121500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26130,
+  "usdVnd": 26340,
   "xauUsd": 3401.89990234375,
-  "premiumPct": 13.37,
+  "premiumPct": 12.46,
   "backfilled": true
  },
  {
@@ -1809,9 +1809,9 @@
   "sjcSell": 122000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26120,
+  "usdVnd": 26320,
   "xauUsd": 3439.199951171875,
-  "premiumPct": 12.64,
+  "premiumPct": 11.79,
   "backfilled": true
  },
  {
@@ -1820,9 +1820,9 @@
   "sjcSell": 122700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26120,
+  "usdVnd": 26320,
   "xauUsd": 3394.10009765625,
-  "premiumPct": 14.8,
+  "premiumPct": 13.92,
   "backfilled": true
  },
  {
@@ -1831,9 +1831,9 @@
   "sjcSell": 121700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26110,
+  "usdVnd": 26320,
   "xauUsd": 3371,
-  "premiumPct": 14.68,
+  "premiumPct": 13.77,
   "backfilled": true
  },
  {
@@ -1842,9 +1842,9 @@
   "sjcSell": 121700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26110,
+  "usdVnd": 26320,
   "xauUsd": 3334,
-  "premiumPct": 15.96,
+  "premiumPct": 15.03,
   "backfilled": true
  },
  {
@@ -1853,9 +1853,9 @@
   "sjcSell": 121100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26110,
+  "usdVnd": 26320,
   "xauUsd": 3334,
-  "premiumPct": 15.38,
+  "premiumPct": 14.46,
   "backfilled": true
  },
  {
@@ -1864,9 +1864,9 @@
   "sjcSell": 121100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26120,
+  "usdVnd": 26320,
   "xauUsd": 3334,
-  "premiumPct": 15.34,
+  "premiumPct": 14.46,
   "backfilled": true
  },
  {
@@ -1875,9 +1875,9 @@
   "sjcSell": 121100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26165,
+  "usdVnd": 26370,
   "xauUsd": 3309.10009765625,
-  "premiumPct": 16.01,
+  "premiumPct": 15.11,
   "backfilled": true
  },
  {
@@ -1886,9 +1886,9 @@
   "sjcSell": 121200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26195,
+  "usdVnd": 26400,
   "xauUsd": 3323.39990234375,
-  "premiumPct": 15.47,
+  "premiumPct": 14.58,
   "backfilled": true
  },
  {
@@ -1897,9 +1897,9 @@
   "sjcSell": 121500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26200,
+  "usdVnd": 26390,
   "xauUsd": 3295.800048828125,
-  "premiumPct": 16.71,
+  "premiumPct": 15.87,
   "backfilled": true
  },
  {
@@ -1908,9 +1908,9 @@
   "sjcSell": 121400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26197,
+  "usdVnd": 26380,
   "xauUsd": 3293.199951171875,
-  "premiumPct": 16.72,
+  "premiumPct": 15.91,
   "backfilled": true
  },
  {
@@ -1919,9 +1919,9 @@
   "sjcSell": 121400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26197,
+  "usdVnd": 26390,
   "xauUsd": 3347.699951171875,
-  "premiumPct": 14.81,
+  "premiumPct": 13.98,
   "backfilled": true
  },
  {
@@ -1930,9 +1930,9 @@
   "sjcSell": 123500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26197,
+  "usdVnd": 26390,
   "xauUsd": 3347.699951171875,
-  "premiumPct": 16.8,
+  "premiumPct": 15.95,
   "backfilled": true
  },
  {
@@ -1941,9 +1941,9 @@
   "sjcSell": 123500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26190,
+  "usdVnd": 26390,
   "xauUsd": 3347.699951171875,
-  "premiumPct": 16.83,
+  "premiumPct": 15.95,
   "backfilled": true
  },
  {
@@ -1952,9 +1952,9 @@
   "sjcSell": 123300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26174,
+  "usdVnd": 26370,
   "xauUsd": 3374.39990234375,
-  "premiumPct": 15.79,
+  "premiumPct": 14.93,
   "backfilled": true
  },
  {
@@ -1963,9 +1963,9 @@
   "sjcSell": 123800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26225,
+  "usdVnd": 26420,
   "xauUsd": 3381.89990234375,
-  "premiumPct": 15.78,
+  "premiumPct": 14.92,
   "backfilled": true
  },
  {
@@ -1974,9 +1974,9 @@
   "sjcSell": 123800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26200,
+  "usdVnd": 26420,
   "xauUsd": 3380,
-  "premiumPct": 15.95,
+  "premiumPct": 14.99,
   "backfilled": true
  },
  {
@@ -1985,9 +1985,9 @@
   "sjcSell": 123800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26190,
+  "usdVnd": 26400,
   "xauUsd": 3400.300048828125,
-  "premiumPct": 15.3,
+  "premiumPct": 14.39,
   "backfilled": true
  },
  {
@@ -1996,9 +1996,9 @@
   "sjcSell": 124400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26190,
+  "usdVnd": 26400,
   "xauUsd": 3439.10009765625,
-  "premiumPct": 14.56,
+  "premiumPct": 13.64,
   "backfilled": true
  },
  {
@@ -2007,9 +2007,9 @@
   "sjcSell": 124400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26190,
+  "usdVnd": 26400,
   "xauUsd": 3439.10009765625,
-  "premiumPct": 14.56,
+  "premiumPct": 13.64,
   "backfilled": true
  },
  {
@@ -2018,9 +2018,9 @@
   "sjcSell": 124400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26200,
+  "usdVnd": 26400,
   "xauUsd": 3439.10009765625,
-  "premiumPct": 14.51,
+  "premiumPct": 13.64,
   "backfilled": true
  },
  {
@@ -2029,9 +2029,9 @@
   "sjcSell": 123900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26231,
+  "usdVnd": 26400,
   "xauUsd": 3353.10009765625,
-  "premiumPct": 16.84,
+  "premiumPct": 16.09,
   "backfilled": true
  },
  {
@@ -2040,9 +2040,9 @@
   "sjcSell": 123900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26245,
+  "usdVnd": 26450,
   "xauUsd": 3348.89990234375,
-  "premiumPct": 16.92,
+  "premiumPct": 16.02,
   "backfilled": true
  },
  {
@@ -2051,9 +2051,9 @@
   "sjcSell": 124200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26265,
+  "usdVnd": 26450,
   "xauUsd": 3358.699951171875,
-  "premiumPct": 16.78,
+  "premiumPct": 15.96,
   "backfilled": true
  },
  {
@@ -2062,9 +2062,9 @@
   "sjcSell": 124700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26440,
   "xauUsd": 3335.199951171875,
-  "premiumPct": 18.23,
+  "premiumPct": 17.29,
   "backfilled": true
  },
  {
@@ -2073,9 +2073,9 @@
   "sjcSell": 124500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26450,
   "xauUsd": 3336,
-  "premiumPct": 18.01,
+  "premiumPct": 17.03,
   "backfilled": true
  },
  {
@@ -2084,9 +2084,9 @@
   "sjcSell": 124500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26450,
   "xauUsd": 3336,
-  "premiumPct": 18.01,
+  "premiumPct": 17.03,
   "backfilled": true
  },
  {
@@ -2095,9 +2095,9 @@
   "sjcSell": 124500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26240,
+  "usdVnd": 26450,
   "xauUsd": 3336,
-  "premiumPct": 17.97,
+  "premiumPct": 17.03,
   "backfilled": true
  },
  {
@@ -2106,9 +2106,9 @@
   "sjcSell": 125000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26275,
+  "usdVnd": 26470,
   "xauUsd": 3331.699951171875,
-  "premiumPct": 18.43,
+  "premiumPct": 17.56,
   "backfilled": true
  },
  {
@@ -2117,9 +2117,9 @@
   "sjcSell": 125000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26290,
+  "usdVnd": 26490,
   "xauUsd": 3313.39990234375,
-  "premiumPct": 19.02,
+  "premiumPct": 18.12,
   "backfilled": true
  },
  {
@@ -2128,9 +2128,9 @@
   "sjcSell": 124800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26370,
+  "usdVnd": 26520,
   "xauUsd": 3343.39990234375,
-  "premiumPct": 17.41,
+  "premiumPct": 16.74,
   "backfilled": true
  },
  {
@@ -2139,9 +2139,9 @@
   "sjcSell": 125400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26405,
+  "usdVnd": 26536,
   "xauUsd": 3336.89990234375,
-  "premiumPct": 18.04,
+  "premiumPct": 17.46,
   "backfilled": true
  },
  {
@@ -2150,9 +2150,9 @@
   "sjcSell": 125400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26405,
+  "usdVnd": 26520,
   "xauUsd": 3374.39990234375,
-  "premiumPct": 16.73,
+  "premiumPct": 16.23,
   "backfilled": true
  },
  {
@@ -2161,9 +2161,9 @@
   "sjcSell": 126600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26405,
+  "usdVnd": 26520,
   "xauUsd": 3374.39990234375,
-  "premiumPct": 17.85,
+  "premiumPct": 17.34,
   "backfilled": true
  },
  {
@@ -2172,9 +2172,9 @@
   "sjcSell": 126600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26520,
   "xauUsd": 3374.39990234375,
-  "premiumPct": 18.32,
+  "premiumPct": 17.34,
   "backfilled": true
  },
  {
@@ -2183,9 +2183,9 @@
   "sjcSell": 127100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26480,
   "xauUsd": 3373.800048828125,
-  "premiumPct": 18.81,
+  "premiumPct": 18,
   "backfilled": true
  },
  {
@@ -2194,9 +2194,9 @@
   "sjcSell": 127700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26530,
   "xauUsd": 3388.60009765625,
-  "premiumPct": 18.67,
+  "premiumPct": 17.82,
   "backfilled": true
  },
  {
@@ -2205,9 +2205,9 @@
   "sjcSell": 128000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26374,
+  "usdVnd": 26536,
   "xauUsd": 3404.60009765625,
-  "premiumPct": 18.23,
+  "premiumPct": 17.51,
   "backfilled": true
  },
  {
@@ -2216,9 +2216,9 @@
   "sjcSell": 128500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26531,
   "xauUsd": 3431.800048828125,
-  "premiumPct": 17.82,
+  "premiumPct": 17.06,
   "backfilled": true
  },
  {
@@ -2227,9 +2227,9 @@
   "sjcSell": 129300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26502,
   "xauUsd": 3473.699951171875,
-  "premiumPct": 17.12,
+  "premiumPct": 16.49,
   "backfilled": true
  },
  {
@@ -2238,9 +2238,9 @@
   "sjcSell": 130600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26502,
   "xauUsd": 3473.699951171875,
-  "premiumPct": 18.3,
+  "premiumPct": 17.67,
   "backfilled": true
  },
  {
@@ -2249,9 +2249,9 @@
   "sjcSell": 130600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26502,
   "xauUsd": 3473.699951171875,
-  "premiumPct": 18.39,
+  "premiumPct": 17.67,
   "backfilled": true
  },
  {
@@ -2260,9 +2260,9 @@
   "sjcSell": 130600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26502,
   "xauUsd": 3473.699951171875,
-  "premiumPct": 18.39,
+  "premiumPct": 17.67,
   "backfilled": true
  },
  {
@@ -2271,9 +2271,9 @@
   "sjcSell": 130600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26502,
   "xauUsd": 3549.39990234375,
-  "premiumPct": 15.86,
+  "premiumPct": 15.16,
   "backfilled": true
  },
  {
@@ -2282,9 +2282,9 @@
   "sjcSell": 133400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26365,
+  "usdVnd": 26508,
   "xauUsd": 3593.199951171875,
-  "premiumPct": 16.8,
+  "premiumPct": 16.16,
   "backfilled": true
  },
  {
@@ -2293,9 +2293,9 @@
   "sjcSell": 133900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26510,
   "xauUsd": 3565.800048828125,
-  "premiumPct": 18.16,
+  "premiumPct": 17.49,
   "backfilled": true
  },
  {
@@ -2304,9 +2304,9 @@
   "sjcSell": 134400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26510,
   "xauUsd": 3613.199951171875,
-  "premiumPct": 17.04,
+  "premiumPct": 16.38,
   "backfilled": true
  },
  {
@@ -2315,9 +2315,9 @@
   "sjcSell": 135400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26510,
   "xauUsd": 3613.199951171875,
-  "premiumPct": 17.91,
+  "premiumPct": 17.25,
   "backfilled": true
  },
  {
@@ -2326,9 +2326,9 @@
   "sjcSell": 135400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26375,
+  "usdVnd": 26510,
   "xauUsd": 3613.199951171875,
-  "premiumPct": 17.85,
+  "premiumPct": 17.25,
   "backfilled": true
  },
  {
@@ -2337,9 +2337,9 @@
   "sjcSell": 135100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26385,
+  "usdVnd": 26497,
   "xauUsd": 3638.10009765625,
-  "premiumPct": 16.74,
+  "premiumPct": 16.24,
   "backfilled": true
  },
  {
@@ -2348,9 +2348,9 @@
   "sjcSell": 135800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26360,
+  "usdVnd": 26497,
   "xauUsd": 3643.300048828125,
-  "premiumPct": 17.28,
+  "premiumPct": 16.68,
   "backfilled": true
  },
  {
@@ -2359,9 +2359,9 @@
   "sjcSell": 135300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26370,
+  "usdVnd": 26482,
   "xauUsd": 3643.60009765625,
-  "premiumPct": 16.8,
+  "premiumPct": 16.3,
   "backfilled": true
  },
  {
@@ -2370,9 +2370,9 @@
   "sjcSell": 133300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26375,
+  "usdVnd": 26482,
   "xauUsd": 3636.89990234375,
-  "premiumPct": 15.26,
+  "premiumPct": 14.8,
   "backfilled": true
  },
  {
@@ -2381,9 +2381,9 @@
   "sjcSell": 131400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26375,
+  "usdVnd": 26476,
   "xauUsd": 3649.39990234375,
-  "premiumPct": 13.23,
+  "premiumPct": 12.8,
   "backfilled": true
  },
  {
@@ -2392,9 +2392,9 @@
   "sjcSell": 131100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26375,
+  "usdVnd": 26476,
   "xauUsd": 3649.39990234375,
-  "premiumPct": 12.97,
+  "premiumPct": 12.54,
   "backfilled": true
  },
  {
@@ -2403,9 +2403,9 @@
   "sjcSell": 131100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26476,
   "xauUsd": 3649.39990234375,
-  "premiumPct": 13.06,
+  "premiumPct": 12.54,
   "backfilled": true
  },
  {
@@ -2414,9 +2414,9 @@
   "sjcSell": 131100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26476,
   "xauUsd": 3682.199951171875,
-  "premiumPct": 12.05,
+  "premiumPct": 11.54,
   "backfilled": true
  },
  {
@@ -2425,9 +2425,9 @@
   "sjcSell": 132300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26381,
+  "usdVnd": 26468,
   "xauUsd": 3688.89990234375,
-  "premiumPct": 12.76,
+  "premiumPct": 12.39,
   "backfilled": true
  },
  {
@@ -2436,9 +2436,9 @@
   "sjcSell": 132300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26457,
   "xauUsd": 3681.800048828125,
-  "premiumPct": 13.15,
+  "premiumPct": 12.65,
   "backfilled": true
  },
  {
@@ -2447,9 +2447,9 @@
   "sjcSell": 132000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26445,
   "xauUsd": 3643.699951171875,
-  "premiumPct": 14.01,
+  "premiumPct": 13.62,
   "backfilled": true
  },
  {
@@ -2458,9 +2458,9 @@
   "sjcSell": 132000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26445,
   "xauUsd": 3671.5,
-  "premiumPct": 13.15,
+  "premiumPct": 12.76,
   "backfilled": true
  },
  {
@@ -2469,9 +2469,9 @@
   "sjcSell": 133000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26445,
   "xauUsd": 3671.5,
-  "premiumPct": 14,
+  "premiumPct": 13.62,
   "backfilled": true
  },
  {
@@ -2480,9 +2480,9 @@
   "sjcSell": 133000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26445,
   "xauUsd": 3671.5,
-  "premiumPct": 14,
+  "premiumPct": 13.62,
   "backfilled": true
  },
  {
@@ -2491,9 +2491,9 @@
   "sjcSell": 133600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26395,
+  "usdVnd": 26448,
   "xauUsd": 3740.699951171875,
-  "premiumPct": 12.23,
+  "premiumPct": 12.01,
   "backfilled": true
  },
  {
@@ -2502,9 +2502,9 @@
   "sjcSell": 135000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26395,
+  "usdVnd": 26448,
   "xauUsd": 3780.60009765625,
-  "premiumPct": 12.21,
+  "premiumPct": 11.98,
   "backfilled": true
  },
  {
@@ -2513,9 +2513,9 @@
   "sjcSell": 135100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26395,
+  "usdVnd": 26445,
   "xauUsd": 3732.10009765625,
-  "premiumPct": 13.75,
+  "premiumPct": 13.54,
   "backfilled": true
  },
  {
@@ -2524,9 +2524,9 @@
   "sjcSell": 134500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26380,
+  "usdVnd": 26450,
   "xauUsd": 3736.89990234375,
-  "premiumPct": 13.17,
+  "premiumPct": 12.87,
   "backfilled": true
  },
  {
@@ -2535,9 +2535,9 @@
   "sjcSell": 134500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26380,
+  "usdVnd": 26453,
   "xauUsd": 3775.300048828125,
-  "premiumPct": 12.01,
+  "premiumPct": 11.71,
   "backfilled": true
  },
  {
@@ -2546,9 +2546,9 @@
   "sjcSell": 135000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26380,
+  "usdVnd": 26453,
   "xauUsd": 3775.300048828125,
-  "premiumPct": 12.43,
+  "premiumPct": 12.12,
   "backfilled": true
  },
  {
@@ -2557,9 +2557,9 @@
   "sjcSell": 135000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26385,
+  "usdVnd": 26453,
   "xauUsd": 3775.300048828125,
-  "premiumPct": 12.41,
+  "premiumPct": 12.12,
   "backfilled": true
  },
  {
@@ -2568,9 +2568,9 @@
   "sjcSell": 136500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26414,
+  "usdVnd": 26451,
   "xauUsd": 3820.89990234375,
-  "premiumPct": 12.18,
+  "premiumPct": 12.02,
   "backfilled": true
  },
  {
@@ -2579,9 +2579,9 @@
   "sjcSell": 136800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26425,
+  "usdVnd": 26446,
   "xauUsd": 3840.800048828125,
-  "premiumPct": 11.8,
+  "premiumPct": 11.71,
   "backfilled": true
  },
  {
@@ -2590,9 +2590,9 @@
   "sjcSell": 138400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26405,
+  "usdVnd": 26446,
   "xauUsd": 3867.5,
-  "premiumPct": 12.41,
+  "premiumPct": 12.23,
   "backfilled": true
  },
  {
@@ -2601,9 +2601,9 @@
   "sjcSell": 138000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26393,
+  "usdVnd": 26435,
   "xauUsd": 3839.699951171875,
-  "premiumPct": 12.95,
+  "premiumPct": 12.77,
   "backfilled": true
  },
  {
@@ -2612,9 +2612,9 @@
   "sjcSell": 137800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26393,
+  "usdVnd": 26420,
   "xauUsd": 3880.800048828125,
-  "premiumPct": 11.59,
+  "premiumPct": 11.47,
   "backfilled": true
  },
  {
@@ -2623,9 +2623,9 @@
   "sjcSell": 138600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26393,
+  "usdVnd": 26420,
   "xauUsd": 3880.800048828125,
-  "premiumPct": 12.24,
+  "premiumPct": 12.12,
   "backfilled": true
  },
  {
@@ -2634,9 +2634,9 @@
   "sjcSell": 138600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26375,
+  "usdVnd": 26420,
   "xauUsd": 3880.800048828125,
-  "premiumPct": 12.31,
+  "premiumPct": 12.12,
   "backfilled": true
  },
  {
@@ -2645,9 +2645,9 @@
   "sjcSell": 140100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26403,
   "xauUsd": 3948.5,
-  "premiumPct": 11.73,
+  "premiumPct": 11.46,
   "backfilled": true
  },
  {
@@ -2656,9 +2656,9 @@
   "sjcSell": 140600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26398,
   "xauUsd": 3976.60009765625,
-  "premiumPct": 11.34,
+  "premiumPct": 11.09,
   "backfilled": true
  },
  {
@@ -2667,9 +2667,9 @@
   "sjcSell": 142500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26335,
+  "usdVnd": 26389,
   "xauUsd": 4043.300048828125,
-  "premiumPct": 11,
+  "premiumPct": 10.77,
   "backfilled": true
  },
  {
@@ -2678,9 +2678,9 @@
   "sjcSell": 142500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26346,
+  "usdVnd": 26386,
   "xauUsd": 3946.300048828125,
-  "premiumPct": 13.68,
+  "premiumPct": 13.51,
   "backfilled": true
  },
  {
@@ -2689,9 +2689,9 @@
   "sjcSell": 142200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26346,
+  "usdVnd": 26384,
   "xauUsd": 3975.89990234375,
-  "premiumPct": 12.6,
+  "premiumPct": 12.43,
   "backfilled": true
  },
  {
@@ -2700,9 +2700,9 @@
   "sjcSell": 142800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26346,
+  "usdVnd": 26384,
   "xauUsd": 3975.89990234375,
-  "premiumPct": 13.07,
+  "premiumPct": 12.91,
   "backfilled": true
  },
  {
@@ -2711,9 +2711,9 @@
   "sjcSell": 142800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26384,
   "xauUsd": 3975.89990234375,
-  "premiumPct": 13.23,
+  "premiumPct": 12.91,
   "backfilled": true
  },
  {
@@ -2722,9 +2722,9 @@
   "sjcSell": 144100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26325,
+  "usdVnd": 26367,
   "xauUsd": 4108.60009765625,
-  "premiumPct": 10.5,
+  "premiumPct": 10.33,
   "backfilled": true
  },
  {
@@ -2733,9 +2733,9 @@
   "sjcSell": 146100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26343,
+  "usdVnd": 26369,
   "xauUsd": 4138.7001953125,
-  "premiumPct": 11.15,
+  "premiumPct": 11.04,
   "backfilled": true
  },
  {
@@ -2744,9 +2744,9 @@
   "sjcSell": 148000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26369,
   "xauUsd": 4176.89990234375,
-  "premiumPct": 11.68,
+  "premiumPct": 11.45,
   "backfilled": true
  },
  {
@@ -2755,9 +2755,9 @@
   "sjcSell": 149100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26364,
   "xauUsd": 4280.2001953125,
-  "premiumPct": 9.82,
+  "premiumPct": 9.59,
   "backfilled": true
  },
  {
@@ -2766,9 +2766,9 @@
   "sjcSell": 153000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26356,
   "xauUsd": 4189.89990234375,
-  "premiumPct": 15.12,
+  "premiumPct": 14.92,
   "backfilled": true
  },
  {
@@ -2777,9 +2777,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26356,
   "xauUsd": 4189.89990234375,
-  "premiumPct": 13.61,
+  "premiumPct": 13.42,
   "backfilled": true
  },
  {
@@ -2788,9 +2788,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26337,
+  "usdVnd": 26356,
   "xauUsd": 4189.89990234375,
-  "premiumPct": 13.5,
+  "premiumPct": 13.42,
   "backfilled": true
  },
  {
@@ -2799,9 +2799,9 @@
   "sjcSell": 151500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26330,
+  "usdVnd": 26356,
   "xauUsd": 4336.39990234375,
-  "premiumPct": 10.06,
+  "premiumPct": 9.95,
   "backfilled": true
  },
  {
@@ -2810,9 +2810,9 @@
   "sjcSell": 152500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26333,
+  "usdVnd": 26353,
   "xauUsd": 4087.699951171875,
-  "premiumPct": 17.51,
+  "premiumPct": 17.42,
   "backfilled": true
  },
  {
@@ -2821,9 +2821,9 @@
   "sjcSell": 148600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26345,
+  "usdVnd": 26353,
   "xauUsd": 4044.39990234375,
-  "premiumPct": 15.68,
+  "premiumPct": 15.64,
   "backfilled": true
  },
  {
@@ -2832,9 +2832,9 @@
   "sjcSell": 149500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26312,
+  "usdVnd": 26352,
   "xauUsd": 4125.5,
-  "premiumPct": 14.23,
+  "premiumPct": 14.06,
   "backfilled": true
  },
  {
@@ -2843,9 +2843,9 @@
   "sjcSell": 148500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26312,
+  "usdVnd": 26352,
   "xauUsd": 4118.39990234375,
-  "premiumPct": 13.66,
+  "premiumPct": 13.49,
   "backfilled": true
  },
  {
@@ -2854,9 +2854,9 @@
   "sjcSell": 149200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26312,
+  "usdVnd": 26352,
   "xauUsd": 4118.39990234375,
-  "premiumPct": 14.2,
+  "premiumPct": 14.03,
   "backfilled": true
  },
  {
@@ -2865,9 +2865,9 @@
   "sjcSell": 149200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26312,
+  "usdVnd": 26352,
   "xauUsd": 4118.39990234375,
-  "premiumPct": 14.2,
+  "premiumPct": 14.03,
   "backfilled": true
  },
  {
@@ -2876,9 +2876,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26351,
   "xauUsd": 4001.89990234375,
-  "premiumPct": 17.04,
+  "premiumPct": 16.72,
   "backfilled": true
  },
  {
@@ -2887,9 +2887,9 @@
   "sjcSell": 145100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26349,
   "xauUsd": 3966.199951171875,
-  "premiumPct": 15.46,
+  "premiumPct": 15.16,
   "backfilled": true
  },
  {
@@ -2898,9 +2898,9 @@
   "sjcSell": 148100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26308,
+  "usdVnd": 26345,
   "xauUsd": 3983.699951171875,
-  "premiumPct": 17.21,
+  "premiumPct": 17.04,
   "backfilled": true
  },
  {
@@ -2909,9 +2909,9 @@
   "sjcSell": 147800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26335,
+  "usdVnd": 26345,
   "xauUsd": 4001.300048828125,
-  "premiumPct": 16.34,
+  "premiumPct": 16.29,
   "backfilled": true
  },
  {
@@ -2920,9 +2920,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26347,
   "xauUsd": 3982.199951171875,
-  "premiumPct": 17.46,
+  "premiumPct": 17.32,
   "backfilled": true
  },
  {
@@ -2931,9 +2931,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26347,
   "xauUsd": 3982.199951171875,
-  "premiumPct": 17.46,
+  "premiumPct": 17.32,
   "backfilled": true
  },
  {
@@ -2942,9 +2942,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26347,
   "xauUsd": 3982.199951171875,
-  "premiumPct": 17.46,
+  "premiumPct": 17.32,
   "backfilled": true
  },
  {
@@ -2953,9 +2953,9 @@
   "sjcSell": 149000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26347,
   "xauUsd": 4000.300048828125,
-  "premiumPct": 17.42,
+  "premiumPct": 17.26,
   "backfilled": true
  },
  {
@@ -2964,9 +2964,9 @@
   "sjcSell": 148200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26309,
+  "usdVnd": 26349,
   "xauUsd": 3947.699951171875,
-  "premiumPct": 18.35,
+  "premiumPct": 18.17,
   "backfilled": true
  },
  {
@@ -2975,9 +2975,9 @@
   "sjcSell": 147500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26295,
+  "usdVnd": 26351,
   "xauUsd": 3980.300048828125,
-  "premiumPct": 16.89,
+  "premiumPct": 16.64,
   "backfilled": true
  },
  {
@@ -2986,9 +2986,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26355,
   "xauUsd": 3979.89990234375,
-  "premiumPct": 17.59,
+  "premiumPct": 17.35,
   "backfilled": true
  },
  {
@@ -2997,9 +2997,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26358,
   "xauUsd": 3999.39990234375,
-  "premiumPct": 17.09,
+  "premiumPct": 16.76,
   "backfilled": true
  },
  {
@@ -3008,9 +3008,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26358,
   "xauUsd": 3999.39990234375,
-  "premiumPct": 17.09,
+  "premiumPct": 16.76,
   "backfilled": true
  },
  {
@@ -3019,9 +3019,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26358,
   "xauUsd": 3999.39990234375,
-  "premiumPct": 17.09,
+  "premiumPct": 16.76,
   "backfilled": true
  },
  {
@@ -3030,9 +3030,9 @@
   "sjcSell": 150200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26361,
   "xauUsd": 4111.7998046875,
-  "premiumPct": 15.29,
+  "premiumPct": 14.94,
   "backfilled": true
  },
  {
@@ -3041,9 +3041,9 @@
   "sjcSell": 152000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26373,
   "xauUsd": 4106.7998046875,
-  "premiumPct": 16.86,
+  "premiumPct": 16.4,
   "backfilled": true
  },
  {
@@ -3052,9 +3052,9 @@
   "sjcSell": 151500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26385,
   "xauUsd": 4204.39990234375,
-  "premiumPct": 13.73,
+  "premiumPct": 13.27,
   "backfilled": true
  },
  {
@@ -3063,9 +3063,9 @@
   "sjcSell": 154500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26381,
   "xauUsd": 4186.89990234375,
-  "premiumPct": 16.46,
+  "premiumPct": 16.02,
   "backfilled": true
  },
  {
@@ -3074,9 +3074,9 @@
   "sjcSell": 153200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26378,
   "xauUsd": 4087.60009765625,
-  "premiumPct": 18.11,
+  "premiumPct": 17.85,
   "backfilled": true
  },
  {
@@ -3085,9 +3085,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26378,
   "xauUsd": 4087.60009765625,
-  "premiumPct": 16.41,
+  "premiumPct": 16.16,
   "backfilled": true
  },
  {
@@ -3096,9 +3096,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26378,
   "xauUsd": 4087.60009765625,
-  "premiumPct": 16.41,
+  "premiumPct": 16.16,
   "backfilled": true
  },
  {
@@ -3107,9 +3107,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26325,
+  "usdVnd": 26376,
   "xauUsd": 4068.300048828125,
-  "premiumPct": 16.94,
+  "premiumPct": 16.72,
   "backfilled": true
  },
  {
@@ -3118,9 +3118,9 @@
   "sjcSell": 149300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26335,
+  "usdVnd": 26388,
   "xauUsd": 4061.300048828125,
-  "premiumPct": 15.78,
+  "premiumPct": 15.55,
   "backfilled": true
  },
  {
@@ -3129,9 +3129,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26378,
+  "usdVnd": 26388,
   "xauUsd": 4077.699951171875,
-  "premiumPct": 16.44,
+  "premiumPct": 16.39,
   "backfilled": true
  },
  {
@@ -3140,9 +3140,9 @@
   "sjcSell": 150300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26376,
+  "usdVnd": 26386,
   "xauUsd": 4056.5,
-  "premiumPct": 16.51,
+  "premiumPct": 16.47,
   "backfilled": true
  },
  {
@@ -3151,9 +3151,9 @@
   "sjcSell": 149800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26366,
+  "usdVnd": 26392,
   "xauUsd": 4076.699951171875,
-  "premiumPct": 15.59,
+  "premiumPct": 15.48,
   "backfilled": true
  },
  {
@@ -3162,9 +3162,9 @@
   "sjcSell": 150400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26366,
+  "usdVnd": 26392,
   "xauUsd": 4076.699951171875,
-  "premiumPct": 16.06,
+  "premiumPct": 15.94,
   "backfilled": true
  },
  {
@@ -3173,9 +3173,9 @@
   "sjcSell": 150400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26366,
+  "usdVnd": 26392,
   "xauUsd": 4076.699951171875,
-  "premiumPct": 16.06,
+  "premiumPct": 15.94,
   "backfilled": true
  },
  {
@@ -3184,9 +3184,9 @@
   "sjcSell": 150400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26349,
+  "usdVnd": 26401,
   "xauUsd": 4091.89990234375,
-  "premiumPct": 15.7,
+  "premiumPct": 15.47,
   "backfilled": true
  },
  {
@@ -3195,9 +3195,9 @@
   "sjcSell": 152900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26403,
   "xauUsd": 4139.2001953125,
-  "premiumPct": 16.28,
+  "premiumPct": 16.04,
   "backfilled": true
  },
  {
@@ -3206,9 +3206,9 @@
   "sjcSell": 153400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26343,
+  "usdVnd": 26403,
   "xauUsd": 4165.2001953125,
-  "premiumPct": 15.96,
+  "premiumPct": 15.69,
   "backfilled": true
  },
  {
@@ -3217,9 +3217,9 @@
   "sjcSell": 153400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26409,
   "xauUsd": 4165.2001953125,
-  "premiumPct": 15.93,
+  "premiumPct": 15.67,
   "backfilled": true
  },
  {
@@ -3228,9 +3228,9 @@
   "sjcSell": 154200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26372,
+  "usdVnd": 26412,
   "xauUsd": 4218.2998046875,
-  "premiumPct": 14.97,
+  "premiumPct": 14.8,
   "backfilled": true
  },
  {
@@ -3239,9 +3239,9 @@
   "sjcSell": 154900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26372,
+  "usdVnd": 26412,
   "xauUsd": 4218.2998046875,
-  "premiumPct": 15.49,
+  "premiumPct": 15.32,
   "backfilled": true
  },
  {
@@ -3250,9 +3250,9 @@
   "sjcSell": 154900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26372,
+  "usdVnd": 26412,
   "xauUsd": 4218.2998046875,
-  "premiumPct": 15.49,
+  "premiumPct": 15.32,
   "backfilled": true
  },
  {
@@ -3261,9 +3261,9 @@
   "sjcSell": 155200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26330,
+  "usdVnd": 26413,
   "xauUsd": 4239.2998046875,
-  "premiumPct": 15.33,
+  "premiumPct": 14.96,
   "backfilled": true
  },
  {
@@ -3272,9 +3272,9 @@
   "sjcSell": 154500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26410,
   "xauUsd": 4186.60009765625,
-  "premiumPct": 16.21,
+  "premiumPct": 15.9,
   "backfilled": true
  },
  {
@@ -3283,9 +3283,9 @@
   "sjcSell": 154500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26410,
   "xauUsd": 4199.2998046875,
-  "premiumPct": 15.85,
+  "premiumPct": 15.55,
   "backfilled": true
  },
  {
@@ -3294,9 +3294,9 @@
   "sjcSell": 153800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26345,
+  "usdVnd": 26409,
   "xauUsd": 4211.7998046875,
-  "premiumPct": 14.97,
+  "premiumPct": 14.69,
   "backfilled": true
  },
  {
@@ -3305,9 +3305,9 @@
   "sjcSell": 154900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26408,
   "xauUsd": 4212.89990234375,
-  "premiumPct": 15.78,
+  "premiumPct": 15.48,
   "backfilled": true
  },
  {
@@ -3316,9 +3316,9 @@
   "sjcSell": 154200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26408,
   "xauUsd": 4212.89990234375,
-  "premiumPct": 15.26,
+  "premiumPct": 14.96,
   "backfilled": true
  },
  {
@@ -3327,9 +3327,9 @@
   "sjcSell": 154200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26408,
   "xauUsd": 4212.89990234375,
-  "premiumPct": 15.26,
+  "premiumPct": 14.96,
   "backfilled": true
  },
  {
@@ -3338,9 +3338,9 @@
   "sjcSell": 154500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26409,
   "xauUsd": 4187.2001953125,
-  "premiumPct": 16.28,
+  "premiumPct": 15.89,
   "backfilled": true
  },
  {
@@ -3349,9 +3349,9 @@
   "sjcSell": 153700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26412,
   "xauUsd": 4206.7001953125,
-  "premiumPct": 15.14,
+  "premiumPct": 14.74,
   "backfilled": true
  },
  {
@@ -3360,9 +3360,9 @@
   "sjcSell": 154700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26412,
   "xauUsd": 4196.39990234375,
-  "premiumPct": 16.08,
+  "premiumPct": 15.77,
   "backfilled": true
  },
  {
@@ -3371,9 +3371,9 @@
   "sjcSell": 154500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26411,
   "xauUsd": 4285.5,
-  "premiumPct": 13.46,
+  "premiumPct": 13.22,
   "backfilled": true
  },
  {
@@ -3382,9 +3382,9 @@
   "sjcSell": 155600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26405,
   "xauUsd": 4300.10009765625,
-  "premiumPct": 14.12,
+  "premiumPct": 13.66,
   "backfilled": true
  },
  {
@@ -3393,9 +3393,9 @@
   "sjcSell": 156300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26405,
   "xauUsd": 4300.10009765625,
-  "premiumPct": 14.63,
+  "premiumPct": 14.18,
   "backfilled": true
  },
  {
@@ -3404,9 +3404,9 @@
   "sjcSell": 156300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26405,
   "xauUsd": 4300.10009765625,
-  "premiumPct": 14.63,
+  "premiumPct": 14.18,
   "backfilled": true
  },
  {
@@ -3415,9 +3415,9 @@
   "sjcSell": 157200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26303,
+  "usdVnd": 26401,
   "xauUsd": 4306.7001953125,
-  "premiumPct": 15.1,
+  "premiumPct": 14.67,
   "backfilled": true
  },
  {
@@ -3426,9 +3426,9 @@
   "sjcSell": 155600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26290,
+  "usdVnd": 26398,
   "xauUsd": 4304.5,
-  "premiumPct": 14.04,
+  "premiumPct": 13.58,
   "backfilled": true
  },
  {
@@ -3437,9 +3437,9 @@
   "sjcSell": 156200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26403,
   "xauUsd": 4347.5,
-  "premiumPct": 13.27,
+  "premiumPct": 12.87,
   "backfilled": true
  },
  {
@@ -3448,9 +3448,9 @@
   "sjcSell": 156400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26408,
   "xauUsd": 4339.5,
-  "premiumPct": 13.66,
+  "premiumPct": 13.2,
   "backfilled": true
  },
  {
@@ -3459,9 +3459,9 @@
   "sjcSell": 156400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26405,
   "xauUsd": 4361.39990234375,
-  "premiumPct": 13.16,
+  "premiumPct": 12.64,
   "backfilled": true
  },
  {
@@ -3470,9 +3470,9 @@
   "sjcSell": 156600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26405,
   "xauUsd": 4361.39990234375,
-  "premiumPct": 13.3,
+  "premiumPct": 12.79,
   "backfilled": true
  },
  {
@@ -3481,9 +3481,9 @@
   "sjcSell": 156600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26405,
   "xauUsd": 4361.39990234375,
-  "premiumPct": 13.3,
+  "premiumPct": 12.79,
   "backfilled": true
  },
  {
@@ -3492,9 +3492,9 @@
   "sjcSell": 157500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26265,
+  "usdVnd": 26406,
   "xauUsd": 4444.60009765625,
-  "premiumPct": 11.9,
+  "premiumPct": 11.31,
   "backfilled": true
  },
  {
@@ -3503,9 +3503,9 @@
   "sjcSell": 159000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26403,
   "xauUsd": 4482.7998046875,
-  "premiumPct": 11.86,
+  "premiumPct": 11.42,
   "backfilled": true
  },
  {
@@ -3514,9 +3514,9 @@
   "sjcSell": 159200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26326,
+  "usdVnd": 26403,
   "xauUsd": 4480.60009765625,
-  "premiumPct": 11.94,
+  "premiumPct": 11.62,
   "backfilled": true
  },
  {
@@ -3525,9 +3525,9 @@
   "sjcSell": 158800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26326,
+  "usdVnd": 26389,
   "xauUsd": 4480.60009765625,
-  "premiumPct": 11.66,
+  "premiumPct": 11.4,
   "backfilled": true
  },
  {
@@ -3536,9 +3536,9 @@
   "sjcSell": 159400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26277,
+  "usdVnd": 26384,
   "xauUsd": 4529.10009765625,
-  "premiumPct": 11.09,
+  "premiumPct": 10.64,
   "backfilled": true
  },
  {
@@ -3547,9 +3547,9 @@
   "sjcSell": 159700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26277,
+  "usdVnd": 26384,
   "xauUsd": 4529.10009765625,
-  "premiumPct": 11.3,
+  "premiumPct": 10.85,
   "backfilled": true
  },
  {
@@ -3558,9 +3558,9 @@
   "sjcSell": 159700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26277,
+  "usdVnd": 26384,
   "xauUsd": 4529.10009765625,
-  "premiumPct": 11.3,
+  "premiumPct": 10.85,
   "backfilled": true
  },
  {
@@ -3569,9 +3569,9 @@
   "sjcSell": 158000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26255,
+  "usdVnd": 26381,
   "xauUsd": 4325.10009765625,
-  "premiumPct": 15.41,
+  "premiumPct": 14.85,
   "backfilled": true
  },
  {
@@ -3580,9 +3580,9 @@
   "sjcSell": 154700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26245,
+  "usdVnd": 26380,
   "xauUsd": 4370.10009765625,
-  "premiumPct": 11.87,
+  "premiumPct": 11.3,
   "backfilled": true
  },
  {
@@ -3591,9 +3591,9 @@
   "sjcSell": 152800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26225,
+  "usdVnd": 26377,
   "xauUsd": 4325.60009765625,
-  "premiumPct": 11.72,
+  "premiumPct": 11.08,
   "backfilled": true
  },
  {
@@ -3602,9 +3602,9 @@
   "sjcSell": 152800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26225,
+  "usdVnd": 26377,
   "xauUsd": 4325.60009765625,
-  "premiumPct": 11.72,
+  "premiumPct": 11.08,
   "backfilled": true
  },
  {
@@ -3613,9 +3613,9 @@
   "sjcSell": 152800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26295,
+  "usdVnd": 26377,
   "xauUsd": 4314.39990234375,
-  "premiumPct": 11.71,
+  "premiumPct": 11.37,
   "backfilled": true
  },
  {
@@ -3624,9 +3624,9 @@
   "sjcSell": 152800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26295,
+  "usdVnd": 26377,
   "xauUsd": 4314.39990234375,
-  "premiumPct": 11.71,
+  "premiumPct": 11.37,
   "backfilled": true
  },
  {
@@ -3635,9 +3635,9 @@
   "sjcSell": 152800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26295,
+  "usdVnd": 26377,
   "xauUsd": 4314.39990234375,
-  "premiumPct": 11.71,
+  "premiumPct": 11.37,
   "backfilled": true
  },
  {
@@ -3646,9 +3646,9 @@
   "sjcSell": 157100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26295,
+  "usdVnd": 26380,
   "xauUsd": 4436.89990234375,
-  "premiumPct": 11.69,
+  "premiumPct": 11.33,
   "backfilled": true
  },
  {
@@ -3657,9 +3657,9 @@
   "sjcSell": 158000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26269,
+  "usdVnd": 26378,
   "xauUsd": 4482.2001953125,
-  "premiumPct": 11.3,
+  "premiumPct": 10.84,
   "backfilled": true
  },
  {
@@ -3668,9 +3668,9 @@
   "sjcSell": 158100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26274,
+  "usdVnd": 26378,
   "xauUsd": 4449.2998046875,
-  "premiumPct": 12.17,
+  "premiumPct": 11.73,
   "backfilled": true
  },
  {
@@ -3679,9 +3679,9 @@
   "sjcSell": 157200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26271,
+  "usdVnd": 26381,
   "xauUsd": 4449.7001953125,
-  "premiumPct": 11.54,
+  "premiumPct": 11.07,
   "backfilled": true
  },
  {
@@ -3690,9 +3690,9 @@
   "sjcSell": 158300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26383,
   "xauUsd": 4490.2998046875,
-  "premiumPct": 11.48,
+  "premiumPct": 10.83,
   "backfilled": true
  },
  {
@@ -3701,9 +3701,9 @@
   "sjcSell": 159800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26387,
   "xauUsd": 4490.2998046875,
-  "premiumPct": 12.53,
+  "premiumPct": 11.86,
   "backfilled": true
  },
  {
@@ -3712,9 +3712,9 @@
   "sjcSell": 159800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26387,
   "xauUsd": 4490.2998046875,
-  "premiumPct": 12.53,
+  "premiumPct": 11.86,
   "backfilled": true
  },
  {
@@ -3723,9 +3723,9 @@
   "sjcSell": 162000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26225,
+  "usdVnd": 26385,
   "xauUsd": 4604.2998046875,
-  "premiumPct": 11.28,
+  "premiumPct": 10.6,
   "backfilled": true
  },
  {
@@ -3734,9 +3734,9 @@
   "sjcSell": 162000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26385,
   "xauUsd": 4589.2001953125,
-  "premiumPct": 11.45,
+  "premiumPct": 10.97,
   "backfilled": true
  },
  {
@@ -3745,9 +3745,9 @@
   "sjcSell": 163500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26250,
+  "usdVnd": 26391,
   "xauUsd": 4626.2998046875,
-  "premiumPct": 11.67,
+  "premiumPct": 11.07,
   "backfilled": true
  },
  {
@@ -3756,9 +3756,9 @@
   "sjcSell": 162800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26391,
   "xauUsd": 4616.2998046875,
-  "premiumPct": 11.52,
+  "premiumPct": 10.84,
   "backfilled": true
  },
  {
@@ -3767,9 +3767,9 @@
   "sjcSell": 162800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26387,
   "xauUsd": 4588.39990234375,
-  "premiumPct": 12.19,
+  "premiumPct": 11.53,
   "backfilled": true
  },
  {
@@ -3778,9 +3778,9 @@
   "sjcSell": 162800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26387,
   "xauUsd": 4588.39990234375,
-  "premiumPct": 12.19,
+  "premiumPct": 11.53,
   "backfilled": true
  },
  {
@@ -3789,9 +3789,9 @@
   "sjcSell": 162800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26387,
   "xauUsd": 4588.39990234375,
-  "premiumPct": 12.19,
+  "premiumPct": 11.53,
   "backfilled": true
  },
  {
@@ -3800,9 +3800,9 @@
   "sjcSell": 165000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26235,
+  "usdVnd": 26388,
   "xauUsd": 4588.39990234375,
-  "premiumPct": 13.69,
+  "premiumPct": 13.03,
   "backfilled": true
  },
  {
@@ -3811,9 +3811,9 @@
   "sjcSell": 166100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26225,
+  "usdVnd": 26386,
   "xauUsd": 4759.60009765625,
-  "premiumPct": 10.37,
+  "premiumPct": 9.7,
   "backfilled": true
  },
  {
@@ -3822,9 +3822,9 @@
   "sjcSell": 170500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26264,
+  "usdVnd": 26380,
   "xauUsd": 4831.7998046875,
-  "premiumPct": 11.44,
+  "premiumPct": 10.95,
   "backfilled": true
  },
  {
@@ -3833,9 +3833,9 @@
   "sjcSell": 169300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26225,
+  "usdVnd": 26381,
   "xauUsd": 4908.7998046875,
-  "premiumPct": 9.08,
+  "premiumPct": 8.43,
   "backfilled": true
  },
  {
@@ -3844,9 +3844,9 @@
   "sjcSell": 172200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26267,
+  "usdVnd": 26381,
   "xauUsd": 4976.2001953125,
-  "premiumPct": 9.27,
+  "premiumPct": 8.8,
   "backfilled": true
  },
  {
@@ -3855,9 +3855,9 @@
   "sjcSell": 174300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26267,
+  "usdVnd": 26381,
   "xauUsd": 4976.2001953125,
-  "premiumPct": 10.6,
+  "premiumPct": 10.13,
   "backfilled": true
  },
  {
@@ -3866,9 +3866,9 @@
   "sjcSell": 174300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26267,
+  "usdVnd": 26381,
   "xauUsd": 4976.2001953125,
-  "premiumPct": 10.6,
+  "premiumPct": 10.13,
   "backfilled": true
  },
  {
@@ -3877,9 +3877,9 @@
   "sjcSell": 177000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26205,
+  "usdVnd": 26368,
   "xauUsd": 5079.7001953125,
-  "premiumPct": 10.29,
+  "premiumPct": 9.61,
   "backfilled": true
  },
  {
@@ -3888,9 +3888,9 @@
   "sjcSell": 177300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26181,
+  "usdVnd": 26330,
   "xauUsd": 5079.89990234375,
-  "premiumPct": 10.57,
+  "premiumPct": 9.95,
   "backfilled": true
  },
  {
@@ -3899,9 +3899,9 @@
   "sjcSell": 184200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26130,
+  "usdVnd": 26260,
   "xauUsd": 5301.60009765625,
-  "premiumPct": 10.29,
+  "premiumPct": 9.74,
   "backfilled": true
  },
  {
@@ -3910,9 +3910,9 @@
   "sjcSell": 189600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26020,
+  "usdVnd": 26200,
   "xauUsd": 5318.39990234375,
-  "premiumPct": 13.64,
+  "premiumPct": 12.86,
   "backfilled": true
  },
  {
@@ -3921,9 +3921,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26110,
   "xauUsd": 4713.89990234375,
-  "premiumPct": 22.73,
+  "premiumPct": 21.97,
   "backfilled": true
  },
  {
@@ -3932,9 +3932,9 @@
   "sjcSell": 172000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26110,
   "xauUsd": 4713.89990234375,
-  "premiumPct": 16.62,
+  "premiumPct": 15.91,
   "backfilled": true
  },
  {
@@ -3943,9 +3943,9 @@
   "sjcSell": 172000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26110,
   "xauUsd": 4713.89990234375,
-  "premiumPct": 16.62,
+  "premiumPct": 15.91,
   "backfilled": true
  },
  {
@@ -3954,9 +3954,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25880,
+  "usdVnd": 26180,
   "xauUsd": 4622.5,
-  "premiumPct": 15.09,
+  "premiumPct": 13.77,
   "backfilled": true
  },
  {
@@ -3965,9 +3965,9 @@
   "sjcSell": 176500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26000,
+  "usdVnd": 26180,
   "xauUsd": 4920.39990234375,
-  "premiumPct": 14.43,
+  "premiumPct": 13.65,
   "backfilled": true
  },
  {
@@ -3976,9 +3976,9 @@
   "sjcSell": 180200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25978,
+  "usdVnd": 26150,
   "xauUsd": 4861.39990234375,
-  "premiumPct": 18.35,
+  "premiumPct": 17.57,
   "backfilled": true
  },
  {
@@ -3987,9 +3987,9 @@
   "sjcSell": 177200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25940,
+  "usdVnd": 26140,
   "xauUsd": 4951.2001953125,
-  "premiumPct": 14.44,
+  "premiumPct": 13.56,
   "backfilled": true
  },
  {
@@ -3998,9 +3998,9 @@
   "sjcSell": 176500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25940,
+  "usdVnd": 26140,
   "xauUsd": 4951.2001953125,
-  "premiumPct": 13.98,
+  "premiumPct": 13.11,
   "backfilled": true
  },
  {
@@ -4009,9 +4009,9 @@
   "sjcSell": 179300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25940,
+  "usdVnd": 26140,
   "xauUsd": 4951.2001953125,
-  "premiumPct": 15.79,
+  "premiumPct": 14.91,
   "backfilled": true
  },
  {
@@ -4020,9 +4020,9 @@
   "sjcSell": 180400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25860,
+  "usdVnd": 26060,
   "xauUsd": 5003.7998046875,
-  "premiumPct": 15.63,
+  "premiumPct": 14.75,
   "backfilled": true
  },
  {
@@ -4031,9 +4031,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25840,
+  "usdVnd": 26160,
   "xauUsd": 5071.60009765625,
-  "premiumPct": 14.56,
+  "premiumPct": 13.15,
   "backfilled": true
  },
  {
@@ -4042,9 +4042,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25950,
+  "usdVnd": 26160,
   "xauUsd": 4923.7001953125,
-  "premiumPct": 17.5,
+  "premiumPct": 16.55,
   "backfilled": true
  },
  {
@@ -4053,9 +4053,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25910,
+  "usdVnd": 26160,
   "xauUsd": 5022,
-  "premiumPct": 15.38,
+  "premiumPct": 14.27,
   "backfilled": true
  },
  {
@@ -4064,9 +4064,9 @@
   "sjcSell": 179000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25910,
+  "usdVnd": 26160,
   "xauUsd": 5022,
-  "premiumPct": 14.1,
+  "premiumPct": 13.01,
   "backfilled": true
  },
  {
@@ -4075,9 +4075,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25910,
+  "usdVnd": 26160,
   "xauUsd": 5022,
-  "premiumPct": 15.38,
+  "premiumPct": 14.27,
   "backfilled": true
  },
  {
@@ -4086,9 +4086,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 5022,
-  "premiumPct": 15.33,
+  "premiumPct": 14.27,
   "backfilled": true
  },
  {
@@ -4097,9 +4097,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 4882.89990234375,
-  "premiumPct": 18.62,
+  "premiumPct": 17.53,
   "backfilled": true
  },
  {
@@ -4108,9 +4108,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 4986.5,
-  "premiumPct": 16.15,
+  "premiumPct": 15.09,
   "backfilled": true
  },
  {
@@ -4119,9 +4119,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 4975.89990234375,
-  "premiumPct": 16.4,
+  "premiumPct": 15.33,
   "backfilled": true
  },
  {
@@ -4130,9 +4130,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 5059.2998046875,
-  "premiumPct": 14.48,
+  "premiumPct": 13.43,
   "backfilled": true
  },
  {
@@ -4141,9 +4141,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 5059.2998046875,
-  "premiumPct": 14.48,
+  "premiumPct": 13.43,
   "backfilled": true
  },
  {
@@ -4152,9 +4152,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26160,
   "xauUsd": 5059.2998046875,
-  "premiumPct": 14.48,
+  "premiumPct": 13.43,
   "backfilled": true
  },
  {
@@ -4163,9 +4163,9 @@
   "sjcSell": 181000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 25920,
+  "usdVnd": 26290,
   "xauUsd": 5204.7001953125,
-  "premiumPct": 11.28,
+  "premiumPct": 9.72,
   "backfilled": true
  },
  {
@@ -4174,9 +4174,9 @@
   "sjcSell": 184600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26080,
+  "usdVnd": 26305,
   "xauUsd": 5155.7998046875,
-  "premiumPct": 13.87,
+  "premiumPct": 12.9,
   "backfilled": true
  },
  {
@@ -4185,9 +4185,9 @@
   "sjcSell": 184600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26180,
+  "usdVnd": 26309,
   "xauUsd": 5206.39990234375,
-  "premiumPct": 12.33,
+  "premiumPct": 11.78,
   "backfilled": true
  },
  {
@@ -4196,9 +4196,9 @@
   "sjcSell": 185000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26099,
+  "usdVnd": 26260,
   "xauUsd": 5176.5,
-  "premiumPct": 13.58,
+  "premiumPct": 12.88,
   "backfilled": true
  },
  {
@@ -4207,9 +4207,9 @@
   "sjcSell": 184000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26030,
+  "usdVnd": 26230,
   "xauUsd": 5230.5,
-  "premiumPct": 12.09,
+  "premiumPct": 11.24,
   "backfilled": true
  },
  {
@@ -4218,9 +4218,9 @@
   "sjcSell": 184000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26030,
+  "usdVnd": 26230,
   "xauUsd": 5230.5,
-  "premiumPct": 12.09,
+  "premiumPct": 11.24,
   "backfilled": true
  },
  {
@@ -4229,9 +4229,9 @@
   "sjcSell": 187000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26030,
+  "usdVnd": 26230,
   "xauUsd": 5230.5,
-  "premiumPct": 13.92,
+  "premiumPct": 13.05,
   "backfilled": true
  },
  {
@@ -4240,9 +4240,9 @@
   "sjcSell": 187000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26040,
+  "usdVnd": 26289,
   "xauUsd": 5294.39990234375,
-  "premiumPct": 12.5,
+  "premiumPct": 11.44,
   "backfilled": true
  },
  {
@@ -4251,9 +4251,9 @@
   "sjcSell": 190900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26160,
+  "usdVnd": 26298,
   "xauUsd": 5107.39990234375,
-  "premiumPct": 18.51,
+  "premiumPct": 17.89,
   "backfilled": true
  },
  {
@@ -4262,9 +4262,9 @@
   "sjcSell": 188200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26150,
+  "usdVnd": 26304,
   "xauUsd": 5120.2001953125,
-  "premiumPct": 16.58,
+  "premiumPct": 15.9,
   "backfilled": true
  },
  {
@@ -4273,9 +4273,9 @@
   "sjcSell": 184200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26165,
+  "usdVnd": 26307,
   "xauUsd": 5065.2998046875,
-  "premiumPct": 15.28,
+  "premiumPct": 14.65,
   "backfilled": true
  },
  {
@@ -4284,9 +4284,9 @@
   "sjcSell": 184700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26210,
+  "usdVnd": 26309,
   "xauUsd": 5146.10009765625,
-  "premiumPct": 13.58,
+  "premiumPct": 13.15,
   "backfilled": true
  },
  {
@@ -4295,9 +4295,9 @@
   "sjcSell": 183800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26210,
+  "usdVnd": 26309,
   "xauUsd": 5146.10009765625,
-  "premiumPct": 13.03,
+  "premiumPct": 12.6,
   "backfilled": true
  },
  {
@@ -4306,9 +4306,9 @@
   "sjcSell": 185000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26210,
+  "usdVnd": 26309,
   "xauUsd": 5146.10009765625,
-  "premiumPct": 13.76,
+  "premiumPct": 13.34,
   "backfilled": true
  },
  {
@@ -4317,9 +4317,9 @@
   "sjcSell": 185000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26180,
+  "usdVnd": 26311,
   "xauUsd": 5091.5,
-  "premiumPct": 15.12,
+  "premiumPct": 14.54,
   "backfilled": true
  },
  {
@@ -4328,9 +4328,9 @@
   "sjcSell": 184100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26245,
+  "usdVnd": 26315,
   "xauUsd": 5229.7001953125,
-  "premiumPct": 11.25,
+  "premiumPct": 10.96,
   "backfilled": true
  },
  {
@@ -4339,9 +4339,9 @@
   "sjcSell": 186100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26175,
+  "usdVnd": 26311,
   "xauUsd": 5167.39990234375,
-  "premiumPct": 14.12,
+  "premiumPct": 13.53,
   "backfilled": true
  },
  {
@@ -4350,9 +4350,9 @@
   "sjcSell": 187200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26190,
+  "usdVnd": 26314,
   "xauUsd": 5115.7998046875,
-  "premiumPct": 15.89,
+  "premiumPct": 15.34,
   "backfilled": true
  },
  {
@@ -4361,9 +4361,9 @@
   "sjcSell": 186300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26240,
+  "usdVnd": 26318,
   "xauUsd": 5052.5,
-  "premiumPct": 16.55,
+  "premiumPct": 16.21,
   "backfilled": true
  },
  {
@@ -4372,9 +4372,9 @@
   "sjcSell": 184800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26240,
+  "usdVnd": 26318,
   "xauUsd": 5052.5,
-  "premiumPct": 15.61,
+  "premiumPct": 15.27,
   "backfilled": true
  },
  {
@@ -4383,9 +4383,9 @@
   "sjcSell": 182600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26240,
+  "usdVnd": 26318,
   "xauUsd": 5052.5,
-  "premiumPct": 14.24,
+  "premiumPct": 13.9,
   "backfilled": true
  },
  {
@@ -4394,9 +4394,9 @@
   "sjcSell": 182600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26271,
+  "usdVnd": 26321,
   "xauUsd": 4994,
-  "premiumPct": 15.44,
+  "premiumPct": 15.22,
   "backfilled": true
  },
  {
@@ -4405,9 +4405,9 @@
   "sjcSell": 183100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26260,
+  "usdVnd": 26321,
   "xauUsd": 5001,
-  "premiumPct": 15.64,
+  "premiumPct": 15.37,
   "backfilled": true
  },
  {
@@ -4416,9 +4416,9 @@
   "sjcSell": 183000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26320,
   "xauUsd": 4889.89990234375,
-  "premiumPct": 18.11,
+  "premiumPct": 17.94,
   "backfilled": true
  },
  {
@@ -4427,9 +4427,9 @@
   "sjcSell": 183000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26325,
   "xauUsd": 4600.7001953125,
-  "premiumPct": 25.44,
+  "premiumPct": 25.32,
   "backfilled": true
  },
  {
@@ -4438,9 +4438,9 @@
   "sjcSell": 175500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26255,
+  "usdVnd": 26339,
   "xauUsd": 4570.39990234375,
-  "premiumPct": 21.31,
+  "premiumPct": 20.92,
   "backfilled": true
  },
  {
@@ -4449,9 +4449,9 @@
   "sjcSell": 176100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26255,
+  "usdVnd": 26339,
   "xauUsd": 4570.39990234375,
-  "premiumPct": 21.72,
+  "premiumPct": 21.33,
   "backfilled": true
  },
  {
@@ -4460,9 +4460,9 @@
   "sjcSell": 171000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26255,
+  "usdVnd": 26339,
   "xauUsd": 4570.39990234375,
-  "premiumPct": 18.2,
+  "premiumPct": 17.82,
   "backfilled": true
  },
  {
@@ -4471,9 +4471,9 @@
   "sjcSell": 171000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26344,
   "xauUsd": 4404.10009765625,
-  "premiumPct": 22.52,
+  "premiumPct": 22.25,
   "backfilled": true
  },
  {
@@ -4482,9 +4482,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26339,
+  "usdVnd": 26364,
   "xauUsd": 4399.2998046875,
-  "premiumPct": 18.82,
+  "premiumPct": 18.71,
   "backfilled": true
  },
  {
@@ -4493,9 +4493,9 @@
   "sjcSell": 170200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26359,
   "xauUsd": 4549.7998046875,
-  "premiumPct": 17.75,
+  "premiumPct": 17.71,
   "backfilled": true
  },
  {
@@ -4504,9 +4504,9 @@
   "sjcSell": 173500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26341,
+  "usdVnd": 26357,
   "xauUsd": 4375.5,
-  "premiumPct": 24.86,
+  "premiumPct": 24.78,
   "backfilled": true
  },
  {
@@ -4515,9 +4515,9 @@
   "sjcSell": 171500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26348,
+  "usdVnd": 26355,
   "xauUsd": 4492,
-  "premiumPct": 20.19,
+  "premiumPct": 20.15,
   "backfilled": true
  },
  {
@@ -4526,9 +4526,9 @@
   "sjcSell": 171600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26348,
+  "usdVnd": 26355,
   "xauUsd": 4492,
-  "premiumPct": 20.26,
+  "premiumPct": 20.22,
   "backfilled": true
  },
  {
@@ -4537,9 +4537,9 @@
   "sjcSell": 172800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26355,
   "xauUsd": 4492,
-  "premiumPct": 21.23,
+  "premiumPct": 21.07,
   "backfilled": true
  },
  {
@@ -4548,9 +4548,9 @@
   "sjcSell": 172800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26335,
+  "usdVnd": 26355,
   "xauUsd": 4526,
-  "premiumPct": 20.25,
+  "premiumPct": 20.16,
   "backfilled": true
  },
  {
@@ -4559,9 +4559,9 @@
   "sjcSell": 173800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26323,
+  "usdVnd": 26357,
   "xauUsd": 4647.60009765625,
-  "premiumPct": 17.83,
+  "premiumPct": 17.68,
   "backfilled": true
  },
  {
@@ -4570,9 +4570,9 @@
   "sjcSell": 174900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26360,
   "xauUsd": 4783.2001953125,
-  "premiumPct": 15.27,
+  "premiumPct": 15.05,
   "backfilled": true
  },
  {
@@ -4581,9 +4581,9 @@
   "sjcSell": 176700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26362,
   "xauUsd": 4651.5,
-  "premiumPct": 19.76,
+  "premiumPct": 19.52,
   "backfilled": true
  },
  {
@@ -4592,9 +4592,9 @@
   "sjcSell": 173500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26362,
   "xauUsd": 4651.5,
-  "premiumPct": 17.59,
+  "premiumPct": 17.36,
   "backfilled": true
  },
  {
@@ -4603,9 +4603,9 @@
   "sjcSell": 174500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26310,
+  "usdVnd": 26362,
   "xauUsd": 4651.5,
-  "premiumPct": 18.27,
+  "premiumPct": 18.03,
   "backfilled": true
  },
  {
@@ -4614,9 +4614,9 @@
   "sjcSell": 174500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26318,
+  "usdVnd": 26362,
   "xauUsd": 4651.5,
-  "premiumPct": 18.23,
+  "premiumPct": 18.03,
   "backfilled": true
  },
  {
@@ -4625,9 +4625,9 @@
   "sjcSell": 174500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26312,
+  "usdVnd": 26361,
   "xauUsd": 4656.7998046875,
-  "premiumPct": 18.12,
+  "premiumPct": 17.9,
   "backfilled": true
  },
  {
@@ -4636,9 +4636,9 @@
   "sjcSell": 173100000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26305,
+  "usdVnd": 26363,
   "xauUsd": 4657.10009765625,
-  "premiumPct": 17.2,
+  "premiumPct": 16.94,
   "backfilled": true
  },
  {
@@ -4647,9 +4647,9 @@
   "sjcSell": 172500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26304,
+  "usdVnd": 26361,
   "xauUsd": 4749.5,
-  "premiumPct": 14.52,
+  "premiumPct": 14.28,
   "backfilled": true
  },
  {
@@ -4658,9 +4658,9 @@
   "sjcSell": 175000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26357,
   "xauUsd": 4792.2001953125,
-  "premiumPct": 15.08,
+  "premiumPct": 14.92,
   "backfilled": true
  },
  {
@@ -4669,9 +4669,9 @@
   "sjcSell": 171500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26360,
   "xauUsd": 4761.89990234375,
-  "premiumPct": 13.49,
+  "premiumPct": 13.32,
   "backfilled": true
  },
  {
@@ -4680,9 +4680,9 @@
   "sjcSell": 172700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26360,
   "xauUsd": 4761.89990234375,
-  "premiumPct": 14.29,
+  "premiumPct": 14.12,
   "backfilled": true
  },
  {
@@ -4691,9 +4691,9 @@
   "sjcSell": 172400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26335,
+  "usdVnd": 26360,
   "xauUsd": 4761.89990234375,
-  "premiumPct": 14.03,
+  "premiumPct": 13.92,
   "backfilled": true
  },
  {
@@ -4702,9 +4702,9 @@
   "sjcSell": 172400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26325,
+  "usdVnd": 26361,
   "xauUsd": 4742.39990234375,
-  "premiumPct": 14.54,
+  "premiumPct": 14.38,
   "backfilled": true
  },
  {
@@ -4713,9 +4713,9 @@
   "sjcSell": 171500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26361,
   "xauUsd": 4825,
-  "premiumPct": 11.93,
+  "premiumPct": 11.84,
   "backfilled": true
  },
  {
@@ -4724,9 +4724,9 @@
   "sjcSell": 172700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26302,
+  "usdVnd": 26358,
   "xauUsd": 4800,
-  "premiumPct": 13.46,
+  "premiumPct": 13.22,
   "backfilled": true
  },
  {
@@ -4735,9 +4735,9 @@
   "sjcSell": 173000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26357,
   "xauUsd": 4785.39990234375,
-  "premiumPct": 14.01,
+  "premiumPct": 13.77,
   "backfilled": true
  },
  {
@@ -4746,9 +4746,9 @@
   "sjcSell": 171200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26357,
   "xauUsd": 4857.60009765625,
-  "premiumPct": 11.15,
+  "premiumPct": 10.91,
   "backfilled": true
  },
  {
@@ -4757,9 +4757,9 @@
   "sjcSell": 171000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26300,
+  "usdVnd": 26357,
   "xauUsd": 4857.60009765625,
-  "premiumPct": 11.02,
+  "premiumPct": 10.78,
   "backfilled": true
  },
  {
@@ -4768,9 +4768,9 @@
   "sjcSell": 172000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26313,
+  "usdVnd": 26357,
   "xauUsd": 4857.60009765625,
-  "premiumPct": 11.61,
+  "premiumPct": 11.43,
   "backfilled": true
  },
  {
@@ -4779,9 +4779,9 @@
   "sjcSell": 172000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26308,
+  "usdVnd": 26358,
   "xauUsd": 4806.60009765625,
-  "premiumPct": 12.82,
+  "premiumPct": 12.6,
   "backfilled": true
  },
  {
@@ -4790,9 +4790,9 @@
   "sjcSell": 171300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26325,
+  "usdVnd": 26357,
   "xauUsd": 4698.39990234375,
-  "premiumPct": 14.87,
+  "premiumPct": 14.73,
   "backfilled": true
  },
  {
@@ -4801,9 +4801,9 @@
   "sjcSell": 170600000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26355,
   "xauUsd": 4732.5,
-  "premiumPct": 13.6,
+  "premiumPct": 13.45,
   "backfilled": true
  },
  {
@@ -4812,9 +4812,9 @@
   "sjcSell": 170000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26294,
+  "usdVnd": 26360,
   "xauUsd": 4705.10009765625,
-  "premiumPct": 13.97,
+  "premiumPct": 13.69,
   "backfilled": true
  },
  {
@@ -4823,9 +4823,9 @@
   "sjcSell": 169200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26294,
+  "usdVnd": 26368,
   "xauUsd": 4722.2998046875,
-  "premiumPct": 13.02,
+  "premiumPct": 12.71,
   "backfilled": true
  },
  {
@@ -4834,9 +4834,9 @@
   "sjcSell": 168000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26294,
+  "usdVnd": 26368,
   "xauUsd": 4722.2998046875,
-  "premiumPct": 12.22,
+  "premiumPct": 11.91,
   "backfilled": true
  },
  {
@@ -4845,9 +4845,9 @@
   "sjcSell": 168800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26368,
   "xauUsd": 4722.2998046875,
-  "premiumPct": 12.52,
+  "premiumPct": 12.44,
   "backfilled": true
  },
  {
@@ -4856,9 +4856,9 @@
   "sjcSell": 168800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26368,
   "xauUsd": 4675.39990234375,
-  "premiumPct": 13.65,
+  "premiumPct": 13.57,
   "backfilled": true
  },
  {
@@ -4867,9 +4867,9 @@
   "sjcSell": 168800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26330,
+  "usdVnd": 26366,
   "xauUsd": 4591.5,
-  "premiumPct": 15.81,
+  "premiumPct": 15.65,
   "backfilled": true
  },
  {
@@ -4878,9 +4878,9 @@
   "sjcSell": 167500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26368,
   "xauUsd": 4545.2001953125,
-  "premiumPct": 15.98,
+  "premiumPct": 15.92,
   "backfilled": true
  },
  {
@@ -4889,9 +4889,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26368,
   "xauUsd": 4614.7001953125,
-  "premiumPct": 13.21,
+  "premiumPct": 13.15,
   "backfilled": true
  },
  {
@@ -4900,9 +4900,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26368,
   "xauUsd": 4629.89990234375,
-  "premiumPct": 12.84,
+  "premiumPct": 12.78,
   "backfilled": true
  },
  {
@@ -4911,9 +4911,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26368,
   "xauUsd": 4629.89990234375,
-  "premiumPct": 12.84,
+  "premiumPct": 12.78,
   "backfilled": true
  },
  {
@@ -4922,9 +4922,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26368,
   "xauUsd": 4629.89990234375,
-  "premiumPct": 12.84,
+  "premiumPct": 12.78,
   "backfilled": true
  },
  {
@@ -4933,9 +4933,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26312,
+  "usdVnd": 26367,
   "xauUsd": 4519.5,
-  "premiumPct": 15.78,
+  "premiumPct": 15.54,
   "backfilled": true
  },
  {
@@ -4944,9 +4944,9 @@
   "sjcSell": 166300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26280,
+  "usdVnd": 26366,
   "xauUsd": 4555.7998046875,
-  "premiumPct": 15.21,
+  "premiumPct": 14.83,
   "backfilled": true
  },
  {
@@ -4955,9 +4955,9 @@
   "sjcSell": 165000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26368,
   "xauUsd": 4681.89990234375,
-  "premiumPct": 11.06,
+  "premiumPct": 10.86,
   "backfilled": true
  },
  {
@@ -4966,9 +4966,9 @@
   "sjcSell": 166000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26260,
+  "usdVnd": 26368,
   "xauUsd": 4699.7998046875,
-  "premiumPct": 11.56,
+  "premiumPct": 11.1,
   "backfilled": true
  },
  {
@@ -4977,9 +4977,9 @@
   "sjcSell": 167500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26260,
+  "usdVnd": 26367,
   "xauUsd": 4720.39990234375,
-  "premiumPct": 12.08,
+  "premiumPct": 11.62,
   "backfilled": true
  },
  {
@@ -4988,9 +4988,9 @@
   "sjcSell": 167500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26260,
+  "usdVnd": 26367,
   "xauUsd": 4720.39990234375,
-  "premiumPct": 12.08,
+  "premiumPct": 11.62,
   "backfilled": true
  },
  {
@@ -4999,9 +4999,9 @@
   "sjcSell": 167500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26306,
+  "usdVnd": 26367,
   "xauUsd": 4720.39990234375,
-  "premiumPct": 11.88,
+  "premiumPct": 11.62,
   "backfilled": true
  },
  {
@@ -5010,9 +5010,9 @@
   "sjcSell": 167500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26320,
+  "usdVnd": 26373,
   "xauUsd": 4718.7001953125,
-  "premiumPct": 11.86,
+  "premiumPct": 11.64,
   "backfilled": true
  },
  {
@@ -5021,9 +5021,9 @@
   "sjcSell": 165200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26299,
+  "usdVnd": 26379,
   "xauUsd": 4677.60009765625,
-  "premiumPct": 11.38,
+  "premiumPct": 11.05,
   "backfilled": true
  },
  {
@@ -5032,9 +5032,9 @@
   "sjcSell": 165500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26317,
+  "usdVnd": 26379,
   "xauUsd": 4697.7001953125,
-  "premiumPct": 11.03,
+  "premiumPct": 10.77,
   "backfilled": true
  },
  {
@@ -5043,9 +5043,9 @@
   "sjcSell": 165000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26382,
   "xauUsd": 4678.10009765625,
-  "premiumPct": 11.06,
+  "premiumPct": 10.89,
   "backfilled": true
  },
  {
@@ -5054,9 +5054,9 @@
   "sjcSell": 165000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26387,
   "xauUsd": 4555.7998046875,
-  "premiumPct": 14.05,
+  "premiumPct": 13.84,
   "backfilled": true
  },
  {
@@ -5065,9 +5065,9 @@
   "sjcSell": 164000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26387,
   "xauUsd": 4555.7998046875,
-  "premiumPct": 13.36,
+  "premiumPct": 13.15,
   "backfilled": true
  },
  {
@@ -5076,9 +5076,9 @@
   "sjcSell": 163500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26387,
   "xauUsd": 4555.7998046875,
-  "premiumPct": 12.97,
+  "premiumPct": 12.81,
   "backfilled": true
  },
  {
@@ -5087,9 +5087,9 @@
   "sjcSell": 163800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26327,
+  "usdVnd": 26387,
   "xauUsd": 4552.5,
-  "premiumPct": 13.35,
+  "premiumPct": 13.1,
   "backfilled": true
  },
  {
@@ -5098,9 +5098,9 @@
   "sjcSell": 163800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26329,
+  "usdVnd": 26389,
   "xauUsd": 4506.2998046875,
-  "premiumPct": 14.51,
+  "premiumPct": 14.25,
   "backfilled": true
  },
  {
@@ -5109,9 +5109,9 @@
   "sjcSell": 162000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26355,
+  "usdVnd": 26391,
   "xauUsd": 4531.2998046875,
-  "premiumPct": 12.51,
+  "premiumPct": 12.36,
   "backfilled": true
  },
  {
@@ -5120,9 +5120,9 @@
   "sjcSell": 162400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26391,
   "xauUsd": 4539.7998046875,
-  "premiumPct": 12.6,
+  "premiumPct": 12.43,
   "backfilled": true
  },
  {
@@ -5131,9 +5131,9 @@
   "sjcSell": 162000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26390,
   "xauUsd": 4521,
-  "premiumPct": 12.79,
+  "premiumPct": 12.62,
   "backfilled": true
  },
  {
@@ -5142,9 +5142,9 @@
   "sjcSell": 161500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26350,
+  "usdVnd": 26390,
   "xauUsd": 4521,
-  "premiumPct": 12.44,
+  "premiumPct": 12.27,
   "backfilled": true
  },
  {
@@ -5153,9 +5153,9 @@
   "sjcSell": 161500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26340,
+  "usdVnd": 26390,
   "xauUsd": 4521,
-  "premiumPct": 12.49,
+  "premiumPct": 12.27,
   "backfilled": true
  },
  {
@@ -5164,9 +5164,9 @@
   "sjcSell": 162000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26322,
+  "usdVnd": 26392,
   "xauUsd": 4521,
-  "premiumPct": 12.91,
+  "premiumPct": 12.61,
   "backfilled": true
  },
  {
@@ -5175,9 +5175,9 @@
   "sjcSell": 161500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26294,
+  "usdVnd": 26394,
   "xauUsd": 4500.39990234375,
-  "premiumPct": 13.2,
+  "premiumPct": 12.77,
   "backfilled": true
  },
  {
@@ -5186,9 +5186,9 @@
   "sjcSell": 160700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26273,
+  "usdVnd": 26393,
   "xauUsd": 4447.5,
-  "premiumPct": 14.07,
+  "premiumPct": 13.55,
   "backfilled": true
  },
  {
@@ -5197,9 +5197,9 @@
   "sjcSell": 157500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26326,
+  "usdVnd": 26393,
   "xauUsd": 4499.2998046875,
-  "premiumPct": 10.29,
+  "premiumPct": 10.01,
   "backfilled": true
  },
  {
@@ -5208,9 +5208,9 @@
   "sjcSell": 158500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26326,
+  "usdVnd": 26395,
   "xauUsd": 4560.5,
-  "premiumPct": 9.5,
+  "premiumPct": 9.21,
   "backfilled": true
  },
  {
@@ -5219,9 +5219,9 @@
   "sjcSell": 159000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26326,
+  "usdVnd": 26395,
   "xauUsd": 4560.5,
-  "premiumPct": 9.84,
+  "premiumPct": 9.56,
   "backfilled": true
  },
  {
@@ -5230,9 +5230,9 @@
   "sjcSell": 159000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26255,
+  "usdVnd": 26395,
   "xauUsd": 4560.5,
-  "premiumPct": 10.14,
+  "premiumPct": 9.56,
   "backfilled": true
  },
  {
@@ -5241,9 +5241,9 @@
   "sjcSell": 158500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26265,
+  "usdVnd": 26394,
   "xauUsd": 4475.2001953125,
-  "premiumPct": 11.85,
+  "premiumPct": 11.3,
   "backfilled": true
  },
  {
@@ -5252,9 +5252,9 @@
   "sjcSell": 157500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26275,
+  "usdVnd": 26398,
   "xauUsd": 4489.10009765625,
-  "premiumPct": 10.75,
+  "premiumPct": 10.24,
   "backfilled": true
  },
  {
@@ -5263,9 +5263,9 @@
   "sjcSell": 157000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26290,
+  "usdVnd": 26402,
   "xauUsd": 4436.7001953125,
-  "premiumPct": 11.64,
+  "premiumPct": 11.17,
   "backfilled": true
  },
  {
@@ -5274,9 +5274,9 @@
   "sjcSell": 156000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26275,
+  "usdVnd": 26402,
   "xauUsd": 4475.7998046875,
-  "premiumPct": 10.02,
+  "premiumPct": 9.5,
   "backfilled": true
  },
  {
@@ -5285,9 +5285,9 @@
   "sjcSell": 153200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26275,
+  "usdVnd": 26404,
   "xauUsd": 4337.10009765625,
-  "premiumPct": 11.5,
+  "premiumPct": 10.96,
   "backfilled": true
  },
  {
@@ -5296,9 +5296,9 @@
   "sjcSell": 150200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26275,
+  "usdVnd": 26404,
   "xauUsd": 4337.10009765625,
-  "premiumPct": 9.32,
+  "premiumPct": 8.79,
   "backfilled": true
  },
  {
@@ -5307,9 +5307,9 @@
   "sjcSell": 150200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26404,
   "xauUsd": 4337.10009765625,
-  "premiumPct": 9.34,
+  "premiumPct": 8.79,
   "backfilled": true
  },
  {
@@ -5318,9 +5318,9 @@
   "sjcSell": 143800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26407,
   "xauUsd": 4335.89990234375,
-  "premiumPct": 4.65,
+  "premiumPct": 4.17,
   "backfilled": true
  },
  {
@@ -5329,9 +5329,9 @@
   "sjcSell": 143800000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26408,
   "xauUsd": 4260,
-  "premiumPct": 6.58,
+  "premiumPct": 6.02,
   "backfilled": true
  },
  {
@@ -5340,9 +5340,9 @@
   "sjcSell": 138300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26410,
   "xauUsd": 4108.2001953125,
-  "premiumPct": 6.29,
+  "premiumPct": 5.73,
   "backfilled": true
  },
  {
@@ -5391,9 +5391,9 @@
   "sjcSell": 150500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26423,
   "xauUsd": 4328,
-  "premiumPct": 9.96,
+  "premiumPct": 9.16,
   "backfilled": true
  },
  {
@@ -5412,9 +5412,9 @@
   "sjcSell": 151300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26265,
+  "usdVnd": 26433,
   "xauUsd": 4358.89990234375,
-  "premiumPct": 9.61,
+  "premiumPct": 8.92,
   "backfilled": true
  },
  {
@@ -5423,9 +5423,9 @@
   "sjcSell": 151300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26431,
   "xauUsd": 4224.10009765625,
-  "premiumPct": 13.09,
+  "premiumPct": 12.4,
   "backfilled": true
  },
  {
@@ -5434,9 +5434,9 @@
   "sjcSell": 146700000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26440,
   "xauUsd": 4224.10009765625,
-  "premiumPct": 9.65,
+  "premiumPct": 8.95,
   "backfilled": true
  },
  {
@@ -5445,9 +5445,9 @@
   "sjcSell": 147200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26270,
+  "usdVnd": 26440,
   "xauUsd": 4224.10009765625,
-  "premiumPct": 10.02,
+  "premiumPct": 9.32,
   "backfilled": true
  },
  {
@@ -5456,9 +5456,9 @@
   "sjcSell": 147200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26265,
+  "usdVnd": 26440,
   "xauUsd": 4224.10009765625,
-  "premiumPct": 10.05,
+  "premiumPct": 9.32,
   "backfilled": true
  },
  {
@@ -5467,9 +5467,9 @@
   "sjcSell": 148500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26442,
   "xauUsd": 4181.89990234375,
-  "premiumPct": 11.93,
+  "premiumPct": 11.39,
   "backfilled": true
  },
  {
@@ -5478,9 +5478,9 @@
   "sjcSell": 147000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26265,
+  "usdVnd": 26448,
   "xauUsd": 4129.89990234375,
-  "premiumPct": 12.4,
+  "premiumPct": 11.63,
   "backfilled": true
  },
  {
@@ -5489,9 +5489,9 @@
   "sjcSell": 146000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26330,
+  "usdVnd": 26451,
   "xauUsd": 3990.300048828125,
-  "premiumPct": 15.26,
+  "premiumPct": 14.73,
   "backfilled": true
  },
  {
@@ -5500,9 +5500,9 @@
   "sjcSell": 146200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26456,
   "xauUsd": 4030.5,
-  "premiumPct": 14.33,
+  "premiumPct": 13.72,
   "backfilled": true
  },
  {
@@ -5511,9 +5511,9 @@
   "sjcSell": 147000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26454,
   "xauUsd": 4078.699951171875,
-  "premiumPct": 13.6,
+  "premiumPct": 13,
   "backfilled": true
  },
  {
@@ -5522,9 +5522,9 @@
   "sjcSell": 148500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26315,
+  "usdVnd": 26454,
   "xauUsd": 4078.699951171875,
-  "premiumPct": 14.76,
+  "premiumPct": 14.15,
   "backfilled": true
  },
  {
@@ -5533,9 +5533,9 @@
   "sjcSell": 148500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26245,
+  "usdVnd": 26454,
   "xauUsd": 4078.699951171875,
-  "premiumPct": 15.06,
+  "premiumPct": 14.15,
   "backfilled": true
  },
  {
@@ -5544,9 +5544,9 @@
   "sjcSell": 148000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26230,
+  "usdVnd": 26461,
   "xauUsd": 4022.300048828125,
-  "premiumPct": 16.35,
+  "premiumPct": 15.33,
   "backfilled": true
  },
  {
@@ -5555,9 +5555,9 @@
   "sjcSell": 147000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26255,
+  "usdVnd": 26466,
   "xauUsd": 4022.89990234375,
-  "premiumPct": 15.44,
+  "premiumPct": 14.52,
   "backfilled": true
  },
  {
@@ -5566,9 +5566,9 @@
   "sjcSell": 146400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26299,
+  "usdVnd": 26466,
   "xauUsd": 4068.300048828125,
-  "premiumPct": 13.49,
+  "premiumPct": 12.78,
   "backfilled": true
  },
  {
@@ -5577,9 +5577,9 @@
   "sjcSell": 148400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26465,
   "xauUsd": 4112.7001953125,
-  "premiumPct": 13.86,
+  "premiumPct": 13.09,
   "backfilled": true
  },
  {
@@ -5588,9 +5588,9 @@
   "sjcSell": 148400000,
   "ringBuy": 145000000,
   "ringSell": 148000000,
-  "usdVnd": 26465,
+  "usdVnd": 26463,
   "xauUsd": 4150.7998046875,
-  "premiumPct": 12.05
+  "premiumPct": 12.06
  },
  {
   "date": "2026-07-04",
@@ -5598,9 +5598,9 @@
   "sjcSell": 151400000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26285,
+  "usdVnd": 26463,
   "xauUsd": 4112.7001953125,
-  "premiumPct": 16.16,
+  "premiumPct": 15.38,
   "backfilled": true
  },
  {
@@ -5619,9 +5619,9 @@
   "sjcSell": 151000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26299,
+  "usdVnd": 26462,
   "xauUsd": 4155.10009765625,
-  "premiumPct": 14.61,
+  "premiumPct": 13.91,
   "backfilled": true
  },
  {
@@ -5630,9 +5630,9 @@
   "sjcSell": 150000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26289,
+  "usdVnd": 26462,
   "xauUsd": 4145.2998046875,
-  "premiumPct": 14.17,
+  "premiumPct": 13.42,
   "backfilled": true
  },
  {
@@ -5641,9 +5641,9 @@
   "sjcSell": 148500000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26294,
+  "usdVnd": 26466,
   "xauUsd": 4070.89990234375,
-  "premiumPct": 15.07,
+  "premiumPct": 14.32,
   "backfilled": true
  },
  {
@@ -5652,9 +5652,9 @@
   "sjcSell": 149000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26290,
+  "usdVnd": 26471,
   "xauUsd": 4130.60009765625,
-  "premiumPct": 13.8,
+  "premiumPct": 13.03,
   "backfilled": true
  },
  {
@@ -5663,9 +5663,9 @@
   "sjcSell": 149900000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26260,
+  "usdVnd": 26470,
   "xauUsd": 4113.7001953125,
-  "premiumPct": 15.09,
+  "premiumPct": 14.18,
   "backfilled": true
  },
  {
@@ -5944,9 +5944,9 @@
   "sjcSell": 143200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26203,
+  "usdVnd": 26410,
   "xauUsd": 4401.2998046875,
-  "premiumPct": 2.99,
+  "premiumPct": 2.18,
   "backfilled": true
  },
  {
@@ -5955,9 +5955,9 @@
   "sjcSell": 142200000,
   "ringBuy": 140600000,
   "ringSell": 144600000,
-  "usdVnd": 26203,
+  "usdVnd": 26410,
   "xauUsd": 4401.2998046875,
-  "premiumPct": 2.27
+  "premiumPct": 1.47
  },
  {
   "date": "2026-08-09",
@@ -5965,9 +5965,9 @@
   "sjcSell": 144000000,
   "ringBuy": 141500000,
   "ringSell": 145500000,
-  "usdVnd": 26203,
+  "usdVnd": 26410,
   "xauUsd": 4340.7001953125,
-  "premiumPct": 5.01
+  "premiumPct": 4.19
  },
  {
   "date": "2026-08-10",
@@ -5975,9 +5975,9 @@
   "sjcSell": 144000000,
   "ringBuy": 141500000,
   "ringSell": 145500000,
-  "usdVnd": 26203,
+  "usdVnd": 26350,
   "xauUsd": 4394.89990234375,
-  "premiumPct": 3.71
+  "premiumPct": 3.14
  },
  {
   "date": "2026-08-11",
@@ -5985,9 +5985,9 @@
   "sjcSell": 144100000,
   "ringBuy": 141000000,
   "ringSell": 145000000,
-  "usdVnd": 26203,
+  "usdVnd": 26320,
   "xauUsd": 4472.39990234375,
-  "premiumPct": 1.99
+  "premiumPct": 1.53
  },
  {
   "date": "2026-08-12",
@@ -5995,9 +5995,9 @@
   "sjcSell": 143800000,
   "ringBuy": 142000000,
   "ringSell": 146000000,
-  "usdVnd": 26133,
+  "usdVnd": 26270,
   "xauUsd": 4441.10009765625,
-  "premiumPct": 2.77
+  "premiumPct": 2.23
  },
  {
   "date": "2026-08-13",
@@ -6005,9 +6005,9 @@
   "sjcSell": 143800000,
   "ringBuy": 142000000,
   "ringSell": 146000000,
-  "usdVnd": 26130,
+  "usdVnd": 26250,
   "xauUsd": 4490.10009765625,
-  "premiumPct": 1.66
+  "premiumPct": 1.19
  },
  {
   "date": "2026-08-14",
@@ -6015,9 +6015,9 @@
   "sjcSell": 143300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26070,
+  "usdVnd": 26330,
   "xauUsd": 4380.39990234375,
-  "premiumPct": 4.08,
+  "premiumPct": 3.05,
   "backfilled": true
  },
  {
@@ -6026,9 +6026,9 @@
   "sjcSell": 144000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26147,
+  "usdVnd": 26330,
   "xauUsd": 4380.39990234375,
-  "premiumPct": 4.28,
+  "premiumPct": 3.56,
   "backfilled": true
  },
  {
@@ -6037,9 +6037,9 @@
   "sjcSell": 144400000,
   "ringBuy": 140700000,
   "ringSell": 144700000,
-  "usdVnd": 26147,
+  "usdVnd": 26330,
   "xauUsd": 4380.39990234375,
-  "premiumPct": 4.57
+  "premiumPct": 3.84
  },
  {
   "date": "2026-08-17",
@@ -6047,9 +6047,9 @@
   "sjcSell": 144200000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26200,
+  "usdVnd": 26400,
   "xauUsd": 4417.7998046875,
-  "premiumPct": 3.33,
+  "premiumPct": 2.55,
   "backfilled": true
  },
  {
@@ -6058,9 +6058,9 @@
   "sjcSell": 144300000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26200,
+  "usdVnd": 26380,
   "xauUsd": 4417.7998046875,
-  "premiumPct": 3.4,
+  "premiumPct": 2.7,
   "backfilled": true
  },
  {
@@ -6069,9 +6069,9 @@
   "sjcSell": 144300000,
   "ringBuy": 141800000,
   "ringSell": 145700000,
-  "usdVnd": 26175,
+  "usdVnd": 26370,
   "xauUsd": 4396.5,
-  "premiumPct": 4
+  "premiumPct": 3.23
  },
  {
   "date": "2026-08-20",
@@ -6079,9 +6079,9 @@
   "sjcSell": 142700000,
   "ringBuy": 140200000,
   "ringSell": 144100000,
-  "usdVnd": 26179,
+  "usdVnd": 26310,
   "xauUsd": 4564.89990234375,
-  "premiumPct": -0.96
+  "premiumPct": -1.45
  },
  {
   "date": "2026-08-21",
@@ -6089,9 +6089,9 @@
   "sjcSell": 146000000,
   "ringBuy": 143000000,
   "ringSell": 147000000,
-  "usdVnd": 26179,
+  "usdVnd": 26280,
   "xauUsd": 4569.10009765625,
-  "premiumPct": 1.24
+  "premiumPct": 0.85
  },
  {
   "date": "2026-08-22",
@@ -6099,9 +6099,9 @@
   "sjcSell": 147000000,
   "ringBuy": 144100000,
   "ringSell": 148100000,
-  "usdVnd": 26113,
+  "usdVnd": 26310,
   "xauUsd": 4661.60009765625,
-  "premiumPct": 0.16
+  "premiumPct": -0.59
  },
  {
   "date": "2026-08-23",
@@ -6109,9 +6109,9 @@
   "sjcSell": 147600000,
   "ringBuy": 145500000,
   "ringSell": 149500000,
-  "usdVnd": 26113,
+  "usdVnd": 26310,
   "xauUsd": 4624.10009765625,
-  "premiumPct": 1.39
+  "premiumPct": 0.63
  },
  {
   "date": "2026-08-24",
@@ -6119,9 +6119,9 @@
   "sjcSell": 147600000,
   "ringBuy": 145500000,
   "ringSell": 149500000,
-  "usdVnd": 26113,
+  "usdVnd": 26360,
   "xauUsd": 4671.10009765625,
-  "premiumPct": 0.37
+  "premiumPct": -0.57
  },
  {
   "date": "2026-08-25",
@@ -6129,9 +6129,9 @@
   "sjcSell": 150000000,
   "ringBuy": 148500000,
   "ringSell": 152500000,
-  "usdVnd": 26110,
+  "usdVnd": 26310,
   "xauUsd": 4749.7001953125,
-  "premiumPct": 0.32
+  "premiumPct": -0.44
  },
  {
   "date": "2026-08-26",
@@ -6139,9 +6139,9 @@
   "sjcSell": 150600000,
   "ringBuy": 150000000,
   "ringSell": 154000000,
-  "usdVnd": 26172,
+  "usdVnd": 26300,
   "xauUsd": 4694.89990234375,
-  "premiumPct": 1.66
+  "premiumPct": 1.16
  },
  {
   "date": "2026-08-27",
@@ -6149,9 +6149,9 @@
   "sjcSell": 150000000,
   "ringBuy": null,
   "ringSell": null,
-  "usdVnd": 26075,
+  "usdVnd": 26270,
   "xauUsd": 4598.2001953125,
-  "premiumPct": 3.77,
+  "premiumPct": 3,
   "backfilled": true
  },
  {
@@ -6160,9 +6160,9 @@
   "sjcSell": 150000000,
   "ringBuy": 148000000,
   "ringSell": 152000000,
-  "usdVnd": 26075,
+  "usdVnd": 26260,
   "xauUsd": 4640.60009765625,
-  "premiumPct": 2.82
+  "premiumPct": 2.09
  },
  {
   "date": "2026-08-29",

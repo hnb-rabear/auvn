@@ -25,7 +25,8 @@ All notable changes to this project will be documented in this file.
 - Workflow chạy `npm test` sau deploy (báo Telegram khi fail) và không còn hủy lượt chạy dở (`.github/workflows/update-and-deploy.yml`).
 
 - Cổng cảnh báo "đang sụp nhanh" của Săn đáy bật cả khi giá sụt ≥8% trong 42 phiên, không chỉ khi sụt ≥15% so với đỉnh mọi thời đại — những ngày cổng cũ bỏ sót mà máy báo ≥55% thì đúng 0/37 (`src/lib/bear-dca.ts`, `src/components/*`, `src/lib/as-of.ts`, `src/lib/summary.ts`).
-- Tỷ giá của một ngày chỉ ghi một lần: cron (Vietcombank) và backfill (Yahoo) không còn ghi đè nhau làm premium cùng ngày nhảy qua lại (`scripts/run.ts`, `scripts/backfill-vn.ts`).
+- Tỷ giá của một ngày chỉ ghi một lần, và cả hai đường ghi đều dùng Vietcombank: premium cùng ngày không còn nhảy qua lại (`scripts/run.ts`, `scripts/backfill-vn.ts`, `scripts/fetch.ts`).
+- Hợp nhất lịch sử tỷ giá USD/VND về Vietcombank: `scripts/migrate-usdvnd-vcb.ts` tính lại 532/593 dòng (chênh premium trung vị −0,57 điểm %, p50 13,35 → 12,88, p80 16,2 → 15,67). Trước đó lịch sử trộn Yahoo `VND=X` với Vietcombank nên các dòng không so được với nhau.
 
 ### Changed
 - Preset 3 và 6 tháng: bỏ câu "cò súng đã kiểm chứng 2 giai đoạn", nói rõ mô phỏng tuyển chọn trung thực chỉ giữ lợi thế ở preset 1 tháng (`src/components/Dashboard.tsx`, `src/components/SettingsSheet.tsx`, `src/lib/as-of.ts`).
