@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-09-24T22:30:04.262Z",
+ "generatedAt": "2026-09-25T01:37:26.741Z",
  "fromDate": "2009-09-25",
- "toDate": "2026-09-24",
+ "toDate": "2026-09-25",
  "observations": 1426,
  "horizons": [
   21,
@@ -54,21 +54,21 @@
   {
    "zone": "neutral",
    "horizonDays": 21,
-   "count": 1246,
+   "count": 1247,
    "pctFavorable": null,
-   "medianReturnPct": 0.7
+   "medianReturnPct": 0.6
   },
   {
    "zone": "neutral",
    "horizonDays": 63,
-   "count": 1232,
+   "count": 1233,
    "pctFavorable": null,
    "medianReturnPct": 2.3
   },
   {
    "zone": "neutral",
    "horizonDays": 126,
-   "count": 1211,
+   "count": 1212,
    "pctFavorable": null,
    "medianReturnPct": 4
   },
