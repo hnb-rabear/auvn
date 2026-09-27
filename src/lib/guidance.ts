@@ -168,8 +168,8 @@ export function deriveGuidance(inp: GuidanceInput): Guidance {
 
   // --- ma trận điểm mua × săn đáy
   // Kiểm toán walk-forward (bottom.json.calibration) cho thấy prob đáy CAO không đáng tin
-  // hơn prob trung bình: nhóm "máy nói 60–80%" thực tế chỉ đúng 31% (n=100 ngày chồng lấn),
-  // nhóm 80–100% đúng 64%, trong khi nhóm 40–60% đúng 46,6%. Vì vậy ô này KHÔNG được hứa
+  // hơn prob trung bình: nhóm "máy nói 60–80%" thực tế chỉ đúng ~26% (ngày chồng lấn), trong
+  // khi nhóm 40–60% đúng ~45%. Từ 2026-09-25 bottom.high = BẬC chu kỳ "high" (bottom-tier.ts). Vì vậy ô này KHÔNG được hứa
   // "gom dứt khoát hơn" — chỉ ghi nhận hai tín hiệu độc lập cùng sáng, hành động giữ nguyên.
   if (isBuy && bottomHigh) {
     return {

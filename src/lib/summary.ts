@@ -5,6 +5,7 @@ import {
   consensusLabel,
 } from "./consensus";
 import { isCrashDisplayMode } from "./bear-dca";
+import { bottomTierOf, type BottomTier, type TierEraStat, type TierEvidence } from "./bottom-tier";
 import { isPremiumHigh } from "./guidance";
 import { bottomStartIdxsFromBins } from "./timeline";
 import { zoneOf } from "./types";
@@ -37,6 +38,11 @@ export interface SummaryPresetSignal {
 /** Tầng đáy rút gọn cho consumer máy — bỏ `drivers` (dài, chỉ để hiển thị web). */
 export interface SummaryBottomTier {
   bin: number;
+  /** BẬC hiển thị (1.6) — trục nên đọc. Đã qua cổng sụp nhanh (high → normal). */
+  tier: BottomTier;
+  /** bằng chứng của CHÍNH bậc này, tách train (2009–2018) / test (2019–2026); null = bottom.json cũ */
+  tierEvidence: { train: TierEraStat; test: TierEraStat } | null;
+  /** số THÔ, hiệu chuẩn ngược ở vùng cao (máy nói 60–80% đúng ~26%) — đừng dùng làm xác suất */
   prob: number;
   ci: [number, number] | null;
   probUnweighted: number | null;
@@ -66,7 +72,7 @@ export interface SummaryChanged {
 }
 
 export interface AuvnSummary {
-  schemaVersion: "1.5";
+  schemaVersion: "1.6";
   generatedAt: string;
   dataDate: string;
   stale: boolean;
@@ -197,13 +203,23 @@ function computeChanged(
   };
 }
 
-const tier = (t: BottomTierResult): SummaryBottomTier => ({
-  bin: t.bin,
-  prob: t.prob,
+const tier = (
+  t: BottomTierResult,
+  which: "cycle" | "swing",
+  crash: boolean,
+  ev: TierEvidence | undefined
+): SummaryBottomTier => {
+  const level = bottomTierOf(t.bin, crash);
+  return {
+    bin: t.bin,
+    tier: level,
+    tierEvidence: ev?.[which][level] ?? null,
+    prob: t.prob,
   ci: t.ci,
-  probUnweighted: t.probUnweighted ?? null,
-  n: t.n,
-});
+    probUnweighted: t.probUnweighted ?? null,
+    n: t.n,
+  };
+};
 
 const delta = (a: number | null, b: number | null, dp?: number) =>
   a === null || b === null ? null : dp === undefined ? a - b : Math.round((a - b) * 10 ** dp) / 10 ** dp;
@@ -249,16 +265,16 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
   // của nó như "hôm nay" sẽ sinh tín hiệu gom rải giả. Chỉ nhận khi hai ngày trùng khớp.
   const histIsCurrent = hist[hist.length - 1]?.date === analysis.dataDate;
   const isBottomStart = histIsCurrent && startIdxs[startIdxs.length - 1] === hist.length - 1;
+  const crashMode = isCrashDisplayMode(bearDca.phase, bearDca.dd42Pct);
   const bottomHunter = {
-    cycle: tier(bottom.cycle),
-    swing: tier(bottom.swing),
+    cycle: tier(bottom.cycle, "cycle", crashMode, bottom.tierEvidence),
+    swing: tier(bottom.swing, "swing", crashMode, bottom.tierEvidence),
     isBottomStart,
     lastBottomStartDate: lastStart?.date ?? null,
     daysSinceBottomStart: lastStart ? daysBetween(lastStart.date, analysis.dataDate) : null,
-    // Cùng cổng acute-crash với web (Dashboard `bottomCrashMode`): prob recency lạc quan
-    // giả khi giá đang sụp cấp tính.
-    crashMode: isCrashDisplayMode(bearDca.phase, bearDca.dd42Pct),
-    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. crashMode = true (pha acute HOẶC sụt ≥8% so với đỉnh 42 phiên) thì đọc probUnweighted thay cho prob — và coi là độ tin cậy thấp: trong chế độ này bản không trọng số cũng thường ≥55%. isBottomStart là điểm dò đáy sớm (ngữ cảnh), không phải tín hiệu gom/mua — cờ Gom rải đã bị LOẠI 2026-07 (gomrai-study 0/528) — và không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
+    // Cùng cổng sụp nhanh với web (Dashboard `bottomCrashMode`): hạ bậc high → normal.
+    crashMode,
+    note: "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. Đọc `tier` (high/normal/low) và `tierEvidence`, KHÔNG đọc `prob` như xác suất: prob bị hiệu chuẩn ngược ở vùng cao (walk-forward: máy nói 60–80% thì đúng ~26%), chỉ THỨ HẠNG bậc là bền ở cả hai giai đoạn — so `tierEvidence.*.favPct` với `basePct` của cùng giai đoạn. crashMode = true (pha acute HOẶC sụt ≥8% so với đỉnh 42 phiên) thì `tier` đã tự hạ high → normal. isBottomStart là điểm dò đáy sớm (ngữ cảnh), không phải tín hiệu gom/mua — cờ Gom rải đã bị LOẠI 2026-07 (gomrai-study 0/528) — và không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao.",
   };
 
   const rawSignals = presetSignals(analysis.criteria);
@@ -336,7 +352,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     : "ok";
 
   return {
-    schemaVersion: "1.5",
+    schemaVersion: "1.6",
     generatedAt: input.nowIso ?? new Date().toISOString(),
     dataDate: analysis.dataDate,
     stale: analysis.stale,

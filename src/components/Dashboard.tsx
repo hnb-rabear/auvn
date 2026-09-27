@@ -17,8 +17,8 @@ import { highConfidenceBuy3m, HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
 import { timeAgo, isGoldMarketClosed } from "@/lib/freshness";
 import { formatBuildInfo } from "@/lib/version";
 import { createAsOfEngine, verdictFor, DCA_PHASE_LABEL } from "@/lib/as-of";
-import { bottomPctClass } from "@/lib/bottom";
 import { qtyForPhase, isCrashDisplayMode } from "@/lib/bear-dca";
+import { bottomTierOf, BOTTOM_TIER_LABEL, TIER_CLASS, type BottomTier } from "@/lib/bottom-tier";
 import { VN_ROUND_TRIP, spreadBadge } from "@/lib/vn-gold";
 import {
   compositeScore,
@@ -277,21 +277,16 @@ export default function Dashboard({
       ? highConfidenceBuy3m("3m", sig3mBuy, bottom.cycle.bin, cycleVerified)
       : highConfidenceBuy3m(preset?.id ?? null, isBuyZone, bottom.cycle.bin, cycleVerified)) &&
     !fusionDegraded;
-  // Cổng hiển thị acute-crash (docs/bottom.md "Recency-504"): prob recency đo được là
-  // lạc quan giả khi giá đang sụp nhanh ⇒ mọi nơi đọc prob (gauge, guidance, hero)
-  // rớt về bản không trọng số. Tái dùng phase của Bear DCA — không thêm tham số mới.
+  // Cổng "đang sụp nhanh" (acute ∨ dd42 ≥ 8%): hạ bậc Săn đáy high → normal vì bin cao
+  // lúc sụp nhanh đo được chỉ ngang nền (src/lib/bottom-tier.ts).
   const bottomCrashMode = isCrashDisplayMode(bearDca.phase, bearDca.dd42Pct);
-  const effProb = useMemo(() => {
-    const eff = (t: { prob: number; probUnweighted?: number }) =>
-      bottomCrashMode ? (t.probUnweighted ?? t.prob) : t.prob;
-    return { cycle: eff(bottom.cycle), swing: eff(bottom.swing) };
-  }, [bottom, bottomCrashMode]);
+  // Săn đáy hiển thị theo BẬC, không %: prob bị hiệu chuẩn ngược ở vùng cao, thứ hạng bin
+  // thì giữ vững cả hai giai đoạn (spec 2026-09-25-bottom-tier-display-design.md).
+  const cycleTier = bottomTierOf(bottom.cycle.bin, bottomCrashMode);
+  const swingTier = bottomTierOf(bottom.swing.bin, bottomCrashMode);
   const guidance = useMemo(() => {
-    // Trục "đáy cao" = tầng CHU KỲ, cùng tiêu chí với Time Machine (as-of.ts) — trước đây
-    // live lấy max(chu kỳ, sóng) nên cùng một ngày card live hiện "strong" còn Time Machine
-    // hiện "buy" (vi phạm quy tắc chart ≡ card).
-    const c = cycleVerified ? effProb.cycle : -1;
-    const lvl = c >= 60 ? "cao" : c >= 35 ? "trung bình" : "thấp";
+    // Trục "đáy cao" = BẬC tầng CHU KỲ, cùng hàm với Time Machine (as-of.ts) — quy tắc
+    // chart ≡ card. Trước đây live lấy max(chu kỳ, sóng) của prob%.
     const fmt1 = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 1 });
     const signedC = `${composite > 0 ? "+" : ""}${fmt1(composite)}`;
     // Chế độ đồng thuận: câu "Điểm mua" nói theo trục thật (k/3 preset), không nói
@@ -307,31 +302,25 @@ export default function Dashboard({
       zone,
       composite,
       bottom: {
-        high: c >= 60,
+        high: cycleVerified && cycleTier === "high",
         verified: cycleVerified,
-        label: `Săn đáy: xác suất gần đáy ${lvl} (chu kỳ ${fmt1(effProb.cycle)}%, sóng ${fmt1(effProb.swing)}%${bottomCrashMode ? " — đang sụp nhanh, ước lượng kém tin cậy" : ""}).`,
+        label: `Săn đáy: chu kỳ ${BOTTOM_TIER_LABEL[cycleTier].toLowerCase()}, sóng ${BOTTOM_TIER_LABEL[swingTier].toLowerCase()}${bottomCrashMode ? " (đang sụp nhanh — đã hạ một bậc)" : ""}.`,
       },
       premiumPct: analysis.prices.premiumPct,
       premiumP80: analysis.premiumPercentiles?.p80 ?? null,
       scoreReason,
     });
-  }, [zone, composite, effProb, bottomCrashMode, cycleVerified, swingVerified, analysis, consensusMode, consensusK, isSellZone, presetSigs]);
+  }, [zone, composite, cycleTier, swingTier, bottomCrashMode, cycleVerified, analysis, consensusMode, consensusK, isSellZone, presetSigs]);
 
-  // nhãn xác suất gần đáy cho dòng cô đọng ở hero (khớp ngưỡng gauge 60/35)
-  const nearBottomLabel = useMemo(() => {
-    const c = cycleVerified ? effProb.cycle : -1;
-    const s = swingVerified ? effProb.swing : -1;
-    const best = Math.max(c, s);
-    if (best < 0) return "chưa đủ dữ liệu";
-    return best >= 60 ? "cao" : best >= 35 ? "trung bình" : "thấp";
-  }, [cycleVerified, swingVerified, effProb]);
+  // nhãn cô đọng ở hero — cùng bậc tầng chu kỳ với gauge + gợi ý
+  const nearBottomLabel = cycleVerified ? BOTTOM_TIER_LABEL[cycleTier].toLowerCase() : "chưa đủ dữ liệu";
 
   const heroMeta = (
     <>
       <b>{verdictLabel}</b>{highConf && <b> · đã kiểm chứng (3 tháng)</b>} · {consensusMode ? "radar" : "điểm"}{" "}
       <b>{composite > 0 ? `+${fmtNum(composite)}` : fmtNum(composite)}</b>
       {preset && ` · preset ${preset.label} (ngưỡng mua +${preset.buyThreshold})`}
-      {customized && " · trọng số tùy chỉnh"} · xác suất gần đáy {nearBottomLabel}
+      {customized && " · trọng số tùy chỉnh"} · khả năng gần đáy {nearBottomLabel}
     </>
   );
 
@@ -670,8 +659,8 @@ export default function Dashboard({
               )}
               {asOf.crashDay && (
                 <div className="verdict-note">
-                  ⚠ Ngày này giá đang sụp nhanh — xác suất săn đáy hiển thị bản thận trọng
-                  (không trọng số).
+                  ⚠ Ngày này giá đang sụp nhanh — bậc Săn đáy đã hạ một bậc (nhóm cao lúc sụp
+                  nhanh đo được chỉ ngang mức bình thường).
                 </div>
               )}
             </>
@@ -901,19 +890,16 @@ export default function Dashboard({
             <div className="tm-bottom">
               {(
                 [
-                  ["Đáy chu kỳ", "≈6 tháng", asOf.cycleProb, asOf.cycleCi, asOf.cycleN],
-                  ["Đáy sóng", "≈1 tháng", asOf.swingProb, asOf.swingCi, asOf.swingN],
-                ] as [string, string, number | null, [number, number] | null, number][]
-              ).map(([t, sub, prob, ci, n]) => (
+                  ["Đáy chu kỳ", "≈6 tháng", asOf.cycleTier, asOf.cycleProb, asOf.cycleN],
+                  ["Đáy sóng", "≈1 tháng", asOf.swingTier, asOf.swingProb, asOf.swingN],
+                ] as [string, string, BottomTier, number | null, number][]
+              ).map(([t, sub, tier, prob, n]) => (
                 <div key={t} className="tm-bottom-item">
                   <span className="muted small">
                     {t} <span className="muted small">{sub}</span>
                   </span>
                   {prob !== null && n >= 10 ? (
-                    <span className={`bottom-gauge-pct ${bottomPctClass(prob)}`}>
-                      {Math.round(prob)}%
-                      {ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
-                    </span>
+                    <span className={`bottom-gauge-pct ${TIER_CLASS[tier]}`}>{BOTTOM_TIER_LABEL[tier]}</span>
                   ) : (
                     <span className="muted small">Chưa đủ dữ liệu kiểm chứng</span>
                   )}
@@ -922,7 +908,7 @@ export default function Dashboard({
             </div>
             {asOf.crashDay && (
               <div className="muted small">
-                ⚠ Đang sụp nhanh — ước lượng thận trọng (không trọng số), độ tin cậy thấp.
+                ⚠ Đang sụp nhanh — đã hạ một bậc.
               </div>
             )}
           </div>

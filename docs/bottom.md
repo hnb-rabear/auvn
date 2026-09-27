@@ -349,3 +349,61 @@ tái lập — chặn ở bước kiểm tra cỡ mẫu, xem số phiên `ringSe
 **Phán quyết: NO-GO (GO theo chữ, nhưng overfit giai đoạn test).** Script in "GO" vì CI-lo test (72,2%) > mốc (72,0%) — nhưng biên chỉ **0,2 điểm**, và quan trọng hơn: cấu hình thắng **bỏ macro về 0** và có **train precision 39% — THẤP HƠN mốc (40%)** và sát base-rate train (33%). Tức 2 feature mới **không giúp gì ở giai đoạn train (2009–2018)**; toàn bộ "cải thiện" nằm ở test (2019–2026). Đây đúng dấu hiệu **overfit theo chế độ thị trường**: thắng test, thua train, vứt feature đã kiểm chứng (macro), vượt mốc 0,2đ.
 
 → **Giữ cấu hình hiện tại `{rsi:.5, macro:.5}`.** Không wire live ryield/gsr (Pha 2 hoãn). Theo chính tiêu chí spec, kết quả biên giới ⇒ cần ML cross-check + một held-out thật trước khi tin; bằng chứng hiện tại KHÔNG đủ để đổi config. Ghi nhận như đã loại GPR/VIX: feature hợp lý về lý thuyết nhưng không sống sót kiểm chứng 2 giai đoạn.
+
+## Hiển thị theo BẬC thay cho % (2026-09-25) — spec `docs/superpowers/specs/2026-09-25-bottom-tier-display-design.md`
+
+**Vì sao bỏ %.** Kiểm toán walk-forward (`bottom.json.calibration`) cho thấy `prob` tầng chu kỳ
+bị **hiệu chuẩn ngược** ở vùng cao: máy nói 60–80% thì thực tế đúng 26%, 80–100% đúng 47%,
+trong khi 40–60% đúng 45%. 84 nút walk-forward prob ≥60% chỉ đúng 25, dồn vào hai chế độ:
+2011–2013 đúng 4/49, 2023–2025 đúng 18/22 ⇒ con số % phản ánh CHẾ ĐỘ THỊ TRƯỜNG, không phải độ
+chắc chắn. So Brier walk-forward sòng phẳng: prob hiện tại 0,236 / **0,271**; chỉ dùng tỉ lệ
+nền **0,211** / 0,284; co 50% về nền 0,221 / 0,272 (train / test) — **không phương án % nào
+thắng ở cả hai giai đoạn**.
+
+**Cái vẫn bền: thứ hạng bin.** Đo qua CHÍNH hàm hiển thị `bottomTierOf` (đã gồm cổng sụp nhanh),
+lưới 3 phiên, cụm = khối H phiên cố định (`computeTierEvidence`, tính lại mỗi lần cron vào `bottom.json.tierEvidence`):
+
+| Bậc | Chu kỳ train | Chu kỳ test | Sóng train | Sóng test |
+| --- | --- | --- | --- | --- |
+| **high** (bin 3, không sụp nhanh) | 48,1% (14 đợt) | 69,8% (9 đợt) | 53,8% (22) | 64,8% (16) |
+| normal | 30,8% | 53,2% | 39,9% | 53,9% |
+| low (bin 0–1) | 27,8% | 42,2% | 38,0% | 41,5% |
+| *nền* | *30,6%* | *49,8%* | *40,0%* | *49,5%* |
+
+high > nền > low ở **cả hai tầng × cả hai giai đoạn** — khóa bằng test
+(`bottom-tier.evidence.test.ts`, kiểm THỨ HẠNG trên timeline hiện tại chứ không khóa số: mỗi ngày
+cron gắn nhãn thêm một ngày cũ nên n/nền đổi nhẹ — khóa số cứng sẽ fail định kỳ). Gauge, gợi ý hành động (live + Time Machine) và
+`summary.json` 1.6 (`tier` / `tierEvidence`) giờ đọc BẬC; `prob`/`ci`/`calibration` vẫn tính và
+ghi như cũ nhưng không còn quyết định gì. Mức gợi ý `strong` bật theo bậc chu kỳ `high`.
+
+**Cổng sụp nhanh hạ bậc.** bin 3 lúc êm 48,1% vs nền 31,3% (train) / 69,8% vs 50,1% (test);
+lúc sụp nhanh (`isCrashDisplayMode`) chỉ 33,3% vs nền 27,5% (5 đợt) ⇒ `high` hạ xuống `normal`.
+Thay cho việc đổi sang `probUnweighted` (bản đó cũng sai như nhau).
+
+**Giới hạn:** chỉ THỨ HẠNG bền — khoảng cách tới nền thay đổi theo thời kỳ (+17,5 vs +20pt chu
+kỳ); bậc high tầng chu kỳ ở test chỉ 9 đợt độc lập. Engine, nhãn, trọng số KHÔNG đổi.
+
+## "Thị trường êm" (OHLCV biên độ phiên hẹp) — LOẠI (NO-GO 2026-09-25, `scripts/calm-bottom-study.ts`)
+
+Spec pre-registered: `docs/superpowers/specs/2026-09-25-calm-market-bottom-study-design.md`.
+Yahoo `GC=F` có sẵn high/low/volume 20 năm mà engine chưa từng dùng; khảo sát sơ bộ 5 feature
+OHLCV (biên độ nở, bóng nến dưới, CLV, khối lượng đột biến, tỉ trọng khối lượng phiên giảm) chỉ
+có một ứng viên đúng chiều ở cả hai giai đoạn: **biên độ phiên HẸP** `rangeExp(w)` = trung bình
+(high−low)/close w phiên / trung vị 60 phiên trước đó (≤p20: +3,3pt train, +21,2pt test).
+Khối lượng bán tháo cao đổi dấu giữa hai giai đoạn (−7,7 / +26,7pt, 4 đợt), bóng nến dưới sai
+chiều (−9,9pt test) — loại ngay ở vòng sơ bộ.
+
+Cổng đầy đủ (4 cổng, grid p {10,20,30} × w {5,10} × tầng {chu kỳ, sóng} = 12 ô):
+
+| Cổng | Kết quả |
+| --- | --- |
+| G1 lift > 0 VÀ CI95 theo cụm trên nền, cả hai giai đoạn | **0/12** — CI train luôn chứa nền |
+| G2 vượt p95 placebo khối liền kề cùng số ngày | **0/12** — lift train 0,3–7,8pt vs placebo p95 8–30pt |
+| G3 vẫn lift trong nhóm momentum-12m > 0 (không phải chỉ báo bull) | 6/12 |
+| G4 ≥ 8 đợt độc lập mỗi giai đoạn | 9/12 |
+| **Qua cả 4** | **0/12** |
+
+Ô sơ bộ tốt nhất (chu kỳ, w=5, p20): train +3,3pt (19 đợt, CI 16,1–50,9% chứa nền 30,6%,
+placebo p95 +10,4pt) / test +21,2pt (13 đợt, placebo p95 +27,7pt) — **thua placebo ở cả hai
+giai đoạn**. Test mạnh chỉ phản ánh chế độ tăng giá ít biến động 2019–2026, cùng họ thất bại
+với vol-squeeze. **Đóng họ OHLCV biên độ/khối lượng** — không mở lại khi chưa có cơ chế mới.

@@ -196,10 +196,6 @@ export function binOf(score: number, edges: number[]): number {
   return b;
 }
 
-/** Ngưỡng màu gauge săn đáy: ≥60 mua / ≥35 trung tính / còn lại bán. Dùng chung UI. */
-export function bottomPctClass(pct: number): "buy" | "neutral" | "sell" {
-  return pct >= 60 ? "buy" : pct >= 35 ? "neutral" : "sell";
-}
 
 interface Bar { date: string; close: number; }
 const WARMUP = 756;

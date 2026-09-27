@@ -17,6 +17,7 @@ import { consensusLabel, consensusZone } from "./consensus";
 import { deriveGuidance, type Guidance } from "./guidance";
 import { highConfidenceBuy3m } from "./fusion";
 import { bearDcaAt, isCrashDisplayMode, trailingDrawdownPct } from "./bear-dca";
+import { bottomTierOf, BOTTOM_TIER_LABEL, type BottomTier } from "./bottom-tier";
 import {
   composites,
   presetComposites,
@@ -56,6 +57,9 @@ export interface AsOfDay {
   swingProb: number | null;
   swingCi: [number, number] | null;
   swingN: number;
+  /** BẬC Săn đáy đã qua cổng sụp nhanh — trục hiển thị chính (prob giữ cho consumer cũ) */
+  cycleTier: BottomTier;
+  swingTier: BottomTier;
   guidance: Guidance;
 }
 
@@ -153,8 +157,10 @@ export function createAsOfEngine(points: TimelinePoint[], mode: AsOfMode): AsOfE
     const swingProb = crashDay ? (p.swingProbUw ?? p.swingProb ?? null) : (p.swingProb ?? null);
     const cycleN = p.cycleN ?? 0;
     const verified = cycleProb !== null && cycleN >= 10;
-    const high = verified && cycleProb >= 60;
-    const ciStr = !crashDay && p.cycleCi ? ` (CI ${p.cycleCi[0]}–${p.cycleCi[1]}%)` : "";
+    // BẬC, không prob% — cùng hàm bottomTierOf với card live (chart ≡ card). Cổng sụp
+    // nhanh hạ high → normal. prob vẫn trả ra cho consumer cũ nhưng không quyết định nữa.
+    const cycleTier = bottomTierOf(p.cycleBin, crashDay);
+    const high = verified && cycleTier === "high";
     const signedC = `${composite > 0 ? "+" : ""}${fmtNum(composite)}`;
     const scoreReason = buyKs
       ? kDay >= 1
@@ -170,7 +176,7 @@ export function createAsOfEngine(points: TimelinePoint[], mode: AsOfMode): AsOfE
         high,
         verified,
         label: verified
-          ? `Săn đáy: xác suất gần đáy ${Math.round(cycleProb!)}%${ciStr}${crashDay ? " (đang sụp nhanh — ước lượng kém tin cậy)" : ""}.`
+          ? `Săn đáy: chu kỳ ${BOTTOM_TIER_LABEL[cycleTier].toLowerCase()}${crashDay ? " (đang sụp nhanh — đã hạ một bậc)" : ""}.`
           : "Săn đáy: chưa đủ dữ liệu kiểm chứng.",
       },
       premiumPct: null, // world-only ở as-of — cổng premium tắt (trung thực)
@@ -207,6 +213,8 @@ export function createAsOfEngine(points: TimelinePoint[], mode: AsOfMode): AsOfE
       swingProb,
       swingCi: crashDay ? null : (p.swingCi ?? null),
       swingN: p.swingN ?? 0,
+      cycleTier,
+      swingTier: bottomTierOf(p.swingBin, crashDay),
       guidance,
     };
   }

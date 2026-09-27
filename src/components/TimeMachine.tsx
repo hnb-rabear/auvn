@@ -12,7 +12,7 @@ import {
 } from "@/lib/types";
 import { consensusLabel } from "@/lib/consensus";
 import { HIGH_CONF_3M_EVIDENCE } from "@/lib/fusion";
-import { bottomPctClass } from "@/lib/bottom";
+import { BOTTOM_TIER_LABEL, TIER_CLASS, type BottomTier } from "@/lib/bottom-tier";
 import ActionGuidance from "./ActionGuidance";
 import { centerWindow } from "@/lib/brush";
 import { MIN_SPAN, POINTS_PER_MONTH, buildGeom, sjcUsdMap } from "@/lib/price-chart";
@@ -382,19 +382,16 @@ export default function TimeMachine({
       <div className="tm-bottom">
         {(
           [
-            ["Đáy chu kỳ", "≈6 tháng", dayAt.cycleProb, dayAt.cycleCi, dayAt.cycleN],
-            ["Đáy sóng", "≈1 tháng", dayAt.swingProb, dayAt.swingCi, dayAt.swingN],
-          ] as [string, string, number | null, [number, number] | null, number][]
-        ).map(([title, sub, prob, ci, n]) => {
+            ["Đáy chu kỳ", "≈6 tháng", dayAt.cycleTier, dayAt.cycleProb, dayAt.cycleN],
+            ["Đáy sóng", "≈1 tháng", dayAt.swingTier, dayAt.swingProb, dayAt.swingN],
+          ] as [string, string, BottomTier, number | null, number][]
+        ).map(([title, sub, tier, prob, n]) => {
           const ok = prob !== null && n >= 10;
           return (
             <div key={title} className="tm-bottom-item">
               <span className="muted small">{title} <span className="muted small">{sub}</span></span>
               {ok ? (
-                <span className={`bottom-gauge-pct ${bottomPctClass(prob)}`}>
-                  {Math.round(prob)}%
-                  {ci ? <span className="muted small"> (CI {ci[0]}–{ci[1]}%)</span> : null}
-                </span>
+                <span className={`bottom-gauge-pct ${TIER_CLASS[tier]}`}>{BOTTOM_TIER_LABEL[tier]}</span>
               ) : (
                 <span className="muted small">Chưa đủ dữ liệu kiểm chứng</span>
               )}
@@ -403,7 +400,7 @@ export default function TimeMachine({
         })}
       </div>
       {bottomCrashDay && (p.cycleProb ?? p.swingProb) != null && (
-        <div className="muted small">⚠ Ngày này giá đang sụp nhanh — hiện ước lượng săn đáy thận trọng (toàn lịch sử), độ tin cậy thấp.</div>
+        <div className="muted small">⚠ Ngày này giá đang sụp nhanh — bậc Săn đáy đã hạ một bậc.</div>
       )}
 
       <ActionGuidance guidance={histGuidance} />

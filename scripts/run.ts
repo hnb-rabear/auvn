@@ -31,6 +31,7 @@ import {
   type BottomAnalysis,
 } from "../src/lib/types";
 import { runBottom } from "../src/lib/bottom";
+import { computeTierEvidence } from "../src/lib/bottom-tier";
 import { effectiveRing } from "../src/lib/vn-gold";
 import { forwardFillBottomHistory, forwardFillBearAsOf } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
@@ -437,6 +438,8 @@ async function main() {
   writeFileSync(join(DATA_DIR, "analysis.json"), JSON.stringify(analysis, null, 1));
   writeFileSync(join(DATA_DIR, "backtest.json"), JSON.stringify(backtest, null, 1));
   writeFileSync(join(DATA_DIR, "timeline.json"), JSON.stringify(timeline));
+  // Bằng chứng theo bậc hiển thị — tính trên timeline đã có bin (cùng hàm UI dùng).
+  bottom.tierEvidence = computeTierEvidence(timeline.points);
   writeFileSync(join(DATA_DIR, "bottom.json"), JSON.stringify(bottom, null, 1));
   writeFileSync(join(DATA_DIR, "bottom-health.json"), JSON.stringify(bottomHealth, null, 1));
   writeFileSync(join(DATA_DIR, "accumulation.json"), JSON.stringify(accumulation, null, 1));

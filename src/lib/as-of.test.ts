@@ -110,3 +110,22 @@ describe("verdictFor", () => {
     expect(verdictFor("buy", null, "21")).toBeNull();
   });
 });
+
+describe("bậc Săn đáy as-of ≡ live", () => {
+  it("ngày cuối: cycleTier as-of = bottomTierOf(bin cuối, cổng sụp nhanh cuối)", async () => {
+    const { bottomTierOf } = await import("./bottom-tier");
+    const { bearDcaAt, isCrashDisplayMode, trailingDrawdownPct } = await import("./bear-dca");
+    const eng = createAsOfEngine(realPoints, MODE);
+    const i = realPoints.length - 1;
+    const prices = realPoints.map((q) => q.price);
+    const crash = isCrashDisplayMode(
+      bearDcaAt(prices, i, realPoints[i].pricePct2y ?? null).phase,
+      trailingDrawdownPct(prices, i)
+    );
+    const d = eng.day(i);
+    expect(d.crashDay).toBe(crash);
+    expect(d.cycleTier).toBe(bottomTierOf(realPoints[i].cycleBin, crash));
+    // gợi ý "đáy cao" chỉ bật khi bậc chu kỳ là high — không còn theo prob ≥ 60
+    if (d.guidance.level === "strong") expect(d.cycleTier).toBe("high");
+  });
+});

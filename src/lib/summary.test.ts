@@ -200,7 +200,7 @@ describe("buildAuvnSummary", () => {
     const input = createMockInput();
     const s = buildAuvnSummary(input);
 
-    expect(s.schemaVersion).toBe("1.5");
+    expect(s.schemaVersion).toBe("1.6");
     expect(s.dataDate).toBe("2026-09-04");
     expect(s.stale).toBe(false);
     expect(s.staleDays).toBe(0);
@@ -388,7 +388,7 @@ describe("buildAuvnSummary — bottomHunter", () => {
   it("passes Bottom Hunter tiers through without drivers", () => {
     const bh = buildAuvnSummary(createMockInput()).bottomHunter;
 
-    expect(bh.cycle).toEqual({ bin: 2, prob: 58.1, ci: [40, 72], probUnweighted: 44.2, n: 31 });
+    expect(bh.cycle).toMatchObject({ bin: 2, tier: "normal", prob: 58.1, ci: [40, 72], probUnweighted: 44.2, n: 31 });
     expect(bh.swing.prob).toBe(51.4);
     expect(bh.swing.bin).toBe(2);
     expect(bh.cycle).not.toHaveProperty("drivers");
@@ -568,5 +568,27 @@ describe("buildAuvnSummary — numeric hygiene", () => {
     input.accumulation.pricePct2y = null;
 
     expect(buildAuvnSummary(input).accumulation.pricePercentile2y).toBeNull();
+  });
+});
+
+describe("bottomHunter.tier (1.6)", () => {
+  it("phát hành bậc + bằng chứng của chính bậc đó, và hạ bậc khi đang sụp nhanh", async () => {
+    const { computeTierEvidence } = await import("./bottom-tier");
+    const tl = (await import("../../public/data/timeline.json")).default as unknown as { points: import("./types").TimelinePoint[] };
+    const EV = computeTierEvidence(tl.points);
+    const input = createMockInput();
+    input.bottom.tierEvidence = EV;
+    input.bottom.cycle.bin = 3;
+    input.bearDca.phase = "bull";
+    input.bearDca.dd42Pct = 1;
+    const calm = buildAuvnSummary(input).bottomHunter.cycle;
+    expect(calm.tier).toBe("high");
+    expect(calm.tierEvidence).toEqual(EV.cycle.high);
+
+    input.bearDca.dd42Pct = 9; // sụp nhanh ⇒ high hạ xuống normal
+    const crash = buildAuvnSummary(input).bottomHunter;
+    expect(crash.crashMode).toBe(true);
+    expect(crash.cycle.tier).toBe("normal");
+    expect(crash.cycle.tierEvidence).toEqual(EV.cycle.normal);
   });
 });

@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - Hợp nhất lịch sử tỷ giá USD/VND về Vietcombank: `scripts/migrate-usdvnd-vcb.ts` tính lại 532/593 dòng (chênh premium trung vị −0,57 điểm %, p50 13,35 → 12,88, p80 16,2 → 15,67). Trước đó lịch sử trộn Yahoo `VND=X` với Vietcombank nên các dòng không so được với nhau.
 
 ### Changed
+- Săn đáy hiển thị theo bậc ("Cao hơn / Ngang / Thấp hơn bình thường") kèm tỉ lệ nền từng giai đoạn thay cho số %: % bị hiệu chuẩn ngược ở vùng cao (máy nói 60–80% đúng ~26%), còn thứ hạng bậc đúng ở cả hai giai đoạn. Đang sụp nhanh thì bậc cao tự hạ một bậc. Gợi ý hành động, Time Machine và `summary.json` 1.6 (`tier`, `tierEvidence`) dùng chung (`src/lib/bottom-tier.ts`, `src/components/BottomGauges.tsx`, `src/lib/as-of.ts`, `src/lib/summary.ts`).
 - Preset 3 và 6 tháng: bỏ câu "cò súng đã kiểm chứng 2 giai đoạn", nói rõ mô phỏng tuyển chọn trung thực chỉ giữ lợi thế ở preset 1 tháng (`src/components/Dashboard.tsx`, `src/components/SettingsSheet.tsx`, `src/lib/as-of.ts`).
 - Hero hiện số đợt độc lập thay cho số ngày và kèm cảnh báo selection bias; nhãn n của Săn đáy nói rõ cửa sổ chồng nhau thay cho "hiệu dụng ≈202" (`src/components/Dashboard.tsx`, `src/components/BottomGauges.tsx`).
 - Bỏ các câu "gom rải", "tránh mua", "hạn chế mua", "so với 3 năm", "19 tháng" đã lỗi thời (`src/lib/criteria.ts`, `src/lib/summary.ts`, `src/components/*`).
@@ -42,4 +43,5 @@ All notable changes to this project will be documented in this file.
 - Local sync kiểm tra preflight sạch và giới hạn allowlist chỉ 2 file lịch sử (`scripts/sync-vn-gold.ts`).
 
 ### Documentation
+- Study "thị trường êm" (biên độ phiên hẹp từ dữ liệu OHLCV) làm tín hiệu Săn đáy: NO-GO 0/12 — không ô nào vượt placebo ở giai đoạn 2009–2018; tín hiệu mạnh 2019–2026 chỉ là hiệu ứng thời kỳ tăng giá ít biến động (`scripts/calm-bottom-study.ts`, `docs/bottom.md`).
 - Hướng dẫn đồng bộ SJC trên Windows và Android: làm rõ giới hạn không thể lấp bù nhẫn khi máy tắt và cơ chế 2 file lịch sử độc lập (`docs/sync-vn-gold-setup.md`, `docs/sync-vn-gold-setup-android.md`).

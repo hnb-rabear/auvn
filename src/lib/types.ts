@@ -1,3 +1,4 @@
+import type { TierEvidence } from "./bottom-tier";
 export type CriterionKey = "technical" | "premium" | "macro" | "stats" | "momentum";
 
 /** Sub-signal vĩ mô có thể mang trọng số riêng trong preset (v4, docs/presets.md "Tách sub-signal vĩ mô"). */
@@ -504,6 +505,9 @@ export interface BottomAnalysis {
    * người đọc kiểm toán được con số %. undefined = bottom.json cũ.
    */
   calibration?: { cycle: BottomCalibrationBucket[]; swing: BottomCalibrationBucket[] };
+  /** bằng chứng theo BẬC hiển thị (src/lib/bottom-tier.ts), tính mỗi lần cron từ timeline.
+   *  undefined = bottom.json cũ ⇒ UI ẩn dòng bằng chứng. */
+  tierEvidence?: TierEvidence;
   note: string;
 }
 
