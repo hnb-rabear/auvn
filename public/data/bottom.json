@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-27T01:35:35.123Z",
+ "generatedAt": "2026-09-27T01:41:03.655Z",
  "dataDate": "2026-09-25",
  "cycle": {
   "prob": 51.6,
@@ -54735,5 +54735,95 @@
    }
   ]
  },
- "note": "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy, ưu tiên ~2 năm gần (recency-504, sửa lệch theo chế độ thị trường). Khi giá đang sụp cấp tính, UI hiển thị bản không trọng số (thận trọng hơn). Backtest trên XAU/USD; tham khảo, không phải lời hứa."
+ "note": "Xác suất 'giá sẽ không rẻ hơn đáng kể trong H ngày' theo base-rate lịch sử cùng nhóm điểm số đáy, ưu tiên ~2 năm gần (recency-504, sửa lệch theo chế độ thị trường). Khi giá đang sụp cấp tính, UI hiển thị bản không trọng số (thận trọng hơn). Backtest trên XAU/USD; tham khảo, không phải lời hứa.",
+ "tierEvidence": {
+  "cycle": {
+   "high": {
+    "train": {
+     "favPct": 48.1,
+     "basePct": 30.6,
+     "n": 52,
+     "clusters": 14
+    },
+    "test": {
+     "favPct": 69.8,
+     "basePct": 49.8,
+     "n": 53,
+     "clusters": 9
+    }
+   },
+   "normal": {
+    "train": {
+     "favPct": 30.8,
+     "basePct": 30.6,
+     "n": 383,
+     "clusters": 19
+    },
+    "test": {
+     "favPct": 53.2,
+     "basePct": 49.8,
+     "n": 284,
+     "clusters": 15
+    }
+   },
+   "low": {
+    "train": {
+     "favPct": 27.8,
+     "basePct": 30.6,
+     "n": 342,
+     "clusters": 19
+    },
+    "test": {
+     "favPct": 42.2,
+     "basePct": 49.8,
+     "n": 270,
+     "clusters": 15
+    }
+   }
+  },
+  "swing": {
+   "high": {
+    "train": {
+     "favPct": 53.8,
+     "basePct": 40,
+     "n": 52,
+     "clusters": 22
+    },
+    "test": {
+     "favPct": 64.8,
+     "basePct": 49.5,
+     "n": 54,
+     "clusters": 16
+    }
+   },
+   "normal": {
+    "train": {
+     "favPct": 39.9,
+     "basePct": 40,
+     "n": 383,
+     "clusters": 71
+    },
+    "test": {
+     "favPct": 53.9,
+     "basePct": 49.5,
+     "n": 308,
+     "clusters": 59
+    }
+   },
+   "low": {
+    "train": {
+     "favPct": 38,
+     "basePct": 40,
+     "n": 342,
+     "clusters": 66
+    },
+    "test": {
+     "favPct": 41.5,
+     "basePct": 49.5,
+     "n": 277,
+     "clusters": 51
+    }
+   }
+  }
+ }
 }
