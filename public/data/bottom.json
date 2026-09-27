@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-27T18:32:12.801Z",
- "dataDate": "2026-09-25",
+ "generatedAt": "2026-09-27T22:19:52.408Z",
+ "dataDate": "2026-09-27",
  "cycle": {
   "prob": 51.6,
   "ci": [
@@ -23,7 +23,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": -1,
-    "explanation": "XAU thay đổi +5,5% trong 3 tháng: đang tăng nóng.",
+    "explanation": "XAU thay đổi +7% trong 3 tháng: đang tăng nóng.",
     "available": true
    },
    {
@@ -37,7 +37,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -19,29: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -17,23: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +14,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +14,6% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -92,7 +92,7 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": -1,
-    "explanation": "XAU thay đổi +5,5% trong 3 tháng: đang tăng nóng.",
+    "explanation": "XAU thay đổi +7% trong 3 tháng: đang tăng nóng.",
     "available": true
    },
    {
@@ -106,7 +106,7 @@
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -19,29: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -17,23: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +14,7% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +14,6% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22464,6 +22464,11 @@
   },
   {
    "date": "2026-09-25",
+   "cycleBin": 0,
+   "swingBin": 0
+  },
+  {
+   "date": "2026-09-27",
    "cycleBin": 0,
    "swingBin": 0
   }
@@ -54637,6 +54642,29 @@
   },
   {
    "date": "2026-09-25",
+   "cycle": {
+    "bin": 0,
+    "prob": 51.6,
+    "ci": [
+     24.8,
+     73.1
+    ],
+    "probUnweighted": 36,
+    "n": 253
+   },
+   "swing": {
+    "bin": 0,
+    "prob": 37.3,
+    "ci": [
+     25.2,
+     48.9
+    ],
+    "probUnweighted": 34.5,
+    "n": 255
+   }
+  },
+  {
+   "date": "2026-09-27",
    "cycle": {
     "bin": 0,
     "prob": 51.6,

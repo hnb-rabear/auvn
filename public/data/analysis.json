@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-27T18:30:15.444Z",
- "dataDate": "2026-09-25",
+ "generatedAt": "2026-09-27T22:18:37.996Z",
+ "dataDate": "2026-09-27",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -31,7 +31,7 @@
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 47,5: trung tính.",
+     "explanation": "RSI tuần = 48: trung tính.",
      "available": true
     },
     {
@@ -44,8 +44,8 @@
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
-     "score": 0,
-     "explanation": "Giá ở mức 36% biên độ 52 tuần (đáy 3.771 — đỉnh 5.318): giữa biên độ năm.",
+     "score": 1,
+     "explanation": "Giá ở mức 34% biên độ 52 tuần (đáy 3.809 — đỉnh 5.318): vùng thấp của biên độ năm.",
      "available": true
     },
     {
@@ -56,7 +56,7 @@
      "available": true
     }
    ],
-   "score": 0.2,
+   "score": 0.4,
    "available": true
   },
   {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +14,7% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +14,6% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 1,
+ "composite": 4.5,
  "zone": "neutral",
  "vnHistoryDays": 596,
  "warnings": [
@@ -2583,11 +2583,11 @@
   "p80": 15.67
  },
  "sourceTimes": {
-  "world": "2026-09-25T04:00:00.000Z",
+  "world": "2026-09-27T22:07:23.000Z",
   "dxy": "2026-09-25T04:00:00.000Z",
   "yield10y": "2026-09-25T12:20:00.000Z",
-  "vnGold": "2026-09-27T18:30:15.444Z",
-  "usdVnd": "2026-09-27T18:30:15.444Z",
+  "vnGold": "2026-09-27T22:18:37.996Z",
+  "usdVnd": "2026-09-27T22:18:37.996Z",
   "fed": null
  }
 }
