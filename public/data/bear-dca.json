@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-09-29T08:42:50.889Z",
+ "generatedAt": "2026-09-29T16:01:02.554Z",
  "dataDate": "2026-09-29",
  "isBear": true,
- "ddFromAth": 0.21512108904933805,
- "ddChange": 0.09207656438026471,
+ "ddFromAth": 0.2120374548736462,
+ "ddChange": 0.06377858002406736,
  "phase": "acute",
  "pricePct2y": 0.6408730158730159,
- "dd42Pct": 11.143513985269704,
+ "dd42Pct": 10.794414406743591,
  "mult": 0.75,
  "recoveryRisk": false,
- "note": "Giá đang sụp cấp tính (đáy sâu thêm +9 điểm %/tháng). Cách đỉnh 22% — dùng độ sâu để tính khối lượng."
+ "note": "Giá đang sụp cấp tính (đáy sâu thêm +6 điểm %/tháng). Cách đỉnh 21% — dùng độ sâu để tính khối lượng."
 }
