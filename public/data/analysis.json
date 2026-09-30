@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-09-29T20:53:55.053Z",
- "dataDate": "2026-09-29",
+ "generatedAt": "2026-09-30T00:33:52.725Z",
+ "dataDate": "2026-09-30",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4216.39990234375,
+  "xauUsd": 4213.7998046875,
   "usdVnd": 26160,
-  "worldVndPerLuong": 132984757,
-  "premiumPct": 7.16,
-  "premiumVnd": 9515243
+  "worldVndPerLuong": 132902750,
+  "premiumPct": 7.22,
+  "premiumVnd": 9597250
  },
  "criteria": [
   {
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 37,8: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 37,5: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 45,4: trung tính.",
+     "explanation": "RSI tuần = 45,3: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 7,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +10,7% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +10,6% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -2582,7 +2582,7 @@
   },
   {
    "date": "2026-09-30",
-   "value": 7.16
+   "value": 7.22
   }
  ],
  "premiumPercentiles": {
@@ -2591,11 +2591,11 @@
   "p80": 15.65
  },
  "sourceTimes": {
-  "world": "2026-09-29T04:00:00.000Z",
-  "dxy": "2026-09-29T04:00:00.000Z",
+  "world": "2026-09-30T00:22:34.000Z",
+  "dxy": "2026-09-30T00:22:48.000Z",
   "yield10y": "2026-09-29T12:20:00.000Z",
-  "vnGold": "2026-09-29T20:53:55.053Z",
-  "usdVnd": "2026-09-29T20:53:55.053Z",
+  "vnGold": "2026-09-30T00:33:52.725Z",
+  "usdVnd": "2026-09-30T00:33:52.725Z",
   "fed": null
  }
 }
