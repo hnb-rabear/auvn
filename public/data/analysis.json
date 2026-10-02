@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-01T19:37:31.178Z",
+ "generatedAt": "2026-10-01T23:57:49.604Z",
  "dataDate": "2026-10-01",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4207.60009765625,
+  "xauUsd": 4208.60009765625,
   "usdVnd": 26180,
-  "worldVndPerLuong": 132808670,
-  "premiumPct": 8.65,
-  "premiumVnd": 11491330
+  "worldVndPerLuong": 132840234,
+  "premiumPct": 8.63,
+  "premiumVnd": 11459766
  },
  "criteria": [
   {
@@ -24,7 +24,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 37,3: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 37,4: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,7%, ở percentile 23 so với lịch sử tự thu thập (600 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,6%, ở percentile 23 so với lịch sử tự thu thập (600 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 102,1 (trên MA50, +2,4% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 102 (trên MA50, +2,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 21%, percentile 85 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 21,1%, percentile 85 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +8,6% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +8,7% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -2590,7 +2590,7 @@
   },
   {
    "date": "2026-10-02",
-   "value": 8.65
+   "value": 8.63
   }
  ],
  "premiumPercentiles": {
@@ -2602,8 +2602,8 @@
   "world": "2026-10-01T04:00:00.000Z",
   "dxy": "2026-10-01T04:00:00.000Z",
   "yield10y": "2026-10-01T12:20:00.000Z",
-  "vnGold": "2026-10-01T19:37:31.178Z",
-  "usdVnd": "2026-10-01T19:37:31.178Z",
+  "vnGold": "2026-10-01T23:57:49.604Z",
+  "usdVnd": "2026-10-01T23:57:49.604Z",
   "fed": null
  }
 }
