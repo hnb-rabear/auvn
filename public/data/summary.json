@@ -1,6 +1,6 @@
 {
  "schemaVersion": "1.6",
- "generatedAt": "2026-10-03T18:04:52.646Z",
+ "generatedAt": "2026-10-03T21:28:51.802Z",
  "dataDate": "2026-10-02",
  "stale": false,
  "staleDays": 0,
@@ -142,7 +142,7 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.627,
   "bearDca": {
-   "generatedAt": "2026-10-03T18:03:36.745Z",
+   "generatedAt": "2026-10-03T21:27:42.956Z",
    "dataDate": "2026-10-02",
    "isBear": true,
    "ddFromAth": 0.2174,
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-10-03T18:04:51.755Z",
+   "generatedAt": "2026-10-03T21:28:51.051Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-10-03T18:04:50.957Z",
+   "generatedAt": "2026-10-03T21:28:50.455Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-10-03T18:03:36.744Z",
+   "generatedAt": "2026-10-03T21:27:42.955Z",
    "recentImprPct": -1.4,
    "recentBrakedMonths": 23,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-10-03T18:03:47.557Z",
+   "generatedAt": "2026-10-03T21:27:52.378Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 4,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-10-03T18:04:52.259Z",
+   "generatedAt": "2026-10-03T21:28:51.483Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -280,8 +280,8 @@
   "world": "2026-10-02T04:00:00.000Z",
   "dxy": "2026-10-02T04:00:00.000Z",
   "yield10y": "2026-10-02T12:20:00.000Z",
-  "vnGold": "2026-10-03T18:01:38.398Z",
-  "usdVnd": "2026-10-03T18:01:38.398Z",
+  "vnGold": "2026-10-03T21:25:55.186Z",
+  "usdVnd": "2026-10-03T21:25:55.186Z",
   "fed": null
  }
 }
