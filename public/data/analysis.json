@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-05T01:02:22.602Z",
+ "generatedAt": "2026-10-05T07:11:02.685Z",
  "dataDate": "2026-10-05",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4183.7001953125,
+  "xauUsd": 4183.89990234375,
   "usdVnd": 26170,
-  "worldVndPerLuong": 132003853,
-  "premiumPct": 8.71,
-  "premiumVnd": 11496147
+  "worldVndPerLuong": 132010154,
+  "premiumPct": 8.7,
+  "premiumVnd": 11489846
  },
  "criteria": [
   {
@@ -45,7 +45,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 1,
-     "explanation": "Giá ở mức 19% biên độ 52 tuần (đáy 3.909 — đỉnh 5.318): vùng thấp của biên độ năm.",
+     "explanation": "Giá ở mức 20% biên độ 52 tuần (đáy 3.909 — đỉnh 5.318): vùng thấp của biên độ năm.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 102 (trên MA50, +3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 102,3 (trên MA50, +3,3% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2602,7 +2602,7 @@
   },
   {
    "date": "2026-10-05",
-   "value": 8.71
+   "value": 8.7
   }
  ],
  "premiumPercentiles": {
@@ -2611,11 +2611,11 @@
   "p80": 15.64
  },
  "sourceTimes": {
-  "world": "2026-10-05T00:51:17.000Z",
-  "dxy": "2026-10-05T00:51:21.000Z",
+  "world": "2026-10-05T04:00:00.000Z",
+  "dxy": "2026-10-05T04:00:00.000Z",
   "yield10y": "2026-10-02T12:20:00.000Z",
-  "vnGold": "2026-10-05T01:02:22.602Z",
-  "usdVnd": "2026-10-05T01:02:22.602Z",
+  "vnGold": "2026-10-05T07:11:02.685Z",
+  "usdVnd": "2026-10-05T07:11:02.685Z",
   "fed": null
  }
 }
