@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-06T17:17:08.984Z",
+ "generatedAt": "2026-10-06T21:42:14.190Z",
  "dataDate": "2026-10-06",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4188,
+  "xauUsd": 4192.7001953125,
   "usdVnd": 26180,
-  "worldVndPerLuong": 132190013,
-  "premiumPct": 8.56,
-  "premiumVnd": 11309987
+  "worldVndPerLuong": 132338370,
+  "premiumPct": 8.43,
+  "premiumVnd": 11161630
  },
  "criteria": [
   {
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 37,7: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 38,3: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 44,8: trung tính.",
+     "explanation": "RSI tuần = 44,9: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 8%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7,9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,6%, ở percentile 23 so với lịch sử tự thu thập (605 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,4%, ở percentile 22 so với lịch sử tự thu thập (605 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -111,7 +111,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -2,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 5,28%, thay đổi 3 tháng +0,71 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 5,27%, thay đổi 3 tháng +0,7 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": 0,
-     "explanation": "Biến động 30 ngày (annualized) = 19,5%, percentile 79 so với lịch sử: biến động bình thường.",
+     "explanation": "Biến động 30 ngày (annualized) = 19,6%, percentile 80 so với lịch sử: biến động bình thường.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 1,
-     "explanation": "XAU/USD thay đổi +7,1% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
+     "explanation": "XAU/USD thay đổi +7,3% so với 12 tháng trước: đà tăng vừa — xu hướng tích cực.",
      "available": true
     }
    ],
@@ -2610,7 +2610,7 @@
   },
   {
    "date": "2026-10-07",
-   "value": 8.56
+   "value": 8.43
   }
  ],
  "premiumPercentiles": {
@@ -2622,8 +2622,8 @@
   "world": "2026-10-06T04:00:00.000Z",
   "dxy": "2026-10-06T04:00:00.000Z",
   "yield10y": "2026-10-06T12:20:00.000Z",
-  "vnGold": "2026-10-06T17:17:08.984Z",
-  "usdVnd": "2026-10-06T17:17:08.984Z",
+  "vnGold": "2026-10-06T21:42:14.190Z",
+  "usdVnd": "2026-10-06T21:42:14.190Z",
   "fed": null
  }
 }
