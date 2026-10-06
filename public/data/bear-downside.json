@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-10-05T22:46:56.317Z",
- "dataDate": "2026-10-05",
- "currentPrice": 4170.7,
- "currentDdPct": 21.6,
+ "generatedAt": "2026-10-06T03:08:09.292Z",
+ "dataDate": "2026-10-06",
+ "currentPrice": 4163.9,
+ "currentDdPct": 21.7,
  "currentBucketIdx": 2,
  "conditioningWorks": false,
  "shownSource": "unconditional",
@@ -48,10 +48,10 @@
    "endMedian": 4.6,
    "endP25": -1.3,
    "endP75": 11.4,
-   "pUp": 70.8,
+   "pUp": 70.4,
    "pUpCi": [
-    55.5,
-    83.2
+    55.2,
+    82.9
    ],
    "n": 1659
   },
@@ -283,12 +283,12 @@
       -1.6
      ],
      "endMedian": 2.7,
-     "endP25": 0.3,
+     "endP25": 0,
      "endP75": 5.6,
-     "pUp": 77.3,
+     "pUp": 69.4,
      "pUpCi": [
-      29.7,
-      93.9
+      27.9,
+      84.4
      ],
      "n": 151
     },
@@ -440,10 +440,10 @@
    "endMedian": 4.6,
    "endP25": -1.3,
    "endP75": 11.4,
-   "pUp": 70.8,
+   "pUp": 70.4,
    "pUpCi": [
-    55.5,
-    83.2
+    55.2,
+    82.9
    ],
    "n": 1659
   },
