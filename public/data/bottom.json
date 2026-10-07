@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-07T16:39:47.826Z",
+ "generatedAt": "2026-10-07T22:05:46.593Z",
  "dataDate": "2026-10-07",
  "cycle": {
   "prob": 46,
@@ -30,28 +30,28 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 34,2: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 34,1: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -16,85: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -16,98: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -2,
-    "explanation": "USD trên MA50, lợi suất +0,77đ/3 tháng, Fed +0đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,74đ/3 tháng, Fed +0đ: vĩ mô bất lợi.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +4,1% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -99,28 +99,28 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 34,2: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 34,1: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -16,85: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -16,98: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -2,
-    "explanation": "USD trên MA50, lợi suất +0,77đ/3 tháng, Fed +0đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,74đ/3 tháng, Fed +0đ: vĩ mô bất lợi.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +4,1% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +4% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
