@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-10T00:58:39.097Z",
+ "generatedAt": "2026-10-10T07:16:07.125Z",
  "dataDate": "2026-10-09",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4220.2998046875,
+  "xauUsd": 4216.2998046875,
   "usdVnd": 26070,
-  "worldVndPerLuong": 132649820,
-  "premiumPct": 9.16,
-  "premiumVnd": 12150180
+  "worldVndPerLuong": 132524094,
+  "premiumPct": 9.26,
+  "premiumVnd": 12275906
  },
  "criteria": [
   {
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 43,9: trung tính.",
+     "explanation": "RSI ngày = 43,5: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 45,1: trung tính.",
+     "explanation": "RSI tuần = 45: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 7,2%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 7,3%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,2%, ở percentile 25 so với lịch sử tự thu thập (608 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9,3%, ở percentile 25 so với lịch sử tự thu thập (608 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 102,2 (trên MA50, +3,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 102,2 (trên MA50, +3,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -132,8 +132,8 @@
     {
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
-     "score": 0,
-     "explanation": "Giá hiện tại cao hơn 30% số phiên trong 1 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "score": 1,
+     "explanation": "Giá hiện tại cao hơn 30% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
@@ -154,11 +154,11 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 20,4%, percentile 82 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 20,3%, percentile 82 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
-   "score": -0.25,
+   "score": 0,
    "available": true
   },
   {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi +3,7% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi +3,6% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 4.2,
+ "composite": 6.7,
  "zone": "neutral",
  "vnHistoryDays": 608,
  "warnings": [
@@ -2622,7 +2622,7 @@
   },
   {
    "date": "2026-10-10",
-   "value": 9.16
+   "value": 9.26
   }
  ],
  "premiumPercentiles": {
@@ -2634,8 +2634,8 @@
   "world": "2026-10-09T04:00:00.000Z",
   "dxy": "2026-10-09T04:00:00.000Z",
   "yield10y": "2026-10-09T12:20:00.000Z",
-  "vnGold": "2026-10-10T00:58:39.097Z",
-  "usdVnd": "2026-10-10T00:58:39.097Z",
+  "vnGold": "2026-10-10T07:16:07.125Z",
+  "usdVnd": "2026-10-10T07:16:07.125Z",
   "fed": null
  }
 }
