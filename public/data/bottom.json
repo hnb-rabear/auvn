@@ -1,43 +1,43 @@
 {
- "generatedAt": "2026-10-13T23:21:49.135Z",
- "dataDate": "2026-10-13",
+ "generatedAt": "2026-10-14T02:01:40.625Z",
+ "dataDate": "2026-10-14",
  "cycle": {
-  "prob": 51.6,
+  "prob": 46,
   "ci": [
-   24.8,
-   73.1
+   28.5,
+   60.6
   ],
-  "probUnweighted": 36,
-  "ess": 111,
-  "bin": 0,
-  "n": 253,
+  "probUnweighted": 32.9,
+  "ess": 138,
+  "bin": 1,
+  "n": 359,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 21,4%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 21,6%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
-    "score": -1,
-    "explanation": "XAU thay đổi +3,2% trong 3 tháng: đang tăng nóng.",
+    "score": 0,
+    "explanation": "XAU thay đổi +2,9% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 0,
-    "explanation": "RSI ngày = 40,6: trung tính.",
+    "score": 1,
+    "explanation": "RSI ngày = 39,5: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
-    "score": 0,
-    "explanation": "MACD histogram -0,32: chưa có dấu đảo chiều.",
+    "score": -1,
+    "explanation": "MACD histogram -1,2: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +4,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +4,2% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -71,42 +71,42 @@
   ]
  },
  "swing": {
-  "prob": 37.3,
+  "prob": 47.1,
   "ci": [
-   25.2,
-   48.9
+   35.6,
+   58.5
   ],
-  "probUnweighted": 34.5,
-  "ess": 107,
-  "bin": 0,
-  "n": 255,
+  "probUnweighted": 43.1,
+  "ess": 136,
+  "bin": 1,
+  "n": 364,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 21,4%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 21,6%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
-    "score": -1,
-    "explanation": "XAU thay đổi +3,2% trong 3 tháng: đang tăng nóng.",
+    "score": 0,
+    "explanation": "XAU thay đổi +2,9% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
-    "score": 0,
-    "explanation": "RSI ngày = 40,6: trung tính.",
+    "score": 1,
+    "explanation": "RSI ngày = 39,5: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
-    "score": 0,
-    "explanation": "MACD histogram -0,32: chưa có dấu đảo chiều.",
+    "score": -1,
+    "explanation": "MACD histogram -1,2: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 0,
-    "explanation": "XAU +4,5% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
+    "explanation": "XAU +4,2% so với 12 tháng trước: đang trên cao, ít khả năng đáy lớn.",
     "available": true
    },
    {
@@ -22523,9 +22523,9 @@
    "swingBin": 0
   },
   {
-   "date": "2026-10-13",
-   "cycleBin": 0,
-   "swingBin": 0
+   "date": "2026-10-14",
+   "cycleBin": 1,
+   "swingBin": 1
   }
  ],
  "bottomHistory": [
@@ -54788,26 +54788,26 @@
    }
   },
   {
-   "date": "2026-10-13",
+   "date": "2026-10-14",
    "cycle": {
-    "bin": 0,
-    "prob": 51.6,
+    "bin": 1,
+    "prob": 46,
     "ci": [
-     24.8,
-     73.1
+     28.5,
+     60.6
     ],
-    "probUnweighted": 36,
-    "n": 253
+    "probUnweighted": 32.9,
+    "n": 359
    },
    "swing": {
-    "bin": 0,
-    "prob": 37.3,
+    "bin": 1,
+    "prob": 47.1,
     "ci": [
-     25.2,
-     48.9
+     35.6,
+     58.5
     ],
-    "probUnweighted": 34.5,
-    "n": 255
+    "probUnweighted": 43.1,
+    "n": 364
    }
   }
  ],
