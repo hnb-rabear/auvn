@@ -1,26 +1,26 @@
 {
  "schemaVersion": "1.6",
- "generatedAt": "2026-10-20T15:12:52.402Z",
+ "generatedAt": "2026-10-20T19:25:44.704Z",
  "dataDate": "2026-10-20",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4161.5,
+  "xauUsd": 4142.7998046875,
   "sjcBuy": 139600000,
   "sjcSell": 142600000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "usdVnd": 26100,
-  "worldVndPerLuong": 130952181,
-  "vnPremiumPct": 8.89,
-  "vnPremiumVnd": 11647819,
+  "usdVnd": 26060,
+  "worldVndPerLuong": 130163941,
+  "vnPremiumPct": 9.55,
+  "vnPremiumVnd": 12436059,
   "changes": {
    "prevDate": "2026-10-19",
-   "xauUsd": -18.4,
+   "xauUsd": -37.1,
    "sjcSell": -500000,
    "ringSell": null,
-   "vnPremiumPct": 0.01
+   "vnPremiumPct": 0.67
   }
  },
  "changed": {
@@ -132,7 +132,7 @@
   },
   "premiumGate": {
    "expensiveVsWorld": false,
-   "premiumPct": 8.89,
+   "premiumPct": 9.55,
    "premiumP80": 15.55,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
@@ -140,19 +140,19 @@
  "accumulation": {
   "effectiveBuyMultiplier": 0.75,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.6131,
+  "pricePercentile2y": 0.5972,
   "bearDca": {
-   "generatedAt": "2026-10-20T15:12:02.812Z",
+   "generatedAt": "2026-10-20T19:24:19.571Z",
    "dataDate": "2026-10-20",
    "isBear": true,
-   "ddFromAth": 0.2175,
-   "ddChange": 0.0418,
+   "ddFromAth": 0.221,
+   "ddChange": 0.0453,
    "phase": "acute",
-   "pricePct2y": 0.6131,
-   "dd42Pct": 11.41598194899741,
+   "pricePct2y": 0.5972,
+   "dd42Pct": 11.81404061475584,
    "mult": 0.75,
    "recoveryRisk": false,
-   "note": "Giá đang sụp cấp tính (đáy sâu thêm +4 điểm %/tháng). Cách đỉnh 22% — dùng độ sâu để tính khối lượng."
+   "note": "Giá đang sụp cấp tính (đáy sâu thêm +5 điểm %/tháng). Cách đỉnh 22% — dùng độ sâu để tính khối lượng."
   },
   "twoYearBrake": {
    "multiplier": 1,
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-10-20T15:12:51.848Z",
+   "generatedAt": "2026-10-20T19:25:43.796Z",
    "items": [
     {
      "presetId": "1m",
@@ -192,9 +192,9 @@
     },
     {
      "presetId": "3m",
-     "minExcessNowPt": 31.2,
+     "minExcessNowPt": 31.3,
      "recentFavPct": 100,
-     "recentBaselinePct": 77.8,
+     "recentBaselinePct": 77.6,
      "recentN": 54,
      "testFavCi95": [
       95.8,
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-10-20T15:12:51.233Z",
+   "generatedAt": "2026-10-20T19:25:43.042Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-10-20T15:12:02.811Z",
+   "generatedAt": "2026-10-20T19:24:19.570Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-10-20T15:12:09.684Z",
+   "generatedAt": "2026-10-20T19:24:31.183Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-10-20T15:12:52.163Z",
+   "generatedAt": "2026-10-20T19:25:44.317Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -280,8 +280,8 @@
   "world": "2026-10-20T04:00:00.000Z",
   "dxy": "2026-10-20T04:00:00.000Z",
   "yield10y": "2026-10-20T12:20:00.000Z",
-  "vnGold": "2026-10-20T15:10:41.355Z",
-  "usdVnd": "2026-10-20T15:10:41.355Z",
+  "vnGold": "2026-10-20T19:22:03.921Z",
+  "usdVnd": "2026-10-20T19:22:03.921Z",
   "fed": null
  }
 }
