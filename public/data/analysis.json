@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-21T18:44:40.573Z",
+ "generatedAt": "2026-10-21T22:27:06.754Z",
  "dataDate": "2026-10-21",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4158.89990234375,
+  "xauUsd": 4155.39990234375,
   "usdVnd": 26050,
-  "worldVndPerLuong": 130619653,
-  "premiumPct": 8.94,
-  "premiumVnd": 11680347
+  "worldVndPerLuong": 130509727,
+  "premiumPct": 9.03,
+  "premiumVnd": 11790273
  },
  "criteria": [
   {
@@ -24,28 +24,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 42,3: trung tính.",
+     "explanation": "RSI ngày = 41,8: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 43,7: trung tính.",
+     "explanation": "RSI tuần = 43,6: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 8,3%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 8,4%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 15% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 14% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 8,9%, ở percentile 24 so với lịch sử tự thu thập (620 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 9%, ở percentile 25 so với lịch sử tự thu thập (620 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -111,7 +111,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -2,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 5,11%, thay đổi 3 tháng +0,41 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 5,15%, thay đổi 3 tháng +0,44 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
      "available": true
     },
     {
@@ -133,7 +133,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 1,
-     "explanation": "Giá hiện tại cao hơn 24% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
+     "explanation": "Giá hiện tại cao hơn 23% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": 0,
-     "explanation": "Biến động 30 ngày (annualized) = 16,4%, percentile 65 so với lịch sử: biến động bình thường.",
+     "explanation": "Biến động 30 ngày (annualized) = 16,4%, percentile 64 so với lịch sử: biến động bình thường.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -4,6% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -4,7% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -2670,7 +2670,7 @@
   },
   {
    "date": "2026-10-22",
-   "value": 8.94
+   "value": 9.03
   }
  ],
  "premiumPercentiles": {
@@ -2682,8 +2682,8 @@
   "world": "2026-10-21T04:00:00.000Z",
   "dxy": "2026-10-21T04:00:00.000Z",
   "yield10y": "2026-10-21T12:20:00.000Z",
-  "vnGold": "2026-10-21T18:44:40.573Z",
-  "usdVnd": "2026-10-21T18:44:40.573Z",
+  "vnGold": "2026-10-21T22:27:06.754Z",
+  "usdVnd": "2026-10-21T22:27:06.754Z",
   "fed": null
  }
 }
