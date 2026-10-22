@@ -8,8 +8,9 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 
 ## Phiên bản
 
-`schemaVersion` hiện là `"1.6"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
+`schemaVersion` hiện là `"1.7"`. Consumer nên từ chối hoặc chuyển sang parser tương ứng khi major version không hỗ trợ. Thêm hoặc đổi nghĩa field phải cập nhật tài liệu và version.
 
+- `1.7`: thêm `dataQuality` (tuổi DỮ LIỆU từng đầu vào: `xau`, `dxy`, `yield10y`, `fed`, `sjc`, `ring`, `usdVnd` — mỗi mục `{asOfDate, source, ageDays, maxAgeDays, status}`, `status` = `ok` / `stale` / `missing`, tuổi tính theo ngày lịch VN của lần chạy (trường nội bộ `runDate` của analysis.json, ≈ ngày VN của `generatedAt`), không phải `dataDate` (ngày bar XAU cuối — nếu dùng nó thì XAU không bao giờ bị báo cũ và tuổi VN âm cuối tuần); ngưỡng `maxAgeDays` lấy từ `MAX_AGE_DAYS` trong `src/lib/data-quality.ts`: xau/dxy/yield10y 5, fed 45, sjc 4, ring 2, usdVnd 4 ngày) và `macro` (`levels`: `dxy`, `us10y` danh nghĩa, `fedFunds`, `fedAsOf`; `signals`: sub-signal vĩ mô y nguyên của engine, điểm −2..+2 + giải thích tiếng Việt). Cùng đợt, `market.vnPremiumPct` / `premiumGate.premiumP80` và lịch sử premium đổi MỘT LẦN vì premium giờ chỉ phụ thuộc ngày (close phiên trước ngày VN, tính lại từ chuỗi Yahoo hiện tại): p20/p50/p80 7,01/12,76/15,55 → 6,92/12,23/14,96 (595/620 dòng đổi). Không phải thị trường đổi. `market.worldVndPerLuong`, `vnPremiumPct`, `vnPremiumVnd` giờ cùng tính từ giá đóng cửa phiên trước ngày của dòng VN hiệu lực; `market.xauUsd` vẫn là bar mới nhất (có thể đang chạy) — đừng tự nhân `xauUsd × usdVnd` để so với `worldVndPerLuong`. Không bỏ field nào.
 - `1.6`: thêm `bottomHunter.cycle.tier` / `swing.tier` (`"high"` / `"normal"` / `"low"`) và `tierEvidence` (`{train, test}` mỗi bên `{favPct, basePct, n, clusters}`) — **trục nên đọc**. `prob` giữ nguyên nhưng giờ ghi rõ là số thô bị hiệu chuẩn ngược ở vùng cao (walk-forward: máy nói 60–80% thì đúng ~26%); chỉ thứ hạng bậc là bền ở cả hai giai đoạn. Khi `crashMode = true`, `tier` đã tự hạ `high` → `normal` (nhóm cao lúc sụp nhanh đo được chỉ ngang nền). Không bỏ field nào.
 - `1.5`: `bottomHunter.crashMode` **đổi nghĩa (mở rộng)** — bật khi pha `acute` HOẶC giá sụt ≥8% so với đỉnh 42 phiên (trước chỉ `acute`). Không đổi tên/kiểu field; consumer làm đúng hướng dẫn cũ (đọc `probUnweighted` khi `true`) không cần sửa code, chỉ sẽ thấy cờ bật thường hơn. Cùng đợt: lịch sử premium hợp nhất tỷ giá về Vietcombank nên `premiumP80` (và `vnPremiumPct` quá khứ) có một bước nhảy một lần (p80 16,2 → 15,67) — không phải thị trường đổi.
 - `1.4`: **BREAKING** — `signals.premiumGate.blocksBuying` đổi tên thành `expensiveVsWorld` và đổi NGHĨA: chênh VN cao giờ là ghi chú chi phí, không còn chặn gợi ý mua. Consumer đang dùng `blocksBuying` để hoãn mua phải bỏ logic đó (bằng chứng: `scripts/premium-gate-study.ts`).
@@ -25,7 +26,7 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 - `stale`, `staleDays`: trạng thái và số ngày dữ liệu cũ theo phân tích AUVN.
 - `market`: giá thị trường hiện tại.
   - `xauUsd`: USD/oz.
-  - `sjcBuy`, `sjcSell`, `ringBuy`, `ringSell`, `worldVndPerLuong`, `vnPremiumVnd`: VND/lượng.
+  - `sjcBuy`, `sjcSell`, `ringBuy`, `ringSell`, `worldVndPerLuong`, `vnPremiumVnd`: VND/lượng (`worldVndPerLuong` = giá thế giới quy đổi từ giá đóng cửa phiên trước ngày của dòng VN hiệu lực, không phải từ `xauUsd` mới nhất).
   - `ringDate`: ngày báo giá nhẫn, hoặc `null`.
   - `usdVnd`: VND/USD.
   - `vnPremiumPct`: premium SJC so với giá thế giới, đơn vị `%`.
@@ -62,6 +63,9 @@ File được tạo cuối mỗi lần `npm run collect`. Consumer chỉ đọc 
 - `warnings`: cảnh báo nguồn và độ mới dữ liệu từ phân tích.
 - `sourceFreshness`: thời điểm từng nguồn, hoặc `null` khi analysis cũ chưa có thông tin này.
 
+- `dataQuality` (1.7): chất lượng từng đầu vào; `null` khi analysis cũ chưa ghi. Giá cũ KHÔNG bị null hóa — `market.ringSell` vẫn là giá nhẫn biết được gần nhất, `dataQuality.ring.status = "stale"` cho biết nó cũ bao nhiêu ngày.
+- `macro.levels`, `macro.signals` (1.7): bối cảnh vĩ mô để đối chiếu tin tức. `us10y` là `null` khi engine đang dùng lợi suất THỰC dự phòng.
+
 Giá chưa có dùng `null`, không dùng `0`.
 
 ## Quy tắc consumer
@@ -77,3 +81,7 @@ Giá chưa có dùng `null`, không dùng `0`.
 9. Dùng `changed` để biết có gì mới, đừng tự lưu state cục bộ. `changed.sincePrevRun = false` và mọi mảng rỗng nghĩa là lần quét này không có gì đáng báo.
 10. Kiểm tra `stale`, `warnings`, `modelHealth.overall`, và `sourceFreshness` trước khi đưa kết luận. `modelHealth.degradedLayers` chứa lớp ngữ cảnh thì chỉ chiết khấu phần ngữ cảnh, không chiết khấu tín hiệu preset. `insufficientLayers` không phải lý do để chiết khấu kết luận — đó là lớp chưa đủ chu kỳ để chấm điểm.
 11. Đây là hỗ trợ quyết định, không phải dự báo hay cam kết lợi nhuận.
+12. Đọc `dataQuality` TRƯỚC: trường nào `stale`/`missing` thì nói ra đầu tiên, kèm `ageDays`, rồi mới kết luận.
+13. Tin tức kinh tế/chính trị được dùng để GIẢI THÍCH trạng thái và nêu rủi ro (ví dụ map tin Fed / USD / lợi suất vào `macro.signals` tương ứng). Tin tức KHÔNG ghi đè `isBuy`, không đổi `effectiveBuyMultiplier`, không sinh xác suất mới.
+14. VIX, chỉ số rủi ro địa chính trị (GPR), dầu, lạm phát kỳ vọng (breakeven), M2 và vị thế COT đã được kiểm định và LOẠI làm tín hiệu cho vàng trong dự án này — chỉ dùng làm màu bối cảnh, không cộng vào kết luận.
+15. Ngày họp FOMC không phải tín hiệu canh thời điểm: biến động giá vàng ngày FOMC đo được NHỎ hơn ngày thường (136 cuộc họp 2009–2026, `docs/sell-zone.md`).

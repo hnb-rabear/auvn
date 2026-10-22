@@ -129,7 +129,7 @@ Tín hiệu lợi suất dùng **^TNX danh nghĩa** (Yahoo) vì toàn bộ bằn
 | **Sóng 3 tháng** (v4.1) | 10% / 20% / 20% / 20% / 10% / 20% | +40 | **89,0%** (n=136) | **99,1%** (n=107) | 54,4% / 67,7% | +7,3% | **12 / 12** |
 | **Tích lũy 6 tháng** (v4.1) | 10% / 10% / 0 / 20% / 20% / 40% | +30 | **65,5%** (n=322) | **98,3%** (n=293) | 55,7% / 77,3% | +13,4% | **15 / 12** |
 
-> **Cập nhật 2026-09-25 — Yahoo sửa lịch sử GC=F + khóa mốc đầu chuỗi.** Ngày 2026-09-15 Yahoo đổi quy ước roll hợp đồng: 1510 bar từ 2020-05 dịch ≤0,85% (ví dụ 29/05/2020: 1736,9 → 1751,7). Bảng trên tính lại trên chuỗi mới bằng `verify-preset-evidence.ts`; mọi ô lệch ≤1,1pt và cả 3 preset vẫn vượt cổng (`monitor-presets`: min-excess 29,8 / 31,3 / 9,8pt, cả ba `status=ok`). Cùng lúc `fetchYahoo` chuyển từ `range=20y` (cửa sổ TRƯỢT, bar 0 tiến mỗi ngày ⇒ lưới thưa 3 phiên đổi pha, mùa vụ + percentile biến động của ngày quá khứ đổi theo — đo được: bỏ 2 bar đầu làm prob săn đáy live nhảy 57,3 → 61,0) sang `period1` CỐ ĐỊNH 2006-09-25. Từ nay chuỗi chỉ dài thêm về cuối. KHÔNG tuyển lại trọng số theo số mới.
+> **Cập nhật 2026-09-25 — Yahoo sửa lịch sử GC=F + khóa mốc đầu chuỗi.** Ngày 2026-09-15 Yahoo đổi quy ước roll hợp đồng: 1510 bar từ 2020-05 dịch trung vị 0,33%, tối đa 1,96% (2023-08-01; 201 bar lệch >0,85% — số ≤0,85% ghi trước đây là sai, đo lại 2026-10-22 từ timeline.json a43063d1→b9e38cf4) (ví dụ 29/05/2020: 1736,9 → 1751,7). Bảng trên tính lại trên chuỗi mới bằng `verify-preset-evidence.ts`; mọi ô lệch ≤1,1pt và cả 3 preset vẫn vượt cổng (`monitor-presets`: min-excess 29,8 / 31,3 / 9,8pt, cả ba `status=ok`). Cùng lúc `fetchYahoo` chuyển từ `range=20y` (cửa sổ TRƯỢT, bar 0 tiến mỗi ngày ⇒ lưới thưa 3 phiên đổi pha, mùa vụ + percentile biến động của ngày quá khứ đổi theo — đo được: bỏ 2 bar đầu làm prob săn đáy live nhảy 57,3 → 61,0) sang `period1` CỐ ĐỊNH 2006-09-25. Từ nay chuỗi chỉ dài thêm về cuối. KHÔNG tuyển lại trọng số theo số mới.
 >
 > Bảng trên cũng là số **sau khi sửa look-ahead FEDFUNDS (2026-09-14)** — xem section riêng bên dưới. Cột cuối là số **cụm độc lập** (hai tín hiệu cách nhau < H phiên = cùng một cụm): đây mới là n dùng để đọc độ tin cậy, KHÔNG phải n ngày. n ngày chồng lấn cửa sổ tương lai nên mọi CI tính theo ngày đều hẹp giả.
 
@@ -258,6 +258,17 @@ Phạm vi cổng đã chặn: **118/583 ngày = 20,2%**, trong đó **8/45 = 18%
 Đã đổi: bỏ `return` sớm — chênh cao nối vào `how` của ô thật thành ghi chú chi phí, giữ nguyên level/tone đã kiểm chứng; `criteria.ts` đổi "vùng bán tốt, tránh mua" → "chi phí mua vàng VN đang đắt so với thế giới"; `summary.json` lên 1.4 (`blocksBuying` → `expensiveVsWorld`); chip UI "CHỜ CHÊNH HẠ" → "QUAN SÁT". `premium-wait` giữ trong union type nhưng không còn bắn. Engine, `zoneOf`, trọng số preset: KHÔNG đụng.
 
 **Nguyên tắc rút ra — cổng đã ship phải chịu đúng cổng đang áp cho cái mới.** Yêu cầu bằng chứng để THÊM mà miễn trừ cái đã có = thiên lệch tích tụ: mọi thứ lọt vào trước khi siết kỷ luật được miễn vĩnh viễn. Hạ về mức mô tả là trạng thái mặc định an toàn, không cần bằng chứng mới.
+
+**Đo lại 2026-10-22 sau khi premium chuyển sang chỉ phụ thuộc ngày** (close phiên trước ngày VN, tính lại từ chuỗi Yahoo hiện tại; `scripts/premium-gate-study.ts`, 620 phiên VN 2025-02-08..2026-10-22, p20=6,92% p80=14,96%, cổng bật 125/620 ngày = 20,2%):
+
+| H (phiên) | cụm độc lập | fav cổng | fav nền | chênh |
+| --- | --- | --- | --- | --- |
+| 5 | 40 | 36,0% | 41,6% | −5,6pt |
+| 10 | 27 | 40,0% | 37,5% | +2,5pt |
+| 21 | 16 | 44,0% | 37,2% | +6,8pt |
+| 63 | 8 | 36,8% | 32,5% | +4,3pt |
+
+(fav = P(giá rẻ hơn sau H).) Ngày preset báo MUA có dữ liệu VN: 46, bị cổng đè 7 (15%), gom thành 3 cụm độc lập (H=21); kết cục H21 4/7 tăng, trung vị +0,7%; H63 4/7 tăng, trung vị +11,2%. Kết luận không đổi: H=5 vẫn ngược dấu (−5,6pt so với −5,2pt trước đó, vẫn 40 cụm) nên cổng vẫn chỉ là ghi chú chi phí; các ô H≥10 vẫn chìm dưới MDE.
 
 ### Thêm premium/tỉ giá vào vùng mua và Bottom Hunter — NO-GO (2026-09-15)
 

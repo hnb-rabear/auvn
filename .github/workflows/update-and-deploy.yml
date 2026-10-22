@@ -53,7 +53,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/data
           git diff --cached --quiet || git commit -m "data: cập nhật $(date -u +%Y-%m-%dT%H:%M)"
-          git pull --rebase -X theirs origin main
+          # Rebase: `ours` = upstream (máy nhà vừa push — nguồn DUY NHẤT có giá nhẫn),
+          # `theirs` = commit Actions đang replay. -X theirs từng để Actions đè dòng máy nhà.
+          git pull --rebase -X ours origin main
           git push
 
       - name: Set build info

@@ -68,6 +68,13 @@ export interface Analysis {
     usdVnd?: string | null;
     fed?: string | null;
   };
+  /** NGÀY DỮ LIỆU của từng đầu vào (không phải giờ fetch) — nguồn của summary.dataQuality.
+   *  fed = nhãn tháng cuối trong chuỗi (đã dời sang ngày khả dụng). */
+  inputDates?: import("./data-quality").InputDates;
+  /** Ngày lịch VN của lần chạy — mốc tính tuổi dataQuality (không dùng dataDate: đó là ngày bar XAU cuối, làm XAU không bao giờ "cũ" và tuổi VN âm cuối tuần). */
+  runDate?: string;
+  /** Mức vĩ mô thô cho consumer máy (Hermes) đối chiếu tin tức. */
+  macroLevels?: { dxy: number | null; us10y: number | null; fedFunds: number | null; fedAsOf: string | null };
 }
 
 /** Sức khỏe preset — tính lại mỗi cron bởi scripts/monitor-presets.ts */

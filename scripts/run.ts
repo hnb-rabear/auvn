@@ -33,6 +33,8 @@ import {
 import { runBottom } from "../src/lib/bottom";
 import { computeTierEvidence } from "../src/lib/bottom-tier";
 import { effectiveRing } from "../src/lib/vn-gold";
+import { lastDateWhere, countRevisions, type InputDates } from "../src/lib/data-quality";
+import { closeBefore, worldVndPerLuong, premiumPct, rederivePremiums } from "../src/lib/premium";
 import { forwardFillBottomHistory, forwardFillBearAsOf } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
 import { runAccumulation } from "../src/lib/accumulation";
@@ -60,9 +62,6 @@ const YIELD_CACHE_FILE = join(HISTORY_DIR, "yield10y.json");
 // backtest.ts bỏ macro khỏi TOÀN BỘ timeline (preset 6m mất 0,8 trọng số) trong khi
 // card live vẫn có yield — cùng họ lỗi FRED-504. Cache như yield.
 const DXY_CACHE_FILE = join(HISTORY_DIR, "dxy.json");
-
-const TROY_OZ_GRAMS = 31.1034768;
-const LUONG_GRAMS = 37.5;
 
 function vnToday(): string {
   return new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
@@ -170,7 +169,11 @@ async function main() {
     fed = loadFedCache();
     if (fed) {
       console.log(`FED: dùng cache đã lưu (${fed.length} months) — FRED không phản hồi.`);
-      warnings.push("Không lấy được lãi suất Fed mới — dùng số liệu Fed đã lưu gần nhất.");
+      const lastFed = fed[fed.length - 1];
+      const fedAge = Math.round((Date.parse(today) - Date.parse(lastFed.date)) / 86_400_000);
+      warnings.push(
+        `Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc ${lastFed.date}, cũ ${fedAge} ngày).`
+      );
     } else {
       warnings.push("Không lấy được lãi suất Fed — tín hiệu lãi suất tạm bỏ qua.");
     }
@@ -190,8 +193,27 @@ async function main() {
   if (yieldRes) console.log(`YIELD10Y: ${yieldRes.bars.length} bars (${yieldRes.source})`);
   else warnings.push("Không lấy được lợi suất Mỹ 10 năm — tín hiệu lợi suất tạm bỏ qua.");
 
-  const history = loadVnHistory();
+  // xauUsd/premiumPct là cột DẪN XUẤT — tái suy ra từ bar hiện tại mỗi lần chạy để premium
+  // chỉ phụ thuộc ngày (không phụ thuộc giờ cron) và tự lành khi Yahoo sửa lịch sử.
+  // CHỈ khi nguồn là GC=F: fallback stooq là giá SPOT (lệch basis futures 0–0,9%) — tái suy
+  // từ nó sẽ viết lại cả lịch sử premium rồi lật lại ở lần chạy sau. Chỉ ở đây, KHÔNG ở
+  // backfill-vn (máy nhà): hai bên cùng viết lại toàn lịch sử = conflict rebase hàng loạt.
+  const history =
+    xauRes.source === "yahoo:GC=F" ? rederivePremiums(loadVnHistory(), xauRes.bars) : loadVnHistory();
   const xauLast = xauRes.bars[xauRes.bars.length - 1].close;
+  // Yahoo sửa lịch sử GC=F không báo (2026-09-15: 1510 phiên, tới 1,96%) — trước đây chỉ
+  // lộ ra khi npm test đỏ sau deploy. So với timeline lần trước (đọc TRƯỚC khi ghi đè), ghi cảnh báo.
+  const prevTlFile = join(DATA_DIR, "timeline.json");
+  if (existsSync(prevTlFile)) {
+    try {
+      const prevPts: { date: string; price: number }[] = JSON.parse(readFileSync(prevTlFile, "utf8")).points ?? [];
+      const revised = countRevisions(prevPts, xauRes.bars);
+      if (revised >= 5)
+        warnings.push(`Yahoo đã sửa ${revised} phiên GC=F quá khứ (lệch > 0,5%) — các số kiểm chứng có thể trôi, chạy lại test evidence.`);
+    } catch {
+      /* timeline cũ hỏng: bỏ qua, lần sau so tiếp */
+    }
+  }
 
   // --- cập nhật lịch sử VN nếu fetch hôm nay thành công
   // Tỷ giá của MỘT ngày chỉ được ghi MỘT LẦN. Trước 2026-09-25 cron dùng giá bán
@@ -212,14 +234,9 @@ async function main() {
     }
   }
 
-  const worldVndPerLuong =
-    usdVnd !== null ? (xauLast / TROY_OZ_GRAMS) * LUONG_GRAMS * usdVnd : null;
+  const xauToday = closeBefore(xauRes.bars, today);
 
   if (vnRes && vnRes.sjcSell !== null) {
-    const premiumPct =
-      worldVndPerLuong !== null
-        ? ((vnRes.sjcSell - worldVndPerLuong) / worldVndPerLuong) * 100
-        : null;
     const idx = history.findIndex((e) => e.date === today);
     const existing = idx >= 0 ? history[idx] : null;
     // vnRes có thể chỉ là fallback cafef (không có giá nhẫn) trong khi entry
@@ -232,8 +249,8 @@ async function main() {
       ringBuy: vnRes.ringBuy ?? existing?.ringBuy ?? null,
       ringSell: vnRes.ringSell ?? existing?.ringSell ?? null,
       usdVnd,
-      xauUsd: xauLast,
-      premiumPct: premiumPct === null ? null : Math.round(premiumPct * 100) / 100,
+      xauUsd: xauToday,
+      premiumPct: premiumPct(vnRes.sjcSell, worldVndPerLuong(xauToday, usdVnd)),
     };
     if (idx >= 0) history[idx] = entry;
     else history.push(entry);
@@ -248,6 +265,8 @@ async function main() {
 
   const ring = effectiveRing(history, effective?.date);
 
+  // Thế giới quy đổi + chênh VND tính từ CÙNG dòng hiệu lực với premiumPct (không trộn giá live).
+  const worldEff = worldVndPerLuong(effective?.xauUsd ?? null, effective?.usdVnd ?? usdVnd);
   const prices: Prices = {
     sjcBuy: effective?.sjcBuy ?? null,
     sjcSell: effective?.sjcSell ?? null,
@@ -256,13 +275,10 @@ async function main() {
     ringDate: ring.date,
     xauUsd: xauLast,
     usdVnd,
-    worldVndPerLuong:
-      worldVndPerLuong === null ? null : Math.round(worldVndPerLuong),
+    worldVndPerLuong: worldEff === null ? null : Math.round(worldEff),
     premiumPct: effective?.premiumPct ?? null,
     premiumVnd:
-      effective?.sjcSell != null && worldVndPerLuong != null
-        ? Math.round(effective.sjcSell - worldVndPerLuong)
-        : null,
+      effective?.sjcSell != null && worldEff !== null ? Math.round(effective.sjcSell - worldEff) : null,
   };
 
   // --- chấm điểm 4 tiêu chí
@@ -325,6 +341,22 @@ async function main() {
     usdVnd: usdVndRes ? nowIso : null,
     fed: fedRes && fedRes.length ? nowIso : null,
   };
+  const lastBar = (b: DailyBar[] | null | undefined) => (b && b.length ? b[b.length - 1] : null);
+  const inputDates: InputDates = {
+    xau: { date: lastBar(xauRes.bars)?.date ?? null, source: xauRes.source },
+    dxy: { date: lastBar(dxyRes?.bars)?.date ?? null, source: dxyRes?.source ?? "none" },
+    yield10y: { date: lastBar(yieldRes?.bars)?.date ?? null, source: yieldRes?.source ?? "none" },
+    fed: { date: fed?.[fed.length - 1]?.date ?? null, source: fedRes ? "fred" : fed ? "cache" : "none" },
+    sjc: { date: lastDateWhere(history, (e) => e.sjcSell !== null), source: vnRes?.source ?? "history" },
+    ring: { date: lastDateWhere(history, (e) => e.ringSell !== null), source: vnRes?.ringSell != null ? vnRes.source : "history" },
+    usdVnd: { date: lastDateWhere(history, (e) => e.usdVnd !== null), source: usdVndRes?.source ?? "history" },
+  };
+  const macroLevels = {
+    dxy: lastBar(dxyRes?.bars)?.close ?? null,
+    us10y: yieldRes && !yieldRes.real ? (lastBar(yieldRes.bars)?.close ?? null) : null,
+    fedFunds: fed?.[fed.length - 1]?.value ?? null,
+    fedAsOf: fed?.[fed.length - 1]?.date ?? null,
+  };
   const analysis: Analysis = {
     generatedAt: nowIso,
     dataDate: dates[dates.length - 1],
@@ -343,6 +375,9 @@ async function main() {
         ? { p20: pct(0.2), p50: pct(0.5), p80: pct(0.8) }
         : undefined,
     sourceTimes,
+    inputDates,
+    runDate: today,
+    macroLevels,
   };
 
   // --- backtest + timeline giả lập lịch sử (cùng bộ tín hiệu với phân tích live)

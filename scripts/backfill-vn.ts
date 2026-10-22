@@ -11,11 +11,9 @@ import { pathToFileURL } from "node:url";
 import { fetchXau, fetchVnGold, fetchVcbUsdVndAt, type DailyBar } from "./fetch";
 import { collectRingGold } from "./ring-gold";
 import type { VnGoldEntry } from "../src/lib/types";
+import { closeBefore, worldVndPerLuong, premiumPct } from "../src/lib/premium";
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0 Safari/537.36";
-
-const TROY_OZ_GRAMS = 31.1034768;
-const LUONG_GRAMS = 37.5;
 
 async function fetchCafefSjc(): Promise<{ date: string; buy: number; sell: number }[]> {
   const res = await fetch("https://cafef.vn/du-lieu/Ajax/ajaxgoldpricehistory.ashx?index=all", {
@@ -167,17 +165,11 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
   let vcbMiss = 0;
   for (const c of cafef) {
     if (have.has(c.date)) continue;
-    const xauClose = xau ? atOrBefore(xau.bars, c.date) : null;
+    const xauClose = xau ? closeBefore(xau.bars, c.date) : null;
     // Vietcombank là nguồn CHUẨN cho usdVnd (giống cron); Yahoo chỉ dự phòng.
     const vcb = await fetchVcbUsdVndAt(c.date);
     if (vcb === null) vcbMiss++;
     const rate = vcb ?? (usdVnd ? atOrBefore(usdVnd, c.date) : null);
-    const world =
-      xauClose !== null && rate !== null
-        ? (xauClose / TROY_OZ_GRAMS) * LUONG_GRAMS * rate
-        : null;
-    const premiumPct =
-      world !== null ? Math.round(((c.sell - world) / world) * 10000) / 100 : null;
     history.push({
       date: c.date,
       sjcBuy: c.buy,
@@ -186,7 +178,7 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
       ringSell: null,
       usdVnd: rate,
       xauUsd: xauClose,
-      premiumPct,
+      premiumPct: premiumPct(c.sell, worldVndPerLuong(xauClose, rate)),
       backfilled: true,
     });
     added++;
@@ -202,7 +194,7 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
     const idx = history.findIndex((e) => e.date === vnToday);
     const existing = idx >= 0 ? history[idx] : undefined;
 
-    const freshXau = xau ? atOrBefore(xau.bars, vnToday) : null;
+    const freshXau = xau ? closeBefore(xau.bars, vnToday) : null;
     const xauClose = freshXau ?? (existing?.xauUsd ?? null);
 
     // Giữ tỷ giá đã ghi cho CHÍNH ngày này (xem comment cùng chủ đề trong scripts/run.ts):
@@ -212,16 +204,6 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
       existing?.usdVnd ??
       (await fetchVcbUsdVndAt(vnToday)) ??
       (usdVnd ? atOrBefore(usdVnd, vnToday) : null);
-
-    const world =
-      xauClose !== null && rate !== null
-        ? (xauClose / TROY_OZ_GRAMS) * LUONG_GRAMS * rate
-        : null;
-
-    const premiumPct =
-      world !== null && live.sjcSell !== null
-        ? Math.round(((live.sjcSell - world) / world) * 10000) / 100
-        : null;
 
     const hasNewRingPair =
       live.ringBuy != null &&
@@ -241,7 +223,7 @@ export async function runBackfill(rootDir = process.cwd()): Promise<void> {
       ringSell,
       usdVnd: rate,
       xauUsd: xauClose,
-      premiumPct,
+      premiumPct: premiumPct(live.sjcSell, worldVndPerLuong(xauClose, rate)),
     };
     if (idx >= 0) history[idx] = entry;
     else history.push(entry);

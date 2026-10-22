@@ -14,6 +14,8 @@ import {
   macroCriterion,
   momentumCriterion,
   statsCriterion,
+  RING_HOT_PCT,
+  RING_CHEAP_PCT,
 } from "../src/lib/criteria";
 import { compositeScore, zoneOf, DEFAULT_WEIGHTS, PRESETS } from "../src/lib/types";
 import { runBacktest } from "../scripts/backtest";
@@ -160,6 +162,16 @@ describe("criteria", () => {
     });
     expect(r.provisional).toBe(false);
     expect(r.signals.find((s) => s.id === "premium")!.score).toBe(2);
+  });
+
+  it("ring: nhẫn đắt hơn miếng chút ít là BÌNH THƯỜNG, chỉ đuôi mới chấm điểm", () => {
+    const ring = (d: number) =>
+      premiumCriterion({ premiumPct: 10, spreadPct: 1.5, ringDiscountPct: d, premiumHistory: [] })
+        .signals.find((s) => s.id === "ring")!.score;
+    expect(ring(-0.75)).toBe(0); // trung vị đo được — ngưỡng cũ chấm −1
+    expect(ring(RING_HOT_PCT)).toBe(-1);
+    expect(ring(RING_CHEAP_PCT)).toBe(1);
+    expect(ring(0.2)).toBe(0);
   });
 
   it("macro: strong USD downtrend favors gold", () => {

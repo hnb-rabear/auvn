@@ -187,6 +187,15 @@ export interface PremiumInputs {
   premiumHistory: number[];
 }
 
+/**
+ * Ngưỡng nhẫn–miếng từ 67 phiên có cả hai giá (2026-06-11..09-27): ringDiscountPct
+ * p10 −1,67 / p50 −0,75 / p90 +0,27 — nhẫn ĐẮT hơn miếng là trạng thái thường
+ * (56/67). Ngưỡng cũ `< 0` chấm "sốt bất thường" gần như mọi ngày, `> 8` không bao
+ * giờ bật. Mới: đuôi ~5% mỗi phía. Đo lại khi đủ ≥6 tháng nhẫn liên tục.
+ */
+export const RING_HOT_PCT = -2; // 3/67 phiên ≤ −2
+export const RING_CHEAP_PCT = 0.5; // 6/67 phiên ≥ +0,5
+
 /** Tiêu chí 2: chênh lệch VN — thế giới. */
 export function premiumCriterion(inp: PremiumInputs): CriterionResult {
   const signals: SubSignal[] = [];
@@ -260,13 +269,13 @@ export function premiumCriterion(inp: PremiumInputs): CriterionResult {
     signals.push(unavailable("ring", "Tương quan nhẫn — miếng"));
   } else {
     let score = 0;
-    let text = "nhẫn và miếng ở tương quan bình thường.";
-    if (inp.ringDiscountPct > 8) {
+    let text = "nhẫn và miếng ở tương quan bình thường (thường nhẫn đắt hơn miếng 0–2%).";
+    if (inp.ringDiscountPct >= RING_CHEAP_PCT) {
       score = 1;
-      text = `nhẫn rẻ hơn miếng ${fmt(inp.ringDiscountPct)}% — kênh nhẫn đang hấp dẫn hơn cho người mua.`;
-    } else if (inp.ringDiscountPct < 0) {
+      text = `nhẫn rẻ hơn miếng ${fmt(inp.ringDiscountPct)}% — rẻ bất thường so với lịch sử, kênh nhẫn đang hấp dẫn hơn.`;
+    } else if (inp.ringDiscountPct <= RING_HOT_PCT) {
       score = -1;
-      text = "nhẫn đắt hơn cả miếng — nhu cầu đang sốt bất thường, cẩn trọng.";
+      text = `nhẫn đắt hơn miếng ${fmt(-inp.ringDiscountPct)}% — cao bất thường so với lịch sử, nhu cầu nhẫn đang nóng.`;
     }
     signals.push({
       id: "ring",

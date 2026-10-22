@@ -356,16 +356,35 @@ async function fetchBtmc(): Promise<VnGoldQuote> {
   return q;
 }
 
+const vnDayOf = (iso: string) => new Date(Date.parse(iso) + 7 * 3600_000).toISOString().slice(0, 10);
+
+type CafefRow = { name?: string; buyPrice?: number; sellPrice?: number; createdAt?: string };
+
+/** Dòng SJC muộn nhất mang ngày VN `vnDay`; null nếu cafef chưa có dòng hôm nay.
+ *  Trước đây lấy dòng đầu tiên bất kể ngày ⇒ giá 23h hôm qua bị ghi thành hôm nay. */
+export function pickCafefSjc(
+  json: unknown,
+  vnDay: string
+): { buyPrice?: number; sellPrice?: number } | null {
+  const rows =
+    (json as { Data?: { goldPriceWorldHistories?: CafefRow[] } })?.Data?.goldPriceWorldHistories ?? [];
+  let best: CafefRow | null = null;
+  for (const r of rows) {
+    if (String(r.name ?? "").toUpperCase() !== "SJC" || !r.createdAt) continue;
+    if (vnDayOf(r.createdAt) !== vnDay) continue;
+    if (!best || Date.parse(r.createdAt) > Date.parse(best.createdAt!)) best = r;
+  }
+  return best;
+}
+
 /** Nguồn 3: cafef.vn (chỉ SJC, không có nhẫn) — domain khác BTMC/SJC, dùng khi
  *  cả hai bị chặn IP trên runner cron (xem lastVnGoldError, 2026-07). */
 async function fetchCafef(): Promise<VnGoldQuote> {
   const txt = await get("https://cafef.vn/du-lieu/Ajax/ajaxgoldpricehistory.ashx?index=all");
-  const json = JSON.parse(txt);
-  const rows: { name?: string; buyPrice?: number; sellPrice?: number }[] =
-    json?.Data?.goldPriceWorldHistories ?? [];
-  const row = rows.find((r) => String(r.name ?? "").toUpperCase() === "SJC");
-  const buy = row?.buyPrice != null ? normalizeVnd(row.buyPrice * 1_000_000) : null;
-  const sell = row?.sellPrice != null ? normalizeVnd(row.sellPrice * 1_000_000) : null;
+  const row = pickCafefSjc(JSON.parse(txt), vnDayOf(new Date().toISOString()));
+  if (!row) throw new Error("cafef: chưa có dòng SJC cho hôm nay");
+  const buy = row.buyPrice != null ? normalizeVnd(row.buyPrice * 1_000_000) : null;
+  const sell = row.sellPrice != null ? normalizeVnd(row.sellPrice * 1_000_000) : null;
   if (!sell) throw new Error("cafef: no usable row");
   return { sjcBuy: buy, sjcSell: sell, ringBuy: null, ringSell: null, source: "cafef" };
 }

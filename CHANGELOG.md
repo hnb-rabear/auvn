@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 - Giá nhẫn trơn 9999 theo thương hiệu (BTMC / BTMH) trên Dashboard và Time Machine (`src/components/Dashboard.tsx`, `src/app/page.tsx`).
 - Bộ chọn thương hiệu nhẫn (BTMC / BTMH) lưu tại thiết bị (`au-settings-v2`), bảo toàn lựa chọn hãng khi đổi trọng số hoặc preset (`src/lib/settings.ts`).
 - Lưu trữ lịch sử giá nhẫn theo thương hiệu độc lập tại `public/data/history/ring-gold.json`.
+- `summary.json` lên `1.7`: `dataQuality` (tuổi dữ liệu từng đầu vào) và `macro` (DXY, lợi suất 10 năm, lãi suất Fed + sub-signal vĩ mô) để AI consumer đối chiếu tin tức (`src/lib/summary.ts`, `src/lib/data-quality.ts`, `docs/summary-json.md`).
+- Telegram báo khi một đầu vào chuyển sang cũ/mất và khi có lại — một tin mỗi lần chuyển, không spam mỗi giờ (`scripts/notify.ts`).
+- Cảnh báo khi Yahoo sửa ≥5 phiên GC=F quá khứ; cảnh báo Fed ghi tuổi cache (`scripts/run.ts`).
 
 ### Fixed
 - Cron dừng thay vì ghi đè `vn-gold.json` còn 1 dòng khi file lịch sử hỏng (`scripts/run.ts`).
@@ -28,6 +31,10 @@ All notable changes to this project will be documented in this file.
 - Tỷ giá của một ngày chỉ ghi một lần, và cả hai đường ghi đều dùng Vietcombank: premium cùng ngày không còn nhảy qua lại (`scripts/run.ts`, `scripts/backfill-vn.ts`, `scripts/fetch.ts`).
 - `summary.json` lên `1.5`: `bottomHunter.crashMode` bật theo cổng mới (acute hoặc sụt ≥8%/42 phiên) và note nói rõ đây là độ tin cậy thấp (`src/lib/summary.ts`, `docs/summary-json.md`).
 - Hợp nhất lịch sử tỷ giá USD/VND về Vietcombank: `scripts/migrate-usdvnd-vcb.ts` tính lại 532/593 dòng (chênh premium trung vị −0,57 điểm %, p50 13,35 → 12,88, p80 16,2 → 15,67). Trước đó lịch sử trộn Yahoo `VND=X` với Vietcombank nên các dòng không so được với nhau.
+- Premium VN chỉ phụ thuộc ngày: dùng giá đóng cửa phiên trước ngày VN và tính lại từ chuỗi Yahoo hiện tại mỗi lần chạy — trước đây cùng một ngày lệch tới 4,2 điểm % tùy giờ cron (`src/lib/premium.ts`, `scripts/run.ts`, `scripts/backfill-vn.ts`).
+- cafef không còn ghi giá SJC của hôm qua thành hôm nay (`scripts/fetch.ts`).
+- Ngưỡng nhẫn–miếng lấy từ phân bố đo được: nhẫn đắt hơn miếng 0–2% là bình thường, không còn báo "sốt bất thường" gần như mọi ngày (`src/lib/criteria.ts`).
+- Bước commit dữ liệu của workflow rebase bằng `-X ours`: dòng giá nhẫn máy nhà vừa push không còn bị commit của Actions đè (`.github/workflows/update-and-deploy.yml`).
 
 ### Changed
 - Săn đáy hiển thị theo bậc ("Cao hơn / Ngang / Thấp hơn bình thường") kèm tỉ lệ nền từng giai đoạn thay cho số %: % bị hiệu chuẩn ngược ở vùng cao (máy nói 60–80% đúng ~26%), còn thứ hạng bậc đúng ở cả hai giai đoạn. Đang sụp nhanh thì bậc cao tự hạ một bậc. Gợi ý hành động, Time Machine và `summary.json` 1.6 (`tier`, `tierEvidence`) dùng chung (`src/lib/bottom-tier.ts`, `src/components/BottomGauges.tsx`, `src/lib/as-of.ts`, `src/lib/summary.ts`).

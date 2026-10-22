@@ -5,6 +5,7 @@ import {
   consensusLabel,
 } from "./consensus";
 import { isCrashDisplayMode } from "./bear-dca";
+import { assessDataQuality, type DataQuality } from "./data-quality";
 import { bottomTierOf, type BottomTier, type TierEraStat, type TierEvidence } from "./bottom-tier";
 import { isPremiumHigh } from "./guidance";
 import { bottomStartIdxsFromBins } from "./timeline";
@@ -22,6 +23,7 @@ import type {
   BottomAnalysis,
   BottomTierResult,
   VnGoldEntry,
+  SubSignal,
 } from "./types";
 import type { BottomHealth } from "../../scripts/monitor-bottom";
 
@@ -72,7 +74,7 @@ export interface SummaryChanged {
 }
 
 export interface AuvnSummary {
-  schemaVersion: "1.6";
+  schemaVersion: "1.7";
   generatedAt: string;
   dataDate: string;
   stale: boolean;
@@ -157,6 +159,13 @@ export interface AuvnSummary {
   };
   warnings: string[];
   sourceFreshness: NonNullable<Analysis["sourceTimes"]> | null;
+  /** Tuổi DỮ LIỆU từng đầu vào so `runDate` (ngày lịch VN của lần chạy; analysis cũ: dataDate) (1.7). null = analysis cũ chưa ghi inputDates. */
+  dataQuality: DataQuality | null;
+  /** Vĩ mô cho consumer đối chiếu tin tức (1.7): mức thô + sub-signal y nguyên của tiêu chí vĩ mô. */
+  macro: {
+    levels: NonNullable<Analysis["macroLevels"]> | null;
+    signals: SubSignal[];
+  };
 }
 
 export interface BuildSummaryInput {
@@ -352,7 +361,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     : "ok";
 
   return {
-    schemaVersion: "1.6",
+    schemaVersion: "1.7",
     generatedAt: input.nowIso ?? new Date().toISOString(),
     dataDate: analysis.dataDate,
     stale: analysis.stale,
@@ -416,5 +425,10 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     },
     warnings: analysis.warnings,
     sourceFreshness: analysis.sourceTimes ?? null,
+    dataQuality: analysis.inputDates ? assessDataQuality(analysis.inputDates, analysis.runDate ?? analysis.dataDate) : null,
+    macro: {
+      levels: analysis.macroLevels ?? null,
+      signals: analysis.criteria.find((c) => c.key === "macro")?.signals ?? [],
+    },
   };
 }

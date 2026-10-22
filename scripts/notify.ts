@@ -16,6 +16,8 @@ import {
   type Zone,
 } from "../src/lib/types";
 import { presetSignals } from "../src/lib/consensus";
+import { dataQualityTransitions } from "../src/lib/data-quality";
+import type { AuvnSummary } from "../src/lib/summary";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const STATE_FILE = join(DATA_DIR, "notify-state.json");
@@ -107,6 +109,21 @@ async function main() {
       `🟡 Radar toàn cảnh âm sâu (điểm ${analysis.composite}) — gió ngược ngắn hạn: giá 1 tháng tới thường đi ngang/giảm nhẹ, không cần vội đuổi giá. ` +
         `KHÔNG phải tín hiệu bán (kết cục 6 tháng phụ thuộc thị trường — sai gần 100% trong năm bull); với người mua tương đương trung tính.`
     );
+  }
+
+  // Dữ liệu đầu vào cũ/mất — chỉ báo lúc CHUYỂN trạng thái (cron mỗi giờ). Cùng ngưỡng
+  // MAX_AGE_DAYS với summary.json.dataQuality mà Hermes đọc. Nhẫn từng null 25 ngày
+  // (2026-09-28..10-22) không ai biết vì cảnh báo chỉ nằm trong analysis.json.
+  const summaryFile = join(DATA_DIR, "summary.json");
+  if (existsSync(summaryFile)) {
+    try {
+      const summary: AuvnSummary = JSON.parse(readFileSync(summaryFile, "utf8"));
+      if (summary.dataQuality) {
+        const t = dataQualityTransitions(state, summary.dataQuality);
+        lines.push(...t.lines);
+        Object.assign(newState, t.state);
+      }
+    } catch {}
   }
 
   writeFileSync(STATE_FILE, JSON.stringify(newState, null, 1));
