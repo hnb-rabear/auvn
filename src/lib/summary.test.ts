@@ -75,6 +75,16 @@ function createMockInput(overrides?: Partial<BuildSummaryInput>): BuildSummaryIn
       usdVnd: "2026-09-05T01:00:00.000Z",
       fed: null,
     },
+    inputDates: {
+      xau: { date: "2026-09-04", source: "yahoo:GC=F" },
+      dxy: { date: "2026-09-04", source: "yahoo:DX-Y.NYB" },
+      yield10y: { date: "2026-09-04", source: "yahoo:^TNX" },
+      fed: { date: "2026-07-01", source: "cache" },
+      sjc: { date: "2026-09-04", source: "cafef" },
+      ring: { date: "2026-08-30", source: "history" },
+      usdVnd: { date: "2026-09-04", source: "vietcombank" },
+    },
+    macroLevels: { dxy: 98.1, us10y: 4.12, fedFunds: 3.63, fedAsOf: "2026-07-01" },
   };
 
   const mockAccumulation: AccumulationAnalysis = {
@@ -200,7 +210,7 @@ describe("buildAuvnSummary", () => {
     const input = createMockInput();
     const s = buildAuvnSummary(input);
 
-    expect(s.schemaVersion).toBe("1.6");
+    expect(s.schemaVersion).toBe("1.7");
     expect(s.dataDate).toBe("2026-09-04");
     expect(s.stale).toBe(false);
     expect(s.staleDays).toBe(0);
@@ -590,5 +600,26 @@ describe("bottomHunter.tier (1.6)", () => {
     expect(crash.crashMode).toBe(true);
     expect(crash.cycle.tier).toBe("normal");
     expect(crash.cycle.tierEvidence).toEqual(EV.cycle.normal);
+  });
+});
+
+describe("buildAuvnSummary — dataQuality + macro (1.7)", () => {
+  it("chấm tuổi từng đầu vào theo dataDate, nhẫn/Fed cũ thì stale nhưng giá vẫn giữ", () => {
+    const s = buildAuvnSummary(createMockInput());
+    expect(s.dataQuality?.ring).toMatchObject({ asOfDate: "2026-08-30", ageDays: 5, status: "stale" });
+    expect(s.dataQuality?.fed).toMatchObject({ ageDays: 65, status: "stale" });
+    expect(s.dataQuality?.xau.status).toBe("ok");
+    expect(s.market.ringSell).toBe(150500000); // không null hóa giá cũ
+  });
+  it("analysis cũ không có inputDates ⇒ dataQuality null (không bịa)", () => {
+    const input = createMockInput();
+    delete input.analysis.inputDates;
+    expect(buildAuvnSummary(input).dataQuality).toBeNull();
+  });
+  it("macro xuất mức thô và sub-signal vĩ mô y nguyên từ criteria", () => {
+    const m = buildAuvnSummary(createMockInput()).macro;
+    expect(m.levels).toEqual({ dxy: 98.1, us10y: 4.12, fedFunds: 3.63, fedAsOf: "2026-07-01" });
+    expect(m.signals.map((x) => x.id)).toEqual(["dxy", "fed", "yield10y"]);
+    expect(m.signals[0]).toMatchObject({ score: 1, explanation: "down" });
   });
 });
