@@ -264,8 +264,10 @@ describe("runBackfill", () => {
     await runBackfillFast(tmpDir);
 
     const updatedHistory: VnGoldEntry[] = JSON.parse(fs.readFileSync(vnFile, "utf8"));
-    // 2026-09-10 (old), 2026-09-11 (new backfill), and 2026-09-15 (today's live from cafef)
-    expect(updatedHistory.length).toBe(3);
+    // 2026-09-10 (old) + 2026-09-11 (new backfill). KHÔNG có 2026-09-15: cafef chưa có dòng
+    // hôm nay, nên không được chép giá ngày 09-10 sang thành "hôm nay" (lỗi cũ).
+    expect(updatedHistory.length).toBe(2);
+    expect(updatedHistory.find((r) => r.date === "2026-09-15")).toBeUndefined();
 
     const oldRow = updatedHistory.find((r) => r.date === "2026-09-10");
     expect(oldRow?.sjcBuy).toBe(79_000_000);
