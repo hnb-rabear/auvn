@@ -376,6 +376,7 @@ async function main() {
         : undefined,
     sourceTimes,
     inputDates,
+    runDate: today,
     macroLevels,
   };
 

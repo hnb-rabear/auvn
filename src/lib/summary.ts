@@ -159,7 +159,7 @@ export interface AuvnSummary {
   };
   warnings: string[];
   sourceFreshness: NonNullable<Analysis["sourceTimes"]> | null;
-  /** Tuổi DỮ LIỆU từng đầu vào so `dataDate` (1.7). null = analysis cũ chưa ghi inputDates. */
+  /** Tuổi DỮ LIỆU từng đầu vào so `runDate` (ngày lịch VN của lần chạy; analysis cũ: dataDate) (1.7). null = analysis cũ chưa ghi inputDates. */
   dataQuality: DataQuality | null;
   /** Vĩ mô cho consumer đối chiếu tin tức (1.7): mức thô + sub-signal y nguyên của tiêu chí vĩ mô. */
   macro: {
@@ -425,7 +425,7 @@ export function buildAuvnSummary(input: BuildSummaryInput): AuvnSummary {
     },
     warnings: analysis.warnings,
     sourceFreshness: analysis.sourceTimes ?? null,
-    dataQuality: analysis.inputDates ? assessDataQuality(analysis.inputDates, analysis.dataDate) : null,
+    dataQuality: analysis.inputDates ? assessDataQuality(analysis.inputDates, analysis.runDate ?? analysis.dataDate) : null,
     macro: {
       levels: analysis.macroLevels ?? null,
       signals: analysis.criteria.find((c) => c.key === "macro")?.signals ?? [],
