@@ -137,6 +137,50 @@ export function nextMonthStart(date: string): string {
   return m === 12 ? `${y + 1}-01-01` : `${y}-${String(m + 1).padStart(2, "0")}-01`;
 }
 
+/** EFFR ngày -> trung bình tháng ĐÃ KẾT THÚC, nhãn dời như FEDFUNDS (FEDFUNDS = trung
+ *  bình tháng của EFFR; đo 08/2026: 3,630 vs 3,63). Bỏ tháng đang chạy (ym >= todayYm). */
+export function monthlyMeansShifted(
+  rows: { effectiveDate: string; percentRate: number }[],
+  todayYm: string
+): { date: string; value: number }[] {
+  const byMonth = new Map<string, number[]>();
+  for (const r of rows) {
+    const ym = r.effectiveDate.slice(0, 7);
+    if (ym >= todayYm || !Number.isFinite(r.percentRate)) continue;
+    (byMonth.get(ym) ?? byMonth.set(ym, []).get(ym)!).push(r.percentRate);
+  }
+  return [...byMonth.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([ym, v]) => ({
+      date: nextMonthStart(`${ym}-01`),
+      value: Math.round((v.reduce((s, x) => s + x, 0) / v.length) * 100) / 100,
+    }));
+}
+
+/** Dự phòng khi FRED không phản hồi (chặn IP Actions): EFFR của NY Fed, ~200 ngày gần nhất. */
+export async function fetchEffrTail(): Promise<{ date: string; value: number }[] | null> {
+  try {
+    const end = new Date().toISOString().slice(0, 10);
+    const start = new Date(Date.now() - 200 * 86_400_000).toISOString().slice(0, 10);
+    const json = JSON.parse(
+      await get(`https://markets.newyorkfed.org/api/rates/unsecured/effr/search.json?startDate=${start}&endDate=${end}`)
+    );
+    const out = monthlyMeansShifted(json?.refRates ?? [], end.slice(0, 7));
+    return out.length ? out : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Gộp đuôi EFFR vào cache Fed: CHỈ thêm tháng cache chưa có (FEDFUNDS là nguồn chuẩn, không ghi đè). */
+export function appendNewMonths(
+  cache: { date: string; value: number }[],
+  tail: { date: string; value: number }[]
+): { date: string; value: number }[] {
+  const have = new Set(cache.map((r) => r.date));
+  return [...cache, ...tail.filter((r) => !have.has(r.date))].sort((a, b) => a.date.localeCompare(b.date));
+}
+
 /**
  * Lợi suất trái phiếu Mỹ 10 năm — CHỈ thử ^TNX (danh nghĩa), không tự tráo
  * sang FRED DFII10 (lợi suất thực) bên trong hàm này nữa: real và nominal là

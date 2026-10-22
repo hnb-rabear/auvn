@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Dự phòng lãi suất Fed từ NY Fed EFFR (trung bình tháng) khi FRED không phản hồi từ runner Actions (`scripts/fetch.ts`, `scripts/run.ts`).
 - Giá nhẫn trơn 9999 theo thương hiệu (BTMC / BTMH) trên Dashboard và Time Machine (`src/components/Dashboard.tsx`, `src/app/page.tsx`).
 - Bộ chọn thương hiệu nhẫn (BTMC / BTMH) lưu tại thiết bị (`au-settings-v2`), bảo toàn lựa chọn hãng khi đổi trọng số hoặc preset (`src/lib/settings.ts`).
 - Lưu trữ lịch sử giá nhẫn theo thương hiệu độc lập tại `public/data/history/ring-gold.json`.

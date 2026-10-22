@@ -5,6 +5,8 @@ import {
   fetchXau,
   fetchDxy,
   fetchFedFunds,
+  fetchEffrTail,
+  appendNewMonths,
   fetchVnGold,
   fetchUsdVnd,
   fetchYield10y,
@@ -163,17 +165,29 @@ async function main() {
   // Fed: fetch được thì dùng + cache lại; hỏng thì lùi về chuỗi đã lưu để
   // macro không biến mất khỏi backtest chỉ vì FRED chập chờn một lần.
   let fed = fedRes;
+  let fedFromEffr = false;
   if (fed) {
     console.log(`FED: ${fed.length} months`);
   } else {
     fed = loadFedCache();
     if (fed) {
-      console.log(`FED: dùng cache đã lưu (${fed.length} months) — FRED không phản hồi.`);
-      const lastFed = fed[fed.length - 1];
-      const fedAge = Math.round((Date.parse(today) - Date.parse(lastFed.date)) / 86_400_000);
-      warnings.push(
-        `Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc ${lastFed.date}, cũ ${fedAge} ngày).`
-      );
+      // FRED chặn IP Actions: nối đuôi EFFR của NY Fed (chỉ tháng cache chưa có).
+      const tail = await fetchEffrTail();
+      const merged = tail ? appendNewMonths(fed, tail) : fed;
+      if (merged.length > fed.length) {
+        fed = merged;
+        fedFromEffr = true;
+        writeFileSync(FED_CACHE_FILE, JSON.stringify(fed, null, 1));
+        console.log(`FED: cache + NY Fed EFFR (${fed.length} months) — FRED không phản hồi.`);
+        warnings.push("FRED không phản hồi — Fed lấy từ NY Fed EFFR (trung bình tháng).");
+      } else {
+        console.log(`FED: dùng cache đã lưu (${fed.length} months) — FRED không phản hồi.`);
+        const lastFed = fed[fed.length - 1];
+        const fedAge = Math.round((Date.parse(today) - Date.parse(lastFed.date)) / 86_400_000);
+        warnings.push(
+          `Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc ${lastFed.date}, cũ ${fedAge} ngày).`
+        );
+      }
     } else {
       warnings.push("Không lấy được lãi suất Fed — tín hiệu lãi suất tạm bỏ qua.");
     }
@@ -346,7 +360,7 @@ async function main() {
     xau: { date: lastBar(xauRes.bars)?.date ?? null, source: xauRes.source },
     dxy: { date: lastBar(dxyRes?.bars)?.date ?? null, source: dxyRes?.source ?? "none" },
     yield10y: { date: lastBar(yieldRes?.bars)?.date ?? null, source: yieldRes?.source ?? "none" },
-    fed: { date: fed?.[fed.length - 1]?.date ?? null, source: fedRes ? "fred" : fed ? "cache" : "none" },
+    fed: { date: fed?.[fed.length - 1]?.date ?? null, source: fedRes ? "fred" : fedFromEffr ? "nyfed:effr" : fed ? "cache" : "none" },
     sjc: { date: lastDateWhere(history, (e) => e.sjcSell !== null), source: vnRes?.source ?? "history" },
     ring: { date: lastDateWhere(history, (e) => e.ringSell !== null), source: vnRes?.ringSell != null ? vnRes.source : "history" },
     usdVnd: { date: lastDateWhere(history, (e) => e.usdVnd !== null), source: usdVndRes?.source ?? "history" },

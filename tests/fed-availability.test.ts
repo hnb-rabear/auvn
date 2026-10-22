@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { nextMonthStart } from "../scripts/fetch";
+import { nextMonthStart, appendNewMonths, monthlyMeansShifted } from "../scripts/fetch";
 
 /**
  * Khóa bất biến past-only cho FEDFUNDS.
@@ -43,5 +43,40 @@ describe("FEDFUNDS availability shift", () => {
       `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, "0")}-01`
     );
     expect(rows[rows.length - 1].date <= limit).toBe(true);
+  });
+});
+
+describe("appendNewMonths (dự phòng EFFR)", () => {
+  it("chỉ THÊM tháng cache chưa có, không ghi đè tháng FRED đã có", () => {
+    const cache = [
+      { date: "2026-08-01", value: 3.63 },
+      { date: "2026-09-01", value: 3.63 },
+    ];
+    const tail = [
+      { date: "2026-09-01", value: 9.99 }, // khác giá trị: phải bị bỏ qua
+      { date: "2026-10-01", value: 3.75 },
+    ];
+    expect(appendNewMonths(cache, tail)).toEqual([
+      { date: "2026-08-01", value: 3.63 },
+      { date: "2026-09-01", value: 3.63 },
+      { date: "2026-10-01", value: 3.75 },
+    ]);
+    expect(appendNewMonths(cache, [])).toEqual(cache);
+  });
+});
+
+describe("monthlyMeansShifted (dự phòng EFFR)", () => {
+  it("trung bình tháng đã kết thúc, nhãn dời sang ngày khả dụng, bỏ tháng đang chạy", () => {
+    const rows = [
+      { effectiveDate: "2026-08-03", percentRate: 3.63 },
+      { effectiveDate: "2026-08-31", percentRate: 3.63 },
+      { effectiveDate: "2026-09-01", percentRate: 3.63 },
+      { effectiveDate: "2026-09-30", percentRate: 3.89 },
+      { effectiveDate: "2026-10-20", percentRate: 3.88 },
+    ];
+    expect(monthlyMeansShifted(rows, "2026-10")).toEqual([
+      { date: "2026-09-01", value: 3.63 },
+      { date: "2026-10-01", value: 3.76 },
+    ]);
   });
 });
