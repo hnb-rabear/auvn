@@ -157,6 +157,13 @@ export function monthlyMeansShifted(
     }));
 }
 
+/** Tháng cắt cho monthlyMeansShifted: lùi 5 ngày so với `nowMs`. NY Fed công bố EFFR ngày D vào
+ *  ngày làm việc kế tiếp (~9h ET) — ngay sau mốc UTC sang tháng, ngày làm việc cuối của tháng
+ *  trước chưa có; appendNewMonths chỉ-thêm sẽ đóng băng trung bình thiếu ngày đó trong cache. */
+export function effrCutoffYm(nowMs: number): string {
+  return new Date(nowMs - 5 * 86_400_000).toISOString().slice(0, 7);
+}
+
 /** Dự phòng khi FRED không phản hồi (chặn IP Actions): EFFR của NY Fed, ~200 ngày gần nhất. */
 export async function fetchEffrTail(): Promise<{ date: string; value: number }[] | null> {
   try {
@@ -165,7 +172,7 @@ export async function fetchEffrTail(): Promise<{ date: string; value: number }[]
     const json = JSON.parse(
       await get(`https://markets.newyorkfed.org/api/rates/unsecured/effr/search.json?startDate=${start}&endDate=${end}`)
     );
-    const out = monthlyMeansShifted(json?.refRates ?? [], end.slice(0, 7));
+    const out = monthlyMeansShifted(json?.refRates ?? [], effrCutoffYm(Date.now()));
     return out.length ? out : null;
   } catch {
     return null;

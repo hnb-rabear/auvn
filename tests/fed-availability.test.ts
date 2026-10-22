@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { nextMonthStart, appendNewMonths, monthlyMeansShifted } from "../scripts/fetch";
+import { nextMonthStart, appendNewMonths, monthlyMeansShifted, effrCutoffYm } from "../scripts/fetch";
 
 /**
  * Khóa bất biến past-only cho FEDFUNDS.
@@ -78,5 +78,12 @@ describe("monthlyMeansShifted (dự phòng EFFR)", () => {
       { date: "2026-09-01", value: 3.63 },
       { date: "2026-10-01", value: 3.76 },
     ]);
+  });
+});
+
+describe("effrCutoffYm (độ trễ công bố EFFR)", () => {
+  it("tháng chỉ được phát khi mọi ngày làm việc đã công bố (lùi 5 ngày)", () => {
+    expect(effrCutoffYm(Date.parse("2026-11-01T00:23:00Z"))).toBe("2026-10"); // tháng 10 còn bị loại
+    expect(effrCutoffYm(Date.parse("2026-11-06T00:00:00Z"))).toBe("2026-11"); // tháng 10 đã được phép
   });
 });
