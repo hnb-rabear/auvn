@@ -531,7 +531,7 @@ export default function Dashboard({
           </div>
         ) : (
           <div className="price-item">
-            <span>Thế giới quy đổi</span>
+            <span>Thế giới quy đổi (đóng cửa phiên trước)</span>
             <b>{fmtMoney(analysis.prices.worldVndPerLuong)}/lượng</b>
           </div>
         )}

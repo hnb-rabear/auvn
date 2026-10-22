@@ -33,6 +33,7 @@ import {
 import { runBottom } from "../src/lib/bottom";
 import { computeTierEvidence } from "../src/lib/bottom-tier";
 import { effectiveRing } from "../src/lib/vn-gold";
+import { closeBefore, worldVndPerLuong, premiumPct, rederivePremiums } from "../src/lib/premium";
 import { forwardFillBottomHistory, forwardFillBearAsOf } from "../src/lib/timeline";
 import { monitorBottom, type BottomHealth } from "./monitor-bottom";
 import { runAccumulation } from "../src/lib/accumulation";
@@ -60,9 +61,6 @@ const YIELD_CACHE_FILE = join(HISTORY_DIR, "yield10y.json");
 // backtest.ts bỏ macro khỏi TOÀN BỘ timeline (preset 6m mất 0,8 trọng số) trong khi
 // card live vẫn có yield — cùng họ lỗi FRED-504. Cache như yield.
 const DXY_CACHE_FILE = join(HISTORY_DIR, "dxy.json");
-
-const TROY_OZ_GRAMS = 31.1034768;
-const LUONG_GRAMS = 37.5;
 
 function vnToday(): string {
   return new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
@@ -190,7 +188,13 @@ async function main() {
   if (yieldRes) console.log(`YIELD10Y: ${yieldRes.bars.length} bars (${yieldRes.source})`);
   else warnings.push("Không lấy được lợi suất Mỹ 10 năm — tín hiệu lợi suất tạm bỏ qua.");
 
-  const history = loadVnHistory();
+  // xauUsd/premiumPct là cột DẪN XUẤT — tái suy ra từ bar hiện tại mỗi lần chạy để premium
+  // chỉ phụ thuộc ngày (không phụ thuộc giờ cron) và tự lành khi Yahoo sửa lịch sử.
+  // CHỈ khi nguồn là GC=F: fallback stooq là giá SPOT (lệch basis futures 0–0,9%) — tái suy
+  // từ nó sẽ viết lại cả lịch sử premium rồi lật lại ở lần chạy sau. Chỉ ở đây, KHÔNG ở
+  // backfill-vn (máy nhà): hai bên cùng viết lại toàn lịch sử = conflict rebase hàng loạt.
+  const history =
+    xauRes.source === "yahoo:GC=F" ? rederivePremiums(loadVnHistory(), xauRes.bars) : loadVnHistory();
   const xauLast = xauRes.bars[xauRes.bars.length - 1].close;
 
   // --- cập nhật lịch sử VN nếu fetch hôm nay thành công
@@ -212,14 +216,9 @@ async function main() {
     }
   }
 
-  const worldVndPerLuong =
-    usdVnd !== null ? (xauLast / TROY_OZ_GRAMS) * LUONG_GRAMS * usdVnd : null;
+  const xauToday = closeBefore(xauRes.bars, today);
 
   if (vnRes && vnRes.sjcSell !== null) {
-    const premiumPct =
-      worldVndPerLuong !== null
-        ? ((vnRes.sjcSell - worldVndPerLuong) / worldVndPerLuong) * 100
-        : null;
     const idx = history.findIndex((e) => e.date === today);
     const existing = idx >= 0 ? history[idx] : null;
     // vnRes có thể chỉ là fallback cafef (không có giá nhẫn) trong khi entry
@@ -232,8 +231,8 @@ async function main() {
       ringBuy: vnRes.ringBuy ?? existing?.ringBuy ?? null,
       ringSell: vnRes.ringSell ?? existing?.ringSell ?? null,
       usdVnd,
-      xauUsd: xauLast,
-      premiumPct: premiumPct === null ? null : Math.round(premiumPct * 100) / 100,
+      xauUsd: xauToday,
+      premiumPct: premiumPct(vnRes.sjcSell, worldVndPerLuong(xauToday, usdVnd)),
     };
     if (idx >= 0) history[idx] = entry;
     else history.push(entry);
@@ -248,6 +247,8 @@ async function main() {
 
   const ring = effectiveRing(history, effective?.date);
 
+  // Thế giới quy đổi + chênh VND tính từ CÙNG dòng hiệu lực với premiumPct (không trộn giá live).
+  const worldEff = worldVndPerLuong(effective?.xauUsd ?? null, effective?.usdVnd ?? usdVnd);
   const prices: Prices = {
     sjcBuy: effective?.sjcBuy ?? null,
     sjcSell: effective?.sjcSell ?? null,
@@ -256,13 +257,10 @@ async function main() {
     ringDate: ring.date,
     xauUsd: xauLast,
     usdVnd,
-    worldVndPerLuong:
-      worldVndPerLuong === null ? null : Math.round(worldVndPerLuong),
+    worldVndPerLuong: worldEff === null ? null : Math.round(worldEff),
     premiumPct: effective?.premiumPct ?? null,
     premiumVnd:
-      effective?.sjcSell != null && worldVndPerLuong != null
-        ? Math.round(effective.sjcSell - worldVndPerLuong)
-        : null,
+      effective?.sjcSell != null && worldEff !== null ? Math.round(effective.sjcSell - worldEff) : null,
   };
 
   // --- chấm điểm 4 tiêu chí
