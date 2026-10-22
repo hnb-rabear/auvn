@@ -605,7 +605,7 @@ describe("bottomHunter.tier (1.6)", () => {
 });
 
 describe("buildAuvnSummary — dataQuality + macro (1.7)", () => {
-  it("chấm tuổi từng đầu vào theo dataDate, nhẫn/Fed cũ thì stale nhưng giá vẫn giữ", () => {
+  it("chấm tuổi từng đầu vào theo ngày chạy VN (runDate), nhẫn/Fed cũ thì stale nhưng giá vẫn giữ", () => {
     const s = buildAuvnSummary(createMockInput());
     expect(s.dataQuality?.ring).toMatchObject({ asOfDate: "2026-08-30", ageDays: 6, status: "stale" });
     expect(s.dataQuality?.fed).toMatchObject({ ageDays: 66, status: "stale" });

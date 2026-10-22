@@ -83,7 +83,7 @@ tính lại bằng `scripts/calc-fusion-evidence.ts`: **trainN 60→45, testN 75
 fullFav 97,0→97,4, CI [91,1;100]→[92,2;100]. `trainFav` 93,3% và `testFav` 100% KHÔNG đổi.
 
 **Cập nhật 2026-09-25 — Yahoo sửa lịch sử GC=F + CI theo cụm độc lập.** (a) Yahoo đổi quy ước roll
-hợp đồng ngày 2026-09-15 (1510 bar từ 2020-05 dịch ≤0,85%) ⇒ tập ngày trúng đổi: **testN 71→66,
+hợp đồng ngày 2026-09-15 (1510 bar từ 2020-05 dịch trung vị 0,33%, tối đa 1,96%) ⇒ tập ngày trúng đổi: **testN 71→66,
 fullN 116→111**, fullFav 97,4→97,3. `fusion.evidence.test.ts` khóa các số này đã FAIL âm thầm 10
 ngày vì workflow chưa chạy `npm test` — nay đã thêm bước test sau deploy. (b) CI chuyển sang
 `clusterBootstrapCiWeighted` (bootstrap theo CỤM ĐỘC LẬP — cùng hàm `monitor-presets` dùng từ
