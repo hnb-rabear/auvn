@@ -215,7 +215,7 @@ Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESET
 | Việc | Vì sao |
 | --- | --- |
 | ~~**P2-1. `sync-vn-gold.ts` lấy luôn giá nhẫn từ IP nhà**~~ | ✅ **ĐÓNG 2026-09-05 — không phải việc thêm nguồn, là một bug URL.** `sync-vn-gold.ts` đã chạy `backfill-vn.ts`, đã ghi `ringBuy/ringSell` từ `fetchVnGold()`; hỏng ở chỗ khác: BTMC (nguồn DUY NHẤT còn báo giá nhẫn) được gọi bằng `http://api.btmc.vn/...` nhưng host đã ngừng nghe port 80 — đo từ IP nhà, `http://` **timeout ~10,5s cả 3 lần**, `https://` **200 trong ~150ms cả 3 lần** (payload có đúng row `NHẪN TRÒN TRƠN`). Mỗi lần BTMC hỏng, fetch rơi xuống cafef (chỉ SJC) và ghi `ringSell = null` cho ngày đó, mất vĩnh viễn. Sửa: 1 ký tự URL trong `scripts/fetch.ts` + comment cảnh báo. SJC vẫn 403 Cloudflare **cả từ IP nhà** ⇒ giả định "IP nhà lấy được mọi nguồn" chỉ đúng với BTMC/cafef, không đúng với SJC |
-| **P2-2. Tích lũy nhẫn tới ≥6 tháng liên tục** | Nhẫn hiện 50 phiên (2026-06-11..09-05), còn 8 phiên trống trước bản sửa P2-1 (không backfill được — cafef không có giá nhẫn). Mở khóa ring-vs-bar (đang BLOCKED vì cỡ mẫu, `docs/bottom.md`) khoảng **2026-12** |
+| **P2-2. Tích lũy nhẫn tới ≥6 tháng liên tục** | Nhẫn hiện 50 phiên (2026-06-11..09-05), còn 8 phiên trống trước bản sửa P2-1 (không backfill được — cafef không có giá nhẫn). Mở khóa ring-vs-bar (đang BLOCKED vì cỡ mẫu, `docs/bottom.md`) khoảng **2027-04** (nhẫn null 2026-09-28..10-22 do máy sync nhà ngừng, không backfill được; đồng hồ 6 tháng tính lại) |
 | **P2-3. Tích lũy premium SJC tới ≥36 tháng** | Mở khóa 3 thứ cùng lúc: `premium: 0` ở preset (#9), `premium-brake-study` (NO-GO-vì-mẫu-mỏng, cơ chế cùng họ với phanh đã thành công), `premium-exit-v2` (0/12 vì era B chỉ ~1-2 cửa sổ độc lập) |
 
 ### ĐÃ ĐÓNG — không đưa vào lộ trình
@@ -238,7 +238,7 @@ Không đổi: `criteria.ts`, ngưỡng 10/30/70/90, cửa sổ 252/756, `PRESET
 | Mục còn mở | Chờ gì | Mốc dự kiến | Chạy lại cái gì |
 | --- | --- | --- | --- |
 | P1-4. Net-return có điều kiện tín hiệu | ≥36 tháng SJC (hiện ~19–23 tháng, 1 chế độ bull duy nhất) | ~2027 | `scripts/vn-net-return.ts` (P0-2 đo vô-điều-kiện) + thêm bộ lọc "chỉ ngày preset báo mua" |
-| P2-2. Ring-vs-bar | ≥6 tháng nhẫn liên tục (hiện 50 phiên từ 2026-06-11, 8 phiên trống trước bản sửa P2-1 không backfill được) | ~2026-12 | study mới theo khung `dca-zone-v2` rangePos (chưa viết — viết khi đủ dữ liệu, không viết trước) |
+| P2-2. Ring-vs-bar | ≥6 tháng nhẫn liên tục (hiện 50 phiên từ 2026-06-11, 8 phiên trống trước bản sửa P2-1 không backfill được) | ~2027-04 (nhẫn null 2026-09-28..10-22 do máy sync nhà ngừng, không backfill được; đồng hồ 6 tháng tính lại) | study mới theo khung `dca-zone-v2` rangePos (chưa viết — viết khi đủ dữ liệu, không viết trước) |
 | P2-3. Premium-exit v2 + premium-brake | ≥36 tháng VN (cả hai là NO-GO **cỡ mẫu**, không phải NO-GO tín hiệu) | ~2027 | `premium-exit-v2-study.ts`, `premium-brake-study.ts` |
 | Mùa vụ VN theo lịch Tết | ≥3 mùa Tết trên giá SJC | ~2028 | chưa có script |
 

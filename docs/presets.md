@@ -259,6 +259,17 @@ Phạm vi cổng đã chặn: **118/583 ngày = 20,2%**, trong đó **8/45 = 18%
 
 **Nguyên tắc rút ra — cổng đã ship phải chịu đúng cổng đang áp cho cái mới.** Yêu cầu bằng chứng để THÊM mà miễn trừ cái đã có = thiên lệch tích tụ: mọi thứ lọt vào trước khi siết kỷ luật được miễn vĩnh viễn. Hạ về mức mô tả là trạng thái mặc định an toàn, không cần bằng chứng mới.
 
+**Đo lại 2026-10-22 sau khi premium chuyển sang chỉ phụ thuộc ngày** (close phiên trước ngày VN, tính lại từ chuỗi Yahoo hiện tại; `scripts/premium-gate-study.ts`, 620 phiên VN 2025-02-08..2026-10-22, p20=6,92% p80=14,96%, cổng bật 125/620 ngày = 20,2%):
+
+| H (phiên) | cụm độc lập | fav cổng | fav nền | chênh |
+| --- | --- | --- | --- | --- |
+| 5 | 40 | 36,0% | 41,6% | −5,6pt |
+| 10 | 27 | 40,0% | 37,5% | +2,5pt |
+| 21 | 16 | 44,0% | 37,2% | +6,8pt |
+| 63 | 8 | 36,8% | 32,5% | +4,3pt |
+
+(fav = P(giá rẻ hơn sau H).) Ngày preset báo MUA có dữ liệu VN: 46, bị cổng đè 7 (15%), gom thành 3 cụm độc lập (H=21); kết cục H21 4/7 tăng, trung vị +0,7%; H63 4/7 tăng, trung vị +11,2%. Kết luận không đổi: H=5 vẫn ngược dấu (−5,6pt so với −5,2pt trước đó, vẫn 40 cụm) nên cổng vẫn chỉ là ghi chú chi phí; các ô H≥10 vẫn chìm dưới MDE.
+
 ### Thêm premium/tỉ giá vào vùng mua và Bottom Hunter — NO-GO (2026-09-15)
 
 Phản biện chéo 3 model, kết luận đồng thuận. Lý do là **công suất**, không phải cơ chế.

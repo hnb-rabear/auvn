@@ -292,7 +292,7 @@ Mỗi lần BTMC hỏng, fetch rơi xuống cafef và ghi `ringSell = null` cho 
 (hôm sau `vnToday` đã đổi). Đã đổi sang `https://`; kiểm lại `fetchVnGold()` trả
 `source: "btmc"` kèm `ringBuy/ringSell`. Vẫn còn 8 phiên trống trước bản sửa (2026-07-11, 07-12,
 07-24, 07-30, 07-31, 08-01, 08-04, 09-04) — CafeF không có giá nhẫn nên không backfill được.
-Mốc đủ dữ liệu để chạy ring-vs-bar: ~2026-12 (6 tháng liên tục kể từ 2026-06-11).
+Mốc đủ dữ liệu để chạy ring-vs-bar: ~2027-04 (đồng hồ 6 tháng tính lại: nhẫn null 2026-09-28..10-22 do máy sync nhà ngừng, không backfill được).
 
 **Test 6 — lệch tương quan liên thị trường ("cross-asset divergence", `scripts/divergence-study.ts`):**
 cơ chế khác hẳn 5 test trên — không dùng VN premium, không dùng vị trí giá hay biến động, mà
