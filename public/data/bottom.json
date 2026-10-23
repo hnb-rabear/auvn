@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-10-22T22:28:30.124Z",
- "dataDate": "2026-10-22",
+ "generatedAt": "2026-10-23T01:39:19.473Z",
+ "dataDate": "2026-10-23",
  "cycle": {
   "prob": 46,
   "ci": [
@@ -16,28 +16,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 0,
-    "explanation": "XAU thay đổi -0,7% trong 3 tháng: đi ngang.",
+    "explanation": "XAU thay đổi -0,8% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 33: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 32,6: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -1,45: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -1,81: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -1,6% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -1,7% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -85,28 +85,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 24,1%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 0,
-    "explanation": "XAU thay đổi -0,7% trong 3 tháng: đi ngang.",
+    "explanation": "XAU thay đổi -0,8% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 33: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 32,6: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -1,45: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -1,81: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -1,6% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -1,7% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -22558,7 +22558,7 @@
    "swingBin": 0
   },
   {
-   "date": "2026-10-22",
+   "date": "2026-10-23",
    "cycleBin": 1,
    "swingBin": 1
   }
@@ -54892,7 +54892,7 @@
    }
   },
   {
-   "date": "2026-10-22",
+   "date": "2026-10-23",
    "cycle": {
     "bin": 1,
     "prob": 46,
