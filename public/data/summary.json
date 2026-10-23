@@ -1,26 +1,26 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-10-23T18:31:14.193Z",
+ "generatedAt": "2026-10-23T22:23:28.545Z",
  "dataDate": "2026-10-23",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4012.89990234375,
+  "xauUsd": 4010,
   "sjcBuy": 139000000,
   "sjcSell": 142000000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
   "usdVnd": 26020,
-  "worldVndPerLuong": 125889048,
-  "vnPremiumPct": 12.8,
-  "vnPremiumVnd": 16110952,
+  "worldVndPerLuong": 125798075,
+  "vnPremiumPct": 12.88,
+  "vnPremiumVnd": 16201925,
   "changes": {
    "prevDate": "2026-10-22",
-   "xauUsd": -137.1,
+   "xauUsd": -140,
    "sjcSell": -300000,
    "ringSell": null,
-   "vnPremiumPct": 3.62
+   "vnPremiumPct": 3.7
   }
  },
  "changed": {
@@ -132,7 +132,7 @@
   },
   "premiumGate": {
    "expensiveVsWorld": false,
-   "premiumPct": 12.8,
+   "premiumPct": 12.88,
    "premiumP80": 14.92,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
@@ -142,14 +142,14 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.504,
   "bearDca": {
-   "generatedAt": "2026-10-23T18:29:57.088Z",
+   "generatedAt": "2026-10-23T22:22:00.719Z",
    "dataDate": "2026-10-23",
    "isBear": true,
-   "ddFromAth": 0.2455,
-   "ddChange": 0.0536,
+   "ddFromAth": 0.246,
+   "ddChange": 0.0542,
    "phase": "acute",
    "pricePct2y": 0.504,
-   "dd42Pct": 14.519118116945362,
+   "dd42Pct": 14.58089253381617,
    "mult": 0.75,
    "recoveryRisk": false,
    "note": "Giá đang sụp cấp tính (đáy sâu thêm +5 điểm %/tháng). Cách đỉnh 25% — dùng độ sâu để tính khối lượng."
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-10-23T18:31:13.277Z",
+   "generatedAt": "2026-10-23T22:23:27.751Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-10-23T18:31:12.612Z",
+   "generatedAt": "2026-10-23T22:23:27.127Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-10-23T18:29:57.087Z",
+   "generatedAt": "2026-10-23T22:22:00.718Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-10-23T18:30:08.371Z",
+   "generatedAt": "2026-10-23T22:22:11.269Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-10-23T18:31:13.794Z",
+   "generatedAt": "2026-10-23T22:23:28.204Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -280,8 +280,8 @@
   "world": "2026-10-23T04:00:00.000Z",
   "dxy": "2026-10-23T04:00:00.000Z",
   "yield10y": "2026-10-23T12:20:00.000Z",
-  "vnGold": "2026-10-23T18:27:55.956Z",
-  "usdVnd": "2026-10-23T18:27:55.956Z",
+  "vnGold": "2026-10-23T22:19:40.265Z",
+  "usdVnd": "2026-10-23T22:19:40.265Z",
   "fed": null
  },
  "dataQuality": {
@@ -337,8 +337,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.822998046875,
-   "us10y": 4.984000205993652,
+   "dxy": 101.75199890136719,
+   "us10y": 4.98799991607666,
    "fedFunds": 3.75,
    "fedAsOf": "2026-10-01"
   },
@@ -361,7 +361,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -1,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 4,98%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 4,99%, thay đổi 3 tháng +0,35 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
