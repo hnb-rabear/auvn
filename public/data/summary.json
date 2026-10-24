@@ -1,6 +1,6 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-10-24T14:42:09.421Z",
+ "generatedAt": "2026-10-24T18:17:25.072Z",
  "dataDate": "2026-10-23",
  "stale": false,
  "staleDays": 0,
@@ -142,7 +142,7 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.5,
   "bearDca": {
-   "generatedAt": "2026-10-24T14:40:53.679Z",
+   "generatedAt": "2026-10-24T18:16:07.357Z",
    "dataDate": "2026-10-23",
    "isBear": true,
    "ddFromAth": 0.2464,
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-10-24T14:42:08.558Z",
+   "generatedAt": "2026-10-24T18:17:24.092Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-10-24T14:42:07.894Z",
+   "generatedAt": "2026-10-24T18:17:23.371Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-10-24T14:40:53.677Z",
+   "generatedAt": "2026-10-24T18:16:07.356Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-10-24T14:41:04.617Z",
+   "generatedAt": "2026-10-24T18:16:18.168Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-10-24T14:42:09.054Z",
+   "generatedAt": "2026-10-24T18:17:24.654Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -273,48 +273,48 @@
   }
  },
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 23 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 24 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
   "world": "2026-10-23T04:00:00.000Z",
   "dxy": "2026-10-23T04:00:00.000Z",
   "yield10y": "2026-10-23T12:20:00.000Z",
-  "vnGold": "2026-10-24T14:38:53.818Z",
-  "usdVnd": "2026-10-24T14:38:53.818Z",
+  "vnGold": "2026-10-24T18:14:06.644Z",
+  "usdVnd": "2026-10-24T18:14:06.644Z",
   "fed": null
  },
  "dataQuality": {
   "xau": {
    "asOfDate": "2026-10-23",
    "source": "yahoo:GC=F",
-   "ageDays": 1,
+   "ageDays": 2,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "dxy": {
    "asOfDate": "2026-10-23",
    "source": "yahoo:DX-Y.NYB",
-   "ageDays": 1,
+   "ageDays": 2,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "yield10y": {
    "asOfDate": "2026-10-23",
    "source": "yahoo:^TNX",
-   "ageDays": 1,
+   "ageDays": 2,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "fed": {
    "asOfDate": "2026-10-01",
    "source": "cache",
-   "ageDays": 23,
+   "ageDays": 24,
    "maxAgeDays": 45,
    "status": "ok"
   },
   "sjc": {
-   "asOfDate": "2026-10-24",
+   "asOfDate": "2026-10-25",
    "source": "cafef",
    "ageDays": 0,
    "maxAgeDays": 4,
@@ -323,12 +323,12 @@
   "ring": {
    "asOfDate": "2026-09-27",
    "source": "history",
-   "ageDays": 27,
+   "ageDays": 28,
    "maxAgeDays": 2,
    "status": "stale"
   },
   "usdVnd": {
-   "asOfDate": "2026-10-24",
+   "asOfDate": "2026-10-25",
    "source": "vietcombank",
    "ageDays": 0,
    "maxAgeDays": 4,
