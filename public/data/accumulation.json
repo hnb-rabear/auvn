@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-10-24T00:49:17.445Z",
+ "generatedAt": "2026-10-24T06:01:50.065Z",
  "dataDate": "2026-10-23",
- "pricePct2y": 0.503968253968254,
+ "pricePct2y": 0.5,
  "mult": 1,
  "brakes": [],
  "provisional": false,
@@ -21483,7 +21483,7 @@
   },
   {
    "date": "2026-10-23",
-   "pricePct2y": 0.503968253968254,
+   "pricePct2y": 0.5,
    "mult": 1
   }
  ],

@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-10-24T00:47:50.011Z",
+ "generatedAt": "2026-10-24T06:00:09.489Z",
  "dataDate": "2026-10-23",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 139000000,
-  "sjcSell": 142000000,
+  "sjcBuy": 138700000,
+  "sjcSell": 141700000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4010,
+  "xauUsd": 4007.89990234375,
   "usdVnd": 26020,
-  "worldVndPerLuong": 125798075,
-  "premiumPct": 12.88,
-  "premiumVnd": 16201925
+  "worldVndPerLuong": 125732192,
+  "premiumPct": 12.7,
+  "premiumVnd": 15967808
  },
  "criteria": [
   {
@@ -24,7 +24,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 30,8: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 30,7: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -38,21 +38,21 @@
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 11,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 11,6%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 4% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 3% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
      "id": "sr",
      "label": "Hỗ trợ / kháng cự 6 tháng",
      "score": 1,
-     "explanation": "Giá bám sát hỗ trợ 4.009 — điểm vào có cơ sở kỹ thuật.",
+     "explanation": "Giá bám sát hỗ trợ 3.992 — điểm vào có cơ sở kỹ thuật.",
      "available": true
     }
    ],
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,9%, ở percentile 57 so với lịch sử tự thu thập (622 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,7%, ở percentile 55 so với lịch sử tự thu thập (622 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -133,7 +133,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 2,
-     "explanation": "Giá hiện tại cao hơn 4% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
+     "explanation": "Giá hiện tại cao hơn 3% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
@@ -2678,7 +2678,7 @@
   },
   {
    "date": "2026-10-24",
-   "value": 12.88
+   "value": 12.7
   }
  ],
  "premiumPercentiles": {
@@ -2690,8 +2690,8 @@
   "world": "2026-10-23T04:00:00.000Z",
   "dxy": "2026-10-23T04:00:00.000Z",
   "yield10y": "2026-10-23T12:20:00.000Z",
-  "vnGold": "2026-10-24T00:47:50.011Z",
-  "usdVnd": "2026-10-24T00:47:50.011Z",
+  "vnGold": "2026-10-24T06:00:09.489Z",
+  "usdVnd": "2026-10-24T06:00:09.489Z",
   "fed": null
  },
  "inputDates": {
@@ -2726,7 +2726,7 @@
  },
  "runDate": "2026-10-24",
  "macroLevels": {
-  "dxy": 101.75199890136719,
+  "dxy": 101.80999755859375,
   "us10y": 4.98799991607666,
   "fedFunds": 3.75,
   "fedAsOf": "2026-10-01"
