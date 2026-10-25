@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-25T16:32:52.307Z",
+ "generatedAt": "2026-10-25T19:44:38.303Z",
  "dataDate": "2026-10-23",
  "stale": false,
  "staleDays": 0,
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,7%, ở percentile 55 so với lịch sử tự thu thập (623 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,7%, ở percentile 55 so với lịch sử tự thu thập (624 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -186,9 +186,9 @@
  },
  "composite": 24.5,
  "zone": "neutral",
- "vnHistoryDays": 623,
+ "vnHistoryDays": 624,
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 24 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 25 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "premiumSeries": [
@@ -2683,6 +2683,10 @@
   {
    "date": "2026-10-25",
    "value": 12.7
+  },
+  {
+   "date": "2026-10-26",
+   "value": 12.7
   }
  ],
  "premiumPercentiles": {
@@ -2694,8 +2698,8 @@
   "world": "2026-10-23T04:00:00.000Z",
   "dxy": "2026-10-23T04:00:00.000Z",
   "yield10y": "2026-10-23T12:20:00.000Z",
-  "vnGold": "2026-10-25T16:32:52.307Z",
-  "usdVnd": "2026-10-25T16:32:52.307Z",
+  "vnGold": "2026-10-25T19:44:38.303Z",
+  "usdVnd": "2026-10-25T19:44:38.303Z",
   "fed": null
  },
  "inputDates": {
@@ -2716,7 +2720,7 @@
    "source": "cache"
   },
   "sjc": {
-   "date": "2026-10-25",
+   "date": "2026-10-26",
    "source": "cafef"
   },
   "ring": {
@@ -2724,11 +2728,11 @@
    "source": "history"
   },
   "usdVnd": {
-   "date": "2026-10-25",
+   "date": "2026-10-26",
    "source": "vietcombank"
   }
  },
- "runDate": "2026-10-25",
+ "runDate": "2026-10-26",
  "macroLevels": {
   "dxy": 101.80999755859375,
   "us10y": 4.98799991607666,
