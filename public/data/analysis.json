@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-26T19:24:56.401Z",
+ "generatedAt": "2026-10-26T23:57:03.294Z",
  "dataDate": "2026-10-26",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4023.39990234375,
+  "xauUsd": 4021,
   "usdVnd": 26050,
-  "worldVndPerLuong": 126363969,
-  "premiumPct": 12.14,
-  "premiumVnd": 15336031
+  "worldVndPerLuong": 126288595,
+  "premiumPct": 12.2,
+  "premiumVnd": 15411405
  },
  "criteria": [
   {
@@ -24,14 +24,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 32,8: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 32,5: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 40,4: trung tính.",
+     "explanation": "RSI tuần = 40,3: trung tính.",
      "available": true
     },
     {
@@ -45,7 +45,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 5% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 4% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,1%, ở percentile 48 so với lịch sử tự thu thập (625 ngày): chênh ở mức bình thường.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12,2%, ở percentile 49 so với lịch sử tự thu thập (625 ngày): chênh ở mức bình thường.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 102 (trên MA50, +1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 102 (trên MA50, +1,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -2,9% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -3% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -2690,7 +2690,7 @@
   },
   {
    "date": "2026-10-27",
-   "value": 12.14
+   "value": 12.2
   }
  ],
  "premiumPercentiles": {
@@ -2702,8 +2702,8 @@
   "world": "2026-10-26T04:00:00.000Z",
   "dxy": "2026-10-26T04:00:00.000Z",
   "yield10y": "2026-10-26T12:20:00.000Z",
-  "vnGold": "2026-10-26T19:24:56.401Z",
-  "usdVnd": "2026-10-26T19:24:56.401Z",
+  "vnGold": "2026-10-26T23:57:03.294Z",
+  "usdVnd": "2026-10-26T23:57:03.294Z",
   "fed": null
  },
  "inputDates": {
@@ -2738,7 +2738,7 @@
  },
  "runDate": "2026-10-27",
  "macroLevels": {
-  "dxy": 101.98699951171875,
+  "dxy": 102.03199768066406,
   "us10y": 4.986000061035156,
   "fedFunds": 3.75,
   "fedAsOf": "2026-10-01"
