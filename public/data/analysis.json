@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-26T01:18:11.328Z",
+ "generatedAt": "2026-10-26T06:23:17.566Z",
  "dataDate": "2026-10-26",
  "stale": false,
  "staleDays": 0,
@@ -9,7 +9,7 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 3993.199951171875,
+  "xauUsd": 4022,
   "usdVnd": 26020,
   "worldVndPerLuong": 125732192,
   "premiumPct": 12.7,
@@ -23,40 +23,40 @@
     {
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
-     "score": 2,
-     "explanation": "RSI ngày = 29,8: quá bán — vùng mua hiếm gặp.",
+     "score": 1,
+     "explanation": "RSI ngày = 32,6: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
-     "score": 1,
-     "explanation": "RSI tuần = 39,6: yếu — nghiêng về mua.",
+     "score": 0,
+     "explanation": "RSI tuần = 40,3: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 11,9%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 11,2%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 2% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 5% biên độ 52 tuần (đáy 3.961 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
      "id": "sr",
      "label": "Hỗ trợ / kháng cự 6 tháng",
      "score": 1,
-     "explanation": "Giá bám sát hỗ trợ 3.992 — điểm vào có cơ sở kỹ thuật.",
+     "explanation": "Giá bám sát hỗ trợ 4.009 — điểm vào có cơ sở kỹ thuật.",
      "available": true
     }
    ],
-   "score": 1.6,
+   "score": 1.2,
    "available": true
   },
   {
@@ -133,14 +133,14 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 2,
-     "explanation": "Giá hiện tại cao hơn 2% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
+     "explanation": "Giá hiện tại cao hơn 6% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 66% số phiên trong 3 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 68% số phiên trong 3 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": 0,
-     "explanation": "Biến động 30 ngày (annualized) = 17,1%, percentile 68 so với lịch sử: biến động bình thường.",
+     "explanation": "Biến động 30 ngày (annualized) = 17,2%, percentile 69 so với lịch sử: biến động bình thường.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -3,7% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -3% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 28,
+ "composite": 21,
  "zone": "neutral",
  "vnHistoryDays": 624,
  "warnings": [
@@ -2695,11 +2695,11 @@
   "p80": 14.92
  },
  "sourceTimes": {
-  "world": "2026-10-26T01:07:07.000Z",
-  "dxy": "2026-10-26T01:07:09.000Z",
+  "world": "2026-10-26T04:00:00.000Z",
+  "dxy": "2026-10-26T04:00:00.000Z",
   "yield10y": "2026-10-23T12:20:00.000Z",
-  "vnGold": "2026-10-26T01:18:11.328Z",
-  "usdVnd": "2026-10-26T01:18:11.328Z",
+  "vnGold": "2026-10-26T06:23:17.566Z",
+  "usdVnd": "2026-10-26T06:23:17.566Z",
   "fed": null
  },
  "inputDates": {
@@ -2734,7 +2734,7 @@
  },
  "runDate": "2026-10-26",
  "macroLevels": {
-  "dxy": 101.65299987792969,
+  "dxy": 101.71399688720703,
   "us10y": 4.98799991607666,
   "fedFunds": 3.75,
   "fedAsOf": "2026-10-01"
