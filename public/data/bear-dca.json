@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-10-27T10:42:30.801Z",
+ "generatedAt": "2026-10-27T16:46:33.397Z",
  "dataDate": "2026-10-27",
  "isBear": true,
- "ddFromAth": 0.2466343261131167,
- "ddChange": 0.030403880866425953,
- "phase": "acute",
- "pricePct2y": 0.49603174603174605,
- "dd42Pct": 14.093053173241854,
+ "ddFromAth": 0.23445021058965096,
+ "ddChange": 0.018219765342960215,
+ "phase": "grind",
+ "pricePct2y": 0.5416666666666666,
+ "dd42Pct": 12.703687821612352,
  "mult": 0.75,
  "recoveryRisk": false,
- "note": "Giá đang sụp cấp tính (đáy sâu thêm +3 điểm %/tháng). Cách đỉnh 25% — dùng độ sâu để tính khối lượng."
+ "note": "Bear rỉ máu. Giá ở percentile 54% của 2 năm gần — dùng vị trí giá để tính khối lượng."
 }
