@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-27T16:44:16.221Z",
+ "generatedAt": "2026-10-27T21:23:32.609Z",
  "dataDate": "2026-10-27",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4071.5,
-  "usdVnd": 26050,
-  "worldVndPerLuong": 126835078,
-  "premiumPct": 11.96,
-  "premiumVnd": 15164922
+  "xauUsd": 4073.10009765625,
+  "usdVnd": 26020,
+  "worldVndPerLuong": 127777594,
+  "premiumPct": 11.13,
+  "premiumVnd": 14222406
  },
  "criteria": [
   {
@@ -24,7 +24,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 38,9: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 39: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -66,8 +66,8 @@
     {
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
-     "score": 0,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 12%, ở percentile 46 so với lịch sử tự thu thập (625 ngày): chênh ở mức bình thường.",
+     "score": 1,
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 11,1%, ở percentile 38 so với lịch sử tự thu thập (626 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -85,7 +85,7 @@
      "available": false
     }
    ],
-   "score": 0,
+   "score": 0.5,
    "available": true,
    "provisional": false
   },
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 102,3 (trên MA50, +1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 102,4 (trên MA50, +1,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -118,7 +118,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 26.050, nhịp -0,5%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 26.020, nhịp -0,6%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": 0,
-     "explanation": "Biến động 30 ngày (annualized) = 17,6%, percentile 71 so với lịch sử: biến động bình thường.",
+     "explanation": "Biến động 30 ngày (annualized) = 17,6%, percentile 72 so với lịch sử: biến động bình thường.",
      "available": true
     }
    ],
@@ -184,11 +184,11 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 16,
+ "composite": 22.2,
  "zone": "neutral",
- "vnHistoryDays": 625,
+ "vnHistoryDays": 626,
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 26 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 27 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "premiumSeries": [
@@ -2691,19 +2691,23 @@
   {
    "date": "2026-10-27",
    "value": 11.96
+  },
+  {
+   "date": "2026-10-28",
+   "value": 11.13
   }
  ],
  "premiumPercentiles": {
-  "p20": 7.12,
-  "p50": 12.28,
+  "p20": 7.45,
+  "p50": 12.23,
   "p80": 14.92
  },
  "sourceTimes": {
   "world": "2026-10-27T04:00:00.000Z",
   "dxy": "2026-10-27T04:00:00.000Z",
   "yield10y": "2026-10-27T12:20:00.000Z",
-  "vnGold": "2026-10-27T16:44:16.221Z",
-  "usdVnd": "2026-10-27T16:44:16.221Z",
+  "vnGold": "2026-10-27T21:23:32.609Z",
+  "usdVnd": "2026-10-27T21:23:32.609Z",
   "fed": null
  },
  "inputDates": {
@@ -2724,7 +2728,7 @@
    "source": "cache"
   },
   "sjc": {
-   "date": "2026-10-27",
+   "date": "2026-10-28",
    "source": "cafef"
   },
   "ring": {
@@ -2732,14 +2736,14 @@
    "source": "history"
   },
   "usdVnd": {
-   "date": "2026-10-27",
+   "date": "2026-10-28",
    "source": "vietcombank"
   }
  },
- "runDate": "2026-10-27",
+ "runDate": "2026-10-28",
  "macroLevels": {
-  "dxy": 102.25299835205078,
-  "us10y": 4.994999885559082,
+  "dxy": 102.36199951171875,
+  "us10y": 4.993000030517578,
   "fedFunds": 3.75,
   "fedAsOf": "2026-10-01"
  }
