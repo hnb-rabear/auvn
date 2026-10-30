@@ -1,11 +1,11 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-10-30T10:15:08.920Z",
+ "generatedAt": "2026-10-30T16:47:38.247Z",
  "dataDate": "2026-10-30",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4001.10009765625,
+  "xauUsd": 3908.39990234375,
   "sjcBuy": 138400000,
   "sjcSell": 141400000,
   "ringBuy": 141400000,
@@ -17,7 +17,7 @@
   "vnPremiumVnd": 14930587,
   "changes": {
    "prevDate": "2026-10-29",
-   "xauUsd": -50.5,
+   "xauUsd": -143.2,
    "sjcSell": -1300000,
    "ringSell": null,
    "vnPremiumPct": -0.46
@@ -32,54 +32,54 @@
  },
  "bottomHunter": {
   "cycle": {
-   "bin": 1,
-   "tier": "low",
+   "bin": 2,
+   "tier": "normal",
    "tierEvidence": {
     "train": {
-     "favPct": 27.8,
+     "favPct": 30.8,
      "basePct": 30.6,
-     "n": 342,
+     "n": 383,
      "clusters": 19
     },
     "test": {
-     "favPct": 42.2,
+     "favPct": 51.7,
      "basePct": 49.1,
-     "n": 270,
-     "clusters": 15
+     "n": 292,
+     "clusters": 16
     }
    },
-   "prob": 46,
+   "prob": 52.9,
    "ci": [
-    28.5,
-    60.6
+    38.5,
+    66.1
    ],
-   "probUnweighted": 32.9,
-   "n": 359
+   "probUnweighted": 40.5,
+   "n": 645
   },
   "swing": {
-   "bin": 1,
-   "tier": "low",
+   "bin": 2,
+   "tier": "normal",
    "tierEvidence": {
     "train": {
-     "favPct": 38,
+     "favPct": 39.9,
      "basePct": 40,
-     "n": 342,
-     "clusters": 66
+     "n": 383,
+     "clusters": 71
     },
     "test": {
-     "favPct": 41.4,
+     "favPct": 52.9,
      "basePct": 48.8,
-     "n": 278,
-     "clusters": 52
+     "n": 314,
+     "clusters": 60
     }
    },
-   "prob": 47.1,
+   "prob": 52.4,
    "ci": [
-    35.6,
-    58.5
+    43.1,
+    61.9
    ],
-   "probUnweighted": 43.1,
-   "n": 364
+   "probUnweighted": 46.2,
+   "n": 665
   },
   "isBottomStart": false,
   "lastBottomStartDate": "2026-08-17",
@@ -138,21 +138,21 @@
   }
  },
  "accumulation": {
-  "effectiveBuyMultiplier": 0.75,
+  "effectiveBuyMultiplier": 1,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.4861,
+  "pricePercentile2y": 0.4643,
   "bearDca": {
-   "generatedAt": "2026-10-30T10:13:53.509Z",
+   "generatedAt": "2026-10-30T16:46:24.452Z",
    "dataDate": "2026-10-30",
    "isBear": true,
-   "ddFromAth": 0.2477,
-   "ddChange": 0.0378,
+   "ddFromAth": 0.2651,
+   "ddChange": 0.0553,
    "phase": "acute",
-   "pricePct2y": 0.4861,
-   "dd42Pct": 11.868102821648051,
-   "mult": 0.75,
+   "pricePct2y": 0.4643,
+   "dd42Pct": 13.909998017577474,
+   "mult": 1,
    "recoveryRisk": false,
-   "note": "Giá đang sụp cấp tính (đáy sâu thêm +4 điểm %/tháng). Cách đỉnh 25% — dùng độ sâu để tính khối lượng."
+   "note": "Giá đang sụp cấp tính (đáy sâu thêm +6 điểm %/tháng). Cách đỉnh 27% — dùng độ sâu để tính khối lượng."
   },
   "twoYearBrake": {
    "multiplier": 1,
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-10-30T10:15:08.049Z",
+   "generatedAt": "2026-10-30T16:47:37.417Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-10-30T10:15:07.407Z",
+   "generatedAt": "2026-10-30T16:47:36.774Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-10-30T10:13:53.508Z",
+   "generatedAt": "2026-10-30T16:46:24.450Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-10-30T10:14:04.354Z",
+   "generatedAt": "2026-10-30T16:46:35.209Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-10-30T10:15:08.553Z",
+   "generatedAt": "2026-10-30T16:47:37.893Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -279,9 +279,9 @@
  "sourceFreshness": {
   "world": "2026-10-30T04:00:00.000Z",
   "dxy": "2026-10-30T04:00:00.000Z",
-  "yield10y": "2026-10-29T12:20:00.000Z",
-  "vnGold": "2026-10-30T10:11:53.819Z",
-  "usdVnd": "2026-10-30T10:11:53.819Z",
+  "yield10y": "2026-10-30T12:20:00.000Z",
+  "vnGold": "2026-10-30T16:44:26.436Z",
+  "usdVnd": "2026-10-30T16:44:26.436Z",
   "fed": null
  },
  "dataQuality": {
@@ -300,9 +300,9 @@
    "status": "ok"
   },
   "yield10y": {
-   "asOfDate": "2026-10-29",
+   "asOfDate": "2026-10-30",
    "source": "yahoo:^TNX",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 5,
    "status": "ok"
   },
@@ -337,8 +337,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.66500091552734,
-   "us10y": 4.988999843597412,
+   "dxy": 101.91999816894531,
+   "us10y": 4.942999839782715,
    "fedFunds": 3.75,
    "fedAsOf": "2026-10-01"
   },
@@ -347,7 +347,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -1,
-    "explanation": "DXY = 101,7 (trên MA50, -0,4% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+    "explanation": "DXY = 101,9 (trên MA50, -0,2% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
@@ -361,7 +361,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -1,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 4,99%, thay đổi 3 tháng +0,24 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 4,94%, thay đổi 3 tháng +0,26 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
