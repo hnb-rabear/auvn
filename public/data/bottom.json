@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-30T16:46:24.438Z",
+ "generatedAt": "2026-10-30T21:36:17.564Z",
  "dataDate": "2026-10-30",
  "cycle": {
   "prob": 52.9,
@@ -16,42 +16,42 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 26,5%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 27%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 0,
-    "explanation": "XAU thay đổi -4,5% trong 3 tháng: đi ngang.",
+    "explanation": "XAU thay đổi -5% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 2,
-    "explanation": "RSI ngày = 28,3: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 27,2: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -10,63: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -12,13: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -2,
-    "explanation": "USD trên MA50, lợi suất +0,26đ/3 tháng, Fed +0,12đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,24đ/3 tháng, Fed +0,12đ: vĩ mô bất lợi.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -2,3% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -2,9% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -85,42 +85,42 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 26,5%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 27%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 0,
-    "explanation": "XAU thay đổi -4,5% trong 3 tháng: đi ngang.",
+    "explanation": "XAU thay đổi -5% trong 3 tháng: đi ngang.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 2,
-    "explanation": "RSI ngày = 28,3: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 27,2: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -10,63: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -12,13: chưa có dấu đảo chiều.",
     "available": true
    },
    {
     "id": "macro",
     "label": "Vĩ mô đảo chiều",
     "score": -2,
-    "explanation": "USD trên MA50, lợi suất +0,26đ/3 tháng, Fed +0,12đ: vĩ mô bất lợi.",
+    "explanation": "USD trên MA50, lợi suất +0,24đ/3 tháng, Fed +0,12đ: vĩ mô bất lợi.",
     "available": true
    },
    {
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -2,3% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -2,9% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
