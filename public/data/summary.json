@@ -1,26 +1,26 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-10-31T01:42:29.442Z",
+ "generatedAt": "2026-10-31T08:34:00.442Z",
  "dataDate": "2026-10-30",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 3884.89990234375,
+  "xauUsd": 3898.89990234375,
   "sjcBuy": 136000000,
   "sjcSell": 139000000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
   "usdVnd": 25990,
-  "worldVndPerLuong": 121733033,
-  "vnPremiumPct": 14.18,
-  "vnPremiumVnd": 17266967,
+  "worldVndPerLuong": 122171722,
+  "vnPremiumPct": 13.77,
+  "vnPremiumVnd": 16828278,
   "changes": {
    "prevDate": "2026-10-29",
-   "xauUsd": -166.7,
+   "xauUsd": -152.7,
    "sjcSell": -3700000,
    "ringSell": null,
-   "vnPremiumPct": 1.91
+   "vnPremiumPct": 1.5
   }
  },
  "changed": {
@@ -132,7 +132,7 @@
   },
   "premiumGate": {
    "expensiveVsWorld": false,
-   "premiumPct": 14.18,
+   "premiumPct": 13.77,
    "premiumP80": 14.92,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
@@ -140,16 +140,16 @@
  "accumulation": {
   "effectiveBuyMultiplier": 1,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.4623,
+  "pricePercentile2y": 0.4643,
   "bearDca": {
-   "generatedAt": "2026-10-31T01:41:15.348Z",
+   "generatedAt": "2026-10-31T08:32:55.441Z",
    "dataDate": "2026-10-30",
    "isBear": true,
-   "ddFromAth": 0.2695,
-   "ddChange": 0.0597,
+   "ddFromAth": 0.2669,
+   "ddChange": 0.057,
    "phase": "acute",
-   "pricePct2y": 0.4623,
-   "dd42Pct": 14.427630564549876,
+   "pricePct2y": 0.4643,
+   "dd42Pct": 14.11925372805568,
    "mult": 1,
    "recoveryRisk": false,
    "note": "Giá đang sụp cấp tính (đáy sâu thêm +6 điểm %/tháng). Cách đỉnh 27% — dùng độ sâu để tính khối lượng."
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-10-31T01:42:28.579Z",
+   "generatedAt": "2026-10-31T08:33:59.774Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-10-31T01:42:27.912Z",
+   "generatedAt": "2026-10-31T08:33:59.247Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-10-31T01:41:15.347Z",
+   "generatedAt": "2026-10-31T08:32:55.440Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-10-31T01:41:26.187Z",
+   "generatedAt": "2026-10-31T08:33:04.684Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-10-31T01:42:29.078Z",
+   "generatedAt": "2026-10-31T08:34:00.158Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -280,8 +280,8 @@
   "world": "2026-10-30T04:00:00.000Z",
   "dxy": "2026-10-30T04:00:00.000Z",
   "yield10y": "2026-10-30T12:20:00.000Z",
-  "vnGold": "2026-10-31T01:39:19.341Z",
-  "usdVnd": "2026-10-31T01:39:19.341Z",
+  "vnGold": "2026-10-31T08:31:12.873Z",
+  "usdVnd": "2026-10-31T08:31:12.873Z",
   "fed": null
  },
  "dataQuality": {
@@ -337,7 +337,7 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.96399688720703,
+   "dxy": 101.87999725341797,
    "us10y": 4.928999900817871,
    "fedFunds": 3.75,
    "fedAsOf": "2026-10-01"
@@ -347,7 +347,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -1,
-    "explanation": "DXY = 102 (trên MA50, -0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+    "explanation": "DXY = 101,9 (trên MA50, -0,2% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
