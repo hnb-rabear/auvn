@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-31T15:24:07.981Z",
+ "generatedAt": "2026-10-31T19:24:19.875Z",
  "dataDate": "2026-10-30",
  "stale": false,
  "staleDays": 0,
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": -1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,8%, ở percentile 69 so với lịch sử tự thu thập (629 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 13,8%, ở percentile 69 so với lịch sử tự thu thập (630 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
      "available": true
     },
     {
@@ -118,7 +118,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 25.990, nhịp -0,6%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 25.990, nhịp -0,7%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -186,9 +186,9 @@
  },
  "composite": 18.2,
  "zone": "neutral",
- "vnHistoryDays": 629,
+ "vnHistoryDays": 630,
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 30 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-10-01, cũ 31 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "premiumSeries": [
@@ -2707,6 +2707,10 @@
   {
    "date": "2026-10-31",
    "value": 13.77
+  },
+  {
+   "date": "2026-11-01",
+   "value": 13.77
   }
  ],
  "premiumPercentiles": {
@@ -2718,8 +2722,8 @@
   "world": "2026-10-30T04:00:00.000Z",
   "dxy": "2026-10-30T04:00:00.000Z",
   "yield10y": "2026-10-30T12:20:00.000Z",
-  "vnGold": "2026-10-31T15:24:07.981Z",
-  "usdVnd": "2026-10-31T15:24:07.981Z",
+  "vnGold": "2026-10-31T19:24:19.875Z",
+  "usdVnd": "2026-10-31T19:24:19.875Z",
   "fed": null
  },
  "inputDates": {
@@ -2740,7 +2744,7 @@
    "source": "cache"
   },
   "sjc": {
-   "date": "2026-10-31",
+   "date": "2026-11-01",
    "source": "cafef"
   },
   "ring": {
@@ -2748,11 +2752,11 @@
    "source": "history"
   },
   "usdVnd": {
-   "date": "2026-10-31",
+   "date": "2026-11-01",
    "source": "vietcombank"
   }
  },
- "runDate": "2026-10-31",
+ "runDate": "2026-11-01",
  "macroLevels": {
   "dxy": 101.87999725341797,
   "us10y": 4.928999900817871,
