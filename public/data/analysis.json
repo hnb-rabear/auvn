@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-10-30T21:34:17.898Z",
+ "generatedAt": "2026-10-31T01:39:19.341Z",
  "dataDate": "2026-10-30",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 138400000,
-  "sjcSell": 141400000,
+  "sjcBuy": 136000000,
+  "sjcSell": 139000000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
   "xauUsd": 3884.89990234375,
   "usdVnd": 25990,
   "worldVndPerLuong": 121733033,
-  "premiumPct": 16.16,
-  "premiumVnd": 19666967
+  "premiumPct": 14.18,
+  "premiumVnd": 17266967
  },
  "criteria": [
   {
@@ -66,15 +66,15 @@
     {
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
-     "score": -2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 16,2%, ở percentile 90 so với lịch sử tự thu thập (629 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
+     "score": -1,
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,2%, ở percentile 73 so với lịch sử tự thu thập (629 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
      "available": true
     },
     {
      "id": "spread",
      "label": "Độ rộng chênh mua–bán SJC",
      "score": 0,
-     "explanation": "Chênh mua–bán SJC = 2,1% giá bán: spread bình thường.",
+     "explanation": "Chênh mua–bán SJC = 2,2% giá bán: spread bình thường.",
      "available": true
     },
     {
@@ -85,7 +85,7 @@
      "available": false
     }
    ],
-   "score": -1,
+   "score": -0.5,
    "available": true,
    "provisional": false
   },
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 12,
+ "composite": 18.2,
  "zone": "neutral",
  "vnHistoryDays": 629,
  "warnings": [
@@ -2706,7 +2706,7 @@
   },
   {
    "date": "2026-10-31",
-   "value": 16.16
+   "value": 14.18
   }
  ],
  "premiumPercentiles": {
@@ -2718,8 +2718,8 @@
   "world": "2026-10-30T04:00:00.000Z",
   "dxy": "2026-10-30T04:00:00.000Z",
   "yield10y": "2026-10-30T12:20:00.000Z",
-  "vnGold": "2026-10-30T21:34:17.898Z",
-  "usdVnd": "2026-10-30T21:34:17.898Z",
+  "vnGold": "2026-10-31T01:39:19.341Z",
+  "usdVnd": "2026-10-31T01:39:19.341Z",
   "fed": null
  },
  "inputDates": {
