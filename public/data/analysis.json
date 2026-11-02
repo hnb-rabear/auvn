@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-11-01T20:35:58.109Z",
- "dataDate": "2026-10-30",
+ "generatedAt": "2026-11-02T00:51:04.817Z",
+ "dataDate": "2026-11-02",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -9,7 +9,7 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 3898.89990234375,
+  "xauUsd": 3904,
   "usdVnd": 25990,
   "worldVndPerLuong": 122171722,
   "premiumPct": 13.77,
@@ -24,21 +24,21 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 2,
-     "explanation": "RSI ngày = 27,9: quá bán — vùng mua hiếm gặp.",
+     "explanation": "RSI ngày = 28,5: quá bán — vùng mua hiếm gặp.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 36,7: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 37,4: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 13,7%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 13,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,9 (trên MA50, -0,2% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,9 (trên MA50, +0% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -147,7 +147,7 @@
      "id": "season",
      "label": "Mùa vụ theo tháng",
      "score": 1,
-     "explanation": "Tháng 10: lợi suất 3 tháng tiếp theo trung bình +3,9% trong lịch sử: lịch sử 3 tháng sau thời điểm này giá thường tăng — thuận mua sớm.",
+     "explanation": "Tháng 11: lợi suất 3 tháng tiếp theo trung bình +5,9% trong lịch sử: lịch sử 3 tháng sau thời điểm này giá thường tăng — thuận mua sớm.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -2,5% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -2,8% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -2723,20 +2723,20 @@
   "p80": 14.92
  },
  "sourceTimes": {
-  "world": "2026-10-30T04:00:00.000Z",
-  "dxy": "2026-10-30T04:00:00.000Z",
+  "world": "2026-11-02T00:40:00.000Z",
+  "dxy": "2026-11-02T00:40:02.000Z",
   "yield10y": "2026-10-30T12:20:00.000Z",
-  "vnGold": "2026-11-01T20:35:58.109Z",
-  "usdVnd": "2026-11-01T20:35:58.109Z",
+  "vnGold": "2026-11-02T00:51:04.817Z",
+  "usdVnd": "2026-11-02T00:51:04.817Z",
   "fed": null
  },
  "inputDates": {
   "xau": {
-   "date": "2026-10-30",
+   "date": "2026-11-02",
    "source": "yahoo:GC=F"
   },
   "dxy": {
-   "date": "2026-10-30",
+   "date": "2026-11-02",
    "source": "yahoo:DX-Y.NYB"
   },
   "yield10y": {
@@ -2762,7 +2762,7 @@
  },
  "runDate": "2026-11-02",
  "macroLevels": {
-  "dxy": 101.87999725341797,
+  "dxy": 101.94400024414062,
   "us10y": 4.928999900817871,
   "fedFunds": 3.75,
   "fedAsOf": "2026-10-01"
