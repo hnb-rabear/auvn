@@ -1,26 +1,26 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-03T17:57:02.466Z",
+ "generatedAt": "2026-11-03T23:32:59.554Z",
  "dataDate": "2026-11-03",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 3938.39990234375,
+  "xauUsd": 3939.10009765625,
   "sjcBuy": 137600000,
   "sjcSell": 140600000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
   "usdVnd": 25960,
-  "worldVndPerLuong": 123267001,
-  "vnPremiumPct": 14.06,
-  "vnPremiumVnd": 17332999,
+  "worldVndPerLuong": 123288916,
+  "vnPremiumPct": 14.04,
+  "vnPremiumVnd": 17311084,
   "changes": {
    "prevDate": "2026-11-02",
-   "xauUsd": 39.5,
+   "xauUsd": 40.2,
    "sjcSell": 600000,
    "ringSell": null,
-   "vnPremiumPct": -0.53
+   "vnPremiumPct": -0.55
   }
  },
  "changed": {
@@ -132,7 +132,7 @@
   },
   "premiumGate": {
    "expensiveVsWorld": false,
-   "premiumPct": 14.06,
+   "premiumPct": 14.04,
    "premiumP80": 14.88,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
@@ -142,14 +142,14 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.4643,
   "bearDca": {
-   "generatedAt": "2026-11-03T17:56:10.298Z",
+   "generatedAt": "2026-11-03T23:31:54.764Z",
    "dataDate": "2026-11-03",
    "isBear": true,
-   "ddFromAth": 0.2595,
-   "ddChange": 0.0411,
+   "ddFromAth": 0.2593,
+   "ddChange": 0.0409,
    "phase": "acute",
    "pricePct2y": 0.4643,
-   "dd42Pct": 13.249190510804198,
+   "dd42Pct": 13.233771668979488,
    "mult": 1,
    "recoveryRisk": false,
    "note": "Giá đang sụp cấp tính (đáy sâu thêm +4 điểm %/tháng). Cách đỉnh 26% — dùng độ sâu để tính khối lượng."
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-03T17:57:01.907Z",
+   "generatedAt": "2026-11-03T23:32:58.871Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-03T17:57:01.497Z",
+   "generatedAt": "2026-11-03T23:32:58.357Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-03T17:56:10.297Z",
+   "generatedAt": "2026-11-03T23:31:54.763Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-03T17:56:17.182Z",
+   "generatedAt": "2026-11-03T23:32:03.880Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-03T17:57:02.220Z",
+   "generatedAt": "2026-11-03T23:32:59.263Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -280,8 +280,8 @@
   "world": "2026-11-03T05:00:00.000Z",
   "dxy": "2026-11-03T05:00:00.000Z",
   "yield10y": "2026-11-03T13:20:00.000Z",
-  "vnGold": "2026-11-03T17:54:46.695Z",
-  "usdVnd": "2026-11-03T17:54:46.695Z",
+  "vnGold": "2026-11-03T23:30:12.424Z",
+  "usdVnd": "2026-11-03T23:30:12.424Z",
   "fed": null
  },
  "dataQuality": {
@@ -337,8 +337,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.79499816894531,
-   "us10y": 4.956000328063965,
+   "dxy": 101.88999938964844,
+   "us10y": 4.952000141143799,
    "fedFunds": 3.75,
    "fedAsOf": "2026-10-01"
   },
@@ -347,7 +347,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -1,
-    "explanation": "DXY = 101,8 (trên MA50, -0,4% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+    "explanation": "DXY = 101,9 (trên MA50, -0,3% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
@@ -361,7 +361,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -1,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 4,96%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 4,95%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {

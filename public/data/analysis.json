@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-03T17:54:46.695Z",
+ "generatedAt": "2026-11-03T23:30:12.424Z",
  "dataDate": "2026-11-03",
  "stale": false,
  "staleDays": 0,
@@ -9,11 +9,11 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 3938.39990234375,
+  "xauUsd": 3939.10009765625,
   "usdVnd": 25960,
-  "worldVndPerLuong": 123267001,
-  "premiumPct": 14.06,
-  "premiumVnd": 17332999
+  "worldVndPerLuong": 123288916,
+  "premiumPct": 14.04,
+  "premiumVnd": 17311084
  },
  "criteria": [
   {
@@ -24,7 +24,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 34,2: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 34,3: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": -1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14,1%, ở percentile 71 so với lịch sử tự thu thập (633 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 14%, ở percentile 71 so với lịch sử tự thu thập (633 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,8 (trên MA50, -0,4% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,9 (trên MA50, -0,3% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -111,7 +111,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,96%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,95%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -1,5% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -1,4% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -2722,7 +2722,7 @@
   },
   {
    "date": "2026-11-04",
-   "value": 14.06
+   "value": 14.04
   }
  ],
  "premiumPercentiles": {
@@ -2734,8 +2734,8 @@
   "world": "2026-11-03T05:00:00.000Z",
   "dxy": "2026-11-03T05:00:00.000Z",
   "yield10y": "2026-11-03T13:20:00.000Z",
-  "vnGold": "2026-11-03T17:54:46.695Z",
-  "usdVnd": "2026-11-03T17:54:46.695Z",
+  "vnGold": "2026-11-03T23:30:12.424Z",
+  "usdVnd": "2026-11-03T23:30:12.424Z",
   "fed": null
  },
  "inputDates": {
@@ -2770,8 +2770,8 @@
  },
  "runDate": "2026-11-04",
  "macroLevels": {
-  "dxy": 101.79499816894531,
-  "us10y": 4.956000328063965,
+  "dxy": 101.88999938964844,
+  "us10y": 4.952000141143799,
   "fedFunds": 3.75,
   "fedAsOf": "2026-10-01"
  }
