@@ -1,30 +1,30 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-02T18:34:07.007Z",
- "dataDate": "2026-11-02",
+ "generatedAt": "2026-11-03T01:42:16.362Z",
+ "dataDate": "2026-11-03",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 3972.39990234375,
-  "sjcBuy": 137000000,
-  "sjcSell": 140000000,
+  "xauUsd": 3964.800048828125,
+  "sjcBuy": 138200000,
+  "sjcSell": 141200000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
   "usdVnd": 25980,
-  "worldVndPerLuong": 124426945,
-  "vnPremiumPct": 12.52,
-  "vnPremiumVnd": 15573055,
+  "worldVndPerLuong": 122124715,
+  "vnPremiumPct": 15.62,
+  "vnPremiumVnd": 19075285,
   "changes": {
-   "prevDate": "2026-11-01",
-   "xauUsd": 73.5,
-   "sjcSell": 1000000,
+   "prevDate": "2026-11-02",
+   "xauUsd": 65.9,
+   "sjcSell": 1200000,
    "ringSell": null,
-   "vnPremiumPct": -1.25
+   "vnPremiumPct": 1.03
   }
  },
  "changed": {
-  "sincePrevRun": false,
+  "sincePrevRun": true,
   "newBuySignals": [],
   "lostBuySignals": [],
   "bottomStartToday": false,
@@ -83,7 +83,7 @@
   },
   "isBottomStart": false,
   "lastBottomStartDate": "2026-08-17",
-  "daysSinceBottomStart": 77,
+  "daysSinceBottomStart": 78,
   "crashMode": true,
   "note": "Bottom Hunter là lớp NGỮ CẢNH, không phải cò súng mua — chỉ signals.presets[*].isBuy mới là tín hiệu mua thật. Đọc `tier` (high/normal/low) và `tierEvidence`, KHÔNG đọc `prob` như xác suất: prob bị hiệu chuẩn ngược ở vùng cao (walk-forward: máy nói 60–80% thì đúng ~26%), chỉ THỨ HẠNG bậc là bền ở cả hai giai đoạn — so `tierEvidence.*.favPct` với `basePct` của cùng giai đoạn. crashMode = true (pha acute HOẶC sụt ≥8% so với đỉnh 42 phiên) thì `tier` đã tự hạ high → normal. isBottomStart là điểm dò đáy sớm (ngữ cảnh), không phải tín hiệu gom/mua — cờ Gom rải đã bị LOẠI 2026-07 (gomrai-study 0/528) — và không phải lời hứa đáy: tín hiệu phụ thuộc chế độ thị trường (win 6 tháng 92–93% giai đoạn ≥2019 nhưng chỉ 61–69% trong gấu <2019, xem docs/bottom.md). `n` đếm quan sát trên lưới thưa 3 phiên với cửa sổ lợi suất CHỒNG NHAU — không phải số mẫu độc lập, nên đừng đọc CI hẹp thành độ chắc chắn cao."
  },
@@ -125,15 +125,15 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 18.5,
+   "composite": 6,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
   },
   "premiumGate": {
-   "expensiveVsWorld": false,
-   "premiumPct": 12.52,
-   "premiumP80": 14.88,
+   "expensiveVsWorld": true,
+   "premiumPct": 15.62,
+   "premiumP80": 14.92,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
  },
@@ -142,14 +142,14 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.4683,
   "bearDca": {
-   "generatedAt": "2026-11-02T18:32:53.649Z",
-   "dataDate": "2026-11-02",
+   "generatedAt": "2026-11-03T01:41:22.721Z",
+   "dataDate": "2026-11-03",
    "isBear": true,
-   "ddFromAth": 0.2531,
-   "ddChange": 0.0357,
+   "ddFromAth": 0.2545,
+   "ddChange": 0.0371,
    "phase": "acute",
    "pricePct2y": 0.4683,
-   "dd42Pct": 12.500275336461142,
+   "dd42Pct": 12.667679904843709,
    "mult": 1,
    "recoveryRisk": false,
    "note": "Giá đang sụp cấp tính (đáy sâu thêm +4 điểm %/tháng). Cách đỉnh 25% — dùng độ sâu để tính khối lượng."
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-02T18:34:06.147Z",
+   "generatedAt": "2026-11-03T01:42:15.517Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-02T18:34:05.510Z",
+   "generatedAt": "2026-11-03T01:42:15.017Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-02T18:32:53.648Z",
+   "generatedAt": "2026-11-03T01:41:22.720Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-02T18:33:04.301Z",
+   "generatedAt": "2026-11-03T01:41:29.614Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-02T18:34:06.642Z",
+   "generatedAt": "2026-11-03T01:42:16.070Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -277,25 +277,25 @@
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
-  "world": "2026-11-02T05:00:00.000Z",
-  "dxy": "2026-11-02T05:00:00.000Z",
+  "world": "2026-11-03T01:28:43.000Z",
+  "dxy": "2026-11-03T01:28:56.000Z",
   "yield10y": "2026-11-02T13:20:00.000Z",
-  "vnGold": "2026-11-02T18:30:57.826Z",
-  "usdVnd": "2026-11-02T18:30:57.826Z",
+  "vnGold": "2026-11-03T01:39:59.362Z",
+  "usdVnd": "2026-11-03T01:39:59.362Z",
   "fed": null
  },
  "dataQuality": {
   "xau": {
-   "asOfDate": "2026-11-02",
+   "asOfDate": "2026-11-03",
    "source": "yahoo:GC=F",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "dxy": {
-   "asOfDate": "2026-11-02",
+   "asOfDate": "2026-11-03",
    "source": "yahoo:DX-Y.NYB",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 5,
    "status": "ok"
   },
@@ -337,8 +337,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.71700286865234,
-   "us10y": 4.875,
+   "dxy": 101.79900360107422,
+   "us10y": 4.894000053405762,
    "fedFunds": 3.75,
    "fedAsOf": "2026-10-01"
   },
@@ -347,7 +347,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -1,
-    "explanation": "DXY = 101,7 (trên MA50, -0,2% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+    "explanation": "DXY = 101,8 (trên MA50, -0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
@@ -361,7 +361,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -1,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 4,88%, thay đổi 3 tháng +0,25 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 4,89%, thay đổi 3 tháng +0,27 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
