@@ -1,34 +1,34 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-04T06:42:40.906Z",
+ "generatedAt": "2026-11-04T15:33:44.345Z",
  "dataDate": "2026-11-04",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4024.5,
-  "sjcBuy": 138200000,
-  "sjcSell": 141200000,
+  "xauUsd": 4042.89990234375,
+  "sjcBuy": 139400000,
+  "sjcSell": 142400000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
   "usdVnd": 25960,
   "worldVndPerLuong": 123329598,
-  "vnPremiumPct": 14.49,
-  "vnPremiumVnd": 17870402,
+  "vnPremiumPct": 15.46,
+  "vnPremiumVnd": 19070402,
   "changes": {
    "prevDate": "2026-11-03",
-   "xauUsd": 54.9,
-   "sjcSell": 600000,
+   "xauUsd": 73.3,
+   "sjcSell": 1800000,
    "ringSell": null,
-   "vnPremiumPct": 1.41
+   "vnPremiumPct": 2.38
   }
  },
  "changed": {
-  "sincePrevRun": true,
+  "sincePrevRun": false,
   "newBuySignals": [],
   "lostBuySignals": [],
   "bottomStartToday": false,
-  "phaseChanged": false
+  "phaseChanged": true
  },
  "bottomHunter": {
   "cycle": {
@@ -93,28 +93,28 @@
     "id": "1m",
     "label": "Sóng 1 tháng",
     "horizonDays": 21,
-    "score": -5.5,
+    "score": -7.5,
     "buyThreshold": 50,
     "isBuy": false,
-    "pointsToThreshold": 55.5
+    "pointsToThreshold": 57.5
    },
    {
     "id": "3m",
     "label": "Sóng 3 tháng",
     "horizonDays": 63,
-    "score": -14,
+    "score": -15,
     "buyThreshold": 40,
     "isBuy": false,
-    "pointsToThreshold": 54
+    "pointsToThreshold": 55
    },
    {
     "id": "6m",
     "label": "Tích lũy 6 tháng",
     "horizonDays": 126,
-    "score": -31.5,
+    "score": -32.5,
     "buyThreshold": 30,
     "isBuy": false,
-    "pointsToThreshold": 61.5
+    "pointsToThreshold": 62.5
    }
   ],
   "consensus": {
@@ -125,34 +125,34 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 12.2,
+   "composite": 2.5,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
   },
   "premiumGate": {
-   "expensiveVsWorld": false,
-   "premiumPct": 14.49,
-   "premiumP80": 14.88,
+   "expensiveVsWorld": true,
+   "premiumPct": 15.46,
+   "premiumP80": 14.92,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
  },
  "accumulation": {
   "effectiveBuyMultiplier": 0.75,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.506,
+  "pricePercentile2y": 0.5179,
   "bearDca": {
-   "generatedAt": "2026-11-04T06:41:22.716Z",
+   "generatedAt": "2026-11-04T15:32:52.010Z",
    "dataDate": "2026-11-04",
    "isBear": true,
-   "ddFromAth": 0.2433,
-   "ddChange": 0.0306,
-   "phase": "acute",
-   "pricePct2y": 0.506,
-   "dd42Pct": 10.09918241522585,
+   "ddFromAth": 0.2398,
+   "ddChange": 0.0271,
+   "phase": "grind",
+   "pricePct2y": 0.5179,
+   "dd42Pct": 9.688156189965602,
    "mult": 0.75,
    "recoveryRisk": false,
-   "note": "Giá đang sụp cấp tính (đáy sâu thêm +3 điểm %/tháng). Cách đỉnh 24% — dùng độ sâu để tính khối lượng."
+   "note": "Bear rỉ máu. Giá ở percentile 52% của 2 năm gần — dùng vị trí giá để tính khối lượng."
   },
   "twoYearBrake": {
    "multiplier": 1,
@@ -174,7 +174,7 @@
   ],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-04T06:42:40.019Z",
+   "generatedAt": "2026-11-04T15:33:43.797Z",
    "items": [
     {
      "presetId": "1m",
@@ -221,7 +221,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-04T06:42:39.345Z",
+   "generatedAt": "2026-11-04T15:33:43.377Z",
    "items": [
     {
      "tier": "cycle",
@@ -240,20 +240,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-04T06:41:22.714Z",
+   "generatedAt": "2026-11-04T15:32:52.009Z",
    "recentImprPct": -2.3,
    "recentBrakedMonths": 22,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-04T06:41:33.741Z",
+   "generatedAt": "2026-11-04T15:32:58.864Z",
    "recentImprPct": null,
    "recentAssetImprPct": null,
    "recentBearCycles": 5,
    "status": "insufficient"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-04T06:42:40.535Z",
+   "generatedAt": "2026-11-04T15:33:44.109Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -279,9 +279,9 @@
  "sourceFreshness": {
   "world": "2026-11-04T05:00:00.000Z",
   "dxy": "2026-11-04T05:00:00.000Z",
-  "yield10y": "2026-11-03T13:20:00.000Z",
-  "vnGold": "2026-11-04T06:39:20.197Z",
-  "usdVnd": "2026-11-04T06:39:20.197Z",
+  "yield10y": "2026-11-04T13:20:00.000Z",
+  "vnGold": "2026-11-04T15:31:29.876Z",
+  "usdVnd": "2026-11-04T15:31:29.876Z",
   "fed": null
  },
  "dataQuality": {
@@ -300,9 +300,9 @@
    "status": "ok"
   },
   "yield10y": {
-   "asOfDate": "2026-11-03",
+   "asOfDate": "2026-11-04",
    "source": "yahoo:^TNX",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 5,
    "status": "ok"
   },
@@ -337,8 +337,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.53900146484375,
-   "us10y": 4.952000141143799,
+   "dxy": 101.52100372314453,
+   "us10y": 4.956000328063965,
    "fedFunds": 3.75,
    "fedAsOf": "2026-10-01"
   },
@@ -361,7 +361,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -1,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 4,95%, thay đổi 3 tháng +0,34 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 4,96%, thay đổi 3 tháng +0,29 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
