@@ -1,11 +1,11 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-06T07:05:41.093Z",
+ "generatedAt": "2026-11-06T15:13:51.242Z",
  "dataDate": "2026-11-06",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 4058,
+  "xauUsd": 4058.699951171875,
   "sjcBuy": 138000000,
   "sjcSell": 141000000,
   "ringBuy": 141400000,
@@ -17,7 +17,7 @@
   "vnPremiumVnd": 13046097,
   "changes": {
    "prevDate": "2026-11-05",
-   "xauUsd": -15,
+   "xauUsd": -14.3,
    "sjcSell": -1500000,
    "ringSell": null,
    "vnPremiumPct": -1.8
@@ -142,14 +142,14 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.5218,
   "bearDca": {
-   "generatedAt": "2026-11-06T07:04:47.540Z",
+   "generatedAt": "2026-11-06T15:12:20.794Z",
    "dataDate": "2026-11-06",
    "isBear": true,
-   "ddFromAth": 0.237,
-   "ddChange": 0.0186,
+   "ddFromAth": 0.2369,
+   "ddChange": 0.0185,
    "phase": "grind",
    "pricePct2y": 0.5218,
-   "dd42Pct": 9.02773107359831,
+   "dd42Pct": 9.012038469298545,
    "mult": 0.75,
    "recoveryRisk": false,
    "note": "Bear rỉ máu. Giá ở percentile 52% của 2 năm gần — dùng vị trí giá để tính khối lượng."
@@ -172,7 +172,7 @@
   "insufficientLayers": [],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-06T07:05:40.492Z",
+   "generatedAt": "2026-11-06T15:13:50.433Z",
    "items": [
     {
      "presetId": "1m",
@@ -219,7 +219,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-06T07:05:40.054Z",
+   "generatedAt": "2026-11-06T15:13:49.807Z",
    "items": [
     {
      "tier": "cycle",
@@ -238,20 +238,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-06T07:04:47.539Z",
+   "generatedAt": "2026-11-06T15:12:20.792Z",
    "recentImprPct": -2.6,
    "recentBrakedMonths": 21,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-06T07:04:54.360Z",
+   "generatedAt": "2026-11-06T15:12:31.704Z",
    "recentImprPct": -0.4,
    "recentAssetImprPct": 0.1,
    "recentBearCycles": 6,
    "status": "ok"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-06T07:05:40.834Z",
+   "generatedAt": "2026-11-06T15:13:50.907Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -277,9 +277,9 @@
  "sourceFreshness": {
   "world": "2026-11-06T05:00:00.000Z",
   "dxy": "2026-11-06T05:00:00.000Z",
-  "yield10y": "2026-11-05T13:20:00.000Z",
-  "vnGold": "2026-11-06T07:03:22.399Z",
-  "usdVnd": "2026-11-06T07:03:22.399Z",
+  "yield10y": "2026-11-06T13:20:00.000Z",
+  "vnGold": "2026-11-06T15:09:57.250Z",
+  "usdVnd": "2026-11-06T15:09:57.250Z",
   "fed": null
  },
  "dataQuality": {
@@ -298,9 +298,9 @@
    "status": "ok"
   },
   "yield10y": {
-   "asOfDate": "2026-11-05",
+   "asOfDate": "2026-11-06",
    "source": "yahoo:^TNX",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 5,
    "status": "ok"
   },
@@ -335,8 +335,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 101.86599731445312,
-   "us10y": 4.836999893188477,
+   "dxy": 102.19300079345703,
+   "us10y": 4.886000156402588,
    "fedFunds": 3.88,
    "fedAsOf": "2026-11-01"
   },
@@ -345,7 +345,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -1,
-    "explanation": "DXY = 101,9 (trên MA50, -0,3% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+    "explanation": "DXY = 102,2 (trên MA50, +0,1% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
@@ -359,7 +359,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -1,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 4,84%, thay đổi 3 tháng +0,18 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 4,89%, thay đổi 3 tháng +0,19 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
     "available": true
    },
    {
