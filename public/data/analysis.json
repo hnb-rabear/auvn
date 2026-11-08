@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-08T10:33:41.338Z",
+ "generatedAt": "2026-11-08T17:07:52.177Z",
  "dataDate": "2026-11-06",
  "stale": false,
  "staleDays": 0,
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 11,3%, ở percentile 39 so với lịch sử tự thu thập (637 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 11,3%, ở percentile 39 so với lịch sử tự thu thập (638 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -118,7 +118,7 @@
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": -1,
-     "explanation": "USD/VND 25.780, nhịp -1,2%/tháng: tỷ giá giảm — bớt lực đẩy nội tệ cho giá vàng VN.",
+     "explanation": "USD/VND 25.780, nhịp -1,1%/tháng: tỷ giá giảm — bớt lực đẩy nội tệ cho giá vàng VN.",
      "available": true
     }
    ],
@@ -186,9 +186,9 @@
  },
  "composite": 13.7,
  "zone": "neutral",
- "vnHistoryDays": 637,
+ "vnHistoryDays": 638,
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-11-01, cũ 7 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-11-01, cũ 8 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "premiumSeries": [
@@ -2739,19 +2739,23 @@
   {
    "date": "2026-11-08",
    "value": 11.33
+  },
+  {
+   "date": "2026-11-09",
+   "value": 11.33
   }
  ],
  "premiumPercentiles": {
   "p20": 7.5,
-  "p50": 12.27,
+  "p50": 12.23,
   "p80": 14.88
  },
  "sourceTimes": {
   "world": "2026-11-06T05:00:00.000Z",
   "dxy": "2026-11-06T05:00:00.000Z",
   "yield10y": "2026-11-06T13:20:00.000Z",
-  "vnGold": "2026-11-08T10:33:41.338Z",
-  "usdVnd": "2026-11-08T10:33:41.338Z",
+  "vnGold": "2026-11-08T17:07:52.177Z",
+  "usdVnd": "2026-11-08T17:07:52.177Z",
   "fed": null
  },
  "inputDates": {
@@ -2772,7 +2776,7 @@
    "source": "cache"
   },
   "sjc": {
-   "date": "2026-11-08",
+   "date": "2026-11-09",
    "source": "cafef"
   },
   "ring": {
@@ -2780,11 +2784,11 @@
    "source": "history"
   },
   "usdVnd": {
-   "date": "2026-11-08",
+   "date": "2026-11-09",
    "source": "vietcombank"
   }
  },
- "runDate": "2026-11-08",
+ "runDate": "2026-11-09",
  "macroLevels": {
   "dxy": 102.30000305175781,
   "us10y": 4.859000205993652,
