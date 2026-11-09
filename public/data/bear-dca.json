@@ -1,13 +1,13 @@
 {
- "generatedAt": "2026-11-09T08:08:47.486Z",
+ "generatedAt": "2026-11-09T18:56:59.422Z",
  "dataDate": "2026-11-09",
  "isBear": true,
- "ddFromAth": 0.22984356197352582,
- "ddChange": 0.02261958483754517,
+ "ddFromAth": 0.2264026774969915,
+ "ddChange": 0.019178700361010853,
  "phase": "grind",
- "pricePct2y": 0.5595238095238095,
- "dd42Pct": 7.43293633754435,
+ "pricePct2y": 0.5753968253968254,
+ "dd42Pct": 7.019367669325849,
  "mult": 0.75,
  "recoveryRisk": false,
- "note": "Bear rỉ máu. Giá ở percentile 56% của 2 năm gần — dùng vị trí giá để tính khối lượng."
+ "note": "Bear rỉ máu. Giá ở percentile 58% của 2 năm gần — dùng vị trí giá để tính khối lượng."
 }
