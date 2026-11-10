@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-11-09T18:55:12.651Z",
- "dataDate": "2026-11-09",
+ "generatedAt": "2026-11-10T02:15:12.170Z",
+ "dataDate": "2026-11-10",
  "stale": false,
  "staleDays": 0,
  "prices": {
-  "sjcBuy": 138200000,
-  "sjcSell": 141200000,
+  "sjcBuy": 138500000,
+  "sjcSell": 141500000,
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 4114.2998046875,
+  "xauUsd": 4133,
   "usdVnd": 25700,
-  "worldVndPerLuong": 127482740,
-  "premiumPct": 10.76,
-  "premiumVnd": 13717260
+  "worldVndPerLuong": 127488943,
+  "premiumPct": 10.99,
+  "premiumVnd": 14011057
  },
  "criteria": [
   {
@@ -24,28 +24,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 0,
-     "explanation": "RSI ngày = 50,3: trung tính.",
+     "explanation": "RSI ngày = 51,8: trung tính.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 0,
-     "explanation": "RSI tuần = 44,5: trung tính.",
+     "explanation": "RSI tuần = 45,3: trung tính.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 8,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 8%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 1,
-     "explanation": "Giá ở mức 15% biên độ 52 tuần (đáy 3.899 — đỉnh 5.318): vùng thấp của biên độ năm.",
+     "explanation": "Giá ở mức 16% biên độ 52 tuần (đáy 3.899 — đỉnh 5.318): vùng thấp của biên độ năm.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": 1,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 10,8%, ở percentile 34 so với lịch sử tự thu thập (639 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 11%, ở percentile 36 so với lịch sử tự thu thập (639 ngày): chênh thấp — mua vàng VN ít rủi ro 'mua đắt hơn thế giới'.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 101,8 (trên MA50, -0,4% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 101,7 (trên MA50, -0,5% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -111,7 +111,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,87%, thay đổi 3 tháng +0,19 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,86%, thay đổi 3 tháng +0,18 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -133,7 +133,7 @@
      "id": "pct1y",
      "label": "Percentile giá so với 1 năm",
      "score": 1,
-     "explanation": "Giá hiện tại cao hơn 18% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
+     "explanation": "Giá hiện tại cao hơn 19% số phiên trong 1 năm qua: vùng giá thấp lịch sử — thuận mua.",
      "available": true
     },
     {
@@ -2746,7 +2746,7 @@
   },
   {
    "date": "2026-11-10",
-   "value": 10.76
+   "value": 10.99
   }
  ],
  "premiumPercentiles": {
@@ -2755,20 +2755,20 @@
   "p80": 14.88
  },
  "sourceTimes": {
-  "world": "2026-11-09T05:00:00.000Z",
-  "dxy": "2026-11-09T05:00:00.000Z",
+  "world": "2026-11-10T02:04:08.000Z",
+  "dxy": "2026-11-10T02:04:08.000Z",
   "yield10y": "2026-11-09T13:20:00.000Z",
-  "vnGold": "2026-11-09T18:55:12.651Z",
-  "usdVnd": "2026-11-09T18:55:12.651Z",
+  "vnGold": "2026-11-10T02:15:12.170Z",
+  "usdVnd": "2026-11-10T02:15:12.170Z",
   "fed": null
  },
  "inputDates": {
   "xau": {
-   "date": "2026-11-09",
+   "date": "2026-11-10",
    "source": "yahoo:GC=F"
   },
   "dxy": {
-   "date": "2026-11-09",
+   "date": "2026-11-10",
    "source": "yahoo:DX-Y.NYB"
   },
   "yield10y": {
@@ -2794,8 +2794,8 @@
  },
  "runDate": "2026-11-10",
  "macroLevels": {
-  "dxy": 101.80899810791016,
-  "us10y": 4.874000072479248,
+  "dxy": 101.67900085449219,
+  "us10y": 4.863999843597412,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"
  }
