@@ -169,6 +169,26 @@ describe("stormEvidence", () => {
     const ev = stormEvidence(tl, ewmaSigma(tl.map((p) => p.price)));
     expect(ev["21"]).toBeNull();
   });
+
+  // calm 600 → storm 100 → calm 100; p10=-1 ⇒ đỉnh zigzag 3% thủng, 1% không
+  const stormTl = () => mkTl([...zigzag(600, 0.01), ...zigzag(100, 0.03), ...zigzag(100, 0.01)], { p10: -1, endP25: -1, endP75: 1 });
+
+  it("asOf bỏ qua ≡ asOf = phiên cuối ≡ toàn lịch sử", () => {
+    const tl = stormTl();
+    const sig = ewmaSigma(tl.map((p) => p.price));
+    const all = stormEvidence(tl, sig);
+    expect(all["21"]).not.toBeNull();
+    expect(stormEvidence(tl, sig, 3, tl.length - 1)).toEqual(all);
+  });
+  it("asOf: điểm đáo hạn sau asOf bị loại (không look-ahead)", () => {
+    const tl = stormTl();
+    const sig = ewmaSigma(tl.map((p) => p.price));
+    const full = stormEvidence(tl, sig)["21"]!;
+    const early = stormEvidence(tl, sig, 3, 660)["21"]!;
+    expect(early.onClusters).toBeLessThan(full.onClusters);
+    // tương đương cắt timeline tại asOf (σ past-only)
+    expect(early).toEqual(stormEvidence(tl.slice(0, 661), sig.slice(0, 661))["21"]);
+  });
 });
 
 describe("monitorBearDownside — lưới lấy mẫu cố định", () => {

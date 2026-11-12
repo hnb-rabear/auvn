@@ -132,18 +132,16 @@ export function stormAt(sigma: number[], X: number): boolean {
 
 export type StormEvidence = Record<"21" | "63" | "126", { onDip10: number; offDip10: number; onClusters: number } | null>;
 
-/**
- * Bằng chứng cờ bão trên lịch sử đã đáo hạn: % lần đáy thực thủng p10 của dải as-of
- * khi cờ BẬT vs TẮT. Tính lại từ timeline (không hằng số) — mỗi cron thêm ngày đáo hạn.
- * null cho kỳ hạn khi không có ngày bão nào đáo hạn.
- */
-export function stormEvidence(points: TimelinePoint[], sigma: number[], step = 3): StormEvidence {
+export type StormRow = { i: number; storm: boolean; breach: boolean };
+export type StormRows = Record<"21" | "63" | "126", StormRow[]>;
+
+/** Mỗi điểm lưới đã đáo hạn: cờ bão + đáy thực có thủng p10 không. Nặng (sort σ) — tính 1 lần, gom theo asOf bằng stormEvidenceAt. */
+export function stormEvidenceRows(points: TimelinePoint[], sigma: number[], step = 3): StormRows {
   const prices = points.map((p) => p.price);
-  const out = {} as StormEvidence;
+  const out = {} as StormRows;
   for (const H of HKEYS) {
     const Hn = Number(H);
-    let on = 0, onB = 0, off = 0, offB = 0;
-    const blocks = new Set<number>();
+    const rows: StormRow[] = [];
     for (let i = 0; i < points.length; i += step) {
       const b = points[i].bearAsOf?.[H];
       if (!b) continue;
@@ -151,14 +149,39 @@ export function stormEvidence(points: TimelinePoint[], sigma: number[], step = 3
       if (dip === null) continue;
       const r = stormRatio(sigma, i);
       if (r === null) continue; // chưa đủ lịch sử ⇒ không tính là "tắt"
-      if (r >= STORM_RATIO) { on++; if (dip < b.p10) onB++; blocks.add(Math.floor(i / Hn)); }
-      else { off++; if (dip < b.p10) offB++; }
+      rows.push({ i, storm: r >= STORM_RATIO, breach: dip < b.p10 });
+    }
+    out[H] = rows;
+  }
+  return out;
+}
+
+/** Gom bằng chứng chỉ từ điểm đã đáo hạn tại asOf (i + H ≤ asOf) — không look-ahead khi xem ngày quá khứ. */
+export function stormEvidenceAt(rows: StormRows, asOf: number): StormEvidence {
+  const out = {} as StormEvidence;
+  for (const H of HKEYS) {
+    const Hn = Number(H);
+    let on = 0, onB = 0, off = 0, offB = 0;
+    const blocks = new Set<number>();
+    for (const r of rows[H]) {
+      if (r.i + Hn > asOf) break; // rows tăng dần theo i; asOf=phiên cuối ≡ bản cũ (furtherDrawdownPct đã cho i+H ≤ cuối)
+      if (r.storm) { on++; if (r.breach) onB++; blocks.add(Math.floor(r.i / Hn)); }
+      else { off++; if (r.breach) offB++; }
     }
     out[H] = on && off
       ? { onDip10: Math.round((onB / on) * 100), offDip10: Math.round((offB / off) * 100), onClusters: blocks.size }
       : null;
   }
   return out;
+}
+
+/**
+ * Bằng chứng cờ bão trên lịch sử đã đáo hạn (tới asOf, mặc định phiên cuối): % lần đáy thực
+ * thủng p10 của dải as-of khi cờ BẬT vs TẮT. Tính lại từ timeline (không hằng số).
+ * null cho kỳ hạn khi không có ngày bão nào đáo hạn.
+ */
+export function stormEvidence(points: TimelinePoint[], sigma: number[], step = 3, asOf?: number): StormEvidence {
+  return stormEvidenceAt(stormEvidenceRows(points, sigma, step), asOf ?? points.length - 1);
 }
 
 export type BdoHealthItem = {

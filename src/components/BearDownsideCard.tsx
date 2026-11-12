@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { BearDownsideAnalysis, BearAsOfBand, BearHorizonStat, Timeline } from "@/lib/types";
 import {
   ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats,
-  ewmaSigma, stormRatio, stormAt, stormEvidence, STORM_RATIO, type BdoHealth,
+  ewmaSigma, stormRatio, stormAt, stormEvidenceRows, stormEvidenceAt, STORM_RATIO, type BdoHealth,
 } from "@/lib/bear-downside-view";
 import { centerWindow } from "@/lib/brush";
 import { buildGeom } from "@/lib/price-chart";
@@ -150,7 +150,7 @@ export default function BearDownsideCard({
 
   const prices = useMemo(() => points.map((q) => q.price), [points]);
   const sigma = useMemo(() => ewmaSigma(prices), [prices]);
-  const stormEv = useMemo(() => stormEvidence(points, sigma), [points, sigma]);
+  const stormRows = useMemo(() => stormEvidenceRows(points, sigma), [points, sigma]);
   const geom = useMemo(() => buildGeom(points, start, span, EMPTY_SJC, 700, 200), [points, start, span]);
   const hasChart = total >= 2;
 
@@ -204,7 +204,7 @@ export default function BearDownsideCard({
     .map((H) => `${HSHORT[H]} ${signed(p.bearAsOf![H]!.p10)}`).join(" · ");
   const storm = stormAt(sigma, X);
   const ratio = stormRatio(sigma, X);
-  const ev3 = stormEv["63"];
+  const ev3 = stormEvidenceAt(stormRows, X)["63"]; // as-of X: chỉ outcome đã đáo hạn tới X
   // chỉ hiện khi bằng chứng 3T có ≥6 đợt độc lập (cùng ngưỡng monitor)
   const stormEvOk = ev3 != null && ev3.onClusters >= 6;
   const stormShown = storm && stormEvOk;
@@ -297,7 +297,7 @@ export default function BearDownsideCard({
             ) : (
               <>khi dải 2 năm gần đây trượt khỏi thực tế quá mức nhiễu.</>
             )}{" "}
-            Đã thử 6 cách dựng dải khác — không cách nào chính xác hơn.
+            Đã thử 6 cách dựng dải khác — không cách nào tốt hơn nhất quán ở cả hai giai đoạn.
           </p>
           <p className="muted">Phân phối tính theo trọng số hồi quy (ưu tiên ~2 năm gần) để bám chế độ thị trường hiện tại — nên cột kết cục nghiêng theo xu hướng gần đây; cột đáy là đối trọng rủi ro. Tái hiện lịch sử để đối chiếu, KHÔNG phải dự đoán.</p>
         </div>
