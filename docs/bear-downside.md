@@ -183,3 +183,18 @@ Card có thanh trượt riêng: cuộn về ngày X bất kỳ và xem **dải c
 - **Thực tế** — cột riêng hiển thị đáy tệ nhất thực tế `min(price[X+1..X+H])/price[X]-1` + kết cục thực tế `returns[H]`, tính client-side từ giá điểm. Chỉ hiện khi đã đáo hạn (`X+H` trong dữ liệu), ngược lại "chưa đáo hạn".
 - Trước đây đối chiếu bằng ✓/✗ (đáy thực vs p10, kết cục thực vs endMedian) nhưng bị bỏ vì khó hiểu (2026-07-02) — thay bằng cột "Thực tế" hiển thị thẳng giá đã xảy ra để người dùng tự so.
 - Không look-ahead; conditioning theo bucket vẫn bị bác; không sync với Time Machine. Reaction/đối chiếu, KHÔNG dự đoán.
+
+## Dự báo đáng tin hơn? (2026-11-12, `scripts/bear-downside-forecast-study.ts`) — 0/6 thắng card; ship cờ bão + chuông báo
+
+Walk-forward 2011–2026 (origin cách 3 phiên, cần ≥504 phiên lịch sử), train <2019 / test ≥2019. Thước đo: CRPS (pinball 19 mức q), cov50, dip10, Brier pUp; ΔCRPS vs card với CI95 bootstrap theo cụm khối H phiên. Cổng: tốt hơn ở cả 2 era cho ≥2/3 kỳ hạn, CI test loại 0, coverage không xấu đi, thắng placebo (σ xáo khối 63 phiên).
+
+| Ứng viên | Kết quả |
+| --- | --- |
+| không trọng số / recency-252 | 0/3 kỳ hạn tốt hơn cả 2 era |
+| FHS (lợi suất × σ_now/σ_then) | tệ hơn (1T test ΔCRPS +0.09 [0.02, 0.16]) |
+| FHS √ tỉ số / FHS chỉ co giãn độ lệch | 0/3 — demeaned thắng nhẹ 3T/6T test nhưng thua train |
+| FHS + hiệu chỉnh phân vị thích nghi (conformal) | tệ nhất (6T train +3.21 [0.32, 6.43]) |
+
+⇒ **KHÔNG đổi engine.** Phát hiện dùng được — **cờ bão** (σ EWMA hôm nay ≥ 1.3× trung vị σ 504 phiên trước, past-only, `stormAt`): khi bật, đáy thực thủng p10 của card nhiều gấp 2–4 lần (3T: train 29% vs 7%, test 21% vs 6%; 6T test 24% vs 5%). Placebo dịch vòng ×200: vượt p95 ở 1T train, 3T cả 2 era, 6T test; KHÔNG vượt ở 1T test, 6T train ⇒ card dẫn bằng số 3T. Cờ là CẢNH BÁO "đáy có thể sâu hơn bảng", không phải con số hiệu chỉnh (dải co giãn theo σ đã trượt cổng).
+
+**Chuông báo trượt** (`monitorBearDownside`, `public/data/bear-downside-health.json`, Telegram khi chuyển sang `degraded`): coverage của dải đã đáo hạn trong 504 phiên gần nhất, dải nhiễu theo số cụm độc lập. Mô phỏng hằng tháng 158 lần trong lịch sử: 1T/3T chưa từng báo; 2026-11-12 báo 1T (29% trong p25–p75, 18% thủng p10, 24 cụm). 6T luôn `insufficient` (≤4 cụm/2 năm).
