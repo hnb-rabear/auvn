@@ -7,6 +7,7 @@ import PremiumChart from "./PremiumChart";
 import BottomGauges from "./BottomGauges";
 import BearDcaCard from "./BearDcaCard";
 import BearDownsideCard from "./BearDownsideCard";
+import type { BdoHealth } from "@/lib/bear-downside-view";
 import ActionGuidance, { LEVEL_TAG } from "./ActionGuidance";
 import SettingsSheet from "./SettingsSheet";
 import { fabLabel, zoneClass, SETTINGS_KEY, type Settings, DEFAULT_SETTINGS, parseSettings } from "@/lib/settings";
@@ -121,6 +122,7 @@ export default function Dashboard({
   bearDca,
   bearDcaHealth,
   bearDownside,
+  bearDownsideHealth,
   vnRows,
   ringRows,
 }: {
@@ -135,6 +137,7 @@ export default function Dashboard({
   bearDca: BearDcaAnalysis;
   bearDcaHealth: BearDcaHealth;
   bearDownside: BearDownsideAnalysis;
+  bearDownsideHealth?: BdoHealth | null;
   vnRows: VnGoldEntry[];
   ringRows: RingGoldDay[];
 }) {
@@ -929,7 +932,7 @@ export default function Dashboard({
           <span className="acc-chev">▸</span>
         </summary>
         <div className="acc-body flat">
-          <BearDownsideCard bd={bearDownside} timeline={timeline} asOfIdx={selIdx} />
+          <BearDownsideCard bd={bearDownside} timeline={timeline} asOfIdx={selIdx} health={bearDownsideHealth} />
         </div>
       </details>
 
