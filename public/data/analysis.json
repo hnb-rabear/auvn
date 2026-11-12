@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-12T03:08:23.634Z",
+ "generatedAt": "2026-11-12T10:58:31.528Z",
  "dataDate": "2026-11-12",
  "stale": false,
  "staleDays": 0,
@@ -9,7 +9,7 @@
   "ringBuy": 141400000,
   "ringSell": 145400000,
   "ringDate": "2026-09-27",
-  "xauUsd": 3985.39990234375,
+  "xauUsd": 3958.300048828125,
   "usdVnd": 25840,
   "worldVndPerLuong": 124631871,
   "premiumPct": 11.53,
@@ -23,29 +23,29 @@
     {
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
-     "score": 0,
-     "explanation": "RSI ngày = 41,4: trung tính.",
+     "score": 1,
+     "explanation": "RSI ngày = 39,7: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 38,8: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 38: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 11%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 11,6%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 6% biên độ 52 tuần (đáy 3.899 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 4% biên độ 52 tuần (đáy 3.899 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
@@ -56,7 +56,7 @@
      "available": true
     }
    ],
-   "score": 1,
+   "score": 1.2,
    "available": true
   },
   {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -1,
-     "explanation": "DXY = 103 (trên MA50, +0,5% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
+     "explanation": "DXY = 102,8 (trên MA50, +0,3% trong 1 tháng): USD trên xu hướng trung hạn — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -140,7 +140,7 @@
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 64% số phiên trong 3 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 63% số phiên trong 3 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 21,3%, percentile 85 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 21,4%, percentile 86 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -3,2% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -3,8% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 10,
+ "composite": 13.5,
  "zone": "neutral",
  "vnHistoryDays": 641,
  "warnings": [
@@ -2763,11 +2763,11 @@
   "p80": 14.88
  },
  "sourceTimes": {
-  "world": "2026-11-12T02:57:21.000Z",
-  "dxy": "2026-11-12T02:57:20.000Z",
+  "world": "2026-11-12T05:00:00.000Z",
+  "dxy": "2026-11-12T05:00:00.000Z",
   "yield10y": "2026-11-11T13:20:00.000Z",
-  "vnGold": "2026-11-12T03:08:23.634Z",
-  "usdVnd": "2026-11-12T03:08:23.634Z",
+  "vnGold": "2026-11-12T10:58:31.528Z",
+  "usdVnd": "2026-11-12T10:58:31.528Z",
   "fed": null
  },
  "inputDates": {
@@ -2802,7 +2802,7 @@
  },
  "runDate": "2026-11-12",
  "macroLevels": {
-  "dxy": 103.02300262451172,
+  "dxy": 102.80999755859375,
   "us10y": 4.998000144958496,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"
