@@ -44,6 +44,7 @@ import { monitorAccumulation } from "./monitor-accumulation";
 import type { AccumPoint } from "../src/lib/types";
 import { runBearDca, monitorBearDca } from "../src/lib/bear-dca";
 import { runBearDownside, runBearDownsideHistory } from "../src/lib/bear-downside";
+import { monitorBearDownside } from "../src/lib/bear-downside-view";
 import type { BearDcaPoint } from "../src/lib/types";
 import type { BearDownsideAnalysis } from "../src/lib/types";
 
@@ -453,6 +454,8 @@ async function main() {
   const bearDownside: BearDownsideAnalysis = runBearDownside(xauRes.bars);
   // Làm giàu timeline bằng dải Bear Downside as-of (walk-forward) cho máy thời gian card Triển Vọng.
   forwardFillBearAsOf(timeline.points, runBearDownsideHistory(xauRes.bars));
+  // Chuông báo trượt dải Triển vọng: coverage 2 năm gần của dải as-of đã đáo hạn.
+  const bearDownsideHealth = monitorBearDownside(timeline.points);
   const bearDcaHealth = monitorBearDca(bearDcaPoints);
 
   const bottomHealth: BottomHealth = monitorBottom(
@@ -499,6 +502,7 @@ async function main() {
   writeFileSync(join(DATA_DIR, "bear-dca.json"), JSON.stringify(bearDca, null, 1));
   writeFileSync(join(DATA_DIR, "bear-dca-health.json"), JSON.stringify(bearDcaHealth, null, 1));
   writeFileSync(join(DATA_DIR, "bear-downside.json"), JSON.stringify(bearDownside, null, 1));
+  writeFileSync(join(DATA_DIR, "bear-downside-health.json"), JSON.stringify(bearDownsideHealth, null, 1));
 
   console.log(
     `OK: composite=${composite} zone=${analysis.zone} premium=${prices.premiumPct}% backtest obs=${backtest.observations} bottomCycle=${bottom.cycle.prob}% bottomSwing=${bottom.swing.prob}% accumMult=${accumulation.mult} pricePct2y=${accumulation.pricePct2y} bearDdNow=${bearDownside.currentDdPct}% bucket=${bearDownside.currentBucketIdx} cond=${bearDownside.conditioningWorks}`

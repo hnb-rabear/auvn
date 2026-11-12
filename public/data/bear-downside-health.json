@@ -1,0 +1,26 @@
+{
+ "generatedAt": "2026-11-12T08:55:24.984Z",
+ "items": [
+  {
+   "H": "21",
+   "status": "ok",
+   "clusters": 24,
+   "endIn50": 34,
+   "dipBeyond10": 19
+  },
+  {
+   "H": "63",
+   "status": "ok",
+   "clusters": 8,
+   "endIn50": 27,
+   "dipBeyond10": 23
+  },
+  {
+   "H": "126",
+   "status": "insufficient",
+   "clusters": 4,
+   "endIn50": null,
+   "dipBeyond10": null
+  }
+ ]
+}

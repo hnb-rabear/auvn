@@ -18,6 +18,7 @@ import {
 import { presetSignals } from "../src/lib/consensus";
 import { dataQualityTransitions } from "../src/lib/data-quality";
 import type { AuvnSummary } from "../src/lib/summary";
+import type { BdoHealth } from "../src/lib/bear-downside-view";
 
 const DATA_DIR = join(process.cwd(), "public", "data");
 const STATE_FILE = join(DATA_DIR, "notify-state.json");
@@ -91,6 +92,25 @@ async function main() {
           lines.push(
             `🟠 Preset <b>${p?.label ?? item.presetId}</b> đang mất phong độ trên dữ liệu mới ` +
               `(lợi thế ${item.minExcessNowPt ?? "—"}pt, 2 năm gần nhất ${item.recentFavPct ?? "—"}% vs baseline ${item.recentBaselinePct ?? "—"}%).`
+          );
+        }
+      }
+    } catch {}
+  }
+
+  // Dải Triển vọng trượt so với thực tế 2 năm gần — chỉ báo lúc CHUYỂN sang degraded.
+  const bdoFile = join(DATA_DIR, "bear-downside-health.json");
+  if (existsSync(bdoFile)) {
+    try {
+      const bdo: BdoHealth = JSON.parse(readFileSync(bdoFile, "utf8"));
+      const HLBL: Record<string, string> = { "21": "1T", "63": "3T", "126": "6T" };
+      for (const it of bdo.items) {
+        const key = `bdo-health:${it.H}`;
+        newState[key] = it.status;
+        if (it.status === "degraded" && state[key] !== "degraded") {
+          lines.push(
+            `🟠 Triển vọng <b>${HLBL[it.H]}</b> đang trượt: 2 năm gần ${it.endIn50}% kết cục nằm trong dải (kỳ vọng ~50%), ` +
+              `${it.dipBeyond10}% đáy thủng mức hiếm gặp (kỳ vọng ~10%) — đọc thận trọng.`
           );
         }
       }
