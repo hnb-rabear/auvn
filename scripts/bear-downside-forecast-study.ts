@@ -26,7 +26,8 @@
 import { readFileSync } from "node:fs";
 import { HORIZONS, STEP } from "../src/lib/bear-downside";
 import { seededRandom } from "../src/lib/indicators";
-import { ewmaSigma, stormAt, stormRatio, STORM_RATIO } from "../src/lib/bear-downside-view";
+import { ewmaSigma, stormAt, stormRatio, STORM_RATIO, stormEvidence, monitorBearDownside } from "../src/lib/bear-downside-view";
+import type { TimelinePoint } from "../src/lib/types";
 
 const SPLIT = "2019-01-01";
 const HL = 504;
@@ -143,7 +144,7 @@ for (const H of HORIZONS) {
       "M6 fhsRecal": build(X, H, "fhs", HL, sig, QS.map(recalLevel), yLog),
       "P placebo": build(X, H, "fhs", HL, sigPlacebo, QS, yLog),
     } as Record<MethodName, Fc>;
-    // M6 dip10 + pUp cũng qua ánh xạ: dip giữ của M3 hiệu chỉnh mức 0.1 trên phân phối dip là ngoài phạm vi PIT lợi suất ⇒ giữ M3
+    // M6 chỉ ánh xạ các mức q của kết cục qua PIT; dip10 giữ của M3 (hiệu chỉnh mức 0.1 trên phân phối dip nằm ngoài phạm vi PIT lợi suất)
     fc["M6 fhsRecal"].dip10 = fc["M3 fhs"].dip10;
     if (X === last) today[H] = fc;
     if (matured) {
@@ -291,5 +292,41 @@ for (const H of HORIZONS) {
     const f = today[H][m];
     const usd = (p: number) => `$${Math.round(c[last] * (1 + p / 100))}`;
     console.log(`  ${m.padEnd(13)} đáy p10 ${f1(f.dip10)}% (${usd(f.dip10)})  kết cục p25..p75 ${f1(f.q[i25])}..${f1(f.q[i75])}% (${usd(f.q[i25])}..${usd(f.q[i75])})  pUp ${(f.pUp * 100).toFixed(0)}%`);
+  }
+}
+
+// ── Số của card thật (dùng đúng hàm đã ship): bằng chứng cờ bão theo era + chuông báo phát lại hằng tháng ──
+{
+  const pts = tl.points as TimelinePoint[];
+  const sigAll = ewmaSigma(c);
+  console.log("\n══════ Cờ bão trên dải THẬT của card (stormEvidence; % đáy thủng p10, bật vs tắt) ══════");
+  const inEra = (i: number, era: "train" | "test") => (date[i] < SPLIT) === (era === "train");
+  const show = (label: string, ev: ReturnType<typeof stormEvidence>) => {
+    for (const k of ["21", "63", "126"] as const) {
+      const e = ev[k];
+      console.log(`${label.padEnd(6)} H=${k.padEnd(3)} ${e ? `bật ${e.onDip10}% vs tắt ${e.offDip10}% (${e.onClusters} cụm bão)` : "không đủ dữ liệu"}`);
+    }
+  };
+  show("all", stormEvidence(pts, sigAll));
+  for (const era of ["train", "test"] as const) {
+    // che bearAsOf ngoài era (giữ nguyên chỉ số để khớp σ)
+    show(era, stormEvidence(pts.map((p, i) => (inEra(i, era) ? p : { ...p, bearAsOf: undefined })), sigAll));
+  }
+
+  console.log("\n══════ Chuông báo trượt: phát lại monitorBearDownside vào phiên đầu mỗi tháng ══════");
+  const firsts: number[] = [];
+  for (let i = 0; i < N; i++) if (i === 0 || date[i].slice(0, 7) !== date[i - 1].slice(0, 7)) firsts.push(i);
+  for (const H of ["21", "63", "126"] as const) {
+    const cnt = { ok: 0, degraded: 0, insufficient: 0 };
+    const bad: string[] = [];
+    for (const k of firsts) {
+      const it = monitorBearDownside(pts.slice(0, k + 1)).items.find((x) => x.H === H)!;
+      cnt[it.status]++;
+      if (it.status === "degraded") bad.push(date[k]);
+    }
+    console.log(`H=${H.padEnd(3)} ${firsts.length} ảnh chụp: ok ${cnt.ok}, degraded ${cnt.degraded}, insufficient ${cnt.insufficient}${bad.length ? `  degraded: ${bad.join(", ")}` : ""}`);
+  }
+  for (const it of monitorBearDownside(pts).items) {
+    console.log(`Hôm nay ${date[last]} H=${it.H.padEnd(3)} ${it.status}  endIn50 ${it.endIn50}%  dipBeyond10 ${it.dipBeyond10}%  ${it.clusters} cụm`);
   }
 }
