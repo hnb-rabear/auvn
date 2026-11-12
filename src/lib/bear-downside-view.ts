@@ -25,6 +25,21 @@ export function pUpTenths(pUp: number): number {
   return Math.min(9, Math.max(1, Math.round(pUp / 10)));
 }
 
+/** Dải as-of tại i đã đáo hạn? Nếu có: kết cục nằm trong p25–p75 / đáy thủng p10. null nếu chưa đáo hạn hoặc không có dải. */
+function bandHit(
+  points: TimelinePoint[],
+  prices: number[],
+  i: number,
+  H: "21" | "63" | "126"
+): { in50: boolean; beyond: boolean } | null {
+  const b = points[i].bearAsOf?.[H];
+  const ret = points[i].returns[H];
+  if (!b || ret == null) return null;
+  const dip = furtherDrawdownPct(prices, i, Number(H));
+  if (dip === null) return null;
+  return { in50: ret >= b.endP25 && ret <= b.endP75, beyond: dip < b.p10 };
+}
+
 /**
  * Calibration ĐO ĐƯỢC của dải as-of trên toàn lịch sử đã đáo hạn (walk-forward,
  * không look-ahead: dải ngày X chỉ dùng dữ liệu ≤ X, so với thực tế SAU X):
@@ -40,17 +55,13 @@ export function coverageStats(
   step = 3
 ): { endIn50: number; dipBeyond10: number; n: number } | null {
   const prices = points.map((p) => p.price);
-  const Hn = Number(H);
   let n = 0, in50 = 0, beyond = 0;
   for (let i = 0; i < points.length; i += step) {
-    const b = points[i].bearAsOf?.[H];
-    const ret = points[i].returns[H];
-    if (!b || ret == null) continue;
-    const dip = furtherDrawdownPct(prices, i, Hn);
-    if (dip === null) continue;
+    const hit = bandHit(points, prices, i, H);
+    if (!hit) continue;
     n++;
-    if (ret >= b.endP25 && ret <= b.endP75) in50++;
-    if (dip < b.p10) beyond++;
+    if (hit.in50) in50++;
+    if (hit.beyond) beyond++;
   }
   if (n < 30) return null;
   return {
@@ -89,7 +100,7 @@ export const STORM_RATIO = 1.3;
 export const STORM_LOOKBACK = 504;
 const HKEYS = ["21", "63", "126"] as const;
 
-/** σ EWMA(λ=0.94) của log-return ngày, past-only (σ[X] chỉ dùng giá ≤ X). Mồi = TB bình phương 20 log-return đầu. */
+/** σ EWMA(λ=0.94) của log-return ngày. Mồi = TB bình phương 20 log-return ĐẦU ⇒ σ[0..19] không strictly past-only; từ σ[20] trở đi chỉ dùng giá ≤ X (stormRatio cần X≥504 nên không bị ảnh hưởng). */
 export function ewmaSigma(prices: number[]): number[] {
   const n = prices.length;
   if (n < 2) return prices.map(() => 0);
@@ -138,7 +149,9 @@ export function stormEvidence(points: TimelinePoint[], sigma: number[], step = 3
       if (!b) continue;
       const dip = furtherDrawdownPct(prices, i, Hn);
       if (dip === null) continue;
-      if (stormAt(sigma, i)) { on++; if (dip < b.p10) onB++; blocks.add(Math.floor(i / Hn)); }
+      const r = stormRatio(sigma, i);
+      if (r === null) continue; // chưa đủ lịch sử ⇒ không tính là "tắt"
+      if (r >= STORM_RATIO) { on++; if (dip < b.p10) onB++; blocks.add(Math.floor(i / Hn)); }
       else { off++; if (dip < b.p10) offB++; }
     }
     out[H] = on && off
@@ -170,15 +183,14 @@ export function monitorBearDownside(points: TimelinePoint[], step = 3): BdoHealt
     const Hn = Number(H);
     let n = 0, in50 = 0, beyond = 0;
     const blocks = new Set<number>();
-    for (let i = Math.max(0, last - STORM_LOOKBACK); i + Hn <= last; i += step) {
-      const b = points[i].bearAsOf?.[H];
-      const ret = points[i].returns[H];
-      if (!b || ret == null) continue;
-      const dip = furtherDrawdownPct(prices, i, Hn);
-      if (dip === null) continue;
+    // lưới gốc 0 (cùng pha coverageStats): chỉ số bắt đầu = bội số `step` đầu tiên ≥ last−504, không trôi theo `last`
+    const start = Math.ceil(Math.max(0, last - STORM_LOOKBACK) / step) * step;
+    for (let i = start; i + Hn <= last; i += step) {
+      const hit = bandHit(points, prices, i, H);
+      if (!hit) continue;
       n++;
-      if (ret >= b.endP25 && ret <= b.endP75) in50++;
-      if (dip < b.p10) beyond++;
+      if (hit.in50) in50++;
+      if (hit.beyond) beyond++;
       blocks.add(Math.floor(i / Hn));
     }
     const k = blocks.size;

@@ -170,3 +170,19 @@ describe("stormEvidence", () => {
     expect(ev["21"]).toBeNull();
   });
 });
+
+describe("monitorBearDownside — lưới lấy mẫu cố định", () => {
+  it("dịch last 1–2 phiên không đổi pha lưới ⇒ kết quả giống nhau", () => {
+    // chỉ số chia hết cho 3 có dải bao kết cục 0%; các chỉ số khác thì trượt
+    const tl = mkTl(Array(700).fill(100), { p10: -50, endP25: 5, endP75: 10 }).map((p, i) =>
+      i % 3 === 0 ? { ...p, bearAsOf: { ...p.bearAsOf!, "21": { ...p.bearAsOf!["21"]!, endP25: -1, endP75: 1 } } } : p
+    );
+    const base = monitorBearDownside(tl).items.find((x) => x.H === "21")!;
+    expect(base.endIn50).toBe(100);
+    for (const cut of [1, 2]) {
+      const it21 = monitorBearDownside(tl.slice(0, -cut)).items.find((x) => x.H === "21")!;
+      expect(it21.endIn50).toBe(base.endIn50);
+      expect(it21.dipBeyond10).toBe(base.dipBeyond10);
+    }
+  });
+});
