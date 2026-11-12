@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats, monthAnchors, monthPosOf } from "./bear-downside-view";
+import { ddAsOfPct, actualWorstDipPct, pUpTenths, coverageStats, monthAnchors, monthPosOf, ewmaSigma, stormRatio, stormAt, stormEvidence, monitorBearDownside } from "./bear-downside-view";
 import type { TimelinePoint } from "./types";
 
 /** Điểm timeline tối giản cho coverageStats: giá phẳng, returns + band đặt sẵn. */
@@ -98,5 +98,75 @@ describe("monthPosOf", () => {
     expect(monthPosOf(anchors, 2)).toBe(1);
     expect(monthPosOf(anchors, 3)).toBe(1);
     expect(monthPosOf(anchors, 5)).toBe(2); // sau anchor cuối
+  });
+});
+
+/** giá dao động đều biên ±a quanh 100 (log-return cố định độ lớn) */
+function zigzag(n: number, a: number): number[] {
+  return Array.from({ length: n }, (_, i) => 100 * (i % 2 ? 1 + a : 1));
+}
+
+describe("ewmaSigma / stormAt", () => {
+  it("chuỗi dao động đều: σ ổn định, không bão", () => {
+    const s = ewmaSigma(zigzag(700, 0.01));
+    expect(s.length).toBe(700);
+    expect(stormAt(s, 699)).toBe(false);
+    expect(stormRatio(s, 699)!).toBeCloseTo(1, 1);
+  });
+  it("trước 504 phiên: không đủ lịch sử ⇒ false / null", () => {
+    const s = ewmaSigma(zigzag(600, 0.01));
+    expect(stormAt(s, 503)).toBe(false);
+    expect(stormRatio(s, 503)).toBeNull();
+  });
+  it("biên độ nhảy gấp 3 ở cuối ⇒ bão", () => {
+    const p = [...zigzag(600, 0.01), ...zigzag(30, 0.03).map((x) => x)];
+    const s = ewmaSigma(p);
+    expect(stormAt(s, 629)).toBe(true);
+  });
+  it("past-only: σ[X] không đổi khi thêm giá sau X", () => {
+    const p = zigzag(600, 0.01);
+    const a = ewmaSigma(p)[550];
+    const b = ewmaSigma([...p, 500, 1, 900])[550];
+    expect(b).toBe(a);
+  });
+});
+
+/** timeline tổng hợp: giá tùy chọn, band 21 cố định, returns 21 tính từ giá */
+function mkTl(prices: number[], band: { p10: number; endP25: number; endP75: number }): TimelinePoint[] {
+  return prices.map((price, i) => ({
+    date: `d${String(i).padStart(4, "0")}`,
+    price,
+    composite: 0,
+    zone: "neutral" as TimelinePoint["zone"],
+    scores: {},
+    returns: { "21": i + 21 < prices.length ? (prices[i + 21] / price - 1) * 100 : null, "63": null, "126": null },
+    bearAsOf: { "21": { median: 0, p10: band.p10, endMedian: 0, endP25: band.endP25, endP75: band.endP75, pUp: 50, n: 100 }, "63": null, "126": null },
+  }));
+}
+
+describe("monitorBearDownside", () => {
+  it("dải luôn trượt (kết cục 0% nằm ngoài [5,10]) ⇒ degraded ở 21", () => {
+    const h = monitorBearDownside(mkTl(Array(700).fill(100), { p10: -50, endP25: 5, endP75: 10 }));
+    const it21 = h.items.find((x) => x.H === "21")!;
+    expect(it21.status).toBe("degraded");
+    expect(it21.endIn50).toBe(0);
+    expect(it21.clusters).toBeGreaterThanOrEqual(6);
+  });
+  it("63/126 không có band ⇒ insufficient", () => {
+    const h = monitorBearDownside(mkTl(Array(700).fill(100), { p10: -50, endP25: -1, endP75: 1 }));
+    expect(h.items.find((x) => x.H === "63")!.status).toBe("insufficient");
+    expect(h.items.find((x) => x.H === "126")!.status).toBe("insufficient");
+  });
+  it("timeline ngắn ⇒ insufficient, không ném lỗi", () => {
+    const h = monitorBearDownside(mkTl(Array(40).fill(100), { p10: -50, endP25: -1, endP75: 1 }));
+    expect(h.items.every((x) => x.status === "insufficient")).toBe(true);
+  });
+});
+
+describe("stormEvidence", () => {
+  it("không có ngày bão ⇒ null cho mọi kỳ hạn", () => {
+    const tl = mkTl(zigzag(700, 0.01), { p10: -50, endP25: -1, endP75: 1 });
+    const ev = stormEvidence(tl, ewmaSigma(tl.map((p) => p.price)));
+    expect(ev["21"]).toBeNull();
   });
 });
