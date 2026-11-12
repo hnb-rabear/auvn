@@ -206,7 +206,8 @@ export default function BearDownsideCard({
   const ratio = stormRatio(sigma, X);
   const ev3 = stormEv["63"];
   // chỉ hiện khi bằng chứng 3T có ≥6 đợt độc lập (cùng ngưỡng monitor)
-  const stormShown = storm && ev3 != null && ev3.onClusters >= 6;
+  const stormEvOk = ev3 != null && ev3.onClusters >= 6;
+  const stormShown = storm && stormEvOk;
   const drifting = isLatest ? (health?.items ?? []).filter((h) => h.status === "degraded") : [];
 
   return (
@@ -287,9 +288,16 @@ export default function BearDownsideCard({
             </p>
           )}
           <p>
-            <b>Cảnh báo tự động:</b> (1) khi biến động ≥{STORM_RATIO}× mức 2 năm trước, đáy thực thường sâu hơn bảng
-            {ev3 && ev3.onClusters >= 6 && <> (3T: thủng {ev3.onDip10}% vs {ev3.offDip10}% ngày thường)</>};
-            (2) khi dải 2 năm gần trượt khỏi thực tế quá mức nhiễu. Đã thử 6 cách dựng dải khác — không cách nào chính xác hơn.
+            <b>Cảnh báo tự động:</b>{" "}
+            {stormEvOk ? (
+              <>
+                (1) khi biến động ≥{fmt1(STORM_RATIO)}× mức 2 năm trước, đáy thực thường sâu hơn bảng (3T: thủng {ev3!.onDip10}% vs {ev3!.offDip10}% ngày thường);
+                (2) khi dải 2 năm gần đây trượt khỏi thực tế quá mức nhiễu.
+              </>
+            ) : (
+              <>khi dải 2 năm gần đây trượt khỏi thực tế quá mức nhiễu.</>
+            )}{" "}
+            Đã thử 6 cách dựng dải khác — không cách nào chính xác hơn.
           </p>
           <p className="muted">Phân phối tính theo trọng số hồi quy (ưu tiên ~2 năm gần) để bám chế độ thị trường hiện tại — nên cột kết cục nghiêng theo xu hướng gần đây; cột đáy là đối trọng rủi ro. Tái hiện lịch sử để đối chiếu, KHÔNG phải dự đoán.</p>
         </div>
@@ -297,14 +305,14 @@ export default function BearDownsideCard({
 
       {stormShown && (
         <div className="banner warn small">
-          ⚠ Thị trường đang dao động mạnh bất thường (≈{fmt1(ratio!)}× mức 2 năm). Lịch sử: khi vậy, đáy thực 3T thủng
+          ⚠ Thị trường đang dao động mạnh bất thường (≈{fmt1(ratio!)}× mức thường của 2 năm trước). Lịch sử: những lần như vậy, đáy thực 3T thủng
           mức hiếm gặp <b>{ev3!.onDip10}%</b> số lần (bình thường {ev3!.offDip10}%) — đáy có thể sâu hơn bảng.
         </div>
       )}
       {drifting.length > 0 && (
         <div className="banner warn small">
-          ⚠ Dải {drifting.map((h) => HSHORT[h.H]).join(", ")} đang trượt so với thực tế 2 năm gần
-          ({drifting.map((h) => `${HSHORT[h.H]}: ${h.endIn50}% trong dải, kỳ vọng ~50%`).join("; ")}) — đọc thận trọng.
+          ⚠ Dải {drifting.map((h) => HSHORT[h.H]).join(", ")} đang trượt so với thực tế 2 năm gần đây
+          ({drifting.map((h) => `${HSHORT[h.H]}: kết cục trong dải ${h.endIn50}% (kỳ vọng ~50%), đáy thủng mức hiếm gặp ${h.dipBeyond10}% (kỳ vọng ~10%)`).join("; ")}) — đọc thận trọng.
         </div>
       )}
       <div className="bdo-table-wrap">
