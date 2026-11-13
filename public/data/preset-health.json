@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-13T01:14:29.570Z",
+ "generatedAt": "2026-11-13T07:03:10.312Z",
  "items": [
   {
    "presetId": "1m",
@@ -19,8 +19,8 @@
    "presetId": "3m",
    "minExcessNowPt": 31.8,
    "recentFavPct": 100,
-   "recentBaselinePct": 74.6,
-   "recentN": 42,
+   "recentBaselinePct": 74.3,
+   "recentN": 40,
    "testFavCi95": [
     95.8,
     100
@@ -33,7 +33,7 @@
    "presetId": "6m",
    "minExcessNowPt": 9.8,
    "recentFavPct": 99,
-   "recentBaselinePct": 79.2,
+   "recentBaselinePct": 79,
    "recentN": 101,
    "testFavCi95": [
     93.7,
