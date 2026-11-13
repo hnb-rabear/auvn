@@ -885,7 +885,16 @@ export default function Dashboard({
           </div>
         ) : (
           <div className="acc-body flat">
-            <BearDcaCard bearDca={bearDca} health={bearDcaHealth} />
+            <BearDcaCard
+          bearDca={bearDca}
+          health={bearDcaHealth}
+          baseChi={settings.dcaBaseChi}
+          onBaseChiChange={(chi) => {
+            const next = { ...settings, dcaBaseChi: chi };
+            setSettings(next);
+            saveSettings(next);
+          }}
+        />
           </div>
         )}
         {asOf ? (

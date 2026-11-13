@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { fabLabel, zoneClass } from "./settings";
+import { fabLabel, zoneClass, parseSettings, dcaChiThisMonth } from "./settings";
 import { PRESETS } from "./types";
 
 describe("fabLabel", () => {
@@ -26,5 +26,22 @@ describe("zoneClass", () => {
   });
   it("còn lại là 'neutral'", () => {
     expect(zoneClass("neutral")).toBe("neutral");
+  });
+});
+
+describe("dcaBaseChi", () => {
+  const withBase = (v: unknown) =>
+    parseSettings(JSON.stringify({ weights: parseSettings(null).weights, dcaBaseChi: v })).dcaBaseChi;
+  it("giữ số hợp lệ, thiếu/sai/ngoài khoảng ⇒ 1 chỉ", () => {
+    expect(withBase(1.5)).toBe(1.5);
+    expect(withBase(undefined)).toBe(1);
+    expect(withBase("2")).toBe(1);
+    expect(withBase(0)).toBe(1);
+    expect(withBase(500)).toBe(1);
+  });
+  it("số chỉ tháng này = mức thường × hệ số, làm tròn 0.05", () => {
+    expect(dcaChiThisMonth(1.5, 0.75)).toBe(1.15);
+    expect(dcaChiThisMonth(1.5, 1.5)).toBe(2.25);
+    expect(dcaChiThisMonth(1.5, 1)).toBe(1.5);
   });
 });

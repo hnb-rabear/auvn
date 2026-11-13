@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Card Mức mua tháng này: ô "mức thường" (chỉ/tháng, lưu tại thiết bị trong `au-settings-v2`) và dòng quy đổi hệ số ra số chỉ cụ thể, làm tròn 0,05 chỉ — "×0.75" không còn bị đọc nhầm thành 0,75 chỉ (`src/components/BearDcaCard.tsx`, `src/lib/settings.ts`).
 - Card Triển vọng: cờ "thị trường dữ" (σ ≥ 1.3× mức 2 năm, past-only) cảnh báo đáy có thể sâu hơn bảng, và chuông báo khi dải 2 năm gần trượt khỏi thực tế (`bear-downside-health.json` + Telegram) (`src/lib/bear-downside-view.ts`, `src/components/BearDownsideCard.tsx`, `scripts/notify.ts`). Study 6 cách dựng dải thay thế — không cách nào thắng card (`scripts/bear-downside-forecast-study.ts`, `docs/bear-downside.md`).
 - Dự phòng lãi suất Fed từ NY Fed EFFR (trung bình tháng) khi FRED không phản hồi từ runner Actions (`scripts/fetch.ts`, `scripts/run.ts`).
 - Giá nhẫn trơn 9999 theo thương hiệu (BTMC / BTMH) trên Dashboard và Time Machine (`src/components/Dashboard.tsx`, `src/app/page.tsx`).

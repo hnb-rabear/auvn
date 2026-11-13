@@ -8,13 +8,26 @@ export interface Settings {
   weights: Record<CriterionKey, number>;
   presetId: string | null;
   ringBrand: RingBrand;
+  /** Lượng mua "bình thường" mỗi tháng (chỉ) — Bear DCA nhân hệ số lên số này. */
+  dcaBaseChi: number;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   weights: DEFAULT_WEIGHTS,
   presetId: null,
   ringBrand: "btmc",
+  dcaBaseChi: 1,
 };
+
+/** Số chỉ hợp lệ (0.1..100), ngoài khoảng / không phải số ⇒ mặc định. */
+export function dcaBaseChi(v: unknown): number {
+  return typeof v === "number" && Number.isFinite(v) && v >= 0.1 && v <= 100 ? v : DEFAULT_SETTINGS.dcaBaseChi;
+}
+
+/** Số chỉ tháng này = mức thường × hệ số, làm tròn 0.05 chỉ (bội số nhỏ nhất tiệm hay bán). */
+export function dcaChiThisMonth(base: number, mult: number): number {
+  return Math.round(base * mult * 20) / 20;
+}
 
 export function parseSettings(raw: string | null): Settings {
   if (!raw) return DEFAULT_SETTINGS;
@@ -33,6 +46,7 @@ export function parseSettings(raw: string | null): Settings {
       weights: s.weights,
       presetId: typeof s.presetId === "string" ? s.presetId : null,
       ringBrand: ringBrand(s?.ringBrand),
+      dcaBaseChi: dcaBaseChi(s?.dcaBaseChi),
     };
   } catch {
     return DEFAULT_SETTINGS;

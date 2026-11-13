@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { qtyForPhase } from "@/lib/bear-dca";
+import { dcaBaseChi, dcaChiThisMonth } from "@/lib/settings";
 import type { BearDcaAnalysis, BearDcaHealth, BearPhase } from "@/lib/types";
 
 const fmtPct = (x: number) => `${Math.round(x * 100)}%`;
+const fmtNum = (x: number) => x.toLocaleString("vi-VN", { maximumFractionDigits: 2 });
 
 const PHASES: BearPhase[] = ["bull", "acute", "grind", "recovery"];
 const PHASE_LABEL: Record<BearPhase, string> = {
@@ -22,12 +24,19 @@ const ACTION: Record<string, string> = {
 export default function BearDcaCard({
   bearDca: a,
   health,
+  baseChi,
+  onBaseChiChange,
 }: {
   bearDca: BearDcaAnalysis;
   health: BearDcaHealth;
+  baseChi: number;
+  onBaseChiChange: (chi: number) => void;
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const [override, setOverride] = useState<BearPhase | null>(null);
+  // Chuỗi riêng để gõ dở ("1.", "") không bị ghi đè; chỉ đồng bộ khi giá trị đã lưu đổi.
+  const [baseTxt, setBaseTxt] = useState(String(baseChi));
+  useEffect(() => setBaseTxt(String(baseChi)), [baseChi]);
 
   const phase = override ?? a.phase;
   const mult = qtyForPhase(phase, a.ddFromAth, a.pricePct2y);
@@ -103,6 +112,24 @@ export default function BearDcaCard({
 
       {/* Headline + giải thích */}
       <div className={`bottom-gauge-pct ${tone}`}>{action}</div>
+      <p className="dca-chi">
+        <label htmlFor="dca-base-chi">Mức thường của bạn:</label>{" "}
+        <input
+          id="dca-base-chi"
+          type="number"
+          inputMode="decimal"
+          min={0.1}
+          max={100}
+          step={0.25}
+          value={baseTxt}
+          onChange={(e) => {
+            setBaseTxt(e.target.value);
+            const n = Number(e.target.value);
+            if (e.target.value !== "" && dcaBaseChi(n) === n) onBaseChiChange(n);
+          }}
+        />{" "}
+        chỉ/tháng ⇒ tháng này <b>≈{fmtNum(dcaChiThisMonth(baseChi, mult))} chỉ</b> (×{fmtNum(mult)})
+      </p>
       <p className="accum-why">{phase === a.phase ? a.note : `Bạn đang xem pha "${PHASE_LABEL[phase]}" (đè gợi ý).`}</p>
 
       {/* Gauge */}

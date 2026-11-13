@@ -66,6 +66,7 @@ describe("ring gold settings parser & state preservation", () => {
       weights: { ...DEFAULT_WEIGHTS, technical: 0.5 },
       presetId: null,
       ringBrand: "btmh",
+      dcaBaseChi: 1.5,
     };
     const serialized = JSON.stringify(initial);
     const roundtripped = parseSettings(serialized);

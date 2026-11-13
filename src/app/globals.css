@@ -524,6 +524,22 @@ td.neutral {
   outline: 1px solid var(--gold);
 }
 
+/* ô "mức thường" (chỉ/tháng) trên card Mức mua tháng này */
+.dca-chi input {
+  width: 4.5em;
+  background: var(--card2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.dca-chi input:focus-visible {
+  outline: 1px solid var(--gold);
+}
+
 .spark {
   width: 100%;
   height: 120px;
