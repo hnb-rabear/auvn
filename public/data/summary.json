@@ -1,6 +1,6 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-14T10:46:13.406Z",
+ "generatedAt": "2026-11-14T17:17:10.748Z",
  "dataDate": "2026-11-13",
  "stale": false,
  "staleDays": 0,
@@ -10,7 +10,7 @@
   "sjcSell": 138000000,
   "ringBuy": 133800000,
   "ringSell": 137800000,
-  "ringDate": null,
+  "ringDate": "2026-11-14",
   "usdVnd": 25910,
   "worldVndPerLuong": 121402064,
   "vnPremiumPct": 13.67,
@@ -125,7 +125,7 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 6.8,
+   "composite": 4.7,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
@@ -142,7 +142,7 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.4444,
   "bearDca": {
-   "generatedAt": "2026-11-14T10:44:43.607Z",
+   "generatedAt": "2026-11-14T17:15:44.653Z",
    "dataDate": "2026-11-13",
    "isBear": true,
    "ddFromAth": 0.2693,
@@ -172,7 +172,7 @@
   "insufficientLayers": [],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-14T10:46:12.597Z",
+   "generatedAt": "2026-11-14T17:17:09.956Z",
    "items": [
     {
      "presetId": "1m",
@@ -219,7 +219,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-14T10:46:11.963Z",
+   "generatedAt": "2026-11-14T17:17:09.349Z",
    "items": [
     {
      "tier": "cycle",
@@ -238,20 +238,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-14T10:44:43.606Z",
+   "generatedAt": "2026-11-14T17:15:44.651Z",
    "recentImprPct": -2.6,
    "recentBrakedMonths": 21,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-14T10:44:54.420Z",
+   "generatedAt": "2026-11-14T17:15:55.031Z",
    "recentImprPct": -0.3,
    "recentAssetImprPct": 0.3,
    "recentBearCycles": 6,
    "status": "ok"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-14T10:46:13.070Z",
+   "generatedAt": "2026-11-14T17:17:10.404Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -271,48 +271,48 @@
   }
  },
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-11-01, cũ 13 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-11-01, cũ 14 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
   "world": "2026-11-13T05:00:00.000Z",
   "dxy": "2026-11-13T05:00:00.000Z",
   "yield10y": "2026-11-13T13:20:00.000Z",
-  "vnGold": "2026-11-14T10:42:22.212Z",
-  "usdVnd": "2026-11-14T10:42:22.212Z",
+  "vnGold": "2026-11-14T17:13:25.911Z",
+  "usdVnd": "2026-11-14T17:13:25.911Z",
   "fed": null
  },
  "dataQuality": {
   "xau": {
    "asOfDate": "2026-11-13",
    "source": "yahoo:GC=F",
-   "ageDays": 1,
+   "ageDays": 2,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "dxy": {
    "asOfDate": "2026-11-13",
    "source": "yahoo:DX-Y.NYB",
-   "ageDays": 1,
+   "ageDays": 2,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "yield10y": {
    "asOfDate": "2026-11-13",
    "source": "yahoo:^TNX",
-   "ageDays": 1,
+   "ageDays": 2,
    "maxAgeDays": 5,
    "status": "ok"
   },
   "fed": {
    "asOfDate": "2026-11-01",
    "source": "cache",
-   "ageDays": 13,
+   "ageDays": 14,
    "maxAgeDays": 45,
    "status": "ok"
   },
   "sjc": {
-   "asOfDate": "2026-11-14",
+   "asOfDate": "2026-11-15",
    "source": "cafef",
    "ageDays": 0,
    "maxAgeDays": 4,
@@ -321,12 +321,12 @@
   "ring": {
    "asOfDate": "2026-11-14",
    "source": "history",
-   "ageDays": 0,
+   "ageDays": 1,
    "maxAgeDays": 2,
    "status": "ok"
   },
   "usdVnd": {
-   "asOfDate": "2026-11-14",
+   "asOfDate": "2026-11-15",
    "source": "vietcombank",
    "ageDays": 0,
    "maxAgeDays": 4,
@@ -366,7 +366,7 @@
     "id": "usdvnd",
     "label": "Tỷ giá USD/VND",
     "score": 0,
-    "explanation": "USD/VND 25.910, nhịp -0,7%/tháng: tỷ giá ổn định — trung tính.",
+    "explanation": "USD/VND 25.910, nhịp -0,6%/tháng: tỷ giá ổn định — trung tính.",
     "available": true
    }
   ]
