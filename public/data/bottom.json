@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T03:25:01.210Z",
+ "generatedAt": "2026-11-14T06:32:57.824Z",
  "dataDate": "2026-11-13",
  "cycle": {
   "prob": 52,
@@ -30,14 +30,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 2,
-    "explanation": "RSI ngày = 36,1, có phân kỳ tăng: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 35,9, có phân kỳ tăng: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -5,22: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -5,3: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -7,7% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -7,8% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -99,14 +99,14 @@
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 2,
-    "explanation": "RSI ngày = 36,1, có phân kỳ tăng: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 35,9, có phân kỳ tăng: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -5,22: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -5,3: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -7,7% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -7,8% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
