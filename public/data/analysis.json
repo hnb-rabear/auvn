@@ -8,7 +8,7 @@
   "sjcSell": 138000000,
   "ringBuy": 133800000,
   "ringSell": 137800000,
-  "ringDate": "2026-11-14",
+  "ringDate": null,
   "xauUsd": 3886.300048828125,
   "usdVnd": 25910,
   "worldVndPerLuong": 121402064,
@@ -81,11 +81,11 @@
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
      "score": 0,
-     "explanation": "Không có dữ liệu.",
-     "available": false
+     "explanation": "Nhẫn và miếng ở tương quan bình thường (thường nhẫn đắt hơn miếng 0–2%).",
+     "available": true
     }
    ],
-   "score": -0.5,
+   "score": -0.3333333333333333,
    "available": true,
    "provisional": false
   },
@@ -184,7 +184,7 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 4.7,
+ "composite": 6.8,
  "zone": "neutral",
  "vnHistoryDays": 644,
  "warnings": [
@@ -2804,7 +2804,7 @@
    "source": "cafef"
   },
   "ring": {
-   "date": "2026-11-14",
+   "date": "2026-11-15",
    "source": "history"
   },
   "usdVnd": {

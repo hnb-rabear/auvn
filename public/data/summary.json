@@ -10,7 +10,7 @@
   "sjcSell": 138000000,
   "ringBuy": 133800000,
   "ringSell": 137800000,
-  "ringDate": "2026-11-14",
+  "ringDate": null,
   "usdVnd": 25910,
   "worldVndPerLuong": 121402064,
   "vnPremiumPct": 13.67,
@@ -125,7 +125,7 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 4.7,
+   "composite": 6.8,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
@@ -319,9 +319,9 @@
    "status": "ok"
   },
   "ring": {
-   "asOfDate": "2026-11-14",
+   "asOfDate": "2026-11-15",
    "source": "history",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 2,
    "status": "ok"
   },
