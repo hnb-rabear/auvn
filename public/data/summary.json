@@ -1,30 +1,30 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-16T02:17:45.084Z",
+ "generatedAt": "2026-11-16T06:34:33.376Z",
  "dataDate": "2026-11-16",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 3880.39990234375,
+  "xauUsd": 3866.199951171875,
   "sjcBuy": 135000000,
   "sjcSell": 138000000,
-  "ringBuy": 133800000,
-  "ringSell": 137800000,
-  "ringDate": "2026-11-15",
+  "ringBuy": 133500000,
+  "ringSell": 137500000,
+  "ringDate": null,
   "usdVnd": 25910,
   "worldVndPerLuong": 121402064,
   "vnPremiumPct": 13.67,
   "vnPremiumVnd": 16597936,
   "changes": {
    "prevDate": "2026-11-15",
-   "xauUsd": -5.9,
+   "xauUsd": -20.1,
    "sjcSell": 0,
-   "ringSell": 0,
+   "ringSell": -300000,
    "vnPremiumPct": 0
   }
  },
  "changed": {
-  "sincePrevRun": true,
+  "sincePrevRun": false,
   "newBuySignals": [],
   "lostBuySignals": [],
   "bottomStartToday": false,
@@ -125,7 +125,7 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 4.7,
+   "composite": 6.8,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
@@ -140,16 +140,16 @@
  "accumulation": {
   "effectiveBuyMultiplier": 1,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.4405,
+  "pricePercentile2y": 0.4365,
   "bearDca": {
-   "generatedAt": "2026-11-16T02:16:39.510Z",
+   "generatedAt": "2026-11-16T06:33:28.550Z",
    "dataDate": "2026-11-16",
    "isBear": true,
-   "ddFromAth": 0.2704,
-   "ddChange": 0.0565,
+   "ddFromAth": 0.2731,
+   "ddChange": 0.0592,
    "phase": "acute",
-   "pricePct2y": 0.4405,
-   "dd42Pct": 12.305362833058364,
+   "pricePct2y": 0.4365,
+   "dd42Pct": 12.626274040091301,
    "mult": 1,
    "recoveryRisk": false,
    "note": "Giá đang sụp cấp tính (đáy sâu thêm +6 điểm %/tháng). Cách đỉnh 27% — dùng độ sâu để tính khối lượng."
@@ -172,7 +172,7 @@
   "insufficientLayers": [],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-16T02:17:44.379Z",
+   "generatedAt": "2026-11-16T06:34:32.691Z",
    "items": [
     {
      "presetId": "1m",
@@ -219,7 +219,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-16T02:17:43.839Z",
+   "generatedAt": "2026-11-16T06:34:32.173Z",
    "items": [
     {
      "tier": "cycle",
@@ -238,20 +238,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-16T02:16:39.509Z",
+   "generatedAt": "2026-11-16T06:33:28.549Z",
    "recentImprPct": -2.6,
    "recentBrakedMonths": 21,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-16T02:16:48.413Z",
+   "generatedAt": "2026-11-16T06:33:37.502Z",
    "recentImprPct": -0.3,
    "recentAssetImprPct": 0.3,
    "recentBearCycles": 6,
    "status": "ok"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-16T02:17:44.779Z",
+   "generatedAt": "2026-11-16T06:34:33.084Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -275,11 +275,11 @@
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
-  "world": "2026-11-16T02:03:48.000Z",
-  "dxy": "2026-11-16T02:03:50.000Z",
+  "world": "2026-11-16T05:00:00.000Z",
+  "dxy": "2026-11-16T05:00:00.000Z",
   "yield10y": "2026-11-13T13:20:00.000Z",
-  "vnGold": "2026-11-16T02:14:53.548Z",
-  "usdVnd": "2026-11-16T02:14:53.548Z",
+  "vnGold": "2026-11-16T06:31:46.046Z",
+  "usdVnd": "2026-11-16T06:31:46.046Z",
   "fed": null
  },
  "dataQuality": {
@@ -319,9 +319,9 @@
    "status": "ok"
   },
   "ring": {
-   "asOfDate": "2026-11-15",
+   "asOfDate": "2026-11-16",
    "source": "history",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 2,
    "status": "ok"
   },
@@ -335,7 +335,7 @@
  },
  "macro": {
   "levels": {
-   "dxy": 103.40399932861328,
+   "dxy": 103.4020004272461,
    "us10y": 5.1539998054504395,
    "fedFunds": 3.88,
    "fedAsOf": "2026-11-01"
