@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-15T21:55:53.983Z",
+ "generatedAt": "2026-11-16T02:17:44.379Z",
  "items": [
   {
    "presetId": "1m",
@@ -17,23 +17,23 @@
   },
   {
    "presetId": "3m",
-   "minExcessNowPt": 31.8,
-   "recentFavPct": 100,
-   "recentBaselinePct": 74.3,
-   "recentN": 40,
+   "minExcessNowPt": 30.9,
+   "recentFavPct": 97.6,
+   "recentBaselinePct": 74.2,
+   "recentN": 41,
    "testFavCi95": [
-    95.8,
+    92.3,
     100
    ],
    "trainClusters": 12,
-   "testClusters": 12,
+   "testClusters": 13,
    "status": "ok"
   },
   {
    "presetId": "6m",
    "minExcessNowPt": 9.8,
    "recentFavPct": 99,
-   "recentBaselinePct": 79,
+   "recentBaselinePct": 78.7,
    "recentN": 101,
    "testFavCi95": [
     93.7,

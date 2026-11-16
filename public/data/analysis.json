@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-11-15T21:53:35.890Z",
- "dataDate": "2026-11-13",
+ "generatedAt": "2026-11-16T02:14:53.548Z",
+ "dataDate": "2026-11-16",
  "stale": false,
  "staleDays": 0,
  "prices": {
@@ -9,7 +9,7 @@
   "ringBuy": 133800000,
   "ringSell": 137800000,
   "ringDate": "2026-11-15",
-  "xauUsd": 3886.300048828125,
+  "xauUsd": 3880.39990234375,
   "usdVnd": 25910,
   "worldVndPerLuong": 121402064,
   "premiumPct": 13.67,
@@ -24,14 +24,14 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 35,9: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 35,6: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 38,7: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 38,4: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -45,7 +45,7 @@
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 0% biên độ 52 tuần (đáy 3.885 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 0% biên độ 52 tuần (đáy 3.880 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 103,4 (trên MA50, +1,4% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 103,4 (trên MA50, +1,5% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -7,8% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -7,5% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -2779,20 +2779,20 @@
   "p80": 14.85
  },
  "sourceTimes": {
-  "world": "2026-11-13T05:00:00.000Z",
-  "dxy": "2026-11-13T05:00:00.000Z",
+  "world": "2026-11-16T02:03:48.000Z",
+  "dxy": "2026-11-16T02:03:50.000Z",
   "yield10y": "2026-11-13T13:20:00.000Z",
-  "vnGold": "2026-11-15T21:53:35.890Z",
-  "usdVnd": "2026-11-15T21:53:35.890Z",
+  "vnGold": "2026-11-16T02:14:53.548Z",
+  "usdVnd": "2026-11-16T02:14:53.548Z",
   "fed": null
  },
  "inputDates": {
   "xau": {
-   "date": "2026-11-13",
+   "date": "2026-11-16",
    "source": "yahoo:GC=F"
   },
   "dxy": {
-   "date": "2026-11-13",
+   "date": "2026-11-16",
    "source": "yahoo:DX-Y.NYB"
   },
   "yield10y": {
@@ -2818,7 +2818,7 @@
  },
  "runDate": "2026-11-16",
  "macroLevels": {
-  "dxy": 103.41000366210938,
+  "dxy": 103.40399932861328,
   "us10y": 5.1539998054504395,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"

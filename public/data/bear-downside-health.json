@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-11-15T21:55:06.965Z",
+ "generatedAt": "2026-11-16T02:16:48.413Z",
  "items": [
   {
    "H": "21",
    "status": "ok",
    "clusters": 24,
-   "endIn50": 34,
-   "dipBeyond10": 19
+   "endIn50": 33,
+   "dipBeyond10": 20
   },
   {
    "H": "63",
    "status": "ok",
    "clusters": 8,
    "endIn50": 27,
-   "dipBeyond10": 23
+   "dipBeyond10": 24
   },
   {
    "H": "126",
