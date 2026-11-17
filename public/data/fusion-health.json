@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-11-16T20:36:15.612Z",
+ "generatedAt": "2026-11-17T02:04:53.166Z",
  "item": {
   "presetId": "3m",
   "bTrainFav": 93.3,
-  "bTestFav": 98.5,
+  "bTestFav": 97.1,
   "compTrainFav": 89,
-  "compTestFav": 98.1,
-  "bTestN": 67,
+  "compTestFav": 97.2,
+  "bTestN": 68,
   "bTestCi95": [
-   91.7,
+   84.6,
    100
   ],
   "bTrainClusters": 9,
   "bTestClusters": 7,
   "orthoTrainPt": 2.2,
-  "status": "ok"
+  "status": "degraded"
  }
 }
