@@ -1,15 +1,15 @@
 {
- "generatedAt": "2026-11-17T03:59:23.661Z",
+ "generatedAt": "2026-11-17T06:31:39.470Z",
  "dataDate": "2026-11-17",
  "stale": false,
  "staleDays": 0,
  "prices": {
   "sjcBuy": 134700000,
   "sjcSell": 137700000,
-  "ringBuy": 133300000,
-  "ringSell": 137300000,
+  "ringBuy": 133500000,
+  "ringSell": 137500000,
   "ringDate": null,
-  "xauUsd": 3875.5,
+  "xauUsd": 3875.10009765625,
   "usdVnd": 25950,
   "worldVndPerLuong": 120547637,
   "premiumPct": 14.23,
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": 0,
-     "explanation": "XAU/USD thay đổi -5,3% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "explanation": "XAU/USD thay đổi -5,4% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
      "available": true
     }
    ],
@@ -2783,11 +2783,11 @@
   "p80": 14.85
  },
  "sourceTimes": {
-  "world": "2026-11-17T03:48:19.000Z",
-  "dxy": "2026-11-17T03:48:21.000Z",
+  "world": "2026-11-17T05:00:00.000Z",
+  "dxy": "2026-11-17T05:00:00.000Z",
   "yield10y": "2026-11-16T13:20:00.000Z",
-  "vnGold": "2026-11-17T03:59:23.661Z",
-  "usdVnd": "2026-11-17T03:59:23.661Z",
+  "vnGold": "2026-11-17T06:31:39.470Z",
+  "usdVnd": "2026-11-17T06:31:39.470Z",
   "fed": null
  },
  "inputDates": {
@@ -2822,7 +2822,7 @@
  },
  "runDate": "2026-11-17",
  "macroLevels": {
-  "dxy": 103.51300048828125,
+  "dxy": 103.49800109863281,
   "us10y": 5.120999813079834,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"
