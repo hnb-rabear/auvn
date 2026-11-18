@@ -1,11 +1,11 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-18T06:34:24.034Z",
+ "generatedAt": "2026-11-18T14:16:26.233Z",
  "dataDate": "2026-11-18",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 3779.5,
+  "xauUsd": 3786.199951171875,
   "sjcBuy": 134199999.99999999,
   "sjcSell": 137200000,
   "ringBuy": 132600000,
@@ -17,7 +17,7 @@
   "vnPremiumVnd": 16534898,
   "changes": {
    "prevDate": "2026-11-17",
-   "xauUsd": -73.5,
+   "xauUsd": -66.8,
    "sjcSell": -500000,
    "ringSell": -900000,
    "vnPremiumPct": -0.53
@@ -142,14 +142,14 @@
   "effectiveBuyMultiplierSource": "bear-dca",
   "pricePercentile2y": 0.4266,
   "bearDca": {
-   "generatedAt": "2026-11-18T06:33:20.814Z",
+   "generatedAt": "2026-11-18T14:15:20.663Z",
    "dataDate": "2026-11-18",
    "isBear": true,
-   "ddFromAth": 0.2894,
-   "ddChange": 0.0683,
+   "ddFromAth": 0.2881,
+   "ddChange": 0.067,
    "phase": "acute",
    "pricePct2y": 0.4266,
-   "dd42Pct": 13.78681083053901,
+   "dd42Pct": 13.633978877255403,
    "mult": 1,
    "recoveryRisk": false,
    "note": "Giá đang sụp cấp tính (đáy sâu thêm +7 điểm %/tháng). Cách đỉnh 29% — dùng độ sâu để tính khối lượng."
@@ -173,7 +173,7 @@
   "insufficientLayers": [],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-18T06:34:23.363Z",
+   "generatedAt": "2026-11-18T14:16:25.529Z",
    "items": [
     {
      "presetId": "1m",
@@ -220,7 +220,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-18T06:34:22.842Z",
+   "generatedAt": "2026-11-18T14:16:24.937Z",
    "items": [
     {
      "tier": "cycle",
@@ -239,20 +239,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-18T06:33:20.813Z",
+   "generatedAt": "2026-11-18T14:15:20.662Z",
    "recentImprPct": -2.6,
    "recentBrakedMonths": 21,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-18T06:33:29.653Z",
+   "generatedAt": "2026-11-18T14:15:29.666Z",
    "recentImprPct": -0.3,
    "recentAssetImprPct": 0.4,
    "recentBearCycles": 6,
    "status": "ok"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-18T06:34:23.747Z",
+   "generatedAt": "2026-11-18T14:16:25.936Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -278,9 +278,9 @@
  "sourceFreshness": {
   "world": "2026-11-18T05:00:00.000Z",
   "dxy": "2026-11-18T05:00:00.000Z",
-  "yield10y": "2026-11-17T13:20:00.000Z",
-  "vnGold": "2026-11-18T06:31:39.439Z",
-  "usdVnd": "2026-11-18T06:31:39.439Z",
+  "yield10y": "2026-11-18T13:20:00.000Z",
+  "vnGold": "2026-11-18T14:13:36.280Z",
+  "usdVnd": "2026-11-18T14:13:36.280Z",
   "fed": null
  },
  "dataQuality": {
@@ -299,9 +299,9 @@
    "status": "ok"
   },
   "yield10y": {
-   "asOfDate": "2026-11-17",
+   "asOfDate": "2026-11-18",
    "source": "yahoo:^TNX",
-   "ageDays": 1,
+   "ageDays": 0,
    "maxAgeDays": 5,
    "status": "ok"
   },
@@ -336,8 +336,8 @@
  },
  "macro": {
   "levels": {
-   "dxy": 103.68800354003906,
-   "us10y": 5.103000164031982,
+   "dxy": 103.79399871826172,
+   "us10y": 5.10099983215332,
    "fedFunds": 3.88,
    "fedAsOf": "2026-11-01"
   },
@@ -346,7 +346,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -2,
-    "explanation": "DXY = 103,7 (trên MA50, +1,9% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+    "explanation": "DXY = 103,8 (trên MA50, +2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
     "available": true
    },
    {
@@ -360,7 +360,7 @@
     "id": "yield10y",
     "label": "Lợi suất Mỹ 10 năm",
     "score": -2,
-    "explanation": "Lợi suất danh nghĩa 10 năm = 5,1%, thay đổi 3 tháng +0,45 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
+    "explanation": "Lợi suất danh nghĩa 10 năm = 5,1%, thay đổi 3 tháng +0,4 điểm: lợi suất tăng mạnh — sức ép lớn lên vàng.",
     "available": true
    },
    {
