@@ -87,5 +87,26 @@
         "fetchedAt": "2026-11-18T06:30:06.567Z"
       }
     }
+  },
+  {
+    "date": "2026-11-19",
+    "quotes": {
+      "btmc": {
+        "buy": 131800000,
+        "sell": 135800000,
+        "product": "NHẪN TRÒN TRƠN (Vàng Rồng Thăng Long)",
+        "source": "https://api.btmc.vn/api/BTMCAPI/getpricebtmc?key=3kd8ub1llcg9t45hnoh8hmn7t5kc2v",
+        "publishedAt": "2026-11-19T12:11:00+07:00",
+        "fetchedAt": "2026-11-19T06:30:11.108Z"
+      },
+      "btmh": {
+        "buy": 131800000,
+        "sell": 135800000,
+        "product": "Kim Gia Bảo 24K",
+        "source": "https://baotinmanhhai.vn/bang-gia-vang",
+        "publishedAt": "2026-11-19T12:19:19+07:00",
+        "fetchedAt": "2026-11-19T06:30:10.777Z"
+      }
+    }
   }
 ]
