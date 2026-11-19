@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-19T13:27:17.454Z",
+ "generatedAt": "2026-11-19T22:16:10.853Z",
  "dataDate": "2026-11-19",
  "stale": false,
  "staleDays": 0,
@@ -8,12 +8,12 @@
   "sjcSell": 136200000,
   "ringBuy": 131800000,
   "ringSell": 135800000,
-  "ringDate": null,
-  "xauUsd": 3717,
-  "usdVnd": 25900,
-  "worldVndPerLuong": 116846110,
-  "premiumPct": 16.56,
-  "premiumVnd": 19353890
+  "ringDate": "2026-11-19",
+  "xauUsd": 3627.89990234375,
+  "usdVnd": 25940,
+  "worldVndPerLuong": 113461259,
+  "premiumPct": 20.04,
+  "premiumVnd": 22738741
  },
  "criteria": [
   {
@@ -24,28 +24,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 2,
-     "explanation": "RSI ngày = 28,3: quá bán — vùng mua hiếm gặp.",
+     "explanation": "RSI ngày = 25: quá bán — vùng mua hiếm gặp.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 1,
-     "explanation": "RSI tuần = 32,2: yếu — nghiêng về mua.",
+     "explanation": "RSI tuần = 30,5: yếu — nghiêng về mua.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 16,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 18,5%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 0% biên độ 52 tuần (đáy 3.717 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 0% biên độ 52 tuần (đáy 3.628 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
@@ -67,7 +67,7 @@
      "id": "premium",
      "label": "Chênh SJC so với giá thế giới quy đổi",
      "score": -2,
-     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 16,6%, ở percentile 93 so với lịch sử tự thu thập (648 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
+     "explanation": "Vàng SJC đắt hơn giá thế giới quy đổi 20%, ở percentile 99 so với lịch sử tự thu thập (649 ngày): chênh cao — chi phí mua vàng VN đang đắt so với thế giới.",
      "available": true
     },
     {
@@ -81,11 +81,11 @@
      "id": "ring",
      "label": "Tương quan nhẫn — miếng",
      "score": 0,
-     "explanation": "Nhẫn và miếng ở tương quan bình thường (thường nhẫn đắt hơn miếng 0–2%).",
-     "available": true
+     "explanation": "Không có dữ liệu.",
+     "available": false
     }
    ],
-   "score": -0.6666666666666666,
+   "score": -1,
    "available": true,
    "provisional": false
   },
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 103,7 (trên MA50, +1,9% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 103,9 (trên MA50, +2,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -111,14 +111,14 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 5,07%, thay đổi 3 tháng +0,37 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 5,05%, thay đổi 3 tháng +0,31 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
      "id": "usdvnd",
      "label": "Tỷ giá USD/VND",
      "score": 0,
-     "explanation": "USD/VND 25.900, nhịp -0,8%/tháng: tỷ giá ổn định — trung tính.",
+     "explanation": "USD/VND 25.940, nhịp -0,5%/tháng: tỷ giá ổn định — trung tính.",
      "available": true
     }
    ],
@@ -140,7 +140,7 @@
      "id": "pct3y",
      "label": "Percentile giá so với 3 năm",
      "score": 0,
-     "explanation": "Giá hiện tại cao hơn 61% số phiên trong 3 năm qua: vùng giữa, không có lợi thế thống kê.",
+     "explanation": "Giá hiện tại cao hơn 60% số phiên trong 3 năm qua: vùng giữa, không có lợi thế thống kê.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 23,9%, percentile 91 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 25,2%, percentile 92 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -168,12 +168,12 @@
     {
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
-     "score": 0,
-     "explanation": "XAU/USD thay đổi -8,6% so với 12 tháng trước: không có xu hướng rõ 12 tháng.",
+     "score": -1,
+     "explanation": "XAU/USD thay đổi -10,8% so với 12 tháng trước: đà giảm — xu hướng bear 12 tháng.",
      "available": true
     }
    ],
-   "score": 0,
+   "score": -1,
    "available": true
   }
  ],
@@ -184,11 +184,11 @@
   "stats": 0.2,
   "momentum": 0
  },
- "composite": 8.7,
+ "composite": 4.5,
  "zone": "neutral",
- "vnHistoryDays": 648,
+ "vnHistoryDays": 649,
  "warnings": [
-  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-11-01, cũ 18 ngày).",
+  "Không lấy được lãi suất Fed mới — dùng số liệu đã lưu (mốc 2026-11-01, cũ 19 ngày).",
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "premiumSeries": [
@@ -2783,19 +2783,23 @@
   {
    "date": "2026-11-19",
    "value": 16.56
+  },
+  {
+   "date": "2026-11-20",
+   "value": 20.04
   }
  ],
  "premiumPercentiles": {
   "p20": 7.67,
-  "p50": 12.28,
-  "p80": 14.85
+  "p50": 12.31,
+  "p80": 14.88
  },
  "sourceTimes": {
   "world": "2026-11-19T05:00:00.000Z",
   "dxy": "2026-11-19T05:00:00.000Z",
-  "yield10y": "2026-11-18T13:20:00.000Z",
-  "vnGold": "2026-11-19T13:27:17.454Z",
-  "usdVnd": "2026-11-19T13:27:17.454Z",
+  "yield10y": "2026-11-19T13:20:00.000Z",
+  "vnGold": "2026-11-19T22:16:10.853Z",
+  "usdVnd": "2026-11-19T22:16:10.853Z",
   "fed": null
  },
  "inputDates": {
@@ -2808,7 +2812,7 @@
    "source": "yahoo:DX-Y.NYB"
   },
   "yield10y": {
-   "date": "2026-11-18",
+   "date": "2026-11-19",
    "source": "yahoo:^TNX"
   },
   "fed": {
@@ -2816,7 +2820,7 @@
    "source": "cache"
   },
   "sjc": {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "source": "cafef"
   },
   "ring": {
@@ -2824,14 +2828,14 @@
    "source": "history"
   },
   "usdVnd": {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "source": "vietcombank"
   }
  },
- "runDate": "2026-11-19",
+ "runDate": "2026-11-20",
  "macroLevels": {
-  "dxy": 103.70999908447266,
-  "us10y": 5.065999984741211,
+  "dxy": 103.93299865722656,
+  "us10y": 5.052000045776367,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"
  }
