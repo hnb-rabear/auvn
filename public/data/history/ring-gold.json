@@ -108,5 +108,18 @@
         "fetchedAt": "2026-11-19T06:30:10.777Z"
       }
     }
+  },
+  {
+    "date": "2026-11-20",
+    "quotes": {
+      "btmh": {
+        "buy": 129800000,
+        "sell": 133800000,
+        "product": "Kim Gia Bảo 24K",
+        "source": "https://baotinmanhhai.vn/bang-gia-vang",
+        "publishedAt": "2026-11-20T08:32:35+07:00",
+        "fetchedAt": "2026-11-20T02:00:07.707Z"
+      }
+    }
   }
 ]
