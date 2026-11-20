@@ -1,30 +1,30 @@
 {
  "schemaVersion": "1.7",
- "generatedAt": "2026-11-20T02:05:05.540Z",
+ "generatedAt": "2026-11-20T03:30:58.925Z",
  "dataDate": "2026-11-20",
  "stale": false,
  "staleDays": 0,
  "market": {
-  "xauUsd": 3571,
-  "sjcBuy": 131199999.99999999,
+  "xauUsd": 3526,
+  "sjcBuy": 129199999.99999999,
   "sjcSell": 134199999.99999999,
   "ringBuy": 131800000,
   "ringSell": 135800000,
   "ringDate": null,
   "usdVnd": 25940,
-  "worldVndPerLuong": 117026568,
-  "vnPremiumPct": 14.67,
-  "vnPremiumVnd": 17173432,
+  "worldVndPerLuong": 115262681,
+  "vnPremiumPct": 16.43,
+  "vnPremiumVnd": 18937319,
   "changes": {
    "prevDate": "2026-11-19",
-   "xauUsd": -170.9,
+   "xauUsd": -215.9,
    "sjcSell": -2000000.000000015,
    "ringSell": 0,
-   "vnPremiumPct": -1.89
+   "vnPremiumPct": -0.13
   }
  },
  "changed": {
-  "sincePrevRun": true,
+  "sincePrevRun": false,
   "newBuySignals": [],
   "lostBuySignals": [],
   "bottomStartToday": false,
@@ -93,28 +93,28 @@
     "id": "1m",
     "label": "Sóng 1 tháng",
     "horizonDays": 21,
-    "score": -21.5,
+    "score": -23.5,
     "buyThreshold": 50,
     "isBuy": false,
-    "pointsToThreshold": 71.5
+    "pointsToThreshold": 73.5
    },
    {
     "id": "3m",
     "label": "Sóng 3 tháng",
     "horizonDays": 63,
-    "score": -37,
+    "score": -38,
     "buyThreshold": 40,
     "isBuy": false,
-    "pointsToThreshold": 77
+    "pointsToThreshold": 78
    },
    {
     "id": "6m",
     "label": "Tích lũy 6 tháng",
     "horizonDays": 126,
-    "score": -49.5,
+    "score": -50.5,
     "buyThreshold": 30,
     "isBuy": false,
-    "pointsToThreshold": 79.5
+    "pointsToThreshold": 80.5
    }
   ],
   "consensus": {
@@ -125,34 +125,34 @@
    "summary": "Chưa có preset nào vào vùng mua. Giữ quan sát hoặc tích sản định kỳ theo Bear DCA."
   },
   "radarContext": {
-   "composite": 16.3,
+   "composite": 4.5,
    "zone": "neutral",
    "isHeadwind": false,
    "note": "Radar composite chỉ dùng làm ngữ cảnh tham khảo / nhận diện gió ngược (<= -40), không dùng làm tín hiệu mua."
   },
   "premiumGate": {
-   "expensiveVsWorld": false,
-   "premiumPct": 14.67,
-   "premiumP80": 14.85,
+   "expensiveVsWorld": true,
+   "premiumPct": 16.43,
+   "premiumP80": 14.88,
    "note": "Chênh VN ≥ p80 lịch sử tự thu thập = đang mua đắt hơn giá thế giới quy đổi. Đây là CHI PHÍ, không phải tín hiệu đợi: đo ở kỳ hạn quyết định thật (H=5 phiên, 40 cụm độc lập) cho thấy đợi khi chênh cao KHÔNG mua được rẻ hơn (−5,2pt, sai dấu). Đừng dịch thành 'hoãn mua'."
   }
  },
  "accumulation": {
   "effectiveBuyMultiplier": 1,
   "effectiveBuyMultiplierSource": "bear-dca",
-  "pricePercentile2y": 0.3909,
+  "pricePercentile2y": 0.3889,
   "bearDca": {
-   "generatedAt": "2026-11-20T02:03:47.514Z",
+   "generatedAt": "2026-11-20T03:29:59.269Z",
    "dataDate": "2026-11-20",
    "isBear": true,
-   "ddFromAth": 0.3286,
-   "ddChange": 0.1089,
+   "ddFromAth": 0.337,
+   "ddChange": 0.1005,
    "phase": "acute",
-   "pricePct2y": 0.3909,
-   "dd42Pct": 18.40325381592176,
+   "pricePct2y": 0.3889,
+   "dd42Pct": 18.402295658613344,
    "mult": 1,
    "recoveryRisk": false,
-   "note": "Giá đang sụp cấp tính (đáy sâu thêm +11 điểm %/tháng). Cách đỉnh 33% — dùng độ sâu để tính khối lượng."
+   "note": "Giá đang sụp cấp tính (đáy sâu thêm +10 điểm %/tháng). Cách đỉnh 34% — dùng độ sâu để tính khối lượng."
   },
   "twoYearBrake": {
    "multiplier": 1,
@@ -173,7 +173,7 @@
   "insufficientLayers": [],
   "note": "`overall` = degraded khi một lớp sinh kết luận (preset 1m/3m/6m, fusion 3m, Bear DCA) mất phong độ trên dữ liệu mới; = insufficient khi thiếu bằng chứng preset. Lớp ở trạng thái insufficient (chưa đủ chu kỳ để chấm) và lớp ngữ cảnh (Bottom Hunter, phanh 2 năm) không ghim overall — đọc riêng ở hai danh sách lớp.",
   "presets": {
-   "generatedAt": "2026-11-20T02:05:04.646Z",
+   "generatedAt": "2026-11-20T03:30:58.327Z",
    "items": [
     {
      "presetId": "1m",
@@ -192,9 +192,9 @@
     {
      "presetId": "3m",
      "minExcessNowPt": 30.1,
-     "recentFavPct": 95,
-     "recentBaselinePct": 73.6,
-     "recentN": 40,
+     "recentFavPct": 94.6,
+     "recentBaselinePct": 73.3,
+     "recentN": 37,
      "testFavCi95": [
       88.6,
       100
@@ -207,7 +207,7 @@
      "presetId": "6m",
      "minExcessNowPt": 9.8,
      "recentFavPct": 99,
-     "recentBaselinePct": 78.2,
+     "recentBaselinePct": 78,
      "recentN": 101,
      "testFavCi95": [
       93.7,
@@ -220,7 +220,7 @@
    ]
   },
   "bottomHunter": {
-   "generatedAt": "2026-11-20T02:05:03.984Z",
+   "generatedAt": "2026-11-20T03:30:57.869Z",
    "items": [
     {
      "tier": "cycle",
@@ -239,20 +239,20 @@
    ]
   },
   "accumulationBrake": {
-   "generatedAt": "2026-11-20T02:03:47.513Z",
+   "generatedAt": "2026-11-20T03:29:59.268Z",
    "recentImprPct": -2.6,
    "recentBrakedMonths": 21,
    "status": "degraded"
   },
   "bearDca": {
-   "generatedAt": "2026-11-20T02:03:58.458Z",
+   "generatedAt": "2026-11-20T03:30:07.262Z",
    "recentImprPct": -0.3,
-   "recentAssetImprPct": 0.6,
+   "recentAssetImprPct": 0.7,
    "recentBearCycles": 6,
    "status": "ok"
   },
   "fusion3m": {
-   "generatedAt": "2026-11-20T02:05:05.158Z",
+   "generatedAt": "2026-11-20T03:30:58.668Z",
    "item": {
     "presetId": "3m",
     "bTrainFav": 93.3,
@@ -276,11 +276,11 @@
   "Không lấy được giá nhẫn hôm nay (nguồn cafef không báo nhẫn)."
  ],
  "sourceFreshness": {
-  "world": "2026-11-20T01:50:42.000Z",
-  "dxy": "2026-11-20T01:50:41.000Z",
+  "world": "2026-11-20T03:17:21.000Z",
+  "dxy": "2026-11-20T03:17:22.000Z",
   "yield10y": "2026-11-19T13:20:00.000Z",
-  "vnGold": "2026-11-20T02:01:44.920Z",
-  "usdVnd": "2026-11-20T02:01:44.920Z",
+  "vnGold": "2026-11-20T03:28:24.434Z",
+  "usdVnd": "2026-11-20T03:28:24.434Z",
   "fed": null
  },
  "dataQuality": {
@@ -336,7 +336,7 @@
  },
  "macro": {
   "levels": {
-   "dxy": 103.9260025024414,
+   "dxy": 103.8499984741211,
    "us10y": 5.052000045776367,
    "fedFunds": 3.88,
    "fedAsOf": "2026-11-01"
@@ -346,7 +346,7 @@
     "id": "dxy",
     "label": "Chỉ số USD (DXY)",
     "score": -2,
-    "explanation": "DXY = 103,9 (trên MA50, +2,1% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+    "explanation": "DXY = 103,8 (trên MA50, +2,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
     "available": true
    },
    {

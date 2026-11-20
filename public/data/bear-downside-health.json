@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-20T02:03:58.457Z",
+ "generatedAt": "2026-11-20T03:30:07.262Z",
  "items": [
   {
    "H": "21",
    "status": "ok",
    "clusters": 24,
-   "endIn50": 33,
+   "endIn50": 32,
    "dipBeyond10": 20
   },
   {
