@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-23T06:33:33.136Z",
+ "generatedAt": "2026-11-23T13:09:43.913Z",
  "dataDate": "2026-11-23",
  "cycle": {
   "prob": 46,
@@ -23,21 +23,21 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -22,9% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -23% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 30,7: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 30,5: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -37,33: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -37,46: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -92,21 +92,21 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -22,9% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -23% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 30,7: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 30,5: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -37,33: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -37,46: chưa có dấu đảo chiều.",
     "available": true
    },
    {

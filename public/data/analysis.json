@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-23T06:31:45.874Z",
+ "generatedAt": "2026-11-23T13:08:21.857Z",
  "dataDate": "2026-11-23",
  "stale": false,
  "staleDays": 0,
@@ -9,7 +9,7 @@
   "ringBuy": 128300000,
   "ringSell": 133300000,
   "ringDate": null,
-  "xauUsd": 3618,
+  "xauUsd": 3616,
   "usdVnd": 25980,
   "worldVndPerLuong": 110112396,
   "premiumPct": 22.6,
@@ -24,7 +24,7 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 1,
-     "explanation": "RSI ngày = 30,7: yếu — nghiêng về mua.",
+     "explanation": "RSI ngày = 30,5: yếu — nghiêng về mua.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 103,7 (trên MA50, +1,8% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 104,1 (trên MA50, +2,2% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -2810,8 +2810,8 @@
   "world": "2026-11-23T05:00:00.000Z",
   "dxy": "2026-11-23T05:00:00.000Z",
   "yield10y": "2026-11-20T13:20:00.000Z",
-  "vnGold": "2026-11-23T06:31:45.874Z",
-  "usdVnd": "2026-11-23T06:31:45.874Z",
+  "vnGold": "2026-11-23T13:08:21.857Z",
+  "usdVnd": "2026-11-23T13:08:21.857Z",
   "fed": null
  },
  "inputDates": {
@@ -2846,7 +2846,7 @@
  },
  "runDate": "2026-11-23",
  "macroLevels": {
-  "dxy": 103.6510009765625,
+  "dxy": 104.05799865722656,
   "us10y": 4.9120001792907715,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"
