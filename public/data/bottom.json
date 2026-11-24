@@ -1,43 +1,43 @@
 {
- "generatedAt": "2026-11-24T01:02:40.860Z",
+ "generatedAt": "2026-11-24T11:07:09.345Z",
  "dataDate": "2026-11-24",
  "cycle": {
-  "prob": 46,
+  "prob": 45.2,
   "ci": [
-   28.5,
-   60.6
+   27.1,
+   60.3
   ],
-  "probUnweighted": 32.9,
-  "ess": 138,
+  "probUnweighted": 32.8,
+  "ess": 137,
   "bin": 1,
-  "n": 359,
+  "n": 360,
   "drivers": [
    {
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 31,2%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 31,9%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -22,1% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -22,2% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 33,7: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 32,1: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -34,73: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -32,31: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -9,9% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -11,2% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -85,28 +85,28 @@
     "id": "dd",
     "label": "Độ sâu dưới đỉnh 1 năm",
     "score": 2,
-    "explanation": "Giá đang thấp hơn đỉnh 1 năm 31,2%: vùng chiết khấu sâu.",
+    "explanation": "Giá đang thấp hơn đỉnh 1 năm 31,9%: vùng chiết khấu sâu.",
     "available": true
    },
    {
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -22,1% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -22,2% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 33,7: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 32,1: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -34,73: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -32,31: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -9,9% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -11,2% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -22666,6 +22666,11 @@
    "date": "2026-11-20",
    "cycleBin": 2,
    "swingBin": 2
+  },
+  {
+   "date": "2026-11-23",
+   "cycleBin": 1,
+   "swingBin": 1
   },
   {
    "date": "2026-11-24",
@@ -55166,13 +55171,13 @@
    "date": "2026-11-24",
    "cycle": {
     "bin": 1,
-    "prob": 46,
+    "prob": 45.2,
     "ci": [
-     28.5,
-     60.6
+     27.1,
+     60.3
     ],
-    "probUnweighted": 32.9,
-    "n": 359
+    "probUnweighted": 32.8,
+    "n": 360
    },
    "swing": {
     "bin": 1,
@@ -55206,8 +55211,8 @@
     "lo": 40,
     "hi": 60,
     "pred": 48.2,
-    "real": 44.1,
-    "n": 365
+    "real": 44,
+    "n": 366
    },
    {
     "lo": 60,
@@ -55235,9 +55240,9 @@
    {
     "lo": 20,
     "hi": 40,
-    "pred": 32.6,
-    "real": 39.1,
-    "n": 601
+    "pred": 32.7,
+    "real": 39,
+    "n": 602
    },
    {
     "lo": 40,
@@ -55274,7 +55279,7 @@
     },
     "test": {
      "favPct": 69.8,
-     "basePct": 48.7,
+     "basePct": 48.6,
      "n": 53,
      "clusters": 9
     }
@@ -55288,7 +55293,7 @@
     },
     "test": {
      "favPct": 51.2,
-     "basePct": 48.7,
+     "basePct": 48.6,
      "n": 295,
      "clusters": 16
     }
@@ -55301,9 +55306,9 @@
      "clusters": 19
     },
     "test": {
-     "favPct": 41.9,
-     "basePct": 48.7,
-     "n": 272,
+     "favPct": 41.8,
+     "basePct": 48.6,
+     "n": 273,
      "clusters": 16
     }
    }
@@ -55318,7 +55323,7 @@
     },
     "test": {
      "favPct": 63.6,
-     "basePct": 48.5,
+     "basePct": 48.4,
      "n": 55,
      "clusters": 16
     }
@@ -55332,7 +55337,7 @@
     },
     "test": {
      "favPct": 52.9,
-     "basePct": 48.5,
+     "basePct": 48.4,
      "n": 314,
      "clusters": 60
     }
@@ -55345,9 +55350,9 @@
      "clusters": 66
     },
     "test": {
-     "favPct": 40.6,
-     "basePct": 48.5,
-     "n": 283,
+     "favPct": 40.5,
+     "basePct": 48.4,
+     "n": 284,
      "clusters": 52
     }
    }
