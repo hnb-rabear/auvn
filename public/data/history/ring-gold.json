@@ -166,6 +166,14 @@
         "source": "https://baotinmanhhai.vn/bang-gia-vang",
         "publishedAt": "2026-11-25T08:34:15+07:00",
         "fetchedAt": "2026-11-25T02:00:10.031Z"
+      },
+      "btmc": {
+        "buy": 128500000,
+        "sell": 133500000,
+        "product": "NHẪN TRÒN TRƠN (Vàng Rồng Thăng Long)",
+        "source": "https://api.btmc.vn/api/BTMCAPI/getpricebtmc?key=3kd8ub1llcg9t45hnoh8hmn7t5kc2v",
+        "publishedAt": "2026-11-25T10:54:00+07:00",
+        "fetchedAt": "2026-11-25T06:30:07.448Z"
       }
     }
   }
