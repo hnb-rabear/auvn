@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-25T06:31:41.600Z",
+ "generatedAt": "2026-11-25T14:37:19.189Z",
  "dataDate": "2026-11-25",
  "stale": false,
  "staleDays": 0,
@@ -9,7 +9,7 @@
   "ringBuy": 128500000,
   "ringSell": 133500000,
   "ringDate": null,
-  "xauUsd": 3525.60009765625,
+  "xauUsd": 3507.10009765625,
   "usdVnd": 25990,
   "worldVndPerLuong": 111611853,
   "premiumPct": 20.15,
@@ -24,28 +24,28 @@
      "id": "rsi-d",
      "label": "RSI(14) khung ngày",
      "score": 2,
-     "explanation": "RSI ngày = 28,8: quá bán — vùng mua hiếm gặp.",
+     "explanation": "RSI ngày = 28,3: quá bán — vùng mua hiếm gặp.",
      "available": true
     },
     {
      "id": "rsi-w",
      "label": "RSI(14) khung tuần",
      "score": 2,
-     "explanation": "RSI tuần = 28,2: quá bán — vùng mua hiếm gặp.",
+     "explanation": "RSI tuần = 27,9: quá bán — vùng mua hiếm gặp.",
      "available": true
     },
     {
      "id": "ma200",
      "label": "Giá so với MA200",
      "score": 2,
-     "explanation": "Giá thấp hơn MA200 20,3%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
+     "explanation": "Giá thấp hơn MA200 20,7%: thấp hơn MA200 đáng kể — vùng chiết khấu sâu, thuận mua dài hạn.",
      "available": true
     },
     {
      "id": "pos52w",
      "label": "Vị trí trong biên độ 52 tuần",
      "score": 2,
-     "explanation": "Giá ở mức 1% biên độ 52 tuần (đáy 3.515 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
+     "explanation": "Giá ở mức 0% biên độ 52 tuần (đáy 3.507 — đỉnh 5.318): sát đáy 52 tuần — vùng mua thống kê tốt.",
      "available": true
     },
     {
@@ -97,7 +97,7 @@
      "id": "dxy",
      "label": "Chỉ số USD (DXY)",
      "score": -2,
-     "explanation": "DXY = 104,1 (trên MA50, +1,7% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
+     "explanation": "DXY = 103,9 (trên MA50, +1,6% trong 1 tháng): USD mạnh và đang tăng tốc — sức ép giảm lên giá vàng.",
      "available": true
     },
     {
@@ -111,7 +111,7 @@
      "id": "yield10y",
      "label": "Lợi suất Mỹ 10 năm",
      "score": -1,
-     "explanation": "Lợi suất danh nghĩa 10 năm = 4,9%, thay đổi 3 tháng +0,24 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
+     "explanation": "Lợi suất danh nghĩa 10 năm = 4,84%, thay đổi 3 tháng +0,16 điểm: lợi suất nhích lên — bất lợi nhẹ cho vàng.",
      "available": true
     },
     {
@@ -154,7 +154,7 @@
      "id": "vol",
      "label": "Chế độ biến động 30 ngày",
      "score": -1,
-     "explanation": "Biến động 30 ngày (annualized) = 29,9%, percentile 95 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
+     "explanation": "Biến động 30 ngày (annualized) = 30%, percentile 95 so với lịch sử: thị trường đang sốt nóng — xác suất quyết định sai cao, nên chờ.",
      "available": true
     }
    ],
@@ -169,7 +169,7 @@
      "id": "mom12m",
      "label": "Động lượng XAU 12 tháng",
      "score": -1,
-     "explanation": "XAU/USD thay đổi -13,9% so với 12 tháng trước: đà giảm — xu hướng bear 12 tháng.",
+     "explanation": "XAU/USD thay đổi -14,3% so với 12 tháng trước: đà giảm — xu hướng bear 12 tháng.",
      "available": true
     }
    ],
@@ -2817,9 +2817,9 @@
  "sourceTimes": {
   "world": "2026-11-25T05:00:00.000Z",
   "dxy": "2026-11-25T05:00:00.000Z",
-  "yield10y": "2026-11-24T13:20:00.000Z",
-  "vnGold": "2026-11-25T06:31:41.600Z",
-  "usdVnd": "2026-11-25T06:31:41.600Z",
+  "yield10y": "2026-11-25T13:20:00.000Z",
+  "vnGold": "2026-11-25T14:37:19.189Z",
+  "usdVnd": "2026-11-25T14:37:19.189Z",
   "fed": null
  },
  "inputDates": {
@@ -2832,7 +2832,7 @@
    "source": "yahoo:DX-Y.NYB"
   },
   "yield10y": {
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "source": "yahoo:^TNX"
   },
   "fed": {
@@ -2854,8 +2854,8 @@
  },
  "runDate": "2026-11-25",
  "macroLevels": {
-  "dxy": 104.08699798583984,
-  "us10y": 4.9039998054504395,
+  "dxy": 103.93900299072266,
+  "us10y": 4.835999965667725,
   "fedFunds": 3.88,
   "fedAsOf": "2026-11-01"
  }
