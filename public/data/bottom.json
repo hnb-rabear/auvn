@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-26T08:36:02.698Z",
+ "generatedAt": "2026-11-26T19:10:17.946Z",
  "dataDate": "2026-11-26",
  "cycle": {
   "prob": 45.2,
@@ -23,21 +23,21 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -20,7% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -20,6% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 33,7: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 33,9: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -28,77: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -28,63: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -51,7 +51,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -13,2% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -13,1% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
@@ -92,21 +92,21 @@
     "id": "spd",
     "label": "Tốc độ rơi 3 tháng",
     "score": 2,
-    "explanation": "XAU thay đổi -20,7% trong 3 tháng: đang rơi, vùng dò đáy.",
+    "explanation": "XAU thay đổi -20,6% trong 3 tháng: đang rơi, vùng dò đáy.",
     "available": true
    },
    {
     "id": "rsi",
     "label": "Quá bán & phân kỳ RSI",
     "score": 1,
-    "explanation": "RSI ngày = 33,7: đà giảm cạn dần.",
+    "explanation": "RSI ngày = 33,9: đà giảm cạn dần.",
     "available": true
    },
    {
     "id": "macd",
     "label": "MACD đảo chiều",
     "score": -1,
-    "explanation": "MACD histogram -28,77: chưa có dấu đảo chiều.",
+    "explanation": "MACD histogram -28,63: chưa có dấu đảo chiều.",
     "available": true
    },
    {
@@ -120,7 +120,7 @@
     "id": "mom",
     "label": "Động lượng 12 tháng",
     "score": 1,
-    "explanation": "XAU -13,2% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
+    "explanation": "XAU -13,1% so với 12 tháng trước: đã giảm dài, gần vùng kiệt.",
     "available": true
    },
    {
